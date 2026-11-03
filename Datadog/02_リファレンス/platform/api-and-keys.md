@@ -56,7 +56,7 @@ Datadog の API とキー管理は、「Datadog にデータを送る（intake�
 | アプリケーションキーの位置づけ | Datadog 公式ブログ（2026-06-09 公開）は、アプリケーションキーは 2026 年 Q3 以降も動作し続けるが**レガシー扱いとなり新機能は追加されない**、強制移行はないが早期移行を推奨と説明 | [公式ブログ](https://www.datadoghq.com/blog/datadog-api-authentication/)（2026-06-09 公開） |
 | API キー（テレメトリ送信用） | 同ブログは「テレメトリ取り込みに使う API キーは変わらない」と明言 | 同上 |
 | Workload Identity Federation | AWS の認証情報で Terraform provider と Agent を認証（静的キー不要）。AWS のみ GA | [WIF](https://docs.datadoghq.com/account_management/workload_identity_federation/) |
-| One-Time Read（OTR）モード | アプリケーションキーのシークレットを作成時のみ表示。2025-08-20 以降に作成された新規親 org では既定で恒久有効 | [API and Application Keys](https://docs.datadoghq.com/account_management/api-app-keys/) |
+| One-Time Read（OTR）モード | アプリケーションキーのシークレットを作成時のみ表示。2025-08-20 より後（after August 20th, 2025）に作成された新規親 org では既定で恒久有効 | [API and Application Keys](https://docs.datadoghq.com/account_management/api-app-keys/) |
 | CLI | Dogshell（`dog`）は非推奨となり、Pup CLI が後継 | [Dogshell](https://docs.datadoghq.com/extend/guide/dogshell/)、[Pup CLI](https://docs.datadoghq.com/cli/) |
 
 関連ファイル:
@@ -93,17 +93,23 @@ Datadog 公式ブログ（2026-06-09 公開）が示すユースケース別の�
 
 | ユースケース | 推奨する認証情報 |
 |---|---|
-| Agent・SDK・ログ転送などのテレメトリ送信 | API キー（変更なし） |
-| ブラウザ / モバイル / TV アプリからの RUM・ログ送信 | クライアントトークン |
-| 開発者のローカルスクリプト、CLI ツール | PAT |
-| CI/CD パイプライン、Terraform | SAT（AWS 上なら WIF も選択肢） |
-| AWS 上のワークロード（Terraform・Agent） | Workload Identity Federation |
-| AI エージェントへの委任アクセス | OAuth（2026 年後半提供予定と記載）。自律型エージェントは現時点では SAT（M2M OAuth は開発中） |
-| 既存連携（パートナー製品など） | 当面はアプリケーションキーが必要なものもある |
+| メトリクス・ログ・トレースの送信 | API キー（変更なし） |
+| 開発者のスクリプト、CLI ツール | PAT |
+| CI/CD パイプライン、Terraform | SAT |
+| 自律型 AI エージェント（ユーザーの関与なし） | 現時点では SAT、将来は M2M OAuth（開発中） |
+| AWS 上の Datadog Agent / Terraform | Workload Identity Federation |
+| Datadog ファーストパーティクライアント（Pup CLI、MCP Server など） | OAuth クライアント |
+| ユーザーに代わって動作する AI エージェント | OAuth クライアント（2026 年後半提供予定と記載） |
 
 [出典](https://www.datadoghq.com/blog/datadog-api-authentication/)（2026-06-09 公開）
 
-### 1.3 PAT・SAT・アプリケーションキーの比較（公式表）
+上表はブログの用途別表に基づく。以下はブログ表にない執筆者の補足である。
+
+- ブラウザ / モバイル / TV アプリからの RUM・ログ送信にはクライアントトークンを使う。[出典](https://docs.datadoghq.com/account_management/api-app-keys/)
+- AWS 上で動く CI/CD パイプラインや Terraform では、SAT の代わりに WIF も選択肢になる（ブログは WIF を「AWS 上の Datadog Agent / Terraform」に割り当てている）。
+- 既存の連携（パートナー製品など）の中には、当面アプリケーションキーを必要とするものもある（アプリケーションキーはレガシー扱いだが引き続き動作する）。
+
+### 1.3 PAT・SAT・アプリケーションキーの比較（公式表をもとに整理）
 
 | 項目 | Personal Access Token | Service Access Token | Application key |
 |---|---|---|---|
@@ -113,9 +119,11 @@ Datadog 公式ブログ（2026-06-09 公開）が示すユースケース別の�
 | TTL（有効期限） | 必須：24 時間〜1 年 | 任意：1 日 / 1 か月 / 1 年 / Never / Custom | 有効期限なし |
 | プレフィックス | `ddpat_` | `ddsat_` | `ddapp_`（新） |
 | 表示場所 | Personal Settings > Access Tokens、Organization Settings > Access Tokens | サービスアカウント詳細、Organization Settings > Access Tokens | Personal Settings > Application Keys、Organization Settings > Application Keys |
-| 1 主体あたり上限 | 500 / ユーザー | 500 / サービスアカウント | 公開情報では確認できず |
+| 1 主体あたり上限 ※ | 500 / ユーザー | 500 / サービスアカウント | 公開情報では確認できず |
 
 [出典](https://docs.datadoghq.com/account_management/service-access-tokens/)、[出典](https://docs.datadoghq.com/account_management/personal-access-tokens/)
+
+※「1 主体あたり上限」の行は公式の比較表にはなく、執筆者が各ページの本文から追加した（PAT ページ「Each user can have up to 500 PATs」、SAT ページ「Each service account can have up to 500 SATs」）。
 
 ### 1.4 認証フロー図
 
@@ -313,7 +321,7 @@ OTR モードは、アプリケーションキーのシークレットを**作�
 
 | 対象 | 挙動 |
 |---|---|
-| 2025-08-20 以降に作成された新規の親 org（とその子 org） | 全アプリケーションキーで OTR が既定で有効。**恒久的で変更不可** |
+| 2025-08-20 より後（after August 20th, 2025）に作成された新規の親 org（とその子 org） | 全アプリケーションキーで OTR が既定で有効。**恒久的で変更不可** |
 | 既存 org | 管理者が **Organization Settings > Application Keys** で有効化・無効化できる。有効化後 **3 か月間**はトグル可能、**3 か月連続で有効**だと恒久化されトグルが消える |
 | トグルに必要な権限 | `org_app_keys_write` **と** `org_management` の両方 |
 
@@ -479,7 +487,7 @@ ddpat_<ALIAS>_<SECRET><CHECKSUM>
 
 [出典](https://docs.datadoghq.com/account_management/org_settings/service_accounts/)、[出典](https://docs.datadoghq.com/account_management/rbac/permissions/)
 
-> **サイト差異:** `ap2.datadoghq.com`（AP2）、`app.ddog-gov.com`（US1-FED）、`us2.ddog-gov.com` では、サービスアカウントのアプリケーションキーは一度だけ読み取り可能（作成直後に保管が必要）である旨が警告として明記されている。[出典](https://docs.datadoghq.com/account_management/org_settings/service_accounts/)
+> **サイト差異:** `ap2.datadoghq.com`（AP2）、`app.ddog-gov.com`（US1-FED）、`us2.ddog-gov.com` では、サービスアカウントのアプリケーションキーは一度だけ読み取り可能（作成直後に保管が必要）である旨が警告として明記されている。挙動（作成直後に 1 回だけ閲覧可能）は全サイト共通で、これらのサイトで異なるのは警告が表示される点のみ。[出典](https://docs.datadoghq.com/account_management/org_settings/service_accounts/)
 
 サービスアカウントの作成手順:
 
@@ -1041,7 +1049,7 @@ Dogshell は datadogpy（`pip install datadog`）に同梱される `dog` コマ
 | アプリケーションキー数の上限 | 公開情報では確認できず | — |
 | アプリケーションキーの既定スコープ | なし（作成者の全権限） | 同上 |
 | アプリケーションキーの Actions API access | 既定で**無効** | 同上 |
-| OTR モード | 2025-08-20 以降の新規親 org は既定で恒久有効。既存 org は有効化後 3 か月でトグル消滅・恒久化 | 同上 |
+| OTR モード | 2025-08-20 より後に作成された新規親 org は既定で恒久有効。既存 org は有効化後 3 か月でトグル消滅・恒久化 | 同上 |
 | クライアントトークン数の上限 | 公開情報では確認できず | — |
 | PAT 数 | **1 ユーザーあたり 500 個** | [PAT](https://docs.datadoghq.com/account_management/personal-access-tokens/) |
 | PAT の TTL | 最短 **24 時間**〜最長 **1 年**（必須、変更不可） | 同上 |
@@ -1075,7 +1083,7 @@ Dogshell は datadogpy（`pip install datadog`）に同梱される `dog` コマ
 | 項目 | US1 / US3 / US5 / EU1 / AP1 | AP2 | US1-FED（`app.ddog-gov.com`）/ `us2.ddog-gov.com` |
 |---|---|---|---|
 | アプリケーションキーのシークレット再取得 | OTR 無効の org では可、OTR 有効の org では不可 | 不可（作成直後のみ） | 不可（作成直後のみ） |
-| サービスアカウントのアプリケーションキー | 作成者が作成直後に 1 回のみ閲覧 | 一度だけ読み取り可能（明示的警告あり） | 一度だけ読み取り可能（明示的警告あり） |
+| サービスアカウントのアプリケーションキー | 全サイト共通：作成者が作成直後に 1 回のみ閲覧 | 同左（明示的な警告が表示される） | 同左（明示的な警告が表示される） |
 | Workload Identity Federation | 利用可能 | 利用可能 | **利用不可** |
 | API ベース URL | 10.3 節参照 | `https://api.ap2.datadoghq.com` | `https://api.ddog-gov.com` / `https://api.us2.ddog-gov.com` |
 

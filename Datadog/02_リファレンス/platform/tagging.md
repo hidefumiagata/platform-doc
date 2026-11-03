@@ -175,7 +175,7 @@ Datadog Teams では、Team の**ハンドル（handle）**がリソースとの
 
 [出典](https://docs.datadoghq.com/account_management/teams/)
 
-Team フィルタの対象は、多くの一覧画面（Apps、Dashboards、Incidents、Monitors、Notebooks、SLO、Synthetic Tests、Workflows、Catalog など）では**チームハンドル**基準、APM Error Tracking・Logs Error Tracking・On-Call では **Catalog で設定したサービスオーナーシップ**基準で動作する [出典](https://docs.datadoghq.com/account_management/teams/)。サービスの所有者定義は [Software Catalog（旧 Service Catalog）](software-catalog.md) を、権限体系は [組織・ユーザー・権限管理](account-and-access-management.md) を参照。
+Team フィルタの対象は、多くの一覧画面（Apps、Dashboards、Incidents、Monitors、Notebooks、SLO、Synthetic Tests、Workflows、Catalog など）では**チームハンドル**基準、APM Error Tracking・Logs Error Tracking・On-Call では **Catalog で設定したサービスオーナーシップ**基準で動作する [出典](https://docs.datadoghq.com/account_management/teams/)。サービスの所有者定義は [Software Catalog（旧称：Service Catalog）](software-catalog.md) を、権限体系は [組織・ユーザー・権限管理](account-and-access-management.md) を参照。
 
 Kubernetes 環境では、Datadog Agent の orchestrator チェックが Kubernetes リソースの `team` ラベル／アノテーションから `team` タグを自動収集する（`auto_team_tag_collection`、既定 `true`）。`kubernetes_resources_labels_as_tags` / `kubernetes_resources_annotations_as_tags` で `team` タグを明示的に設定していない場合に、ラベル（優先）またはアノテーションの値が使われる [出典](https://github.com/DataDog/datadog-agent/blob/main/pkg/config/example/datadog-agent_linux.yaml.example)。
 
@@ -260,15 +260,15 @@ Datadog はコンテナ環境では **Autodiscovery と Unified Service Tagging*
 
 | 設定（Operator / Helm） | 環境変数 | 対象 | 最低 Agent バージョン・備考 |
 |---|---|---|---|
-| `nodeLabelsAsTags` | `DD_KUBERNETES_NODE_LABELS_AS_TAGS` | Node ラベル → **ホストタグ** | ワイルドカード `"*"` は 7.24.0 以降。7.58.0 以降は `kubernetesResourcesLabelsAsTags` に置き換え |
-| `podLabelsAsTags` | `DD_KUBERNETES_POD_LABELS_AS_TAGS` | Pod ラベル | ワイルドカードは 7.24.0 以降。7.58.0 以降は `kubernetesResourcesLabelsAsTags` に置き換え |
-| `podAnnotationsAsTags` | `DD_KUBERNETES_POD_ANNOTATIONS_AS_TAGS` | Pod アノテーション | ワイルドカードは 7.24.0 以降。7.58.0 以降は `kubernetesResourcesAnnotationsAsTags` に置き換え |
+| `nodeLabelsAsTags` | `DD_KUBERNETES_NODE_LABELS_AS_TAGS` | Node ラベル → **ホストタグ** | ワイルドカード `"*"` は 7.24.0 以降。7.58.0 以降は `kubernetesResourcesLabelsAsTags` の利用が推奨されている（公式記載）。共通設定としての正式サポートは 7.64 以降（公式ドキュメント内で 7.58.0 と 7.64 の記載が混在） |
+| `podLabelsAsTags` | `DD_KUBERNETES_POD_LABELS_AS_TAGS` | Pod ラベル | ワイルドカードは 7.24.0 以降。7.58.0 以降は `kubernetesResourcesLabelsAsTags` の利用が推奨されている（公式記載）。共通設定としての正式サポートは 7.64 以降（公式ドキュメント内で 7.58.0 と 7.64 の記載が混在） |
+| `podAnnotationsAsTags` | `DD_KUBERNETES_POD_ANNOTATIONS_AS_TAGS` | Pod アノテーション | ワイルドカードは 7.24.0 以降。7.58.0 以降は `kubernetesResourcesAnnotationsAsTags` の利用が推奨されている（公式記載）。共通設定としての正式サポートは 7.64 以降（公式ドキュメント内で 7.58.0 と 7.64 の記載が混在） |
 | `namespaceLabelsAsTags` | `DD_KUBERNETES_NAMESPACE_LABELS_AS_TAGS` | Namespace ラベル | 7.55.0 以降。KSM チェックを実行する Cluster Agent 側に設定。Namespace 単位の KSM メトリクスへの付与は 7.70 以降 |
 | `namespaceAnnotationsAsTags` | `DD_KUBERNETES_NAMESPACE_ANNOTATIONS_AS_TAGS` | Namespace アノテーション | 7.55.0 以降、KSM への付与は 7.70 以降。Cluster Agent 側に設定 |
 | — | `DD_CONTAINER_ENV_AS_TAGS` | コンテナの環境変数 | 7.32 以降。Docker / containerd 対応（`DD_DOCKER_ENV_AS_TAGS` の後継） |
 | — | `DD_CONTAINER_LABELS_AS_TAGS` | コンテナラベル | 7.33 以降。containerd は 1.5.6 以降が必要（`DD_DOCKER_LABELS_AS_TAGS` の後継） |
-| `kubernetesResourcesLabelsAsTags` | `DD_KUBERNETES_RESOURCES_LABELS_AS_TAGS` | 任意の K8s リソースのラベル（`deployments.apps` のように `resourceType.apiGroup` 形式で指定） | 7.64 以降で推奨。ワイルドカード `"*"` は 7.73.0 以降。ワークロードのラベルは子 Pod へは伝播しないが、Namespace のタグは Pod へ伝播する。旧設定と競合した場合は本設定が優先 |
-| `kubernetesResourcesAnnotationsAsTags` | `DD_KUBERNETES_RESOURCES_ANNOTATIONS_AS_TAGS` | 任意の K8s リソースのアノテーション | ワイルドカードは 7.73.0 以降。`podAnnotationsAsTags` と競合した場合は本設定が優先 |
+| `kubernetesResourcesLabelsAsTags` | `DD_KUBERNETES_RESOURCES_LABELS_AS_TAGS` | 任意の K8s リソースのラベル（`deployments.apps` のように `resourceType.apiGroup` 形式で指定） | 7.64 以降で正式サポート（公式は 7.58.0 以降での利用も推奨）。ワイルドカード `"*"` は 7.73.0 以降。ワークロードのラベルは子 Pod へは伝播しないが、Namespace のタグは Pod へ伝播する。旧設定と競合した場合は本設定が優先 |
+| `kubernetesResourcesAnnotationsAsTags` | `DD_KUBERNETES_RESOURCES_ANNOTATIONS_AS_TAGS` | 任意の K8s リソースのアノテーション | 7.64 以降で正式サポート（公式は 7.58.0 以降での利用も推奨）。ワイルドカードは 7.73.0 以降。`podAnnotationsAsTags` と競合した場合は本設定が優先 |
 
 [出典](https://docs.datadoghq.com/containers/kubernetes/tag/)、[出典](https://docs.datadoghq.com/getting_started/tagging/assigning_tags/)
 
@@ -679,7 +679,7 @@ Monitor の Tag Policies は、Datadog の全モニターに対してタグと�
 |---|---|---|
 | Require tags with mandatory values | タグ必須かつ値は指定リストから | `cost_center` が必須、値は `cc1` / `cc2` / `cc3` |
 | Require tags only | タグ必須、値は任意 | `product_id` が必須 |
-| Optional tag with mandatory values | タグは任意だが、付ける場合は値を指定リストから | `env` は任意、値は `dev` / `staging` / `prod` |
+| Optional tags with mandatory values | タグは任意だが、付ける場合は値を指定リストから | `env` は任意、値は `dev` / `staging` / `prod` |
 
 | 項目 | 仕様 |
 |---|---|
@@ -743,13 +743,15 @@ Tag Pipelines は Datadog Cloud Cost Management（CCM）の機能で、クラウ
 
 [出典](https://docs.datadoghq.com/cloud_cost_management/tags/tag_pipelines/)
 
-各ルール共通の「対象タグが既に存在する場合」のオプション [出典](https://docs.datadoghq.com/cloud_cost_management/tags/tag_pipelines/):
+Add tag / Alias tag keys の「対象タグが既に存在する場合」のオプション [出典](https://docs.datadoghq.com/cloud_cost_management/tags/tag_pipelines/):
 
 | オプション（画面表記） | 挙動 |
 |---|---|
 | Don't apply the rule（don't apply this rule (no change)） | ルールをスキップし元の値を維持 |
 | Append the tag（add to the existing tag value(s)） | 元の値を残したまま新しい値を追加 |
 | Replace the tag（replace the existing tag value(s)） | 既存値を上書き。データを上書きするため注意 |
+
+Map multiple tags では対象が列（column）になり、「Action when column exists」で **Don't apply the rule / Append the column / Replace the column** から選ぶ（挙動は上表と同様）。
 
 ![Tag Pipelines の Alias Tag Keys ルール設定画面](../../assets/images/tagging/tag-pipelines-alias-tag-keys.png)
 
@@ -779,7 +781,7 @@ Tag Pipelines は Datadog Cloud Cost Management（CCM）の機能で、クラウ
 
 ### Cloud Cost Management のタグ発生源と優先順位
 
-Cloud Cost Management のコストデータのタグは、請求データの列（AWS CUR、Google Billing Export 等）、Datadog によるエンリッチ（ホスト Agent のタグ、Service Catalog（現 Software Catalog）のタグ、インテグレーションタイルのタグ等）、Kubernetes のエンリッチ（Node・Pod・PV・PVC のユーザー定義タグ）、CCM 自身のタグ（Cloud Cost Aliases、配賦タグ、FOCUS タグ）、ユーザー定義（Tag Pipelines、Custom Allocation Rules）から構成される。Custom Allocation Rules は SaaS コストには適用されない [出典](https://docs.datadoghq.com/cloud_cost_management/tags/)。
+Cloud Cost Management のコストデータのタグは、請求データの列（AWS CUR、Google Billing Export 等）、Datadog によるエンリッチ（ホスト Agent のタグ、Software Catalog（公式表記は Service Catalog）のタグ、インテグレーションタイルのタグ等）、Kubernetes のエンリッチ（Node・Pod・PV・PVC のユーザー定義タグ）、CCM 自身のタグ（Cloud Cost Aliases、配賦タグ、FOCUS タグ）、ユーザー定義（Tag Pipelines、Custom Allocation Rules）から構成される。Custom Allocation Rules は SaaS コストには適用されない [出典](https://docs.datadoghq.com/cloud_cost_management/tags/)。
 
 同じキーが複数の発生源から来た場合、より具体的な発生源が優先される（高い順）[出典](https://docs.datadoghq.com/cloud_cost_management/tags/):
 
@@ -787,7 +789,7 @@ Cloud Cost Management のコストデータのタグは、請求データの列�
 |---|---|
 | 1 | Custom Allocation Rules |
 | 2 | FOCUS |
-| 3 | Service Catalog（現 Software Catalog） |
+| 3 | Software Catalog（CCM タグページの表記は旧称の Service Catalog） |
 | 4 | Amazon ECS Container |
 | 5 | Amazon ECS Task |
 | 6 | Kubernetes Pod |
@@ -917,7 +919,7 @@ Datadog 公式ドキュメントが示すタグ付けのベストプラクティ
 - [Metrics](metrics.md) / [メトリクスクエリと関数](metrics-query-and-functions.md) / [Custom Metrics と DogStatsD](custom-metrics-and-dogstatsd.md)
 - [OpenTelemetry サポート](opentelemetry.md)
 - [Monitors](monitors.md) / [Service Level Objectives](slo.md) / [Dashboards](dashboards.md)
-- [Software Catalog（旧 Service Catalog）](software-catalog.md)
+- [Software Catalog（旧称：Service Catalog）](software-catalog.md)
 - [組織・ユーザー・権限管理](account-and-access-management.md)
 - [Usage・Usage Attribution・Cost Visibility](usage-and-cost-attribution.md)
 - [Cloud Cost Management](../infrastructure/cloud-cost-management.md)

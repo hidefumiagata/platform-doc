@@ -90,7 +90,7 @@ Datadog の「製品カテゴリ」は、公式の場所によって分類が少
 
 | 公式の場所 | 分類（2026-11-02 時点） | 出典 |
 |---|---|---|
-| 公式サイトの製品メニュー（docs.datadoghq.com 上部の Product メニュー） | **Observability**（Infrastructure / Applications / Data / Logs）、**Security**（Code Security / Cloud Security / SIEM）、**Digital Experience**、**Software Delivery**、**Service Management**（Incident Response / Actions / Context Graph）、**AI**（AI for Datadog / Datadog for AI）、**Platform Capabilities**（Built-in Features / Extensibility） | [docs.datadoghq.com](https://docs.datadoghq.com/) |
+| 公式サイトの製品メニュー（docs.datadoghq.com 上部の Product メニュー） | **Observability**（Infrastructure / Applications / Data / Logs）、**Security**（Code Security / Cloud Security / SIEM / AI & Data Security）、**Digital Experience**、**Software Delivery**、**Service Management**（Incident Response / Actions / Context Graph）、**AI**（AI for Datadog / Datadog for AI）、**Platform Capabilities**（Built-in Features / Extensibility） | [docs.datadoghq.com](https://docs.datadoghq.com/) |
 | 公式ドキュメントの左ナビゲーション | Essentials、In The App、Incident Response、Actions & Remediations、Infrastructure、Cloud Cost、Application Performance、Data Observability、Digital Experience、Software Delivery、Developer Integrations、Security、AI Observability、Log Management、Administration | [docs.datadoghq.com](https://docs.datadoghq.com/) |
 | 公式料金ページ | AI、Infrastructure、Applications、Data Observability、Logs、Security、Digital Experience、Software Delivery、Service Management | [Pricing](https://www.datadoghq.com/pricing/)（2026-11-02 取得） |
 | **本ナレッジの区分** | **Platform、Infrastructure、APM、Logs、DEM、Security、Software Delivery、Service Management、AI、Data** | 本ナレッジ規約 |
@@ -99,8 +99,10 @@ Datadog の「製品カテゴリ」は、公式の場所によって分類が少
 
 - **GPU Monitoring** は料金ページでは AI、製品メニューでは Infrastructure と AI（Datadog for AI）の両方に掲載されている。本ナレッジでは Infrastructure に置き、AI 節でも再掲する。
 - **Error Tracking** は製品メニューで Logs と Digital Experience の両方に、料金ページでは Logs と Digital Experience の両方に掲載されている。本ナレッジでは APM 区分（[Error Tracking](../02_リファレンス/apm/error-tracking.md)）に置く。
-- **Database Monitoring・Data Streams Monitoring** は製品メニューでは Data に分類されるが、本ナレッジのリファレンスではそれぞれ Infrastructure（Database Monitoring）と APM（Data Streams Monitoring）に置いている。本ファイルの Data 節では両方を再掲する。
-- **Sensitive Data Scanner** は製品メニューで Logs と Cloud Security の両方に、料金ページでは Logs に掲載されている。本ナレッジでは Security に置く。
+- **Database Monitoring・Data Streams Monitoring** は製品メニューでは Data に分類される（料金ページでは両方とも Applications に掲載）が、本ナレッジのリファレンスではそれぞれ Infrastructure（Database Monitoring）と APM（Data Streams Monitoring）に置いている。本ファイルの Data 節では両方を再掲する。
+- **料金ページの Applications 区分**には APM 系製品に加えて Database Monitoring・Universal Service Monitoring・Data Streams Monitoring が掲載され、料金ページの Data Observability 区分は Jobs Monitoring と Quality Monitoring の 2 製品のみである。
+- **Sensitive Data Scanner** は製品メニューで Logs と Security（AI & Data Security）の両方に、料金ページでは Logs に掲載されている。本ナレッジでは Security に置く。
+- **AI Guard** は製品メニューで Security（AI & Data Security）と AI（AI for Datadog）の両方に掲載されている。本ナレッジでは Security に置き、AI 節（Datadog for AI）でも役割に基づいて再掲する。
 - **Audit Trail** は料金ページでは Logs に分類されるが、本ナレッジでは Platform に置く。
 - **SLO・Software Catalog（IDP）** は製品メニューでは Service Management と Platform Capabilities の両方に掲載されている。本ナレッジでは Platform に置く。
 
@@ -212,7 +214,7 @@ Infrastructure 区分の製品は、ホスト・コンテナ・サーバーレ�
 | 製品（現名称） | 1 行説明 | 課金単位 | 状態 | 詳細 |
 |---|---|---|---|---|
 | Infrastructure Monitoring（Basic / Pro / Enterprise） | ホストのメトリクス、Host Map、Live Processes（Enterprise）、インテグレーションによるインフラ監視の基本製品 | インフラホスト / 月 | | [Infrastructure Monitoring](../02_リファレンス/infrastructure/infrastructure-monitoring.md) |
-| Infrastructure DevSecOps（Pro / Enterprise） | Infrastructure Pro / Enterprise に Cloud Security の機能（Pro: 設定不備・コンプライアンス、Enterprise: さらにファイル整合性監視・Workload Protection）を同梱したバンドル | インフラホスト / 月 | | [エディション・プラン](../03_導入編/editions-and-plans.md)、[Cloud Security](../02_リファレンス/security/cloud-security.md) |
+| Infrastructure DevSecOps（Pro / Enterprise） | Infrastructure Pro / Enterprise に Cloud Security の機能（Pro: Cloud Security（CSM）Pro の全機能＝設定不備（CSPM）・KSPM・コンプライアンス・コンテナ / ホストの脆弱性管理・CIEM・クラウドリソースインベントリ、Enterprise: CSM Enterprise の全機能＝さらにファイル整合性監視・Workload Protection）を同梱したバンドル | インフラホスト / 月 | | [エディション・プラン](../03_導入編/editions-and-plans.md)、[Cloud Security](../02_リファレンス/security/cloud-security.md) |
 | Container Monitoring | Docker / Kubernetes / ECS 等のコンテナと Orchestrator Explorer（K8s リソース）の監視 | コンテナ / 月、またはコンテナ時間（契約上の割当量を超えた分） | | [コンテナ・Kubernetes 監視](../02_リファレンス/infrastructure/container-and-kubernetes-monitoring.md) |
 | Kubernetes Autoscaling | Kubernetes ワークロードの CPU・メモリのライトサイジングと自動スケーリング | オートスケール対象 vCPU / 月 | | [コンテナ・Kubernetes 監視](../02_リファレンス/infrastructure/container-and-kubernetes-monitoring.md) |
 | Serverless Monitoring | AWS Lambda / Step Functions / Fargate、Azure Functions / App Service / Container Apps、Google Cloud Run、GKE Autopilot の監視・トレース | アクティブ関数 / 月、アクティブアプリケーションインスタンス / 月、トレース対象 100 万 invocation / 月 など（SKU 別） | | [Serverless Monitoring](../02_リファレンス/infrastructure/serverless.md) |
@@ -230,7 +232,7 @@ Infrastructure 区分の製品は、ホスト・コンテナ・サーバーレ�
 | Edge Device Monitoring | エッジデバイスの監視 | インフラホスト / 月 | | [Infrastructure Monitoring](../02_リファレンス/infrastructure/infrastructure-monitoring.md) |
 | End User Device Monitoring | 従業員のデスクトップ PC・ノート PC の性能・接続性・アプリの問題を可視化する | 公開情報では確認できず | 【Preview】 | [Infrastructure Monitoring](../02_リファレンス/infrastructure/infrastructure-monitoring.md) |
 
-> **料金ページ上の位置づけ:** Database Monitoring は製品メニューでは Data 区分、Universal Service Monitoring は Applications 区分に置かれている。本ナレッジでは Database Monitoring のリファレンスを `infrastructure/` に置く。
+> **製品メニュー上の位置づけ:** Database Monitoring は製品メニューでは Data 区分、Universal Service Monitoring は Applications 区分に置かれている（料金ページではいずれも Applications 区分）。本ナレッジでは Database Monitoring のリファレンスを `infrastructure/` に置く。
 
 出典: [docs.datadoghq.com](https://docs.datadoghq.com/)、[Network Monitoring](https://docs.datadoghq.com/network_monitoring/)、[Cloud Network Monitoring](https://docs.datadoghq.com/network_monitoring/cloud_network_monitoring/)、[End User Device Monitoring](https://docs.datadoghq.com/infrastructure/end_user_device_monitoring/)、[GPU Monitoring 製品ページ](https://www.datadoghq.com/product/gpu-monitoring/)、[Pricing](https://www.datadoghq.com/pricing/)、[Pricing list](https://www.datadoghq.com/pricing/list/)、[DASH 2026 recap](https://www.datadoghq.com/blog/dash-2026-recap/)（2026-07-07 公開）（取得日はいずれも 2026-11-02）
 
@@ -264,7 +266,7 @@ Logs 区分の製品は、ログの収集・前処理・インデックス化・
 | Log Management（Ingest） | ログの取り込み・パイプライン処理・アーカイブ（Logging without Limits™：取り込みと索引付けを分離） | 取り込み GB / 月 | | [ログ収集](../02_リファレンス/logs/log-collection.md)、[Log Pipelines と処理](../02_リファレンス/logs/log-pipelines-and-processing.md) |
 | Log Management（Standard Indexing） | リアルタイム検索・アラート・ダッシュボード用にログをインデックス化して保持する | インデックス化ログ 100 万件 / 月（保持 3 / 7 / 15 / 30 日で品目が分かれる） | | [Indexes・保持・アーカイブ](../02_リファレンス/logs/log-indexes-retention-archives.md)、[ログ検索と分析](../02_リファレンス/logs/log-search-and-analytics.md) |
 | Flex Logs（Flex Storage / Flex Compute） | 保管（Storage）と検索用計算資源（Compute）を分離した長期保持層（最長 15 か月） | Flex Storage: 保存イベント 100 万件 / 月、Flex Compute: サイズ別（要問い合わせ） | | [Indexes・保持・アーカイブ](../02_リファレンス/logs/log-indexes-retention-archives.md) |
-| Flex Logs Starter | 長期保持用の Flex Logs の簡易版（料金一覧では保持 6 / 12 / 15 か月の品目。料金ページ本文では「3〜15 か月」と表記） | 保存イベント 100 万件 / 月 | | [Indexes・保持・アーカイブ](../02_リファレンス/logs/log-indexes-retention-archives.md) |
+| Flex Logs Starter | 長期保持用の Flex Logs の簡易版（保持 3 / 6 / 12 / 15 か月、最低 3 か月（料金ページの記載）。料金一覧の品目表記は 6 / 12 / 15 か月） | 保存イベント 100 万件 / 月 | | [Indexes・保持・アーカイブ](../02_リファレンス/logs/log-indexes-retention-archives.md) |
 | Log Archives / Archive Search / Rehydration | 顧客のクラウドストレージ（S3 等）へのアーカイブと、アーカイブからの検索・再取り込み | Archive Search: 公開情報（料金一覧）では個別単位を確認できず | | [Indexes・保持・アーカイブ](../02_リファレンス/logs/log-indexes-retention-archives.md) |
 | Log Forwarding to Custom Destinations | 取り込んだログを外部の宛先（HTTP、Splunk、Elasticsearch 等）へ転送する | 送信 GB / 宛先 / 月 | | [Log Pipelines と処理](../02_リファレンス/logs/log-pipelines-and-processing.md) |
 | Observability Pipelines（OP / OP Plus） | 顧客環境で動く Observability Pipelines Worker でログを収集・変換・削減・ルーティングする（OSS「Vector」が基盤） | OP: 取り込み GB / 月、OP Plus: vCPU / 月 | | [Observability Pipelines](../02_リファレンス/logs/observability-pipelines.md) |
@@ -301,7 +303,7 @@ Digital Experience Monitoring（DEM）区分の製品は、Web・モバイルの
 
 ## 8. Security（セキュリティ）
 
-Security 区分の製品（総称：Datadog Security）は、コードから本番環境・クラウド設定・AI まで、開発〜運用のライフサイクル全体のセキュリティを扱う。製品メニューでは **Code Security / Cloud Security / SIEM** の 3 つに分類されている。全体像は [Datadog Security 概要](../02_リファレンス/security/security-platform-overview.md) を参照。
+Security 区分の製品（総称：Datadog Security）は、コードから本番環境・クラウド設定・AI まで、開発〜運用のライフサイクル全体のセキュリティを扱う。製品メニューでは **Code Security / Cloud Security / SIEM / AI & Data Security** の 4 つに分類されている（AI & Data Security には AI Guard と Sensitive Data Scanner が含まれる）。全体像は [Datadog Security 概要](../02_リファレンス/security/security-platform-overview.md) を参照。
 
 | 製品（現名称） | 1 行説明 | 課金単位 | 状態 | 詳細 |
 |---|---|---|---|---|
@@ -330,13 +332,13 @@ Security 区分の製品（総称：Datadog Security）は、コードから本�
 
 ### 8.2 画面イメージ（Security）
 
-![Cloud Security の Overview 画面](../../assets/images/product-map/cloud-security-overview.png)
+![Cloud Security の Overview 画面](../assets/images/product-map/cloud-security-overview.png)
 
 - **キャプション:** Cloud Security（旧称：Cloud Security Management）の Overview 画面。
 - **画面の説明:** 画面上部に「Overview / Inbox / Signals / Findings / Compliance / Inventory」のタブがあり、その下で Account・Service・Env・Team による絞り込みができる。中央の「Security Inbox」には優先度付けされたセキュリティ課題が SEVERITY（CRITICAL / HIGH）、ISSUE（例：「Publicly accessible application with a critical vulnerability running on a privileged Kubernetes node」）、Risks（Publicly Accessible、Privileged Access、Vulnerability、Sensitive Data などのラベル）、IMPACT、STATUS、ASSIGNMENT、LAST DETECTED の列で並ぶ。下部の「All Findings」には MISCONFIGURATIONS（設定不備）、VULNERABILITIES（脆弱性）、IDENTITY RISKS（ID リスク）の 3 カードがあり、それぞれ重大度別件数と Explorer へのリンクが表示される。上部の Coverage 行には対象クラウドアカウント数・ホスト数・コンテナ数が表示される。
 - **出典:** [Datadog Security](https://docs.datadoghq.com/security/)（2026-11-02 取得）
 
-![Cloud SIEM の Overview 画面](../../assets/images/product-map/cloud-siem-overview.png)
+![Cloud SIEM の Overview 画面](../assets/images/product-map/cloud-siem-overview.png)
 
 - **キャプション:** Cloud SIEM のホーム（Overview）画面。
 - **画面の説明:** 上部に「Overview / Content Packs / Signals / Detections / Investigate」のタブがある。「Security Coverage」欄には有効化済みの Content Packs とインテグレーションの数（例：20 件、9 カテゴリ中 9 カテゴリをカバー）、状態別の件数（Active / Warning / Broken / Custom log sources）が表示される。「Logs Analyzed by Cloud SIEM」欄には、Cloud SIEM が分析したログ量がソース別（windows、cloudtrail、github など）の積み上げ棒グラフで表示される。下部には「Important Signals and Cases」が続く。
@@ -435,11 +437,13 @@ Bits AI の各エージェントは、料金ページでは **AI Credits**（AI 
 | 製品（現名称） | 1 行説明 | 課金単位 | 状態 | 詳細 |
 |---|---|---|---|---|
 | Agent Observability（旧称：LLM Observability） | チャットボットや AI エージェントなど LLM を使うアプリケーションのトレース、評価（Evaluations）、コスト・トークン、品質・安全性を監視・評価する | LLM スパン（10K 単位）/ 月（Free / Pro の 2 段階、保持 15 / 30 / 60 / 90 日で品目が分かれる） | | [LLM Observability](../02_リファレンス/ai/llm-observability.md) |
-| AI Guard | AI エージェントのランタイムガードレール（プロンプトインジェクション等の防御） | 入力トークン 100 万 / 月 | | [App and API Protection](../02_リファレンス/security/app-and-api-protection.md) |
+| AI Guard ※ | AI エージェントのランタイムガードレール（プロンプトインジェクション等の防御）（[8 節](#8-securityセキュリティ) と同一製品） | 入力トークン 100 万 / 月 | | [App and API Protection](../02_リファレンス/security/app-and-api-protection.md) |
 | GPU Monitoring | GPU フリートの健全性・性能・コストの監視（[4 節](#4-infrastructureインフラ) と同一製品） | アクティブ GPU デバイス / 月 | | [Infrastructure Monitoring](../02_リファレンス/infrastructure/infrastructure-monitoring.md) |
 | MCP Server / Pup CLI | AI エージェント（コーディングエージェント等）が Datadog のログ・メトリクス・トレースを安全に取得するための MCP サーバーと CLI | 公開情報では確認できず | | [Bits AI と AI 機能](../02_リファレンス/ai/bits-ai.md) |
 | Agent Directory | 各種 AI エージェントを Datadog MCP Server に接続するための手順集 | — | | [Bits AI と AI 機能](../02_リファレンス/ai/bits-ai.md) |
 | Agent Console | コーディングエージェントの利用状況を可視化する（DASH 2026 で発表） | 公開情報では確認できず | 公開情報では提供状況を確認できず | [Bits AI と AI 機能](../02_リファレンス/ai/bits-ai.md) |
+
+※ 製品メニューでは AI Guard は「AI for Datadog」（および Security > AI & Data Security）に掲載されており、「Datadog for AI」に掲載されているのは Agent Observability・MCP Server・Pup CLI・GPU Monitoring である。本ナレッジでは、顧客の AI エージェントを防御するという役割に基づき本表に再掲している。
 
 出典: [Bits AI](https://docs.datadoghq.com/bits_ai/)、[Bits Investigation](https://docs.datadoghq.com/bits_ai/bits_investigation/)、[Agent Observability](https://docs.datadoghq.com/llm_observability/)、[MCP Server 製品ページ](https://www.datadoghq.com/product/ai/mcp-server/)、[Agent Directory 製品ページ](https://www.datadoghq.com/product/ai/agent-directory/)、[Pricing](https://www.datadoghq.com/pricing/)、[Pricing list](https://www.datadoghq.com/pricing/list/)（2026-11-02 取得）、[DASH 2026 recap](https://www.datadoghq.com/blog/dash-2026-recap/)（2026-07-07 公開）
 
@@ -477,7 +481,7 @@ Datadog は製品の対象範囲の拡大に合わせて製品名を変更する
 | CIEM（Cloud Infrastructure Entitlement Management） | Cloud Security の Identity Risks | 公開情報では確認できず | 同上 | 製品メニュー |
 | Application Security Management（ASM。ドキュメントでは Application Security Monitoring と表記される箇所もある） | App and API Protection（AAP） | 2025 年（4〜7 月の間）【第三者情報】 | Datadog 公式ブログの編集注記「Application Security Management (ASM) has been renamed App and API Protection (AAP)」（[出典](https://www.datadoghq.com/blog/datadog-application-security-management/)）。時期は [PricingSaaS](https://pricingsaas.com/companies/datadog.application-security-management/diffs/2025Q2) の記録による | ドキュメント URL（`/security/application_security/`）、`DD_APPSEC_ENABLED` などの設定キー |
 | Security Monitoring | Cloud SIEM | 公開情報では確認できず | 公式ドキュメントの画像パス（`images/security/security_monitoring/`）に旧称が残ることからの判断【推定】 | 画像パス、API 名（`security_monitoring`） |
-| Service Catalog | Software Catalog（Internal Developer Portal の Catalog） | 公開情報では確認できず | Datadog 公式ブログ「evolving Service Catalog into Software Catalog」（[出典](https://www.datadoghq.com/blog/software-catalog/)） | 画面のタブ名（古いスクリーンショット）、`service.datadog.yaml` |
+| Service Catalog | Software Catalog（Internal Developer Portal の Catalog） | 2025-02 | Datadog 公式ブログ「evolving Service Catalog into Software Catalog」（2025-02-14 公開、[出典](https://www.datadoghq.com/blog/software-catalog/)） | 画面のタブ名（古いスクリーンショット）、`service.datadog.yaml` |
 | Test Visibility（CI Test Visibility） | Test Optimization | 公開情報では確認できず | 現行ドキュメント・製品ページの表題が Test Optimization。旧称との対応は 2024 年の料金変更記録などによる【第三者情報】（[PricingSaaS](https://pricingsaas.com/companies/datadog/diffs/2024Q1)） | 製品ページ URL（`/product/test-visibility-intelligent-test-runner`） |
 | Intelligent Test Runner | Test Impact Analysis（Test Optimization の機能） | 公開情報では確認できず | 現行ドキュメントは Test Impact Analysis を使用。旧称との対応は製品ページ URL からの判断【推定】 | 製品ページ URL |
 | CI Visibility | CI Visibility（料金上の品目名は Pipeline Visibility / CI Pipeline Visibility） | 2024 年頃【第三者情報】 | 料金上の名称変更の記録（[PricingSaaS](https://pricingsaas.com/companies/datadog/diffs/2024Q1)） | ドキュメントでは CI Visibility のまま |
@@ -527,13 +531,13 @@ Datadog の製品の多くは、他の製品が収集したデータや計装を
 
 ### 14.2 画面イメージ（APM のデータフロー）
 
-![APM のデータの流れ（取り込み・保持）](../../assets/images/product-map/apm-lifecycle.png)
+![APM のデータの流れ（取り込み・保持）](../assets/images/product-map/apm-lifecycle.png)
 
 - **キャプション:** Datadog APM におけるトレースデータの流れ（Ingestion controls and retention filters）。
 - **画面の説明:** 左端の「Your instrumented applications（計装済みアプリケーション）」から出たスパンは、「Ingestion Sampling rules（取り込みサンプリングルール）」を通って「15 mins Live Search（直近 15 分のライブ検索）」に入り、そこから「Metrics from Spans（スパンから生成するメトリクス）」が作られる。さらに「Retention filters（保持フィルター）」で選別されたスパンが「15 days Indexed Search（15 日間のインデックス検索）」に保存され、「Trace Analytics monitors / Dashboards / Notebooks」で使われる。一方、アプリケーションから直接「Trace Metrics（トレースメトリクス）」が生成され、「Service Pages / Resource Pages」と「Metric monitors / SLOs」に使われる。サンプリングに関係なくトレースメトリクスは全リクエストから算出される、という構造を示している。
 - **出典:** [APM](https://docs.datadoghq.com/tracing/)（2026-11-02 取得）
 
-![APM の Trace Explorer 画面](../../assets/images/product-map/trace-explorer.png)
+![APM の Trace Explorer 画面](../assets/images/product-map/trace-explorer.png)
 
 - **キャプション:** APM の Trace Explorer（スパン検索）画面。
 - **画面の説明:** 上部に APM 配下のタブ（Service Catalog、Traces、Profiles など）があり、右上で時間範囲（例：Past 15 Minutes、LIVE 表示）を選ぶ。検索バーに `env:dev` などのクエリを入力し、「Spans / Traces」の切り替え、検索対象（All Ingested Spans（Live Search））、「Service Entry Spans」などのスコープを指定する。「Visualize as」で List / Timeseries / Top List / Table / Tree Map / Pie Chart / Flow Map を選べる。左側のファセット（Duration、Status、Env など）で絞り込み、右側に DATE、SERVICE、RESOURCE、DURATION、METHOD、STATUS CODE の列でスパンが一覧表示される。上部には Watchdog Insights の欄がある。**この画像の上部タブには旧称「Service Catalog」が表示されている**（現名称は Software Catalog）。公式ドキュメント掲載の画像が改称前に撮影されたものと考えられる【推定】。
@@ -597,7 +601,7 @@ Datadog の製品の多くは、他の製品が収集したデータや計装を
 | 最初に何を設定すればよいか知りたい | [はじめてのDatadog](getting-started.md) |
 | 料金を知りたい | [料金体系の全体像](../03_導入編/pricing-overview.md)、[製品別料金表](../03_導入編/pricing-by-product.md)、[エディション・プラン](../03_導入編/editions-and-plans.md) |
 | どの製品を選ぶべきか、競合とどう違うか | [製品選定と競合比較](../03_導入編/selection-and-competitive-comparison.md) |
-| 用語の意味を確認したい | [用語集](../glossary.md) |
+| 用語の意味を確認したい | 用語集（`../glossary.md`、作成予定） |
 
 ---
 

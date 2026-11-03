@@ -36,6 +36,7 @@ sources:
   - https://docs.datadoghq.com/account_management/billing/usage_details/
   - https://docs.datadoghq.com/account_management/billing/usage_metrics/
   - https://github.com/DataDog/datadog-agent/blob/main/pkg/config/example/system-probe_linux.yaml.example
+  - https://github.com/DataDog/datadog-agent/blob/main/pkg/config/example/system-probe_windows.yaml.example
   - https://www.datadoghq.com/pricing/?product=network-monitoring
   - https://www.datadoghq.com/pricing/list/
   - https://www.datadoghq.com/blog/cloud-network-monitoring/
@@ -89,13 +90,15 @@ CNM のデータ収集は Datadog Agent の **system-probe**（システムプ�
 flowchart LR
   subgraph Host["監視対象ホスト（Linux / Windows）"]
     K["カーネル<br/>eBPF プログラム（Linux）<br/>フィルタードライバー（Windows）"]
-    SP["system-probe<br/>network_config.enabled: true"]
+    subgraph SPG["system-probe"]
+      SP["network_tracer<br/>network_config.enabled: true"]
+      TR["traceroute モジュール（Network Path）<br/>traceroute.enabled: true"]
+    end
     PA["Process Agent<br/>（接続データの送信）"]
-    CA["コア Agent<br/>（タグ・メタデータ）"]
-    TR["traceroute モジュール<br/>（Network Path）"]
+    CA["コア Agent<br/>（タグ・メタデータ<br/>network_path チェック / collector）"]
     K --> SP
     SP -- "UNIX ソケット<br/>sysprobe.sock" --> PA
-    TR -.-> CA
+    TR -. "traceroute 結果" .-> CA
   end
   PA -- "30 秒ごとに収集" --> DD["Datadog バックエンド<br/>5 分バケットで集約<br/>14 日保持"]
   CA --> DD
@@ -458,7 +461,7 @@ Enhanced resolution を設定すると、クラウドから収集したリソー
 
 **Agent 7.17 以上**では、外部・内部の通信の IP を人が読めるドメイン名に解決する。ドメインは `domain` タグとして保存され、検索バーやファセットで使える。S3 バケット、ALB、外部 API など Agent を入れられないエンドポイントの監視に使え、DGA（ドメイン生成アルゴリズム）由来のような不審なドメインはセキュリティ上の脅威の手掛かりになる。[出典](https://docs.datadoghq.com/network_monitoring/cloud_network_monitoring/network_analytics/)
 
-- DNS 解決は、system-probe がルートネットワーク名前空間で動いているホストでサポートされる。公式ドキュメントの注記の文意は分かりにくいが、ホストネットワークを使わずにコンテナで system-probe を動かすと、この条件を満たさない可能性がある。[出典](https://docs.datadoghq.com/network_monitoring/cloud_network_monitoring/network_analytics/)
+- DNS 解決は、system-probe がルートネットワーク名前空間で動いているホストでサポートされる。公式の原文は「DNS resolution is supported for hosts where the system probe is running on the root network namespace, which is usually caused by running the system-probe in a container without using the host network.」である。字面どおりに読むと、ホストネットワークを使わないコンテナ実行が「ルート名前空間で動いている」状態の原因になる。しかし、ホストネットワークを使わないコンテナは通常ルート名前空間の外で動くため、この読み方では技術的に筋が通らない。【推定】原文は「サポートされないのは、system-probe がルート名前空間の外で動いている場合で、これは通常ホストネットワークを使わずにコンテナで動かしたときに起きる」という意味と考えられる。この解釈が正しければ、system-probe をコンテナで動かすときはホストネットワークを使う必要がある。[出典](https://docs.datadoghq.com/network_monitoring/cloud_network_monitoring/network_analytics/)
 
 ### Network Address Translation（NAT）
 
@@ -493,7 +496,7 @@ Network Map は、ネットワークのトポロジーを有向マップで表�
 ![Network Map の画面](../../assets/images/cloud-network-monitoring/network-map.png)
 
 - **キャプション**：Network Map 画面（Map タブ）。
-- **画面の説明**：上部に Overview / Analytics / Map / DNS のタブ。検索バーの下に **View**（ノードが表すタグ。例：`container_id`）、**By**（クラスタリングのタグ。例：Availability Zone）、**Metric**（エッジが表すメトリクス。例：Volume sent）の 3 つのドロップダウンと、右側に **Filter Traffic**（例：956 MB - 84.2 GB）。中央に「0 of 2,848 Container Ids displayed in 17 Availability Zones」と表示され、AZ（us-west-2a、us-central1-a など）ごとのクラスターが円で、`N/A` ノードが中央に描かれる。クラスターの数字はノード数、赤い枠はアラート中のモニターがあることを示す。右下に Edge Width と Node Size の凡例、下部に **Highlight top traffic by Volume sent (90p)** トグルがある。
+- **画面の説明**：旧 UI のスクリーンショットのため、上部のタブは Overview / Analytics / Map / DNS で、現行のタブ構成（Health / Analytics / Map / Network Path / Dashboards。「画面構成とナビゲーション」節を参照）とは異なる。検索バーの下に **View**（ノードが表すタグ。例：`container_id`）、**By**（クラスタリングのタグ。例：Availability Zone）、**Metric**（エッジが表すメトリクス。例：Volume sent）の 3 つのドロップダウンと、右側に **Filter Traffic**（例：956 MB - 84.2 GB）。中央に「0 of 2,848 Container Ids displayed in 17 Availability Zones」と表示され、AZ（us-west-2a、us-central1-a など）ごとのクラスターが円で、`N/A` ノードが中央に描かれる。クラスターの数字はノード数、赤い枠はアラート中のモニターがあることを示す。右下に Edge Width と Node Size の凡例、下部に **Highlight top traffic by Volume sent (90p)** トグルがある。
 - **出典**：https://docs.datadoghq.com/network_monitoring/cloud_network_monitoring/network_map/ （取得日 2026-11-02）
 
 ### 設定項目

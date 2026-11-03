@@ -45,7 +45,7 @@ Sensitive Data Scanner がスキャンできるデータは次の 4 系統に分
 
 > **補足:** 機微データを Datadog に一切送りたくない場合は、顧客環境内で動作する Observability Pipelines の Sensitive Data Scanner プロセッサを使う（本ファイル「11. マスキング手段の比較」参照）。[出典](https://docs.datadoghq.com/security/sensitive_data_scanner/)
 
-製品の位置づけについて、Datadog の料金ページは Sensitive Data Scanner を Logs 区分に掲載しているが、本ナレッジでは Security 領域に置いている（[製品ポートフォリオ全体像](../../01_入門編/product-map.md)）。
+製品の位置づけについて、Datadog の料金ページでは Sensitive Data Scanner が Logs 区分と Security 区分（AI & Data Security）の両方に掲載されている。本ナレッジでは Security 領域に置いている（[製品ポートフォリオ全体像](../../01_入門編/product-map.md)）。
 
 ### 関連ファイル
 
@@ -588,7 +588,7 @@ Sensitive Data Scanner の Cloud Storage スキャンは、顧客の AWS 環境�
 | 対応ストレージ | Amazon S3（公式ドキュメントに他のクラウドストレージ・データベースの記載なし） |
 | スキャナー | Agentless スキャナー（EC2）。Remote Configuration で S3 バケット一覧と依存関係を取得 |
 | 対象ファイル | CSV、JSON などのテキストファイル（多数の種類）を時間をかけてスキャン |
-| ルール | **SDS ライブラリルール全体**を適用。Scanning Group は読み取り専用で編集不可。カスタムルールは使用不可 |
+| ルール | **SDS ライブラリルール全体**を適用。Scanning Group は読み取り専用で編集不可。読み取り専用グループのためカスタムルールは追加できないと考えられる【推定】（カスタムルールの可否を明記した公式記述は確認できず） |
 | Datadog へ送られる情報 | 一致したルールの種別と一致位置のみ。データストアとファイルは環境内で読み取られるだけで、機微データ自体は Datadog に送られない |
 | 結果表示 | Findings ページ（Datastores with Sensitive Data タブ）。Cloud Security が検出した当該データストアのセキュリティ問題（誤設定）も併せて表示 |
 
@@ -756,7 +756,9 @@ Terraform 全般は [Terraform と IaC](../platform/terraform-and-iac.md)、Moni
 
 > **サイト差異:** Human Name Scanner は商用サイトで GA、US1-FED では【Preview】。[出典](https://www.datadoghq.com/blog/human-name-detection/)（2026-02-02 公開）
 
-US1-FED におけるテレメトリスキャン（Logs・APM・RUM・Events）の提供範囲の詳細は公開情報では確認できず。AP1 固有の機能差異は公開情報では確認できず。サイト一覧は [Datadog Sites](../platform/datadog-sites.md) を参照。
+> **サイト差異:** 価格はサイトにより異なる。AP1 は US より高く、Detect and Obfuscate が $0.375 / $0.45 / $0.5625、Detect が $0.038 / $0.045 / $0.056（年契約 / 月契約 / オンデマンド）。詳細は [課金への影響](#課金への影響) を参照。[出典](https://www.datadoghq.com/pricing/?product=sensitive-data-scanner)
+
+US1-FED におけるテレメトリスキャン（Logs・APM・RUM・Events）の提供範囲の詳細は公開情報では確認できず。AP1 固有の機能差異（価格以外）は公開情報では確認できず。サイト一覧は [Datadog Sites](../platform/datadog-sites.md) を参照。
 
 ---
 
@@ -794,21 +796,25 @@ US1-FED におけるテレメトリスキャン（Logs・APM・RUM・Events）�
 
 ## 課金への影響
 
-Sensitive Data Scanner（SaaS）の課金単位は**スキャンしたデータ量（GB）/ 月**である。料金ページには 2 つのプランが表示される（2026-11-02 時点の公式掲載価格、USD）。料金数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。
+Sensitive Data Scanner（SaaS）の課金単位は**スキャンしたデータ量（GB）/ 月**である。料金ページには 2 つのプランが表示される（2026-11-02 時点の US サイトの公式掲載価格、USD。AP1 価格は表下のサイト差異を参照）。料金数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。
 
 | プラン | 課金単位 | 年契約（Billed annually） | 月契約（Month-to-month） | オンデマンド | 内容 |
 |---|---|---|---|---|---|
-| Detect | 取り込み GB あたり（10% サンプリング時）/ 月 | $0.03 | 公式ページの表示では確認できず | $0.045 | 定義済み・カスタムの検出ルール。サンプリング利用のため難読化不可 |
+| Detect | 取り込み GB あたり（10% サンプリング時）/ 月 | $0.03 | $0.04（※） | $0.045 | 定義済み・カスタムの検出ルール。サンプリング利用のため難読化不可 |
 | Detect and Obfuscate | スキャン GB あたり / 月 | $0.30 | $0.36 | $0.45 | 検出に加え、hash・redact・mask による自動難読化 |
 
 [出典](https://www.datadoghq.com/pricing/?product=sensitive-data-scanner) / [出典](https://www.datadoghq.com/pricing/list/)
+
+※ Detect の月契約価格は料金ページの価格データ（SKU `SDS-PARTIAL`）による（カード表示には年契約とオンデマンドのみ表示される）。
+
+> **サイト差異:** 上表は US（EU1 も同額）の価格。基準サイト AP1 では Detect and Obfuscate が年契約 $0.375 / 月契約 $0.45 / オンデマンド $0.5625、Detect が $0.038 / $0.045 / $0.056（料金ページの価格データ、2026-11-04 時点）。詳細は [製品別料金表](../../03_導入編/pricing-by-product.md)。[出典](https://www.datadoghq.com/pricing/?product=sensitive-data-scanner)
 
 - 料金一覧ページ（`/pricing/list/`）に掲載されているのは「Sensitive Data Scanner：Per scanned GB, per month　$0.30 / $0.36 / $0.45」の 1 行のみである。[出典](https://www.datadoghq.com/pricing/list/)
 - Detect プランの「取り込み GB あたり $0.03（10% サンプリング時）」は、スキャン GB 単価 $0.30 × 10% に相当し、実質的にスキャン量に比例した課金と解釈できる【推定】。
 - 使用量は `datadog.estimated_usage.sds.scanned_bytes` で確認できる（`scanning_group_id:global` は二重計上防止用で課金に影響しない）。複数の Scanning Group が同じイベントをスキャンした場合の課金上の扱い（1 回分か複数回分か）は、公開情報では明記されていない。[出典](https://docs.datadoghq.com/security/sensitive_data_scanner/guide/monitor-sds-usage/)
 - **Observability Pipelines の SDS プロセッサ**は OP の通常料金に含まれ、スキャン量の上限はない（SaaS の SDS とは別課金）。[出典](https://www.datadoghq.com/pricing/?product=observability-pipelines)
 - **Agent Observability** では SDS が追加費用なしで組み込まれ、LLM スパン 1 万件ごとに 1 GB の SDS 処理枠が付く。[出典](https://www.datadoghq.com/pricing/?product=sensitive-data-scanner)
-- **Cloud Storage スキャン**の Datadog 側の課金単位は料金ページで個別に示されておらず、公開情報では確認できず。スキャナー（EC2 等）の AWS 側コストは別途発生する。[出典](https://docs.datadoghq.com/security/sensitive_data_scanner/setup/cloud_storage/)
+- **Cloud Storage スキャン**：料金ページは SDS プランの対象に AWS Cloud Storage リソースを含めている（機能欄「Supports data from Log Management, APM, RUM, and AWS cloud storage resources」、FAQ「logs, APM spans, RUM events, and AWS Cloud Storage resources (e.g. AWS S3 buckets)」）。ただし S3 スキャン量の具体的な計量方法（スキャン GB の数え方）は公開情報では確認できず。スキャナー（EC2 等）の AWS 側コストは別途発生する。[出典](https://www.datadoghq.com/pricing/?product=sensitive-data-scanner) / [出典](https://docs.datadoghq.com/security/sensitive_data_scanner/setup/cloud_storage/)
 - コスト削減の手段は、Scanning Group のクエリフィルターで対象を絞る、サンプリング（検出のみの用途）を使う、OP で環境内処理に寄せる、の 3 つが公式ドキュメント・料金ページから読み取れる。
 
 課金計算の仕組みは [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、最適化は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。

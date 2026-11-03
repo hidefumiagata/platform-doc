@@ -145,8 +145,9 @@ Datadog 公式ブログ「Design effective executive dashboards with Datadog」�
 | Overview | 総売上、注文数、ユニークログイン、主要 SLO（SLO は Gauge が有効） |
 | Traffic and Engagement | ユーザー推移、トラフィック予測、異常検知を Timeseries・Distribution で |
 | Financial Analysis | ユーザーあたり売上、平均注文額、逸失売上の推定 |
-| Geography | Geomap と国別テーブルを並べ、地域別パフォーマンスを比較 |
 | Reliability | SLO 稼働率、エラーバジェット消費、重要サービスのレイテンシ |
+
+補足（地域別の可視化）: ブログが挙げるセクションは上の 4 つで、「地域」という独立したセクションはない。ただし同記事の例（Financial Analysis の説明に続く段落）では、Geomap と国別テーブルを並べると成長市場や不振地域をすぐ把握できると紹介している。地域別に比較したい場合は、このペアを Overview または Financial Analysis の近くに置くか、独自のグループとして追加する【経験則】。
 
 - **技術指標と事業指標を隣に並べる**（例: チェックアウトのレイテンシとカート放棄率・分あたり売上）。
 - セクションはグループにまとめ、詳細は折りたためるようにする。
@@ -196,7 +197,7 @@ flowchart TB
 - ダッシュボードの最上部は「状態判断に必要な指標」だけにして、詳細調査用グラフは別タブに移す。【第三者情報】[出典](https://www.issoh.co.jp/tech/details/16594/)
 - `env`・`service`・`version` をテンプレート変数にし、本番向けダッシュボードは既定値を `env:prod` にして、開いた瞬間に検証環境のノイズを見せない。【第三者情報】[出典](https://www.issoh.co.jp/tech/details/16594/)
 - SLO ウィジェット・SLO List ウィジェットでサービスの信頼性目標を並べる。SLO の設計は [SLO 運用の実践](./slo-practices.md) を参照。
-- イベントオーバーレイ（デプロイイベントなど）を Timeseries に重ねると、変更と症状の相関がすぐ分かる。テンプレート変数はイベントオーバーレイでも `<TAG_KEY>:$<NAME>.value` 形式で使える。[出典](https://docs.datadoghq.com/dashboards/template_variables/)
+- イベントオーバーレイ（デプロイイベントなど）を Timeseries に重ねると、変更と症状の相関がすぐ分かる。テンプレート変数はイベント検索でも使える。ウィジェットのイベントオーバーレイ検索ボックスでは `$<NAME>`（例: `$region`）、ダッシュボードのイベント検索では `<TAG_KEY>:$<NAME>.value`（例: `region:$region.value`）と書く。[出典](https://docs.datadoghq.com/dashboards/template_variables/)
 - APM を導入済みなら、サービスの基本画面は APM の Service Page（サービスページ）が自動で提供する。カスタムダッシュボードは「サービスページにない事業指標・依存関係・チーム固有の観点」を足す位置付けにすると重複が減る【経験則】。APM 画面は [APM 画面と分析機能](../02_リファレンス/apm/apm-ui-and-analysis.md) を参照。
 - Kubernetes の運用ダッシュボードの観点は [Kubernetes 監視の実践](./kubernetes-monitoring-practices.md) を参照。
 
@@ -220,7 +221,7 @@ flowchart TB
 | Markers（マーカー） | 期待値・異常値の閾値を水平線（Line）や範囲（Range）で示し、閲覧者に許容範囲を推測させない | [出典](https://docs.datadoghq.com/dashboards/guide/powerpacks-best-practices/) |
 | グラフタイトル | 何を表示しているかを短く明確に | [出典](https://docs.datadoghq.com/dashboards/guide/powerpacks-best-practices/) |
 
-![Powerpack ベストプラクティスにおける水平マーカーの例](../../assets/images/dashboard-design-practices/horizontal-marker-example.png)
+![Powerpack ベストプラクティスにおける水平マーカーの例](../assets/images/dashboard-design-practices/horizontal-marker-example.png)
 
 **図: 水平マーカーで閾値を示した Timeseries の例（hosts overview の NTP offset グラフ）**
 画面説明: ホスト群の NTP オフセットを示す Timeseries グラフに、許容範囲を示す水平マーカー（閾値線・範囲）を重ねた例。閲覧者はグラフを見ただけで「どこからが異常か」を判断できる。マーカーはウィジェット編集画面の Markers 設定で Line または Range、線種（solid / bold / dashed）、ラベルを指定して追加する。
@@ -320,7 +321,7 @@ Template Variables（テンプレート変数）は、タグやファセット�
 | `$<NAME>.key` | テキストウィジェットでキーのみ（例: `environment`）を表示 |
 | `$<NAME>.value` | 選択値をクエリに埋め込む（例: `env:staging-$service.value`）。テキストウィジェットでは値のみ（例: `dev`）を表示 |
 | URL パラメータ | 値を変えると URL が `&tpl_var_<NAME>=<VALUE>` に更新される |
-| イベントオーバーレイ | グラフ上では `<TAG_KEY>:$<NAME>.value`、オーバーレイ検索ボックスでは `$<NAME>`。複数はカンマ区切り |
+| イベント検索・オーバーレイ | ダッシュボードのイベント検索では `<TAG_KEY>:$<NAME>.value`（例: `region:$region.value`。複数の変数はカンマ区切りで `role:$role.value,env:$env.value`。該当イベントの発生時刻は各グラフにピンクのバーで示される）。ウィジェットのイベントオーバーレイ検索ボックスでは `$<NAME>`（例: `$region`）。変数はイベントタグではなくメトリクスのタグである必要がある |
 | `$team.value` | 選択されたすべてのチームハンドルを、クエリのタグキーを使って `OR` で連結して展開する。`attributes.team` や `team_attribution` など別キーのデータの絞り込みにも使える |
 
 [出典](https://docs.datadoghq.com/dashboards/template_variables/)
@@ -356,7 +357,7 @@ Template Variables（テンプレート変数）は、タグやファセット�
 
 [出典](https://docs.datadoghq.com/dashboards/template_variables/)
 
-![テンプレート変数の Saved Views 作成メニュー](../../assets/images/dashboard-design-practices/saved-view-create.png)
+![テンプレート変数の Saved Views 作成メニュー](../assets/images/dashboard-design-practices/saved-view-create.png)
 
 **図: Saved Views ドロップダウンから「Save selections as view」を選ぶ画面**
 画面説明: ダッシュボード上部のテンプレート変数バーの左側にある Saved Views ドロップダウンを開いた状態。現在のテンプレート変数の選択内容を名前付きビューとして保存するメニュー項目（Save selections as view）が表示されている。保存したビューは同じダッシュボードを開く他のユーザーも選択できる。
@@ -407,7 +408,7 @@ Powerpacks（パワーパック）は、テンプレート化されたウィジ�
 
 [出典](https://docs.datadoghq.com/dashboards/widgets/powerpack/)、[出典](https://docs.datadoghq.com/dashboards/guide/powerpacks-best-practices/)
 
-![グループヘッダーのアイコン（Save as Powerpack を含む）](../../assets/images/dashboard-design-practices/powerpack-group-header-icons.png)
+![グループヘッダーのアイコン（Save as Powerpack を含む）](../assets/images/dashboard-design-practices/powerpack-group-header-icons.png)
 
 **図: グループウィジェットのヘッダーに表示されるアイコン群**
 画面説明: ダッシュボード編集時、グループウィジェットのヘッダー右側に並ぶアイコン。この中の「Save as Powerpack」アイコンを押すと、グループを Powerpack として保存するモーダルが開き、名前・説明・検索カテゴリ（タグ）・利用者が設定可能なフィルタを指定できる。
@@ -527,10 +528,10 @@ Datadog はダッシュボード単位の「パフォーマンスチューニン
 | 制限解除 | **Configure > Permissions > Restore Full Access** → Save | [出典](https://docs.datadoghq.com/dashboards/configure/) |
 | 閲覧制限 | 閲覧アクセスの制限は有償プランで、Datadog サポートまたはアカウントチームによる有効化が必要 | [出典](https://docs.datadoghq.com/dashboards/configure/) |
 | 旧「read only」ダッシュボード | アクセスリストに `user_access_manage` 権限を持つロールが事前設定される | [出典](https://docs.datadoghq.com/dashboards/configure/) |
-| `is_read_only`（API / Terraform） | 非推奨。Dashboards API は 2024-12-13 までに `is_read_only` から移行するよう告知。`restricted_roles` または Restriction Policy を使う | [出典](https://docs.datadoghq.com/dashboards/guide/)、[出典](https://docs.datadoghq.com/dashboards/guide/how-to-use-terraform-to-restrict-dashboards/) |
+| `is_read_only`（API / Terraform） | 非推奨。Dashboards API は 2024-12-13 までに `is_read_only` から移行するよう告知。`restricted_roles` または Restriction Policy【Preview】を使う | [出典](https://docs.datadoghq.com/dashboards/guide/)、[出典](https://docs.datadoghq.com/dashboards/guide/how-to-use-terraform-to-restrict-dashboards/) |
 | 制限中の表示 | 制限付きダッシュボードの右上にアクセス表示（権限に応じて "Gain Edit Access" または "Request Edit Access"） | [出典](https://docs.datadoghq.com/dashboards/configure/) |
 
-![ダッシュボードの権限設定ポップアップ](../../assets/images/dashboard-design-practices/access-popup.png)
+![ダッシュボードの権限設定ポップアップ](../assets/images/dashboard-design-practices/access-popup.png)
 
 **図: ダッシュボードの Permissions（アクセス制限）設定ポップアップ**
 画面説明: ダッシュボード右上の Configure メニュー > Permissions から開くポップアップ。組織全体（既定は Viewer）の行と、Editor として追加するロール・チーム・ユーザーを検索・追加する入力欄、各行のアクセスレベル選択、Save ボタンが並ぶ。自分が属するロールを Editor に含めないと保存できない。
@@ -560,7 +561,7 @@ resource "datadog_restriction_policy" "example" {
 }
 ```
 
-- `datadog_restriction_policy` はロール・チーム・ユーザー・サービスアカウントを principal に指定できる（ガイド上は Preview と記載）。Org ID は `GET /api/v2/current_user` の `data.relationships.org.data.id` で取得する。[出典](https://docs.datadoghq.com/dashboards/guide/how-to-use-terraform-to-restrict-dashboards/)
+- `datadog_restriction_policy` はロール・チーム・ユーザー・サービスアカウントを principal に指定できる。Restriction Policy は【Preview】で、利用するには Datadog Support または Customer Success Manager（CSM）への連絡が必要。Org ID は `GET /api/v2/current_user` の `data.relationships.org.data.id` で取得する。[出典](https://docs.datadoghq.com/dashboards/guide/how-to-use-terraform-to-restrict-dashboards/)
 - 権限モデル全般は [組織・ユーザー・権限管理](../02_リファレンス/platform/account-and-access-management.md) を参照。
 
 **権限設計の推奨【経験則】**
@@ -596,7 +597,7 @@ resource "datadog_restriction_policy" "example" {
 | 共有中は避ける | 名前の横に **SHARED** と表示されるものは公開ビューに影響するため削除を避ける |
 | 復元 | **Recently Deleted** に 30 日間残り、**Restore to** で復元可。API で一括削除・一括復元も可能 |
 
-![既定タイトル「's screenboard」で検索した例](../../assets/images/dashboard-design-practices/screenboard-search.jpeg)
+![既定タイトル「's screenboard」で検索した例](../assets/images/dashboard-design-practices/screenboard-search.jpeg)
 
 **図: ダッシュボード一覧で「's screenboard」を検索した画面**
 画面説明: Dashboards > Dashboard List 画面。左サイドバーで All Custom プリセットリストを選択し、上部の検索ボックスに `'s screenboard` を入力した結果、「<ユーザー名>'s Screenboard <日時>」という既定名のままのダッシュボードが一覧表示されている。一覧の列は Star、Name、Author、Teams、Modified、Popularity で、Popularity で並べ替えると利用の少ないものを特定できる。
@@ -818,8 +819,8 @@ Datadog 公式ブログ・公式 GitHub
 
 画像（取得日: 2026-11-02、著作権は Datadog, Inc. に帰属）
 
-- `../../assets/images/dashboard-design-practices/horizontal-marker-example.png` ← https://docs.datadoghq.com/dashboards/guide/powerpacks-best-practices/
-- `../../assets/images/dashboard-design-practices/saved-view-create.png` ← https://docs.datadoghq.com/dashboards/template_variables/
-- `../../assets/images/dashboard-design-practices/powerpack-group-header-icons.png` ← https://docs.datadoghq.com/dashboards/widgets/powerpack/
-- `../../assets/images/dashboard-design-practices/access-popup.png` ← https://docs.datadoghq.com/dashboards/configure/
-- `../../assets/images/dashboard-design-practices/screenboard-search.jpeg` ← https://docs.datadoghq.com/dashboards/guide/maintain-relevant-dashboards/
+- `../assets/images/dashboard-design-practices/horizontal-marker-example.png` ← https://docs.datadoghq.com/dashboards/guide/powerpacks-best-practices/
+- `../assets/images/dashboard-design-practices/saved-view-create.png` ← https://docs.datadoghq.com/dashboards/template_variables/
+- `../assets/images/dashboard-design-practices/powerpack-group-header-icons.png` ← https://docs.datadoghq.com/dashboards/widgets/powerpack/
+- `../assets/images/dashboard-design-practices/access-popup.png` ← https://docs.datadoghq.com/dashboards/configure/
+- `../assets/images/dashboard-design-practices/screenboard-search.jpeg` ← https://docs.datadoghq.com/dashboards/guide/maintain-relevant-dashboards/

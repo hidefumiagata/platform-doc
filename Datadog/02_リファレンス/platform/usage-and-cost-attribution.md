@@ -342,7 +342,7 @@ Bill Overview は、Datadog のコスト、利用量トレンド、月末予測�
 
 [出典](https://docs.datadoghq.com/account_management/plan_and_usage/bill_overview/)
 
-> **注記（ドキュメント間の差異）:** Bill Overview ページの権限表は Usage Attribution の条件を「Enterprise または Pro」としている。一方 Multi-org ページでは「Usage Attribution は Enterprise プランに含まれる高度な機能で、他のプランでは営業担当に問い合わせる」とされ、Estimated Usage Metrics ページでも「Pro プランは CSM 経由でアクセスを依頼できる」とされている。したがって、**Enterprise には標準で含まれ、Pro では申請により利用できる**と解釈するのが整合的である【推定】。[出典](https://docs.datadoghq.com/account_management/multi_organization/)、[出典](https://docs.datadoghq.com/account_management/billing/usage_metrics/)
+> **注記（ドキュメント間の差異）:** Bill Overview ページの権限表は Usage Attribution の条件を「Enterprise または Pro」としている。一方 Multi-org ページでは「Usage Attribution は Enterprise プランに含まれる高度な機能で、他のプランでは営業担当に問い合わせる」とされている。なお Estimated Usage Metrics ページには「Pro プランでも `.by_tag` メトリクスへのアクセスを CSM 経由で申請できる」とあるが、これは `.by_tag` メトリクスについての記述で、Usage Attribution 機能そのものの提供条件ではない。したがって、**Enterprise には標準で含まれ、Pro では営業・CSM への申請により利用できる場合がある**と解釈するのが整合的である【推定】（Bill Overview と Multi-org の記述を突き合わせた解釈。Pro で申請が必要かどうかを明記した公式記述はない）。[出典](https://docs.datadoghq.com/account_management/multi_organization/)、[出典](https://docs.datadoghq.com/account_management/billing/usage_metrics/)
 
 ### パートナー経由購入の場合（Partner purchased cost visibility）
 
@@ -355,7 +355,7 @@ Datadog をパートナー（リセラー等）経由で購入している顧客
 | 非対応機能 | Projected costs（予測コスト）、Cost by Tag、CCM 上の Datadog Costs |
 | 非対応の購入形態 | ドローダウン契約のないクラウドマーケットプレイス購入（AWS、Google Cloud、Azure）、多数の顧客を 1 契約にまとめた旧来の MSP 契約、2 社のチャネルパートナーを経由した購入 |
 | 非対応の組織 | GovCloud 組織 |
-| コストが表示されないもの | Error Tracking と LLM Observability の現行 SKU の段階制オンデマンド料金、支出に対する割合で課金される製品（Audit Trail、Premier Support など） |
+| コストが表示されないもの | Error Tracking と Agent Observability（旧称：LLM Observability）の現行 SKU の段階制オンデマンド料金、支出に対する割合で課金される製品（Audit Trail、Premier Support など） |
 
 [出典](https://docs.datadoghq.com/account_management/plan_and_usage/bill_overview/partner_purchased_cost_visibility/)
 
@@ -804,7 +804,9 @@ Datadog の利用量・コストを監視する手段は、次の 5 つである
 4. Alert threshold と、必要なら Warning threshold を、割当量の **80% や 90%** に設定する。
 5. モニター名と通知先を設定する。
 
-インデックスされたスパンは `datadog.estimated_usage.apm.indexed_spans` で同じように監視できる。参考として、公式ドキュメントでは APM ホスト 1 台あたりの割当量を**取り込みスパン 150 GB、インデックススパン 100 万件**、APM Fargate タスク 1 つあたりを**取り込みスパン 10 GB、インデックススパン 6.5 万件**としている。割当量の正本は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。[出典](https://docs.datadoghq.com/account_management/billing/usage_monitor_apm/)
+インデックスされたスパンは `datadog.estimated_usage.apm.indexed_spans` で同じように監視できる。参考として、公式ドキュメントでは APM ホスト 1 台あたりの割当量を**取り込みスパン 150 GB、インデックススパン 100 万件**、APM Fargate タスク 1 つあたりを**取り込みスパン 30 GB、インデックススパン 19.5 万件**としている。割当量の正本は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。[出典](https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/)、[出典](https://www.datadoghq.com/pricing/allotments/)
+
+> **注記（ドキュメント間の差異）:** APM の利用量監視ページ（usage_monitor_apm）は APM Fargate タスク 1 つあたりの割当量を「取り込みスパン 10 GB、インデックススパン 6.5 万件」としている。APM Billing ページの計算例（20 タスクで 130 万件）もこの値に基づく。一方、APM Billing ページの料金表と料金ページの allotments は「30 GB／19.5 万件」としている。本書は正本に合わせて 30 GB／19.5 万件とする。しきい値を設定する際は契約書で確認すること。[出典](https://docs.datadoghq.com/account_management/billing/usage_monitor_apm/)、[出典](https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/)
 
 累積時間窓の仕様:
 
@@ -837,12 +839,12 @@ Cost Monitor は CCM のコストデータ（Datadog Costs を含む）を対象
 | モニタータイプ | 用途 | 例 |
 |---|---|---|
 | Changes | 日・週・月単位のコスト変化を検知 | 今日のコストが前週より 5% 以上増えたら通知 |
-| Anomalies | 通常と異なるコストパターンを検知（確定データ版は最低 1 か月分のデータが必要） | 過去 30 日のうち 3 日で大きな異常があれば通知 |
+| Anomalies | 通常と異なるコストパターンを検知。2 種類ある。**確定データ版**は確定済みの課金データを使い、最低 1 か月分のデータが必要。**リアルタイム AI 異常検知モニター**は Agent Observability の推定 AI コスト（トークン数とプロバイダー料金から算出）を対象に、直近 4 時間のローリングウィンドウで評価して 15 分以内に通知する。最低 3 日分（推奨 21 日分）のコストデータで動く | 過去 30 日のうち 3 日で大きな異常があれば通知 |
 | Threshold | コストが設定値を超えたら通知 | 当日の合計コストが $10,000 を超えたら通知 |
 | Forecast | 予測コストがしきい値を超えたら通知 | 当月の予測が $500 を超えたら毎日通知 |
 | Budget | 実績または予測が予算の一定割合を超えたら通知 | 当月予測が $10,000 の予算の 90% を超えたら通知 |
 
-確定済みの課金データを使うモニター（Changes、Threshold、Forecast、Budget、確定 Anomalies）は、**評価頻度 30 分、評価ウィンドウは 48 時間遅れ**で動く（課金データが使用から 48 時間後まで揃わないため）。[出典](https://docs.datadoghq.com/monitors/types/cloud_cost/)
+確定済みの課金データを使うモニター（Changes、Threshold、Forecast、Budget、確定 Anomalies）は、**評価頻度 30 分、評価ウィンドウは 48 時間遅れ**で動く（課金データが使用から 48 時間後まで揃わないため）。リアルタイム AI 異常検知モニターはこの遅延を受けないが、対象は Agent Observability の推定 AI コストに限られる。Datadog Costs（Datadog 自身の利用料）に使えるとは明記されていない。[出典](https://docs.datadoghq.com/monitors/types/cloud_cost/)
 
 Datadog Costs を対象にする場合は、`datadog_product` や `dimension`、Usage Attribution のタグ（例: `team`）でフィルター・グループ化すると、製品別・チーム別の金額アラートになる。【推定】（Datadog Costs のタグ一覧と Cost Monitor の「filter by / group by」仕様からの組み合わせ）
 
@@ -887,11 +889,11 @@ Usage Metering API には、利用上限（クォータ）を管理する Previe
 |---|---|---|
 | `GET /api/v2/usage/quotas/{quota_namespace}` | クォータ一覧。`include_descendants` で同じデータセンターの子孫組織を含められる | `billing_read` または `billing_edit` |
 | `POST /api/v2/usage/quotas/{quota_namespace}` | クォータの一括作成・更新。属性は `usage_limit`（0 以上の整数）、`enforced`（上限超過をブロックするか、通知・追跡のみか）、`pending_usage_limit`（翌月 1 日 00:00 UTC から適用する予約値）、`scope`（ユーザーハンドルなど 1 件。`"*"` は既定値。省略すると組織全体） | `billing_edit` |
-| `PATCH /api/v2/usage/quotas/{quota_namespace}/{id}` | クォータの更新 | 公開情報では確認できず |
-| `DELETE /api/v2/usage/quotas/{quota_namespace}/{id}` | クォータの削除 | 公開情報では確認できず |
-| `DELETE /api/v2/usage/quotas/{quota_namespace}/{id}/pending` | 予約済みの上限変更の取り消し | 公開情報では確認できず |
+| `PATCH /api/v2/usage/quotas/{quota_namespace}/{id}` | クォータの更新 | `billing_edit` |
+| `DELETE /api/v2/usage/quotas/{quota_namespace}/{id}` | クォータの削除 | `billing_edit` |
+| `DELETE /api/v2/usage/quotas/{quota_namespace}/{id}/pending` | 予約済みの上限変更の取り消し | `billing_edit` |
 | `POST /api/v2/usage/temporary-grant-requests` | 月間 AI クレジット上限の一時引き上げを申請する。`total` は「追加分」ではなく「新しい月間上限」（整数）。`justification`（4096 バイトまで）が必須。`expires_at` を省略すると次の UTC 月境界で終了。`billing_edit` 権限を持つユーザーが承認・却下する。サービスアカウントの資格情報では使えない | `assistant_access`、`bits_dev_write`、`bits_investigations_write`、`bits_security_analyst_write`、`agent_builder_run`、`billing_edit` のいずれか |
-| `/api/v2/usage/admin/temporary-grant-requests/*` | 管理者による申請一覧・判定（decision）・取り消し（revoke） | 公開情報では確認できず |
+| `/api/v2/usage/admin/temporary-grant-requests/*` | 管理者による申請一覧・判定（decision）・取り消し（revoke）。人間のユーザーの認証が必要で、サービスアカウントの資格情報では使えない | `billing_edit`（一覧・参照も含む） |
 
 組織全体のクォータで `usage_limit` を設定する場合、値は当期間の既存利用量より大きくなければならない。[出典](https://docs.datadoghq.com/api/latest/usage-metering/)
 
@@ -906,7 +908,7 @@ Usage Metering API には、利用上限（クォータ）を管理する Previe
 | 保持期間 | 15 か月 |
 | 時間単位データの取得範囲 | 1 リクエストで、複数組織なら最大 24 時間分、単一組織なら最大 2 か月分 |
 | ページング | Monthly/Hourly Usage Attribution と Monthly Cost Attribution は `next_record_id` でページングする。公式の疑似コードは、レート制限を避けるためにページ間で 5 秒待つ |
-| 親組織限定 | 推定・予測・確定コスト、Monthly Cost Attribution、Usage Summary、Billable Summary、Billing dimension mapping は**親組織（parent-level organization）でのみ**使える |
+| 親組織限定 | 推定・予測・確定コスト、Monthly Cost Attribution、Usage Summary（利用可能フィールド一覧を含む）、Billable Summary、Billing dimension mapping は**親組織（parent-level organization）でのみ**使える |
 | `estimated_*` 利用タイプ | Hourly / Monthly Usage Attribution API の `estimated_*` 利用タイプはすべて **2027-02-01 に廃止予定** |
 | マルチリージョン | Usage Attribution のマルチリージョンデータは 2023-03-01 以降のみ |
 
@@ -928,9 +930,9 @@ Usage Metering API には、利用上限（クォータ）を管理する Previe
 | タグ別時間単位利用量 | `GET /api/v1/usage/hourly-attribution` | `usage_read` | `start_hr`・`usage_type`（必須、例: `infra_host_usage`）、`tag_breakdown_keys`、`include_descendants` 既定 true |
 | Usage Attribution の利用タイプ一覧 | `GET /api/v2/usage/usage-attribution-types` | `usage_read` | — |
 | 上位カスタムメトリクス | `GET /api/v1/usage/top_avg_metrics` | `usage_read` | `month` か `day` のどちらか一方。`limit` 1〜5000（既定 500） |
-| インデックス別ログ利用量 | `GET /api/v1/usage/logs_by_index` | 公開情報では確認できず | — |
+| インデックス別ログ利用量 | `GET /api/v1/usage/logs_by_index` | `usage_read` | — |
 | 課金ディメンションと API キーの対応 | `GET /api/v2/usage/billing_dimension_mapping` | `usage_read` | 親組織のみ。月次で更新。`filter[view]=active`（既定）／`all` |
-| Usage Summary の利用可能フィールド | `GET /api/v2/usage/summary/available_fields` | 公開情報では確認できず | SDK では新しい課金ディメンションに型付きゲッターが作られないので、このエンドポイントでキーを列挙する |
+| Usage Summary の利用可能フィールド | `GET /api/v2/usage/summary/available_fields` | `usage_read` | 親組織のみ。SDK では新しい課金ディメンションに型付きゲッターが作られないので、このエンドポイントでキーを列挙する |
 
 [出典](https://docs.datadoghq.com/api/latest/usage-metering/)
 
@@ -1027,6 +1029,7 @@ AP1（日本）固有の機能制限は、本ファイルで参照した公開�
 | Datadog Costs のデータ遅延／保持期間 | 48 時間／過去 15 か月 | [datadog_costs](https://docs.datadoghq.com/cloud_cost_management/datadog_costs/) |
 | Datadog Costs の前月分確定 | 毎月 16 日頃 | [datadog_costs](https://docs.datadoghq.com/cloud_cost_management/datadog_costs/) |
 | Cost Monitor（確定データ）の評価 | 評価頻度 30 分、評価ウィンドウ 48 時間遅れ | [cloud_cost monitor](https://docs.datadoghq.com/monitors/types/cloud_cost/) |
+| Anomalies モニターの必要データ量 | 確定データ版: 最低 1 か月分。リアルタイム AI 異常検知（Agent Observability の推定 AI コスト対象）: 最低 3 日分、推奨 21 日分。4 時間のローリングウィンドウで評価し、15 分以内に通知 | [cloud_cost monitor](https://docs.datadoghq.com/monitors/types/cloud_cost/) |
 | Bill Overview の Product List／Resource Drilldown のページサイズ | 既定 10 行 | [bill_overview](https://docs.datadoghq.com/account_management/plan_and_usage/bill_overview/) |
 | Billable Resources CSV の対象 | 完了した暦月のみ | [bill_overview](https://docs.datadoghq.com/account_management/plan_and_usage/bill_overview/) |
 | Usage Metering API のデータ遅延／保持 | 最大 72 時間／15 か月 | [API](https://docs.datadoghq.com/api/latest/usage-metering/) |

@@ -106,7 +106,7 @@ flowchart LR
 
 ### 2.2 モバイル版の録画方式
 
-モバイル版 Session Replay は HTML／CSS を使わない。各画面を **wireframe（ワイヤーフレーム）** と呼ぶ矩形（text・shape・image の 3 種類）に分解して記録する。[出典](https://docs.datadoghq.com/session_replay/browser/)
+モバイル版 Session Replay は HTML／CSS を使わない。各画面を **wireframe（ワイヤーフレーム）** と呼ぶ矩形（text・shape・image の 3 種類）に分解して記録する。[出典](https://docs.datadoghq.com/session_replay/mobile/)
 
 | 項目 | 内容 |
 |---|---|
@@ -116,7 +116,7 @@ flowchart LR
 | 再現性 | ピクセル単位の完全再現ではなく、骨組み（scaffold）にスタイルと画像を重ねたハイブリッドな再現 |
 | 非対応 | スマート TV、ウェアラブル |
 
-[出典](https://docs.datadoghq.com/session_replay/browser/) / [出典](https://docs.datadoghq.com/session_replay/browser/troubleshooting/)
+[出典](https://docs.datadoghq.com/session_replay/mobile/)（ワイヤーフレーム、スナップショット、非対応デバイス） / [出典](https://docs.datadoghq.com/session_replay/browser/)（再現性）
 
 ### 2.3 対応プラットフォーム
 
@@ -775,7 +775,7 @@ Segments は、特徴や行動でユーザーまたはアカウントをグル�
 
 > **サイト差異:** Product Analytics（Pathways、Funnel、Retention、Analytics Explorer、Segments、Server-side events）、Heatmaps、Session Replay の AI Summary／Smart Chapters／コメントは、`app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com` では**非対応**。[出典](https://docs.datadoghq.com/product_analytics/) / [出典](https://docs.datadoghq.com/session_replay/) / [出典](https://docs.datadoghq.com/session_replay/heatmaps/)
 
-> **サイト差異:** 公式料金ページの Product Analytics の説明には「Available for US and EU accounts. Not yet on GovCloud.」と記載されている（2026-11-02 時点）。一方、ドキュメントでは非対応サイトとして GovCloud 系の 2 サイトのみを挙げており、AP1（日本）・AP2 での提供可否について両者の記述が一致しない。AP1 で利用する場合は、組織の画面で Product Analytics を有効化できるか、または Datadog の担当者に確認すること。[出典](https://www.datadoghq.com/pricing/?product=product-analytics)
+> **サイト差異:** 公式料金ページの Product Analytics の説明には「Available for US and EU accounts. Not yet on GovCloud.」と記載されている（2026-11-02 時点）。一方、ドキュメントでは非対応サイトとして GovCloud 系の 2 サイトのみを挙げている。また公式料金一覧には Product Analytics の AP1 価格（年契約 $1／月契約 $1.25／オンデマンド $1.50 per 1,000 セッション）が掲載されており（[製品別料金表](../../03_導入編/pricing-by-product.md) 11.1 節）、AP1 での提供を前提とした記載になっている。料金ページの説明文（US/EU のみ）だけが他の記述と食い違っているため、AP1 で利用する場合は、組織の画面で Product Analytics を有効化できるか、または Datadog の担当者に確認すること。[出典](https://www.datadoghq.com/pricing/?product=product-analytics)
 
 - リプレイはサンドボックスドメイン `session-replay-datadoghq.com` で描画される（CORS 設定の対象）。サイトごとのサンドボックスドメインの違いは公開情報では確認できず。
 - Intake エンドポイントは RUM と共通（[RUM（ブラウザ）](./rum-browser.md)、[Datadog Sites](../platform/datadog-sites.md)）。
@@ -842,13 +842,15 @@ RUM イベント自体の上限（1 イベント最大 1 MB、属性 1,000 個�
 
 ### 11.1 課金単位と定価
 
-| SKU | 課金対象 | 単位 | 年契約 | 月契約 | オンデマンド |
-|---|---|---|---|---|---|
-| Session Replay（RUM と Product Analytics のアドオン） | リプレイ付きで保持されたセッション | 1,000 セッション／月 | $2.50 | $3 | $3.60 |
-| Product Analytics | 取り込んだ全セッション（full traffic） | 1,000 セッション／月 | $0.80 | $1 | $1.20 |
-| Export Pipelines（RUM Measure と Product Analytics のアドオン） | エクスポートしたセッション | 1,000 セッション／月 | $0.10 | $0.12 | $0.15 |
-| （参考）RUM - Measure | 取り込んだ全セッション | 1,000 セッション／月 | $0.15 | $0.18 | $0.22 |
-| （参考）RUM - Investigate | Retention Filters で保持したセッション | 1,000 セッション／月 | $3 | $3.60 | $4.50 |
+| SKU | 課金対象 | 単位 | US/EU1 年契約 | US/EU1 月契約 | US/EU1 オンデマンド | AP1 年契約 | AP1 月契約 | AP1 オンデマンド |
+|---|---|---|---|---|---|---|---|---|
+| Session Replay（RUM と Product Analytics のアドオン） | リプレイ付きで保持されたセッション | 1,000 セッション／月 | $2.50 | $3 | $3.60 | $3.125 | $3.75 | $4.50 |
+| Product Analytics | 取り込んだ全セッション（full traffic） | 1,000 セッション／月 | $0.80 | $1 | $1.20 | $1 | $1.25 | $1.50 |
+| Export Pipelines（RUM Measure と Product Analytics のアドオン） | エクスポートしたセッション | 1,000 セッション／月 | $0.10 | $0.12 | $0.15 | $0.125 | $0.15 | $0.1875 |
+| （参考）RUM - Measure | 取り込んだ全セッション | 1,000 セッション／月 | $0.15 | $0.18 | $0.22 | $0.1875 | $0.225 | $0.275 |
+| （参考）RUM - Investigate | Retention Filters で保持したセッション | 1,000 セッション／月 | $3 | $3.60 | $4.50 | $3.75 | $4.50 | $5.625 |
+
+> **サイト差異:** 定価はサイトによって異なり、AP1（日本）の価格は US/EU1 の 1.25 倍。AP1 価格は [製品別料金表](../../03_導入編/pricing-by-product.md) 11.1 節（取得日 2026-11-03）による。
 
 価格は公式料金ページの定価（USD、**2026-11-02 時点**）。[出典](https://www.datadoghq.com/pricing/list/) / [出典](https://www.datadoghq.com/pricing/?product=product-analytics) 料金の正本・最新値は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
 
@@ -869,7 +871,7 @@ RUM イベント自体の上限（1 イベント最大 1 MB、属性 1,000 個�
 
 [出典](https://docs.datadoghq.com/account_management/billing/rum/) / [出典](https://docs.datadoghq.com/real_user_monitoring/rum_without_limits/retention_filters/) / [出典](https://docs.datadoghq.com/real_user_monitoring/guide/browser-sdk-upgrade/) / [出典](https://www.datadoghq.com/pricing/?product=product-analytics)
 
-**試算例（定価・年契約、2026-11-02 時点）:** 月 200 万セッションを取り込み、Product Analytics を有効化し、そのうち 5%（10 万セッション）を録画・保持する場合、Product Analytics は 2,000 × $0.80 = $1,600、Session Replay は 100 × $2.50 = $250 で月 $1,850 となる（RUM Measure／Investigate を併用する場合はその分が加算される）。実際の請求は契約条件により異なる。見積り手法は [コスト見積り手法](../../03_導入編/cost-estimation.md)、削減策は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+**試算例（定価・年契約、2026-11-02 時点）:** 月 200 万セッションを取り込み、Product Analytics を有効化し、そのうち 5%（10 万セッション）を録画・保持する場合、US/EU1 の単価では Product Analytics は 2,000 × $0.80 = $1,600、Session Replay は 100 × $2.50 = $250 で月 $1,850、AP1 の単価では Product Analytics は 2,000 × $1 = $2,000、Session Replay は 100 × $3.125 = $312.50 で月 $2,312.50 となる（RUM Measure／Investigate を併用する場合はその分が加算される）。実際の請求は契約条件により異なる。見積り手法は [コスト見積り手法](../../03_導入編/cost-estimation.md)、削減策は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
 
 利用量は Usage 画面と推定利用量メトリクス（`datadog.estimated_usage.rum.sessions` の `sku` タグ等）で確認する（[RUM（ブラウザ）](./rum-browser.md) 14.3 節、[Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md)）。
 
@@ -886,7 +888,7 @@ RUM イベント自体の上限（1 イベント最大 1 MB、属性 1,000 個�
 | View 名の設計 | Heatmaps と Pathways は View 名でグループ化されるため、URL パラメータを含む View 名は正規化する（[RUM（ブラウザ）](./rum-browser.md) の View 名のカスタマイズを参照） |
 | アセットの CORS | Web フォント・画像のホストで `session-replay-datadoghq.com` を許可しないと、リプレイの見た目が崩れる |
 | 保存したいリプレイ | 30 日で失効するため、インシデントの証跡などは Extended Retention またはプレイリストで保持する |
-| AP1 での Product Analytics | 料金ページとドキュメントの記述が一致しないため、契約前に提供可否を確認する（[9](#9-サイト差異)） |
+| AP1 での Product Analytics | 料金一覧には AP1 価格が掲載されているが、料金ページの説明文は US/EU のみと記載しているため、契約前に提供可否を確認する（[9](#9-サイト差異)） |
 
 ---
 

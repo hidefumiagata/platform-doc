@@ -27,8 +27,11 @@ sources:
   - https://www.datadoghq.com/pricing/?product=serverless-monitoring#products
   - https://www.datadoghq.com/blog/azure-secretless-authentication/
   - https://www.datadoghq.com/blog/azure-log-forwarding/
+  - https://www.datadoghq.com/blog/monitor-enterprise-azure-environments-with-datadog/
   - https://learn.microsoft.com/en-us/azure/partner-solutions/datadog/overview
   - https://learn.microsoft.com/en-us/azure/partner-solutions/datadog/troubleshoot
+  - https://learn.microsoft.com/en-us/azure/azure-monitor/metrics/migrate-to-batch-api
+  - https://azure.microsoft.com/updates/generalavailabilityofazuremonitormetricsdataplaneapi/
   - https://azure.microsoft.com/en-us/pricing/details/monitor/
 ---
 
@@ -133,13 +136,13 @@ flowchart LR
 | US1 / US5 / EU1 / AP1 / AP2 | 可 | 可 | 不可 | 可 |
 | US3 | 可 | 可 | 可 | 可 |
 | US1-FED（`app.ddog-gov.com`） | **不可** | 可 | 不可 | **不可** |
-| US2-FED（`us2.ddog-gov.com`） | **不可** | 可（組織により利用可否が異なる） | 公式ドキュメントでは組織次第と記載 | **不可** |
+| US2-FED（`us2.ddog-gov.com`） | **不可** | 可（Azure インテグレーション自体の利用可否が組織により異なる。下記注記参照） | 不可（US3 のみ） | **不可** |
 | Azure 商用（パブリック）クラウド | 可 | 可 | 可（US3） | 可 |
 | Azure Government / Azure China（21Vianet 運営） | **不可** | 可 | 公開情報では確認できず | **不可** |
 
 出典: [Getting Started with Azure](https://docs.datadoghq.com/getting_started/integrations/azure/)、[Azure Automated Log Forwarding](https://docs.datadoghq.com/logs/guide/azure-automated-log-forwarding/)、[Azure Integration](https://docs.datadoghq.com/integrations/azure/)
 
-- `us2.ddog-gov.com` では、Azure インテグレーションが使えるかどうかは組織によって異なる。Integrations ページで確認するか管理者に問い合わせ、例外申請は `support@ddog-gov.com` に送る。[出典](https://docs.datadoghq.com/integrations/azure/)
+- `us2.ddog-gov.com` では、Azure インテグレーション（App Registration 方式）が使えるかどうかは組織によって異なる（Azure Native Integration は US3 専用のため US2-FED では使えない）。Integrations ページで確認するか管理者に問い合わせ、例外申請は `support@ddog-gov.com` に送る。[出典](https://docs.datadoghq.com/integrations/azure/)
 - 中国本土での Datadog サービスの利用は、Datadog Web サイトの「Restricted Service Locations」の免責事項に従う。[出典](https://docs.datadoghq.com/integrations/azure/)
 - サイトの詳細は [Datadog Sites](./datadog-sites.md) を参照。
 
@@ -204,8 +207,10 @@ Datadog のメニュー **Integrations > Azure**（Azure インテグレーシ�
 3. Datadog に戻り、ステータスが **CONNECTED** になったことを確認する。
 4. 監視するサブスクリプションと管理グループ（Management Group）を選ぶ。
 5. 認証方式（Secretless Auth / Client Secret）を選ぶ。
-6. メトリクス収集、リソース収集、ログ収集（任意）を設定する。
-7. **Confirm** をクリックする。
+6. メトリクス収集を設定する（任意でオフにするか、**Advanced Configuration** でリソースプロバイダー、タグ、ホスト、App Service Plan、Container Apps による絞り込み、Application Insights のカスタムメトリクスの有効化、Usage メトリクスの無効化、リソース構成収集のオフを行う）。
+7. ログ収集を有効にする場合は、ログフォワーダーを設定する。テナント内に既存のフォワーダーがあれば、新しく選んだサブスクリプション・管理グループを含むよう変更される。新規作成の場合は、コントロールプレーンのリソースグループ名、コントロールプレーン用サブスクリプション、コントロールプレーンのリージョンを入力する（[自動ログ転送](#自動ログ転送automated-log-forwarding) を参照）。
+8. 任意で **Log filtering options** を開き、タグによる絞り込みや、正規表現による機密情報（PII など）の除去を設定する。
+9. **Confirm** をクリックしてセットアップを完了する。
 
 出典: [Getting Started with Azure](https://docs.datadoghq.com/getting_started/integrations/azure/)
 
@@ -305,7 +310,7 @@ App Registration ごとに設定できる項目は次のとおり（UI 名称と
 Azure Native Integration は、Microsoft と Datadog が共同で開発・管理する Azure Native ISV Service（製品名：**Datadog - An Azure Native ISV Service**）で、Azure ポータル上で Datadog を Azure リソース（`Microsoft.Datadog/monitors`）として作成・管理できる。Datadog リソースは、Datadog 組織の作成またはリンク、診断設定の自動構成、Monitoring Reader の割り当て、Agent の拡張機能デプロイ、Entra ID によるシングルサインオン、課金を担うコントロールプレーンである。[出典](https://learn.microsoft.com/en-us/azure/partner-solutions/datadog/overview)（2026-10-30 更新）
 
 - **US3 サイトの組織でのみ利用できる**。Datadog リソースのロケーション（Azure デプロイリージョン）は **West US 2**（US3 のホスト先）だが、監視できる Azure リージョンは制限されない。[出典](https://docs.datadoghq.com/integrations/guide/azure-native-integration/)
-- Azure Marketplace のオファーは「Datadog – An Azure Native ISV Service」（オファー ID `dd_liftr_v2`）として公開されている。[出典](https://learn.microsoft.com/en-us/azure/partner-solutions/datadog/overview)
+- Azure Marketplace のオファーは「Datadog – An Azure Native ISV Service」として公開されている。Microsoft Learn の本文はオファー ID を `dd_liftr_v2` と記載しているが、同ページの Marketplace へのリンク先は `datadog1591740804488.dd_liftr_v3_decoupled` であり、記載が一致しない。購入時は Marketplace で製品名から検索するか、Microsoft Learn のリンクから開くとよい。[出典](https://learn.microsoft.com/en-us/azure/partner-solutions/datadog/overview)
 - Datadog リソースは、Azure ポータル、Azure CLI、IaC（Terraform、Bicep、ARM テンプレート）で管理できる。[出典](https://learn.microsoft.com/en-us/azure/partner-solutions/datadog/overview)
 
 ### 前提条件
@@ -441,7 +446,8 @@ Azure Integration のメトリクス収集は、Datadog のクローラーが Az
 
 - Azure メトリクスに対してモニターを作ると、Datadog は遅延についての警告を表示する。評価期間を長めにし、評価の遅延（evaluation delay）を設定することが推奨される。[出典](https://docs.datadoghq.com/integrations/guide/cloud-metric-delay/) モニター設定は [Monitors](./monitors.md) を参照。
 - システムレベルのメトリクスをほぼ遅延なく取りたい場合は、Azure のホストに Datadog Agent を入れる。[出典](https://docs.datadoghq.com/integrations/guide/cloud-metric-delay/)
-- Datadog は Microsoft と共同で Azure Monitor Metrics Data plane API の開発・テストを行い、取得効率を高めている。【第三者情報】Microsoft Tech Community の告知では、この API のバッチ呼び出しは同一リソース種別・同一リージョン・同一サブスクリプションの最大 50 リソース ID を 1 回で照会できる。[出典](https://techcommunity.microsoft.com/t5/azure-observability-blog/azure-monitor-announcing-public-preview-of-azure-metrics-data/ba-p/3805986)（2023 年公開。2 年以上前の情報のため現行仕様と異なる可能性あり）
+- Datadog ブログ「Enable monitoring for enterprise-scale Azure environments in minutes with Datadog」（2023-05-19 公開）によると、Datadog は Azure と協力して Azure Monitor Metrics Data plane API の開発・テストを行った。この API は照会上限が引き上げられており、Datadog は Azure メトリクスをより効率的に取り込める。[出典](https://www.datadoghq.com/blog/monitor-enterprise-azure-environments-with-datadog/)
+- Azure Monitor Metrics Data plane API は 2024-01-31 に一般提供（GA）となった。[出典](https://azure.microsoft.com/updates/generalavailabilityofazuremonitormetricsdataplaneapi/) バッチ呼び出し（`metrics:getBatch`）は、1 回の呼び出しで最大 50 の一意なリソース ID を指定できる。対象リソースはすべて同一サブスクリプション・同一リージョン・同一リソース種別である必要があり、カスタムメトリクスは照会できない。[出典](https://learn.microsoft.com/en-us/azure/azure-monitor/metrics/migrate-to-batch-api)
 
 ### Azure と Datadog で値が異なる理由
 
@@ -489,7 +495,19 @@ Azure Integration のメトリクス収集は、Datadog のクローラーが Az
 ### タグ
 
 - Azure Integration は、一般的なメタデータとリソース固有のメタデータ（**カスタム Azure タグを含む**）を、対応するリソースのメトリクスにタグとして付与する。[出典](https://docs.datadoghq.com/integrations/guide/azure-advanced-configuration/)
-- 自動付与されるタグ名の完全な一覧（例：サブスクリプション ID、リソースグループ、リージョンに相当するタグのキー名）は、公開情報では確認できず。実際のタグは Metrics Summary や Resource Catalog で確認する。
+- 自動付与されるタグのキーは公式の Azure Integrations ページに一覧があり、次のとおり。カスタム Azure タグはこれに加えて付与される。実際のタグは Metrics Summary や Resource Catalog でも確認できる。[出典](https://docs.datadoghq.com/integrations/guide/azure-integrations/)
+
+| 対象（名前空間） | 自動付与されるタグキー |
+|---|---|
+| すべての Azure インテグレーション | `cloud_provider`、`region`、`kind`、`type`、`name`、`resource_group`、`tenant_name`、`subscription_name`、`subscription_id`、`status`（該当する場合） |
+| Azure VM（`azure.vm.*`） | `host`、`size`、`operating_system`、`availability_zone` |
+| App Service Plan（`azure.web_serverfarms.*`） | `per_site_scaling`、`plan_size`、`plan_tier`、`operating_system` |
+| App Services の Web Apps と Functions（`azure.app_services.*`、`azure.functions.*`） | `operating_system`、`server_farm_id`、`reserved`、`usage_state`、`fx_version`（Linux の Web アプリのみ）、`php_version`、`dot_net_framework_version`、`java_version`、`node_version`、`python_version` |
+| SQL DB（`azure.sql_servers_databases.*`） | `license_type`、`max_size_mb`、`server_name`、`role`、`zone_redundant`。レプリケーションリンクのみ：`state`、`primary_server_name`、`primary_server_region`、`secondary_server_name`、`secondary_server_region` |
+| Load Balancer（`azure.network_loadbalancers.*`） | `sku_name` |
+| Usage and Quota（`azure.usage.*`） | `usage_category`、`usage_name` |
+
+出典: [Azure Integrations](https://docs.datadoghq.com/integrations/guide/azure-integrations/)
 - タグ設計は [Tagging](./tagging.md) と [タグ戦略の実践](../../04_応用編/tagging-strategy.md) を参照。
 
 ### 収集対象の絞り込み（タグフィルター構文）
@@ -747,7 +765,7 @@ Event Hub 方式の制約：
 | Workflow Automation / App Builder | Azure アクションで修復などを実行 | [Workflow Automation](../service-management/workflow-automation.md)、[App Builder](../service-management/app-builder.md) |
 | Serverless Monitoring | Azure App Service、Azure Functions、Azure Container Apps の APM・カスタムメトリクス | [Serverless Monitoring](../infrastructure/serverless.md) |
 | CI Visibility | Azure Pipelines の監視 | [CI Visibility](../software-delivery/ci-visibility.md) |
-| LLM Observability | Azure OpenAI の監視 | [LLM Observability](../ai/llm-observability.md) |
+| Agent Observability（旧称：LLM Observability） | Azure OpenAI の監視 | [Agent Observability](../ai/llm-observability.md) |
 
 出典: [Azure Integration](https://docs.datadoghq.com/integrations/azure/)、[Azure App Service](https://docs.datadoghq.com/serverless/azure_app_service/)
 
@@ -771,8 +789,8 @@ VM 拡張機能（CLI / PowerShell / Azure Arc からの設定）の主な設定
 | バージョン | Windows は `TypeHandlerVersion` `"7.0"`、Linux は `--version 7.0` |
 | `site` | Datadog サイト |
 | `agentVersion` | `x.y.z` 形式または `latest` |
-| `agentConfiguration`（任意） | Agent 設定ファイルの URI。`.blob.core.windows.net` ドメインのみ |
-| `agentConfigurationChecksum` | `agentConfiguration` 指定時は必須 |
+| `agentConfiguration`（任意） | Agent 設定を **ZIP 化して格納した Azure Blob の URI**（単体の `datadog.yaml` の URI ではない）。`.blob.core.windows.net` ドメインのみ |
+| `agentConfigurationChecksum` | その ZIP ファイルの SHA256 チェックサム。`agentConfiguration` 指定時は必須 |
 | `api_key`（保護設定） | API キー。`agentConfiguration` にも API キーがある場合は**設定ファイル側が優先** |
 | ダウングレード | **非対応** |
 | Azure Arc | Windows / Linux の Arc 対応マシン向けコマンドも公式ドキュメントに記載あり |
@@ -950,7 +968,7 @@ Terraform 運用全般は [Terraform と IaC](./terraform-and-iac.md) と [Monit
 
 Azure Integration そのものに追加料金はかからない。Datadog が課金するのは、Azure Integration で取り込んだデータのうち次の対象である。[出典](https://docs.datadoghq.com/account_management/billing/azure/)
 
-| 課金対象 | 内容 | 課金単位（定価は公式料金ページ、2026-11-02 時点） |
+| 課金対象 | 内容 | 課金単位（定価は **US/EU1 サイトの価格**。公式料金ページ、2026-11-02 時点。AP1 は表の下のサイト差異を参照） |
 |---|---|---|
 | **Azure VM（ホスト）** | Datadog で監視される**すべての Azure VM**（Agent の有無にかかわらず）。Agent が動く VM が Azure Integration でも検出されても**二重課金されない** | Infrastructure Monitoring のホスト単価（Pro：年契約 $15、月契約 / オンデマンド $18、Enterprise：年契約 $23、月契約 / オンデマンド $27。いずれも 1 ホスト / 月） |
 | **App Service Plan のノード** | App Service Plan 内のノードを**課金対象ホスト**として数える。Shared、Dynamic、Free ティアの Plan はノード数がないため課金に影響しない | 同上（ホスト単価） |
@@ -961,8 +979,10 @@ Azure Integration そのものに追加料金はかからない。Datadog が課
 
 出典: [Azure Integration Billing](https://docs.datadoghq.com/account_management/billing/azure/)、[Datadog Pricing List](https://www.datadoghq.com/pricing/list/)、[Serverless Monitoring Pricing](https://www.datadoghq.com/pricing/?product=serverless-monitoring#products)
 
+> **サイト差異:** 上表の金額は US/EU1 サイトの定価である。基準サイトの AP1（日本）では価格が異なり、上表の項目は次のとおり（US の約 1.25 倍。見積りでは比率ではなく掲載値を使う）。Infrastructure Pro：年契約 $18.75、月契約 / オンデマンド $22.50。Infrastructure Enterprise：年契約 $28.75、月契約 / オンデマンド $33.75。Custom Metrics：100 個あたり月 $6.25。Logs の取り込み：1 GB あたり $0.125。Serverless Application Monitoring：$3.75（年）/ $5（月）/ $5.40（オンデマンド）。Serverless Application APM：$7.50 / $9 / $11.25。詳細は [製品別料金表](../../03_導入編/pricing-by-product.md) の [§2 Infrastructure Monitoring](../../03_導入編/pricing-by-product.md#2-infrastructure-monitoringインフラ監視)、[§4 Serverless Monitoring](../../03_導入編/pricing-by-product.md#4-serverless-monitoringサーバーレス監視)、[§7 Log Management](../../03_導入編/pricing-by-product.md#7-log-management-と関連製品) を参照。[出典](https://www.datadoghq.com/pricing/list/)
+
 - **Azure SQL Database や Azure Cache for Redis など VM・App Service Plan 以外のリソースのメトリクスは、月額料金に影響しない**。[出典](https://docs.datadoghq.com/account_management/billing/azure/)
-- **ホスト数の削減**：Metric Collection タブの「Optionally limit metrics collection to hosts with tag:」で VM を絞り込める。ただし**Agent が動いている VM は引き続き表示・課金される**ため、この絞り込みが効くのは Agent のない VM だけである。App Service Plan は「Optionally limit metrics collection to App Service Plans with tag:」で絞り込める。[出典](https://docs.datadoghq.com/account_management/billing/azure/)
+- **ホスト数の削減**：Metric Collection タブの「Optionally limit metrics collection to hosts with tag:」で VM を絞り込める。ただし**Agent が動いている VM は引き続き表示・課金される**ため、この絞り込みが効くのは Agent のない VM だけである。App Service Plan は、課金ドキュメントでは **Configuration** タブの「Optionally limit metrics collection to App Service Plans with tag:」で絞り込めると記載されている（現行 UI では App Registration の Metric Collection の Advanced Configuration にも App Service Plan の絞り込みがある。UI の世代によって配置が異なる可能性がある）。[出典](https://docs.datadoghq.com/account_management/billing/azure/)
 - **停止中の VM**：電源オフの VM は `azure.vm.status` だけを報告してインフラ一覧に残るが、このメトリクスしか報告しない VM は課金対象ホスト数に数えられない。停止・割り当て解除された VM はパフォーマンスメトリクスを収集しない。[出典](https://docs.datadoghq.com/integrations/guide/azure-advanced-configuration/)
 - **App Service Plan のホスト課金と Serverless 課金の関係**：Azure Integration で検出した App Service Plan ノードのホスト課金と、Serverless Application Monitoring（App Service の計装）のアプリケーションインスタンス課金がどのように重複排除されるかは、公開情報では確認できず。見積り時は Datadog に確認すること。
 - **Azure Native（Marketplace 課金）**：Azure で作成した組織の利用料は Azure の請求書に計上され、MACC（Microsoft Azure Consumption Commitment）に算入できる場合がある。課金期間は月次で、プラン変更は **Change Plan** から行う。既存組織にリンクした場合は課金プランは変わらない。[出典](https://docs.datadoghq.com/integrations/guide/azure-native-integration/)、[出典](https://learn.microsoft.com/en-us/azure/partner-solutions/datadog/overview)
@@ -1032,6 +1052,7 @@ Datadog との連携に伴い、Azure の請求に次の費用が発生しうる
 - Serverless Monitoring Pricing（2026-11-02 取得）: https://www.datadoghq.com/pricing/?product=serverless-monitoring#products
 - Avoid Azure secret rotation with secretless authentication（2026-08-12 公開）: https://www.datadoghq.com/blog/azure-secretless-authentication/
 - Send Azure logs to Datadog faster and more easily with automated log forwarding: https://www.datadoghq.com/blog/azure-log-forwarding/
+- Enable monitoring for enterprise-scale Azure environments in minutes with Datadog（2023-05-19 公開）: https://www.datadoghq.com/blog/monitor-enterprise-azure-environments-with-datadog/
 
 ### Datadog 公式 GitHub / Terraform Registry（2026-11-02 取得）
 
@@ -1043,7 +1064,8 @@ Datadog との連携に伴い、Azure の請求に次の費用が発生しうる
 - Datadog overview - Azure Native Integrations（2026-10-30 更新）: https://learn.microsoft.com/en-us/azure/partner-solutions/datadog/overview
 - Troubleshooting for Datadog - Azure Native Integrations（2026-01-29 改訂、2026-10-30 更新）: https://learn.microsoft.com/en-us/azure/partner-solutions/datadog/troubleshoot
 - Azure Monitor pricing: https://azure.microsoft.com/en-us/pricing/details/monitor/
-- Azure Monitor: Announcing public preview of Azure Metrics Data plane API（2023 年公開、Tech Community）: https://techcommunity.microsoft.com/t5/azure-observability-blog/azure-monitor-announcing-public-preview-of-azure-metrics-data/ba-p/3805986
+- Migrate from the metrics API to the getBatch API - Azure Monitor（2026-10-13 更新）: https://learn.microsoft.com/en-us/azure/azure-monitor/metrics/migrate-to-batch-api
+- Announcing General Availability of Azure Monitor Metrics Data Plane API（Azure Updates、2024-01-31）: https://azure.microsoft.com/updates/generalavailabilityofazuremonitormetricsdataplaneapi/
 
 ### 画像（取得日 2026-11-02、Datadog, Inc. の著作物。社内参照目的に限り利用）
 

@@ -118,7 +118,7 @@ RUM Browser SDK の導入方式は、クライアントサイドの手動導入�
 | CDN 非同期（async） | CDN から非同期に読み込む | ページ読み込み性能に影響しない | 初期化前のイベントを取りこぼす可能性 | 性能目標が厳しいアプリ |
 | CDN 同期（sync） | 他のスクリプトより先に同期読み込み | 全イベントを収集できる | ページ読み込み性能に影響しうる | 全イベント収集を優先する場合 |
 | Agentic Onboarding | Pup CLI または Datadog MCP Server で AI 支援により計装 | 対応フレームワーク：Next.js、React、Svelte、Vue、Vanilla JavaScript | — | 新規導入の省力化 |
-| サーバーサイド自動インスツルメンテーション（RUM のみ） | Web サーバー／プロキシが HTML レスポンスに SDK を注入 | アプリコード変更不要 | Datadog Agent 7.34 以降が必要。高度な RUM 設定は非対応。Session Replay 等は対象外（RUM のみ）。対応：Apache、IBM HTTP Server、Java Servlet、NGINX、Windows IIS | アプリ改修が難しい環境 |
+| サーバーサイド自動インスツルメンテーション（RUM のみ） | Web サーバー／プロキシが HTML レスポンスに SDK を注入 | アプリコード変更不要 | Datadog Agent 7.34 以降が必要。高度な RUM 設定は非対応。Session Replay 等は対象外（RUM のみ）。Web サーバーがプロキシとして動作し、上流サーバーがエンドツーエンド TLS またはコンテンツ圧縮（gzip、zstd、Brotli）を使う場合は SDK を注入できない（上流の圧縮を無効化し、Web サーバー側で TLS origination を有効化する）。対応：Apache、IBM HTTP Server、Java Servlet、NGINX、Windows IIS | アプリ改修が難しい環境 |
 
 > **サイト差異:** Gov サイト（`app.ddog-gov.com`、`us2.ddog-gov.com`）ではサーバーサイド自動インスツルメンテーションは利用できず、クライアントサイドで導入する。[出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/browser/setup/client/)
 
@@ -190,13 +190,15 @@ Browser SDK の `site` パラメータは利用中の Datadog サイトに合わ
 
 [出典](https://docs.datadoghq.com/integrations/content_security_policy_logs/)
 
+> **注意（v7 の CDN 導入）:** v7 の CDN バンドルは非同期チャンクを ESM の動的 import で読み込むため、CDN の script タグに `crossorigin="anonymous"` 属性を付ける。また非同期チャンクのファイル名が `datadog` で始まる名前（例：`datadog-rum-recorder.js`）に変わったため、旧ファイル名に合わせた CSP やキャッシュのルールがあれば更新する。[出典](https://docs.datadoghq.com/real_user_monitoring/guide/browser-sdk-upgrade/) / [出典](https://github.com/DataDog/browser-sdk/blob/main/CHANGELOG.md)
+
 ### 2.5 SDK バージョンと主な破壊的変更
 
 Browser SDK はメジャーバージョンごとにデフォルト値や対応ブラウザが変わる。設計書や既存環境の設定値を読む際は、SDK バージョンを必ず確認する。[出典](https://docs.datadoghq.com/real_user_monitoring/guide/browser-sdk-upgrade/)
 
 | バージョン | 主な変更 |
 |---|---|
-| v7（2026-04-30 公開） | `defaultPrivacyLevel` のデフォルトが `mask` → **`mask-user-input`**。`enablePrivacyForActionName` のデフォルトが **`true`**。`propagateTraceBaggage` のデフォルトが **`true`**（クロスオリジンでは `Access-Control-Allow-Headers` に `baggage` の追加が必要になる場合あり）。**FID（First Input Delay）の収集を廃止**（INP に置き換え）。BFCache 復元は常に View として追跡（`trackBfcacheViews` 廃止）、早期リクエストは常に収集（`trackEarlyRequests` 廃止）、`allowFallbackToLocalStorage` 廃止（`sessionPersistence: ['cookie', 'local-storage']` を使う）、`usePciIntake` 廃止（標準 Intake が PCI 準拠）。ES2020 未満のブラウザを切り捨て（**Chrome 80+、Firefox 78+、Safari 14+**）。セッション Cookie 名が `_dd_s_v2` に変更。サンプリング判定が決定論的（セッション ID ベース）に。中断（abort）されたリクエストをネットワークエラーとして収集しない。View の `loading_type` に `session_renewal` を追加 |
+| v7（2026-04-30 公開） | `defaultPrivacyLevel` のデフォルトが `mask` → **`mask-user-input`**。`enablePrivacyForActionName` のデフォルトが **`true`**。`propagateTraceBaggage` のデフォルトが **`true`**（クロスオリジンでは `Access-Control-Allow-Headers` に `baggage` の追加が必要になる場合あり）。**FID（First Input Delay）の収集を廃止**（INP に置き換え）。BFCache 復元は常に View として追跡（`trackBfcacheViews` 廃止）、早期リクエストは常に収集（`trackEarlyRequests` 廃止）、`allowFallbackToLocalStorage` 廃止（`sessionPersistence: ['cookie', 'local-storage']` を使う）、（Browser Logs SDK）`usePciIntake` 廃止（標準 Intake が PCI 準拠）。CDN 導入時は script タグに `crossorigin="anonymous"` が必要になり、非同期チャンク名が `datadog` で始まる名前に変更（CSP・キャッシュ設定の更新が必要な場合あり。[2.4](#24-サイト別の-cdn-url-と-intake-ドメイン) の注意を参照）。ES2020 未満のブラウザを切り捨て（**Chrome 80+、Firefox 78+、Safari 14+**）。セッション Cookie 名が `_dd_s_v2` に変更。サンプリング判定が決定論的（セッション ID ベース）に。中断（abort）されたリクエストをネットワークエラーとして収集しない。View の `loading_type` に `session_renewal` を追加 |
 | v6 | `trackUserInteractions`・`trackResources`・`trackLongTasks` が**デフォルト有効**。`traceContextInjection` のデフォルトが `sampled`。`trackAnonymousUser` によりセッション Cookie の有効期限が 1 年に延長（`false` で無効化可）。IE11 等を切り捨て（ES2018 が最低）。`useCrossSiteSessionCookie` 廃止（`usePartitionedCrossSiteSessionCookie` へ）。Long Animation Frame を Long Task イベントとして収集 |
 | v5 | `defaultPrivacyLevel` のデフォルトが `mask-user-input` → `mask`。`sessionReplaySampleRate` のデフォルトが 100 → **0**。パラメータ改称：`proxyUrl`→`proxy`、`sampleRate`→`sessionSampleRate`、`allowedTracingOrigins`→`allowedTracingUrls`、`tracingSampleRate`→`traceSampleRate`、`trackInteractions`→`trackUserInteractions`、`premiumSampleRate`/`replaySampleRate`→`sessionReplaySampleRate`。`trackFrustrations` は不要に（`trackUserInteractions` で自動収集） |
 
@@ -288,7 +290,7 @@ Browser SDK はメジャーバージョンごとにデフォルト値や対応�
 
 | パラメータ | デフォルト | 説明 |
 |---|---|---|
-| `betaEnableViewUpdates` | `proxy` 未設定時は有効 | View の途中更新で変更されたフィールドのみ送信（v7.15.0 で全顧客にデフォルト有効化） |
+| `betaEnableViewUpdates` | 有効（v7.15.0 以降は全顧客。v7.11.0〜v7.14.x は `proxy` を使わない CDN 利用者のみ） | View の途中更新で変更されたフィールドのみ送信 |
 | `betaTrackWebSockets` | 未指定 | WebSocket の Vital イベントを収集（v7.16.0 で実験的に追加） |
 
 [出典](https://datadoghq.dev/browser-sdk/interfaces/_datadog_browser-rum.RumInitConfiguration.html) / [出典](https://github.com/DataDog/browser-sdk/blob/main/CHANGELOG.md)
@@ -578,7 +580,7 @@ RUM（ブラウザ）は Google の Core Web Vitals を View ごとに収集す�
 **組み合わせの例：** `sessionSampleRate: 60`、`sessionReplaySampleRate: 50` の場合、40% のセッションは破棄、30% は Browser RUM、30% は Browser RUM & Session Replay として収集される。[出典](https://docs.datadoghq.com/real_user_monitoring/guide/sampling-browser-plans/)
 
 - v7 ではサンプリング判定が決定論的（セッション ID に基づく）になり、製品間で一貫した判定が行われる。[出典](https://github.com/DataDog/browser-sdk/blob/main/CHANGELOG.md)
-- 旧パラメータ名：`sampleRate`（v4.30.0 未満）→`sessionSampleRate`、`premiumSampleRate`（v4.20.0 未満）／`replaySampleRate`（v4.10.2 未満）→`sessionReplaySampleRate`。`sessionReplaySampleRate` は v3.0.0 以降。
+- 旧パラメータ名：`sampleRate`（v4.30.0 未満）→`sessionSampleRate`、`premiumSampleRate`（v4.20.0 未満）／`replaySampleRate`（v4.10.2 未満）→`sessionReplaySampleRate`。`sessionReplaySampleRate` は v4.20.0 以降（同バージョンで `premiumSampleRate`／`replaySampleRate` は非推奨）。なお Session Replay 機能自体は SDK v3.0.0 以降が必要。
 
 ### 8.2 条件付きの録画（強制リプレイ）
 
@@ -968,18 +970,18 @@ RUM の操作権限は次のとおり。ロール全般は [組織・ユーザ�
 
 RUM は **1,000 セッション単位**で課金される。セッションは Web／モバイルアプリ上のユーザーの一連の操作で、**15 分間操作がないと終了**し、**最長 4 時間**で自動的に新しいセッションに切り替わる。[出典](https://docs.datadoghq.com/account_management/billing/rum/)
 
-| SKU | 課金対象 | 単位 | 年契約 | 月契約 | オンデマンド |
-|---|---|---|---|---|---|
-| Real User Monitoring (RUM) - Measure | 取り込んだ全セッション（full traffic） | 1,000 セッション／月 | $0.15 | $0.18 | $0.22 |
-| Real User Monitoring (RUM) - Investigate | Retention Filters で保持したセッション（filtered sessions） | 1,000 セッション／月 | $3 | $3.60 | $4.50 |
-| Session Replay（RUM と Product Analytics のアドオン） | リプレイ付きで保持されたセッション | 1,000 セッション／月 | $2.50 | $3 | $3.60 |
-| RUM Managed Archive（RUM Measure のアドオン） | アーカイブしたセッション（1 か月保存） | 1,000 セッション／月 | $0.20 | $0.25 | $0.30 |
-| 同（3 か月保存） | 同 | 同 | $0.30 | $0.38 | $0.45 |
-| 同（6 か月保存） | 同 | 同 | $0.45 | $0.56 | $0.68 |
-| Export Pipelines（RUM Measure と Product Analytics のアドオン） | エクスポートしたセッション | 1,000 セッション／月 | $0.10 | $0.12 | $0.15 |
-| RUM Profiling（RUM Measure のアドオン） | プロファイリング対象セッション | 1,000 セッション／月 | $3 | $3.60 | $4.50 |
+| SKU | 課金対象 | 単位 | US/EU1 年契約 | US/EU1 月契約 | US/EU1 オンデマンド | AP1 年契約 | AP1 月契約 | AP1 オンデマンド |
+|---|---|---|---|---|---|---|---|---|
+| Real User Monitoring (RUM) - Measure | 取り込んだ全セッション（full traffic） | 1,000 セッション／月 | $0.15 | $0.18 | $0.22 | $0.1875 | $0.225 | $0.275 |
+| Real User Monitoring (RUM) - Investigate | Retention Filters で保持したセッション（filtered sessions） | 1,000 セッション／月 | $3 | $3.60 | $4.50 | $3.75 | $4.50 | $5.625 |
+| Session Replay（RUM と Product Analytics のアドオン） | リプレイ付きで保持されたセッション | 1,000 セッション／月 | $2.50 | $3 | $3.60 | $3.125 | $3.75 | $4.50 |
+| RUM Managed Archive（RUM Measure のアドオン） | アーカイブしたセッション（1 か月保存） | 1,000 セッション／月 | $0.20 | $0.25 | $0.30 | $0.25 | $0.3125 | $0.375 |
+| 同（3 か月保存） | 同 | 同 | $0.30 | $0.38 | $0.45 | $0.375 | $0.475 | $0.5625 |
+| 同（6 か月保存） | 同 | 同 | $0.45 | $0.56 | $0.68 | $0.5625 | $0.70 | $0.85 |
+| Export Pipelines（RUM Measure と Product Analytics のアドオン） | エクスポートしたセッション | 1,000 セッション／月 | $0.10 | $0.12 | $0.15 | $0.125 | $0.15 | $0.1875 |
+| RUM Profiling（RUM Measure のアドオン） | プロファイリング対象セッション | 1,000 セッション／月 | $3 | $3.60 | $4.50 | $3.75 | $4.50 | $5.625 |
 
-価格は公式料金ページの定価（USD、**2026-11-02 時点**）。[出典](https://www.datadoghq.com/pricing/list/) 料金の正本・最新値は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
+価格は公式料金ページの定価（USD）。US/EU1 列は **2026-11-02 時点**の [Pricing Comparison](https://www.datadoghq.com/pricing/list/) で確認した値、AP1 列は [製品別料金表](../../03_導入編/pricing-by-product.md) §11.1（取得日 2026-11-03）の値で、AP1 の単価は US/EU1 の約 1.25 倍である。料金の正本・最新値は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
 
 ### 14.2 課金の考え方
 
@@ -1109,7 +1111,8 @@ RUM は **1,000 セッション単位**で課金される。セッションは W
 | `site` パラメータと Intake | サイトごとに異なる（[2.4](#24-サイト別の-cdn-url-と-intake-ドメイン)）。AP1 は `ap1.datadoghq.com`／`browser-intake-ap1-datadoghq.com` |
 | CDN URL | 商用サイトは `/<site>/v7/datadog-rum.js`、Gov サイトはリージョン区分なしの `datadog-rum-v7.js` |
 | サーバーサイド自動インスツルメンテーション | Gov サイト（US1-FED／US2-FED）では利用不可 |
-| RUM 製品自体の提供可否・価格のサイト差 | 公開情報では確認できず（料金ページはサイト別の価格差を明示していない） |
+| 料金 | サイトにより単価が異なる（AP1 は US/EU1 と異なる単価で、約 1.25 倍。[14.1](#141-課金単位) と [製品別料金表](../../03_導入編/pricing-by-product.md) を参照） |
+| RUM 製品自体の提供可否のサイト差 | 公開情報では確認できず |
 
 [出典](https://docs.datadoghq.com/real_user_monitoring/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/browser/setup/client/)
 

@@ -5,7 +5,7 @@ domain: general
 last_verified: 2026-11-02
 agent_version: "7.x"
 summary: Datadog 導入時の要件定義と基本設計で決める事項（サイト選択、単一 org / マルチ org の組織構成、タグ設計、データフロー設計、保持期間設計、RBAC 設計、命名規則）について、判断基準・公式推奨・制約値と、そのまま使える設計書テンプレートをまとめた導入ガイド。
-keywords: [要件定義, 基本設計, アーキテクチャ設計, 設計書, 設計書テンプレート, サイト選択, Datadog site, AP1, US1, データレジデンシー, organization topology, 組織構成, シングルorg, マルチorg, single organization, multi-organization, 親org, 子org, Cross-Organization Visibility, Organization Groups, タグ設計, Unified Service Tagging, 統合サービスタグ付け, 予約タグ, reserved tags, env, service, version, team, cost_center, カーディナリティ, データフロー設計, Observability Pipelines, OpenTelemetry, DDOT, Dual Shipping, 保持期間, retention, Flex Logs, Log Archives, RBAC, ロール設計, Custom Roles, Data Access Control, Granular Access Control, Restriction Policies, Teams, サービスアカウント, 命名規則, naming convention, Administrator's Guide, Access for Enterprises, Software Catalog（旧 Service Catalog）, Service Catalog]
+keywords: [要件定義, 基本設計, アーキテクチャ設計, 設計書, 設計書テンプレート, サイト選択, Datadog site, AP1, US1, データレジデンシー, organization topology, 組織構成, シングルorg, マルチorg, single organization, multi-organization, 親org, 子org, Cross-Organization Visibility, Organization Groups, タグ設計, Unified Service Tagging, 統合サービスタグ付け, 予約タグ, reserved tags, env, service, version, team, cost_center, カーディナリティ, データフロー設計, Observability Pipelines, OpenTelemetry, DDOT, Dual Shipping, 保持期間, retention, Flex Logs, Log Archives, RBAC, ロール設計, Custom Roles, Data Access Control, Granular Access Control, Restriction Policies, Teams, サービスアカウント, 命名規則, naming convention, Administrator's Guide, Access for Enterprises, Software Catalog（旧 Service Catalog）, Service Catalog, Agent Observability, LLM Observability, PrivateLink, cross-region PrivateLink]
 sources:
   - https://docs.datadoghq.com/administrators_guide/plan/
   - https://docs.datadoghq.com/getting_started/site/
@@ -21,11 +21,16 @@ sources:
   - https://docs.datadoghq.com/account_management/rbac/data_access/
   - https://docs.datadoghq.com/account_management/teams/
   - https://docs.datadoghq.com/account_management/api-app-keys/
+  - https://docs.datadoghq.com/account_management/saml/
+  - https://docs.datadoghq.com/account_management/users/
   - https://docs.datadoghq.com/account_management/billing/usage_attribution/
   - https://docs.datadoghq.com/getting_started/tagging/
+  - https://docs.datadoghq.com/getting_started/tagging/assigning_tags/
   - https://docs.datadoghq.com/getting_started/tagging/unified_service_tagging/
   - https://docs.datadoghq.com/developers/guide/what-best-practices-are-recommended-for-naming-metrics-and-tags/
   - https://docs.datadoghq.com/metrics/custom_metrics/
+  - https://docs.datadoghq.com/tracing/trace_pipeline/generate_metrics/
+  - https://docs.datadoghq.com/real_user_monitoring/platform/generate_metrics/
   - https://docs.datadoghq.com/tracing/guide/setting_primary_tags_to_scope/
   - https://docs.datadoghq.com/tracing/troubleshooting/
   - https://docs.datadoghq.com/monitors/settings/
@@ -33,11 +38,21 @@ sources:
   - https://docs.datadoghq.com/logs/log_configuration/indexes/
   - https://docs.datadoghq.com/logs/log_configuration/flex_logs/
   - https://docs.datadoghq.com/logs/log_configuration/archives/
+  - https://docs.datadoghq.com/logs/log_collection/
   - https://docs.datadoghq.com/opentelemetry/setup/
   - https://docs.datadoghq.com/observability_pipelines/
   - https://docs.datadoghq.com/agent/configuration/dual-shipping/
+  - https://docs.datadoghq.com/agent/configuration/network/
+  - https://docs.datadoghq.com/agent/guide/private-link/
+  - https://docs.datadoghq.com/agent/troubleshooting/site/
   - https://docs.datadoghq.com/disaster_recovery/
+  - https://docs.datadoghq.com/integrations/guide/azure-native-integration/
+  - https://docs.datadoghq.com/cloud_cost_management/tags/tag_pipelines/
   - https://www.datadoghq.com/pricing/
+  - https://www.datadoghq.com/pricing/?product=infrastructure
+  - https://www.datadoghq.com/pricing/list/
+  - https://www.datadoghq.com/about/latest-news/press-releases/datadog-expands-log-management-offering-with-new-long-term-retention-search-and-data-residency-capabilities/
+  - https://github.com/DataDog/datadog-sync-cli
   - https://dev.classmethod.jp/articles/how-to-choose-datadog-site/
   - https://www.datadoghq.com/blog/volkswagen-organizations/
 ---
@@ -173,13 +188,13 @@ Datadog の Administrator's Guide は、導入の初期に組織全体を調査�
 | アクセス制御 | 「部門ごとに見られるログを分けること」 | Data Access Control（タグで範囲を決める）、Logs RBAC の Restriction Query | §7 |
 | 認証 | 「社内 IdP で SSO すること」「多要素認証を必須にすること」 | SAML / SCIM はすべてのプランで利用可。Multiple SAML Providers、IP Allowlist は Enterprise | §7 |
 | 監査 | 「Datadog 上の操作ログを残すこと」 | Audit Trail は有効化時 90 日保持（無効時は 7 日） | §6、[Audit Trail](../02_リファレンス/platform/audit-trail.md) |
-| ネットワーク | 「インターネットを経由しないこと」 | AP1 は AWS PrivateLink に対応（同一リージョンからの接続） | §2、[ネットワーク・接続要件](network-and-connectivity.md) |
+| ネットワーク | 「インターネットを経由しないこと」 | AP1 は AWS PrivateLink に対応（エンドポイントは `ap-northeast-1`。他リージョンからは cross-region PrivateLink（公式推奨）または VPC Peering で接続） | §2、[ネットワーク・接続要件](network-and-connectivity.md) |
 | 可用性 | 「Datadog 障害時も監視を継続すること」 | Datadog Disaster Recovery（DDR）は商用サイトで【Limited Availability】。別サイトに副 org を作るアクティブ／パッシブ方式 | §2.6 |
 | 機微データ | 「個人情報を Datadog に送らないこと」 | Sensitive Data Scanner（取り込み時のマスク）、Observability Pipelines（送信前のマスク） | §5、[Sensitive Data Scanner](../02_リファレンス/security/sensitive-data-scanner.md) |
-| コスト配賦 | 「部門別に Datadog 費用を按分すること」 | Usage Attribution は最大 3 タグキー（Enterprise プランの機能） | §4.7 |
+| コスト配賦 | 「部門別に Datadog 費用を按分すること」 | Usage Attribution は最大 3 タグキー。閲覧には管理者または Usage Read 権限が必要。利用できるプランの条件は公開情報では確認できず（契約時に Datadog に確認） | §4.7 |
 | 性能・鮮度 | 「異常を 1 分以内に検知すること」 | モニターの評価間隔・データ遅延は製品ごとに異なる | [Monitors](../02_リファレンス/platform/monitors.md) |
 
-[出典](https://docs.datadoghq.com/data_security/data_retention_periods/)、[出典](https://docs.datadoghq.com/logs/log_configuration/flex_logs/)、[出典](https://www.datadoghq.com/pricing/?product=infrastructure)（2026-11-02 取得）、[出典](https://docs.datadoghq.com/disaster_recovery/)
+[出典](https://docs.datadoghq.com/data_security/data_retention_periods/)、[出典](https://docs.datadoghq.com/logs/log_configuration/flex_logs/)、[出典](https://www.datadoghq.com/pricing/?product=infrastructure)（2026-11-03 取得）、[出典](https://docs.datadoghq.com/disaster_recovery/)、[出典](https://docs.datadoghq.com/agent/guide/private-link/?site=ap1)、[出典](https://docs.datadoghq.com/account_management/billing/usage_attribution/)
 
 ### 1.4 サービスティアと環境ごとの適用範囲
 
@@ -210,16 +225,16 @@ Administrator's Guide は、サービスティア（サービスの重要度区�
 
 ### 1.5 規模とコストの前提値
 
-要件定義では、コスト見積りに使う前提値（ホスト数、コンテナ数、ログ量、スパン量、カスタムメトリクス数、RUM セッション数など）を集める。課金単位と同梱枠（allotment）は製品ごとに異なるため、詳細は [コスト見積り手法](cost-estimation.md) と [製品別料金表](pricing-by-product.md) を参照。設計に影響する代表的な同梱枠は次のとおり（2026-11-02 時点の公式料金ページの値。正本は [製品別料金表](pricing-by-product.md)）。
+要件定義では、コスト見積りに使う前提値（ホスト数、コンテナ数、ログ量、スパン量、カスタムメトリクス数、RUM セッション数など）を集める。課金単位と同梱枠（allotment）は製品ごとに異なるため、詳細は [コスト見積り手法](cost-estimation.md) と [製品別料金表](pricing-by-product.md) を参照。設計に影響する代表的な同梱枠は次のとおり（2026-11-03 取得の公式料金ページの値。正本は [製品別料金表](pricing-by-product.md)）。
 
 | 項目 | Pro | Enterprise | 設計への影響 |
 |---|---|---|---|
 | Custom Metrics 同梱枠 | 100 / ホスト | 200 / ホスト | タグ設計（§4.5）で時系列数を抑える必要がある |
 | Container Monitoring 同梱枠 | 5 コンテナ / ホスト | 10 コンテナ / ホスト | コンテナ密度の高い基盤ではエディション選択に影響 |
-| Data Access Control | 10 datasets | 100 datasets | 部門・顧客ごとにデータセットを作る設計では上限に注意（§7.4） |
+| Data Access Control | 10 datasets | 100 datasets（Restricted モードにしたテレメトリタイプでは最大 1,000） | 部門・顧客ごとにデータセットを作る設計では上限に注意。1 データセットあたり principal 最大 50、key:value ペア最大 10（§7.4） |
 | Cross-Org Visibility | 5 connections | 100 connections | マルチ org で横断ダッシュボードを作る場合の上限（§3.5） |
 
-[出典](https://www.datadoghq.com/pricing/?product=infrastructure)（2026-11-03 取得、年契約・月契約・オンデマンド共通の機能表）
+[出典](https://www.datadoghq.com/pricing/?product=infrastructure)（2026-11-03 取得、年契約・月契約・オンデマンド共通の機能表）、[出典](https://docs.datadoghq.com/account_management/rbac/data_access/)（1,000 datasets と 1 データセットあたりの上限）
 
 ---
 
@@ -530,7 +545,7 @@ Unified Service Tagging（統合サービスタグ付け）は、`env`、`servic
 | Kubernetes のラベルのタグ化 | ワイルドカード（`"*"`）で全ラベルをタグ化しない。必要なラベルを列挙する | 【経験則】 |
 | コンテナのタグカーディナリティ | `DD_CHECKS_TAG_CARDINALITY` / `DD_DOGSTATSD_TAG_CARDINALITY` の既定は `low`。`orchestrator` / `high` にすると Pod・コンテナ単位の時系列が増える | [出典](https://docs.datadoghq.com/getting_started/tagging/assigning_tags/) |
 | APM の追加 Primary Tag | 一意の値は 100 まで | [出典](https://docs.datadoghq.com/tracing/guide/setting_primary_tags_to_scope/) |
-| APM の `env`×`service` | 一意の組み合わせの上限は 5,000。`env` や region をサービス名に含めない | [出典](https://docs.datadoghq.com/tracing/troubleshooting/) |
+| APM の `env`×`service` | 一意の組み合わせの上限は 40 分間あたり 5,000。`env` や region をサービス名に含めない | [出典](https://docs.datadoghq.com/tracing/troubleshooting/) |
 
 取り込み後にタグを絞る Metrics without Limits™ は [Metrics](../02_リファレンス/platform/metrics.md)、削減策は [コスト最適化](../04_応用編/cost-optimization.md) を参照。
 
@@ -556,8 +571,8 @@ Kubernetes の標準ラベル、Docker、ECS、非コンテナ環境での具体
 
 | 機能 | タグの使われ方 | 制約 | 出典 |
 |---|---|---|---|
-| Usage Attribution | 使用量を最大 3 タグキーで分解 | 最大 3 キー。初回レポートはタグ設定から 24 時間後。Enterprise プランの機能 | [出典](https://docs.datadoghq.com/account_management/billing/usage_attribution/) |
-| Data Access Control | タグでデータセットを定義し、Team / Role に閲覧を許可 | 同一テレメトリタイプでは全データセットで同じタグキー。データセット数は Pro 等 10、Enterprise 100 | [出典](https://docs.datadoghq.com/account_management/rbac/data_access/)、[出典](https://www.datadoghq.com/pricing/?product=infrastructure) |
+| Usage Attribution | 使用量を最大 3 タグキーで分解 | 最大 3 キー。初回レポートはタグ設定から 24 時間後。閲覧には管理者または Usage Read 権限が必要。プランの条件は公開情報では確認できず（契約時に Datadog に確認） | [出典](https://docs.datadoghq.com/account_management/billing/usage_attribution/) |
+| Data Access Control | タグでデータセットを定義し、Team / Role に閲覧を許可 | 同一テレメトリタイプでは全データセットで同じタグキー。データセット数は Pro 等 10、Enterprise 100（Restricted モードのテレメトリタイプでは最大 1,000）。1 データセットあたり principal 最大 50、key:value ペア最大 10 | [出典](https://docs.datadoghq.com/account_management/rbac/data_access/)、[出典](https://www.datadoghq.com/pricing/?product=infrastructure) |
 | APM Primary Tag | `env` と追加 1 タグで APM の集計をスコープ | 追加タグは値 100 まで。ホストタグまたはコンテナタグであること。設定は管理者のみ | [出典](https://docs.datadoghq.com/tracing/guide/setting_primary_tags_to_scope/) |
 | Monitor の Tag Policies | 全モニターに必須タグと許可値を強制 | 準拠しないモニターは新規作成できない | [出典](https://docs.datadoghq.com/monitors/settings/) |
 | Teams | `team:<handle>` でリソースを Team に紐付け | ハンドルに使える文字は `a-z`、`0-9`、`._-:/` | [出典](https://docs.datadoghq.com/account_management/teams/) |
@@ -704,7 +719,7 @@ Agent の Dual Shipping は、`additional_endpoints` の設定で同じデータ
 | Agent の送信ポート | 大半のデータは TCP 443（アウトバウンド） | [出典](https://docs.datadoghq.com/agent/configuration/network/) |
 | エンドポイントの形 | `<サービス接頭辞>.<site>`（例：`trace.agent.ap1.datadoghq.com`）。RUM は例外（`browser-intake-ap1-datadoghq.com`） | 同上 |
 | 静的 IP レンジ | `https://ip-ranges.<site>`（例：`https://ip-ranges.ap1.datadoghq.com`） | 同上 |
-| 閉域接続 | AP1 は AWS PrivateLink | [出典](https://docs.datadoghq.com/agent/guide/private-link/) |
+| 閉域接続 | AP1 は AWS PrivateLink（他リージョンからは cross-region PrivateLink（公式推奨）または VPC Peering） | [出典](https://docs.datadoghq.com/agent/guide/private-link/) |
 
 ---
 
@@ -741,7 +756,7 @@ Datadog の保持期間は、製品とデータの種類ごとに固定のもの
 | SLO | SLO の結果 | 15 か月 | — |
 | Error Tracking | エラーサンプル / Issues | 30 日 / 最終活動から 1 年 | — |
 | CI Pipeline Visibility | パイプライン等 | 15 か月 | — |
-| Test Visibility / Intelligent Test Runner | テスト | 3 か月 | — |
+| Test Optimization（旧称：Test Visibility / Intelligent Test Runner） | テスト | 3 か月 | — |
 | Cloud SIEM | シグナル | 15 か月 | — |
 | Cloud Security | 設定ミス、ID リスク、攻撃経路 | 15 か月 | — |
 | Workload Protection | イベント / シグナル | 90 日 / 15 か月 | — |
@@ -879,11 +894,11 @@ Administrator's Guide は、既存の SAML サービスと Datadog を接続し�
 
 | 項目 | Data Access Control（Restricted Datasets） | Logs RBAC（Restriction Query） |
 |---|---|---|
-| 対象 | ログ、APM トレース、RUM セッション、カスタムメトリクス、Cloud Cost、Error Tracking、セキュリティシグナル、LLM Observability 等（Hosts、Processes、Containers 等は申請制 Preview） | ログのみ |
+| 対象 | ログ、APM トレース、RUM セッション、カスタムメトリクス（Standard メトリクスは対象外）、Cloud Cost、Error Tracking の issue、セキュリティシグナル（Cloud SIEM、Workload Protection）、Agent Observability（旧称：LLM Observability。traces、Experiments、Datasets、Annotation Queues、Evaluator Configs、managed prompts）、Software Delivery（CI Visibility パイプラインのリポジトリ情報）、Workload Protection Agent Events。申請制 Preview：Database Monitoring、Hosts、Processes、Containers、security findings（Cloud Security、Code Security、Workload Protection、App and API Protection）、Serverless | ログのみ |
 | 範囲の決め方 | テレメトリタイプごとに 1 つのタグ／属性キー。同じタイプでは全データセットで同じキー | ログのクエリ |
 | 付与先 | Team または Role（個別ユーザー不可） | Role |
 | 既定 | Unrestricted（どのデータセットにも入らないデータは見える）。Restricted に切り替えると明示許可のみ | — |
-| 上限 | Pro 等 10 datasets、Enterprise 100 datasets | 公開情報では確認できず |
+| 上限 | Pro 等 10 datasets、Enterprise 100 datasets（Restricted モードにしたテレメトリタイプでは最大 1,000）。1 データセットあたり principal（Role / Team）最大 50、key:value ペア最大 10 | 公開情報では確認できず |
 | 併用 | 併用すると両方の制限がかかる。公式はどちらか一方の利用を推奨 | 同左 |
 
 [出典](https://docs.datadoghq.com/account_management/rbac/data_access/)、[出典](https://www.datadoghq.com/pricing/?product=infrastructure)
@@ -943,7 +958,7 @@ Datadog の Access for Enterprises ガイドは、4 つの組織像について�
 | 対象 | 制約 | 出典 |
 |---|---|---|
 | メトリクス名 | 英字で始める。ASCII 英数字、`_`、`.` のみ（他は `_` に変換）。最大 200 文字（UI のため 100 文字未満を推奨）。Unicode 非対応。大文字小文字を区別 | [出典](https://docs.datadoghq.com/metrics/custom_metrics/) |
-| 生成メトリクス | スパンベースメトリクスは `trace.*` で始められない。RUM ベースメトリクスは `datadog.estimated_usage` で始められない | [出典](https://docs.datadoghq.com/tracing/trace_pipeline/generate_metrics/) |
+| 生成メトリクス | スパンベースメトリクスは `trace.*` で始められない。RUM ベースメトリクスは `datadog.estimated_usage` で始められない | [出典](https://docs.datadoghq.com/tracing/trace_pipeline/generate_metrics/)、[出典](https://docs.datadoghq.com/real_user_monitoring/platform/generate_metrics/) |
 | タグ | 英字で始める。最大 200 文字。メトリクスタグ・スパンタグは小文字化 | [出典](https://docs.datadoghq.com/getting_started/tagging/) |
 | APM の `service` | 最大 100 文字（`resource` は 5,000 文字） | [出典](https://docs.datadoghq.com/tracing/troubleshooting/) |
 | ホスト名 | RFC 1123 準拠（英字、数字、ハイフン） | [出典](https://docs.datadoghq.com/getting_started/tagging/assigning_tags/) |
@@ -971,7 +986,7 @@ Administrator's Guide は、サービスを「独立してデプロイできる�
 
 | 規約 | 例 | 理由・根拠 |
 |---|---|---|
-| 環境やリージョンを含めない | `checkout-api`（`checkout-api-prod` にしない） | `env`×`service` の一意の組み合わせは 5,000 が上限。環境は `env`、リージョンは Primary Tag で表す（公式推奨） |
+| 環境やリージョンを含めない | `checkout-api`（`checkout-api-prod` にしない） | `env`×`service` の一意の組み合わせは 40 分間あたり 5,000 が上限。環境は `env`、リージョンは Primary Tag で表す（公式推奨） |
 | 小文字とハイフン区切り | `order-worker` | スパンタグは小文字化される。サンプリングルールではサービス名の大文字小文字が区別される |
 | 機能を表す名前 | `inventory-api`、`inventory-batch` | 同じリポジトリでも独立してデプロイする単位は別サービスにする |
 | Software Catalog の定義と一致させる | `service.datadog.yaml` 等の定義 | 所有者・連絡先・リンクを紐付けるため |
@@ -1176,9 +1191,10 @@ Datadog はモニターやダッシュボードの名前の規約を公式には
 | 予約タグ | `host`、`device`、`source`、`service`、`env`、`version`、`team` | [出典](https://docs.datadoghq.com/getting_started/tagging/) |
 | タグの最大長 | 200 文字 | 同上 |
 | Usage Attribution のタグキー | 最大 3 | [出典](https://docs.datadoghq.com/account_management/billing/usage_attribution/) |
-| Data Access Control のデータセット数 | Pro 等 10、Enterprise 100 | [出典](https://www.datadoghq.com/pricing/?product=infrastructure) |
+| Data Access Control のデータセット数 | Pro 等 10、Enterprise 100（Restricted モードのテレメトリタイプでは最大 1,000） | [出典](https://www.datadoghq.com/pricing/?product=infrastructure)、[出典](https://docs.datadoghq.com/account_management/rbac/data_access/) |
+| Data Access Control の 1 データセットあたりの上限 | principal（Role / Team）最大 50、key:value ペア最大 10 | [出典](https://docs.datadoghq.com/account_management/rbac/data_access/) |
 | APM 追加 Primary Tag の値 | 100 まで | [出典](https://docs.datadoghq.com/tracing/guide/setting_primary_tags_to_scope/) |
-| APM の `env`×`service` の一意の組み合わせ | 5,000 | [出典](https://docs.datadoghq.com/tracing/troubleshooting/) |
+| APM の `env`×`service` の一意の組み合わせ | 40 分間あたり 5,000 | [出典](https://docs.datadoghq.com/tracing/troubleshooting/) |
 | メトリクス名 | 最大 200 文字（100 未満推奨） | [出典](https://docs.datadoghq.com/metrics/custom_metrics/) |
 | メトリクスの保持 | 15 か月 | [出典](https://docs.datadoghq.com/data_security/data_retention_periods/) |
 | Standard Index の保持（定価掲載） | 3 / 7 / 15 / 30 日（30 日超は要問い合わせ）。オンデマンドの既定は 15 日 | [出典](https://www.datadoghq.com/pricing/list/) |
@@ -1206,7 +1222,7 @@ Datadog はモニターやダッシュボードの名前の規約を公式には
 | タグ設計 | メトリクスのタグの組み合わせ数がカスタムメトリクス数（課金対象）になる。コンテナのタグカーディナリティ設定も影響する | [出典](https://docs.datadoghq.com/metrics/custom_metrics/) |
 | ログの保持設計 | Standard Index は保持期間別の単価（100 万イベントあたり）。Flex Logs は保存と Compute を分けた課金。Archives は顧客のストレージ費用 | [出典](https://www.datadoghq.com/pricing/list/) |
 | APM のサンプリング・Retention Filters | 取り込みスパン（GB）とインデックススパン（件数）が同梱枠を超えると課金 | [APM の概念とインジェスト制御](../02_リファレンス/apm/apm-concepts-and-ingestion.md) |
-| エディション | Usage Attribution、IP Allowlist、Multiple SAML Providers、Data Access Control の 100 datasets、Cross-Org Visibility の 100 connections などは Enterprise | [出典](https://www.datadoghq.com/pricing/?product=infrastructure) |
+| エディション | IP Allowlist、Multiple SAML Providers、Data Access Control の 100 datasets、Cross-Org Visibility の 100 connections などは Enterprise | [出典](https://www.datadoghq.com/pricing/?product=infrastructure) |
 | Audit Trail | 月額利用料に対する割合で課金（年契約 2%、月契約・オンデマンド 3%） | [製品別料金表](pricing-by-product.md) |
 
 ---
@@ -1256,6 +1272,7 @@ Datadog はモニターやダッシュボードの名前の規約を公式には
 - Naming best practices for metrics and tags: https://docs.datadoghq.com/developers/guide/what-best-practices-are-recommended-for-naming-metrics-and-tags/
 - Custom Metrics: https://docs.datadoghq.com/metrics/custom_metrics/
 - Generate Metrics from Spans: https://docs.datadoghq.com/tracing/trace_pipeline/generate_metrics/
+- Generate Custom Metrics From RUM Events: https://docs.datadoghq.com/real_user_monitoring/platform/generate_metrics/
 - Setting Primary Tags to Scope: https://docs.datadoghq.com/tracing/guide/setting_primary_tags_to_scope/
 - APM Troubleshooting（データ量の上限）: https://docs.datadoghq.com/tracing/troubleshooting/
 - Monitor Settings（Tag Policies）: https://docs.datadoghq.com/monitors/settings/

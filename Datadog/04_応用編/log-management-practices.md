@@ -2,7 +2,7 @@
 title: ログ管理の実践
 category: advanced
 domain: logs
-last_verified: 2026-11-02
+last_verified: 2026-11-04
 agent_version: "7.x"
 summary: Datadog Log Management を本番で運用するための実践知見。ログの構造化設計（JSON・予約属性・Standard Attributes・トレース相関）、Log Pipelines の設計、Index の分割と順序・Exclusion Filters・Daily Quota の戦略、Standard / Flex / Flex Frozen / Archive による保持期間の階層化、Cloud SIEM などセキュリティ用途のログとの共存（アクセス制御・機微データ・監査）を、公式ガイドと第三者の知見を出典付きでまとめる。
 keywords: [logs, ログ, Log Management, ログ管理, ベストプラクティス, 構造化ログ, structured logging, JSON ログ, 予約属性, reserved attributes, Standard Attributes, 標準属性, Aliasing, エイリアス, 命名規約, Unified Service Tagging, 統合サービスタグ, DD_LOGS_INJECTION, trace_id, ログとトレースの相関, Log Pipelines, パイプライン設計, Nested Pipeline, Auto-Processing, Pipeline Scanner, Indexes, インデックス戦略, Index Filters, Exclusion Filters, 除外フィルター, サンプリング, Daily Quota, 日次クォータ, catch-all index, キャッチオール, Log Optimizer, ログベースメトリクス, logs to metrics, Generate Metrics, 保持期間, retention, 階層化, tiering, Standard Indexing, Flex Logs, Flex Starter, Flex Frozen, Log Archives, Archive Search, Rehydration, リハイドレート, BYOC Logs, CloudPrem, Observability Pipelines, Cloud SIEM, Security Filters, Cloud SIEM index, セキュリティログ, Data Access, Restriction Queries, logs_read_data, Sensitive Data Scanner, Audit Trail, Logging without Limits, datadog.estimated_usage.logs.ingested_events]
@@ -13,6 +13,10 @@ sources:
   - https://docs.datadoghq.com/standard-attributes/?product=log
   - https://docs.datadoghq.com/logs/log_collection/
   - https://docs.datadoghq.com/logs/log_configuration/pipelines/
+  - https://docs.datadoghq.com/logs/log_configuration/pipeline_scanner/
+  - https://docs.datadoghq.com/logs/log_configuration/parsing/
+  - https://docs.datadoghq.com/logs/log_configuration/processors/log_date_remapper/
+  - https://docs.datadoghq.com/logs/log_configuration/processors/log_status_remapper/
   - https://docs.datadoghq.com/logs/log_configuration/indexes/
   - https://docs.datadoghq.com/logs/log_configuration/flex_logs/
   - https://docs.datadoghq.com/logs/log_configuration/archives/
@@ -28,14 +32,18 @@ sources:
   - https://docs.datadoghq.com/logs/guide/logs-rbac-permissions/
   - https://docs.datadoghq.com/security/cloud_siem/guide/determine-cloud-siem-product/
   - https://docs.datadoghq.com/security/cloud_siem/guide/customize-which-logs-cloud-siem-analyzes/
+  - https://docs.datadoghq.com/getting_started/security/cloud_siem/
   - https://docs.datadoghq.com/security/sensitive_data_scanner/setup/telemetry_data/
   - https://www.datadoghq.com/blog/log-management-policies/
   - https://www.datadoghq.com/blog/flex-logs/
   - https://www.datadoghq.com/about/latest-news/press-releases/datadog-expands-log-management-offering-with-new-long-term-retention-search-and-data-residency-capabilities/
   - https://www.datadoghq.com/pricing/list/
   - https://www.datadoghq.com/pricing/?product=log-management
+  - https://www.datadoghq.com/pricing/?product=cloud-siem
+  - https://www.datadoghq.com/product-preview/flex-frozen-archive-search/
   - https://zenn.dev/ymiz/articles/3965aeb6aa86e0
   - https://www.issoh.co.jp/tech/details/16595/
+  - https://dev.classmethod.jp/articles/datadog-pipelines-processors-guide/
 ---
 
 # ログ管理の実践
@@ -256,7 +264,7 @@ Aliasing を使っている場合、Log Explorer ではエイリアス元とエ�
 
 設計上の注意点は次のとおり。
 
-- **ステータス値は英語の標準値で出す。** Status Remapper は認識できない値を `info` にする。日本語のステータス値（「エラー」等）は `info` 扱いになるため、Category Processor で英語の区分に変換してからリマップする。【第三者情報】[出典](https://dev.classmethod.jp/articles/datadog-pipelines-processors-guide/)（2024-12 公開）、Status Remapper の既定は [Log Pipelines と処理](../02_リファレンス/logs/log-pipelines-and-processing.md)
+- **ステータス値は英語の標準値で出す。** Log Status Remapper は、規定のパターン（`err` で始まる文字列は error 等）に一致しない値をすべて `info` にする。[出典](https://docs.datadoghq.com/logs/log_configuration/processors/log_status_remapper/) このため日本語のステータス値（「エラー」等）は `info` 扱いになる。実務では Category Processor で英語の区分に変換してからリマップする。【第三者情報】[出典](https://dev.classmethod.jp/articles/datadog-pipelines-processors-guide/)（2024-12 公開）、Status Remapper の既定は [Log Pipelines と処理](../02_リファレンス/logs/log-pipelines-and-processing.md)
 - **error を乱発しない。** 公式ブログは「error ログは件数が少なく予算への影響が小さく、問題を明示するため調査価値が高い」としている。[出典](https://www.datadoghq.com/blog/log-management-policies/)（2020-05 公開） 逆に、正常系を error で出すと error 用 Index（長期保持・サンプリングなし）の件数が膨らむ。【経験則】
 - **debug は「必要時だけ ON」にする。** 公式ドキュメントの Exclusion Filter 例は、`status:DEBUG` を 100% 除外するフィルターを UI または API（Update an index）で切り替える運用を示している。[出典](https://docs.datadoghq.com/logs/log_configuration/indexes/)
 
@@ -452,10 +460,10 @@ Index の仕様上の制約（[Indexes・保持・アーカイブ](../02_リフ�
 |---|---|
 | Index の最大数 | 既定でアカウントあたり 100（サポートで引き上げ可） |
 | 振り分け | フィルターに一致した **最初の 1 つ** の Index にだけ入る（重複格納なし） |
-| どの Index にも一致しないログ | インデックスされない（Ingest 課金は発生） |
+| どの Index にも一致しないログ | インデックスされない（Ingest 課金は発生）。Logs to Metrics では `datadog_index` / `datadog_is_excluded` が `N/A`（取り込まれたが、どの包含・除外条件にも一致しなかったログ）として現れる |
 | Index 名 | 英字始まり、英小文字・数字・`-`。削除した Index と同名の Index は再作成不可 |
 
-[出典](https://docs.datadoghq.com/logs/log_configuration/indexes/)
+[出典](https://docs.datadoghq.com/logs/log_configuration/indexes/)。どの Index にも一致しないログの扱いは [出典](https://docs.datadoghq.com/logs/log_configuration/logs_to_metrics/)、Ingest 課金は [出典](https://www.datadoghq.com/pricing/?product=log-management)
 
 > **実践のヒント【経験則】:** 削除した Index 名は再利用できないため、Index 名に保持期間を入れる（例：`prod-errors-7d`）と、保持期間を変えたときに名前と実態がずれる。用途名（例：`prod-errors`）にして、保持期間はタグや説明で管理するとよい。
 
@@ -502,7 +510,7 @@ Index は上から順に評価され、最初に一致した Index に入る。�
 
 | 原則 | 内容 | 根拠 |
 |---|---|---|
-| 特別な要件のログを上に | 監査・セキュリティ・長期保持のログ（例：Cloud SIEM Index、CloudTrail 用 Flex Index）を先頭側に置く。下に置くと汎用 Index に先に吸われる | 公式仕様（先勝ち）。Cloud SIEM Standalone はセットアップで SIEM Index を先頭に移すよう警告する（[§6.2](#62-cloud-siem-の製品形態ごとの共存方法)） |
+| 特別な要件のログを上に | 監査・セキュリティ・長期保持のログ（例：Cloud SIEM Index、CloudTrail 用 Flex Index）を先頭側に置く。下に置くと汎用 Index に先に吸われる | 公式仕様（先勝ち）。Cloud SIEM Standalone はセットアップで SIEM Index を先頭に移すよう警告する [出典](https://docs.datadoghq.com/getting_started/security/cloud_siem/)（[§6.2](#62-cloud-siem-の製品形態ごとの共存方法)） |
 | 条件の狭いものから広いものへ | `status:error` → `env:prod` → `*` の順 | [出典](https://docs.datadoghq.com/logs/log_configuration/indexes/) |
 | 最下段にキャッチオール | どの Index にも一致しない未知のソースを受ける | [出典](https://www.datadoghq.com/architecture/a-guide-to-log-management-indexing-strategies-with-datadog/) |
 
@@ -548,7 +556,7 @@ Exclusion Filters は Index ごとに上から評価され、**最初に一致�
 
 - サンプリングと除外は、各システムの知識に基づくときに最も効果的である。自分がオーナーでないサービスはサービスオーナーに相談する。[出典](https://www.datadoghq.com/architecture/a-guide-to-log-management-indexing-strategies-with-datadog/)
 - 除外したログはあとから Log Explorer で遡って検索できない。後から調べる可能性があるなら Flex Logs やアーカイブ（Archive Search / Rehydration）を併用する。【第三者情報】[出典](https://www.issoh.co.jp/tech/details/16595/)（2026-08 公開）
-- Rehydrate したログは Index の Exclusion Filters の影響を受けない。【第三者情報】[出典](https://www.tothenew.com/blog/?p=64744)（公開日は公開情報では確認できず）
+- Rehydrate したログ（Historical Views）には Index の Exclusion Filters が適用されない。Rehydrate のために除外フィルターを変更する必要はない。[出典](https://docs.datadoghq.com/logs/log_configuration/rehydrating/)
 - Log Explorer の Log Patterns でパターンのサイドパネルを開き **Add Exclusion Filter** を押すのが最も手早い追加方法である。[出典](https://docs.datadoghq.com/logs/guide/best-practices-for-log-management/)
 
 ### 4.5 Daily Quota の設計
@@ -737,7 +745,7 @@ Index の **Configure Storage Tier and Retention** で、Standard Tier と Flex 
 
 Flex の Compute サイズ選定は、保存イベント累計（Starter：100 億件未満、XS：100〜500 億件、XS+：500〜1,000 億件、S：1,000〜2,000 億件、M：2,000〜5,000 億件、L：5,000 億〜1 兆件）が目安である。Flex クエリを使うダッシュボードも Compute を消費し、容量を超えるとクエリが遅くなり「Flex Logs compute capacity is constrained」エラーで失敗することがある。[出典](https://docs.datadoghq.com/logs/log_configuration/flex_logs/) 運用上は、Flex を参照するダッシュボードを常時表示の TV モニター等に置かない、時間範囲を必要最小限にする、などで Compute を節約する。【経験則】
 
-Flex の課金は 100 万件ごとに最低 30 日分（または最低 $0.05）であり、Architecture Center も「Flex は 30 日単位で課金される」としている。[出典](https://www.datadoghq.com/pricing/?product=log-management)、[出典](https://www.datadoghq.com/architecture/a-guide-to-log-management-indexing-strategies-with-datadog/) したがって **Flex の保持期間は 30 日の倍数で設計** すると無駄が出にくい。【推定】
+Flex の課金は 100 万件ごとに最低 30 日分（または最低 $0.05）である（料金ページ FAQ）。Architecture Center も「Flex Logs は 30 日単位で提供される（"available in 30 day increments"）」としている。[出典](https://www.datadoghq.com/pricing/?product=log-management)、[出典](https://www.datadoghq.com/architecture/a-guide-to-log-management-indexing-strategies-with-datadog/) したがって **Flex の保持期間は 30 日の倍数で設計** すると無駄が出にくい。【推定】
 
 ### 5.5 アーカイブの設計
 
@@ -806,7 +814,7 @@ Cloud SIEM は契約時期により製品形態が異なり、**分析対象ロ�
 
 #### Standalone での Index 順序の扱い
 
-Standalone のセットアップでは、Activate 時にカスタムの Cloud SIEM Index `cloud-siem-xxxx` が作られ、「The Cloud SIEM index is not in the first position」の警告が出た場合は Logs Configuration の Reorder index で先頭に移動するよう案内される（[Cloud SIEM](../02_リファレンス/security/cloud-siem.md)）。Index は先勝ちで、ログは 1 つの Index にしか入らないため、設計上は次の点を考慮する。
+Standalone のセットアップでは、Activate 時にカスタムの Cloud SIEM Index `cloud-siem-xxxx` が作られ、「The Cloud SIEM index is not in the first position」の警告が出た場合は Logs Configuration の Reorder index で先頭（Position 1）に移動するよう案内される。[出典](https://docs.datadoghq.com/getting_started/security/cloud_siem/)（2026-11-04 取得。仕様の詳細は [Cloud SIEM](../02_リファレンス/security/cloud-siem.md)）Index は先勝ちで、ログは 1 つの Index にしか入らないため、設計上は次の点を考慮する。
 
 | 論点 | 設計 | 確度 |
 |---|---|---|
@@ -1001,7 +1009,7 @@ Audit Trail は別課金の製品である（月額利用料の 2%〜3%。[製�
 | Archive Search | スキャン GB | $0.05 / GB（オンデマンド $0.07） |
 | Rehydration | スキャンした圧縮 GB + Rehydrate 後のインデックス件数 | $0.10 / GB + 保持期間別単価 |
 | Log Forwarding（外部 SIEM 等） | 転送 GB / 宛先 | $0.25 / GB |
-| Cloud SIEM | 分析ログ（GB または 100 万イベント） | Standalone 12 か月：$5 / GB |
+| Cloud SIEM | 分析イベント 100 万件（料金一覧・公式ドキュメントの表記。/pricing/ の製品カードは「Per GB analyzed」と表記） | 年契約 $5 / 100 万分析イベント（オンデマンド $7.50）。12 か月保持込み |
 | Sensitive Data Scanner | スキャン GB（Full）/ 取り込み GB（Detect） | $0.30 / $0.03 |
 | Audit Trail | 月額利用料に対する % | 2% |
 | コミット超過 | 超過分は年契約単価の +50% | — |
@@ -1068,6 +1076,7 @@ Audit Trail は別課金の製品である（月額利用料の 2%〜3%。[製�
 - Pipeline Scanner: https://docs.datadoghq.com/logs/log_configuration/pipeline_scanner/
 - Parsing: https://docs.datadoghq.com/logs/log_configuration/parsing/
 - Log Date Remapper: https://docs.datadoghq.com/logs/log_configuration/processors/log_date_remapper/
+- Log Status Remapper: https://docs.datadoghq.com/logs/log_configuration/processors/log_status_remapper/
 - Indexes: https://docs.datadoghq.com/logs/log_configuration/indexes/
 - Flex Logs: https://docs.datadoghq.com/logs/log_configuration/flex_logs/
 - Log Archives: https://docs.datadoghq.com/logs/log_configuration/archives/
@@ -1084,6 +1093,7 @@ Audit Trail は別課金の製品である（月額利用料の 2%〜3%。[製�
 - Determine your Cloud SIEM product: https://docs.datadoghq.com/security/cloud_siem/guide/determine-cloud-siem-product/
 - Customize which logs Cloud SIEM analyzes: https://docs.datadoghq.com/security/cloud_siem/guide/customize-which-logs-cloud-siem-analyzes/
 - Sensitive Data Scanner - Telemetry Data: https://docs.datadoghq.com/security/sensitive_data_scanner/setup/telemetry_data/
+- Getting Started with Cloud SIEM（2026-11-04 取得）: https://docs.datadoghq.com/getting_started/security/cloud_siem/
 
 公式サイト・ブログ・Architecture Center
 
@@ -1100,5 +1110,4 @@ Audit Trail は別課金の製品である（月額利用料の 2%〜3%。[製�
 
 - Datadogでログからメトリクスを生成しログ料金を節約（Zenn、ymiz、2025-04-30 公開）: https://zenn.dev/ymiz/articles/3965aeb6aa86e0
 - Datadogログ収集の3経路とパイプライン設計：インデックス制御で保管費を抑える実装手順（株式会社一創 テックブログ、2026-08-16 公開、2026-09-27 更新）: https://www.issoh.co.jp/tech/details/16595/
-- Maximizing Log Visibility and Reducing Costs（TO THE NEW ブログ、公開日は確認できず）: https://www.tothenew.com/blog/?p=64744
 - Datadog Pipelines Processors ガイド（DevelopersIO、2024-12 公開）: https://dev.classmethod.jp/articles/datadog-pipelines-processors-guide/

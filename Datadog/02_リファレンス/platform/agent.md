@@ -199,6 +199,8 @@ Linux インストールスクリプトの `DD_AGENT_FLAVOR` で指定できる�
 | Amazon Linux | 2022 / 2023 | >= 6.40.0 | >= 7.40.0 |
 | Debian（systemd） | 7.0（wheezy） | <= 6.35.2 | <= 7.35.2 |
 | Debian（systemd） | >= 8.0（jessie） | 対応 | 対応 |
+| Debian（SysVinit） | 7.0（wheezy） | 6.6.0 - 6.35.2 | <= 7.35.2 |
+| Debian（SysVinit） | >= 8.0（jessie） | 対応 | 対応（公式表の列ずれのため不確定） |
 | Ubuntu | >= 14.04 | 対応 | 対応 |
 | RedHat / CentOS / Oracle Linux | 6.x | <= 6.51.1 | <= 7.51.1 |
 | RedHat / CentOS / Oracle Linux | >= 7.0 | 対応 | 対応 |
@@ -752,6 +754,8 @@ flare は、Agent の設定ファイルとログをアーカイブにまとめ�
 
 [出典](https://docs.datadoghq.com/agent/troubleshooting/send_a_flare/)
 
+> **サイト差異:** 上表の `flare` サブコマンドによる送信は US1-FED（`app.ddog-gov.com`）と US2-FED（`us2.ddog-gov.com`）では使えない。これらのサイトでは手動送信を使う（後述のサイト差異注記を参照）。[出典](https://docs.datadoghq.com/agent/troubleshooting/send_a_flare/)
+
 **Datadog 画面からの flare 送信（リモート flare）**
 
 - 前提: Agent で Fleet Automation と Remote Configuration が有効であること。
@@ -760,7 +764,7 @@ flare は、Agent の設定ファイルとログをアーカイブにまとめ�
 
 [出典](https://docs.datadoghq.com/agent/troubleshooting/send_a_flare/)
 
-> **サイト差異:** Datadog 画面からの flare 送信は `app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com`（US2-FED）では利用できないため、コマンドによる手動送信を使う。[出典](https://docs.datadoghq.com/agent/troubleshooting/send_a_flare/)
+> **サイト差異:** US1-FED（`app.ddog-gov.com`）と US2-FED（`us2.ddog-gov.com`）では、Fleet Automation からの送信も `flare` サブコマンドによる送信も使えない。代わりに手動送信（Manual flare submission）を使い、ローカルに作成された flare アーカイブを自分で取り出してサポートへ渡す（Kubernetes では `kubectl cp` で Pod からコピーする）。[出典](https://docs.datadoghq.com/agent/troubleshooting/send_a_flare/)
 
 ![Fleet Automation からのリモート flare 送信フォーム](../../assets/images/agent/fleet-automation-remote-flare.png)
 
@@ -944,7 +948,7 @@ Datadog Agent のソフトウェア自体に料金はかからない。課金は
 
 | 製品 | 課金単位 | Agent との関係 |
 |---|---|---|
-| Infrastructure Monitoring | インフラホスト（物理または仮想の OS インスタンス）。毎時のユニークホスト数を記録し、HWMP（High Water Mark Plan）では上位 1% を除いた最大値（99 パーセンタイル）で課金。MHP（Monthly/Hourly Plan）では月間コミット超過分を時間課金 | Agent を入れたホストが課金対象ホストになる |
+| Infrastructure Monitoring | インフラホスト（物理または仮想の OS インスタンス）。毎時のユニークホスト数を記録し、HWMP（High Water Mark Plan）では上位 1% を除いた最大値（99 パーセンタイル）で課金。MHP（Hybrid Monthly/Hourly Plan）では月間コミット超過分を時間課金 | Agent を入れたホストが課金対象ホストになる |
 | APM | APM ホスト（トレースを生成・送信するアプリが動くホスト） | Trace Agent 経由でトレースを送ると APM ホストとして計上 |
 | カスタムメトリクス | カスタムメトリクス数 | DogStatsD・カスタムチェック等で送信したメトリクス |
 | ログ | 取り込み量・インデックス件数 | Logs Agent で送信したログ |
@@ -954,6 +958,8 @@ Datadog Agent のソフトウェア自体に料金はかからない。課金は
 [出典](https://docs.datadoghq.com/account_management/billing/pricing/)
 
 参考: Infrastructure Monitoring の定価は Pro が $15 / ホスト / 月（年契約）、$18（月契約・オンデマンド）、Enterprise が $23（年契約）、$27（月契約・オンデマンド）（2026-11-02 時点、公式料金ページ）。[出典](https://www.datadoghq.com/pricing/list/) 料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、計算方法は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+
+> **サイト差異:** 上記の金額は US（US1 / US3 / US5）と EU1 の価格。AP1（日本）はサイト別の価格で、Pro が $18.75（年契約）/ $22.50（月契約・オンデマンド）、Enterprise が $28.75（年契約）/ $33.75（月契約・オンデマンド）。ほかのサイトの価格は [製品別料金表](../../03_導入編/pricing-by-product.md) の §1 / §2 を参照。[出典](https://www.datadoghq.com/pricing/list/)
 
 - Agent の debug モードを有効にしたまま Agent 自身のログを Datadog に収集すると、インデックスされるログ量が増える。[出典](https://docs.datadoghq.com/agent/troubleshooting/debug_mode/)
 - Live Processes は Enterprise プランが必要と公式ドキュメントに記載されている。[出典](https://docs.datadoghq.com/infrastructure/process/)

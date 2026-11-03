@@ -1,10 +1,18 @@
 ---
 title: Datadog ナレッジ 執筆規約
 category: meta
+domain: general
 last_verified: 2026-11-02
+summary: Datadog ナレッジ全ファイルが従う執筆規約。基準日・Agent バージョン・基準サイト（AP1）、ファイル構成、フロントマター必須項目、本文の必須節、出典と確度ラベル、料金・画像の扱い、編ごとの役割とファイル間の整合ルールを定める。
+keywords: [規約, 執筆規約, conventions, フロントマター, frontmatter, 確度ラベル, 出典, 画像, 料金, 基準日, AP1]
+sources:
+  - https://docs.datadoghq.com/
+  - https://www.datadoghq.com/pricing/
 ---
 
 # Datadog ナレッジ 執筆規約
+
+## 概要
 
 本ナレッジは、ITコンサルタント・アーキテクト・エンジニアが読み、かつ AI が読み込んで質問に回答するための Markdown ドキュメント群である。全ファイルは本規約に従う。
 
@@ -106,3 +114,9 @@ sources:
 
 - 同じ事実（制限値、料金、製品名）を複数ファイルで書く場合は値を一致させる。迷ったらリファレンス（仕様）と `pricing-by-product.md`（料金）を正とする。
 - 関連ファイルへは相対リンクで参照する（例：`[Log Management](../02_リファレンス/logs/log-management.md)`）。
+
+## 参照元
+
+- https://docs.datadoghq.com/
+- https://www.datadoghq.com/pricing/
+- https://datadog-docs.imgix.net/images/

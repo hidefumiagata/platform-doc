@@ -21,6 +21,7 @@ sources:
   - https://docs.datadoghq.com/data_observability/lineage/
   - https://docs.datadoghq.com/integrations/databricks/
   - https://www.datadoghq.com/pricing/list/
+  - https://www.datadoghq.com/pricing/?product=jobs-monitoring
   - https://www.datadoghq.com/product/data-observability/jobs-monitoring/
   - https://www.datadoghq.com/blog/data-jobs-monitoring/
   - https://www.datadoghq.com/blog/optimize-spark-and-databricks-jobs-with-datadog/
@@ -57,7 +58,7 @@ Data Observability: Jobs Monitoring が公式にサポートするテクノロ�
 | 区分 | テクノロジー | 提供状況 | 主な収集方式 | 課金区分（料金ページ上） |
 |---|---|---|---|---|
 | ジョブ実行基盤 | Databricks（AWS / Azure / Google Cloud） | GA | Databricks API ポーリング + クラスター上の Agent + システムテーブルクエリ | Clusters（クラシック）／Databricks Serverless |
-| ジョブ実行基盤 | AWS Glue | **【Preview】** | AWS API クローラ（Datadog AWS インテグレーション経由） | 公開情報では確認できず |
+| ジョブ実行基盤 | AWS Glue | **【Preview】** | AWS API クローラ（Datadog AWS インテグレーション経由） | Orchestrators |
 | ジョブ実行基盤 | Azure Data Factory | **【Preview】** | Azure API（Datadog Azure インテグレーション経由） | 公開情報では確認できず |
 | オーケストレーター | Apache Airflow（OSS on Kubernetes / Amazon MWAA / Astronomer / Google Cloud Composer） | GA | OpenLineage プロバイダ | Orchestrators |
 | オーケストレーター | dbt（dbt Cloud / dbt Core） | GA | dbt Cloud API + Webhook、または `openlineage-dbt` | Orchestrators |
@@ -68,8 +69,10 @@ Data Observability: Jobs Monitoring が公式にサポートするテクノロ�
 > 補足：AWS Glue と Azure Data Factory の Preview 表記は各セットアップページによる。[出典（Glue）](https://docs.datadoghq.com/data_observability/jobs_monitoring/glue/) [出典（ADF）](https://docs.datadoghq.com/data_observability/jobs_monitoring/azure_data_factory/)
 >
 > 補足：製品ページでは「Clusters、Serverless、Orchestrator の 3 つのジョブタイプ」と説明されている。[出典](https://www.datadoghq.com/product/data-observability/jobs-monitoring/)
+>
+> 補足：AWS Glue の課金区分は、料金ページの Orchestrators カード（「Airflow, dbt, AWS Glue, custom jobs」）による。Azure Data Factory は料金ページに記載がなく、課金区分は公開情報では確認できず。[出典](https://www.datadoghq.com/pricing/?product=jobs-monitoring)
 
-> **サイト差異:** Data Observability: Jobs Monitoring は **US1-FED（`app.ddog-gov.com`）および `us2.ddog-gov.com` では非サポート**。US1、US3、US5、EU1、AP1、AP2 では利用できる（製品ページは「AP、EU、US データセンター」で提供と記載）。[出典](https://docs.datadoghq.com/data_observability/jobs_monitoring/) [出典](https://www.datadoghq.com/product/data-observability/jobs-monitoring/)
+> **サイト差異:** 公式ドキュメントでは、Data Observability: Jobs Monitoring は **US1-FED（`app.ddog-gov.com`）および `us2.ddog-gov.com` では非サポート** とされ、US1、US3、US5、EU1、AP1、AP2 で利用できる。[出典](https://docs.datadoghq.com/data_observability/jobs_monitoring/) 一方、料金ページの FAQ は「AP、EU、US の全データセンターで提供（GovCloud（US）を含む）」と書いており、公式情報どうしが食い違っている（2026-11-04 確認）。[出典](https://www.datadoghq.com/pricing/?product=jobs-monitoring) 本ファイルは仕様の記述として **ドキュメントの非サポート表記を優先** する。GovCloud で使う場合は、事前に Datadog 営業・サポートに提供可否を確認すること。なお [製品別料金表](../../03_導入編/pricing-by-product.md) は料金ページに従って「GovCloud（US）で提供」と書いており、本ファイルとの整合が必要である。
 
 ## アーキテクチャとデータの流れ
 
@@ -216,7 +219,7 @@ Databricks 向け Jobs Monitoring のセットアップ要件と設定は次の�
 | 項目 | 要件 |
 |---|---|
 | ネットワーク | ワークスペースにネットワーク制限がある場合、Datadog の Webhook IP レンジを許可リストに追加。Private Link ワークスペースでは Private Action Runner が必要 |
-| SQL Warehouse | **Pro または Serverless**（Classic は非対応）。コスト削減のため専用 2XS、Auto Stop 5〜10 分を推奨 |
+| SQL Warehouse | **Pro または Serverless**（Classic は非対応）。Warehouse の Permissions タブで、プリンシパル（サービスプリンシパルまたはトークンのプリンシパル）に **CAN USE** を付与する。コスト削減のため専用 2XS、Auto Stop 5〜10 分を推奨 |
 | Unity Catalog システムテーブル | `system` カタログに `USE CATALOG`、`USE SCHEMA`、`SELECT`。付与作業者は `CATALOG system` に `MANAGE` が必要 |
 | クエリテキスト | プリンシパルをアカウントレベルグループ `databricks_pii_access`（大文字小文字区別）に追加。Serverless ジョブ監視、SQL Warehouse／クエリ監視に必須 |
 
@@ -235,7 +238,7 @@ Databricks 向け Jobs Monitoring のセットアップ要件と設定は次の�
 | Compute | CAN ATTACH TO |
 | Lakeflow Declarative Pipelines | CAN VIEW |
 | Query | CAN VIEW |
-| SQL warehouse | CAN MONITOR |
+| SQL warehouse | CAN MONITOR（セットアップで指定する Warehouse には別途 CAN USE も必要） |
 
 システムテーブルの個別権限は、`system.access.column_lineage`、`system.billing.usage`、`system.access.workspaces_latest`、`system.billing.list_prices`、`system.billing.account_prices` の 5 テーブルに `USE CATALOG`、`USE SCHEMA`、`SELECT`。
 
@@ -326,7 +329,7 @@ Google Cloud Dataproc 向け Jobs Monitoring のセットアップは次のと�
 | Secret Manager | シークレット名 `dd_api_key`。リソース ID は `projects/<PROJECT_NAME>/secrets/<SECRET_NAME>`。クラスターのサービスアカウント（デフォルトは Compute Engine デフォルト SA）に `secretmanager.secretAccessor` または `secretmanager.versions.access` を含むロールを付与 |
 | 初期化アクション | スクリプトを GCS に置き、Customize cluster の Initialization Actions に指定。`DD_SITE`、`PROJECT_NAME`、`SECRET_NAME` を設定し `gcloud secrets versions access latest` で `DD_API_KEY` を取得、`install.datadoghq.com/scripts/install-dataproc.sh` を実行。各ノードに Agent と Java トレーサを導入 |
 | バージョン固定 | 例：`install-dataproc-0.13.5.sh` |
-| メタデータ（任意） | `DD_TAGS`（クラスター・Spark メトリクスのタグ）、`DD_ENV`（`env` タグ） |
+| 任意の環境変数（初期化スクリプト内） | `DD_TAGS`（クラスター・Spark メトリクスのタグ）、`DD_ENV`（`env` タグ） |
 | ログ | 任意で Dataproc ログ収集を有効化し、アプリケーションログと Spark ジョブトレースを相関 |
 | 確認 | `sudo datadog-agent status` |
 
@@ -436,7 +439,7 @@ Airflow 向け Jobs Monitoring は、`apache-airflow-providers-openlineage` が�
 | `OPENLINEAGE_NAMESPACE` / `AIRFLOW__OPENLINEAGE__NAMESPACE` | Datadog 上の `env` タグ（前者は Kubernetes、後者は MWAA・Astronomer） |
 | `OPENLINEAGE__TRANSPORT__TYPE` | `datadog` または `composite` |
 | `OPENLINEAGE_CLIENT_LOGGING` | `DEBUG` でトラブルシュート |
-| `AIRFLOW__OPENLINEAGE__SPARK_INJECT_PARENT_JOB_INFO` | `true` で Spark ジョブに親ジョブ情報を注入（プロバイダ 2.1.0 以降） |
+| `AIRFLOW__OPENLINEAGE__SPARK_INJECT_PARENT_JOB_INFO` | `true` で Spark ジョブに親ジョブ情報を注入（プロバイダ 2.1.0 以降、Airflow 2.9 以降） |
 | `AIRFLOW__OPENLINEAGE__EMISSION_POLICY` / `[openlineage] emission_policy` | 特定 DAG の送信除外（プロバイダ 2.19.0 以降 + Airflow 2.11 以降）。例：`[{"scope": {"dag_id": "<YOUR_DAG_ID>"}, "controls": {"emit": false}}]`、`"match_mode": "regex"` で正規表現 |
 
 ### ログ収集（任意）
@@ -528,7 +531,7 @@ Data Observability: Jobs Monitoring の制限値・デフォルト値として�
 
 | 項目 | 値 | 出典 |
 |---|---|---|
-| 非サポートサイト | `app.ddog-gov.com`（US1-FED）、`us2.ddog-gov.com` | [Jobs Monitoring](https://docs.datadoghq.com/data_observability/jobs_monitoring/) |
+| 非サポートサイト | `app.ddog-gov.com`（US1-FED）、`us2.ddog-gov.com`（料金ページ FAQ は GovCloud（US）でも提供と記載しており、食い違いがある。「対応テクノロジー」節のサイト差異を参照） | [Jobs Monitoring](https://docs.datadoghq.com/data_observability/jobs_monitoring/) |
 | Amazon EMR 最低リリース | 6.0.1 | [EMR](https://docs.datadoghq.com/data_observability/jobs_monitoring/emr/) |
 | Dataproc 最低リリース | 2.0.x（Compute Engine 上） | [Dataproc](https://docs.datadoghq.com/data_observability/jobs_monitoring/dataproc/) |
 | Kubernetes：Agent／Java トレーサ／Operator | 7.64.0 以降／1.38.0 以降／1.13.0 以降 | [Kubernetes](https://docs.datadoghq.com/data_observability/jobs_monitoring/kubernetes/) |
@@ -545,7 +548,7 @@ Data Observability: Jobs Monitoring の制限値・デフォルト値として�
 | EMR ログ（`DD_EMR_LOGS_ENABLED`） | デフォルト `false` | [EMR](https://docs.datadoghq.com/data_observability/jobs_monitoring/emr/) |
 | EMR Lineage（`DD_OPENLINEAGE_ENABLED`） | デフォルト `false`（公式サンプルは `true`） | 同上 |
 | Glue／ADF の収集間隔 | 「数分ごと」（具体値は非公開） | [Glue](https://docs.datadoghq.com/data_observability/jobs_monitoring/glue/)、[ADF](https://docs.datadoghq.com/data_observability/jobs_monitoring/azure_data_factory/) |
-| ジョブ実行データ（トレース）の保持期間 | 公開情報では確認できず | — |
+| ジョブ実行データの保持期間（デフォルト） | ジョブ実行トレース 90 日、メトリクス 15 か月 | [料金ページ FAQ](https://www.datadoghq.com/pricing/?product=jobs-monitoring) |
 | 監視可能なジョブ数・クラスター数・ワークスペース数の上限 | 公開情報では確認できず | — |
 | Spark 対応バージョン、Databricks Runtime 対応バージョン | 公開情報では確認できず | — |
 | モニターの評価ウィンドウ等の既定値 | 公開情報では確認できず | — |
@@ -553,19 +556,32 @@ Data Observability: Jobs Monitoring の制限値・デフォルト値として�
 
 ## 課金への影響
 
-Data Observability: Jobs Monitoring の課金単位と定価は次のとおり（**2026-11-02 時点、USD**）。料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。[出典](https://www.datadoghq.com/pricing/list/)
+Data Observability: Jobs Monitoring の課金単位と定価は次のとおり（**2026-11-02 時点、USD、US/EU1 価格**）。料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。[出典](https://www.datadoghq.com/pricing/list/) [出典](https://www.datadoghq.com/pricing/?product=jobs-monitoring)
 
 | 区分 | 対象 | 課金単位 | 年契約（Billed Annually） | 月契約（Month-to-month） | オンデマンド |
 |---|---|---|---|---|---|
 | Jobs Monitoring (Clusters) | Databricks クラシック、Spark（EMR / Dataproc / Kubernetes） | ホスト・時間あたり（per host, per hour） | $0.05 | $0.06 | $0.072 |
 | Jobs Monitoring (Databricks Serverless) | Databricks Serverless | DBU あたり（per DBU） | $0.025 | $0.03 | $0.036 |
-| Jobs Monitoring (Orchestrators) | Airflow、dbt、カスタムジョブ | ジョブ・時間あたり（per job, per hour） | $0.10 | $0.12 | $0.144 |
+| Jobs Monitoring (Orchestrators) | Airflow、dbt、AWS Glue、カスタムジョブ | ジョブ・時間あたり（per job, per hour） | $0.10 | $0.12 | $0.144 |
+
+> **サイト差異:** 上表は US/EU1 の価格である。基準サイト AP1 の価格は高く、年契約／月契約／オンデマンドの順に、Clusters が $0.0625／$0.075／$0.09、Databricks Serverless が $0.03125／$0.0375／$0.045、Orchestrators が $0.125／$0.15／$0.18 である。サイト別の価格は [製品別料金表](../../03_導入編/pricing-by-product.md) を正本とする。
+
+使用量の算定方法は、料金ページ FAQ で次のように示されている。[出典](https://www.datadoghq.com/pricing/?product=jobs-monitoring)
+
+| 区分 | 算定方法 |
+|---|---|
+| Clusters | ホスト・時間課金。計装済みの一意ホスト数を **5 分ごとにサンプリングし、その平均を 1 時間のホスト数** とする（例：5 分ごとの観測値の合計 600 ÷ 12 = 50 ホスト時間） |
+| Databricks Serverless | Datadog が監視した Serverless ジョブ実行で消費した **DBU の月合計 × 単価** |
+| Orchestrators | 監視対象の各ジョブ実行の所要時間（時間単位）を月全体で合計し、**次の整数時間に切り上げ**（例：合計 8.9 時間 → 9 ジョブ時間） |
 
 課金に関する補足は次のとおり。
 
+- **同梱スパン**：Clusters のジョブ実行トレースは Span Ingestion と Span Indexing の使用量を生む。Jobs Monitoring ホスト・時間あたり **取り込みスパン 0.205 GB、インデックススパン 1,370 件** が同梱され、超過分は追加課金の対象になりうる。[出典](https://www.datadoghq.com/pricing/?product=jobs-monitoring)
+- **コンテナ**：Kubernetes 上のジョブはコンテナ監視の使用量を生む。同梱枠は **10 コンテナ/ホスト**。[出典](https://www.datadoghq.com/pricing/?product=jobs-monitoring)
+- **Infrastructure ホストとの関係**：Jobs Monitoring を有効にしたホストには Infrastructure Monitoring は不要で、Infrastructure ホストとして課金されない。例外は Spark on Kubernetes で、Datadog Agent が動く全ノードが Infrastructure ホストとして数えられる。そのうち Spark ジョブが実際に実行中のノードだけが Job Host Hours に計上される。[出典](https://www.datadoghq.com/pricing/?product=jobs-monitoring)
+- **ログ**：任意のログ収集を有効にした場合、Log Management として課金される。[出典](https://www.datadoghq.com/pricing/?product=jobs-monitoring)
 - 製品ページでは Databricks Serverless を「Contact sales」と表示している箇所があり、料金一覧ページ（per DBU 価格）と表記が異なる。本ファイルでは料金一覧ページの値を採用した。[出典](https://www.datadoghq.com/product/data-observability/jobs-monitoring/)
-- 「ホスト」「ジョブ時間」の具体的なカウント方法（例：Driver と Executor の各ノードを個別ホストとして数えるか、1 時間未満の端数の扱い、同時実行ジョブの扱い）は公開情報では確認できず。Clusters は per host per hour のため、**ジョブを実行するクラスターのノード数 × 稼働時間** に比例すると考えられる `【推定】`。
-- AWS Glue、Azure Data Factory（いずれも Preview）がどの区分で課金されるかは公開情報では確認できず。
+- AWS Glue（Preview）は Orchestrators 区分に含まれる。Azure Data Factory（Preview）は料金ページに記載がなく、課金区分は公開情報では確認できず。
 - Jobs Monitoring 本体とは別に、以下は各製品の課金対象になりうる：Driver／Worker ログやコンテナログの取り込み・インデックス（[Indexes・保持・アーカイブ](../logs/log-indexes-retention-archives.md)）、Databricks の Infrastructure Monitoring・Cloud Cost Management（[Cloud Cost Management](../infrastructure/cloud-cost-management.md)）、Quality Monitoring（$16 / 監視テーブル / 月、年契約）（[Data Observability](./data-observability.md)）。
 - Databricks 側でも、システムテーブル取得用 SQL Warehouse の DBU コストが発生する（公式は専用 2XS・Auto Stop 5〜10 分を推奨）。[出典](https://docs.datadoghq.com/data_observability/jobs_monitoring/databricks/)
 - 新規アカウントには 14 日間の無料トライアルがある。[出典](https://www.datadoghq.com/product/data-observability/jobs-monitoring/)
@@ -618,6 +634,7 @@ Data Observability: Jobs Monitoring の課金単位と定価は次のとおり�
 - Lineage: https://docs.datadoghq.com/data_observability/lineage/
 - Databricks Integration: https://docs.datadoghq.com/integrations/databricks/
 - Datadog Pricing List（2026-11-02 取得）: https://www.datadoghq.com/pricing/list/
+- Datadog Pricing: Jobs Monitoring（料金カードと FAQ、2026-11-04 確認）: https://www.datadoghq.com/pricing/?product=jobs-monitoring
 - Jobs Monitoring 製品ページ: https://www.datadoghq.com/product/data-observability/jobs-monitoring/
 - Datadog Blog「Troubleshoot and optimize data processing workloads with Data Jobs Monitoring」（2024-06-20 公開）: https://www.datadoghq.com/blog/data-jobs-monitoring/
 - Datadog Blog「Optimize Spark and Databricks jobs with Datadog」（2026-06-09 公開）: https://www.datadoghq.com/blog/optimize-spark-and-databricks-jobs-with-datadog/

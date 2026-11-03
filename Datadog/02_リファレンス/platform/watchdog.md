@@ -24,6 +24,18 @@ sources:
   - https://docs.datadoghq.com/bits_ai/bits_investigation/investigate_issues/
   - https://registry.terraform.io/providers/DataDog/datadog/latest/docs/guides/monitors
   - https://www.datadoghq.com/pricing/
+  - https://github.com/DataDog/datadog-api-client-python/blob/master/src/datadog_api_client/v1/api/monitors_api.py
+  - https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/guides/monitors.md
+  - https://www.datadoghq.com/about/latest-news/press-releases/watchdog-autonomous-monitoring/
+  - https://www.datadoghq.com/ja/about/latest-news/press-releases/datadog-watchdog-ai-2022-04/
+  - https://www.datadoghq.com/blog/watchdog-insights-apm/
+  - https://www.datadoghq.com/blog/datadog-watchdog-automated-root-cause-analysis/
+  - https://www.datadoghq.com/blog/datadog-watchdog-insights-log-management/
+  - https://www.datadoghq.com/blog/watchdog-impact-analysis/
+  - https://www.datadoghq.com/blog/watchdog-live-processes/
+  - https://www.datadoghq.com/blog/watchdog-outage-detection/
+  - https://www.datadoghq.com/blog/ai-powered-metrics-monitoring/
+  - https://www.datadoghq.com/blog/cnm-network-health
 ---
 
 # Watchdog
@@ -32,19 +44,19 @@ sources:
 
 Datadog Watchdog（ウォッチドッグ）は、Datadog プラットフォーム全体の観測データ（メトリクス、APM トレース、ログ、RUM など）を横断的に分析する Datadog の AI エンジンである。Watchdog は、システム・アプリケーション・デプロイについて「期待される挙動（ベースライン）」を自動で算出し、そこから外れた挙動を異常として検知し、アラート・インサイト・根本原因分析（RCA）として提示する。公式ドキュメントでは「すべての Watchdog 機能は組み込みで、セットアップは不要」とされている。[出典](https://docs.datadoghq.com/watchdog/)
 
-Watchdog の機能は大きく 2 系統に分かれる。[出典](https://docs.datadoghq.com/watchdog/)
+Watchdog の機能は大きく 2 系統に分かれる。[出典](https://docs.datadoghq.com/watchdog/)（公式トップページが 2 系統に分類しているのは Watchdog Alerts、Faulty Deployment Detection、Watchdog Insights、RCA、Impact Analysis の 5 機能である。Faulty Cloud & SaaS API Detection と Watchdog Explains は同ページに載っていないため、本書が便宜上いずれかの系統に振り分けた。各機能の出典は [Faulty Cloud & SaaS API Detection](https://docs.datadoghq.com/watchdog/faulty_cloud_saas_api_detection/)、[Watchdog Explains](https://docs.datadoghq.com/dashboards/graph_insights/watchdog_explains/)）
 
 | 系統 | 機能 | 概要 | 本書の節 |
 |---|---|---|---|
 | Proactive alerts（能動的アラート） | Watchdog Alerts | APM・USM・インフラ・ログの異常を自動検知し、Watchdog Alert Explorer に表示 | [Watchdog Alerts](#watchdog-alertsウォッチドッグアラート) |
 | | Faulty Deployment Detection | 新バージョンのデプロイが新しいエラーやエラー率増加を持ち込んだかを判定 | [Faulty Deployment Detection](#automatic-faulty-deployment-detection不良デプロイの自動検知) |
-| | Faulty Cloud & SaaS API Detection | 外部プロバイダ（AWS、OpenAI、Stripe 等）の API 劣化を検知 | [Faulty Cloud & SaaS API Detection](#automatic-faulty-cloud--saas-api-detection外部プロバイダ障害の自動検知) |
+| | Faulty Cloud & SaaS API Detection（※本書で分類） | 外部プロバイダ（AWS、OpenAI、Stripe 等）の API 劣化を検知 | [Faulty Cloud & SaaS API Detection](#automatic-faulty-cloud--saas-api-detection外部プロバイダ障害の自動検知) |
 | Investigation assistance（調査支援） | Watchdog Insights | 各 Explorer 上部のカルーセルに、検索条件に合う異常（Anomalies）と外れ値（Outliers）を表示 | [Watchdog Insights](#watchdog-insightsウォッチドッグインサイト) |
 | | Root Cause Analysis（RCA） | APM の異常について、根本原因・Critical Failure・影響範囲を因果関係として提示 | [Root Cause Analysis](#watchdog-root-cause-analysisrca根本原因分析) |
 | | Impact Analysis | APM の異常がエンドユーザー（RUM のビュー・ユーザー）に与えた影響を推定 | [Impact Analysis](#watchdog-impact-analysis影響分析) |
-| | Watchdog Explains | ダッシュボードの時系列グラフの異常と、寄与したタグを特定 | [Watchdog Explains](#watchdog-explains-とダッシュボード異常検知) |
+| | Watchdog Explains（※本書で分類） | ダッシュボードの時系列グラフの異常と、寄与したタグを特定 | [Watchdog Explains](#watchdog-explains-とダッシュボード異常検知) |
 
-Watchdog の検知結果に通知を付けるには **Watchdog Monitor**（API 上の type は `event-v2 alert`）を使う。Watchdog のアルゴリズムを自分で任意のメトリクスに適用したり感度を調整したりする場合は、Anomaly / Forecast / Outlier の各モニターを使う（[Monitors](./monitors.md) 参照）。[出典](https://docs.datadoghq.com/watchdog/alerts/)
+Watchdog の検知結果に通知を付けるには **Watchdog Monitor**（API 上の type は `event-v2 alert`）を使う。Watchdog のアルゴリズムを自分で任意のメトリクスに適用したり感度を調整したりする場合は、Anomaly / Forecast / Outlier の各モニターを使う（[Monitors](./monitors.md) 参照）。[出典](https://docs.datadoghq.com/watchdog/alerts/)、API type の出典は [datadog-api-client-python](https://github.com/DataDog/datadog-api-client-python/blob/master/src/datadog_api_client/v1/api/monitors_api.py)（詳細は「API / Terraform での定義」節）
 
 ### 本ファイルの範囲と関連ファイル
 
@@ -619,7 +631,9 @@ External Provider Status（`https://app.datadoghq.com/watchdog/external-provider
 通知ルールの設定手順は次のとおり。[出典](https://docs.datadoghq.com/internal_developer_portal/external_provider_status/)
 
 1. 右上の `Notify Me` をクリック。
-2. 通知条件を定義する：監視するプロバイダを選択し、「Alert on any degradation（すべての劣化で通知）」または「Alert only when degradation impacts your services（自社サービスに影響する場合のみ通知）」を選ぶ。
+2. 通知条件を定義する。
+   - 監視するプロバイダを選択する。
+   - 選択したプロバイダについて、通知のタイミングを選ぶ：「Alert on any degradation（すべての劣化で通知）」または「Alert only when degradation impacts your services（自社サービスに影響する場合のみ通知）」。
 3. 通知先を設定する。
 4. 通知ルールに名前を付ける。
 
@@ -737,7 +751,7 @@ Watchdog Monitor は、Watchdog Alerts（APM、Infrastructure、Logs、Third Par
 | 区分 | 項目 | 内容 |
 |---|---|---|
 | 1. Predefined selectors | Environment | `env` タグから導出 |
-| | Alert Category | Watchdog アラートのサブセットに限定（例：APM、Infrastructure、Logs、Third Party） |
+| | Alert Category | Watchdog アラートのサブセットに限定（例：APM、Infrastructure、Logs、Third Party。例示の根拠は [Watchdog Alerts](https://docs.datadoghq.com/watchdog/alerts/) のファセット説明と [Faulty Cloud & SaaS API Detection](https://docs.datadoghq.com/watchdog/faulty_cloud_saas_api_detection/)） |
 | | Team | Software Catalog から導出 |
 | 2. Additional scoping | タグフィルタ | Watchdog イベントの任意のタグで絞り込み |
 | | Group By | 通知をグループ化するディメンション |

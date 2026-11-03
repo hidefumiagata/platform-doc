@@ -42,7 +42,7 @@ Datadog には、ダッシュボードやモニターとは別に「収集済み
 | ツール | 一言でいうと | 主な利用者 | 主な入力 | 主な出力 |
 |---|---|---|---|---|
 | **Notebooks（ノートブック）** | ライブなグラフを埋め込めるリッチテキストの共同編集ドキュメント | 調査担当、SRE、ポストモーテム作成者 | 全ウィジェット種別のグラフ、テキスト、画像 | ドキュメント、PDF |
-| **Notebooks の Analysis Features（分析機能）**（旧称：Log Workspaces / Logs Workspaces） | Notebook 内でデータソースを読み込み、変換・結合・SQL を多段で連鎖させる分析機能 | ログ分析者、調査担当 | Logs、RUM、Spans、Reference Tables、Metrics 等 | データセット、グラフ、CSV、ダッシュボード、定期 CSV レポート、Analysis Monitor |
+| **Notebooks の Analysis Features（分析機能）**（Log Workspaces / Logs Workspaces の機能を統合した後継【推定】） | Notebook 内でデータソースを読み込み、変換・結合・SQL を多段で連鎖させる分析機能 | ログ分析者、調査担当 | Logs、RUM、Spans、Reference Tables、Metrics 等 | データセット、グラフ、CSV、ダッシュボード、定期 CSV レポート、Analysis Monitor |
 | **DDSQL Editor** | DDSQL（タグを列のように扱える SQL 方言）または自然言語で、インフラリソースとテレメトリーを問い合わせる SQL IDE | エンジニア、FinOps、セキュリティ | Data Directory の各テーブル、テーブル関数 | 結果表、CSV、ダッシュボード、ノートブック、Workflow、Analysis Monitor |
 | **Reference Tables（リファレンステーブル）** | 主キー付きの外部メタデータ表（CSV / クラウドストレージ / SaaS 連携）。他製品から参照してエンリッチする | プラットフォーム管理者 | CSV、S3、Azure Storage、GCS、ServiceNow 等 | Log Lookup Processor、Cloud SIEM、DDSQL、Sheets、Notebooks、メトリクス結合 |
 | **Sheets（Datadog Sheets）** | Datadog データを表・ピボット・数式で分析するスプレッドシート | 非エンジニアを含む関係者、FinOps | 15 種のデータソース、Reference Tables | 表、ピボット、ウィジェット |
@@ -76,7 +76,7 @@ flowchart LR
   end
   L & M & S & R & I & C & RT --> DQ
   L & M & S & R & RT --> NB
-  L & M & R & C & RT --> SH
+  L & M & S & R & C & RT --> SH
   RT -->|Lookup Processor| LP[Log Pipelines]
   RT -->|Join| MQ[Metric Queries]
   RT --> SIEM[Cloud SIEM]
@@ -86,6 +86,8 @@ flowchart LR
   DQ -->|DDSQL Action| WF[Workflow Automation]
   NB & DQ & SH -->|CSV / PDF| EXP[Data Export]
 ```
+
+注: 上図のデータソースは主要なものの抜粋である。Sheets のデータソース全 15 種は「Sheets のデータソース」表、DDSQL のテーブルは「Data Directory」節を参照。
 
 ## Notebooks（ノートブック）
 
@@ -274,7 +276,7 @@ Notebook は三点メニューから PDF としてエクスポートできる。
 
 [出典](https://docs.datadoghq.com/api/latest/notebooks/)、[出典](https://docs.datadoghq.com/api/latest/notebooks/create-a-notebook/)
 
-## Notebooks の Analysis Features（旧称：Log Workspaces）
+## Notebooks の Analysis Features（Log Workspaces の機能を統合）
 
 ### Log Workspaces との関係
 
@@ -290,6 +292,7 @@ Log Workspaces（Logs Workspaces）は、2025-05-23 公開の公式ブログで�
 | 権限 | RBAC 権限一覧には `logs_read_workspaces`（Read Logs Workspaces、既定: Read Only Role）と `logs_write_workspaces`（Write Logs Workspaces、既定: Standard Role）が引き続き掲載されている |
 | 機能名 | 公式ドキュメント上の名称は「Analysis Features」（Notebooks のサブ機能）。ブログ等では「advanced analysis」とも表記 |
 | 移行手順 | 既存 Workspace から Notebook への公式な移行ガイドは公開情報では確認できず |
+| 位置付け | 公式には「改称」とは明記されておらず、「Log Workspaces の機能が Notebooks に統合された」とのみ説明されている。本ファイルで Analysis Features を Log Workspaces の後継として扱うのは上記ブログとドキュメント URL の状況からの判断である【推定】 |
 
 [出典](https://docs.datadoghq.com/logs/workspaces/)、[出典](https://docs.datadoghq.com/notebooks/advanced_analysis/)、[出典](https://docs.datadoghq.com/account_management/rbac/permissions/)
 
@@ -435,7 +438,7 @@ DDSQL でクエリできるテーブルの一覧は **Data Directory** に掲載
 | Datadog | Hosts（`dd.hosts`）、Logs、APM Spans、RUM Events、Events、Audit Trail、Monitors（`dd.monitors`）、Services、Containers、Database Instances、Network Device Flows、Security Findings、LLM Observability、Product Analytics など |
 
 - メトリクスと Cloud Cost は Data Directory の通常テーブルではなく、後述のテーブル関数（`dd.metrics_scalar` 等）で扱う。
-- Reference Tables は `reference_tables.<テーブル名>` で参照する（例: `SELECT * FROM reference_tables.test`）。他テーブルとの JOIN も可能。[出典](https://docs.datadoghq.com/ddsql_editor/reference_tables/)
+- Reference Tables は `reference_tables.<テーブル名>` で参照する（例: `SELECT * FROM reference_tables.test`）。他テーブルとの JOIN も可能。ただし出典ページは「DDSQL には2つの構文系統があり、本ガイドの例は DDSQL (Preview) 構文を使う」と明記しており、この記法は **DDSQL (Preview) 構文** の例である。現行の DDSQL Reference でも同じ記法が使えるかは公開ドキュメントで確認できず（後述「DDSQL の2つの構文系統」参照）。[出典](https://docs.datadoghq.com/ddsql_editor/reference_tables/)
 - `dd.monitors` はモニターとその現在の評価状態を返すデータセット。[出典](https://docs.datadoghq.com/ddsql_reference/data_directory/)
 - インフラリソース系テーブル（クラウドリソースのインベントリ）は Resource Catalog 等と同じリソース収集に基づくと考えられるが、収集条件（インテグレーション設定・リソース収集の有効化）の詳細は各インテグレーションのファイルを参照: [AWS Integration](./aws-integration.md)、[Azure Integration](./azure-integration.md)、[Google Cloud Integration](./gcp-integration.md)【推定】。
 
@@ -489,7 +492,7 @@ DDSQL は DDSQL Editor と Notebooks（Analysis セル）で利用できる。[�
 
 | 関数 | 主な引数 | 備考 |
 |---|---|---|
-| `dd.logs` | `columns`、`filter`、`indexes`、`storage`（例: `hot`、`flex_tier`）、`from_timestamp`、`to_timestamp` | `AS (...)` で出力スキーマを定義。ネストはドット記法、コア以外の属性は `@` 接頭辞。`storage` の既定は hot。DDSQL Editor での既定時間範囲は過去 1 時間 |
+| `dd.logs` | `columns`、`filter`、`indexes`、`storage`（例: `hot`、`flex_tier`）、`from_timestamp`、`to_timestamp` | `AS (...)` で出力スキーマを定義。ネストはドット記法、コア以外の属性は `@` 接頭辞。`storage` の既定は hot。時間未指定時はグローバル時間設定に従い、DDSQL Editor では過去 1 時間（`dd.metrics_*`・`dd.cloud_cost_*` の時間パラメータも既定 1 時間） |
 | `dd.metrics_scalar` | クエリ、リデューサ（`avg`、`max` 等）、任意の時間境界 | スカラー値 |
 | `dd.metrics_timeseries` | クエリ、任意の時間境界 | 時系列データポイント |
 | `dd.cloud_cost_scalar` | クエリ、リデューサ（コストは `sum`）、任意の時間境界 | Cloud Cost データは通常 24〜48 時間遅延 |
@@ -514,6 +517,8 @@ DDSQL は DDSQL Editor と Notebooks（Analysis セル）で利用できる。[�
 #### DDSQL の2つの構文系統
 
 公式ドキュメントには現行の「DDSQL Reference」（`/ddsql_reference/`）とは別に「DDSQL (Preview)」（`/ddsql_reference/ddsql_preview/`、Functions / Data Types / Expressions and Operators / Statements の各ページを持つ）が存在する。両者の差分や旧構文の廃止予定は公開情報では確認できず。新規に書くクエリは現行の DDSQL Reference に従うのが無難である【推定】。[出典](https://docs.datadoghq.com/ddsql_reference/ddsql_preview/)
+
+注意: 公式ドキュメントの例がすべて現行構文とは限らない。たとえば Reference Tables の問い合わせ例（`SELECT * FROM reference_tables.test`）は、出典ページ自身が DDSQL (Preview) 構文であると明記している。現行の DDSQL Reference には `reference_tables` の記法に関する記載が無く、現行構文で同一記法が使えるかは公開情報では確認できず。[出典](https://docs.datadoghq.com/ddsql_editor/reference_tables/)
 
 ## Analysis Monitor（DDSQL / Notebook 分析に対するモニター）
 
@@ -612,7 +617,7 @@ Reference Tables は、顧客情報、サービス名・情報、IP アドレス
 | Cloud SIEM | 検知・調査のエンリッチ | [Cloud SIEM](../security/cloud-siem.md) |
 | Cloud Cost Management | Tag Pipelines で複数タグをコストデータにマッピング | [Cloud Cost Management](../infrastructure/cloud-cost-management.md) |
 | Metrics | Reference Table Joins with Metrics（クエリ時にタグ追加） | [メトリクスクエリと関数](./metrics-query-and-functions.md) |
-| DDSQL Editor | `reference_tables.<name>` で問い合わせ・JOIN、CSV やダッシュボードへ出力 | 本ファイル |
+| DDSQL Editor | `reference_tables.<name>`（DDSQL (Preview) 構文の例）で問い合わせ・JOIN、CSV やダッシュボードへ出力 | 本ファイル |
 | Sheets | Lookup で列を追加 | 本ファイル |
 | Notebooks | Analysis Features のデータソースとして使用 | 本ファイル |
 | Observability Pipelines | ログのエンリッチ（ServiceNow CMDB のコンテキスト付与を含む） | [Observability Pipelines](../logs/observability-pipelines.md) |
@@ -874,7 +879,7 @@ RUM・Product Analytics 本体は [RUM（ブラウザ）](../dem/rum-browser.md)
 | 項目 | 値 | 出典 |
 |---|---|---|
 | `dd.logs` の既定ストレージ | hot | [DDSQL Reference](https://docs.datadoghq.com/ddsql_reference/) |
-| DDSQL Editor の既定時間範囲（`dd.logs`） | 過去 1 時間 | 同上 |
+| DDSQL Editor の既定時間範囲（`dd.logs`、`dd.metrics_*`、`dd.cloud_cost_*`） | 過去 1 時間（グローバル時間設定に基づく） | 同上 |
 | Cloud Cost テーブル関数のデータ遅延 | 通常 24〜48 時間 | 同上 |
 | `APPROX_PERCENTILE` の p | 0.0〜1.0 | 同上 |
 | 配列の添字 | 1 始まり、範囲外は `NULL` | 同上 |

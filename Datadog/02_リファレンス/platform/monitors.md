@@ -24,10 +24,35 @@ sources:
   - https://docs.datadoghq.com/monitors/types/event/
   - https://docs.datadoghq.com/monitors/types/watchdog/
   - https://docs.datadoghq.com/monitors/types/analysis/
+  - https://docs.datadoghq.com/monitors/types/integration/
+  - https://docs.datadoghq.com/monitors/types/network/
+  - https://docs.datadoghq.com/monitors/types/custom_check/
+  - https://docs.datadoghq.com/monitors/types/real_user_monitoring/
+  - https://docs.datadoghq.com/monitors/types/ci/
+  - https://docs.datadoghq.com/monitors/types/error_tracking/
+  - https://docs.datadoghq.com/monitors/types/database_monitoring/
+  - https://docs.datadoghq.com/monitors/types/cloud_cost/
+  - https://docs.datadoghq.com/monitors/types/data_observability/
+  - https://docs.datadoghq.com/monitors/types/cloud_network_monitoring/
+  - https://docs.datadoghq.com/monitors/types/network_path/
+  - https://docs.datadoghq.com/monitors/types/netflow/
+  - https://docs.datadoghq.com/monitors/types/audit_trail/
+  - https://docs.datadoghq.com/monitors/types/synthetic_monitoring/
+  - https://docs.datadoghq.com/monitors/guide/custom_schedules/
   - https://docs.datadoghq.com/monitors/status/
+  - https://docs.datadoghq.com/monitors/status/graphs/
+  - https://docs.datadoghq.com/monitors/status/events/
   - https://docs.datadoghq.com/monitors/manage/
+  - https://docs.datadoghq.com/monitors/manage/search/
+  - https://docs.datadoghq.com/monitors/quality/
+  - https://docs.datadoghq.com/monitors/templates/
+  - https://docs.datadoghq.com/monitors/settings/
   - https://docs.datadoghq.com/api/latest/monitors/
-  - https://www.datadoghq.com/pricing/
+  - https://docs.datadoghq.com/api/latest/monitors/create-a-monitor/
+  - https://docs.datadoghq.com/api/latest/rate-limits/
+  - https://github.com/DataDog/datadog-api-client-python/blob/master/.generator/schemas/v1/openapi.yaml
+  - https://www.datadoghq.com/pricing/?product=infrastructure
+  - https://www.datadoghq.com/pricing/list/
 ---
 
 # Monitors（モニター）
@@ -250,7 +275,7 @@ Datadog Monitor の評価頻度は評価ウィンドウの長さで自動的に�
 | 48 時間以上 | 30 分ごと |
 
 - 評価頻度はウィンドウと独立して、日次・週次・月次のスケジュール（Custom Schedule）にも設定できる（次節）。
-- Cloud Cost の確定コストモニターは 30 分ごとに評価、Real-time AI anomaly モニターは 15 分以内に通知（4 時間のローリングウィンドウ）。[出典](https://docs.datadoghq.com/monitors/types/cloud_cost/)
+- Cloud Cost の確定コストモニターは 30 分ごとに評価、Real-time AI anomaly モニターは推定コストの 4 時間ローリングウィンドウを評価し、直近 15 分以内に検出された異常をアラート対象とする。[出典](https://docs.datadoghq.com/monitors/types/cloud_cost/)
 - Data Observability モニターは Hourly / 3・6・12 時間ごと / Daily / cron 式（最短 15 分ごと）で実行される。[出典](https://docs.datadoghq.com/monitors/types/data_observability/)
 
 ### Custom Schedule（カスタム評価スケジュール）
@@ -383,7 +408,7 @@ Datadog Monitor の Evaluation Delay は、評価対象の時間範囲を指定�
 |---|---|
 | 単位・値 | 秒、非負整数、最大 86,400 秒（24 時間） |
 | 例 | 遅延 900 秒・ウィンドウ 5 分で 7:00 に評価すると、6:40〜6:45 のデータを評価 |
-| 推奨値 | クラウドメトリクス（AWS / Azure / Google Cloud）は 15 分（900 秒）、除算の Formula は約 60 秒 |
+| 推奨値 | クラウドメトリクス（AWS / Azure / Google Cloud）は 15 分（900 秒）、除算の Formula を使う場合は 60 秒（完全な値で評価するため）。[出典](https://docs.datadoghq.com/monitors/configuration/) |
 | API | `evaluation_delay` |
 | Monitor Quality との関係 | クラウドデータを使い Evaluation Delay がないモニターは「Missing a delay」として検出される |
 
@@ -583,7 +608,7 @@ Datadog の Host Monitor は、Datadog Agent が報告するサービスチェ�
 | ホスト選択 | include（AND）、exclude（OR） |
 | Check Alert | ホストが指定分数以上報告しなければアラート。欠損判定のデフォルトは 2 分 |
 | Cluster Alert | 指定割合のホストが報告を停止したらアラート。全体またはタグ単位のグループで割合計算。Alert / Warn どちらか一方の閾値で可。デフォルト 2 分 |
-| Group Retention | 48 時間 |
+| Group Retention | 48 時間（データ欠損を通知する Host モニター。[出典](https://docs.datadoghq.com/monitors/configuration/)） |
 
 - Agent 本体については [Datadog Agent](./agent.md) を参照。
 
@@ -886,7 +911,7 @@ Datadog の Cloud Cost Monitor は、クラウドコストの変化を監視す�
 | Threshold | 指定値との比較 |
 | Forecast | 予測値と閾値の比較 |
 | Budget | 実績または予測コストを予算と比較。全体または行単位、閾値 0〜100%、全月または当月 |
-| Real-time AI anomaly | Agent Observability（LLM）の推定コスト（`ml_obs.span.llm.total.cost`）を使用。15 分以内に通知、4 時間ローリング。3 日以上（推奨 21 日）のデータが必要。閾値は今後 24 時間の推定総コストで組織通貨 500 以上 |
+| Real-time AI anomaly | Agent Observability（LLM）の推定コスト（`ml_obs.span.llm.total.cost`）を使用。推定コストの 4 時間ローリングウィンドウを評価し、直近 15 分以内に検出された異常をアラート対象とする。3 日以上（推奨 21 日）のデータが必要。閾値は今後 24 時間の推定総コストで組織通貨 500 以上 |
 
 - 確定コストのモニターは課金データが利用可能になるまで最大 48 時間かかるため、30 分ごとに 48 時間遅延したウィンドウで評価する（例：1 月 15 日に 7 日間ルックバックで評価すると 1 月 6〜13 日が対象）。
 - 確定コストの Anomaly モニターは 1 か月以上のコストデータが必要で、不完全な日は除外される。

@@ -472,7 +472,7 @@ Corrections の件数上限は「[制限値・クォータ・デフォルト値]
 
 ## SLO アラート（SLO Alerts）
 
-Datadog の SLO アラートは、モニタータイプ `slo alert` として実装されたモニターで、**Error Budget アラート**と **Burn Rate アラート**の 2 種類がある。作成経路は SLO 作成・編集時の **Create & Set Alert（Save and Set Alert）**、SLO 詳細サイドパネルの **Set up Alerts**、または **Monitors > New Monitor > SLO**。[出典](https://docs.datadoghq.com/monitors/types/slo/)、[出典（Burn Rate）](https://docs.datadoghq.com/service_level_objectives/burn_rate/)
+Datadog の SLO アラートは、モニタータイプ `slo alert` として実装されたモニターで、**Error Budget アラート**と **Burn Rate アラート**の 2 種類がある。作成経路は SLO 新規作成時の **Create & Set Alert**（既存 SLO の編集時は **Save and Set Alert**）、SLO 詳細サイドパネルの **Set up Alerts**、または **Monitors > New Monitor > SLO**。[出典](https://docs.datadoghq.com/monitors/types/slo/)、[出典（Burn Rate）](https://docs.datadoghq.com/service_level_objectives/burn_rate/)
 
 モニター全般の評価設定や通知の仕組みは [Monitors（モニター）](./monitors.md) と [通知と Downtime](./notifications-and-downtimes.md) を参照。
 
@@ -505,7 +505,7 @@ Datadog の Error Budget アラートは、SLO のエラーバジェットが指
 
 | 項目 | 仕様 |
 |---|---|
-| 作成手順 | SLO 作成・編集で **Save and Set Alert**（既存 SLO は詳細パネルの **Set up Alerts**）→ Step 1 で **Error Budget** タブ → 「過去のターゲット日数で消費したエラーバジェットの割合が閾値を超えたら」アラート → 通知設定 → 保存 |
+| 作成手順 | SLO 新規作成時は **Create & Set Alert**、編集時は **Save and Set Alert**（既存 SLO は詳細パネルの **Set up Alerts** も可）→ Step 1 で **Error Budget** タブ → 「過去のターゲット日数で消費したエラーバジェットの割合が閾値を超えたら」アラート → 通知設定 → 保存 |
 | 閾値 | Critical（必須）、Warning（任意）。単位は消費したエラーバジェットの % |
 | 対象期間 | SLO の Target の期間（`7d` / `30d` / `90d`）から選択 |
 | クエリ構文 | `error_budget("<slo_id>").over("<time_window>") > 75` |
@@ -811,7 +811,7 @@ CSV の列構成、最大期間、最大行数は公開情報では確認でき�
 
 | 連携先 | 内容 | 出典 |
 |---|---|---|
-| Synthetic テストスイート | テストスイート作成時に SLO が**自動生成**される（設定不要、デフォルトは **7 日ローリング・目標 99.9%**）。テストスイート詳細ページの SLO パネルで状態・エラーバジェット確認、**Create alert**、詳細表示、エラーバジェットを消費しているテストの確認（View contributors）が可能。自動生成 SLO は削除後の復元不可 | [出典](https://docs.datadoghq.com/synthetics/test_suites/) |
+| Synthetic テストスイート | テストスイート作成時に SLO が**自動生成**される（設定不要、デフォルトは **7 日ローリング・目標 99.9%**）。テストスイート詳細ページの SLO パネルで状態・エラーバジェット確認、**Create alert**、詳細表示、エラーバジェットを消費しているテストの確認（View contributors）が可能。自動生成 SLO は削除後の復元不可 | [出典](https://docs.datadoghq.com/synthetics/test_suites/)、[出典（復元不可）](https://docs.datadoghq.com/service_level_objectives/) |
 | Monitors / Downtime | Monitor-based SLO の SLI 元。モニタータグでの Downtime 作成時に、対象 SLO へのタグベース Correction を提案 | [出典](https://docs.datadoghq.com/service_level_objectives/) |
 | Software Catalog / サービスページ | `service` タグを持つ SLO は一覧画面からサービスページへリンク。Reliability Overview で SLO サマリー | [出典](https://docs.datadoghq.com/service_level_objectives/) |
 | APM / Logs / RUM | スパン・ログ・RUM イベントから生成したメトリクスを Metric-based SLO の SLI に使用可能 | [出典](https://docs.datadoghq.com/service_level_objectives/metric/) |
@@ -867,7 +867,7 @@ API のホストはサイトごとに異なる（例：US1 は `api.datadoghq.co
 | リソース | 用途 | 主な引数 |
 |---|---|---|
 | `datadog_service_level_objective` | SLO 本体 | `name`、`type`、`thresholds`（必須）、`description`、`tags`、`monitor_ids`、`groups`、`query`、`sli_specification`、`target_threshold`、`warning_threshold`、`timeframe`、`force_delete`（ダッシュボード等から参照されていても削除）、`validate`（Monitor SLO のモニター存在確認）、`ignore_tag_keys` |
-| `datadog_slo_correction` | Status Corrections | `category`、`start`（必須）、`end`、`duration`、`rrule`、`slo_id` または `slo_query`、`timezone`（デフォルト `UTC`）、`description` |
+| `datadog_slo_correction` | Status Corrections | `category`（必須）、`start`（必須）、`end`（One-time では必須、`rrule` 指定時は任意）、`duration`（`rrule` 指定時は必須）、`rrule`、`slo_id` または `slo_query`、`timezone`（デフォルト `UTC`）、`description` |
 | `datadog_monitor`（`type = "slo alert"`） | SLO アラート | `query` に `error_budget(...)` / `burn_rate(...)`、`monitor_thresholds` |
 
 - Terraform の `datadog_service_level_objective` の `tags` は、API でクエリする際にはタグでフィルターできない旨が注記されている。[出典](https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/service_level_objective)
@@ -948,7 +948,7 @@ Terraform 全般は [Terraform と IaC](./terraform-and-iac.md) を参照。
 | Monitor の WARN は SLO でダウンタイムになるか | ならない。OK 扱い | [出典](https://docs.datadoghq.com/service_level_objectives/monitor/) |
 | gauge メトリクスで SLO を作れるか | Metric-based では不可（count / rate / distribution のみ）。Time Slice SLO なら可 | [出典](https://docs.datadoghq.com/service_level_objectives/guide/slo_types_comparison/) |
 | レイテンシー SLO（例：250ms 未満のリクエスト割合）を件数ベースで作るには | パーセンタイル有効の Distribution メトリクスで `count values...` と閾値（Threshold Queries）を使う Metric-based SLO | [出典](https://docs.datadoghq.com/service_level_objectives/metric/) |
-| Synthetic テストの SLO に Burn Rate アラートを設定できるか | できない。SLO アラートは Metric 系モニターのみで構成された Monitor-based SLO に限られる | [出典](https://docs.datadoghq.com/service_level_objectives/burn_rate/) |
+| Synthetic テストの SLO に Burn Rate アラートを設定できるか | Synthetic Monitor を SLI に使う Monitor-based SLO（By Monitor Uptime）では SLO アラート（Error Budget / Burn Rate）は使えない。Monitor-based SLO で SLO アラートが使えるのは Metric 系モニターだけで構成されている場合に限られる（Metric-based / Time Slice SLO は対応）。一方、Synthetic テストスイートの自動生成 SLO は、テストスイート詳細ページの SLO パネルの **Create alert** から SLO アラートを設定できる | [出典](https://docs.datadoghq.com/service_level_objectives/burn_rate/)、[出典（テストスイート）](https://docs.datadoghq.com/synthetics/test_suites/) |
 | Time Slice SLO で欠損データはどう扱われるか | 常にアップタイム | [出典](https://docs.datadoghq.com/service_level_objectives/time_slice/) |
 | Metric-based SLO で欠損データはどう扱われるか | 計算から無視される | [出典](https://docs.datadoghq.com/service_level_objectives/guide/slo_types_comparison/) |
 | 削除した SLO は戻せるか | 30 日以内なら管理画面の Settings から Restore 可能 | [出典](https://docs.datadoghq.com/service_level_objectives/) |

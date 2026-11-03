@@ -174,7 +174,23 @@ flowchart LR
 
 ### 2.3 デプロイ種別ごとの対応機能
 
-公式の「Supported Deployment Types」ページのうち、監視対象リソースごとの対応範囲は次の通り。[出典](https://docs.datadoghq.com/security/cloud_security_management/setup/supported_deployment_types/)
+公式の「Supported Deployment Types」ページには、デプロイ種別ごとの表と監視対象リソースごとの表の 2 つがある。デプロイ種別ごとの対応範囲は次の通り。[出典](https://docs.datadoghq.com/security/cloud_security_management/setup/supported_deployment_types/)
+
+| デプロイ種別 | Agent 要件（7.46+） | Misconfigurations | Vulnerabilities | Identity Risks | Agentless Scanning |
+|---|---|---|---|---|---|
+| AWS アカウント | ○ | ○ | ○ | ○ | ― |
+| Azure サブスクリプション | ○ | ○ | ○ | ○ | ― |
+| GCP プロジェクト | ○ | ○ | ○ | ○ | ― |
+| OCI テナンシー | ○ | ○ | ― | ― | ― |
+| Terraform | ○ | ― | ― | ― | ― |
+| Docker | ○ | ○ | ― | ― | ― |
+| Kubernetes | ○ | ○ | ○ | ― | ― |
+| Linux | ○ | ○ | ○ | ― | ― |
+| Amazon ECS/EKS | ○ | ○ | ○ | ○ | ― |
+| Windows | ○ | ○ | ― | ― | ― |
+| AWS Fargate ECS/EKS | ○ | ECS Fargate のみ | ― | ― | ― |
+
+監視対象リソースごとの対応範囲は次の通り。[出典](https://docs.datadoghq.com/security/cloud_security_management/setup/supported_deployment_types/)
 
 | 監視対象リソース | Misconfigurations | Vulnerabilities | Identity Risks | Agentless scanning |
 |---|---|---|---|---|
@@ -189,8 +205,9 @@ flowchart LR
 | Docker コンテナ | ○ | ― | ― | ― |
 | コンテナイメージ | ○ | ○ | ― | ― |
 
-- 同ページのデプロイ種別表は Agent 要件を **7.46 以降**としている。また Windows と AWS Fargate を使うアカウントでも、EC2・RDS・S3・ELB などの共通リソースは Misconfigurations の対象になる。AWS Fargate（ECS/EKS）で Misconfigurations が使えるのは「ECS Fargate のみ」と記載されている。[出典](https://docs.datadoghq.com/security/cloud_security_management/setup/supported_deployment_types/)
-- 上の監視対象表もソース上は空欄セルを含む Markdown 表で、OCI 行・Linux 行・Windows 行の「○」がどの列を指すかは厳密には読み取れない。OCI は Vulnerabilities・Identity Risks 非対応（デプロイ種別表で OCI Tenancy は Misconfigurations のみ）と読むのが他ページ（4.2 節の OCI 手順は Posture Management のみ）と整合する【推定】。
+- デプロイ種別表は Agent 要件を **7.46 以降**としている。また Windows と AWS Fargate を使うアカウントでも、EC2・RDS・S3・ELB などの共通リソースは Misconfigurations の対象になる。AWS Fargate（ECS/EKS）で Misconfigurations が使えるのは「ECS Fargate のみ」と記載されている。[出典](https://docs.datadoghq.com/security/cloud_security_management/setup/supported_deployment_types/)
+- **Kubernetes の脆弱性:** 監視対象リソース表では「Kubernetes クラスター」の Vulnerabilities が空欄だが、デプロイ種別表では Kubernetes（Agent デプロイ）で Vulnerabilities に対応している。Kubernetes 上の Agent によるホスト・コンテナイメージの SBOM 収集・脆弱性スキャン（4.3 節、8 章）はこのデプロイ種別での対応であり、監視対象表の空欄は「クラスター」というリソース単位での評価を指すと読める【推定】。
+- **OCI の Vulnerabilities（表間の不一致）:** デプロイ種別表では OCI テナンシーは Misconfigurations のみだが、監視対象リソース表では「OCI リソース / IAM」の Vulnerabilities が「○」になっており、公式の 2 つの表で記載が食い違っている。4.2 節の OCI 手順は Posture Management（Misconfigurations）の有効化のみで、OCI 向けの Agentless Scanning 手順も公開されていないため、OCI で Vulnerabilities を前提にする場合は事前に Datadog へ確認すること。
 - 「―」は公式表が空欄であることを示す。
 
 ---
@@ -539,6 +556,7 @@ Security Posture Score（別名 posture score、compliance score）は、有効�
 
 | 項目 | 仕様 |
 |---|---|
+| 対象 | `scored:true` タグの付いたルール・Finding のみ（5.4 節のとおりクローンしたルールにも `scored` タグが自動付与される） |
 | 計算式 | 重大度別の合格率（Pass ÷（Pass + Fail））を重み付け平均する。重みは Critical 8、High 6、Medium 3、Low 2、Info 1、分母は重みの合計（20） |
 | 用語集の数式上の注記 | Critical の項のみ合格率を 2 乗した表記になっている（公式用語集の数式どおり） |
 | 該当重大度の Finding がない場合 | その重大度は計算から除外（例: Critical がなければ分母は 6+3+2+1） |
@@ -1031,7 +1049,8 @@ Crown Jewels は、Datadog に送信済みのテレメトリから自動検出�
 | スコアへの影響 | ミュートした Finding は Posture Score の計算から除外 |
 | 表示 | 既定では非表示（`@workflow.triage.status:(open OR in-progress)` フィルタを外すと表示）。Vulnerabilities は **Muted** タブ |
 | 監査 | サイドパネルの **Timeline** タブで理由・予定期間・実施者を確認 |
-| 期間の選択肢、必要権限 | 公開情報では確認できず（ミュート API は `PATCH /api/v2/security/findings/mute`） |
+| 必要権限 | Misconfigurations / Identity Risks は `security_monitoring_findings_write`、Vulnerabilities は `appsec_vm_write`（いずれも既定 Standard Role。13 章参照） |
+| 期間の選択肢 | 公開情報では確認できず（ミュート API は `PATCH /api/v2/security/findings/mute`） |
 
 [出典](https://docs.datadoghq.com/security/cloud_security_management/review_remediate/mute_issues/) [出典](https://docs.datadoghq.com/api/latest/security-monitoring/)
 
@@ -1133,11 +1152,15 @@ Cloud Security で使う主な権限・スコープは次の通り。RBAC 全般
 | 権限・スコープ | 用途 | 出典 |
 |---|---|---|
 | `appsec_vm_read` | Datadog Security CLI（CI/CD イメージスキャン）のアプリケーションキーに必要 | [出典](https://docs.datadoghq.com/security/cloud_security_management/setup/ci_cd/) |
-| `security_monitoring_findings_write` または `appsec_vm_write` | Finding の担当者割当（Assignee Management） | [Datadog Security 概要](./security-platform-overview.md) |
+| `security_monitoring_findings_read`（Security Monitoring Findings Read。既定 **Standard** Role） | Misconfigurations / Identity Risks の Finding 一覧の閲覧（既定ロールは Read Only ではない点に注意） | [出典](https://docs.datadoghq.com/account_management/rbac/permissions/) |
+| `security_monitoring_findings_write`（Security Monitoring Findings Write。既定 Standard Role） | Misconfigurations / Identity Risks の Finding のミュート（公式説明は「Mute CSPM Findings」） | [出典](https://docs.datadoghq.com/account_management/rbac/permissions/) |
+| `appsec_vm_read`（Vulnerability Management Read。既定 Read Only Role） | インフラ・アプリケーションコード・ライブラリの脆弱性の閲覧（API や Inventory SQL 経由のアクセスは制限しない） | [出典](https://docs.datadoghq.com/account_management/rbac/permissions/) |
+| `appsec_vm_write`（Vulnerability Management Write。既定 Standard Role） | 脆弱性の状態（ミュートを含む）・担当者の変更 | [出典](https://docs.datadoghq.com/account_management/rbac/permissions/) |
+| `security_monitoring_findings_write` または `appsec_vm_write` | Finding の担当者割当（Assignee Management）。詳細は [Datadog Security 概要](./security-platform-overview.md) | [出典](https://docs.datadoghq.com/security/assignee_management/) |
 | Integrations Manage または Org Management | API 経由で Agentless Scanning を有効化するアプリケーションキー | [出典](https://docs.datadoghq.com/security/cloud_security_management/setup/agentless_scanning/enable/) |
 | `bits_dev_write`（Bits Code Write） | Remediate with AI で Bits Code に修正を生成させる | [出典](https://docs.datadoghq.com/security/cloud_security_management/review_remediate/remediate_with_ai/) |
 | Security Inbox の表示範囲 | ユーザーは読み取り権限のある Finding 種別だけを見られる | [出典](https://docs.datadoghq.com/security/security_inbox/) |
-| ミュート・ルール編集に必要な個別権限 | 公開情報では本ファイルの調査範囲で確認できず | ― |
+| Mute Rules（自動ミュート）の作成やカスタムルール編集に必要な個別権限 | 公開情報では本ファイルの調査範囲で確認できず | ― |
 
 ---
 

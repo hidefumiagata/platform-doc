@@ -14,6 +14,7 @@ sources:
   - https://docs.datadoghq.com/agent/fleet_automation/fleet_view/
   - https://docs.datadoghq.com/agent/fleet_automation/upgrade_sdks/
   - https://docs.datadoghq.com/agent/guide/setup_remote_config
+  - https://docs.datadoghq.com/account_management/rbac/permissions/
   - https://docs.datadoghq.com/agent/basic_agent_usage/ansible/
   - https://docs.datadoghq.com/agent/guide/ansible_standalone_role/
   - https://docs.datadoghq.com/agent/basic_agent_usage/chef/
@@ -113,7 +114,7 @@ Datadog Agent の展開方式は、展開先の環境と既存の運用基盤で
 | Linux／Windows／macOS（Ansible 運用あり） | 公式 Ansible コレクション `datadog.dd`（ロール `datadog.dd.agent`） | Red Hat Automation Hub で認定済み | [Ansible](https://docs.datadoghq.com/agent/basic_agent_usage/ansible/) |
 | Linux／Windows（Chef 運用あり） | 公式 Cookbook `datadog` | `chef-client` 12.7 以上 | [Chef](https://docs.datadoghq.com/agent/basic_agent_usage/chef/) |
 | Linux／Windows（Puppet 運用あり） | 公式 Module `datadog/datadog_agent` | Puppet 7.34.x 以上 | [Puppet](https://docs.datadoghq.com/agent/basic_agent_usage/puppet/) |
-| Debian 系／RedHat 系 Linux（Salt 運用あり） | 公式 Formula `datadog-formula` | Debian 系・RedHat 系のみ対応 | [SaltStack](https://docs.datadoghq.com/agent/basic_agent_usage/saltstack/) |
+| Debian 系／RedHat 系 Linux（Salt 運用あり） | 公式 Formula `datadog-formula` | Debian 系・RedHat 系のみ対応。Fleet Automation のアプリ内ガイドで Pillar スニペットを生成できる | [SaltStack](https://docs.datadoghq.com/agent/basic_agent_usage/saltstack/) |
 | Kubernetes／OpenShift（新規） | Datadog Operator（推奨） | 単一 CRD で Node Agent・Cluster Agent・Cluster Checks Runner を展開 | [Operator](https://docs.datadoghq.com/containers/datadog_operator/) |
 | Kubernetes（Operator 非対応プラットフォーム等） | Helm chart `datadog/datadog` | Talos、Flatcar、GKE on Google Distributed Cloud、Operator が公開していない Helm 機能が必要な場合 | [Operator](https://docs.datadoghq.com/containers/datadog_operator/) |
 | Kubernetes（手動 DaemonSet） | 公式にサポートされるが非推奨 | 誤設定の余地が大きい | [Operator](https://docs.datadoghq.com/containers/datadog_operator/) |
@@ -164,7 +165,7 @@ Linux 向けインストールスクリプト（`install_script_agent7.sh`）は
 | `DD_RPM_REPO_GPGCHECK` | RPM の `repo_gpgcheck` 切替（`0`/`1`） | `DD_REPO_URL` 指定時は既定で無効 |
 | `DD_APM_INSTRUMENTATION_ENABLED` | SSI の有効化（`host`、`docker`、`all`） | Agent 7 のみ。SUSE 非対応 |
 | `DD_APM_INSTRUMENTATION_STRICT` | 上と同じ値。SSI の導入に失敗したらスクリプトを失敗させる | permissive 版より優先 |
-| `DD_APM_INSTRUMENTATION_LIBRARIES` | 導入する SDK（`java`、`js`、`python`、`dotnet`、`ruby`、`php` 等。`言語:メジャー` で固定可） | 未指定時は全言語 |
+| `DD_APM_INSTRUMENTATION_LIBRARIES` | 導入する SDK（README 記載の値は `all`、`java`、`js`、`python`、`dotnet`、`ruby`。`言語:メジャー` で固定可） | 未指定時は `java`、`js`、`python`、`dotnet`、`ruby` が有効（README 記載）。PHP の SSI 対応は [5.2](#52-ssi-の対応範囲) を参照 |
 | `DD_RUNTIME_SECURITY_CONFIG_ENABLED` | Workload Protection（旧称：CWS）有効化 | 設定ファイル未作成時のみ |
 | `DD_COMPLIANCE_CONFIG_ENABLED` | ホストのコンプライアンス（CSPM）有効化 | 同上 |
 | `DD_SYSTEM_PROBE_NETWORK_ENABLED` | Cloud Network Monitoring（旧称：NPM）有効化 | 同上 |
@@ -230,20 +231,20 @@ Ansible による展開は、公式コレクション `datadog.dd` のロール 
 |---|---|
 | 要件 | Ansible 2.10 以降 |
 | 対応プラットフォーム | Debian 系・RHEL 系・SUSE 系 Linux の大半、macOS、Windows |
-| Windows 前提 | `ansible.windows` コレクション。インベントリで `become: no` を推奨 |
+| Windows 前提 | `ansible.windows` コレクション。単体ロールのガイドでは、Windows ホストにはインベントリで `ansible_become: no` を設定する方法を推奨（`become: yes` のままだとロールが失敗する） |
 | openSUSE/SLES 前提 | `community.general` コレクション（Red Hat はコミュニティコンテンツをサポートしないため、問題は Datadog サポートへ） |
 | インストール | `ansible-galaxy collection install datadog.dd`、または `requirements.yml` に記載 |
 | コレクション自体の固定 | `ansible-galaxy collection install datadog.dd:==<version>`。Galaxy 版は Ansible 本体の更新では自動更新されない |
 | 配布チャネル | Ansible Galaxy、Red Hat Automation Hub（Red Hat 認定） |
 | Fleet Automation との関係 | Ansible Datadog Role で導入した Linux VM は Fleet Automation の Configure Agents の前提を満たす |
 
-出典：[Ansible](https://docs.datadoghq.com/agent/basic_agent_usage/ansible/)、[Configure Agents](https://docs.datadoghq.com/agent/fleet_automation/configure_agents/)
+出典：[Ansible](https://docs.datadoghq.com/agent/basic_agent_usage/ansible/)、[Ansible 単体ロール](https://docs.datadoghq.com/agent/guide/ansible_standalone_role/)、[Configure Agents](https://docs.datadoghq.com/agent/fleet_automation/configure_agents/)
 
 主要なロール変数：
 
 | 変数 | 既定値 | 内容 |
 |---|---|---|
-| `datadog_api_key` | なし（4.21 以降必須） | 未指定ならロールが失敗する |
+| `datadog_api_key` | なし（Ansible ロール 4.21 以降は必須） | 未指定ならロールが失敗する |
 | `datadog_site` | `datadoghq.com` | AP1 なら `ap1.datadoghq.com` |
 | `datadog_agent_version` | 未指定 | 特定バージョンに固定（**推奨**）。指定時は `datadog_agent_major_version` 不要 |
 | `datadog_agent_major_version` | `7` | `datadog_agent_version` 未指定時、このメジャーの最新を導入 |
@@ -349,7 +350,7 @@ Ansible による展開は、公式コレクション `datadog.dd` のロール 
 |---|---|
 | Formula | `datadog`（リポジトリ `DataDog/datadog-formula`） |
 | 対応 OS | Debian 系・RedHat 系のみ |
-| 導入方法 | `gitfs_remotes` に追加（`ref:` で Formula のバージョン固定）、または `file_roots` にクローン |
+| 導入方法 | Fleet Automation のアプリ内ガイドで Pillar スニペットを生成して Pillar ファイルに追加し、通常の Salt state を実行。上級者向けには `gitfs_remotes` に追加（`ref:` で Formula のバージョン固定）、または `file_roots` にクローン |
 | Pillar 構造 | `datadog` キー配下に `config`（`datadog.yaml` に書き出し）、`install_settings`（`agent_version` 等）、`checks`（チェック設定・バージョン） |
 | Agent バージョン | `install_settings.agent_version`（既定は Agent v7 の最新） |
 | チェック個別バージョン | `checks.<name>.version`。`third_party: true` はバージョン指定必須かつ Agent 6.21.0/7.21.0 以降 |
@@ -777,9 +778,18 @@ Fleet Automation は組織の全ユーザーが利用できるが、次の権限
 | `API Keys Read` | API キーによる Agent の表示・検索 | 運用担当全員 |
 | `Agent Flare Collection` | リモート flare 送信 | 運用担当・サポート窓口 |
 | `Agent Upgrade` | Agent のアップグレード | Datadog プラットフォームチームのみ |
-| `Agent Configuration Management` | Agent の設定変更 | Datadog プラットフォームチームのみ（パターン①では誰にも付与しない） |
+| `Agent Configuration Management` | Agent の設定変更 | Datadog プラットフォームチームのみ（パターン①では誰にも付与しない。下記注記を参照） |
 
-これらの権限は既定で Datadog Admin ロールに付与されている。Terraform でスケジュールを管理する場合、アプリケーションキーに `agent_upgrade_write` と `hosts_read` が必要。[出典](https://docs.datadoghq.com/agent/fleet_automation/)、[出典](https://docs.datadoghq.com/agent/fleet_automation/upgrade_agents/)
+既定ロールへの付与は権限ごとに異なる。
+
+| 権限 | 識別子 | 既定で付与されるロール |
+|---|---|---|
+| `API Keys Read` | `api_keys_read` | Standard、Admin |
+| `Agent Flare Collection` | `agent_flare_collection` | Standard、Admin |
+| `Agent Upgrade` | `agent_upgrade_write` | Admin のみ |
+| `Agent Configuration Management` | `fleet_policies_write` | Admin のみ |
+
+Standard ロールのユーザーは既定でリモート flare を送信できる点に注意する。また Admin ロールは既定で 4 権限すべてを持つため、パターン①で「誰にも付与しない」を実現するには、Admin ロールの利用者を最小限に絞るか、Admin を使わずに該当権限を外したカスタムロールで運用する必要がある。Terraform でスケジュールを管理する場合、アプリケーションキーに `agent_upgrade_write` と `hosts_read` が必要。[出典](https://docs.datadoghq.com/agent/fleet_automation/)、[出典](https://docs.datadoghq.com/account_management/rbac/permissions/)、[出典](https://docs.datadoghq.com/agent/fleet_automation/upgrade_agents/)
 
 ### 8.5 アップグレードスケジュールのコード管理（Terraform）
 
@@ -811,7 +821,7 @@ resource "datadog_fleet_schedule" "ring1_staging" {
 
 ### 9.1 リング設計
 
-大規模環境では、Agent の新規導入・バージョン更新・設定変更・SSI 有効化のいずれも、影響範囲を段階的に広げる「リング展開」で行う。Fleet Automation のアップグレードでも、Deployment Safeguards が対象をステージに分け、dev や staging のような低リスク環境を先に、production を後に展開する。
+大規模環境では、Agent の新規導入・バージョン更新・設定変更・SSI 有効化のいずれも、影響範囲を段階的に広げる「リング展開」で行う。Fleet Automation のアップグレードでも、公式ドキュメント掲載の画面キャプチャ上の説明では、Deployment Safeguards が対象をステージに分け、dev や staging のような低リスク環境を先に、production を後に展開するとされている（ドキュメント本文に仕様としての記載はない。詳細は [9.2](#92-展開手段別の段階展開の実現方法)）。
 
 | リング | 対象例 | 規模の目安【経験則】 | 合格基準の例 | 識別タグ例 |
 |---|---|---|---|---|
@@ -922,7 +932,7 @@ Agent の展開設計は、Agent を入れたホスト数と有効化した製�
 
 ## 11. サイト差異
 
-> **サイト差異:** Datadog Government サイト（US1-FED。公式表記では app.ddog-gov.com と us2.ddog-gov.com）では、Fleet View は【Preview】であり、Agent の設定変更・Agent のアップグレード・SDK のアップグレードは非対応である。[出典](https://docs.datadoghq.com/agent/fleet_automation/)
+> **サイト差異:** Datadog Government サイト（US1-FED：app.ddog-gov.com、US2-FED：us2.ddog-gov.com）では、Fleet View は【Preview】であり、Agent の設定変更・Agent のアップグレード・SDK のアップグレードは非対応である。[出典](https://docs.datadoghq.com/agent/fleet_automation/)
 
 > **サイト差異:** GovCloud（ddog-gov.com）と FIPS モードの Agent では Remote Configuration が既定で無効のため、`remote_configuration.enabled: true` を明示する必要がある。[出典](https://docs.datadoghq.com/agent/guide/setup_remote_config)
 
@@ -948,6 +958,7 @@ Agent の展開設計は、Agent を入れたホスト数と有効化した製�
 | 新バージョンが Fleet に出るまで | 最大 24 時間 | 同上 |
 | スケジュールの目標バージョン | 最新／1 つ前／2 つ前 | 同上 |
 | Terraform `datadog_fleet_schedule` | provider 4.22.0 以降、アプリケーションキーに `agent_upgrade_write`・`hosts_read` | 同上 |
+| Fleet 関連権限の既定ロール | `agent_upgrade_write`・`fleet_policies_write` は Admin のみ、`agent_flare_collection`・`api_keys_read` は Standard と Admin | [RBAC Permissions](https://docs.datadoghq.com/account_management/rbac/permissions/) |
 | SSI リモート有効化の自動停止 | 3 台連続失敗、または失敗率 10% | [Linux SSI](https://docs.datadoghq.com/tracing/trace_collection/automatic_instrumentation/single-step-apm/linux/) |
 | SSI Instrumentation rules 反映時間 | Remote Configuration 有効時 50 秒以内 | 同上 |
 | SSI `targets` | Agent 7.64 以降 | [K8s SSI](https://docs.datadoghq.com/tracing/trace_collection/automatic_instrumentation/single-step-apm/kubernetes/) |
@@ -1017,6 +1028,7 @@ Agent の展開設計は、Agent を入れたホスト数と有効化した製�
 - Fleet View: https://docs.datadoghq.com/agent/fleet_automation/fleet_view/
 - Upgrade SDKs: https://docs.datadoghq.com/agent/fleet_automation/upgrade_sdks/
 - Remote Configuration for Fleet Automation: https://docs.datadoghq.com/agent/guide/setup_remote_config
+- Datadog Role Permissions（RBAC）: https://docs.datadoghq.com/account_management/rbac/permissions/
 - Ansible: https://docs.datadoghq.com/agent/basic_agent_usage/ansible/
 - Ansible standalone role: https://docs.datadoghq.com/agent/guide/ansible_standalone_role/
 - Chef: https://docs.datadoghq.com/agent/basic_agent_usage/chef/

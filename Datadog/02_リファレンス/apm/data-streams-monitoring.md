@@ -245,7 +245,8 @@ java -javaagent:/path/to/dd-java-agent.jar \
 | RabbitMQ | 128 KB 超 |
 | Kinesis | 34 バイト未満 |
 
-- .NET 3.22.0 以降の default mode が DSM の課金対象ホストに数えられるか（「DSM 計装済み」とみなされるか）は公開情報では確認できず。課金への影響は「## 課金への影響」を参照。
+- .NET 3.22.0 以降は SDK が自動で DSM テレメトリを送信し、組織の契約に APM Enterprise・APM Pro・DSM のいずれかが含まれる場合にデータが自動で処理・保存され、DSM のビューとメトリクスが有効になる（公式記載）。[出典](https://docs.datadoghq.com/data_streams/setup/language/dotnet/)
+- ただし default mode のホストが DSM の課金対象ホスト数に数えられるかの明示はない（公開情報では確認できず）。課金への影響は「## 課金への影響」を参照。
 - .NET の手動計装は公開ガイドがなく、サポートへの問い合わせが案内されている。[出典](https://docs.datadoghq.com/data_streams/)
 
 **Azure Service Bus の追加設定（.NET）** は次の 2 つが両方必要。[出典](https://docs.datadoghq.com/data_streams/setup/technologies/azure_service_bus/)
@@ -776,7 +777,7 @@ Data Streams Monitoring の課金単位は **クライアントホスト（DSM �
 
 - APM Pro の $35（年契約）／$42（オンデマンド）は Infrastructure Monitoring を併用する場合の価格。Infrastructure Monitoring なしの単体 APM Pro は $41（年契約）と料金ページに記載されている。[出典](https://www.datadoghq.com/pricing/?product=apm--continuous-profiler)
 - DSM の料金カードには「Included with APM Pro & APM Enterprise plans」「Billed annually or $18 on-demand」と記載されている。[出典](https://www.datadoghq.com/pricing/?product=data-streams-monitoring)
-- Serverless Applications（AWS Fargate）の行は、料金ページの DSM タブに「Serverless Applications AWS Fargate $2.90 per active application instances ($4.40 on-demand)」として表示され、価格データのキー名は `SERVERLESS-APPS-DSM` である。課金対象の「アクティブなアプリケーションインスタンス」の定義は公開情報では確認できず。[出典](https://www.datadoghq.com/pricing/?product=data-streams-monitoring)
+- Serverless Applications（AWS Fargate）の行は、料金ページの DSM タブに「Serverless Applications AWS Fargate $2.90 per active application instances ($4.40 on-demand)」として表示され、価格データのキー名は `SERVERLESS-APPS-DSM` である。料金ページの Serverless FAQ では、Fargate のアクティブインスタンスを「5 分間の計測間隔で 1 回以上アクティブだった一意の Fargate タスク（ECS）／Pod（EKS）の月平均」と定義している。DSM for Fargate の行にも同じ定義が適用されると考えられる【推定】（DSM 側に明記はない）。[出典](https://www.datadoghq.com/pricing/?product=data-streams-monitoring)（2026-11-04 取得）
 
 > **サイト差異（料金）:** 料金ページの地域別価格データ（2026-11-02 取得）では次のとおり。DSM は US-FED では提供されない。
 >
@@ -819,8 +820,8 @@ Data Streams Monitoring の課金単位は **クライアントホスト（DSM �
 
 ### 課金上の注意
 
-- .NET トレーサー 3.22.0 以降は `DD_DATA_STREAMS_ENABLED` 未設定でも DSM が default mode で動作するため、そのホストが DSM 課金対象に数えられるかは公開情報では確認できず。契約時に Datadog へ確認すること。
-- Kafka Console の「ブローカーホスト」の数え方（MSK のブローカー、Confluent Cloud の扱い）は公開情報では確認できず。料金ページは対象を「Self-hosted and Amazon MSK provisioned」と記載している。[出典](https://www.datadoghq.com/pricing/?product=data-streams-monitoring)
+- .NET トレーサー 3.22.0 以降は `DD_DATA_STREAMS_ENABLED` 未設定でも DSM が default mode で動作し、組織の契約に APM Enterprise・APM Pro・DSM のいずれかが含まれる場合にデータが自動で処理・保存される（公式記載）。[出典](https://docs.datadoghq.com/data_streams/setup/language/dotnet/) ただし default mode のホストが課金ホスト数に数えられるかの明示はない（公開情報では確認できず）。契約時に Datadog へ確認すること。
+- Kafka Console の課金は Amazon MSK Provisioned クラスター（およびセルフホスト）に適用される。MSK Serverless と Confluent Cloud クラスターの監視は課金されない（料金ページ FAQ、2026-11-02 取得）。セルフホストクラスターでのブローカーホストの数え方は公開情報では確認できず。[出典](https://www.datadoghq.com/pricing/?product=data-streams-monitoring)
 - Kafka Console の利用に DSM（クライアントホスト課金）の契約が前提となるかは公開情報では確認できず（FAQ は「どちらか単独でも導入可能」と記載）。
 - `data_streams.*` メトリクスのカスタムメトリクス課金、Lambda 上の DSM の課金は公開情報では確認できず。
 - Kafka Consumer／Kafka Broker・RabbitMQ・AWS などのインテグレーションメトリクスは Infrastructure Monitoring 側の扱いとなる（[Integrations](../platform/integrations.md)、[Infrastructure Monitoring](../infrastructure/infrastructure-monitoring.md) を参照）。

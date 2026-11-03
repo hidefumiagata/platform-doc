@@ -26,6 +26,7 @@ sources:
   - https://docs.datadoghq.com/metrics/custom_metrics/
   - https://www.datadoghq.com/pricing/
   - https://www.datadoghq.com/pricing/list/
+  - https://www.datadoghq.com/pricing/allotments/
 ---
 
 # 課金計算の仕組み
@@ -67,8 +68,8 @@ Datadog は多くの製品の使用量を **1 時間ごと（コンテナ・Farg
 |---|---|---|
 | **99 パーセンタイル**（上位 1% の時間を除いた最大値＝ハイウォーターマーク） | Infra Hosts、APM Hosts、Profiled Hosts、Network Hosts、Network Devices、IoT Devices | 月の上位 1% の時間（約 7〜8 時間）に収まる短時間のスパイクは無視される。それを超えると、スパイク時の値がそのまま請求数量になる |
 | **ハイウォーターマーク**（Usage 画面の記載） | Containers | 下記 1.2 の注意を参照 |
-| **月平均**（毎時のユニーク数の平均） | Custom Metrics、Ingested Custom Metrics、Profiled Containers、Serverless Functions（1 時間に 1 回以上実行された関数）、Fargate Tasks（課金上は月平均） | スパイクは時間比で薄まる |
-| **月合計**（全時間の和） | Ingested / Indexed / Scanned / Analyzed Logs、Ingested / Indexed Spans、Network Flows、Serverless Invocations、Synthetic API / Browser Tests | 量に比例して増える。スパイク分はそのまま請求に乗る |
+| **月平均**（毎時のユニーク数の平均） | Custom Metrics、Ingested Custom Metrics、Profiled Containers、Serverless Functions（1 時間に 1 回以上実行された関数） | スパイクは時間比で薄まる |
+| **月合計**（全時間の和） | Fargate Tasks（Usage 画面の表示はタスク時間の合計。下記 1.2 の注意を参照）、Ingested / Indexed / Scanned / Analyzed Logs、Ingested / Indexed Spans、Network Flows、Serverless Invocations、Synthetic API / Browser Tests | 量に比例して増える。スパイク分はそのまま請求に乗る |
 | **ユニーク数の合計** | RUM Sessions | セッション数に比例 |
 | **ユニークユーザー** | Incident Management（旧使用量プラン） | 月内に実質的に関与したユーザー数 |
 
@@ -76,7 +77,7 @@ Datadog は多くの製品の使用量を **1 時間ごと（コンテナ・Farg
 
 Cost Details のドキュメントも同じ整理で、「Infrastructure ホストと APM ホスト（下位 99% のハイウォーターマーク）、カスタムメトリクスと Fargate タスク（月平均）はコストが比較的安定し、インデックス済み・取り込み済みログ（使用量の合計）は量に応じて増減する」と説明している [出典](https://docs.datadoghq.com/account_management/plan_and_usage/cost_details/)。
 
-### 1.2 コンテナの集計方法に関する記述の食い違い
+### 1.2 コンテナ・Fargate の集計方法に関する記述の食い違い
 
 コンテナの集計について、公式ドキュメント内に表現の差がある。
 
@@ -88,6 +89,8 @@ Cost Details のドキュメントも同じ整理で、「Infrastructure ホス�
 [出典](https://docs.datadoghq.com/account_management/billing/usage_details/)、[出典](https://docs.datadoghq.com/account_management/billing/containers/)
 
 課金計算の具体的な手順はコンテナ課金の専用ページの方が詳しく、本ファイルでは専用ページの「時間平均 → 超過分のコンテナ時間を合計」を正として説明する（第 3 章）。Usage 画面の表示値がどちらの集計に基づくかは、公開情報では確認できず。
+
+> **注意（Fargate Tasks）:** Fargate Tasks についても、ドキュメントによって表現が異なる。Usage Details は「当月の全時間にわたる Fargate タスクの合計（sum of all Fargate tasks over all hours）」、Billing Pricing は「5 分ごとに監視タスク数を記録し、アプリケーションが実行・監視された総時間で課金」と書いている。一方、料金ページの課金定義（アクティブなタスクの月平均）、Cost Details、APM 課金ドキュメントは「月平均」と説明している。Usage 画面に出るのは全時間の合計（タスク時間）で、それを月の時間数で割ると月平均のタスク数になる、という関係と読める。ただし、請求数量がどちらの単位で表示されるかは契約・請求書で確認すること [出典](https://docs.datadoghq.com/account_management/billing/usage_details/)、[出典](https://docs.datadoghq.com/account_management/billing/pricing/)、[出典](https://www.datadoghq.com/pricing/)、[出典](https://docs.datadoghq.com/account_management/plan_and_usage/cost_details/)。
 
 ### 1.3 計測と請求サイクルの基本
 
@@ -193,7 +196,7 @@ APM の課金ドキュメントは、より具体的に「APM ホスト数を 1 
 |---|---|---|
 | 超過分の数え方 | 99 パーセンタイルのホスト数 − コミット | コミットを超えたホスト時間の合計 |
 | 向いている環境【推定】 | ホスト数が比較的安定、短時間のスパイクのみ | 大きな変動が月の一部の時間帯に集中する環境 |
-| 時間単価の例 | — | 公式の Subscription Details 画面のサンプルでは Infrastructure Hosts「$0.03 per infra host, per hour」、APM Hosts「$0.06 per APM host, per hour」（サンプル値。現行単価は契約で確認） |
+| 時間単価の例 | — | 公式ドキュメントに掲載された Subscription Details 画面のスクリーンショットには、Infrastructure Hosts「$0.03 per infra host, per hour」、APM Hosts「$0.06 per APM host, per hour」と表示されている（画像上のサンプル値で、本文には記載がない。現行単価の根拠にはしないこと。単価は契約で確認） |
 | 選択条件 | 公開情報では確認できず | 公開情報では確認できず（料金ページは「時間単位の請求が必要な場合は営業 / CSM に問い合わせ」と案内） |
 
 [出典](https://docs.datadoghq.com/account_management/billing/pricing/)、[出典](https://docs.datadoghq.com/account_management/billing/)
@@ -524,7 +527,7 @@ GB を 10^9 バイトとするか 2^30 バイトとするかは、公開情報�
 | Log Explorer とファセット | 時間範囲を変えて件数を確認、属性・タグ別に内訳 | [出典](https://docs.datadoghq.com/account_management/billing/log_management/) |
 | 推定使用量メトリクス | `datadog.estimated_usage.logs.ingested_bytes`、`datadog.estimated_usage.logs.ingested_events` ほか | [出典](https://docs.datadoghq.com/account_management/billing/usage_metrics/) |
 
-![Usage ページの Logs Usage by Index 表](../../assets/images/billing-mechanics/logs-usage-by-index.png)
+![Usage ページの Logs Usage by Index 表](../assets/images/billing-mechanics/logs-usage-by-index.png)
 
 - **キャプション:** Plan & Usage の Usage ページ、Log Management タブの「Logs Usage by Index」表。
 - **画面の説明:** インデックス名ごとに保持期間（Retention）とインデックス済みログ件数を行として並べ、ライブログとリハイドレーションログの内訳、全体に占める割合（%）を表示する。期間の粒度（時間 / 日 / 月 / 年）を切り替えられ、CSV でダウンロードできる。どのインデックス（どの保持期間）がインデックス課金を押し上げているかを特定する画面である。
@@ -541,10 +544,14 @@ APM は「APM ホスト（または Fargate タスク / サーバーレス呼び
 | APM Host | APM がインストールされトレースを送信しているホスト | 1 時間ごと、99 パーセンタイル（9 番目 / 2 月は 8 番目） | — | APM $31、APM Pro $35、APM Enterprise $40（/ ホスト / 月、Infrastructure 併用時） |
 | Ingested Spans | Datadog に取り込まれたスパンの総 GB | 月末の総 GB | 150 GB / APM ホスト / 月 | $0.10 / GB |
 | Indexed Spans | 保持フィルタ（Retention Filters）でインデックスされたスパン | 月末の総件数 | 100 万件 / APM ホスト / 月 | $1.70 / 100 万件（15 日保持） |
-| APM Fargate タスク | 同時監視タスク数（5 分ごと計測、月平均） | 月平均 | Indexed 195,000 件、Ingested 30 GB / タスク | タスク $6 / 月 |
-| Serverless APM | APM の取り込みスパンに紐づく Lambda 呼び出し数の月合計 | 月合計 | 100 万呼び出しあたり Indexed 150,000 件 | 超過 Indexed は $1.70 / 100 万件 |
+| APM Fargate タスク | 同時監視タスク数（5 分ごと計測、月平均） | 月平均 | Indexed 195,000 件、Ingested 30 GB（料金ページ・APM Billing 料金表とも集計単位の明記なし。公式計算例では 20 タスクで 130 万件＝1 タスクあたり 6.5 万件相当として差し引いており食い違う。[製品別料金表 §4.2](./pricing-by-product.md#42-サーバーレスの同梱枠) の注意を参照） | タスク $6 / 月 |
+| Serverless APM | APM の取り込みスパンに紐づく Lambda 呼び出し数の月合計 | 月合計 | 100 万トレース済み呼び出しあたり Indexed 300,000 件、Ingested 50 GB（料金ページ、2026-11-02 時点。下記注意を参照） | 超過 Indexed は $1.70 / 100 万件 |
 
-[出典](https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/)、[出典](https://docs.datadoghq.com/account_management/billing/serverless/)。APM ホストとサーバーレス APM の現行定価は [製品別料金表](./pricing-by-product.md) を参照（APM 単体購入時は $36 等、Indexed Spans の 7 / 30 日保持単価も同ファイル）。
+[出典](https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/)、[出典](https://docs.datadoghq.com/account_management/billing/serverless/)、[出典](https://www.datadoghq.com/pricing/allotments/)。
+
+> **注意:** Serverless APM の同梱 Indexed Spans は、料金ページ（Allotments）では「100 万呼び出しあたり 300,000 件」だが、APM 課金ドキュメントの計算例では「100 万呼び出しあたり 150,000 件」となっており、両者が食い違う。本ファイルは [製品別料金表](./pricing-by-product.md) と同じく料金ページの値（300,000 件）を正とする。契約時に確認すること。
+
+APM ホストとサーバーレス APM の現行定価は [製品別料金表](./pricing-by-product.md) を参照（APM 単体購入時は $36 等、Indexed Spans の 7 / 30 日保持単価も同ファイル）。
 
 - 同梱量はホスト数に比例する（公式シナリオで 5 ホストに Indexed 500 万件・Ingested 750 GB が含まれる計算）。ドキュメントは「プール」という語を使っていないが、シナリオの計算はアカウント全体で合算する形になっている [出典](https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/)。
 - Ingested は「スパン数やトレース数ではなく **量（バイト）** で計測」される [出典](https://docs.datadoghq.com/tracing/trace_pipeline/metrics/)。GB が圧縮か非圧縮かは公開情報では確認できず。
@@ -584,7 +591,7 @@ APM 課金ドキュメントの公式シナリオ（年契約、15 日保持）[
 
 このシナリオは「EC2 は 99 パーセンタイル（ピーク寄り）」「Fargate は月平均」という集計方法の違いを示している。
 
-その他の公式シナリオの結果（いずれも月額）：APM Pro 5 ホスト・同使用量 $232.50、APM Enterprise 5 ホスト・各 6 プロファイル対象コンテナ $220、APM 5 ホスト + Indexed 2,000 万件 + Fargate 20 タスク $298.29、Enterprise 1 ホスト・2 コンテナ・Indexed 2,000 万件 $72.30、Enterprise Kubernetes 20 ノード・100 コンテナ・Indexed 2,000 万件 $840、Lambda 1,000 万呼び出し・Indexed 1,000 万件 $64.45 [出典](https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/)。
+その他の公式シナリオの結果（いずれも月額）：APM Pro 5 ホスト・同使用量 $232.50、APM Enterprise 5 ホスト・各 6 プロファイル対象コンテナ $220、APM 5 ホスト + Indexed 2,000 万件 + Fargate 20 タスク $298.29、Enterprise 1 ホスト・2 コンテナ・Indexed 2,000 万件 $72.30、Enterprise Kubernetes 20 ノード・100 コンテナ・Indexed 2,000 万件 $840、Lambda 1,000 万呼び出し・Indexed 1,000 万件 $64.45（同梱 Indexed を 100 万呼び出しあたり 150,000 件として計算したドキュメント上の値。料金ページの 300,000 件で計算すると金額は下がる） [出典](https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/)。
 
 ### 6.4 APM 使用量の確認
 
@@ -646,7 +653,7 @@ APM 課金ドキュメントの公式シナリオ（年契約、15 日保持）[
 | ティアの一貫性 | Infrastructure はアカウント全体で 1 つのカバレッジ（Pro / Enterprise）、APM は全ホストで 1 つのティアにコミット。APM ホストには Pro 以上の Infrastructure が必要 | [出典](https://www.datadoghq.com/pricing/) |
 | シート製品 | コミットシートを超えても割り当ては成功し、超過シートはオンデマンド単価。同時に割り当てた最大シート数で課金（過去に割り当てた全員ではない）。シート削減は更新時に有効 | [出典](https://www.datadoghq.com/pricing/) |
 | 契約外の製品を使い始めた場合 | 契約にない製品の最初の課金対象使用から約 48 時間後に、Usage Notifications 権限を持つユーザーへ通知メール（ベータ） | [出典](https://docs.datadoghq.com/account_management/billing/usage_details/) |
-| 契約外の保持期間 | インデックスに契約外の保持期間を設定するには CSM による有効化と組織管理者による out-of-contract オプションの有効化が必要 | [出典](https://docs.datadoghq.com/logs/log_configuration/indexes/) |
+| 契約外の保持期間 | 契約にない保持期間を追加するには Customer Success（`success@datadoghq.com`）に連絡して有効化してもらい、さらに組織管理者が Organization Settings で契約外保持期間の利用を有効化する必要がある。有効化後、各インデックスの保持期間を更新する | [出典](https://docs.datadoghq.com/logs/log_configuration/indexes/) |
 
 ### 7.4 コミット量の決め方の考え方
 
@@ -715,10 +722,10 @@ Datadog は課金次元ごとに `datadog.estimated_usage.*` メトリクスを�
 
 ### 9.2 Plan 画面の Subscription Details
 
-![Plan & Usage の Subscription Details](../../assets/images/billing-mechanics/subscription-details.png)
+![Plan & Usage の Subscription Details](../assets/images/billing-mechanics/subscription-details.png)
 
 - **キャプション:** Plan & Usage の Plan タブ。Subscription Details セクションが強調表示されている。
-- **画面の説明:** 上部の「Subscription Summary」にプラン名、契約形態（例：Committed Annually）、年間コミット総額、支払い頻度、契約の開始日 / 終了日が表示される。下段の「Subscription Details」は製品カテゴリ（Infrastructure、APM、Log Management など）ごとに展開でき、各行に SERVICE/FEATURE（課金次元）、QUANTITY（コミット数量）、PRICE（契約単価）、ON DEMAND PRICE（超過時の単価）が並ぶ。公式のサンプル画面では Infrastructure Hosts が「$15.00 per infra host」「$0.03 per infra host, per hour」、Containers が「$1.00 per container」「$0.002 per container, per hour」、APM Hosts が「$31.00 per APM host」「$0.06 per APM host, per hour」と表示されている（サンプル値）。
+- **画面の説明:** 上部の「Subscription Summary」にプラン名、契約形態（例：Committed Annually）、年間コミット総額、支払い頻度、契約の開始日 / 終了日が表示される。下段の「Subscription Details」は製品カテゴリ（Infrastructure、APM、Log Management など）ごとに展開でき、各行に SERVICE/FEATURE（課金次元）、QUANTITY（コミット数量）、PRICE（契約単価）、ON DEMAND PRICE（超過時の単価）が並ぶ。公式のサンプル画面では Infrastructure Hosts が「$15.00 per infra host」「$0.03 per infra host, per hour」、Containers が「$1.00 per container」「$0.002 per container, per hour」、APM Hosts が「$31.00 per APM host」「$0.06 per APM host, per hour」と表示されている（公式ドキュメント掲載のスクリーンショット上のサンプル値で、本文には記載がない。現行単価の根拠にはしないこと）。
 - **出典:** https://docs.datadoghq.com/account_management/billing/ （取得日 2026-11-02）
 
 読み方のポイント：
@@ -733,7 +740,7 @@ Subscription Details は **Datadog パートナー（リセラー等）経由で
 
 ### 9.3 Usage 画面の Billable 表示
 
-![Usage Summary の Billable 表示](../../assets/images/billing-mechanics/usage-billable-pills.png)
+![Usage Summary の Billable 表示](../assets/images/billing-mechanics/usage-billable-pills.png)
 
 - **キャプション:** Plan & Usage の Usage ページ、Usage Summary の「Total Usage」カード（Billable 表示）。
 - **画面の説明:** 上部に All / Infrastructure / Custom Metrics / Log Management / Serverless / RUM / Software Delivery / Custom Events などの製品タブ。右上に「Billable」「All」の切替と期間（例：1mo、Oct 1 - Oct 27 (UTC)）。各カードに製品の月初来使用量（例：Infra Hosts 2.91K、Custom Metrics 389K、Indexed Logs (15 Day Retention) 150M、Container Hours 8.88M、Ingested Custom Metrics 1.40M、Ingested Logs 10.2 TB）が大きく表示され、その下にピル（ラベル）で内訳が示される。例：Infra Hosts は「2.75K COMMITTED」「162 ON-DEMAND」、Custom Metrics は「292K ALLOTTED」「5 COMMITTED」「96.8K ON-DEMAND」、Container Hours は「18.2M ALLOTTED」。カード右下の目のアイコン（See included usage）でピル表示を切り替える。
@@ -750,7 +757,7 @@ Subscription Details は **Datadog パートナー（リセラー等）経由で
 
 > 画像の例で Custom Metrics が「292K ALLOTTED」「96.8K ON-DEMAND」となっているように、同梱枠を超えた分はコミットがなければすべてオンデマンドになる。Usage 画面の ON-DEMAND が恒常的に出ている製品は、コミット追加で単価を下げられる可能性がある（ログ・Synthetics など、オンデマンド単価が年契約より大きく高い製品で特に効果が大きい）【経験則】。
 
-![コミット線とオンデマンドのピルを表示した使用量推移](../../assets/images/billing-mechanics/usage-committed-line.png)
+![コミット線とオンデマンドのピルを表示した使用量推移](../assets/images/billing-mechanics/usage-committed-line.png)
 
 - **キャプション:** Usage ページで Billable のピルと、使用量推移グラフ上の破線のコミット線を表示した状態。
 - **画面の説明:** 上段の Total Usage カードにはコミット・同梱・オンデマンドのピルが表示され、下段の Usage Trends グラフには製品ごとの使用量の推移と、コミット水準を示す破線の「Committed」線が描かれる。使用量が破線を上回っている期間がオンデマンド課金の発生期間を示す。粒度は日 / 週 / 月 / 年で切り替えられる。
@@ -760,7 +767,7 @@ Subscription Details は **Datadog パートナー（リセラー等）経由で
 
 Bill Overview は、コスト・使用量推移・月末予測を 1 画面にまとめたページで、**2026 年 3 月から段階的に全組織へ自動展開** されている（ヘッダーの「Disable Preview」で旧レイアウトに戻せる）[出典](https://docs.datadoghq.com/account_management/plan_and_usage/bill_overview/)。
 
-![Bill Overview ページ](../../assets/images/billing-mechanics/bill-overview-main.png)
+![Bill Overview ページ](../assets/images/billing-mechanics/bill-overview-main.png)
 
 - **キャプション:** Plan & Usage の Bill Overview タブ。
 - **画面の説明:** 上部タブは Plan / Bill Overview / Usage Attribution / Seat Management / Billing History / Usage Notifications。その下に Product Category、Billing Dimension、Sub-Org のフィルタと「Group by Sub-Org」トグル、期間選択（例：1mo Mar 2026）。中央に「Estimated Mar 1 - Mar 18 Cost」（月初来の推定コスト）と「Projected March Total」（月末予測と前月比 %）、右に「View daily costs in Cloud Cost」へのリンク。注記として「表示値は推定・予測であり、最終請求には追加の調整や表示されない製品・サービスが含まれうる」旨が表示される。下段に「Daily Cost Breakdown」（課金次元ごとに色分けした日次コストの積み上げ棒グラフ）、さらに Trends / Product List タブと「Investigate Products with」（Highest % Cost Change、Highest Cost Change ($)、Highest Total Cost、Highest % Usage Change）の並べ替えがある。
@@ -864,7 +871,7 @@ Bill Overview は、コスト・使用量推移・月末予測を 1 画面にま
 | Metric Name pricing の契約形態差 | 月契約 +20%、オンデマンド +40% | 同上 |
 | APM 同梱量 | Ingested 150 GB、Indexed 100 万件（APM ホストあたり / 月） | [出典](https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/) |
 | APM Fargate 同梱量 | Ingested 30 GB、Indexed 195,000 件（タスクあたり） | 同上 |
-| Serverless APM 同梱量 | 100 万呼び出しあたり Indexed 150,000 件 | 同上 |
+| Serverless APM 同梱量 | 100 万トレース済み呼び出しあたり Indexed 300,000 件、Ingested 50 GB（APM 課金ドキュメントの計算例は Indexed 150,000 件で食い違う。料金ページを正とする） | [出典](https://www.datadoghq.com/pricing/allotments/) |
 | Profiler 同梱コンテナ | 1 ホストあたり 4（全ホスト合算）、超過 $2 / コンテナ / 月 | [出典](https://docs.datadoghq.com/account_management/billing/pricing/) |
 | Indexed Spans の保持（カスタム保持フィルタ） | 15 日 | [出典](https://docs.datadoghq.com/tracing/trace_pipeline/trace_retention/) |
 | Intelligent Retention の保持 | 30 日（Indexed 課金対象外） | 同上 |

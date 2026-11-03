@@ -41,6 +41,11 @@ sources:
   - https://docs.datadoghq.com/security/automation_pipelines/
   - https://www.datadoghq.com/pricing/list/
   - https://www.datadoghq.com/pricing/
+  - https://www.datadoghq.com/pricing/?product=code-security
+  - https://docs.datadoghq.com/account_management/billing/pricing/
+  - https://www.datadoghq.com/blog/ai-native-sast-detect-llm-vulnerabilities/
+  - https://www.datadoghq.com/blog/code-security-ai-capabilities/
+  - https://www.usagepricing.com/blueprint/activity/datadog-2026-10-23-code-security-bundle-tiers
 ---
 
 # Code Security
@@ -118,7 +123,7 @@ flowchart LR
 
 Code Security は **US1-FED（`app.ddog-gov.com`）および `us2.ddog-gov.com` では提供されていない**。料金ページにも「This product is currently unavailable on the US-FED site」と記載されている。[出典](https://docs.datadoghq.com/security/code_security/) [出典](https://www.datadoghq.com/pricing/)
 
-> **サイト差異:** Code Security 本体は US1-FED 以外のサイト（US1・US3・US5・EU1・AP1・AP2）で利用できる。Preview 機能（Supply Chain Firewall、Code Security MCP Server、Generic Secret Scanning）の Preview 案内は `app.datadoghq.com`（US1）、US3、US5、EU1、AP1、AP2、`uk1` を対象サイトとして明記している。AP1（日本）は対象に含まれる。[出典](https://docs.datadoghq.com/security/code_security/dev_tool_int/mcp_server/)
+> **サイト差異:** Code Security 本体は `app.ddog-gov.com`（US1-FED）・`us2.ddog-gov.com` 以外の商用サイト（US1・US3・US5・EU1・AP1・AP2・UK1）で利用できる。Preview 機能（Supply Chain Firewall、Code Security MCP Server、Generic Secret Scanning）の Preview 案内は `app.datadoghq.com`（US1）、US3、US5、EU1、AP1、AP2、`uk1` を対象サイトとして明記している。AP1（日本）は対象に含まれる。[出典](https://docs.datadoghq.com/security/code_security/) [出典](https://docs.datadoghq.com/security/code_security/dev_tool_int/mcp_server/)
 
 > **サイト差異:** CI 用 CLI や GitHub Action の `DD_SITE` / `dd_site` のデフォルト値は `datadoghq.com`（US1）である。AP1 を利用する場合は `DD_SITE=ap1.datadoghq.com` を明示しないと、データが US1 に送信されて失敗する。サイトの詳細は [Datadog Sites](../platform/datadog-sites.md) を参照。
 
@@ -417,6 +422,8 @@ SAST のカスタムルールは、(1) 対象 AST ノードを選ぶ **tree-sitt
 
 Datadog 公式ブログ（2026-08-20 公開）は、AI-native SAST が Python・Go・Java・C#・TypeScript・JavaScript で **OWASP Top 10 for LLM Applications**（プロンプトインジェクション、機密情報漏えい、過剰な権限（Excessive Agency）等）をカバーし、taint 解析・制御フロー解析・パターンマッチを使い分けると説明している。[出典](https://www.datadoghq.com/blog/ai-native-sast-detect-llm-vulnerabilities/)（2026-08-20 公開）
 
+同じく公式ブログ（2025-12-01 公開）は、AI による脆弱性管理の流れを次のように紹介している。検出結果に「High Confidence」「False Positive」などの確信度ラベルを付ける。Bits AI が個々の脆弱性に編集可能な修正案を出す。関連する複数の修正を生成 PR にまとめる。生成した修正と PR の状態を 1 か所で追跡する。[出典](https://www.datadoghq.com/blog/code-security-ai-capabilities/)（2025-12-01 公開）
+
 Bits AI 全般は [Bits AI と AI 機能](../ai/bits-ai.md) を参照。
 
 ### 修正提案（Suggested fixes）
@@ -687,6 +694,8 @@ IAST はセキュリティ用のトレース / スパンを送信するため、
 | AWS Lambda | 記載なし | 記載なし | 非対応 | 記載なし |
 | Azure App Service | 対応（Web アプリのみ） | 対応 | 記載なし | 記載なし |
 | Azure Functions | 非対応 | 非対応 | 非対応 | 非対応 |
+
+- Python の AWS Fargate 行は公式ページ上「Preview (2.9.3)」と記載されているが、IAST の最低トレーサーバージョン 3.18.0 と食い違う（公式ページ側の不整合。実際の導入では 3.18.0 以上を前提とする）。
 
 [出典](https://docs.datadoghq.com/security/code_security/iast/setup/)
 
@@ -1190,7 +1199,7 @@ Case Management は [Case Management](../service-management/case-management.md)�
 | IAST クローズ / 再オープン | 14 日（修正デプロイ時 24 時間）/ 15 か月以内の再出現で再オープン | [出典](https://docs.datadoghq.com/security/code_security/iast/) |
 | Automation Pipelines の既存検出への反映 | 最大 2 時間 | [出典](https://docs.datadoghq.com/security/automation_pipelines/) |
 | IAST 最低 Agent | 7.41.1（Python 4.x は 7.63.0） | [出典](https://docs.datadoghq.com/security/code_security/iast/setup/) |
-| ランタイム SCA / IAST（Java）ファイルシステム | 読み取り専用 FS 非対応、書込可能な `/tmp` 必須 | [出典](https://docs.datadoghq.com/security/code_security/software_composition_analysis/setup_runtime/) |
+| ファイルシステム：ランタイム SCA（全言語）／IAST（Java） | 読み取り専用 FS 非対応、書込可能な `/tmp` 必須 | [出典](https://docs.datadoghq.com/security/code_security/software_composition_analysis/setup_runtime/) [出典](https://docs.datadoghq.com/security/code_security/iast/setup/) |
 | PR コメント | 公開リポジトリ・フォーク PR 非対応 | [出典](https://docs.datadoghq.com/security/code_security/dev_tool_int/github_pull_requests/) |
 | PR Gates | フォーク PR 非対応、GitHub マージキュー併用時は required 不可 | [出典](https://docs.datadoghq.com/pr_gates/) |
 | Secret Scanning diff-aware | 非対応 | [出典](https://docs.datadoghq.com/security/code_security/secret_scanning/) |
@@ -1203,33 +1212,38 @@ Case Management は [Case Management](../service-management/case-management.md)�
 
 ## 課金への影響
 
-Code Security の公式定価（2026-11-02 時点、USD / 月、[料金リスト](https://www.datadoghq.com/pricing/list/) 掲載値）は次のとおり。料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。
+Code Security の公式定価（2026-11-02 時点、USD / 月、[料金リスト](https://www.datadoghq.com/pricing/list/) 掲載値）は次のとおり。料金の正本は [製品別料金表 §10.3](../../03_導入編/pricing-by-product.md#103-code-security)。
 
-| 製品 | 課金単位 | 年契約 | 月契約 | オンデマンド |
-|---|---|---|---|---|
-| Static Code Analysis (SAST) | committer | $25 | $30 | $36 |
-| Static Software Composition Analysis | committer | $25 | $30 | $36 |
-| Runtime Software Composition Analysis | host | $10 | $12 | $15 |
-| Runtime Code Analysis (IAST) | host | $20 | $24 | $29 |
-| Infrastructure-as-Code (IaC) Security | committer | $15 | $18 | $22 |
-| Secret Scanning | committer | $15 | $18 | $22 |
-| Code Security Bundle | committer | $40 | $48 | $57.60 |
-| Code Security Flex Bundle (Secrets) | committer | $48 | $58 | $70 |
-| Code Security Advanced Bundle | committer | $55 | $66 | $80 |
+| 製品 | 課金単位 | US/EU1 年契約 | US/EU1 月契約 | US/EU1 オンデマンド | AP1 年契約 | AP1 月契約 | AP1 オンデマンド |
+|---|---|---|---|---|---|---|---|
+| Static Code Analysis (SAST) | committer | $25 | $30 | $36 | $31.25 | $37.50 | $45 |
+| Static Software Composition Analysis | committer | $25 | $30 | $36 | $31.25 | $37.50 | $45 |
+| Runtime Software Composition Analysis | host | $10 | $12 | $15 | $12.50 | $15 | $18.75 |
+| Runtime SCA for AWS Fargate（Runtime SCA 単体購入時） | Fargate タスク | $1 | $1.20 | $1.40 | $1.25 | $1.50 | $1.75 |
+| Runtime Code Analysis (IAST) | host | $20 | $24 | $29 | $25 | $30 | $36.25 |
+| Infrastructure-as-Code (IaC) Security | committer | $15 | $18 | $22 | $18.75 | $22.50 | $27.50 |
+| Secret Scanning | committer | $15 | $18 | $22 | $18.75 | $22.50 | $27.50 |
+| Code Security Bundle（Core Bundle） | committer | $40 | $48 | $57.60 | $50 | $60 | $72 |
+| Code Security Flex Bundle (Secrets) | committer | $48 | $58 | $70 | $60 | $72.50 | $87.50 |
+| Code Security Advanced Bundle | committer | $55 | $66 | $80 | $68.75 | $82.50 | $100 |
 
-[出典](https://www.datadoghq.com/pricing/list/)（取得日 2026-11-02）
+[出典](https://www.datadoghq.com/pricing/list/) [出典](https://www.datadoghq.com/pricing/?product=code-security)（取得日 2026-11-02。AP1 列は [製品別料金表 §10.3](../../03_導入編/pricing-by-product.md#103-code-security) の掲載値、取得日 2026-11-03）
+
+> **サイト差異:** 料金ページは Datadog Site の選択で価格が切り替わる。AP1（日本）の価格は US/EU1 とは別建てで、上表の AP1 列のとおり US/EU1 より高い（例：SAST 年契約 US/EU1 $25 に対し AP1 $31.25）。AP2・UK1 の価格は [製品別料金表 §18](../../03_導入編/pricing-by-product.md#18-サイト別価格一覧付録と-us1-fed-の非提供製品) を参照。US1-FED では提供されていない。
 
 | 論点 | 内容 |
 |---|---|
-| 課金単位の区分 | リポジトリ解析系（SAST、静的 SCA、IaC、Secret Scanning、各 Bundle）は **committer** 単位、稼働中サービス系（ランタイム SCA、IAST）は **host** 単位 |
-| committer の定義 | Code Security 固有の定義は公開情報では確認できず。参考：CI Visibility / Code Coverage では「Git author email で識別するアクティブな Git コミッターで、当月に 3 回以上コミットした人」を課金対象と定義している。Code Security に同じ定義が適用されるかは未確認 |
-| Bundle の内訳 | 各 Bundle（Bundle / Flex Bundle (Secrets) / Advanced Bundle）に含まれる機能の内訳は料金リストに明記がなく、公開情報では確認できず。第三者の料金追跡サイトは、2026-09 時点の単一 Bundle が 2026-10 に 3 段階へ変更されたと報告している【第三者情報】（[出典](https://www.usagepricing.com/blueprint/activity/datadog-2026-10-23-code-security-bundle-tiers)、2026-10-23 観測） |
+| 課金単位の区分 | リポジトリ解析系（SAST、静的 SCA、IaC、Secret Scanning、各 Bundle）は **committer** 単位、稼働中サービス系（ランタイム SCA、IAST）は **host** 単位。Runtime SCA を単体購入して AWS Fargate で使う場合は **Fargate タスク**単位 |
+| committer の定義 | Git author email で識別するアクティブな Git コミッター。当月に **3 回以上コミットした人**が課金対象（料金ページの Code Security FAQ「How do you define a committer?」）。CI Visibility / Code Coverage と同じ定義 |
+| Bundle の内訳 | **Core Bundle**＝SAST・Static SCA・Runtime Code Analysis（IAST）・Runtime SCA。**Flex Bundle (Secrets)**＝Core Bundle の全機能＋Secret Scanning。**Advanced Bundle**＝Core Bundle の全機能＋Secret Scanning＋IaC Security（料金ページ /pricing/?product=code-security のプランカードと機能比較表）。第三者の料金追跡サイトは、2026-09 時点の単一 Bundle が 2026-10 に 3 段階へ変更されたと報告している【第三者情報】（[出典](https://www.usagepricing.com/blueprint/activity/datadog-2026-10-23-code-security-bundle-tiers)、2026-10-23 観測） |
+| Bundle 購入時のランタイム機能 | Code Security（Bundle）の一部として購入した Runtime SCA・IAST は、Datadog Agent を導入した任意のホストで利用できる。AWS Fargate も、Agent と SDK を導入したタスクであれば追加購入なしで利用できる。Runtime SCA を単体購入した場合だけ、Fargate アドオン（タスク単位、上表）が必要 |
+| 課金対象ホスト | IAST / Runtime SCA が有効で、スパンを Datadog に送信しているホスト（APM と同様の考え方） |
 | Code Coverage の付帯 | Code Security の課金対象 committer 1 名ごとに Code Coverage committer 1 名分が追加費用なしで付く |
 | APM インテーク | ランタイム SCA・IAST は APM 契約不要だが、セキュリティ用トレース / スパン送信に伴う APM インテークが請求に現れうる（APM・インフラを無効化しても発生しうる） |
 | Preview 機能 | Supply Chain Firewall、MCP Server、悪性 PR 検出の料金は公開情報では確認できず |
 | サイト | US1-FED では Code Security 自体が提供されていない |
 
-[出典](https://www.datadoghq.com/pricing/) [出典](https://docs.datadoghq.com/account_management/billing/pricing/) [出典](https://docs.datadoghq.com/security/code_security/iast/setup/) [出典](https://docs.datadoghq.com/security/code_security/software_composition_analysis/setup_runtime/)
+[出典](https://www.datadoghq.com/pricing/?product=code-security) [出典](https://docs.datadoghq.com/account_management/billing/pricing/) [出典](https://docs.datadoghq.com/security/code_security/iast/setup/) [出典](https://docs.datadoghq.com/security/code_security/software_composition_analysis/setup_runtime/)
 
 課金計算の仕組みは [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、見積りは [コスト見積り手法](../../03_導入編/cost-estimation.md)、使用量の確認は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md) を参照。
 
@@ -1285,6 +1299,7 @@ Code Security の公式定価（2026-11-02 時点、USD / 月、[料金リスト
 - PR Gates：https://docs.datadoghq.com/pr_gates/
 - Automation Pipelines：https://docs.datadoghq.com/security/automation_pipelines/
 - Billing / Pricing（CI Visibility の committer 定義）：https://docs.datadoghq.com/account_management/billing/pricing/
+- 料金ページ（Code Security：プランカード・機能比較表・FAQ）：https://www.datadoghq.com/pricing/?product=code-security （取得日 2026-11-04）
 - 料金リスト：https://www.datadoghq.com/pricing/list/ （取得日 2026-11-02）
 - 料金ページ：https://www.datadoghq.com/pricing/ （取得日 2026-11-02）
 - Datadog Blog「AI-native SAST で LLM 脆弱性を検出」：https://www.datadoghq.com/blog/ai-native-sast-detect-llm-vulnerabilities/ （2026-08-20 公開）

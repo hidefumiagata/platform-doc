@@ -133,7 +133,7 @@ Datadog の公開事例は日本語サイトと英語サイトで掲載内容が
 | 日本経済新聞社 | メディア | 従業員 3,054 名（2023-12 末）、日経 ID 約 1,100 万人 | AWS、複数 EKS クラスター | Logs、APM、Dashboards、DBM、RUM（予定）、Terraform 管理 | エラー検知から原因調査まで最短 5 分、SRE 増員なしで複数サービス運用 | 記載なし |
 | JCB | 金融（クレジットカード） | 会員 1億4,000万以上 | Google Cloud、Kubernetes、Anthos Service Mesh、GitLab で IaC | APM、SLO、Integrations | MTTD 短縮・運用工数削減（数値記載なし） | 2023-02-28 |
 | 住信SBIネット銀行 | 金融（銀行） | 従業員 746 名、約 50 の商用システム | AWS、マイクロサービス基盤構築中 | Infra、Dashboards、Logs、On-Call | 顧客影響調査 数十分以上→1分 | 記載なし |
-| SBI証券 | 金融（証券） | 口座 1,300 万超、Datadog 利用者約 350 名 | オンプレ → AWS 移行 | Infra、Logs、RUM、APM、DBM、NPM、NDM、Audit Trail、Synthetics、Error Tracking | DBM で 100 インスタンス以上、検知項目 2 倍以上、障害対応時間「数時間」短縮 | 2025-03-18 |
+| SBI証券 | 金融（証券） | 口座 1,300 万超、Datadog 利用者約 350 名 | オンプレ → AWS 移行 | Infra、Logs、RUM、APM、DBM、NPM、NDM、Audit Trail、Synthetics、Error Tracking、On-Call（ベータ版） | DBM で 100 インスタンス以上、検知項目 2 倍以上、障害対応時間「数時間」短縮 | 2025-03-18 |
 | SBペイメントサービス | 金融（決済） | 秒間 1,000 件近いリクエスト | 複数の決済システム | APM、NDM、Infra、Dashboards | 独自ダッシュボード 15 種類以上、早期原因把握 | 2025-01-15 |
 | 三井住友ファイナンス&リース | 金融（リース） | 記載なし | 記載なし | Dashboards、ログフィルタリング、通知（Twilio 連携） | 監視未経験チームで 3ヶ月で導入、4ヶ月後に正式リリース | 2021-08-05 |
 | DMM.com | 動画配信 | 従業員 2,730 名、会員 5,146 万人、Datadog 利用約 160 名 | Google Cloud（GKE） | Infra、Logs、APM、RUM、Network、Profiler、Notebooks、Monitors（Terraform） | 日次ダッシュボード確認 15 分 | 2026-02-10 |
@@ -143,7 +143,7 @@ Datadog の公開事例は日本語サイトと英語サイトで掲載内容が
 | ウォンテッドリー | IT サービス（ビジネス SNS） | 従業員 120 名、ユーザー 432 万人 | AWS、Amazon EKS | Infra、Logs、APM、SLO、RUM | 継続利用 11 年、約 150 マイクロサービス監視 | 2025-12-24 |
 | Vポイントマーケティング | マーケティング | 従業員約 500 名、V ポイント有効 ID 約 1.3 億 | ハイブリッド、Azure / AWS / Google Cloud / OCI | Infra、Logs、APM、API Tests、Cloud Security、Sensitive Data Scanner、On-Call | 約 20 サービス監視、利用者約 60 名 | 2026-04-24 |
 | SOMPO Light Vortex | 保険グループのデジタル子会社 | 数個のプロダクト | AWS ＋ GCP、Terraform | Logs、Synthetics、RUM、Incident Management | 障害調査時間 70〜80% 短縮 | 2023-02-22 |
-| JR西日本ITソリューションズ | IT サービス（鉄道グループ） | 従業員約 570 名、利用者約 70 名 | オンプレ（外形監視）＋ AWS（サーバーレス） | Synthetics、Infra、Logs、APM、DBM、RUM | 監視フロー作成可能者 3人→15人以上、AWS コスト 20% 削減 | 2026-03-17 |
+| JR西日本ITソリューションズ | IT サービス（鉄道グループ） | 従業員約 570 名、利用者約 70 名 | オンプレ（外形監視）＋ AWS（サーバーレス） | Synthetics、Infra、Logs、APM、DBM、RUM | 監視フロー作成可能者 2〜3人→約 15人、S3 利用料 約 20% 削減 | 2026-03-17 |
 | ビズリーチ | HR | 約 20 チーム・約 150 名が利用（2024-05） | マイクロサービス化、カナリアリリース | APM、Logs、RUM（Session Replay）、Dashboards | 6 年でチーム 5 倍・開発者 2 倍の成長を支える | 2024-07-17 |
 | 一休 | 旅行・飲食予約 | 300 台以上のサーバー、50〜60 人が日常的に閲覧 | AWS EC2 中心 ＋ 一部オンプレ、Lambda / K8s へ移行中 | Infra、APM、Synthetics、Logs、Anomaly、NDM | デプロイ頻度 10 倍以上（2週間に1度→1日数回） | 2022-07-12 |
 | 大日本印刷（DNP） | 印刷・IC カード・セキュリティ | 最新フレームワークのプロジェクト 30 件超 | マルチクラウド（AWS / Azure 等） | 標準監視、APM、RUM（期待）、Watchdog（検証中） | 情報収集のための再デプロイ（最大 1 週間）がゼロに | 2022-09-10 |
@@ -306,7 +306,7 @@ On-Call の仕様は [On-Call](../02_リファレンス/service-management/on-ca
 | 規模 | 従業員 910 名（単体、2024 年 3 月）、証券口座 1,300 万超、預り資産 40 兆円超（2024 年 7 月）、1 日 2 兆円超の取引、Datadog 利用者約 350 名 |
 | 導入前の課題 | 監視とログ管理の統合／監視環境の可視化／障害対応の迅速化／エンジニア負荷の軽減。AWS ネイティブサービスではマルチアカウントの一元管理ができず機能も不足（アカウントごとの監視・ログ収集が必要） |
 | 構成 | 取引システムをオンプレミスから AWS へ移行（2022 年 11 月プロジェクト開始）。対象はフロントアプリ、統合 DB、バッチ、注文処理基盤。各サーバーに Agent。導入前は 10 以上の OSS 監視ツールを併用 |
-| 利用製品 | Infrastructure Monitoring、Log Management、RUM、APM、Database Monitoring、Network Performance Monitoring（現 Cloud Network Monitoring）、Network Device Monitoring、Audit Trail、Synthetic Monitoring、Error Tracking（2024 年 7 月〜）、Watchdog アラート。On-Call（ベータを本番利用）、App Builder、Workflow Automation（自動復旧）を検討・計画 |
+| 利用製品 | Infrastructure Monitoring、Log Management、RUM、APM、Database Monitoring、Network Performance Monitoring（現 Cloud Network Monitoring）、Network Device Monitoring、Audit Trail、Synthetic Monitoring、Error Tracking（2024 年 7 月〜）、Watchdog アラート。On-Call（ベータ版を本番利用中）。App Builder、Workflow Automation による復旧プロセスの自動化を計画 |
 | 効果 | DBM で統合 DB「100インスタンス以上」を監視／アラート検知項目がオンプレ比「2倍以上」／障害対応時間がオンプレ比で「数時間」短縮／利用者「約350名」 |
 | 選定理由 | 「要件として国内にデータを置く必要があり、唯一対応していたのが Datadog でした」（SBIシンプレクス・ソリューションズ） |
 | 導入経緯 | 2023 年 4 月 約 3ヶ月の PoC → 2023 年 10 月 開発環境・一部システムで小規模展開 → 本格展開 |
@@ -481,7 +481,7 @@ Monitor を起点にした自動化の考え方は [Workflow Automation](../02_�
 | 導入前の課題 | 10 年以上使った自前ホスティングの外形監視ソフトがサポート終了／監視スクリプトを書けるのが少数で属人化／正常なサービスをエラー判定する誤検知が多く調査工数が増加／オンプレサーバーに接続できる端末が限られ結果共有が困難／AWS サーバーレス化を見据え、既存ツールでは AWS マネージドサービスを監視しにくい |
 | 構成 | 観光サイト「JRおでかけネット」のオンプレミスサービスを外形監視。一部を AWS へ移行しサーバーレス（Lambda 等）化。外形監視と AWS 監視を 1 プラットフォームに集約 |
 | 利用製品 | Synthetic Monitoring（GUI でフロー作成）、Infrastructure Monitoring、Log Management、APM、Database Monitoring、RUM（RUM・DBM は試用段階）、Notebooks、Dashboards、アラート |
-| 効果 | 監視フローを作成できる人「3人→15人以上」／APM による AWS リソース最適化で「コストを20％削減」（本文では S3 の過剰な LIST リクエスト是正で S3 利用料約 20% 削減）／導入後の設定変更「13件」はすべて内製対応／研修に約 15 名参加 |
+| 効果 | 監視フローを作成できる人：本文では「2、3人に限定されていた対応可能者が15人まで増えた」（2〜3人→約 15人。ページ上部の Key results 欄の表記は「3人→15人以上」）／APM による AWS リソース最適化で「コストを20％削減」（本文では S3 の過剰な LIST リクエスト是正で S3 利用料約 20% 削減）／導入後の設定変更「13件」はすべて内製対応／研修に約 15 名参加 |
 | 導入経緯 | 2024 年 2 月 外形監視開始 → 2025 年 9 月 新 AWS システムの監視開始 |
 | 公開日 | 本文に記載なし。PDF 日付コード 2026-03-17【推定】 |
 
@@ -584,7 +584,7 @@ MSP / パートナーとしての複数 org 運用は [大規模・マルチorg�
 
 | 項目 | 内容 |
 |---|---|
-| 企業 | Auth0（Okta の顧客 ID・アクセス管理プラットフォーム）。Okta は従業員 8,000 名超、本社サンフランシスコ |
+| 企業 | Auth0（Okta の顧客 ID・アクセス管理プラットフォーム）。事例ページのプロファイル欄（About Auth0）に従業員「8,000+ Employees」、本社サンフランシスコと記載 |
 | 規模 | コアサービス可用性 99.99%、ログ月 50〜100 億件超、30 以上のクラスター |
 | 課題 | 30 以上のクラスターにまたがる監視・ログ管理の集約（従来はサンプリングやクラスター分散で凌いでいた）／エンドユーザーのログイン影響前の検知・解決の短縮／大規模でのコスト制御／メトリクス・トレース・ログの統合 |
 | 構成 | 段階導入：まずトレースとインフラメトリクスを 1 プラットフォームで相関 → 次に全ログを Datadog へ。Flex Logs により 100% のログ量をコスト増なしで保持。導入作業は「6 週間」 |
@@ -693,7 +693,7 @@ Datadog 公式事例は導入効果が中心で、**Datadog 自体の費用を�
 
 ### メドピア：監視コストの見直しで年間約 1,000 万円削減【第三者情報】
 
-[出典](https://tech.medpeer.co.jp/entry/20240422-monitoring-cost-reduction)（2024-04 公開、メドピア開発者ブログ）
+[出典](https://tech.medpeer.co.jp/entry/20240422-monitoring-cost-reduction)（2024-04-23 公開、メドピア開発者ブログ）
 
 | 項目 | 内容 |
 |---|---|
@@ -765,15 +765,15 @@ Datadog 公式事例は導入効果が中心で、**Datadog 自体の費用を�
 | RUM | 約 12 | マネーフォワード、SBI証券、DMM、東京ガス、ウォンテッドリー、ビズリーチ、Itaú、Auth0、PayPal ほか |
 | Synthetic Monitoring | 約 9 | マネーフォワード、SBI証券、一休、SOMPO LV、JR西日本ITS、TOPPAN SI、Auth0、Porsche ほか |
 | Database Monitoring | 約 8 | マネーフォワード、SBI証券、東京ガス、日経、JR西日本ITS（試用）、Auth0、Porsche、SAS |
-| SLO | 3 | JCB、ウォンテッドリー、（Nealle：第三者） |
+| SLO | 2 | JCB、ウォンテッドリー（参考・件数外：Nealle の第三者事例） |
 | Watchdog / 異常検知 | 約 6 | サイバーエージェント、NTTドコモ、一休、SBI証券、ウォンテッドリー、Itaú |
 | Network（Cloud Network Monitoring / NDM） | 約 5 | マネーフォワード、SBI証券、SBペイメント、一休（NDM）、DMM |
 | Continuous Profiler | 2 | マネーフォワード、DMM |
-| Incident Management / On-Call | 約 4 | サイバーエージェント、SOMPO LV、住信SBIネット銀行（On-Call）、Vポイントマーケティング（On-Call） |
+| Incident Management / On-Call | 約 5 | サイバーエージェント、SOMPO LV、住信SBIネット銀行（On-Call）、Vポイントマーケティング（On-Call）、SBI証券（On-Call ベータ版） |
 | セキュリティ（Cloud SIEM / Cloud Security / Sensitive Data Scanner / Audit Trail） | 3 | プレイド（Cloud SIEM）、Vポイントマーケティング（Cloud Security・SDS）、SBI証券（Audit Trail） |
 | Observability Pipelines | 1 | Itaú Unibanco |
 | OpenTelemetry | 2 | PayPal、SAS |
-| Terraform / IaC による設定管理 | 5 | 日経、JCB（GitLab）、DMM、SOMPO LV、東京ガス（テックブログ） |
+| Terraform / IaC による設定管理 | 4 | 日経、JCB（GitLab）、DMM、SOMPO LV（参考・件数外：東京ガスのテックブログ） |
 
 読み取れること【推定】：
 
@@ -804,7 +804,7 @@ Datadog 公式事例は導入効果が中心で、**Datadog 自体の費用を�
 | 調査・復旧時間の短縮 | 障害調査時間 70〜80% 短縮／顧客影響調査 数十分以上→1分／検知から原因調査まで最短 5 分／解決時間 35% 短縮／原因究明〜解決工数 30% 減 | SOMPO LV、住信SBIネット銀行、日経、Itaú、東京ガス |
 | 検知力の向上 | 検知率・原因解明率 5〜10 倍／検知項目 2 倍以上／最大 3 時間早い異常検知 | 東京ガス、SBI証券、Itaú |
 | 開発速度 | デプロイ 10 倍以上／リリースサイクル 3ヶ月→1週間 | 一休、ソフトバンク |
-| 運用体制・人員 | 専属運用者ほぼゼロ／SRE 増員なしで複数サービス運用／監視フロー作成者 3人→15人以上 | NTTドコモ、日経、JR西日本ITS |
+| 運用体制・人員 | 専属運用者ほぼゼロ／SRE 増員なしで複数サービス運用／監視フロー作成者 2〜3人→約 15人 | NTTドコモ、日経、JR西日本ITS |
 | ツール統合 | 13 ツール廃止／10→1／4→1／10 以上の OSS から統合 | Itaú、Porsche、TriZetto、SBI証券 |
 | コスト | ログ関連コスト 13.6% 減／ログ管理 19% 減／AWS（S3）コスト約 20% 減／計算コスト 75% 減（単一サービス） | Itaú、Auth0、JR西日本ITS、SAS |
 | 導入期間 | 初期導入 1ヶ月／3ヶ月で導入／サービス導入 約 2ヶ月 | ソフトバンク、SMFL、TOPPAN SI |
@@ -854,7 +854,7 @@ flowchart LR
 | ログコストを下げた事例は | 東京ガス（テックブログ）、Nealle、Itaú（Observability Pipelines）、Auth0（Flex Logs） |
 | MSP / SIer として顧客監視に使う事例は | TOPPANシステムインテグレーション |
 | OpenTelemetry の事例は | PayPal、SAS |
-| SLO 運用の事例は | JCB、ウォンテッドリー、Nealle（ログ由来メトリクスで SLI） |
+| SLO 運用の事例は | JCB、ウォンテッドリー、Nealle（第三者事例：ログ由来メトリクスで SLI） |
 | 開発段階・性能テストでの活用は | ソフトバンク、ミスミ、SBペイメントサービス、SAS |
 | 他ツールからの移行・統合は | ミスミ（Zabbix）、Vポイントマーケティング（Zabbix / Azure Monitor / CloudWatch）、SBI証券（10 以上の OSS）、Porsche（10→1）、Itaú（13 ツール廃止）、JR西日本ITS（自前外形監視） |
 
@@ -917,5 +917,5 @@ Datadog 公式（2026-11-02 取得）
 
 - 東京ガス内製開発チーム Tech Blog「Datadog Logs のコスト半減に向けた取り組みと Archive Search 導入」（2026-10-06 公開）: https://tech-blog.tokyo-gas.co.jp/entry/2026/10/06/084741
 - Nealle Developer's Blog「Datadog のコスト最適化〜ログのコストを 70% 削減した話〜」（2025-08-18 公開）: https://nealle-dev.hatenablog.com/entry/2025/08/18/131030
-- メドピア開発者ブログ「監視にかかるコストを見直し半額にした話」（2024-04 公開）: https://tech.medpeer.co.jp/entry/20240422-monitoring-cost-reduction
+- メドピア開発者ブログ「監視にかかるコストを見直し半額にした話」（2024-04-23 公開）: https://tech.medpeer.co.jp/entry/20240422-monitoring-cost-reduction
 - The Pragmatic Engineer「Datadog's $65M/year customer mystery solved」（2023-05-11 公開）: https://blog.pragmaticengineer.com/datadog-65m-year-customer-mystery/

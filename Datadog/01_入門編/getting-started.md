@@ -184,10 +184,12 @@ Datadog の無料トライアルが終了すると、有料プランへのアッ
 | ホスト数 | 最大 **5 Basic ホスト** | 契約ホスト数 | 契約ホスト数 |
 | メトリクス保持期間 | **1 日** | 15 か月（フル解像度） | 15 か月（カスタマイズ可） |
 | コンテナ監視 | Basic ホストはコンテナ監視に非対応 | ホストあたり 5 コンテナが無料枠 | ホストあたり 10 コンテナが無料枠 |
-| インテグレーション | 公開情報では確認できず | 1,000 以上 | 1,000 以上 |
+| インテグレーション | 限定的（Limited） | 1,000 以上 | 1,000 以上 |
 | 料金（ホスト/月） | 無償 | 年契約 $15 / オンデマンド $18 | 年契約 $23 / オンデマンド $27 |
 
-> 料金は公式料金ページ掲載の定価（2026-11-02 時点、年契約＝Billed annually / オンデマンド＝On-demand）。数値の正本は [製品別料金表](../03_導入編/pricing-by-product.md)。エディションの違いは [エディション・プラン](../03_導入編/editions-and-plans.md) を参照。
+> 料金は公式料金ページ掲載の定価（2026-11-02 時点、年契約＝Billed annually / オンデマンド＝On-demand）。インテグレーション欄は料金ページの Infrastructure 機能比較表「1,000+ Integrations」行の表記（Basic は「Limited」）。数値の正本は [製品別料金表](../03_導入編/pricing-by-product.md)。エディションの違いは [エディション・プラン](../03_導入編/editions-and-plans.md) を参照。
+
+> **サイト差異:** 上表の料金は **US/EU1 の価格**。料金ページは「Datadog Site」セレクターでサイトごとに価格が切り替わり、基準サイトの **AP1（日本）は US/EU1 より高い**（掲載値どうしの比率で約 1.25 倍。例：Infrastructure Pro は AP1 で年契約 $18.75・オンデマンド $22.50、Enterprise は年契約 $28.75・オンデマンド $33.75）。見積りには比率ではなく [製品別料金表 §1.2・§2](../03_導入編/pricing-by-product.md#12-サイトリージョン別の価格) の AP1 列を使う。[出典](https://www.datadoghq.com/pricing/?product=infrastructure)
 
 トライアル終了時にアップグレード手続きを行う画面（支払方法の登録等）の具体的な手順は、公開ドキュメントでは確認できず。不明点は Datadog の担当者、または公式ドキュメントが案内する `success@datadoghq.com` に問い合わせる。[出典](https://docs.datadoghq.com/account_management/plan_and_usage/)
 
@@ -241,7 +243,7 @@ Datadog のサイトは組織作成後に変更できず、データ移行もで
 | 本番で使う予定のサイト | 評価用のトライアル組織を本番組織として使い続ける可能性がある場合、最初から本番予定のサイトで作る。サイトを変える場合は別組織の新規作成になる | 【経験則】 |
 | 機能提供状況 | 使いたい機能が対象サイトで提供されているかを、ドキュメントのサイトセレクターで確認する（特に新機能・Preview 機能、政府向けサイト） | 公式 [出典](https://docs.datadoghq.com/getting_started/site/) |
 | 監視対象との距離 | 公開情報ではサイト選択とレイテンシの関係について定量的な指針は確認できず | 公開情報では確認できず |
-| 価格 | サイトによる価格差の有無は本ファイルでは扱わない。[製品別料金表](../03_導入編/pricing-by-product.md) を参照 | — |
+| 価格 | サイトにより価格が異なる。AP1（日本）は US/EU1 より高い（掲載値どうしの比率で約 1.25 倍。例：Infrastructure Pro 年契約は US/EU1 $15、AP1 $18.75）。正確な値は [製品別料金表 §1.2](../03_導入編/pricing-by-product.md#12-サイトリージョン別の価格) の AP1 列を参照 | 公式 [出典](https://www.datadoghq.com/pricing/?product=infrastructure) |
 
 複数サイトへ同時にデータを送る必要がある場合は Dual Shipping の構成が公式ガイドで案内されている。[出典](https://docs.datadoghq.com/getting_started/site/) サイト選定の詳細・エンドポイント一覧は [Datadog Sites](../02_リファレンス/platform/datadog-sites.md) を参照。
 
@@ -516,7 +518,7 @@ Datadog の Getting Started ドキュメントが示す Agent のリソース消
 
 ### 6.1 インテグレーションの 3 種類
 
-Datadog のインテグレーション（Integrations）は、外部のテクノロジーからデータを取り込む仕組みで、約 1,000 種類が提供されている。方式により次の 3 種類に分かれる。[出典](https://docs.datadoghq.com/getting_started/integrations/)、[出典](https://docs.datadoghq.com/getting_started/application/)
+Datadog のインテグレーション（Integrations）は、外部のテクノロジーからデータを取り込む仕組みで、1,000 以上が提供されている [出典](https://www.datadoghq.com/pricing/?product=infrastructure)、[出典](https://www.datadoghq.com/free-datadog-trial/)。方式により次の 3 種類に分かれる。[出典](https://docs.datadoghq.com/getting_started/integrations/)、[出典](https://docs.datadoghq.com/getting_started/application/)
 
 | 種類 | 仕組み | 例 | 設定場所 |
 |---|---|---|---|
@@ -946,6 +948,8 @@ Datadog のトライアル・初期設定で課金に関わるポイントは次
 | クラウドインテグレーション | AWS 等で検出されたホストも Infrastructure のホストとして数えられ得る | [AWS Integration](../02_リファレンス/platform/aws-integration.md) |
 | タグ | 値の種類が無制限に増えるタグはカスタムメトリクス数を増やし、コストを押し上げる | [Getting Started with Tags](https://docs.datadoghq.com/getting_started/tagging/) |
 | 使用量の確認 | **Plan & Usage** の **Usage & Cost** タブ | [Plan and Usage](https://docs.datadoghq.com/account_management/plan_and_usage/) |
+
+> **サイト差異:** 上表の料金は **US/EU1 の価格**。基準サイトの AP1（日本）では高くなる（掲載値どうしの比率で約 1.25 倍）。AP1 の定価は、Infrastructure Pro：年契約 $18.75・オンデマンド $22.50、Enterprise：年契約 $28.75・オンデマンド $33.75、APM：年契約 $38.75・オンデマンド $45、Logs Ingest：$0.125 / GB / 月、Standard Indexing（15 日保持）：100 万イベントあたり年契約 $2.125・オンデマンド $3.1875。詳細は [製品別料金表 §1.2・§2・§5・§7](../03_導入編/pricing-by-product.md#12-サイトリージョン別の価格) を参照。[出典](https://www.datadoghq.com/pricing/)
 
 課金計算の仕組み（ホスト数の数え方、上位 99 パーセンタイル課金など）は [課金計算の仕組み](../03_導入編/billing-mechanics.md)、全体像は [料金体系の全体像](../03_導入編/pricing-overview.md)、使用量の可視化は [Usage・Usage Attribution・Cost Visibility](../02_リファレンス/platform/usage-and-cost-attribution.md) を参照。
 

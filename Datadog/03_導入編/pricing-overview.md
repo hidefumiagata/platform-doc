@@ -34,7 +34,7 @@ Datadog の料金体系は「製品（SKU）ごとに独立した課金単位を
 - 主要製品はそれぞれ何を単位に課金されるのか（早見表）
 - 詳しい単価・計算方法・見積り・契約はどのファイルを読めばよいか
 
-> **料金の数値について:** 本ファイルに記載する定価は、公式料金ページ（https://www.datadoghq.com/pricing/ および https://www.datadoghq.com/pricing/list/ ）の **2026-11-02 時点** の値（USD、税別）であり、契約形態を併記する。料金の正本は [製品別料金表](./pricing-by-product.md) であり、本ファイルの数値は「課金モデルを説明するための代表例」に限定する。数値に差異がある場合は `pricing-by-product.md` を正とする。
+> **料金の数値について:** 本ファイルに記載する定価は、公式料金ページ（https://www.datadoghq.com/pricing/ および https://www.datadoghq.com/pricing/list/ ）の **2026-11-02 時点** の値（USD、税別）であり、契約形態を併記する。**掲載値はすべて US/EU1 サイトの価格**であり、本ナレッジの基準サイトである AP1（日本）では価格が異なる（ほぼすべての SKU で US/EU1 の約 1.25 倍。3.6 節）。AP1 の価格は [製品別料金表](./pricing-by-product.md) の AP1 列を参照すること。料金の正本は [製品別料金表](./pricing-by-product.md) であり、本ファイルの数値は「課金モデルを説明するための代表例」に限定する。数値に差異がある場合は `pricing-by-product.md` を正とする。
 
 関連ファイルとの役割分担は次のとおり。
 
@@ -62,7 +62,7 @@ Datadog の請求は、契約した各製品（SKU）の課金単位ごとの使
 | APM 関連 | APM / APM Pro / APM Enterprise、Indexed Spans、Ingested Spans、Universal Service Monitoring、Data Streams Monitoring、Continuous Profiler、Database Monitoring |
 | Data Observability | Jobs Monitoring、Quality Monitoring |
 | Software Delivery | Pipeline Visibility（CI Visibility）、Test Optimization、Code Coverage |
-| Security | Cloud Security Management（CSM）Pro / Enterprise、Workload Protection、App and API Protection、Cloud SIEM、Code Security（SCA / SAST / IaC / Secret Scanning / IAST）、AI Guard |
+| Security | Cloud Security（旧称：Cloud Security Management。料金プラン名は CSM Pro / Enterprise）、Workload Protection、App and API Protection、Cloud SIEM、Code Security（SCA / SAST / IaC / Secret Scanning / IAST）、AI Guard |
 | Digital Experience | RUM（Measure / Investigate）、Session Replay、Product Analytics、Synthetic API / Browser Tests、Mobile App Testing、Experiments、Feature Flags |
 | Service Management | On-Call、Incident Management、Incident Response、Event Management、Workflow Automation、App Builder |
 | Cost | Cloud Cost Management Pro / Enterprise |
@@ -122,7 +122,7 @@ Datadog の課金モデルは、課金単位の性質で次のように整理で
 
 Datadog の「ホスト」は「Datadog で監視する物理または仮想の OS インスタンス」と定義される。サーバー、VM、Kubernetes のノード、Azure App Service Plan のインスタンス、Heroku dyno などが該当する [出典](https://docs.datadoghq.com/account_management/billing/)。
 
-ホスト単位課金の主な規則は次のとおり。
+ホスト単位課金の主な規則は次のとおり（本節の単価は US/EU1 価格。AP1 価格は [製品別料金表](./pricing-by-product.md) の AP1 列を参照）。
 
 | 規則 | 内容 | 出典 |
 |---|---|---|
@@ -269,7 +269,7 @@ Datadog の公式料金一覧は、各製品に **Annual（年契約）**、**Mo
 
 ### 3.2 価格差の傾向
 
-公式料金一覧（2026-11-02 時点）の 3 列の単価を比較すると、契約形態による価格差には製品ごとに 2 つのパターンがある [出典](https://www.datadoghq.com/pricing/list/)。
+公式料金一覧（2026-11-02 時点）の 3 列の単価を比較すると、契約形態による価格差には製品ごとに 3 つのパターンがある [出典](https://www.datadoghq.com/pricing/list/)。
 
 | パターン | 例（年 / 月 / オンデマンド） | 傾向 |
 |---|---|---|
@@ -326,7 +326,7 @@ Datadog は直販のほか、AWS Marketplace やパートナー（リセラー�
 
 国内の技術ブログでは、AWS Marketplace の Pay-As-You-Go は前払いなしの従量課金で AWS の請求に合算され、当時 EC2 1 台あたり $0.03 / 時間、ログ保持期間は 15 日固定（変更には事前コミット型プランの契約が必要）と紹介されている 【第三者情報】[出典](https://dev.classmethod.jp/articles/datadog-aws-marketplace/)（2020-09-02 公開）。この記事は 2 年以上前の情報であり、現行の Marketplace 条件と食い違う可能性がある。
 
-> **サイト差異:** 公式料金ページはサイト（US1 / US3 / US5 / EU1 / AP1 / AP2）別の価格表を掲載しておらず、掲載価格は全商用サイト共通と読める。ただしサイトにより提供されない製品があるため、AP1 で利用したい製品の提供有無は [Datadog Sites](../02_リファレンス/platform/datadog-sites.md) で確認すること。US1-FED（Datadog for Government、AWS GovCloud 上、2026-05-06 に FedRAMP High 認証を発表）の公開定価は確認できず、Carahsoft 等の政府調達ビークルや AWS Marketplace のプライベートオファー経由の見積りとなる 【第三者情報】[出典](https://www.datadoghq.com/ja/about/latest-news/press-releases/datadog-for-government-fedramp-high-2026/)。
+> **サイト差異:** 公式料金ページには「Datadog Site」セレクタがあり、**US（US1 / US3 / US5）／US1-FED／EU1／AP1／AP2／UK1** の 6 区分で価格が切り替わる [出典](https://www.datadoghq.com/pricing/list/)。掲載値から算出すると、ほぼすべての SKU で **AP1 は US/EU1 の約 1.25 倍**（例：Infrastructure Pro 年契約 US/EU1 $15 → AP1 $18.75）、AP2・UK1 は約 1.2 倍である（比率は掲載値どうしの割り算で、公式に明言された係数ではない。Audit Trail の % 課金は全サイト共通）。**本ファイルの数値は US/EU1 価格**であり、AP1 での見積りには [製品別料金表 §1.2](./pricing-by-product.md#12-サイトリージョン別の価格) と各章の AP1 列（公式掲載値）を使うこと。US1-FED（Datadog for Government）にも料金ページ上の掲載価格があり、提供製品は US の約 1.25 倍（例：Infrastructure Pro 年契約 $18.75）だが、US1-FED で提供されない製品も多い（[製品別料金表 §18](./pricing-by-product.md#18-サイト別価格一覧付録と-us1-fed-の非提供製品)）。なお Datadog は 2026-05-06 に Datadog for Government の FedRAMP High 認証取得を発表している [出典](https://www.datadoghq.com/ja/about/latest-news/press-releases/datadog-for-government-fedramp-high-2026/)。また、サイトにより提供されない製品があるため、AP1 で利用したい製品の提供有無は [Datadog Sites](../02_リファレンス/platform/datadog-sites.md) で確認すること。
 
 詳細は [購入経路と契約](./procurement-and-contracts.md) を参照。
 
@@ -347,7 +347,7 @@ Datadog は直販のほか、AWS Marketplace やパートナー（リセラー�
 | Datadog for Startups | 対象スタートアップは Datadog Pro を 1 年間無料 | [出典](https://www.datadoghq.com/pricing/) |
 | 同梱枠 | 各ホスト製品の同梱枠（カスタムメトリクス、コンテナ、スパン等）は追加料金なし（2.2 節） | [出典](https://www.datadoghq.com/pricing/) |
 
-> **無料トライアルの一般的な期間:** 新規アカウントのフルプラットフォーム試用は一般に 14 日間と紹介されている 【第三者情報】（複数の比較サイト、2026 年時点）。AWS Marketplace の Datadog Pro (Pay-As-You-Go) リスティングも 14 日間の無料トライアル後に自動で Pay-As-You-Go プランへ移行すると記載している 【第三者情報】[出典](https://aws.amazon.com/marketplace/pp/prodview-7tlwraipohxq6)。新規アカウントのトライアル期間・終了後の自動ダウングレード条件について、公式ドキュメント上の明記は今回の調査では確認できず。
+> **無料トライアルの一般的な期間:** AWS Marketplace の Datadog Pro (Pay-As-You-Go) リスティングも 14 日間の無料トライアル後に自動で Pay-As-You-Go プランへ移行すると記載している 【第三者情報】[出典](https://aws.amazon.com/marketplace/pp/prodview-7tlwraipohxq6)。新規アカウントのトライアル期間・終了後の自動ダウングレード条件について、公式ドキュメント上の明記は今回の調査では確認できず。
 
 ### 4.2 Trial Management 画面
 
@@ -375,7 +375,7 @@ Infrastructure の Free tier・Basic・Pro・Enterprise の主な違いは次の
 
 ## 5. 主要製品の課金単位 早見表
 
-以下は主要製品の「何で課金されるか」の早見表である。単価は年契約（Annual）の定価（2026-11-02 時点、USD）を代表値として示す。月契約・オンデマンド単価、全製品・全ティアは [製品別料金表](./pricing-by-product.md) を参照 [出典](https://www.datadoghq.com/pricing/list/)。
+以下は主要製品の「何で課金されるか」の早見表である。単価は年契約（Annual）の **US/EU1 サイトの** 定価（2026-11-02 時点、USD）を代表値として示す（AP1 は約 1.25 倍。AP1 価格は [製品別料金表](./pricing-by-product.md) の AP1 列を参照）。月契約・オンデマンド単価、全製品・全ティアは [製品別料金表](./pricing-by-product.md) を参照 [出典](https://www.datadoghq.com/pricing/list/)。
 
 ### 5.1 Infrastructure・ネットワーク・サーバーレス
 
@@ -477,7 +477,7 @@ Infrastructure の Free tier・Basic・Pro・Enterprise の主な違いは次の
 | AI Credits | 500 クレジットバンドル / 月 | $500 | 単発は $1.30 / クレジット | [Bits AI と AI 機能](../02_リファレンス/ai/bits-ai.md) |
 | Datadog Disaster Recovery | 対象範囲によるカスタム | Contact Sales | | — |
 
-> 上記に掲載のない製品（Case Management、Watchdog、Dashboards、Monitors、SLO、Notebooks など）は、2026-11-02 時点の公式料金一覧に独立した SKU として掲載されていない。これらはプラットフォーム機能として各製品契約に含まれるものと読めるが、個別機能の課金有無は各リファレンスの「課金への影響」節を参照（料金一覧に記載がない機能の課金条件は公開情報では確認できず）。
+> 上記に掲載のない製品（Work Management（旧称：Case Management）、Watchdog、Dashboards、Monitors、SLO、Notebooks など）は、2026-11-02 時点の公式料金一覧に独立した SKU として掲載されていない。これらはプラットフォーム機能として各製品契約に含まれるものと読めるが、個別機能の課金有無は各リファレンスの「課金への影響」節を参照（料金一覧に記載がない機能の課金条件は公開情報では確認できず）。
 
 ## 6. 課金を確認する画面
 
@@ -491,7 +491,7 @@ Datadog の課金・使用量は、管理者が **Plan & Usage**（左ナビ下�
 | Usage（Usage & Cost） | 製品カテゴリ別の当月累計と推移。All / Billable の切替、CSV ダウンロード、Top Custom Metrics、インデックス別ログ使用量 |
 | Billing History | 請求履歴、カード領収書 |
 | Trial Management | セルフサービストライアルの開始、実施中・過去のトライアル |
-| Usage Notifications | 契約にない製品を初めて課金利用した際の通知（約 48 時間後にメール）【Preview 相当：ドキュメント上 beta 表記】 |
+| Usage Notifications | 契約にない製品を初めて課金利用した際の通知（当月の初回利用から約 48 時間後にメール。利用にはアカウント担当者またはサポートへの申請が必要）【Preview】（公式ドキュメント上の表記は beta）[出典](https://docs.datadoghq.com/account_management/billing/usage_details/) |
 
 使用量データの反映には最大 72 時間かかる場合がある [出典](https://docs.datadoghq.com/account_management/plan_and_usage/)。画面の詳細は [Usage・Usage Attribution・Cost Visibility](../02_リファレンス/platform/usage-and-cost-attribution.md) を参照。
 
@@ -561,7 +561,7 @@ Usage 画面の Billable ビューは、本ファイル 1.2 節の「同梱枠 �
 | Log Indexed 超過プレミアム | 年契約単価 +50% | [出典](https://docs.datadoghq.com/account_management/billing/log_management/) |
 | Metric Name pricing の契約形態差 | 月契約 +20%、オンデマンド +40%（年契約基準） | [出典](https://docs.datadoghq.com/account_management/billing/metric_name_pricing/) |
 | Metric Name pricing の 1 メトリクス名あたり同梱データポイント | 1,000 万インデックス済みデータポイント | [出典](https://docs.datadoghq.com/account_management/billing/metric_name_pricing/) |
-| 新規アカウントの無料トライアル期間 | 公式ドキュメント上は確認できず（第三者情報では 14 日） | — |
+| 新規アカウントの無料トライアル期間 | 公式ドキュメント上は確認できず（AWS Marketplace の Pay-As-You-Go リスティングは 14 日間と記載【第三者情報】、2026-11-02 取得） | [出典](https://aws.amazon.com/marketplace/pp/prodview-7tlwraipohxq6) |
 | 円建て請求・為替条件 | 公開情報では確認できず | — |
 | 割引率・Enterprise 契約条件 | 公開情報では確認できず | — |
 

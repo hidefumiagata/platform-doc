@@ -21,6 +21,18 @@ sources:
   - https://docs.datadoghq.com/mcp_server/tools/
   - https://www.datadoghq.com/pricing/
   - https://www.datadoghq.com/blog/live-debugger/
+  - https://www.datadoghq.com/ja/about/latest-news/press-releases/datadog-live-debugger-dash-2024-06/
+  - https://www.datadoghq.com/about/latest-news/press-releases/datadog-completes-acquisition-of-ozcode/
+  - https://www.datadoghq.com/blog/datadog-acquires-ozcode/
+  - https://docs.datadoghq.com/dynamic_instrumentation/symdb/java/
+  - https://docs.datadoghq.com/dynamic_instrumentation/symdb/python/
+  - https://docs.datadoghq.com/dynamic_instrumentation/symdb/dotnet/
+  - https://github.com/DataDog/dd-trace-java/blob/master/dd-java-agent/agent-debugger/debugger-bootstrap/src/main/java/datadog/trace/bootstrap/debugger/util/Redaction.java
+  - https://github.com/DataDog/dd-trace-java/blob/master/dd-java-agent/agent-debugger/debugger-bootstrap/src/main/java/datadog/trace/bootstrap/debugger/Limits.java
+  - https://github.com/DataDog/dd-trace-py/blob/main/ddtrace/debugging/_probe/model.py
+  - https://github.com/DataDog/dd-trace-py/blob/main/ddtrace/debugging/_redaction.py
+  - https://app.unpkg.com/dd-trace@5.82.0/files/packages/dd-trace/src/debugger/devtools_client/snapshot/constants.js
+  - https://www.rubydoc.info/gems/datadog/Datadog/DI/CaptureLimits
 ---
 
 # Dynamic Instrumentation と Live Debugger
@@ -42,7 +54,7 @@ Dynamic Instrumentation（ダイナミック インスツルメンテーショ�
 [出典](https://docs.datadoghq.com/dynamic_instrumentation/) / [出典](https://docs.datadoghq.com/tracing/live_debugger/)
 
 - 旧来の DI ドキュメントでは「log probe（ログプローブ）」として DI の一機能だったログ・スナップショット取得は、現行仕様では **Live Debugger の logpoint** に移っている。DI の画面では「Dynamic log instrumentations are supported in Live Debugger」と案内され、DI でログ型の計装は作成しない。[出典](https://docs.datadoghq.com/dynamic_instrumentation/)
-- Live Debugger の源流は 2021-11 の Ozcode（本番デバッグ）買収とされる【第三者情報】（[what-is-datadog.md](../../01_入門編/what-is-datadog.md) の買収年表を参照）。Live Debugger は DASH 2024（2024-06）でベータとして発表された（当時の発表は Exception Replay や AI 生成テストを含む構想として紹介）。[出典](https://www.datadoghq.com/ja/about/latest-news/press-releases/datadog-live-debugger-dash-2024-06/)（2024-06-28 公開）
+- Datadog は 2021-11-04 に、本番環境でコードレベルの可観測性を提供するライブデバッグソリューション Ozcode の買収完了を発表した（同社の「Ozcode's Live Debugger」にも言及）。[出典](https://www.datadoghq.com/about/latest-news/press-releases/datadog-completes-acquisition-of-ozcode/) / [出典](https://www.datadoghq.com/blog/datadog-acquires-ozcode/)。現行の Live Debugger がこの買収を源流とすることは公式に明記されていない【推定】（[what-is-datadog.md](../../01_入門編/what-is-datadog.md) の買収年表を参照）。Live Debugger は DASH 2024（2024-06）でベータとして発表された（当時の発表は Exception Replay や AI 生成テストを含む構想として紹介）。[出典](https://www.datadoghq.com/ja/about/latest-news/press-releases/datadog-live-debugger-dash-2024-06/)（2024-06-28 公開）
 - 現行（2026-11-02 時点）の Live Debugger ドキュメントには Preview 表記がない（Bits Live Debugger と MCP の `live-debugger` ツールセットのみ【Preview】）。[出典](https://docs.datadoghq.com/tracing/live_debugger/)
 
 本ファイルの範囲外（詳細はリンク先）：
@@ -131,7 +143,7 @@ flowchart LR
 
 - 「強く推奨」未満の版では「予期しないエラーや体験の劣化が起こりうる」と明記されている。
 - Ruby と PHP は In-app 有効化の記載がなく、環境変数で有効化する。
-- In-app 有効化の最低版（例：.NET 3.57.0）が環境変数有効化の推奨版（.NET 3.46.0）より高い点に注意。In-app で有効化したい場合は In-app 最低版以上が必要。
+- In-app 有効化の最低版（.NET 3.57.0）は「強く推奨される SDK 版」（.NET 3.46.0）より高い点に注意（環境変数有効化の最低版は 3.9.0）。In-app で有効化したい場合は In-app 最低版以上が必要。
 
 [出典](https://docs.datadoghq.com/tracing/live_debugger/)
 
@@ -140,7 +152,7 @@ flowchart LR
 | 機能 | 対応言語・最低版 | 詳細 |
 |---|---|---|
 | Autocomplete and Search（シンボル検索・式補完） | Java（`dd-trace-java` 1.42.0+、DI 有効時に自動有効）、Python（`dd-trace-py` 2.9.0+、【Preview】）、.NET（`dd-trace-dotnet` 2.58.0+、【Preview】） | [4.6 節](#46-autocomplete-and-searchシンボルデータベース) |
-| Code Origin for Spans | Java 1.47.0+、Python 2.15.0+、Node.js 4.49.0+（Fastify）/5.54.0+（Express）、.NET 3.15.0+、PHP 1.11.0+、Go（Source Code Integration 経由） | [8.1 節](#81-code-origin-for-spans-からの起動) |
+| Code Origin for Spans | Java 1.47.0+、Python 2.15.0+、Node.js 4.49.0+（Fastify）/5.54.0+（Express。NestJS は非対応。TypeScript 等のトランスパイル時はソースマップ公開・`--enable-source-maps`・トレーサー 5.59.0 以上が必要）、.NET 3.15.0+、PHP 1.11.0+、Go（Source Code Integration 経由） | [8.1 節](#81-code-origin-for-spans-からの起動) |
 | Exception Replay | Python、Java、.NET、PHP（GA、対応環境では既定で有効） | [Error Tracking](./error-tracking.md) |
 
 [出典](https://docs.datadoghq.com/dynamic_instrumentation/symdb/) / [出典](https://docs.datadoghq.com/tracing/code_origin/) / [出典](https://docs.datadoghq.com/error_tracking/backend/exception_replay/)
@@ -565,7 +577,7 @@ Sensitive Data Scanner 画面（Organization Settings > Sensitive Data Scanner�
 
 ### 8.1 Code Origin for Spans からの起動
 
-Code Origin for Spans は、APM スパンが作成されたコード位置（ファイルパス、行番号、関数名）を service entry span に付与する機能で、Trace Explorer のスパン詳細の Overview タブに「Code Origin」セクションとして表示される。有効化は SDK に `DD_CODE_ORIGIN_FOR_SPANS_ENABLED=true`（Source Code Integration が前提）。このセクションから Live Debugger と Dynamic Instrumentation を直接起動できる。[出典](https://docs.datadoghq.com/tracing/code_origin/)
+Code Origin for Spans は、APM スパンが作成されたコード位置（ファイルパス、行番号、関数名）を service entry span に付与する機能で、Trace Explorer のスパン詳細の Overview タブに「Code Origin」セクションとして表示される。有効化は SDK に `DD_CODE_ORIGIN_FOR_SPANS_ENABLED=true`（Source Code Integration が前提）。このセクションから Live Debugger と Dynamic Instrumentation を直接起動できる。Node.js では、TypeScript 等でトランスパイルしたアプリの場合、ソースマップをデプロイ物と一緒に公開し、Node.js を `--enable-source-maps` フラグ付きで起動し、トレーサー 5.59.0 以上を使う必要がある（満たさないとコードプレビューが動作しない）。NestJS は基盤が Express／Fastify であっても非対応。[出典](https://docs.datadoghq.com/tracing/code_origin/)
 
 | 操作 | 結果 |
 |---|---|
@@ -772,6 +784,8 @@ APM 運用全般のベストプラクティスは [APM 運用の実践](../../04
 - Datadog Pricing（APM 機能比較表、取得日 2026-11-02）: https://www.datadoghq.com/pricing/
 - Debug live production code without redeploying with Datadog Live Debugger（2026-08-27 公開）: https://www.datadoghq.com/blog/live-debugger/
 - Datadog、Live Debuggerにより本番環境のライブデータでのトラブルシューティングとバグ修正を効率化（2024-06-28 公開）: https://www.datadoghq.com/ja/about/latest-news/press-releases/datadog-live-debugger-dash-2024-06/
+- Datadog Completes Acquisition of Ozcode（2021-11-04 公開）: https://www.datadoghq.com/about/latest-news/press-releases/datadog-completes-acquisition-of-ozcode/
+- Datadog acquires Ozcode（公式ブログ、2021-11-04 公開）: https://www.datadoghq.com/blog/datadog-acquires-ozcode/
 
 公式 GitHub（SDK ソースコード、取得日 2026-11-02）：
 

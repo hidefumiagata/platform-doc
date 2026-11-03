@@ -18,11 +18,13 @@ sources:
   - https://docs.datadoghq.com/account_management/billing/custom_metrics/
   - https://docs.datadoghq.com/account_management/billing/metric_name_pricing/
   - https://docs.datadoghq.com/account_management/billing/containers/
+  - https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/
   - https://docs.datadoghq.com/account_management/billing/usage_metrics/
   - https://docs.datadoghq.com/account_management/billing/usage_attribution/
   - https://docs.datadoghq.com/cloud_cost_management/datadog_costs/
   - https://docs.datadoghq.com/metrics/metrics-without-limits/
   - https://docs.datadoghq.com/metrics/volume/
+  - https://docs.datadoghq.com/metrics/guide/metric_name_pricing_experience/
   - https://docs.datadoghq.com/tracing/trace_pipeline/ingestion_mechanisms/
   - https://docs.datadoghq.com/tracing/trace_pipeline/trace_retention/
   - https://docs.datadoghq.com/tracing/guide/trace_ingestion_volume_control/
@@ -32,6 +34,9 @@ sources:
   - https://docs.datadoghq.com/real_user_monitoring/rum_without_limits/retention_quotas/
   - https://www.datadoghq.com/pricing/
   - https://www.datadoghq.com/pricing/list/
+  - https://www.datadoghq.com/pricing/?product=log-management
+  - https://www.datadoghq.com/pricing/?product=infrastructure
+  - https://www.datadoghq.com/pricing/?product=apm
   - https://www.datadoghq.com/blog/zendesk-cost-optimization/
   - https://dash.datadoghq.com/sessions/how-experian-simplified-observability-and-cut-log-costs-by-migrating-to-datadog/
   - https://dev.classmethod.jp/articles/datadog-Infrastructure-cost-continuing-logcollection
@@ -58,7 +63,7 @@ sources:
 
 本ファイルは「何をすれば下がるか」に焦点を当てる。課金計算の仕組みは [課金計算の仕組み](../03_導入編/billing-mechanics.md)、**料金の数値の正本**は [製品別料金表](../03_導入編/pricing-by-product.md)、導入前の見積りは [コスト見積り手法](../03_導入編/cost-estimation.md) を参照すること。本ファイルの料金は `pricing-by-product.md` と同じ、公式料金ページの掲載値（**2026-11-02 時点**、US/EU1 と AP1 の各サイト価格）である。
 
-> **サイト差異:** Datadog の料金はサイトごとに異なる。AP1（日本）の掲載単価は多くの SKU で US/EU1 の 1.25 倍の水準である（比率は掲載値どうしの割り算で、公式に倍率が明言されているわけではない）。見積りでは必ず AP1 列の掲載値を使う [出典](https://www.datadoghq.com/pricing/list/)。また、Flex Logs の Compute サイズは US3 / US5 / AP1 / AP2 / US1-FED では Starter・XS・XS+・S のみ提供される [出典](https://docs.datadoghq.com/logs/log_configuration/flex_logs/)。
+> **サイト差異:** Datadog の料金はサイトごとに異なる。AP1（日本）の掲載単価は多くの SKU で US/EU1 の 1.25 倍の水準である（比率は掲載値どうしの割り算で、公式に倍率が明言されているわけではない）。見積りでは必ず AP1 列の掲載値を使う [出典](https://www.datadoghq.com/pricing/list/)。また、Flex Logs の Compute サイズは US3 / US5 / AP1 / AP2 / US1-FED / US2-FED では Starter・XS・XS+・S のみ提供される [出典](https://docs.datadoghq.com/logs/log_configuration/flex_logs/)。
 
 ---
 
@@ -125,7 +130,7 @@ flowchart LR
 
 | 機能 | 何が分かるか | 粒度・遅延 | 必要権限・前提 | 出典 |
 |---|---|---|---|---|
-| Plan & Usage（Usage タブ） | 製品別の使用量、COMMITTED / ALLOTTED / ON-DEMAND の内訳、日次推移とコミットライン | 時間・日次 | 課金ページは Datadog Admin ロール | [出典](https://docs.datadoghq.com/account_management/billing/) |
+| Plan & Usage（Usage タブ） | 製品別の使用量、COMMITTED / ALLOTTED / ON-DEMAND の内訳、日次推移とコミットライン | 時間・日次 | 課金ページは Datadog Admin ロール、または `billing_read` / `billing_edit` 権限を持つロール | [出典](https://docs.datadoghq.com/account_management/billing/) |
 | Usage Attribution | タグ（最大 3 つのタグキー、例：`team`、`service`）別の使用量。月次レポートは日次更新、時間単位データは API で取得 | 月次（MTD 日次更新）・時間 | Admin または Usage Read 権限。タグ設定後、初回レポート生成に 24 時間 | [出典](https://docs.datadoghq.com/account_management/billing/usage_attribution/) |
 | Datadog Costs（CCM / Plan & Usage の Cost Summary・Cost Chargebacks） | Datadog 自身の利用料を日次で、製品（`datadog_product`）・課金次元（`dimension`）・組織・Usage Attribution タグ・`pricing_category`（`committed` / `on-demand`）別に表示。ダッシュボード・ノートブック・コストモニター・予算で利用可 | 日次。データ遅延は約 48 時間、15 か月分。前月分は毎月 16 日頃に確定 | **追加料金なし**。`billing_read` と `usage_read` の両方が必要。直接契約または Marketplace のドローダウン契約が対象 | [出典](https://docs.datadoghq.com/cloud_cost_management/datadog_costs/) |
 | 推定使用量メトリクス（`datadog.estimated_usage.*`） | ほぼリアルタイムの使用量。モニター・ダッシュボードで使える | ほぼリアルタイム。請求値との差は平均 10〜20%（小規模ほど誤差大） | — | [出典](https://docs.datadoghq.com/account_management/billing/usage_metrics/) |
@@ -154,6 +159,7 @@ flowchart LR
 - `.by_tag` 系は Usage Attribution ページで設定したタグ（例：`team`、`env`）で分解される。Pro プランではカスタマーサクセスマネージャー経由で有効化を依頼する。タグ変更は次の 00:00 UTC から反映される [出典](https://docs.datadoghq.com/account_management/billing/usage_metrics/)。
 - 多くのメトリクスは複数の時系列に分かれるため、合計を見るときは空間集約に **`sum`**（`sum by`）を使う。ログの取り込みバイト数はメトリクスサマリーで単位を `byte` に設定すると見やすい [出典](https://docs.datadoghq.com/logs/guide/best-practices-for-log-management/)。
 - マルチ org では親 org から子 org の使用量をまとめて監視できる [出典](https://docs.datadoghq.com/account_management/billing/usage_metrics/)。
+- **Metric Name pricing の組織の注意:** カーディナリティベースの推定使用量メトリクス（`datadog.estimated_usage.metrics.custom` と関連メトリクス）は使えず、これらを使うモニター・ダッシュボードにはデータが届かなくなる。代わりにポイントベースのメトリクス（`datadog.estimated_usage.billable.metrics`、`datadog.estimated_usage.billable.points`、`datadog.estimated_usage.metrics.points.indexed`、`datadog.estimated_usage.metrics.points.ingested` など）を使う [出典](https://docs.datadoghq.com/metrics/guide/metric_name_pricing_experience/)。詳細は §4.4。
 
 ### 2.3 予算アラート（使用量モニター）の例
 
@@ -162,7 +168,7 @@ flowchart LR
 | 索引ログの急増（サービス別） | Anomaly（異常検知） | `sum:datadog.estimated_usage.logs.ingested_events{datadog_is_excluded:false} by {service,datadog_index}.as_count()` | [出典](https://docs.datadoghq.com/logs/guide/best-practices-for-log-management/) |
 | 月初からの索引ログ累計がコミットを超えそう | Metric（cumulative window） | 上記メトリクスを `datadog_is_excluded:false` で絞り、累積ウィンドウ（月初から）で評価。閾値はコミット量の例えば 80%【経験則】 | 同上 |
 | インデックスの Daily quota 到達 | Event | `source:datadog datadog_index:* "daily quota reached"` を `datadog_index` でグループ化、当日（インデックスのリセット時刻起点）で 1 件以上 | 同上 |
-| カスタムメトリクスの急増 | Change（`% change`） | `datadog.estimated_usage.metrics.custom.by_metric` を対象。過去 1 日 / 4 週間で比較 | [出典](https://docs.datadoghq.com/metrics/volume/) |
+| カスタムメトリクスの急増 | Change（`% change`） | Volume ページで見つけた急増メトリクスについて `% change` の Change モニターを作成（任意）[出典](https://docs.datadoghq.com/metrics/volume/)。対象を全メトリクスに広げる場合は `datadog.estimated_usage.metrics.custom.by_metric`（[Estimated Usage Metrics](https://docs.datadoghq.com/account_management/billing/usage_metrics/)）をメトリクス名別に監視する【経験則】。Metric Name pricing の組織ではポイントベースのメトリクスに置き換える（§2.2 の注意） | 左記のとおり |
 | APM 取り込み量の超過 | Metric | `sum:datadog.estimated_usage.apm.ingested_bytes{*}` の月累計と「APM ホスト数 × 150 GB」の比較 | [出典](https://docs.datadoghq.com/tracing/guide/trace_ingestion_volume_control/) |
 | RUM 保持クォータでブロックされたセッション | Metric | `rum.measure.usage.quota_blocked_sessions` | [出典](https://docs.datadoghq.com/real_user_monitoring/rum_without_limits/retention_quotas/) |
 
@@ -494,14 +500,14 @@ Metrics without Limits™（MWL）は、カスタムメトリクスの取り込�
 
 | 手順 | 操作 | ポイント |
 |---|---|---|
-| 1. 対象の特定 | Metrics → Volume で「Top 500 Metric Names by Estimated Real-time Cardinality」を降順に見る。急増は「Change in Volume」列 | まず上位 20 メトリクス |
+| 1. 対象の特定 | Metrics → Volume で「Top 500 Metric Names by Estimated Real-time Cardinality」を降順に見る。急増は「Change in Volume」列 | まず上位 20 メトリクス。カーディナリティの推移をグラフで見るときの推奨表示期間は Past 1 Day または Past 4 Weeks |
 | 2. 未クエリの発見 | Query Activity ファセットで過去 30 / 60 / 90 日にクエリされていないメトリクスを抽出（ダッシュボード、ノートブック、モニター、SLO、Metrics Explorer、API が対象） | — |
 | 3. 利用状況の確認 | メトリクスのサイドパネルの **Related Assets** で、そのメトリクスを使うダッシュボード・ノートブック・モニター・SLO と、使われているタグを確認 | 資産で使われているタグを落とすとグラフ・モニターが壊れる |
 | 4. 高カーディナリティタグの特定 | Custom Metrics Tags Cardinality Explorer で、急増を起こしているタグキーを特定 | — |
-| 5. タグ設定 | サイドパネル → **Manage Tags** → Include tags（許可リスト）または Exclude tags（ブロックリスト） | 許可リストのモーダルには過去 30 日にクエリされたタグ（折れ線アイコン）が事前入力される。資産で使われているが最近クエリされていないタグ（ターゲットアイコン）も追加する |
+| 5. タグ設定 | サイドパネル → **Manage Tags** → Include tags（許可リスト）または Exclude tags（ブロックリスト） | 許可リストのモーダルには過去 30 日にクエリされたタグ（折れ線アイコン）が事前入力される。資産で使われているが最近クエリされていないタグ（ターゲットアイコン）も追加する。公式ドキュメントの例：インデックス 7,139 個のメトリクスに過去 30 日にクエリされたタグだけの許可リストを設定すると、推定 3 個になる（Metrics Volume Management） |
 | 6. 見積り確認 | **Estimated New Volume** を確認して Save | 推定インデックス量が取り込み量より大きくなる設定は保存しない |
 | 7. 一括設定 | Configure Metrics → Manage Tags で名前空間（`*` 構文）単位の一括設定。過去 30 / 60 / 90 日にクエリされたタグだけを残すオプションあり | 一括ジョブは非同期で完了時に通知。既存設定を上書き（Override）か保持（Keep）か選ぶ |
-| 8. 未使用メトリクス | 未クエリのメトリクスは **空の許可リスト**（Include tags でタグを何も選ばない）にする | 公式ドキュメントの例：インデックス 7,139 個のメトリクスが推定 3 個に |
+| 8. 未使用メトリクス | 未クエリのメトリクスは **空の許可リスト**（Include tags でタグを何も選ばない）にする | — |
 | 9. 効果確認 | サイドパネルでインデックス量 < 取り込み量になっていること、約 24 時間後に Plan & Usage の Top Custom Metrics で減少を確認 | — |
 
 出典：[Metrics without Limits™](https://docs.datadoghq.com/metrics/metrics-without-limits/)、[Metrics Volume Management](https://docs.datadoghq.com/metrics/volume/)
@@ -524,11 +530,20 @@ Custom Metrics には従来の「カーディナリティ（タグ組み合わ�
 | 取り込み | 取り込みデータポイントはインデックス量の 5 倍まで無料。MWL の設定にかかわらず全データポイントが取り込みにカウント | 送信頻度・送信量の削減が取り込み側に効く【推定】 |
 | Distribution 倍率 | 既定 5 倍、パーセンタイル有効時 10 倍（取り込み・インデックスの両方） | 不要なパーセンタイルの無効化で倍率が 10 → 5 になる【推定】（倍率の記述からの推論） |
 | MWL の役割 | 不要タグの除外でインデックス量を減らせるが、取り込み量は減らない | — |
-| 契約形態 | 段階制（高ボリュームほど低単価）。月契約 +20%、オンデマンド +40%（年契約比） | — |
+| 契約形態 | メトリクス名・インデックスデータポイントとも 5 段階の限界逓減型ボリューム割引（上の段階に入った分だけその段階の単価。段階境界と単価は契約で定める）。月契約 +20%、オンデマンド +40%（年契約比） | — |
 
 出典：[Metric Name Pricing](https://docs.datadoghq.com/account_management/billing/metric_name_pricing/)
 
-Metric Name pricing の顧客向けには、Volume ページから別の最適化ガイドへの案内がある [出典](https://docs.datadoghq.com/metrics/volume/)。同ガイドの具体的な内容は公開情報では確認できず（本ファイル作成時点で該当 URL を特定できなかった）。
+Metric Name pricing の顧客向けには、公式ガイド「Metrics Experience Changes for Metric Name Pricing」がある [出典](https://docs.datadoghq.com/metrics/guide/metric_name_pricing_experience/)。要点は次のとおり。
+
+| 観点 | 内容 |
+|---|---|
+| 課金対象メトリクス名を減らす | Agent 側フィルタで、使わないカスタムメトリクスを Datadog に送らない |
+| インデックスデータポイントを減らす | Metrics without Limits™ でメトリクスごとにタグの許可リスト / ブロックリストを設定する |
+| 組織全体のタグ設定 | Tag Indexing Rules でメトリクス群にまとめてタグ設定を適用し、インデックス量とメトリクスごとの超過を減らす |
+| 使用量の監視 | カーディナリティベースの推定使用量メトリクス（`datadog.estimated_usage.metrics.custom` など）は使えず、これを使うモニター・ダッシュボードにはデータが届かなくなる。代わりに `datadog.estimated_usage.billable.metrics`、`datadog.estimated_usage.billable.points`、`datadog.estimated_usage.metrics.points.ratio`、`datadog.estimated_usage.metrics.points.indexed`（`.by_tag`、`.hourly`）、`datadog.estimated_usage.metrics.points.ingested`（`.hourly`）を使う |
+
+出典：[Metrics Experience Changes for Metric Name Pricing](https://docs.datadoghq.com/metrics/guide/metric_name_pricing_experience/)
 
 ### 4.5 ガバナンスの実践
 
@@ -538,7 +553,7 @@ Metric Name pricing の顧客向けには、Volume ページから別の最適�
 | タグの命名・許可リスト | 標準タグ（`env`、`service`、`version`、`team`）と、メトリクスに付けてよいタグの一覧を定める | [タグ戦略の実践](tagging-strategy.md)【経験則】 |
 | 定期棚卸し | 月次で Volume ページの上位・急増・未クエリをレビュー。メトリクスの肥大化は再発するため継続が必要 | Indeed の SRE は、メトリクス名・タグ・カーディナリティ・削減見込みの表を作り、削減額の大きいメトリクスのオーナーと個別に交渉して、約 1 か月で年間約 10 万ドルのメトリクス費を削減したと報告【第三者情報】[出典](https://dev.to/jack0lantern/why-youre-spending-too-much-money-on-datadog-metrics-1m4e)（2025-10-02 公開） |
 | オーナーとの合意 | デバッグ用にタグを残したいオーナーもいるため、削減前に合意する | 同上【第三者情報】 |
-| 急増アラート | `datadog.estimated_usage.metrics.custom.by_metric` の Change モニター | [出典](https://docs.datadoghq.com/metrics/volume/) |
+| 急増アラート | Volume ページで見つけた急増メトリクスに `% change` の Change モニターを作成する [出典](https://docs.datadoghq.com/metrics/volume/)。全体監視には `datadog.estimated_usage.metrics.custom.by_metric`（Metric Name pricing の組織ではポイントベースのメトリクス）を使う【経験則】 | 左記のとおり（§2.3） |
 
 ### 4.6 試算例：Distribution メトリクスのタグ整理
 
@@ -1024,8 +1039,7 @@ Synthetic は「実行回数 × 単価」で課金されるため、**頻度 × 
 |---|---|
 | Container Discovery Management で除外したコンテナ（pause 以外）がコンテナ課金から外れるか | 公式ドキュメントに明記なし。推定使用量メトリクスで確認が必要 |
 | Flex Logs Compute（XS〜L）の単価、同時クエリ数・スキャン件数の上限 | 料金は要問合せ、上限値は非公開 |
-| Metric Name pricing 向けの最適化ガイドの内容 | Volume ページから案内があるが、本ファイル作成時点で該当ページを特定できず |
-| Metric Name pricing の段階別単価・段階境界 | 非公開（契約で定める） |
+| Metric Name pricing の段階別単価・段階境界 | 5 段階であることは公開。各段階の境界と単価は非公開（契約で定める） |
 | 製品間でコミットの余り・不足を相殺できるか | 公開情報では確認できず（契約次第） |
 | ボリューム割引・複数年割引の割引率 | 非公開 |
 | Rehydration の AP1 単価 | 本ファイルでは確認できず（[製品別料金表](../03_導入編/pricing-by-product.md) を参照） |
@@ -1081,6 +1095,7 @@ Synthetic は「実行回数 × 単価」で課金されるため、**頻度 × 
 - Datadog Costs: https://docs.datadoghq.com/cloud_cost_management/datadog_costs/
 - Metrics without Limits™: https://docs.datadoghq.com/metrics/metrics-without-limits/
 - Metrics Volume Management: https://docs.datadoghq.com/metrics/volume/
+- Metrics Experience Changes for Metric Name Pricing: https://docs.datadoghq.com/metrics/guide/metric_name_pricing_experience/
 - Ingestion Mechanisms: https://docs.datadoghq.com/tracing/trace_pipeline/ingestion_mechanisms/
 - Trace Retention: https://docs.datadoghq.com/tracing/trace_pipeline/trace_retention/
 - Trace Ingestion Volume Control: https://docs.datadoghq.com/tracing/guide/trace_ingestion_volume_control/

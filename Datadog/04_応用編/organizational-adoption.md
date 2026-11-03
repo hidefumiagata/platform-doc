@@ -33,6 +33,12 @@ sources:
   - https://tech.youtrust.co.jp/entry/2025/01/28/datadog_Initial_introduction
   - https://qiita.com/syogun/items/f0209d61587c77773886
   - https://sreake.com/blog/datadog_seminar/
+  - https://docs.datadoghq.com/account_management/governance_console/controls/
+  - https://dash.datadoghq.com/2023/observability-theater/best-practices-for-planning-your-datadog-adoption-journey-with-an-observability-maturity-model
+  - https://www.datadoghq.com/blog/internal-developer-portal/
+  - https://techblog.dt-dynamics.com/entry/2024/10/25/093000
+  - https://iret.media/151183
+  - https://iret.media/135106
 ---
 
 # 組織への定着
@@ -112,6 +118,8 @@ Datadog は Knowledge Center で、オブザーバビリティの成熟度を 5 
 - 標準化・自動化はチーム単位で段階的に採用できる。
 
 段階 4（Platform Standardization）が「組織への定着」の到達点に相当し、プラットフォームチームが主導する領域である。【経験則】
+
+成熟度モデルを導入計画に使う考え方は、DASH 2023 の Datadog 講演「Best Practices for Planning Your Datadog Adoption Journey with an Observability Maturity Model」（2023-08-02、Observability Theater）でも扱われている。講演紹介では、組織が平均 12 以上の監視ツールを使っているというツール乱立の問題を挙げ、成熟度モデルを導入計画の指針として紹介している。[出典](https://dash.datadoghq.com/2023/observability-theater/best-practices-for-planning-your-datadog-adoption-journey-with-an-observability-maturity-model)
 
 ---
 
@@ -229,7 +237,7 @@ SRE 文化の醸成は、ツールの機能を「習慣」に結び付けるこ�
 
 ### 3.4 ポストモーテムを Datadog 上で回す
 
-Datadog Incident Management は、解決したインシデントの **Post-Incident** タブからテンプレートを選んでポストモーテムを生成できる。ポストモーテムは Notebook として作られ、インシデントのタイムラインから関連データが取り込まれる。[出典](https://docs.datadoghq.com/incident_response/incident_management/post_incident/postmortems/)
+Datadog Incident Management では、解決したインシデントの **Post-Incident** タブでテンプレートを選び「Generate Postmortem」を実行するとポストモーテムが生成される。作成先はテンプレートで指定し、Datadog Notebooks、Confluence、Google Drive から選べる。ポストモーテムには、テンプレートの変数を通じてインシデントのデータが自動で入る（AI 生成の変数が埋まるのは Post-Incident タブから生成した場合のみ）。Datadog 上で回す場合は作成先を Notebooks にすると、Post-Incident タブ上でそのまま編集できる。[出典](https://docs.datadoghq.com/incident_response/incident_management/post_incident/postmortems/)
 
 定着の観点では次の運用が有効である。【経験則】
 
@@ -248,7 +256,7 @@ Datadog Teams は、ユーザーのグループがダッシュボード、サー
 
 | 定着に効く機能 | 内容 |
 |---|---|
-| Team handle | `team:<handle>` でダッシュボード・インシデント・モニター・SLO・Catalog エンティティ・Synthetic テストに紐付く。Datadog Team として定義されていない handle はタグとして振る舞う |
+| Team handle | `team:<handle>` でダッシュボード・インシデント・モニター・Resource Catalog・Catalog エンティティ・SLO・Synthetic テスト・Synthetic の Global Variables・Private Locations に紐付く。Datadog Team として定義されていない handle はタグとして振る舞う |
 | Team filter | 一覧ページ・ダッシュボード・ノートブックを選択したチームに絞り込む。ピン留めした選択はアカウント単位ではなく**ブラウザ単位**で保存される。各セクションの表示は最大 50 件 |
 | 通知 | Team に Slack／Microsoft Teams チャンネルを登録すると、`@team-<handle>` 宛てのモニター通知がそのチャンネルに届く |
 | 階層 | サブチームを作り、Teams map で可視化できる |
@@ -307,7 +315,7 @@ Datadog Teams は、ユーザーのグループがダッシュボード、サー
 | オフィスアワー | 毎週 1 時間 | プラットフォームチームが常駐し、相談を受ける | 全員 |
 | 読み合わせ会 | 30〜60 分 | ポストモーテム、他チームのダッシュボード紹介 | チーム横断 |
 
-Datadog Japan はハンズオンセミナー・ワークショップを開催しており、参加レポートが公開されている（例：アイレットの iret.media 記事）。社外のハンズオンを新規チームの入門に使い、社内研修では自社標準に集中する分担が効率的である。【第三者情報】[出典](https://iret.media/151183)、[出典](https://iret.media/135106)
+Datadog Japan はハンズオンセミナー・ワークショップを開催しており、参加レポートが公開されている（例：アイレットの iret.media 記事）。社外のハンズオンを新規チームの入門に使い、社内研修では自社標準に集中する分担が効率的である。【第三者情報】[出典](https://iret.media/151183)（2025-05-08 公開）、[出典](https://iret.media/135106)（2025-01-16 公開）
 
 ### 4.4 アクセスと教育の紐付け
 
@@ -450,7 +458,7 @@ Datadog は社外コミュニティ向けに次のプログラムを運営して
 | Dashboard List の Popularity | ダッシュボードの相対的な人気（最大 5 本のバー） | 1 日 1 回更新。公開 URL 経由のトラフィックは除外 | [出典](https://docs.datadoghq.com/dashboards/list/) |
 | Monitor Quality | 改善が必要なモニター（アラート過多、60 日超のミュート、宛先なし等） | 最初のモニター作成後に自動で有効 | [出典](https://docs.datadoghq.com/monitors/quality/) |
 | Scorecards | サービス等のエンティティごとのベストプラクティス遵守状況（チーム別集計） | US1-FED／US2-FED 非対応 | [出典](https://docs.datadoghq.com/internal_developer_portal/scorecards/) |
-| Campaigns | 期限付き施策の進捗（チーム別達成率、推移、リーダーボード） | 【Preview】。US1-FED／US2-FED 非対応 | [出典](https://docs.datadoghq.com/internal_developer_portal/campaigns/) |
+| Campaigns | 期限付き施策の進捗（チーム別達成率、推移。リーダーボードはブログによる） | 【Preview】（ブログによる）。US1-FED／US2-FED 非対応（ドキュメントによる） | [出典](https://docs.datadoghq.com/internal_developer_portal/campaigns/)、[出典](https://www.datadoghq.com/blog/idp-campaigns/)（2025-11-21 公開） |
 | Usage Attribution / Plan & Usage | チーム・タグ別の利用量 | 詳細は [Usage・Usage Attribution・Cost Visibility](../02_リファレンス/platform/usage-and-cost-attribution.md) | — |
 
 ### 6.3 Governance Console で全体像を見る
@@ -602,7 +610,7 @@ Scorecards は、Catalog に登録されたエンティティ（サービス等�
 
 ### 6.8 Campaigns で期限付きの施策を進める
 
-Campaigns は、Scorecards のルールを共通の目標の下にまとめ、エンティティとチームをまたいで期限付きの施策の進捗を追跡する機能である（【Preview】）。Scorecards が長期的なベストプラクティスを定義するのに対し、Campaigns はランタイム移行、セキュリティ是正、コスト最適化などの期限付きの取り組みに使う。[出典](https://docs.datadoghq.com/internal_developer_portal/campaigns/)、[出典](https://www.datadoghq.com/blog/idp-campaigns/)（2025-11-21 公開）
+Campaigns は、Scorecards のルールを共通の目標の下にまとめ、エンティティとチームをまたいで期限付きの施策の進捗を追跡する機能である（【Preview】。Preview であることは公式ブログに記載があり、ドキュメントには表示がない）。Scorecards が長期的なベストプラクティスを定義するのに対し、Campaigns はランタイム移行、セキュリティ是正、コスト最適化などの期限付きの取り組みに使う。[出典](https://docs.datadoghq.com/internal_developer_portal/campaigns/)、[出典](https://www.datadoghq.com/blog/idp-campaigns/)（2025-11-21 公開）
 
 | 項目 | 内容 |
 |---|---|
@@ -611,8 +619,8 @@ Campaigns は、Scorecards のルールを共通の目標の下にまとめ、�
 | 設定項目 | 名前、キー（既定で自動生成）、説明、所有チーム、開始日、終了日（任意）、スコープ（例：`kind:service AND tier:1`）、対象ルール、ルールごとのガイダンス（ドキュメントリンク、是正用 Workflow、手順） |
 | 進捗表示 | 全体の達成率、チーム別・ルール別の進捗、失敗しているエンティティ・チーム・ルールの絞り込み、チーム間の採用率比較、推移、更新の送信・フォローアップチケットの作成 |
 | 開発者側の表示 | Catalog のエンティティページの Scorecards タブに、関連するルールと期限が表示される |
-| Slack | 達成率の要約、上位チームの紹介、遅れている Campaign の通知を Slack に送れる（任意） |
-| リーダーボード | 100% 達成したチームのリーダーボードを表示 |
+| Slack | 達成率の要約、上位チームの紹介、遅れている Campaign の通知を Slack に送れる（任意）（ブログによる。ドキュメントは「更新の送信」とのみ記載） |
+| リーダーボード | 100% 達成したチームのリーダーボードを表示（ブログによる） |
 | サイト | US1-FED／US2-FED 非対応 |
 
 定着の観点では、Campaigns は「チャンピオン制度の四半期テーマ」と相性が良い。例：Q1「全サービスの Team 定義」、Q2「Tier 1 サービスの SLO 設定」、Q3「ログとトレースの相関」。リーダーボードは ADB 事例のゲーミフィケーションと同じ効果を狙える。【経験則】
@@ -732,7 +740,7 @@ Stripe 事例は、変化するプロセスと文化に向き合うため、新�
 | Audit Trail | 月額利用料（spend）に対する %：年契約 2%、月契約 3%、オンデマンド 3% | 他の Datadog 製品の購入が前提 [出典](https://www.datadoghq.com/pricing/list/) |
 | Governance Console | Enterprise プランでのみ提供（個別の料金行は料金ページに掲載なし） | [エディション・プラン](../03_導入編/editions-and-plans.md) |
 | Incident Management（ポストモーテム） | シート制。Standalone 年契約 $30／月契約 $36／オンデマンド $43.20（US サイト、1 シート/月） | 作成・閲覧・チャンネル参加はシート不要 |
-| Scorecards・Campaigns・Teams | 料金ページに個別の料金行は掲載されていない（Pricing List で確認） | IDP の Standard 機能は既存の全顧客に提供と告知（2025-06）。詳細は [Software Catalog](../02_リファレンス/platform/software-catalog.md) |
+| Scorecards・Campaigns・Teams | 料金ページに個別の料金行は掲載されていない（Pricing List で確認） | IDP の Standard 機能は既存の全顧客に提供と告知（"Standard IDP features are now available to all existing customers."）[出典](https://www.datadoghq.com/blog/internal-developer-portal/)（2025-06-10 公開）。詳細は [Software Catalog](../02_リファレンス/platform/software-catalog.md) |
 | ユーザー数 | Datadog の主要製品はホスト・データ量等の課金で、ユーザー数による課金ではない（Incident Management・On-Call 等のシート制製品を除く） | 定着でユーザーが増えても直接の課金増にはならないが、各チームが計測対象（ホスト、ログ、スパン、カスタムメトリクス）を増やすとコストが増える。チーム別配賦は [Usage・Usage Attribution・Cost Visibility](../02_リファレンス/platform/usage-and-cost-attribution.md) |
 | 定着計測用のカスタムメトリクス | API で取得した値をカスタムメトリクスとして送ると、カスタムメトリクス課金の対象になりうる | [Custom Metrics と DogStatsD](../02_リファレンス/platform/custom-metrics-and-dogstatsd.md) |
 | 教育 | Learning Center は無料。認定試験・有償 Technical Enablement は別料金 | [サポートと教育](../03_導入編/support-and-training.md) |
@@ -779,10 +787,11 @@ Stripe 事例は、変化するプロセスと文化に向き合うため、新�
 - Building blocks: Introducing observability through monitoring（Stripe、2017-01-19 公開）: https://www.datadoghq.com/blog/introducing-observability-through-monitoring/
 - Governance Console ブログ（2026-04-17 公開）: https://www.datadoghq.com/blog/governance-console/
 - IDP Campaigns ブログ（2025-11-21 公開）: https://www.datadoghq.com/blog/idp-campaigns/
+- Ship software quickly and confidently with Datadog IDP（2025-06-10 公開）: https://www.datadoghq.com/blog/internal-developer-portal/
 - Datadog Ambassadors / Champions 2026（2026-05-26 公開）: https://www.datadoghq.com/blog/ambassadors-champions-2026/
 - ADB eBook（Breaking Down Silos With a Unified Observability Platform）: https://www.datadoghq.com/ebook/adb-observability-platform-adoption/
 - DASH 2023「How to Build an Observability Champions Program」: https://dashcon.io/2023/breakout-sessions/how-to-build-an-observability-champions-program
-- DASH 2023「Best Practices for Planning Your Datadog Adoption Journey with an Observability Maturity Model」: https://dash.datadoghq.com/2023/observability-theater/best-practices-for-planning-your-datadog-adoption-journey-with-an-observability-maturity-model
+- DASH 2023「Best Practices for Planning Your Datadog Adoption Journey with an Observability Maturity Model」（2023-08-02）: https://dash.datadoghq.com/2023/observability-theater/best-practices-for-planning-your-datadog-adoption-journey-with-an-observability-maturity-model
 - Datadog Summit London 2025「Datadog on Datadog. Insights from the Core Observability Team」: https://www.datadoghq.com/ja/summit/london25/agenda/sre_observability/
 - Datadog On: Datadog on Datadog（2025-03-04）: https://datadogon.datadoghq.com/episodes/datadog-on-datadog
 - Pricing List（2026-11-02 取得）: https://www.datadoghq.com/pricing/list/
@@ -794,8 +803,8 @@ Stripe 事例は、変化するプロセスと文化に向き合うため、新�
 - Qiita「Datadogを全社的に導入した時にやったこと」（2019-12-20 公開）: https://qiita.com/syogun/items/f0209d61587c77773886
 - Sreake「導入企業に聞く！Datadogを活用するベストプラクティスとは！？」イベントリポート（2022-04-08 公開）: https://sreake.com/blog/datadog_seminar/
 - DTダイナミクス テックブログ「Datadog Summit Tokyo 2024参加レポ」（2024-10-25 公開）: https://techblog.dt-dynamics.com/entry/2024/10/25/093000
-- iret.media「Datadog ワークショップ〜フロントエンドにもオブザーバビリティを！〜」: https://iret.media/151183
-- iret.media「Datadog ハンズオンセミナーに参加してきました！」: https://iret.media/135106
+- iret.media「Datadog ワークショップ〜フロントエンドにもオブザーバビリティを！〜」（2025-05-08 公開）: https://iret.media/151183
+- iret.media「Datadog ハンズオンセミナーに参加してきました！」（2025-01-16 公開）: https://iret.media/135106
 
 ### 画像
 

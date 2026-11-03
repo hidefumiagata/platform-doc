@@ -90,7 +90,7 @@ flowchart TD
 | 前提条件 | 選択肢 | 見積りへの影響 | 参照 |
 |---|---|---|---|
 | Datadog サイト | US1 / US3 / US5 / EU1 / AP1 / AP2 / UK1 / US1-FED | サイトごとに定価が異なる（AP1 は US の約 1.25 倍、AP2・UK1 は約 1.2 倍）。US1-FED は一部製品非提供 | [製品別料金表 §1.2・§18](pricing-by-product.md#12-サイトリージョン別の価格)、[Datadog Sites](../02_リファレンス/platform/datadog-sites.md) |
-| 契約形態 | 年契約 / 月契約 / オンデマンド | ホスト課金製品は月契約・オンデマンドが年契約の約 1.17〜1.2 倍、量課金製品はオンデマンドが年契約の約 1.2〜1.5 倍 | [製品別料金表 §1.1](pricing-by-product.md#11-3-つの契約形態) |
+| 契約形態 | 年契約 / 月契約 / オンデマンド | ホスト課金製品は月契約・オンデマンドが年契約の約 1.17〜1.2 倍、量課金製品の多くはオンデマンドが年契約の約 1.2〜1.5 倍。ただしログ取り込み・APM 取り込みスパン・カスタムメトリクス（インデックス・取り込み）・Log Forwarding などは契約形態によらず同額（1.0 倍）で、製品による差は 0〜50% | [製品別料金表 §1.1](pricing-by-product.md#11-3-つの契約形態) |
 | Infrastructure エディション | Basic / Pro / Enterprise / DevSecOps Pro / DevSecOps Enterprise | 単価と同梱枠（コンテナ 5 / 10、カスタムメトリクス 100 / 200 per ホスト）が変わる | [エディション・プラン](editions-and-plans.md) |
 | APM エディション | APM / APM Pro / APM Enterprise（併用 or スタンドアロン） | **全 APM ホストで 1 エディションに統一（混在不可）** | [製品別料金表 §5.1](pricing-by-product.md#51-apm-エディションinfrastructure-併用スタンドアロン) |
 | カスタムメトリクスの課金モデル | Timeseries（cardinality）pricing / Metric Name pricing | 数え方と単価体系が根本的に異なる。Metric Name pricing の単価は非公開 | [課金計算の仕組み §4](billing-mechanics.md#4-カスタムメトリクスの課金計算) |
@@ -131,7 +131,7 @@ flowchart TD
 | ネットワーク | CNM を有効にするホスト数、SNMP 監視するネットワーク機器数 | 台 | — | ネットワークホスト / デバイス |
 | RUM | **月間セッション数**（Web / モバイル）、詳細保持する割合、Session Replay の割合 | セッション | GA4 等のアクセス解析（セッション定義の違いに注意） | RUM Measure / Investigate / Session Replay（1,000 セッション単位） |
 | Synthetic | **API テスト数 × 実行間隔 × ロケーション数**、ブラウザテスト数 × ステップ数 × 間隔 × ロケーション × デバイス | 回/月 | 監視設計 | API 1 万回 / ブラウザ 1,000 回単位 |
-| Security | Cloud SIEM で分析するログ件数、Cloud Security / Workload Protection 対象ホスト | 件・台 | — | 分析イベント 100 万件、CSM ホスト |
+| Security | Cloud SIEM で分析するログ件数、Cloud Security / Workload Protection 対象ホスト | 件・GB・台 | — | 分析イベント 100 万件（料金ページのカードは分析 GB 表記。§3.9 注記）、CSM ホスト |
 | Software Delivery | 月 3 回以上コミットするアクティブコミッター数 | 人 | Git の履歴 | コミッター |
 | Service Management | On-Call / Incident Management のシート数 | 人 | 当番表 | シート |
 | 横断 | 成長率（ホスト・トラフィックの年間増加率） | %/年 | 事業計画 | コミット量の決定 |
@@ -192,7 +192,7 @@ Infrastructure 費用 = H × P_infra
 | 固定台数 | 台数そのもの | 常時 20 台 → H = 20 |
 | 月数時間だけのスパイク（合計 8 時間以内/月） | 平常時の台数 | 平常 100 台、障害時 300 台 × 6 時間 → H = 100 |
 | 毎日のピーク（日次バッチ、日中のスケールアウト） | **ピーク時の台数** | 平常 100 台、毎日 1 時間 150 台 → H = 150 |
-| 月途中の増設 | 増設後の台数（8 時間以上続けば） | 1〜20 日 100 台、21 日以降 200 台 → H = 200 |
+| 月途中の増設 | 増設後の台数（8 時間を超えて＝9 時間以上。2 月は 8 時間以上続けば） | 1〜20 日 100 台、21 日以降 200 台 → H = 200 |
 
 計算方法の詳細と根拠は [課金計算の仕組み §2](billing-mechanics.md#2-ホスト数の計算99-パーセンタイル--ハイウォーターマーク) を参照。ホスト時間で課金する Hybrid Monthly/Hourly Plan（MHP）は営業・CSM 経由で相談する方式で、選択条件は公開情報では確認できず。
 
@@ -261,7 +261,7 @@ Datadog の取り込みスパンはスパン件数ではなく **バイト数** 
 
 **インデックススパン件数の見積り方**：インデックススパンは保持フィルター（Retention Filters）で保持したスパンの件数。Datadog が自動で保持するスパン（Intelligent Retention 等）は同梱枠を消費しない（[製品別料金表 §5.2](pricing-by-product.md#52-apm-の同梱枠allotment)）。カスタム保持フィルターで「エラーのみ」「特定サービスの 1%」などを設計し、`対象スパン数/秒 × 保持率 × 2,592,000 秒（30 日）` で月間件数を求める。
 
-**追加の APM 系 SKU**：Continuous Profiler（APM Enterprise は 4 プロファイル対象コンテナ/ホスト同梱、超過 $2/コンテナ US）、Data Streams Monitoring、USM、Managed Platform OTLP（$0.50/GB US、同梱枠なし）は [製品別料金表 §5.3](pricing-by-product.md#53-スパンprofileruscdsm-の追加-sku) を参照。
+**追加の APM 系 SKU**：Continuous Profiler（APM Enterprise は 4 プロファイル対象コンテナ/ホスト同梱、超過 $2/コンテナ US）、Data Streams Monitoring、USM、Managed Platform OTLP（$0.50/GB US、同梱枠なし）は [製品別料金表 §5.3](pricing-by-product.md#53-スパンprofilerusmdsm-の追加-sku) を参照。
 
 ### 3.4 ログ（取り込み・インデックス・Flex・アーカイブ）
 
@@ -320,8 +320,10 @@ Lambda APM 費用 = トレース済み呼び出し数 ÷ 100 万 × P_fn_apm
 1 メトリクス名の時系列数 = 一意なタグ値の組み合わせ数（host タグを含む）× タイプ乗数
   タイプ乗数：count / rate / gauge = 1、histogram = 5（既定）、distribution = 5、distribution + パーセンタイル = 10
 課金対象カスタムメトリクス数 M = 時間ごとの一意な時系列数の月平均（全メトリクス名の合計）
-同梱枠 M_allot = H × (Pro: 100 / Enterprise: 200)   ※アカウント全体でプール
+同梱枠（インデックス・取り込みそれぞれ）= H × (Pro: 100 / Enterprise: 200)   ※アカウント全体でプール
+  M_allot = インデックス側の同梱枠、M_ing_allot = 取り込み側の同梱枠（値は同じ）
 カスタムメトリクス費用 = max(0, M − M_allot) ÷ 100 × P_cm
+（Metrics without Limits 設定時）取り込みカスタムメトリクス費用 = max(0, M_ingested − M_ing_allot) ÷ 100 × P_ingested_cm
 ```
 
 | 単価 | AP1 年契約 | US 年契約 |
@@ -415,7 +417,7 @@ API テスト実行数/月 = Σ（テスト数 × ステップ数（マルチス
 | Database Monitoring | DB ホスト数 × 単価（正規化クエリ 200/ホスト同梱） | $87.50 | $70 |
 | Cloud Network Monitoring（旧称：Network Performance Monitoring / NPM） | CNM ホスト数 × 単価（Infrastructure 必須） | $6.25 | $5 |
 | Network Device Monitoring | デバイス数 × 単価 | $8.75 | $7 |
-| Cloud SIEM | 分析イベント数 ÷ 100 万 × 単価 | $6.25 | $5 |
+| Cloud SIEM | 分析イベント数 ÷ 100 万 × 単価（課金単位の表記揺れは表下の注記を参照） | $6.25 | $5 |
 | Cloud Security Pro（旧称：Cloud Security Management / CSM Pro） | ホスト数 × 単価（コンテナ 5/ホスト同梱） | $12.50 | $10 |
 | Workload Protection（旧称：Cloud Workload Security / CWS） | ホスト数 × 単価（コンテナ 4/ホスト同梱） | $18.75 | $15 |
 | App and API Protection（旧称：Application Security Management / ASM） | AAP ホスト数 × 単価 | $38.75 | $31 |
@@ -430,6 +432,8 @@ API テスト実行数/月 = Σ（テスト数 × ステップ数（マルチス
 | Observability Pipelines | 取り込み GB × 単価（月 30 TB 超は vCPU 課金の Plus を検討） | $0.11875 | $0.095 |
 
 出典：[製品別料金表 §3〜§14](pricing-by-product.md)（公式料金ページ、2026-11-03 取得）
+
+- **Cloud SIEM の課金単位は公式情報どうしで表記が食い違う**。料金ページの Cloud SIEM カードは「Per GB analyzed per month」（[出典](https://www.datadoghq.com/pricing/?product=log-management)）、料金比較表と課金ドキュメントは「分析イベント 100 万件/月」（"Datadog charges for analyzed logs based on the millions of events per month analyzed" [出典](https://docs.datadoghq.com/account_management/billing/pricing/)）で、単価はいずれも $5（US 年契約）。本ファイルの試算は件数単位で計算しているが、**契約時に課金単位（GB か件数か）を必ず確認する**。トライアルの実測では `security_monitoring.analyzed_bytes`（§4.1）から GB を求め、平均ログサイズで割った件数換算も併記して両方の単位で見積る。
 
 ---
 
@@ -448,7 +452,7 @@ Datadog は使用量を **`datadog.estimated_usage.*`** というメトリクス
 | 取り込みカスタムメトリクス | `datadog.estimated_usage.metrics.custom.ingested`（`.by_metric`、`.by_tag`） | 直近 1 時間のユニークな取り込みカスタムメトリクス数 |
 | ログ取り込み量 | `datadog.estimated_usage.logs.ingested_bytes` | ログ取り込みの総バイト数 |
 | ログ取り込み件数 | `datadog.estimated_usage.logs.ingested_events` | 取り込みイベント総数（除外されたログを含む） |
-| Cloud SIEM 分析量 | `datadog.estimated_usage.security_monitoring.analyzed_bytes` | Cloud SIEM のログ取り込みバイト数 |
+| Cloud SIEM 分析量 | `datadog.estimated_usage.security_monitoring.analyzed_bytes` | Cloud SIEM のログ取り込みバイト数（GB 単位での見積りに使う。件数単位の契約では平均ログサイズで割って件数に換算する。§3.9 注記参照） |
 | APM ホスト | `datadog.estimated_usage.apm_hosts`（`.by_tag`） | 直近 1 時間のユニーク APM ホスト数（Azure App Services を除く） |
 | APM 取り込み量 | `datadog.estimated_usage.apm.ingested_bytes` | 取り込みスパンのバイト数 |
 | APM 取り込み件数 | `datadog.estimated_usage.apm.ingested_spans` | 取り込みスパン総数 |
@@ -583,7 +587,7 @@ Datadog は使用量を **`datadog.estimated_usage.*`** というメトリクス
 | **合計** | | **$9,382.25** |
 
 - 追加コンテナをオンデマンドで払った場合は 750 × 720 時間 × $0.0025 = **$1,350**（前払いより $412.50 高い）。
-- ホスト単価（Infra＋APM：$2,875）は合計の約 31% にすぎず、**量課金とコンテナ超過が約 7 割** を占める。
+- ホスト課金（Infra＋APM＋DBM：$3,225）は合計の約 34% にすぎず、**量課金とコンテナ超過が約 66%** を占める（§5.6 と同じ定義）。
 - 参考：同条件を US 年契約単価で計算すると **$7,505.80**。
 - DB を RDS 等のマネージドサービスで運用する場合、DBM の Agent を動かすホストは 50 ノードのいずれかに含まれる前提としている。
 
@@ -620,6 +624,7 @@ Datadog は使用量を **`datadog.estimated_usage.*`** というメトリクス
 | **合計** | | **$52,345.125** |
 
 - 参考：同条件を US 年契約単価で計算すると小計 $41,055、Audit Trail 込み **$41,876.10**。
+- Cloud SIEM は件数単位（100 万分析イベント）で計算した。料金ページのカードは GB 単位表記のため、契約時に課金単位を確認する（§3.9 注記）。
 - Audit Trail の課金基礎（どの明細を spend に含めるか）の詳細は公開情報では確認できず。本例では小計全体に 2% を乗じた。
 - 大規模環境では多年契約・ボリューム割引の交渉余地がある（割引率は非公開、[購入経路と契約](procurement-and-contracts.md) 参照）。
 
@@ -720,7 +725,7 @@ Datadog は使用量を **`datadog.estimated_usage.*`** というメトリクス
 |---|---|---|---|
 | **US 価格で見積る** | AP1 の定価は US の約 1.25 倍。US 価格の記事・資料をそのまま使うと 2 割過小 | 利用サイトの価格列を使う | [製品別料金表 §1.2](pricing-by-product.md#12-サイトリージョン別の価格) |
 | **第三者記事の古い単価** | 記事ごとに単価が異なり、時期によっても変わる（例：カスタムメトリクスを「1 個 $0.05」と表記する記事がある＝100 個 $5 と同値） | 公式料金ページ（本ナレッジの正本）で確認 | 【第三者情報】検索結果の各記事 |
-| **オンデマンド単価を見落とす** | コミット超過や未契約製品はオンデマンド単価。オンデマンドは年契約より 30〜50% 高いとする記事もある（実際の差は製品により 0〜50%） | コミット超過の想定を見積りに含める | [製品別料金表 §1.1](pricing-by-product.md#11-3-つの契約形態)、【第三者情報】DoiT |
+| **オンデマンド単価を見落とす** | コミット超過や未契約製品はオンデマンド単価。オンデマンドは年契約より 30〜50% 高いとする記事もある（実際の差は製品により 0〜50%。ログ取り込み・APM 取り込みスパン・カスタムメトリクス・Log Forwarding は 0%） | コミット超過の想定を見積りに含める | [製品別料金表 §1.1](pricing-by-product.md#11-3-つの契約形態)、【第三者情報】DoiT |
 | **Audit Trail などの % 課金** | 月額利用料の 2%（年契約）が全体に乗る | 利用する場合は合計に加算 | [製品別料金表 §7.2](pricing-by-product.md#72-sensitive-data-scanneraudit-trailobservability-pipelines) |
 | **推定使用量＝請求値と考える** | 推定使用量は請求値と平均 10〜20% 乖離 | 10〜20% のバッファを上乗せ | [Usage Metrics](https://docs.datadoghq.com/account_management/billing/usage_metrics/) |
 | **導入後の機能追加** | 導入当初はインフラのみでも、APM・ログ・RUM・セキュリティと範囲が広がる | ロードマップを見積りに反映し、年次で見直す | 【経験則】 |

@@ -70,7 +70,7 @@ Datadog **App and API Protection（AAP、アプリケーションと API の保�
 
 製品群全体（Security Signals と Findings の共通モデル、Detection Rules の共通概念、Suppressions、Notification Rules、Security Inbox）は [Datadog Security 概要](./security-platform-overview.md) を、SAST／SCA／IAST などのコード脆弱性は [Code Security](./code-security.md) を参照する。
 
-> **改称メモ:** 公式ブログには「Application Security Management (ASM) has been renamed App and API Protection (AAP)」という編集注記がある。改称時期は 2025 年半ばとみられるが、公式の正確な日付は公開情報では確認できず（詳細は [Datadog Security 概要](./security-platform-overview.md) の改称履歴）。料金ページの FAQ には「App and API Protection (Threat Management)」という旧来の表記も残っている。UI の一部（権限名、URL パス `/security/configuration/asm/`、API パス `/remote_config/products/asm/`）にも「ASM」「appsec」の名残がある。[出典](https://www.datadoghq.com/blog/datadog-app-and-api-protection/) [出典](https://www.datadoghq.com/pricing/?product=app-and-api-protection)
+> **改称メモ:** 公式ブログには「Application Security Management (ASM) has been renamed App and API Protection (AAP)」という編集注記がある。改称時期は 2025 年半ば（4〜7 月頃）【推定】で、公式の正確な日付は公開情報では確認できない（公式ブログの編集注記には日付がない）。【第三者情報】料金トラッカーの PricingSaaS は、Datadog 料金ページの 2025-04-01 取得版と 2025-07-13 取得版の差分として「Application Security Management」から「App and API Protection」への改称を記録している（2025 年第 2 四半期の差分ページ、2026-11-04 確認。[出典](https://pricingsaas.com/companies/datadog.application-security-management/diffs/2025Q2)）（詳細は [Datadog Security 概要](./security-platform-overview.md) の改称履歴）。料金ページの FAQ には「App and API Protection (Threat Management)」という旧来の表記も残っている。UI の一部（権限名、URL パス `/security/configuration/asm/`、API パス `/remote_config/products/asm/`）にも「ASM」「appsec」の名残がある。[出典](https://www.datadoghq.com/blog/datadog-app-and-api-protection/) [出典](https://www.datadoghq.com/pricing/?product=app-and-api-protection)
 
 > **用語の旧称:** In-App WAF rules（旧称：event rules）、Passlist（旧称：exclusion filter／除外フィルタ）。API の名称は現在も `exclusion_filters` のままである。[出典](https://docs.datadoghq.com/security/application_security/terms/)
 
@@ -355,7 +355,7 @@ Runtime SCA と IAST は現在 [Code Security](./code-security.md) の機能と�
 | 言語 | 全 AAP 機能を使える最低トレーサー | 未対応の機能 | ランタイム／OS | 主な Web フレームワーク（監視・ブロック対応） |
 |---|---|---|---|---|
 | Java | 1.65.0 | なし | JVM 8〜17（Windows x86-64、Linux glibc/musl arm64/x86-64、macOS） | Spring WebMVC（3.1.0+）、Spring WebFlux（5.0.0+）、Tomcat（5.5+）、Jetty（7.0+）、Undertow、Netty、Vert.x、Play、Akka HTTP、Jersey、RESTEasy、Servlet（2.2+）、Grizzly、Ratpack、Open Liberty |
-| Python | 4.6.0 | gRPC、GraphQL | CPython 3.9+（ddtrace 4.x、GA、Agent 7.63.0 以降）、3.8+（3.x、2026-05-31 までメンテナンス） | Django、Flask、FastAPI、Tornado |
+| Python | 4.6.0 | gRPC、GraphQL | CPython 3.9+（ddtrace 4.x、GA、Agent 7.63.0 以降）、3.8+（3.x 系。メンテナンス期間は 2026-05-31 で終了しており、基準日時点で期限切れ。公式ページの表記は「Maintenance (until May 31, 2026)」のまま） | Django、Flask、FastAPI、Tornado |
 | Node.js | 5.87.0 | gRPC | Linux glibc（CentOS 7、Debian 9、RHEL 7、Ubuntu 14.04 以降）、Alpine 3.13+、macOS 10.15+、Windows 8.1／Server 2012+。Node.js は LTS 方針に追随 | Express、Fastify、Next.js（Express／Fastify は IAST・Exploit Prevention も対応） |
 | Go | 2.10.0 | IAST | 最新 2 リリースを完全サポート（3 番目はメンテナンス）。トレーサー 1.53.0 以降は CGO 不要 | Gin、Echo、Chi、Gorilla Mux、Fiber、net/http |
 | .NET | 3.44.0 | gRPC、GraphQL | APM の .NET トレーサー互換性に準拠 | ASP.NET、ASP.NET MVC、ASP.NET Web API 2、ASP.NET Core |
@@ -1148,11 +1148,11 @@ AAP 固有の権限は、旧称「Application Security Management」の名前の
 
 ## サイト差異
 
-> **サイト差異:** App and API Protection は **US2-FED（us2.ddog-gov.com）では提供されない**（AAP の全ドキュメントページに非対応の注記がある）。US1、US3、US5、EU1、AP1、AP2、UK1 では提供される。料金ページの FAQ は「App and API Protection is available in all EU-, JP- and US-hosted accounts」と記載している。[出典](https://docs.datadoghq.com/security/application_security/) [出典](https://www.datadoghq.com/pricing/?product=app-and-api-protection)
+> **サイト差異:** App and API Protection は **US2-FED（us2.ddog-gov.com）では提供されない**（AAP の全ドキュメントページに非対応の注記がある）。US1、US3、US5、EU1、AP1、AP2、UK1、US1-FED では提供される（非対応の注記は US2-FED だけを対象とする）。料金ページの FAQ は「App and API Protection is available in all EU-, JP- and US-hosted accounts」と記載しており、US-FED については明記していない。[出典](https://docs.datadoghq.com/security/application_security/) [出典](https://www.datadoghq.com/pricing/?product=app-and-api-protection)
 
 > **サイト差異（関連機能）:** Bring Your Own Threat Intelligence は一部サイトで非対応（製品横断の整理では US1-FED と US2-FED）。Static Endpoint Discovery も一部サイトで非対応の警告があるが、対象サイトは公開情報では特定できず。Security Inbox では US2-FED で AAP の Findings が表示されない。サイト別の差異は [Datadog Security 概要](./security-platform-overview.md) と [Datadog Sites](../platform/datadog-sites.md) を参照する。
 
-> **サイト差異（料金）:** AAP の定価は料金ページで選んだリージョンにより異なる（次節）。2026-11-02 時点の料金一覧ページでは、US-FED リージョン選択時に AAP の行が表示されない（FED 向け価格は公開情報では確認できず）。[出典](https://www.datadoghq.com/pricing/list/)
+> **サイト差異（料金）:** AAP の定価は料金ページで選んだリージョンにより異なる（次節）。2026-11-02 時点で、料金一覧ページ（/pricing/list/）では US-FED リージョン選択時に AAP の行が表示されない。一方、/pricing/ の価格データには US1-FED 価格（ホスト年契約 $38.75）がある（料金ページ内の不整合。[製品別料金](../../03_導入編/pricing-by-product.md) のサイト差異注記も参照）。[出典](https://www.datadoghq.com/pricing/list/) [出典](https://www.datadoghq.com/pricing/?product=app-and-api-protection)
 
 ---
 

@@ -541,7 +541,7 @@ Google Cloud のログは、Cloud Logging の **ログシンク（Log Router）�
 | **Quick Start** | **推奨** | Datadog の Google Cloud Integration タイルで **Configure Log Collection** → **Quick Start**。Datadog の認証情報とサイトが埋め込まれたセットアップスクリプトが生成され、ローカルまたは Google Cloud Shell で実行 | 初めて設定する、UI で短時間に構築したい、スクリプトや CI/CD で自動化したい |
 | **Terraform** | 推奨 | **Configure Log Collection** → **Terraform** で設定値を選び、Google Cloud 提供の `terraform-gcp-datadog-integration` を使って構築 | IaC でバージョン管理したい、複数フォルダー・プロジェクトを一貫して設定したい、監査可能な繰り返しデプロイが必要 |
 | **Manual（手動）** | 利用可 | Pub/Sub、ワーカー用サービスアカウント、ログシンク、Dataflow ジョブを手動で作成 | 細かく制御したい場合 |
-| **Pub/Sub Push サブスクリプション** | **レガシー（非推奨化が進行中）** | Pub/Sub の Push サブスクリプションで Datadog に直接送る旧方式。ドキュメントは既存環境のトラブルシューティング・変更のためだけに維持 | 新規利用は不可（Datadog は Pull + Dataflow テンプレートを推奨） |
+| **Pub/Sub Push サブスクリプション** | **レガシー（非推奨化が進行中）** | Pub/Sub の Push サブスクリプションで Datadog に直接送る旧方式。ドキュメントは既存環境のトラブルシューティング・変更のためだけに維持 | 新規構成には非推奨（非推奨化が進行中。Datadog は Pull + Dataflow テンプレートを推奨） |
 | Datadog Agent | 利用可 | GCE / GKE 上のアプリケーションログを Agent で収集 | ホスト・コンテナ内のアプリケーションログ |
 | Serverless Agent（Cloud Run） | 利用可 | Cloud Run のアプリケーションを計装し、ログを直接収集 | Cloud Run でトレースと相関させたい場合 |
 
@@ -695,7 +695,7 @@ parallelism=PARALLELISM
 
 ### ログ転送パイプラインの設計上の推奨事項（Google Cloud アーキテクチャセンター）
 
-Google Cloud のアーキテクチャセンターの解説「Stream logs from Google Cloud to Datadog」は、次の推奨事項を挙げている。Datadog 側の仕様に関わる記述は Google Cloud による説明であり、Datadog 公式ドキュメントで同じ値を確認できたものには注記を付けた。
+Google Cloud のアーキテクチャセンターの解説「Stream logs from Google Cloud to Datadog」は、次の推奨事項を挙げている。表の値はすべてこのページ（Google Cloud による説明）に基づく。ラベルは次の基準で付けた。Dataflow テンプレート自体の挙動（`batchCount` の最小・最大、送信間隔、`parallelism`、再試行）は Google Cloud が提供元として説明する値なのでラベルを付けない。Datadog 側の仕様に関わる記述（インデックスの日次上限など）は Google Cloud による第三者の説明なので `【第三者情報】` を付け、Datadog 公式ドキュメントで同じ値を確認できたものにはその旨を注記した。
 
 | 観点 | 推奨事項・値 |
 |---|---|
@@ -1004,10 +1004,10 @@ resource "datadog_integration_gcp_sts" "foo" {
 | Security Command Center の収集開始 | 有効化後 最大 1 日 | [SCC](https://docs.datadoghq.com/integrations/google-cloud-security-command-center/) |
 | フィルター追加後に旧インスタンスが残る期間 | 最大 2 時間（状態 `???`、課金対象外） | [Billing](https://docs.datadoghq.com/account_management/billing/google_cloud/) |
 | Dataflow テンプレート `batchCount` | 既定 100。最小 10、最大 1,000（最小・最大は Google Cloud アーキテクチャセンターの記載） | [テンプレート](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/pubsub-to-datadog)、[アーキテクチャ](https://docs.cloud.google.com/architecture/partners/stream-cloud-logs-to-datadog) |
-| Dataflow テンプレート `parallelism` | 既定 1（並列化なし）。上限の定義なし | 同上 |
+| Dataflow テンプレート `parallelism` | 既定 1（並列化なし）。上限の定義なし（上限の記述は Google Cloud アーキテクチャセンターの記載） | 同上 |
 | Dataflow テンプレート `includePubsubMessage` | 既定 `true` | テンプレート |
 | Dataflow テンプレート `javascriptTextTransformReloadIntervalMinutes` | 既定 0 | テンプレート |
-| Dataflow の再試行 | 指数バックオフ、最大 15 分。失敗時はデッドレタートピックへ | アーキテクチャ |
+| Dataflow の再試行 | 指数バックオフ、最大 15 分。失敗時はデッドレタートピックへ（Google Cloud アーキテクチャセンターの記載） | アーキテクチャ |
 | Datadog Logs API：1 ペイロードの最大サイズ | 5 MB（非圧縮）。超えると `413` | [Send Logs](https://docs.datadoghq.com/api/latest/logs/send-logs/) |
 | Datadog Logs API：1 ログの最大サイズ | 1 MB（超過分は切り詰めて受理） | 同上 |
 | Datadog Logs API：配列で送る最大件数 | 1,000 件 | 同上 |
@@ -1030,7 +1030,7 @@ Google Cloud Integration 自体の利用料金は公式ドキュメントに記�
 |---|---|---|
 | **GCE インスタンス（ホスト）** | Agent が動くホストと、Google Cloud Integration が検出した**すべての GCE インスタンス**が課金対象。Agent を入れた GCE インスタンスを Integration も検出していても**二重課金されない**。Dataflow など GCE 以外のサービスが、課金対象の GCE ホストを作ることがある（ログ転送用の Dataflow ワーカーも GCE インスタンス） | Infrastructure Monitoring の 1 ホスト／月：Pro 年契約 $15、月契約・オンデマンド $18／Enterprise 年契約 $23、月契約・オンデマンド $27 |
 | GCE 以外のリソース（Cloud SQL、App Engine、Pub/Sub など） | **月額のホスト課金には含まれない**（公式記載） | ― |
-| Cloud Run / Cloud Run functions | Google Cloud Integration 経由で取り込んだ Cloud Run のメトリクスがどの課金単位になるかは、公開情報では確認できず。料金ページの Serverless には「Serverless Workload Monitoring - Apps」（1 アクティブアプリケーションインスタンス／月：年契約 $3、月契約 $4、オンデマンド $4.32）と「- Functions」（1 アクティブ関数／月：年契約 $5、月契約 $6、オンデマンド $7.20）が掲載されている | 詳細は [Serverless Monitoring](../infrastructure/serverless.md) と料金ファイルを参照 |
+| Cloud Run / Cloud Run functions | Cloud Run services と Cloud Run functions（Gen1/Gen2）は、Serverless Application Monitoring（「Serverless Workload Monitoring - Apps」）として**一意のアクティブコンテナ**単位で同一価格で課金される（年契約 $3、月契約 $4、オンデマンド $4.32。APM を使う場合は Serverless Application APM $6）。「Serverless Workload Monitoring - Functions」（$5/アクティブ関数）は AWS Lambda と Step Functions 向けの SKU で、Cloud Run functions には適用されない。Serverless Agent を使わず Google Cloud Integration 経由でメトリクスだけを取り込む場合に課金対象となるかは、公開情報では確認できず | [料金：Serverless Monitoring（4 章）](../../03_導入編/pricing-by-product.md#4-serverless-monitoringサーバーレス監視)、[Serverless Monitoring](../infrastructure/serverless.md) |
 | ログ（Dataflow 転送、SCC の検出結果） | Log Management の取り込みとインデックス | 取り込み：1 GB あたり $0.10／月（全契約形態）。インデックスは 100 万イベント単位（料金ファイル参照） |
 | Cloud SIEM で分析する場合 | 分析イベント数 | 100 万分析イベントあたり／月：年契約 $5、月契約 $6、オンデマンド $7.50 |
 | カスタムメトリクス | `gcp.*` の標準メトリクスがカスタムメトリクスとして課金されるかの公式明記は Google Cloud Integration のページにはない。ユーザー定義のログベースメトリクスなどの扱いは公開情報では確認できず | Custom Metrics：100 カスタムメトリクスあたり／月 $5 |

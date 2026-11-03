@@ -16,6 +16,7 @@ sources:
   - https://docs.datadoghq.com/metrics/custom_metrics/
   - https://docs.datadoghq.com/tracing/metrics/metrics_namespace/
   - https://docs.datadoghq.com/tracing/services/service_page/
+  - https://docs.datadoghq.com/universal_service_monitoring/
   - https://docs.datadoghq.com/tracing/other_telemetry/connect_logs_and_traces/
   - https://docs.datadoghq.com/getting_started/tagging/unified_service_tagging/
   - https://docs.datadoghq.com/profiler/
@@ -63,7 +64,7 @@ sources:
 
 | 用語 | 定義 | 出典 |
 |---|---|---|
-| Observability（オブザーバビリティ、可観測性） | 「システムの外部出力の知識から、そのシステムの内部状態をどの程度推測できるかの尺度」（"a measure of how well internal states of a system can be inferred from knowledge of its external outputs"）。R. Kalman の制御理論（1960 年）に由来する概念。 | [CNCF TAG Observability Whitepaper](https://github.com/cncf/tag-observability/blob/main/whitepaper.md)（v1.0 は 2023-10 公開。リポジトリは 2025-12-18 にアーカイブ済み）【第三者情報】 |
+| Observability（オブザーバビリティ、可観測性） | 「システムの外部出力の知識から、そのシステムの内部状態をどの程度推測できるかの尺度」（"a measure of how well internal states of a system can be inferred from knowledge of its external outputs"）。制御理論に由来する概念で、同 Whitepaper は参考文献として R. E. Kalman の "On the General Theory of Control Systems"（Proc. 1st Int. Cong. of IFAC, Moscow 1960）を挙げている。 | [CNCF TAG Observability Whitepaper](https://github.com/cncf/tag-observability/blob/main/whitepaper.md)（v1.0 は 2023-10 公開。リポジトリは 2025-12-18 にアーカイブ済み）【第三者情報】 |
 | Monitoring（監視） | 「システムに関するリアルタイムの定量データを収集・処理・集計・表示すること」（"Collecting, processing, aggregating, and displaying real-time quantitative data about a system"） | [Google SRE Book, Chapter 6](https://sre.google/sre-book/monitoring-distributed-systems/)（2016 年刊行）【第三者情報】 |
 | White-box monitoring（ホワイトボックス監視） | システム内部が公開するメトリクスに基づく監視（"Monitoring based on metrics exposed by the internals of the system"） | 同上 |
 | Black-box monitoring（ブラックボックス監視） | ユーザーから見える外部挙動をテストする監視（"Testing externally visible behavior as a user would see it"） | 同上 |
@@ -107,7 +108,7 @@ Datadog の「Monitoring 101」は「すべてを計装し、合理的に収集�
 
 ### 2.1 シグナル一覧
 
-テレメトリ（Telemetry）とは、システムが外部に出力する観測データの総称である。CNCF の Observability Whitepaper はメトリクス・ログ・トレースを「主要シグナル（primary signals）」とし、プロファイルとダンプ（クラッシュダンプ）を新しいシグナルとして挙げている [出典](https://github.com/cncf/tag-observability/blob/main/whitepaper.md)【第三者情報】。Datadog ではこれに「イベント」を加えた 5 種を中心にデータを扱う。
+テレメトリ（Telemetry）とは、システムが外部に出力する観測データの総称である。CNCF の Observability Whitepaper はメトリクス・ログ・トレースを「主要シグナル（primary signals）」とし、プロファイルとダンプ（クラッシュダンプ）を新しいシグナルとして挙げている [出典](https://github.com/cncf/tag-observability/blob/main/whitepaper.md)【第三者情報】。本ファイルでは、これに Datadog が独立した製品（Event Management）として扱う「イベント」を加えた 5 種として整理する【経験則】。
 
 | シグナル | 何を表すか | データの形 | 得意なこと | 苦手なこと | Datadog の主な機能 |
 |---|---|---|---|---|---|
@@ -117,7 +118,7 @@ Datadog の「Monitoring 101」は「すべてを計装し、合理的に収集�
 | Events（イベント） | 頻度の低い離散的な出来事（デプロイ、設定変更、アラート、スケーリング等） | タイトル・本文・タグ・ソース・優先度を持つレコード | 「何が変わったか」の文脈提供、変更と障害の相関 | 連続値の傾向分析 | [Event Management](../02_リファレンス/platform/event-management.md) |
 | Profiles（プロファイル） | コード（関数・行）単位の CPU・メモリ・ロック・I/O 等の資源消費 | スタックトレースのサンプル集合（フレームグラフで表示） | 「どのコード行が遅い／重いか」の特定、コスト削減 | 言語ランタイムごとの対応差、リクエスト単位の流れ | [Continuous Profiler](../02_リファレンス/apm/continuous-profiler.md) |
 
-なお、Datadog ではエンドユーザー体験のデータとして RUM（Real User Monitoring）のセッション・ビュー・アクション・エラーイベント、合成監視として Synthetic Monitoring のテスト結果も扱う。これらは「ユーザー視点（ブラックボックス）のシグナル」として位置付けられる（[RUM（ブラウザ）](../02_リファレンス/dem/rum-browser.md)、[Synthetic Monitoring](../02_リファレンス/dem/synthetic-monitoring.md)）。
+なお、Datadog ではエンドユーザー体験のデータとして RUM（Real User Monitoring）のセッション・ビュー・アクション・エラーイベント、合成監視として Synthetic Monitoring のテスト結果も扱う。両者はどちらもユーザー視点のデータだが性質が異なる。Synthetic Monitoring は外部からユーザーの操作を模して挙動をテストするブラックボックス（外形）監視であり、RUM は実ユーザーのブラウザ・モバイルアプリ内に組み込んだ SDK が収集する実ユーザーの体験データである（[1.1](#11-用語の定義) の定義に基づく整理）【経験則】。詳細は [RUM（ブラウザ）](../02_リファレンス/dem/rum-browser.md)、[Synthetic Monitoring](../02_リファレンス/dem/synthetic-monitoring.md) を参照。
 
 OpenTelemetry（OTel）の定義では、Traces・Metrics・Logs・Baggage が現在サポートされるシグナルで、Events（ログの特定の種類）と Profiles（コードレベルの資源使用の記録）は「開発中またはプロポーザル段階（under development or at the proposal stage）」とされている（2026-11-02 時点）[出典](https://opentelemetry.io/docs/concepts/signals/)【第三者情報】。Datadog の OTel 対応状況は [OpenTelemetry サポート](../02_リファレンス/platform/opentelemetry.md) を参照。
 
@@ -134,9 +135,10 @@ Datadog のメトリクスの送信タイプ（Submission type）と、Datadog �
 | `GAUGE` | インターバル内で最後に送信された値 | `GAUGE` |
 | `SET` | 一意な値の数（定義は StatsD のドキュメントを参照） | `GAUGE` |
 | `HISTOGRAM` | Agent 側で集計した、インターバル内の値の統計分布（avg、count、max、median、95percentile 等） | `GAUGE`、`RATE` |
-| `DISTRIBUTION` | インフラ全体の生値をサーバー側でグローバルに集計した分布（パーセンタイルを正確に算出可能） | `GAUGE`、`COUNT`（集計値） |
+| `DISTRIBUTION` | インフラ全体の生値をサーバー側でグローバルに集計した分布（パーセンタイルを正確に算出可能） | `DISTRIBUTION` |
 
 - In-app type は `COUNT`、`RATE`、`GAUGE`、`DISTRIBUTION`、`HISTOGRAM`（Explicit、Exponential）[出典](https://docs.datadoghq.com/metrics/types/)。
+- `DISTRIBUTION` は In-app type も `DISTRIBUTION` のままで、クエリ時に avg・count・max・min・sum とパーセンタイル（p50・p75・p90・p95・p99）の集計を選べる[出典](https://docs.datadoghq.com/metrics/types/)。
 - ドキュメントの例は DogStatsD の flush interval を 10 秒として説明している。デフォルト値そのものは metrics types ページでは明記されておらず、DogStatsD のページを参照する [出典](https://docs.datadoghq.com/metrics/types/)。詳細は [Custom Metrics と DogStatsD](../02_リファレンス/platform/custom-metrics-and-dogstatsd.md)。
 - レイテンシのようにパーセンタイル（p95、p99）が重要な値は、複数ホストにまたがって正確に集計できる `DISTRIBUTION` が向いている。SLO の計算にも percentile 対応の `DISTRIBUTION` メトリクスが使える（[5.4](#54-datadog-の-slo-の種類)）。
 
@@ -165,7 +167,7 @@ Datadog の Log Management は、ログを「取り込み（Ingest）」と「�
 
 分散トレース（Distributed Tracing）では、1 つのリクエストの処理全体を Trace（トレース）、その中の個々の処理単位を Span（スパン）と呼ぶ。Datadog APM の基本用語（Service、Resource、Span、Trace、Ingestion と Retention の違い等）は [APM の概念とインジェスト制御](../02_リファレンス/apm/apm-concepts-and-ingestion.md) で詳述する。
 
-Datadog APM はスパンから Trace Metrics（トレースメトリクス）を自動生成する。Trace Metrics はトレースのインジェストのサンプリング設定にかかわらず、アプリケーショントラフィックの 100% から計算される [出典](https://docs.datadoghq.com/tracing/metrics/metrics_namespace/)。このため、Trace Metrics はゴールデンシグナルや RED（[4 章](#4-何を測るか監視の方法論)）を測る主要なデータ源になる。
+Datadog APM はスパンから Trace Metrics（トレースメトリクス）を自動生成する。Trace Metrics はトレースのインジェストのサンプリング設定にかかわらず、アプリケーショントラフィックの 100% から計算される。ただし OpenTelemetry SDK レベルでサンプリングしている場合は、サンプル後のデータから計算される（100% にはならない）[出典](https://docs.datadoghq.com/tracing/metrics/metrics_namespace/)。このため、Trace Metrics はゴールデンシグナルや RED（[4 章](#4-何を測るか監視の方法論)）を測る主要なデータ源になる。
 
 | Trace Metric（`trace.<SPAN_NAME>` 配下） | 型 | 内容 | RED / ゴールデンシグナルとの対応 |
 |---|---|---|---|
@@ -176,12 +178,13 @@ Datadog APM はスパンから Trace Metrics（トレースメトリクス）を
 | `trace.<SPAN_NAME>`（レイテンシ分布） | DISTRIBUTION | レイテンシ分布。パーセンタイル集計に対応 | Duration / Latency |
 | `trace.<SPAN_NAME>.apdex` | GAUGE | Apdex スコア（HTTP / Web サービス） | ユーザー満足度の指標 |
 | `trace.<SPAN_NAME>.duration`（レガシー） | GAUGE | 所要時間。パーセンタイル集計に非対応 | 非推奨（分布メトリクスを推奨） |
+| `trace.<SPAN_NAME>.duration.by_http_status`（レガシー） | GAUGE | HTTP ステータス別の所要時間。パーセンタイル集計に非対応 | 非推奨（分布メトリクスを推奨） |
 
-- 主なタグ：`env`、`service`、`version`、`resource`、`resource_name`、`http.status_code`、ホストタグ、追加のプライマリタグ（メトリクスにより異なる）[出典](https://docs.datadoghq.com/tracing/metrics/metrics_namespace/)。
+- 主なタグ：`env`、`service`、`version`、`resource`、`http.status_code`、`http.status_class`、`rpc.grpc.status_code`（Agent 7.65.0 以上）、Datadog Agent のタグ（ホストタグ、追加のプライマリタグを含む）。付与されるタグはメトリクスにより異なる[出典](https://docs.datadoghq.com/tracing/metrics/metrics_namespace/)。
 - Datadog ドキュメントは、レイテンシの測定にはすべてレイテンシ分布メトリクスを使うことを推奨している。レガシーの duration メトリクスはパーセンタイル集計に対応しない [出典](https://docs.datadoghq.com/tracing/metrics/metrics_namespace/)。
 - Trace Metrics がカスタムメトリクスとして課金されるかは、上記ページでは明記されていない（公開情報では確認できず。課金は [製品別料金表](../03_導入編/pricing-by-product.md) と [課金計算の仕組み](../03_導入編/billing-mechanics.md) を参照）。
 
-![APM Service Page の標準グラフ（Requests and Errors / Latency / Errors / % of Time Spent）](../../assets/images/observability-fundamentals/apm-service-out-of-the-box-graphs.jpg)
+![APM Service Page の標準グラフ（Requests and Errors / Latency / Errors / % of Time Spent）](../assets/images/observability-fundamentals/apm-service-out-of-the-box-graphs.jpg)
 
 **図 1：APM Service Page の標準グラフ（RED メトリクスの可視化）**
 
@@ -205,7 +208,7 @@ Datadog の Event Management は、あらゆるソースからイベントを取
 - 2025-03-01 以降、Monitor イベントの `aggregation_key` に Monitor Group が含まれるようになり、Monitor ID と Monitor Group の組で一意になった。これを使うクエリは `@monitor.id` への移行が推奨されている [出典](https://docs.datadoghq.com/events/)。
 - イベントの保持期間は 15 か月 [出典](https://docs.datadoghq.com/data_security/data_retention_periods/)。
 
-![Event Management の概念図](../../assets/images/observability-fundamentals/event-management-overview.png)
+![Event Management の概念図](../assets/images/observability-fundamentals/event-management-overview.png)
 
 **図 2：Event Management の概念図**
 
@@ -229,10 +232,10 @@ Datadog の Continuous Profiler は、本番環境で常時プロファイリン
 | Thrown Exceptions | 例外の発生箇所 | Java、.NET、PHP |
 | File I/O / Socket I/O | I/O 待ち | Java、PHP【Preview】 |
 
-- プロファイルの保持：フレームグラフ・コールグラフ・スレッドタイムラインは既定で 8 日、プロファイルメトリクスは既定で 1 か月、Notebook にエクスポートしたフレームグラフは 1 年 [出典](https://docs.datadoghq.com/profiler/)。
+- プロファイルの保持：フレームグラフ・コールグラフ・スレッドタイムラインは既定で 8 日、プロファイルメトリクスは既定で 30 日（Profiler ページでは「1 か月」と表記）、Notebook にエクスポートしたフレームグラフ、または UI で一度でも開いた個別プロファイルは 1 年 [出典](https://docs.datadoghq.com/profiler/)、[出典](https://docs.datadoghq.com/data_security/data_retention_periods/)。
 - APM の分散トレースと Continuous Profiler を両方有効にしたプロセスは自動的にリンクされ、スパンの「Profiles」タブから、そのスパン実行中のコード行を確認できる [出典](https://docs.datadoghq.com/profiler/)。
 
-![トレースのスパンから Profiles タブを開いた画面](../../assets/images/observability-fundamentals/profiler-profiles-tab.png)
+![トレースのスパンから Profiles タブを開いた画面](../assets/images/observability-fundamentals/profiler-profiles-tab.png)
 
 **図 3：APM トレースのスパン詳細に表示される Profiles タブ**
 
@@ -271,7 +274,7 @@ flowchart LR
     S[Synthetic テスト] -->|APM 連携のヘッダー| T
     T <-->|trace_id| L
     T <-->|自動リンク| P
-    T -->|100% のトラフィックから集計| M
+    T -->|100% のトラフィックから集計<br/>※OTel SDK サンプリング時を除く| M
     E[イベント<br/>デプロイ・設定変更] -.->|タグで重ね合わせ| M
     M --> Mon[Monitors / SLO]
 ```
@@ -348,7 +351,7 @@ RED Method は、Tom Wilkie 氏が提唱したサービス指向の方法論で�
 | Errors | "the number of those requests that are failing" | `trace.<SPAN_NAME>.errors`（Service Page の Errors グラフ、エラー率 %） |
 | Duration | "the amount of time those requests take" | `trace.<SPAN_NAME>` のレイテンシ分布（Service Page の Latency グラフ、p50〜p99） |
 
-Datadog APM は、サービスを計装するだけで RED の 3 指標を Trace Metrics として自動生成し、Service Page の標準グラフ（図 1）に表示する。したがって Datadog 上では「APM を入れれば RED は自動的に揃う」と理解してよい。Universal Service Monitoring（USM）を使うと、コード計装なしで eBPF によりサービスの RED 相当のメトリクスを得られる（[Universal Service Monitoring](../02_リファレンス/apm/universal-service-monitoring.md)）。
+Datadog APM は、サービスを計装するだけで RED の 3 指標を Trace Metrics として自動生成し、Service Page の標準グラフ（図 1）に表示する。したがって Datadog 上では「APM を入れれば RED は自動的に揃う」と理解してよい。Universal Service Monitoring（USM）を使うと、コードを計装せずに、サービスのゴールデンシグナルメトリクス（requests、errors、duration）を得られる [出典](https://docs.datadoghq.com/universal_service_monitoring/)（詳細は [Universal Service Monitoring](../02_リファレンス/apm/universal-service-monitoring.md)）。
 
 ### 4.4 USE Method
 
@@ -585,7 +588,7 @@ Datadog の定義では、バーンレートは単位のない値で、バーン
 
 参考：Google SRE Workbook の推奨（99.9% SLO、Multiwindow, Multi-Burn-Rate Alerts）は、Page：1 時間 / 5 分 / 14.4（2%）、Page：6 時間 / 30 分 / 6（5%）、Ticket：3 日 / 6 時間 / 1（10%）である [出典](https://sre.google/workbook/alerting-on-slos/)【第三者情報】。Datadog の 30 日の推奨値の上 2 行は Workbook と一致する。ただし Workbook の Ticket 行（Long window 3 日）は Datadog の Long window 上限（48 時間）を超えるため、Datadog ではそのままでは設定できない。Datadog は代わりに 24 時間 / 120 分 / 3（10%）を推奨している。
 
-![SLO Monitor の作成画面（Burn Rate タブ）](../../assets/images/observability-fundamentals/slo-burn-rate-alert.png)
+![SLO Monitor の作成画面（Burn Rate タブ）](../assets/images/observability-fundamentals/slo-burn-rate-alert.png)
 
 **図 4：SLO Monitor（Burn Rate アラート）の作成画面**
 
@@ -595,7 +598,7 @@ Datadog の定義では、バーンレートは単位のない値で、バーン
 
 **SLO 一覧のバーンレートインジケーター**：Datadog の SLO 一覧には、直近 2 時間のローリングウィンドウで計算したバーンレートのインジケーターが表示される。バーンレート 6 超で赤（critical）、1〜6 で黄（elevated）となる [出典](https://docs.datadoghq.com/service_management/service_level_objectives/)。
 
-![SLO 一覧のバーンレートインジケーター](../../assets/images/observability-fundamentals/slo-burn-rate-indicator.png)
+![SLO 一覧のバーンレートインジケーター](../assets/images/observability-fundamentals/slo-burn-rate-indicator.png)
 
 **図 5：SLO 一覧画面の High burn rate インジケーター**
 
@@ -653,8 +656,8 @@ SLO の作成手順・権限・ウィジェット・API の詳細は [Service Le
 | イベント | Event Management | イベントの取り込み・正規化・相関 | [Event Management](../02_リファレンス/platform/event-management.md) |
 | プロファイル | Continuous Profiler | コード行レベルの資源消費分析 | [Continuous Profiler](../02_リファレンス/apm/continuous-profiler.md) |
 | エラー集約 | Error Tracking | エラーを Issue 単位にグルーピング | [Error Tracking](../02_リファレンス/apm/error-tracking.md) |
-| ユーザー体験（ホワイトボックス） | RUM、Session Replay | 実ユーザーのページ表示・操作・エラー | [RUM（ブラウザ）](../02_リファレンス/dem/rum-browser.md)、[RUM（モバイル）](../02_リファレンス/dem/rum-mobile.md) |
-| ブラックボックス監視 | Synthetic Monitoring | API・ブラウザ・モバイルの外形監視 | [Synthetic Monitoring](../02_リファレンス/dem/synthetic-monitoring.md) |
+| ユーザー体験（実ユーザーの SDK 計装データ） | RUM、Session Replay | 実ユーザーのページ表示・操作・エラー | [RUM（ブラウザ）](../02_リファレンス/dem/rum-browser.md)、[RUM（モバイル）](../02_リファレンス/dem/rum-mobile.md) |
+| ブラックボックス（外形）監視 | Synthetic Monitoring | API・ブラウザ・モバイルの外形監視 | [Synthetic Monitoring](../02_リファレンス/dem/synthetic-monitoring.md) |
 | 相関のためのメタデータ | Unified Service Tagging、Tagging | `env`・`service`・`version` 等で全シグナルを結ぶ | [Tagging](../02_リファレンス/platform/tagging.md) |
 | オープン標準 | OpenTelemetry サポート | OTel SDK・Collector からのデータ受信 | [OpenTelemetry サポート](../02_リファレンス/platform/opentelemetry.md) |
 | 検知（アラート） | Monitors、Watchdog | 閾値・異常検知・予測・外れ値・複合条件 | [Monitors](../02_リファレンス/platform/monitors.md)、[Watchdog](../02_リファレンス/platform/watchdog.md) |
@@ -690,7 +693,8 @@ flowchart LR
 | APM Indexed Spans | 契約プランにより 15 日または 30 日 | 同上 |
 | APM のサービス／リソース統計 | 30 日 | 同上 |
 | Continuous Profiler（フレームグラフ・コールグラフ・スレッドタイムライン） | 8 日 | 同上、[Continuous Profiler](https://docs.datadoghq.com/profiler/) |
-| Continuous Profiler（プロファイルメトリクス） | 1 か月 | [Continuous Profiler](https://docs.datadoghq.com/profiler/) |
+| Continuous Profiler（Notebook にエクスポートしたフレームグラフ、UI で一度でも開いた個別プロファイル） | 1 年 | [Data Retention Periods](https://docs.datadoghq.com/data_security/data_retention_periods/) |
+| Continuous Profiler（プロファイルメトリクス） | 30 日（Profiler ページでは「1 か月」と表記） | [Data Retention Periods](https://docs.datadoghq.com/data_security/data_retention_periods/)、[Continuous Profiler](https://docs.datadoghq.com/profiler/) |
 | RUM（Session、View、Action、Error イベント） | 30 日 | [Data Retention Periods](https://docs.datadoghq.com/data_security/data_retention_periods/) |
 | Session Replay | 30 日（UI の延長オプション有効時は 15 か月） | 同上 |
 | Synthetic テスト結果 | 15 か月 | 同上 |
@@ -745,7 +749,7 @@ Datadog の課金は「シグナル（データ種別）× 製品」ごとに単
 | 誤解 | 実際 |
 |---|---|
 | 「メトリクス・ログ・トレースを集めればオブザーバビリティが実現する」 | 3 種を別々に集めるだけでは不十分で、共通タグ（`env`、`service`、`version`）や ID の埋め込みで相関させて初めて「なぜ」を調べられる【経験則】 |
-| 「APM のサンプリングで捨てたトレースはメトリクスにも反映されない」 | Datadog の Trace Metrics はインジェストのサンプリング設定にかかわらずトラフィックの 100% から計算される [出典](https://docs.datadoghq.com/tracing/metrics/metrics_namespace/) |
+| 「APM のサンプリングで捨てたトレースはメトリクスにも反映されない」 | Datadog の Trace Metrics はインジェストのサンプリング設定にかかわらずトラフィックの 100% から計算される。ただし OpenTelemetry SDK レベルでサンプリングしている場合は、サンプル後のデータから計算される [出典](https://docs.datadoghq.com/tracing/metrics/metrics_namespace/) |
 | 「ログのトレース ID から必ずトレースが見つかる」 | トレースとログは独立にサンプリングされるため、対応するトレースが保持されていないことがあり、設定ミスではない [出典](https://docs.datadoghq.com/tracing/other_telemetry/connect_logs_and_traces/) |
 | 「CPU 使用率を SLI にすればよい」 | SLI はユーザーが体験する症状（成功率・レイテンシ）から選ぶ。CPU 使用率は原因調査用のリソースメトリクス【経験則】 |
 | 「SLO は 100% を目指すべき」 | Datadog では 100% の目標は設定できない（エラーバジェット 0% となり計算できない）[出典](https://docs.datadoghq.com/service_management/service_level_objectives/) |
@@ -787,6 +791,7 @@ Datadog 公式ドキュメント（取得日：2026-11-02）
 - https://docs.datadoghq.com/metrics/custom_metrics/
 - https://docs.datadoghq.com/tracing/metrics/metrics_namespace/
 - https://docs.datadoghq.com/tracing/services/service_page/
+- https://docs.datadoghq.com/universal_service_monitoring/
 - https://docs.datadoghq.com/tracing/other_telemetry/connect_logs_and_traces/
 - https://docs.datadoghq.com/getting_started/tagging/unified_service_tagging/
 - https://docs.datadoghq.com/profiler/

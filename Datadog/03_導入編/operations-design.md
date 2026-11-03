@@ -286,7 +286,7 @@ flowchart TB
 
 ### 3.2 重要度（Priority）と通知チャネルの対応
 
-Datadog の Monitor Priority は P1（最高）〜P5（最低）の 5 段階で、本文の条件変数（`{{#is_priority 'P1'}}`）や Notification Rules のスコープ条件に使える。[出典](https://docs.datadoghq.com/monitors/notify/) 運用設計では、Priority ごとに「誰を・どう・いつ」呼ぶかを決める。下表は例である。【経験則】
+Datadog の Monitor Priority は P1（最高）〜P5（最低）の 5 段階で、本文の条件変数（`{{#is_priority 'P1'}}`）や Notification Rules のスコープ条件に使える。[出典](https://docs.datadoghq.com/monitors/notify/)、[出典](https://docs.datadoghq.com/monitors/notify/variables/) 運用設計では、Priority ごとに「誰を・どう・いつ」呼ぶかを決める。下表は例である。【経験則】
 
 | Priority | 定義（例） | 通知チャネル（例） | 応答目標（例） | インシデント宣言 |
 |---|---|---|---|---|
@@ -321,7 +321,7 @@ Datadog で通知先を決める方法は、モニター本文に `@` メンシ�
 |---|---|---|
 | タグを一貫して付ける | `team`、`service`、`env` をすべてのモニターに必須にする。Monitor の Tag Policies で強制できる | Tag Policies で `team`・`env` を「必須かつ値限定」にする（§7.3） |
 | 所有者を明確にする | 1 つのルールは 1 つのチームにスコープする | ルール名にチーム名を含め、ルールも Terraform で管理する |
-| 狭く始めて広げる | 例：`team:payment-processing AND env:prod AND priority:P0` から始め、確認後に広げる | 新チームのオンボーディング時は本番 P1 のみから開始する |
+| 狭く始めて広げる | 例：`team:payment-processing AND env:prod AND priority:p1` から始め、確認後に広げる（ブログ原文の例は `priority:P0` だが、Datadog の Priority は P1〜P5 で P0 は存在しないため、ここでは `priority:p1` に置き換えた） | 新チームのオンボーディング時は本番 P1 のみから開始する |
 
 ### 3.4 オンコールとエスカレーション
 
@@ -351,7 +351,7 @@ Datadog の Downtime は、計画メンテナンス中のモニター通知を�
 
 | 論点 | 内容 | 出典・確度 |
 |---|---|---|
-| 終了日時のない Downtime | 終了日時を省略した One Time Downtime は無期限になる | [出典](https://docs.datadoghq.com/monitors/downtimes/) |
+| 終了日時のない Downtime | 終了日時は任意で、省略すると Downtime は終了しない（Governance Console では「終了の定義がないアクティブな Downtime」として Forever Downtimes コントロールで検出される） | [出典](https://docs.datadoghq.com/monitors/downtimes/)、[出典](https://docs.datadoghq.com/account_management/governance_console/controls/) |
 | 長期ミュートの検知 | Monitor Quality は 60 日を超えてミュート（部分的なミュートを含む）されたモニターを検出する | [出典](https://docs.datadoghq.com/monitors/quality/) |
 | 無期限 Downtime の自動取り消し | Governance Console の Forever Downtimes コントロールは、終了日時のないアクティブな Downtime を検出し、取り消して監視を再開させる自動是正を選べる | [出典](https://docs.datadoghq.com/account_management/governance_console/controls/) |
 | 定期メンテナンス | 繰り返しスケジュール（RRULE）で登録し、IaC で管理する | 【経験則】 |
@@ -427,7 +427,7 @@ Datadog 公式の Access for Enterprises ガイド（100 ユーザー以上、�
 | 異動 | IdP のグループを変更 → ロール・Team が自動更新 | SCIM は SAML マッピングより優先される。両方を使う場合はロールの正を SCIM に一本化する（公式推奨） |
 | 一時的な特権付与 | Request Access【Preview】、または期限付きのグループ追加 | 付与と解除を Audit Trail で記録する |
 | 休職 | IdP でアカウント無効化 → Datadog ユーザーを無効化 | — |
-| 退職 | IdP でアカウント無効化・グループ削除 → SCIM で Datadog ユーザーを無効化 | ユーザー所有のアプリケーションキーと PAT は失効する。**API キーとクライアントトークンは有効なまま**残る。所有ダッシュボード等は残る（Governance Console の「Dashboards Owned by Disabled Users」で検出可能） |
+| 退職 | IdP でアカウント無効化・グループ削除 → SCIM で Datadog ユーザーを無効化 | ユーザーが作成したアプリケーションキーは失効する。PAT の扱いは公開情報では確認できず（PAT はユーザー個人に紐づき、有効期限で自動失効する。[出典](https://docs.datadoghq.com/account_management/personal-access-tokens/)）、退職前に失効させるのが安全である【経験則】。**API キーとクライアントトークンは有効なまま**残る。所有ダッシュボード等は残る（Governance Console の「Dashboards Owned by Disabled Users」で検出可能） |
 | 招待の放置 | 30 日以上未承諾の招待は再送か削除 | Safety Center が 30 日以上未承諾の招待を表示する。招待リンク自体の有効期限は 48 時間 |
 
 [出典](https://docs.datadoghq.com/account_management/scim/)、[出典](https://docs.datadoghq.com/account_management/api-app-keys/)、[出典](https://docs.datadoghq.com/account_management/safety_center/)、[出典](https://docs.datadoghq.com/account_management/governance_console/controls/)、[出典](https://docs.datadoghq.com/account_management/users/)
@@ -580,14 +580,14 @@ Fleet Automation のリモートアップグレードの主な仕様（2026-11-0
 |---|---|
 | 最低 Agent バージョン | Linux 7.69.0、Windows 7.71.1 |
 | 対象 | Linux／Windows の VM。**コンテナ化された Agent は非対応** |
-| 前提 | 組織と API キーで Remote Configuration を有効化し、各 Agent で `remote_updates: true` |
+| 前提 | 組織と API キーで Remote Configuration を有効化し、各 Agent で `remote_updates: true`。ディスク：初回インストールに 2 GB 以上、アップグレード用にさらに 2 GB（ロールバック用に一時的に 2 つの Agent を保持するため） |
 | 所要時間 | 約 5 分（再起動で 5〜30 秒のダウンタイム） |
 | 失敗時 | 自動で旧バージョンへロールバック |
 | 併用時の注意 | 構成管理ツールと併用すると、ツール側で固定したバージョン（`DD_AGENT_MINOR_VERSION`）に戻される可能性があるため、どちらか一方で管理する |
 
 [出典](https://docs.datadoghq.com/agent/fleet_automation/upgrade_agents/)
 
-> **サイト差異:** Fleet Automation のリモートアップグレードと Configure Agents は US1-FED／US2-FED では非対応。[Fleet Automation と Remote Configuration](../02_リファレンス/platform/fleet-automation.md)
+> **サイト差異:** Fleet Automation のリモートアップグレードと Configure Agents は `app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com` では非対応。[Fleet Automation と Remote Configuration](../02_リファレンス/platform/fleet-automation.md)
 
 ### 5.3 Agent のヘルス監視
 
@@ -829,7 +829,7 @@ Datadog の Monitor Settings の **Tag Policies** は、モニターに付ける
 | Require tags only | タグキー必須、値は任意 | `service` を必須 |
 | Optional tag with mandatory values | タグは任意だが、使う場合は値を限定 | `env` は `prod`／`stg`／`dev` のみ |
 
-設定には `MONITOR_CONFIG_POLICY_WRITE_PERMISSION` 相当の権限を持つロールが必要である。[出典](https://docs.datadoghq.com/monitors/settings/) 詳細は [Monitors](../02_リファレンス/platform/monitors.md)、タグ規約の作り方は [タグ戦略の実践](../04_応用編/tagging-strategy.md) を参照。
+設定には `monitor_config_policy_write` 権限（公式ページ上の表記は MONITOR_CONFIG_POLICY_WRITE_PERMISSION）を持つロールが必要である。[出典](https://docs.datadoghq.com/monitors/settings/) 詳細は [Monitors](../02_リファレンス/platform/monitors.md)、タグ規約の作り方は [タグ戦略の実践](../04_応用編/tagging-strategy.md) を参照。
 
 ### 7.4 資産の保護
 
@@ -1056,11 +1056,13 @@ Datadog の Monitor Settings の **Tag Policies** は、モニターに付ける
 - https://docs.datadoghq.com/account_management/scim/
 - https://docs.datadoghq.com/account_management/users/
 - https://docs.datadoghq.com/account_management/api-app-keys/
+- https://docs.datadoghq.com/account_management/personal-access-tokens/
 - https://docs.datadoghq.com/account_management/audit_trail/
 - https://docs.datadoghq.com/account_management/billing/usage_metrics/
 - https://docs.datadoghq.com/account_management/billing/usage_monitor_apm/
 - https://docs.datadoghq.com/account_management/plan_and_usage/usage_details/
 - https://docs.datadoghq.com/monitors/notify/
+- https://docs.datadoghq.com/monitors/notify/variables/
 - https://docs.datadoghq.com/monitors/notify/notification_rules/
 - https://docs.datadoghq.com/monitors/quality/
 - https://docs.datadoghq.com/monitors/settings/

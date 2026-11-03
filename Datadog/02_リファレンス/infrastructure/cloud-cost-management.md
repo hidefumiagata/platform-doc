@@ -546,7 +546,7 @@ Cloud Cost Management は取り込んだ全コストメトリクスに、FOCUS �
 
 | 項目 | 内容 |
 |---|---|
-| 対象 | AWS、Azure、Google Cloud、Oracle、SaaS、Datadog Costs（Custom Costs もコストデータとして横断可能） |
+| 対象 | AWS、Azure、Google Cloud、Oracle、SaaS、Datadog Costs（Custom Costs が `all.cost` に含まれるかは公開情報では確認できず） |
 | メトリクス | `all.cost`（全事業者のコストメトリクスを統合） |
 | 自動切替 | 検索で単一事業者に絞ると、その事業者のメトリクス（例: `aws.cost.amortized`）に自動で切り替わる |
 | 制約 | `all.cost` には**リソースレベルのタグが含まれない**。リソース単位の分析は事業者別メトリクスを使う |
@@ -776,7 +776,8 @@ Container Cost Allocation は、Kubernetes ノードや ECS ホストのコス�
 |---|---|
 | 既定 | **無効** |
 | 動作 | 有効にすると、アイドルコストを使用量コストに比例して配分 |
-| 粒度 | cluster / node / nodepool。追加の宛先タグを最大 2 つ（例: `kube_namespace`、`kube_deployment`） |
+| 粒度 | cluster / node（`kube_node_name` にも配賦）/ nodepool（nodepool タグを選択） |
+| 宛先タグ | 既定: `kube_cluster_name`、`kube_namespace`、`kube_deployment`、`kube_replica_set`、`kube_stateful_set`、`kube_cronjob`、`kube_daemon_set`。これに加えて任意のタグを最大 2 つ追加できる（例: `team` など既定外のタグ） |
 | 設定変更時 | 直近 3 か月を再バックフィル |
 | 結果タグ | `cluster_idle_redistribution_grain`（NODE / NODEPOOL / CLUSTER）、`cluster_idle_source`（`proportional_usage` / `aggregated_minor_usage` / `unmatched_usage`） |
 
@@ -1058,7 +1059,7 @@ Cost Monitor は、Cloud Cost のコストデータを対象にしたモニタ�
 | 種類 | 評価頻度 | 評価ウィンドウ | データ |
 |---|---|---|---|
 | 確定（Finalized）モニター（Changes、Threshold、Forecast、Budget、確定 Anomalies） | **30 分ごと** | **48 時間遅延**（請求データは利用から最大 48 時間遅れるため）。例: 1/15 に 7 日 lookback で評価すると 1/6〜1/13 を対象 | 確定した請求データ |
-| リアルタイム AI 異常モニター | 15 分以内にアラート | 推定コストの**ローリング 4 時間** | Agent Observability（[LLM Observability](../ai/llm-observability.md)）の推定コスト（トークン数と事業者価格から算出） |
+| リアルタイム AI 異常モニター | 直近 15 分間に検出された異常を通知（公式は「alert within 15 minutes」とも記載） | 推定コストの**ローリング 4 時間** | Agent Observability（[LLM Observability](../ai/llm-observability.md)）の推定コスト（トークン数と事業者価格から算出） |
 
 [出典](https://docs.datadoghq.com/monitors/types/cloud_cost/)
 
@@ -1092,13 +1093,13 @@ Cost Monitor は、Cloud Cost のコストデータを対象にしたモニタ�
 
 ---
 
-## Real-Time Costs（リアルタイムコスト）
+## Real-Time Costs（リアルタイムコスト）【Preview】
 
 Real-Time Costs は、Amazon EC2 のコストを Agent データから**ほぼリアルタイムに推定**する機能である。[出典](https://docs.datadoghq.com/cloud_cost_management/cost_changes/real_time_costs/)
 
 | 項目 | 内容 |
 |---|---|
-| 提供状況 | CCM **Enterprise** 顧客向け。公式ドキュメント英語版には Preview 表記なし。第三者の料金解説では「Real-Time Costs (Preview)」と記載【第三者情報】（[出典](https://www.usage.ai/blogs/finops/tools/datadog-cloud-cost-management-pricing/)、2026-10-05 公開） |
+| 提供状況 | CCM **Enterprise** 顧客向け【Preview】。公式料金ページの機能比較表では「Real-time costs (Preview)」と表記（[出典](https://www.datadoghq.com/pricing/?product=cloud-cost-management)）。公式ドキュメント英語版には Preview 表記なし |
 | 対象 | Amazon EC2 の支出のみ（EBS、ネットワーク等は除外）と EC2 上の Kubernetes |
 | 推定方法 | インスタンスタイプ・リージョン・AWS アカウント別の直近平均時間単価（正味償却）から推定 |
 | メトリクス | `aws.cost.net.amortized.realtime.estimated`（Metrics データソースで参照） |
@@ -1124,7 +1125,7 @@ Budgets は月単位の予算を設定し、実績・予測と比較する機能
 
 | 項目 | 内容 |
 |---|---|
-| 種類 | **Basic**（単一階層）／**Hierarchical**（親子 2 階層。例: 部門 → チーム） |
+| 種類 | **Basic**（単一階層）／**Hierarchical**（親子 2 階層。例: 部門 → チーム。公式料金ページでは CCM Enterprise の機能。Datadog Cost Visibility・Pro は Flat のみ） |
 | 粒度 | **月単位** |
 | 設定項目 | Budget Name、Start Date / End Date（過去月・将来月可）、Provider(s)（AWS、Azure、Google Cloud、Oracle Cloud、その他 SaaS（Datadog、Custom Costs 含む））、Dimension to budget by（team、service、env など） |
 | 入力 | ディメンション値ごとに 1 行。既存タグ値の選択または新しい値の追加（将来の支出用）。初月の値をコピーボタンで後続月に複製 |
@@ -1143,7 +1144,7 @@ Budgets は月単位の予算を設定し、実績・予測と比較する機能
 
 [出典](https://docs.datadoghq.com/cloud_cost_management/planning/budgets/)
 
-> 注記: Hierarchical Budgets が CCM Enterprise 限定かどうかについて、公式ドキュメントの Budgets ページには記載が無い。第三者の料金解説は Enterprise の機能として「Hierarchical budget controls」を挙げている【第三者情報】（[出典](https://www.usage.ai/blogs/finops/tools/datadog-cloud-cost-management-pricing/)、2026-10-05 公開）。
+> 注記: Hierarchical Budgets は公式料金ページでは CCM **Enterprise** の機能（「Manage complex budgets across teams with hierarchical controls」。機能比較表の Budgets 行は Datadog Cost Visibility・Pro が Flat、Enterprise が Hierarchical）。公式ドキュメントの Budgets ページにはプラン条件の記載なし。[出典](https://www.datadoghq.com/pricing/?product=cloud-cost-management)
 
 ### Forecasting
 
@@ -1213,7 +1214,7 @@ Datadog Costs は、Datadog への日次の支出を CCM のコストデータ�
 
 [出典](https://docs.datadoghq.com/cloud_cost_management/datadog_costs/)
 
-> 注記: Datadog のコストのみを対象とする無料の「Datadog Cost Visibility」というプラン名（ダッシュボード、異常検知、予測、予算を含む）が第三者の料金解説で紹介されている【第三者情報】（[出典](https://www.usage.ai/blogs/finops/tools/datadog-cloud-cost-management-pricing/)、2026-10-05 公開）。公式ドキュメント上は「Datadog Costs は追加料金なし」と記載されている。
+> 注記: 公式料金ページには、Datadog のコストのみを対象とする無料プラン「**Datadog Cost Visibility**」（$0）が掲載されている。内容は MCP 経由のコストデータ参照、ダッシュボードでのコスト表示、アラート（Cost Monitors）と異常検知、予測、Budgets（Flat）で、「Limited to Datadog costs only」。公式ドキュメント上も「Datadog Costs は追加料金なし」と記載されている。[出典](https://www.datadoghq.com/pricing/?product=cloud-cost-management)、[出典](https://docs.datadoghq.com/cloud_cost_management/datadog_costs/)
 
 ---
 
@@ -1224,7 +1225,7 @@ Datadog Costs は、Datadog への日次の支出を CCM のコストデータ�
 | できること | コストモニターのアラート・異常・コスト変化の調査と原因（チーム・サービス・アカウント・リージョン・リソース）の特定、クラウド・SaaS・Custom・Datadog コストへの質問応答、予算と実績・予測の比較と超過の説明、観測メトリクス（CPU、メモリ、リクエスト数、ストレージ容量）との相関、引き継ぎ用 Notebook の作成 |
 | 要件 | 対象コストソースの CCM 設定、Bits Chat Access 権限、対象データの CCM 権限、（任意）Notebook 権限 |
 | MCP Server | 外部 AI エージェントからコスト推奨の一覧（`cost` ツールセットの `cost_recommendations`。`cloud_cost_management_read` が必要）と CCM メトリクスの照会（`core` ツールセット） |
-| 提供状況 | 公式ページに Preview / GA の記載なし |
+| 提供状況 | 公式ページに Preview / GA の記載なし。公式料金ページでは「FinOps agent による原因調査」を Pro 以上の機能として掲載（[出典](https://www.datadoghq.com/pricing/?product=cloud-cost-management)） |
 
 [出典](https://docs.datadoghq.com/cloud_cost_management/cloud_cost_skill/)。Bits AI 全般は [Bits AI と AI 機能](../ai/bits-ai.md) を参照。
 
@@ -1253,7 +1254,7 @@ Datadog Costs は、Datadog への日次の支出を CCM のコストデータ�
 | Settings: Configure Recommendations | 閲覧 | カスタマイズ（write） |
 | ダッシュボード・ノートブック | ウィジェット作成・閲覧 | — |
 | モニター | CCM モニターの作成 | — |
-| Service Catalog・Resource Catalog | コスト表示 | — |
+| Software Catalog（旧称：Service Catalog）・Resource Catalog | コスト表示 | — |
 | API によるコスト照会 | 照会 | — |
 | Datadog Costs | `billing_read` ＋ `usage_read` が別途必要 | — |
 
@@ -1286,7 +1287,9 @@ Datadog Costs は、Datadog への日次の支出を CCM のコストデータ�
 |---|---|
 | 政府向けサイト | `app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com` では、AWS CUR 検証用エンドポイントが FIPS 検証済みではない旨が公式に記載されている。[出典](https://docs.datadoghq.com/cloud_cost_management/setup/aws/) |
 | US3 | Azure Native Integration 利用時も CCM 用に App Registration の作成が必要。Recommendations の Azure Resource Collection は US3 では Azure Native Integration でも可。[出典](https://docs.datadoghq.com/cloud_cost_management/setup/azure/)、[出典](https://docs.datadoghq.com/cloud_cost_management/recommendations/) |
-| AP1 / AP2 / EU1 / US5 | CCM の機能提供に関するサイト固有の制限は、公開情報では確認できず |
+| 提供地域 | 公式料金ページの FAQ は「Cloud Cost Management is available in all EU- and US-hosted accounts.」（EU・US ホストの全アカウントで提供）とのみ記載。AP1 / AP2 での提供可否は料金ページ FAQ では明示されていないため、契約前に営業へ確認する。[出典](https://www.datadoghq.com/pricing/?product=cloud-cost-management) |
+| 価格 | AP1 は US/EU1 と価格が異なる（Pro 年契約 $6.25 など）。「課金への影響」節と [製品別料金表](../../03_導入編/pricing-by-product.md) を参照 |
+| AP1 / AP2 / EU1 / US5 の機能差 | 上記以外の CCM 機能のサイト固有の制限は、公開情報では確認できず |
 | データ保存場所 | 取り込んだコストデータは各 Datadog サイトに保存される前提だが、CCM 固有の記述は公開情報では確認できず。サイト全般は [Datadog Sites](../platform/datadog-sites.md) |
 
 ---
@@ -1328,7 +1331,7 @@ Datadog Costs は、Datadog への日次の支出を CCM のコストデータ�
 | Anomalies の追加内訳タグ | 事業者ごとに最大 5 | 同上 |
 | 確定コストモニターの評価頻度 / 遅延 | 30 分ごと / 48 時間 | [Cost Monitors](https://docs.datadoghq.com/monitors/types/cloud_cost/) |
 | 確定異常モニターの必要データ | 最低 1 か月 | 同上 |
-| リアルタイム AI 異常モニター | 15 分以内にアラート、4 時間ローリング、最低 3 日（推奨 21 日）、しきい値最低 500、グループ化最大 2 タグ | 同上 |
+| リアルタイム AI 異常モニター | 直近 15 分間に検出された異常を通知、4 時間ローリング、最低 3 日（推奨 21 日）、しきい値最低 500、グループ化最大 2 タグ | 同上 |
 | Budget モニターのしきい値 | 0〜100 % | 同上 |
 | 予算の粒度 | 月単位 | [Budgets](https://docs.datadoghq.com/cloud_cost_management/planning/budgets/) |
 | Forecast の必要データ | 連続 64 日以上（最大直近 64 日を使用） | [Forecasting](https://docs.datadoghq.com/cloud_cost_management/planning/forecasting/) |
@@ -1345,23 +1348,29 @@ Datadog Costs は、Datadog への日次の支出を CCM のコストデータ�
 
 ## 課金への影響
 
-Cloud Cost Management の課金単位は「**取り込んだクラウド / SaaS 支出 $1,000 あたり / 月**」で、Pro と Enterprise の 2 プランがある。料金の数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。
+Cloud Cost Management の課金単位は「**取り込んだクラウド / SaaS 支出 $1,000 あたり / 月**」で、無料の Datadog Cost Visibility（Datadog コストのみ）と、有料の Pro・Enterprise の 3 プランがある。料金の数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。
 
 | プラン | 年契約（Billed Annually） | 月契約（Billed Month-to-month） | オンデマンド（Billed On-demand） |
 |---|---|---|---|
+| Datadog Cost Visibility（Datadog コストのみ） | $0 | $0 | $0 |
 | Cloud Cost Management Pro | $5 | $6 | $7.20 |
 | Cloud Cost Management Enterprise | $10 | $12 | $15 |
 
-（単位: USD / クラウド・SaaS 支出 $1,000 あたり / 月。2026-11-02 時点、[公式料金一覧](https://www.datadoghq.com/pricing/list/)）
+（単位: USD / クラウド・SaaS 支出 $1,000 あたり / 月。US/EU1 価格。2026-11-02 時点、[公式料金一覧](https://www.datadoghq.com/pricing/list/)、[公式料金ページ](https://www.datadoghq.com/pricing/?product=cloud-cost-management)）
+
+> **サイト差異:** AP1 は価格が異なる（Pro: 年契約 $6.25 / 月契約 $7.50 / オンデマンド $9、Enterprise: $12.50 / $15 / $18.75）。詳細は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。料金ページ FAQ では提供地域を「EU・US ホストの全アカウント」としており、AP1 等での提供は営業に確認する。
 
 ### プラン別の機能差
 
-| 機能 | Pro | Enterprise | 根拠 |
-|---|---|---|---|
-| クラウド・SaaS コストの可視化、Kubernetes コスト、配賦、レポート、推奨 | ○ | ○ | 【第三者情報】[出典](https://www.usage.ai/blogs/finops/tools/datadog-cloud-cost-management-pricing/)（2026-10-05 公開） |
-| Custom Allocation Rules の **Dynamic by metric** | × | ○ | 公式 [出典](https://docs.datadoghq.com/cloud_cost_management/allocation/custom_allocation_rules/) |
-| **Real-Time Costs**（EC2・EC2 上の Kubernetes） | × | ○ | 公式 [出典](https://docs.datadoghq.com/cloud_cost_management/cost_changes/real_time_costs/) |
-| Hierarchical budget controls | 公開情報では確認できず | ○ | 【第三者情報】同上 |
+| 機能 | Datadog Cost Visibility | Pro | Enterprise | 根拠 |
+|---|---|---|---|---|
+| 対象コスト | Datadog コストのみ | クラウド・SaaS・Datadog | クラウド・SaaS・Datadog | 公式料金ページ [出典](https://www.datadoghq.com/pricing/?product=cloud-cost-management) |
+| ダッシュボードでのコスト表示、Cost Monitors（アラート・異常検知）、予測、MCP 経由のコストデータ参照 | ○ | ○ | ○ | 同上 |
+| Budgets | Flat のみ | Flat のみ | Flat ＋ Hierarchical | 同上 |
+| Kubernetes コスト可視化、コスト配賦とレポート、推奨（Recommendations） | × | ○ | ○ | 同上 |
+| FinOps エージェントによるコスト急増の原因調査（[Bits Chat の Cloud Cost skill](#bits-chat-の-cloud-cost-skill-と-mcp-server) に相当） | × | ○ | ○ | 同上 |
+| Custom Allocation Rules の **Dynamic by metric**（Datadog メトリクスによる共有コスト配賦） | × | × | ○ | 公式 [出典](https://docs.datadoghq.com/cloud_cost_management/allocation/custom_allocation_rules/)、公式料金ページ |
+| **Real-Time Costs**【Preview】（EC2・EC2 上の Kubernetes） | × | × | ○ | 公式 [出典](https://docs.datadoghq.com/cloud_cost_management/cost_changes/real_time_costs/)、公式料金ページ（「Real-time costs (Preview)」） |
 
 ### 課金に関わる注意点
 
@@ -1401,7 +1410,7 @@ A. 取り込めない（MOSP は通常、利用量のみのエクスポートし
 A. Tag Pipelines は直近 3 か月に自動反映（最大 24 時間）。Custom Allocation Rules は当月・前月中心で、それより古い期間はサポートへのバックフィル依頼が必要。AWS リソースタグは作成・変更日以降に適用され、過去の値は上書きされない。
 
 **Q. CCM を契約しなくても Datadog の利用料は見られるか。**
-A. Datadog Costs は CCM 非利用者も追加料金なしで使える（直接契約または External Marketplace ドローダウン契約、`billing_read`＋`usage_read` が必要）。ただし Datadog Costs を対象とした Cost Monitor を CCM 未契約で作れるかは公開情報では確認できず（[Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md) 参照）。
+A. Datadog Costs は CCM 非利用者も追加料金なしで使える（直接契約または External Marketplace ドローダウン契約、`billing_read`＋`usage_read` が必要）。公式料金ページでは、無料プラン「Datadog Cost Visibility」（Datadog コストのみ）で Cost Monitor（アラート・異常検知）、予測、Budgets（Flat）も使えるとされている（[出典](https://www.datadoghq.com/pricing/?product=cloud-cost-management)、[Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md) 参照）。
 
 ---
 
@@ -1439,12 +1448,12 @@ A. Datadog Costs は CCM 非利用者も追加料金なしで使える（直接�
 公式サイト・ブログ
 
 - 料金一覧（2026-11-02 取得）: https://www.datadoghq.com/pricing/list/
+- 料金ページ（Cloud Cost Management、2026-11-04 確認）: https://www.datadoghq.com/pricing/?product=cloud-cost-management
 - 製品ページ: https://www.datadoghq.com/product/cloud-cost-management/
 - Datadog Blog「FOCUS cost data」（2025-01-06 公開）: https://www.datadoghq.com/blog/focus-cost-data/
 - Datadog Blog「Simplify multi-cloud cost management with FOCUS and Datadog」（2025-04 公開）: https://www.datadoghq.com/blog/focus-and-datadog/
 
 第三者情報
 
-- usage.ai「Datadog Cloud Cost Management pricing」（2026-10-05 公開）: https://www.usage.ai/blogs/finops/tools/datadog-cloud-cost-management-pricing/
 - PricingSaaS「Datadog Cloud Cost Management 2026Q2 diff」（2026-07-02 確認）: https://pricingsaas.com/companies/datadog.cloud-cost-management/diffs/2026Q2
 - FinOps FOCUS 仕様: https://focus.finops.org/

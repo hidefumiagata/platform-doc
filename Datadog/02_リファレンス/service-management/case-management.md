@@ -44,7 +44,7 @@ Datadog **Work Management（ワークマネジメント、旧称：Case Manageme
 >
 > **`case` 表記が残る箇所:** API エンドポイント（`/api/v2/cases`）、RBAC 権限名（`cases_read` 等）、Monitor の通知ハンドル（`@case-<project_handle>`）、MCP Server のツール名（`search_datadog_cases` 等）、Workflow Automation のステップ名（Case Management）、Jira インテグレーションタイルのタブ名（Case Management）などは旧称の `case` のまま残っている。[出典](https://docs.datadoghq.com/incident_response/work_management/)
 >
-> **ドキュメントの所在:** 以前は `docs.datadoghq.com/service_management/case_management/` 配下（Service Management カテゴリ）にあったが、2026-11-02 時点では `docs.datadoghq.com/incident_response/work_management/` 配下（Incident Response カテゴリ）にある。他ドキュメントには旧 URL へのリンクが残っている。
+> **ドキュメントの所在:** 以前は `docs.datadoghq.com/service_management/case_management/` 配下（Service Management カテゴリ）にあったが、2026-11-02 時点では `docs.datadoghq.com/incident_response/work_management/` 配下（Incident Response カテゴリ）にある。他ドキュメントには旧 URL へのリンクが残っている。旧 URL（例：[docs.datadoghq.com/service_management/case_management/settings](https://docs.datadoghq.com/service_management/case_management/settings)）は 2026-11-04 時点でも Incident Response > Work Management 配下の同ページ内容を表示する（現行 URL：[docs.datadoghq.com/incident_response/work_management/settings/](https://docs.datadoghq.com/incident_response/work_management/settings/)）。
 
 本ファイルでは、ファイル名・タイトルに旧称「Case Management」を残しつつ、本文は現名称の **Work Management / Work Item** を主に用いる。Datadog の UI 画面のスクリーンショット（公式ドキュメント掲載）は改称前の「Case Management」表記のものである点に注意。
 
@@ -282,7 +282,7 @@ Work Management の **Project（プロジェクト）** は Work Item の入れ�
 ### プロジェクトの作成
 
 1. Projects ビューで **New Project** をクリック、または左ナビゲーションの **Your Projects** の横の **+** をクリック。
-2. プロジェクト名と **Key（キー）** を入力する。キーは **1〜10 文字**で、Work Item ID の接頭辞になる（例：`NOC-123`）。
+2. プロジェクト名と **Key（キー）** を入力する。キーは **1〜10 文字**で、Work Item ID の接頭辞になる（例：`NOC-123`）。`CASE` は予約値のため使用できない（[出典](https://docs.datadoghq.com/api/latest/case-management/create-a-project/)）。
 3. **Create Project** をクリック。
 
 - **プロジェクトキーは作成後に変更できない。** [出典](https://docs.datadoghq.com/incident_response/work_management/projects/)
@@ -390,7 +390,7 @@ Project Settings（`https://app.datadoghq.com/work/settings`）では、プロ�
 
 ## カスタマイズ（Custom Work Types・Attributes・Statuses）
 
-カスタマイズの操作には **Work Management Shared Settings Write（`cases_shared_settings_write`）** 権限が必要。[出典](https://docs.datadoghq.com/incident_response/work_management/customization/)
+カスタマイズの操作には **Work Management Shared Settings Write（`cases_shared_settings_write`）** 権限が必要（出典ドキュメント上の表記は旧表示名の Case Shared Settings Write）。[出典](https://docs.datadoghq.com/incident_response/work_management/customization/)
 
 ### カスタム Work Type
 
@@ -465,11 +465,11 @@ Work Management のプロジェクトと Work Item へのアクセスは **デ�
 
 | 操作 | 必要な権限 |
 |---|---|
-| Work Item に承認を依頼する | Cases Write |
-| 承認者として追加される | Cases Read |
-| 承認または却下する | Cases Read |
+| Work Item に承認を依頼する | Work Items Write（`cases_write`） |
+| 承認者として追加される | Work Items Read（`cases_read`） |
+| 承認または却下する | Work Items Read（`cases_read`） |
 
-[出典](https://docs.datadoghq.com/incident_response/work_management/approvals/)
+[出典](https://docs.datadoghq.com/incident_response/work_management/approvals/)（出典ドキュメント上の表記は旧表示名の Cases Write／Cases Read。[RBAC 権限](#rbac-権限)の Work Items Write／Read と同一の権限）
 
 ## 承認（Approvals）
 
@@ -736,6 +736,8 @@ Slack・Microsoft Teams の基本設定は [通知・コラボレーション連
 
 Datadog MCP Server は Work Management 用の `cases` ツールセットを提供し、MCP 対応の AI エージェントから Work Item の検索・取得・作成・更新ができる。`cases` ツールセットは **既定では無効** で、`toolsets` パラメータに `cases` を追加（例：`?toolsets=core,cases`）するか `toolsets=all` を使う。Preview のツールは `toolsets=all` に含まれず、`cases` の明示指定が必要。[出典](https://docs.datadoghq.com/bits_ai/mcp_server/tools/)
 
+表の Cases Read／Cases Write は出典ドキュメント上の旧表示名で、それぞれ [RBAC 権限](#rbac-権限)の Work Items Read（`cases_read`）／Work Items Write（`cases_write`）と同じ権限を指す。
+
 | ツール | 必要権限 | 状態 |
 |---|---|---|
 | `search_datadog_cases` | Cases Read | GA 表記なし（Preview 表記なし） |
@@ -806,7 +808,8 @@ Work Management API は v2（`/api/v2/cases...`）。パス、リソースタイ
 |---|---|---|
 | Work Item の保持期間 | **アカウント存続期間中保持**（Cases: Retained for the duration of the account） | [Data Retention Periods](https://docs.datadoghq.com/data_security/data_retention_periods/) |
 | プロジェクトキー長 | 1〜10 文字 | [Projects](https://docs.datadoghq.com/incident_response/work_management/projects/) |
-| プロジェクトキーの変更 | 作成後は変更不可 | 同上 |
+| プロジェクトキーの予約値 | `CASE` は使用不可 | [Create a project（API）](https://docs.datadoghq.com/api/latest/case-management/create-a-project/) |
+| プロジェクトキーの変更 | 作成後は変更不可 | [Projects](https://docs.datadoghq.com/incident_response/work_management/projects/) |
 | Work Item が属するプロジェクト数 | 1 つのみ | [Create a Work Item](https://docs.datadoghq.com/incident_response/work_management/create_work_item/) |
 | プロジェクト移動時の ID | 新しい ID が採番され、旧 URL はリダイレクトされない | [View and Manage](https://docs.datadoghq.com/incident_response/work_management/view_and_manage/) |
 | 削除した Work Item・プロジェクト | 復元不可 | [Projects](https://docs.datadoghq.com/incident_response/work_management/projects/) |
@@ -859,8 +862,8 @@ Work Management（旧称：Case Management）**自体は追加料金なし**で 
 
 | 組み合わせる機能 | 課金単位 | 年契約（Billed Annually） | 月契約（Billed Month-to-month） | オンデマンド | Work Management との関係 |
 |---|---|---|---|---|---|
-| Workflow Automation | 100 Workflow 実行あたり／月 | $10 | $12 | $14 | Automation Rules・Workflow からの作成／更新はワークフロー実行として計上されると考えるのが安全【推定】（Automation Rules 起動分を課金対象外とする記述は公開情報では確認できず） |
-| Event Management | 相関パターンで評価されたイベントあたり／月 | $0.10 | $0.12 | $0.14 | 相関による Work Item 自動作成の前提 |
+| Workflow Automation | 100 Workflow 実行あたり／月 | $10 | $12 | $14 | Automation Rules・Workflow からの作成／更新はワークフロー実行として計上されると考えるのが安全【推定】（Automation Rules 起動分を課金対象外とする記述は公開情報では確認できず）。なお、セキュリティ Finding・Signal を起点とする Workflow 実行は無料（詳細は [製品別料金表](../../03_導入編/pricing-by-product.md)） |
+| Event Management | 相関パターンで評価されたイベントあたり／月 | $0.10 | $0.12 | $0.14 | 相関による Work Item 自動作成の前提。**Datadog 生成イベント（Monitor アラート、Error Tracking、Incidents 等）は無料**で、課金対象はカスタムソリューションや他ツールから取り込んだサードパーティイベントのみ（取得日 2026-11-02、[出典](https://www.datadoghq.com/pricing/?product=event-management)） |
 | On-Call | シートあたり／月 | $20 | $24 | $29 | Work Item からのページング |
 | Incident Management | シートあたり／月 | $30 | $36 | $43.20 | Work Item からのインシデント宣言・自動エスカレーション |
 | Incident Response | シートあたり／月 | $40 | $48 | $58 | 同上 |
@@ -923,6 +926,7 @@ Work Management（旧称：Case Management）**自体は追加料金なし**で 
 - https://docs.datadoghq.com/incident_response/work_management/ai/custom_agents/
 - https://docs.datadoghq.com/api/latest/case-management/
 - https://docs.datadoghq.com/api/latest/case-management/create-a-case/
+- https://docs.datadoghq.com/api/latest/case-management/create-a-project/ （取得日 2026-11-04）
 - https://docs.datadoghq.com/api/latest/case-management/search-cases/
 - https://docs.datadoghq.com/api/latest/case-management/bulk-update-cases/
 - https://docs.datadoghq.com/account_management/rbac/permissions/
@@ -935,11 +939,13 @@ Work Management（旧称：Case Management）**自体は追加料金なし**で 
 - https://docs.datadoghq.com/actions/forms/
 - https://docs.datadoghq.com/actions/actions_catalog/
 - https://docs.datadoghq.com/bits_ai/mcp_server/tools/
+- https://docs.datadoghq.com/service_management/case_management/settings （旧 URL、取得日 2026-11-04）
 
 公式サイト・ブログ
 
 - https://www.datadoghq.com/product/case-management/ （Work Management 製品ページ、取得日 2026-11-02）
 - https://www.datadoghq.com/pricing/list/ （料金一覧、取得日 2026-11-02）
+- https://www.datadoghq.com/pricing/?product=event-management （Event Management 料金、取得日 2026-11-02）
 - https://www.datadoghq.com/blog/work-management/ （2026-08-18 公開）
 - https://www.datadoghq.com/blog/track-issues-datadog-case-management/ （2023-04-18 公開、2024-02-12 更新）
 - https://www.datadoghq.com/blog/forms-case-management-requests/ （2026-06-09 公開）

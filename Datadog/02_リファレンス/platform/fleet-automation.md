@@ -5,7 +5,7 @@ domain: platform
 last_verified: 2026-11-02
 agent_version: "7.x"
 summary: Datadog Fleet Automation（Agent・OTel Collector の一覧と構成確認、Agent 設定・インテグレーション・カスタムログのリモート配布、リモートアップグレードとスケジュール、リモート flare、API/Terraform）と、その基盤である Remote Configuration（仕組み、対象製品、有効化の 3 階層、ステータス、ネットワーク、セキュリティ、権限、オプトアウト）の仕様・前提バージョン・制限値をまとめたリファレンス。「リモートアップグレードの前提は？」「Remote Configuration は安全か？」「どの設定を UI から変更できるか？」に答える。
-keywords: [Fleet Automation, フリートオートメーション, Fleet View, Remote Configuration, リモート設定, Remote Config, RC, Remote Agent Management, リモートエージェント管理, remote_updates, remote_configuration.enabled, DD_REMOTE_CONFIGURATION_ENABLED, DD_REMOTE_UPDATES, Datadog Installer, Agent アップグレード, Upgrade Agents, Upgrade Schedule, アップグレードスケジュール, Configure Agents, Configure Agent Integrations, Configure Custom Logs, Upgrade SDKs, リモート flare, Agent flare, Deployments, datadog_fleet_schedule, Fleet Automation API, merge-patch, OTel Collector, DDOT Collector, Datadog Extension, Kubernetes view, Datadog Operator, DatadogAgent, inventories_configuration_enabled, config.datadoghq.com, 8042, fleet_policies_write, agent_upgrade_write, agent_flare_collection, api_keys_write, org_management, Agent Configuration view]
+keywords: [Fleet Automation, フリートオートメーション, Fleet View, Remote Configuration, リモート設定, Remote Config, RC, Remote Agent Management, リモートエージェント管理, remote_updates, remote_configuration.enabled, DD_REMOTE_CONFIGURATION_ENABLED, DD_REMOTE_UPDATES, Datadog Installer, Agent アップグレード, Upgrade Agents, Upgrade Schedule, アップグレードスケジュール, Configure Agents, Configure Agent Integrations, Configure Custom Logs, Agent タグ管理, Upgrade SDKs, リモート flare, Agent flare, Deployments, datadog_fleet_schedule, Fleet Automation API, merge-patch, OTel Collector, DDOT Collector, Datadog Extension, Kubernetes view, Datadog Operator, DatadogAgent, inventories_configuration_enabled, config.datadoghq.com, 8042, fleet_policies_write, agent_upgrade_write, agent_flare_collection, api_keys_write, org_management, Agent Configuration view]
 sources:
   - https://docs.datadoghq.com/agent/fleet_automation/
   - https://docs.datadoghq.com/agent/fleet_automation/fleet_view/
@@ -23,6 +23,7 @@ sources:
   - https://docs.datadoghq.com/agent/configuration/network/
   - https://docs.datadoghq.com/account_management/rbac/permissions/
   - https://docs.datadoghq.com/api/latest/fleet-automation/
+  - https://www.datadoghq.com/product-preview/modify-tags-fleet-automation/
   - https://docs.datadoghq.com/opentelemetry/integrations/datadog_extension/
   - https://docs.datadoghq.com/disaster_recovery/
   - https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/fleet_schedule
@@ -44,6 +45,7 @@ sources:
 
 - Agent・OTel Collector の一覧と構成（設定内容と変更履歴）の確認
 - Agent 設定・インテグレーション設定・カスタムログ設定のリモート配布
+- Agent タグの一元管理【Preview】（5.11 節）
 - Agent のリモートアップグレード（即時・スケジュール・API・Terraform）
 - SDK のリモートアップグレード【Preview】
 - サポート向け flare のリモート送信
@@ -783,6 +785,18 @@ Agent 詳細パネルの Configuration タブは、設定ソースの優先順�
 
 [出典](https://docs.datadoghq.com/agent/fleet_automation/configure_agents/)
 
+### 5.11 Agent タグの一元管理【Preview】
+
+Fleet Automation の公式ページは、主な機能の 1 つとして「Manage Datadog Agent tags（Preview）」を挙げている。フリート全体で Agent のタグを修正し、タグ付けを標準化するための機能である。[出典](https://docs.datadoghq.com/agent/fleet_automation/)
+
+Product Preview のページによると、内容は次のとおり。[出典](https://www.datadoghq.com/product-preview/modify-tags-fleet-automation/)
+
+- 各ホストの `datadog.yaml` を個別に編集せずに、Fleet Automation から Agent タグを管理する。
+- ホストや Agent タグで対象の Agent を絞り込み、プレーンテキストまたは正規表現のルールでタグを追加・削除・書き換える。
+- ロールアウト前に、フリート単位または個々の Agent 単位で設定の差分を確認できる。
+
+Preview 機能のため、利用には Product Preview への申込が必要である。申込の手順は上記ページに書かれていないため、Product Preview Program（https://www.datadoghq.com/product-preview/ ）かアカウントチームで確認する。前提バージョンや対応プラットフォームは、公開情報では確認できず。サイトごとの提供状況は 10 章を参照。
+
 ---
 
 ## 6. リモートアップグレード（Upgrade Agents）
@@ -979,26 +993,26 @@ Fleet Automation は、Agent を大規模に参照・管理するための公開
 
 ベース URL は `https://api.<YOUR_DATADOG_SITE>`（例: AP1 は `https://api.ap1.datadoghq.com`）。
 
-| 操作 | メソッドとパス | 状態 | 必要権限 |
-|---|---|---|---|
-| 利用可能な Agent バージョン一覧 | `GET /api/v2/fleet/agent_versions` | GA | `hosts_read` |
-| Agent 一覧 | `GET /api/v2/fleet/agents` | GA | `hosts_read` |
-| Agent の詳細 | `GET /api/v2/fleet/agents/{agent_key}` | GA | `hosts_read` |
-| デプロイメント一覧 | `GET /api/v2/fleet/deployments` | GA | `hosts_read` |
-| 設定デプロイメントの作成 | `POST /api/v2/fleet/deployments/configure` | GA | `agent_upgrade_write` と `fleet_policies_write` |
-| ホストのアップグレード | `POST /api/v2/fleet/deployments/upgrade` | GA | `agent_upgrade_write` と `fleet_policies_write` |
-| デプロイメントの取得 | `GET /api/v2/fleet/deployments/{deployment_id}` | GA | `hosts_read` |
-| デプロイメントのキャンセル | `POST /api/v2/fleet/deployments/{deployment_id}/cancel` | GA | `agent_upgrade_write` と `fleet_policies_write` |
-| スケジュール一覧 | `GET /api/v2/fleet/schedules` | GA | `hosts_read` |
-| スケジュールの作成 | `POST /api/unstable/fleet/schedules` | 【Preview】 | `agent_upgrade_write` |
-| スケジュールの取得 | `GET /api/v2/fleet/schedules/{id}` | GA | 公開情報では確認できず |
-| スケジュールの更新 | `PATCH /api/unstable/fleet/schedules/{id}` | 【Preview】 | `agent_upgrade_write` |
-| スケジュールの削除 | `DELETE /api/unstable/fleet/schedules/{id}` | 【Preview】 | 公開情報では確認できず |
-| スケジュールの手動トリガー | `POST /api/unstable/fleet/schedules/{id}/trigger` | 【Preview】 | 公開情報では確認できず |
-| フリート全体のトレーサー一覧 | `GET /api/unstable/fleet/tracers` | 【Preview】 | 公開情報では確認できず |
-| 特定 Agent のトレーサー一覧 | `GET /api/unstable/fleet/agents/{agent_key}/tracers` | 【Preview】 | 公開情報では確認できず |
+| 操作 | メソッドとパス | 状態 | 必要権限 | 出典 |
+|---|---|---|---|---|
+| 利用可能な Agent バージョン一覧 | `GET /api/v2/fleet/agent_versions` | GA | `hosts_read` | [個別ページ](https://docs.datadoghq.com/api/latest/fleet-automation/list-available-datadog-agent-versions/) |
+| Agent 一覧 | `GET /api/v2/fleet/agents` | GA | `hosts_read` | [個別ページ](https://docs.datadoghq.com/api/latest/fleet-automation/list-all-datadog-agents/) |
+| Agent の詳細 | `GET /api/v2/fleet/agents/{agent_key}` | GA | `hosts_read` | [個別ページ](https://docs.datadoghq.com/api/latest/fleet-automation/get-detailed-information-about-an-agent/) |
+| デプロイメント一覧 | `GET /api/v2/fleet/deployments` | GA | `hosts_read` | [個別ページ](https://docs.datadoghq.com/api/latest/fleet-automation/list-all-deployments/) |
+| 設定デプロイメントの作成 | `POST /api/v2/fleet/deployments/configure` | GA | `agent_upgrade_write` と `fleet_policies_write` | [個別ページ](https://docs.datadoghq.com/api/latest/fleet-automation/create-a-configuration-deployment/) |
+| ホストのアップグレード | `POST /api/v2/fleet/deployments/upgrade` | GA | `agent_upgrade_write` と `fleet_policies_write` | [個別ページ](https://docs.datadoghq.com/api/latest/fleet-automation/upgrade-hosts/) |
+| デプロイメントの取得 | `GET /api/v2/fleet/deployments/{deployment_id}` | GA | `hosts_read` | [個別ページ](https://docs.datadoghq.com/api/latest/fleet-automation/get-a-deployment-by-id/) |
+| デプロイメントのキャンセル | `POST /api/v2/fleet/deployments/{deployment_id}/cancel` | GA | `agent_upgrade_write` と `fleet_policies_write` | [個別ページ](https://docs.datadoghq.com/api/latest/fleet-automation/cancel-a-deployment/) |
+| スケジュール一覧 | `GET /api/v2/fleet/schedules` | GA | `hosts_read` | [個別ページ](https://docs.datadoghq.com/api/latest/fleet-automation/list-all-schedules/) |
+| スケジュールの作成 | `POST /api/unstable/fleet/schedules` | 【Preview】 | `agent_upgrade_write` | [個別ページ](https://docs.datadoghq.com/api/latest/fleet-automation/create-a-schedule/) |
+| スケジュールの取得 | `GET /api/v2/fleet/schedules/{id}` | GA | `hosts_read` | [個別ページ](https://docs.datadoghq.com/api/latest/fleet-automation/get-a-schedule-by-id/) |
+| スケジュールの更新 | `PATCH /api/unstable/fleet/schedules/{id}` | 【Preview】 | `agent_upgrade_write` | [個別ページ](https://docs.datadoghq.com/api/latest/fleet-automation/update-a-schedule/) |
+| スケジュールの削除 | `DELETE /api/unstable/fleet/schedules/{id}` | 【Preview】 | `agent_upgrade_write` | [個別ページ](https://docs.datadoghq.com/api/latest/fleet-automation/delete-a-schedule/) |
+| スケジュールの手動トリガー | `POST /api/unstable/fleet/schedules/{id}/trigger` | 【Preview】 | `agent_upgrade_write` | [個別ページ](https://docs.datadoghq.com/api/latest/fleet-automation/trigger-a-schedule-deployment/) |
+| フリート全体のトレーサー一覧 | `GET /api/unstable/fleet/tracers` | 【Preview】 | `hosts_read` | [個別ページ](https://docs.datadoghq.com/api/latest/fleet-automation/list-all-fleet-tracers/) |
+| 特定 Agent のトレーサー一覧 | `GET /api/unstable/fleet/agents/{agent_key}/tracers` | 【Preview】 | `hosts_read` | [個別ページ](https://docs.datadoghq.com/api/latest/fleet-automation/list-tracers-for-a-specific-agent/) |
 
-[出典](https://docs.datadoghq.com/api/latest/fleet-automation/)（各エンドポイントの個別ページで必要権限を確認。2026-11-02 時点）
+[出典](https://docs.datadoghq.com/api/latest/fleet-automation/)（エンドポイント一覧と状態）。必要権限は総合ページには載っておらず、各行の「個別ページ」に記載されている（2026-11-04 確認）。
 
 API リファレンスのエンドポイント表には、US1-FED（`api.ddog-gov.com`）と US2-FED（`api.us2.ddog-gov.com`）の URL も載っている。ただし、Government サイトでは Configure / Upgrade 機能そのものが非対応である（10 章参照）。
 
@@ -1026,13 +1040,16 @@ API リファレンスのエンドポイント表には、US1-FED（`api.ddog-go
 | `config_operations[].file_op` | 必須 | `merge-patch`（既存ファイルにマージ。ファイルがなければ作成）または `delete`（ファイルを削除） |
 | `config_operations[].file_path` | 必須 | 対象設定ファイルのパス（例: `/datadog.yaml`） |
 | `config_operations[].patch` | 任意 | JSON 形式のパッチ。対象ファイルの構造（Agent 設定なら YAML 構造）に合わせる。`delete` では使わない |
-| `target_packages` | 任意 | 特定のパッケージバージョンにだけ設定変更を適用する |
+| `target_packages[]` | 任意 | 設定変更とあわせて**追加でデプロイする**パッケージと目標バージョンのリスト。設定変更の適用対象を絞るフィルターではない（対象ホストは `filter_query` で決まる） |
+| `target_packages[].name` | 必須（`target_packages` 指定時） | デプロイするパッケージ名 |
+| `target_packages[].version` | 必須（`target_packages` 指定時） | デプロイするパッケージの目標バージョン |
+| `target_packages[].apm_instrumentation` | 任意 | 該当する場合に、そのパッケージで有効にする APM 自動計装のモード |
 | `dry_run` | 任意 | `true` にすると、検証と対象ホスト・パッケージの解決だけを行い、デプロイしない（200 で結果を返す） |
 
 デプロイメントは作成と同時に自動で開始される。次の場合は 400 が返る。
 
 - `filter_query` または `config_operations` がない
-- 対象パッケージの名前やバージョンがない、または解決できない
+- `target_packages` に指定した追加デプロイ用パッケージの名前やバージョンがない、またはそのパッケージを解決できない
 - 設定の検証に失敗した
 - フィルターに一致する対象可能なホストがない
 
@@ -1107,9 +1124,9 @@ Fleet Automation の参照機能（Fleet View）は、組織の全ユーザー�
 | 組織の Remote Configuration の有効化・無効化 | `org_management` |
 | API キーでの Remote Configuration の有効化・無効化 | `api_keys_write` |
 | Remote Configuration 設定の閲覧 | `remote_configuration_read` |
-| 参照系 API（Agent 一覧・詳細、デプロイメント一覧・取得、スケジュール一覧、Agent バージョン一覧） | `hosts_read` |
+| 参照系 API（Agent 一覧・詳細、デプロイメント一覧・取得、スケジュール一覧・取得、Agent バージョン一覧、トレーサー一覧【Preview】） | `hosts_read` |
 | 設定デプロイ API・アップグレード API・デプロイメントのキャンセル API | `agent_upgrade_write` と `fleet_policies_write` の両方 |
-| スケジュールの作成・更新 API【Preview】 | `agent_upgrade_write` |
+| スケジュールの作成・更新・削除・手動トリガー API【Preview】 | `agent_upgrade_write` |
 | Terraform の `datadog_fleet_schedule` | アプリケーションキーに `agent_upgrade_write` と `hosts_read` |
 
 ロール設計は [組織・ユーザー・権限管理](./account-and-access-management.md) を参照。
@@ -1130,7 +1147,7 @@ Fleet Automation の参照機能（Fleet View）は、組織の全ユーザー�
 > [出典](https://docs.datadoghq.com/agent/fleet_automation/) [出典](https://docs.datadoghq.com/agent/guide/setup_remote_config/) [出典](https://docs.datadoghq.com/agent/troubleshooting/send_a_flare/) [出典](https://docs.datadoghq.com/remote_configuration/) [出典](https://docs.datadoghq.com/tracing/guide/remote_config/)
 
 > **サイト差異:** 商用サイト（US1 / US3 / US5 / EU1 / AP1 / AP2）では、本ファイルで説明した機能が提供されている。ただし Preview 機能の申込案内は、公式ドキュメント上で UK1（`uk1.datadoghq.com`）を含む商用サイト向けに表示されている。Preview 機能は次のとおり。
-> - Agent タグ管理
+> - Agent タグ管理（5.11 節）
 > - Kubernetes の Operator 経由設定
 > - SDK アップグレード
 >
@@ -1155,7 +1172,7 @@ Fleet Automation の参照機能（Fleet View）は、組織の全ユーザー�
 | インテグレーション構成表示の既定有効バージョン | 7.49.0（`inventories_checks_configuration_enabled`） | 同上 |
 | リモート flare の最低バージョン | 7.47（7.66 以降を推奨） | [setup_remote_config](https://docs.datadoghq.com/agent/guide/setup_remote_config/) |
 | リモートアップグレードの最低バージョン | Linux 7.69.0、Windows 7.71.1 | [upgrade_agents](https://docs.datadoghq.com/agent/fleet_automation/upgrade_agents/) |
-| リモート Agent 設定の最低バージョン | 7.73（インテグレーション・シークレット・カスタムログは 7.76） | [configure_agents](https://docs.datadoghq.com/agent/fleet_automation/configure_agents/) |
+| リモート Agent 設定の最低バージョン | 7.73（インテグレーション・シークレット・カスタムログは 7.76） | [configure_agents](https://docs.datadoghq.com/agent/fleet_automation/configure_agents/)（7.73、インテグレーション・シークレットの 7.76）、[configure_logs](https://docs.datadoghq.com/agent/fleet_automation/configure_logs/)（カスタムログの 7.76） |
 | Datadog Installer の Agent 同梱 | 7.66 以降 | [upgrade_agents](https://docs.datadoghq.com/agent/fleet_automation/upgrade_agents/) |
 | リモートアップグレードのディスク要件 | 初回インストール 2 GB + アップグレード用 2 GB（作業領域 1.3 GB） | 同上 |
 | リモートアップグレードのダウンタイム | 5〜30 秒（全体で約 5 分。本体約 2 分 + 安定性監視） | 同上 |
@@ -1268,6 +1285,8 @@ Fleet Automation の参照機能（Fleet View）は、組織の全ユーザー�
 - Create a configuration deployment API: https://docs.datadoghq.com/api/latest/fleet-automation/create-a-configuration-deployment/
 - Upgrade hosts API: https://docs.datadoghq.com/api/latest/fleet-automation/upgrade-hosts/
 - Create a schedule API: https://docs.datadoghq.com/api/latest/fleet-automation/create-a-schedule/
+- Fleet Automation API の各エンドポイントの個別ページ（必要権限の根拠。8.1 節の表の「出典」列。取得日: 2026-11-04）
+- Manage Datadog Agent tags（Product Preview）: https://www.datadoghq.com/product-preview/modify-tags-fleet-automation/
 - Datadog Extension（OpenTelemetry）: https://docs.datadoghq.com/opentelemetry/integrations/datadog_extension/
 - Datadog Disaster Recovery: https://docs.datadoghq.com/disaster_recovery/
 - Terraform `datadog_fleet_schedule`: https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/fleet_schedule

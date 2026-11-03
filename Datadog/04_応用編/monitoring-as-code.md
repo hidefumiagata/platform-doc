@@ -75,7 +75,7 @@ Datadog の監視設定を UI だけで運用すると、次の問題が起き�
 
 | 問題 | 内容 | 出典 |
 |---|---|---|
-| 閾値・設定のばらつき | 担当者ごとに閾値や通知先がずれる | 【第三者情報】[Zenn: yuta28](https://zenn.dev/yuta28/articles/datadog_monitor_json_terraform)（2023-12-16 公開） |
+| 閾値・設定のばらつき | 担当者ごとに閾値や通知先がずれる | 【第三者情報】[Zenn: yuta28](https://zenn.dev/yuta28/articles/datadog_monitor_json_terraform)（2023-12-16 公開。2年以上前の記事のため、現行 Provider（v4）の仕様と異なる可能性がある） |
 | 環境間の不一致 | dev / stg / prod で同じ監視が揃わない | 【第三者情報】[issoh](https://www.issoh.co.jp/tech/details/10105/)（2025-12-03 公開、2026-09-28 更新） |
 | 変更履歴・レビューの欠如 | 誰がなぜ変えたかが Git に残らない。レビューを経ずに本番の閾値が変わる | [Datadog Blog: Managing Datadog with Terraform](https://www.datadoghq.com/blog/managing-datadog-with-terraform/)（2017-04-07 公開、2025-10-10 更新） |
 | リソース作成と監視設定のずれ | インフラ作成時に監視が後付けになり、監視漏れが生じる | 同上 |
@@ -139,7 +139,7 @@ Provider のリリース頻度が高く、新しいリソースが頻繁に追�
 
 - `required_providers` でバージョン制約（例: `~> 4.28`）を固定し、`.terraform.lock.hcl` をコミットする。
 - Renovate / Dependabot で Provider 更新 PR を自動作成し、`plan` 差分がないことを確認してマージする。
-- メジャーアップデート（v3→v4 など）は専用の移行作業として扱う（後述「8. Provider v4 移行時の注意」）。
+- メジャーアップデート（v3→v4 など）は専用の移行作業として扱う（後述「10. Provider v4 移行時の注意」）。
 
 ```hcl
 terraform {
@@ -202,7 +202,7 @@ Terraform Provider v4 は、従来の API キー + Application キーに加え�
 
 | 引数 | デフォルト | 意味 | 実務上の論点 |
 |---|---|---|---|
-| `validate` | `true` | 起動時に認証情報を検証し、Monitor の `query` も plan 時に API で検証する | オフラインでの `validate` を伴う CI チェックでは `false` にできるが、本番 plan では `true` のままにする |
+| `validate` | `true` | Provider 初期化時に認証情報を検証する。`false` にすると初期の認証情報検証をスキップする [出典](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/index.md) | 認証情報なしのオフライン CI チェックでは `false` にできるが、本番 plan では `true` のままにする。Monitor の `query` を plan 時に API で検証するかどうかは、Provider の `validate` ではなくリソース側の `datadog_monitor.validate`（`false` で plan 時の検証呼び出しをスキップ）で制御する [出典](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/monitor.md) |
 | `http_client_retry_enabled` | `true` | HTTP 429 と 5xx でリトライ | 大量リソースの apply でレート制限に当たった際の自動回復 |
 | `http_client_retry_max_retries` | `3` | 最大リトライ回数 | 大規模構成では増やす検討余地 |
 | `http_client_retry_timeout` | `60`（秒） | リトライのタイムアウト | 同上 |
@@ -248,14 +248,14 @@ Terraform Provider v4 は、従来の API キー + Application キーに加え�
 | `terraform import` コマンド | state のみ | Terraform 標準 | HCL を事前に手で書く必要がある [出典](https://docs.datadoghq.com/integrations/faq/how-to-import-datadog-resources-into-terraform/) |
 | `import` ブロック + `terraform plan -generate-config-out=<file>` | HCL の下書き + （apply で）state | Terraform 1.5 以降で HCL を自動生成できる。PR でレビュー可能 | **実験的機能**で形式が変わりうる。複雑なスキーマでは不正な構成が生成されることがある。出力先ファイルが既に存在するとエラー [出典](https://developer.hashicorp.com/terraform/language/import/generating-configuration) |
 | UI の「Export to Terraform」（Monitor 一覧） | 選択したモニターの Terraform 定義 | 一覧から複数選択して一括生成できる | 出力形式やオプションの詳細は公式ドキュメントに記載なし [出典](https://docs.datadoghq.com/monitors/manage/) |
-| UI の JSON エクスポート + `datadog_monitor_json` / `datadog_dashboard_json` | JSON をそのまま Terraform に渡す | UI と同じ JSON 表現のため差分が読みやすい。ダッシュボードに有効 | HCL の型チェック・変数参照が効きにくい。`templatefile()` で変数を埋め込む工夫が必要 【第三者情報】[Zenn](https://zenn.dev/yuta28/articles/datadog_monitor_json_terraform) |
+| UI の JSON エクスポート + `datadog_monitor_json` / `datadog_dashboard_json` | JSON をそのまま Terraform に渡す | UI と同じ JSON 表現のため差分が読みやすい。ダッシュボードに有効 | HCL の型チェック・変数参照が効きにくい。`templatefile()` で変数を埋め込む工夫が必要 【第三者情報】[Zenn](https://zenn.dev/yuta28/articles/datadog_monitor_json_terraform)（2023-12-16 公開。2年以上前の記事のため、現行 Provider（v4）の仕様と異なる可能性がある） |
 | Terraformer | HCL + state | 一括で逆生成できた | **2026-03-16 アーカイブ済み**。生成物は Terraform v0.12.29 形式で、v0.13 以降は `terraform 0.13upgrade` が必要だった [出典](https://docs.datadoghq.com/integrations/faq/how-to-import-datadog-resources-into-terraform/) |
 
 ### 4.2 Monitor 一覧の「Export to Terraform」
 
 Monitor の Manage 画面（Monitors > List）では、検索結果のチェックボックスでモニターを選択し、一括操作ボタン（Mute、Unmute、Resolve、Delete、Edit Recipients、Edit Tags、Edit Teams、**Export to Terraform**）を実行できる。Export to Terraform は「選択したモニターの Terraform 定義を生成する」機能である [出典](https://docs.datadoghq.com/monitors/manage/)。
 
-![Monitors List 画面（一括操作ボタンに Export to Terraform を含む）](../../assets/images/monitoring-as-code/monitor-manage-page.png)
+![Monitors List 画面（一括操作ボタンに Export to Terraform を含む）](../assets/images/monitoring-as-code/monitor-manage-page.png)
 
 - **キャプション:** Datadog の Monitors > List 画面。検索結果の上部に一括操作ボタンが並ぶ。
 - **画面の説明:** 画面上部のタブは `List`、`Triggered`、`Downtimes`、`Quality`、`Analytics`、右上に `Settings`、`Browse Templates`、`+ New Monitor`。検索バーには `muted:true` が入力され、左側のファセットパネルに `Status`（Triggered / Alert / Warn / No Data / OK）、`Muted`、`Draft Status`、`Priority`、`Type` が並ぶ。結果テーブル（STATUS、MUTED ELAPSED、MUTED LEFT、NAME、TAGS 列）の上に `Mute`、`Resolve`、`Delete`、`Edit Tags`、`Edit Recipients`、`Edit Teams`、`Export to Terraform` の一括操作ボタンがある。右上の歯車メニューで表示列（Priority、Muted Elapsed、Muted Left、Tags、Team、Created At、Updated At、Creator）を切り替えられる。
@@ -327,7 +327,7 @@ terraform plan   # No changes を確認
 |---|---|---|
 | Provider デフォルトと UI デフォルトの違い | 省略した任意項目に Provider のデフォルトが入る（公式ブログが注意喚起） | 生成物の値を明示的に残す、または plan 差分を見て値を合わせる |
 | タグの付与 | UI で後付けされたタグが差分になる | `ignore_tag_keys` で対象外にする（Monitor / SLO） |
-| `restricted_roles` | v4 では更新時に一度だけ `known after apply` 表示になることがある | 想定内の差分として扱う（「8. Provider v4 移行時の注意」） |
+| `restricted_roles` | v4 では更新時に一度だけ `known after apply` 表示になることがある | 想定内の差分として扱う（「10. Provider v4 移行時の注意」） |
 | ダッシュボードのウィジェット順 | Terraformer では `--no-sort` を付けないとウィジェットが並べ替えられた [出典](https://docs.datadoghq.com/integrations/faq/how-to-import-datadog-resources-into-terraform/) | JSON ベースで管理し、順序を変更しない |
 | `dashboard_lists` | `datadog_dashboard_json` の `dashboard_lists` を、Dashboard List を Terraform で管理している状態で併用すると挙動が不整合になる [出典](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/dashboard_json.md) | どちらか一方で管理する |
 
@@ -371,7 +371,7 @@ Terraform で作成したモニターを UI で修正すると、次の plan で
 
 検索結果の行をクリックし、**Inspect Changes (Diff)** タブを開くと設定の差分が表示される。ファセットパネルで Asset ID / Asset Name による絞り込みもできる。
 
-![Audit Trail のモニター変更イベントと Inspect Changes (Diff) タブ](../../assets/images/monitoring-as-code/audit-trail-monitor-change-diff.png)
+![Audit Trail のモニター変更イベントと Inspect Changes (Diff) タブ](../assets/images/monitoring-as-code/audit-trail-monitor-change-diff.png)
 
 - **キャプション:** Audit Trail でモニター変更イベントを開いた詳細画面。
 - **画面の説明:** 上部に `INFO` ラベルと発生日時、`EVENT NAME: Monitor`、`ACTION: modified` が表示され、「user40@test.com successfully modified monitor "Test Watchdog Monitor"」という変更概要が出る。下部のタブ `Event Attributes` / `Inspect Changes (Diff)` のうち Diff タブが選択され、`Unified diff` チェックボックスがオン。差分として `"tags": ["check_type:api"]` が追加された行が緑色で表示されている。
@@ -507,7 +507,7 @@ Monitoring as Code を導入しても、UI を完全に閉じることは現実�
 | Team 割り当て | Team でフィルタし、所有チームを明示（Protecting Assets ガイドは Team Tag と Team フィルタの活用を推奨）[出典](https://docs.datadoghq.com/getting_started/access_for_enterprises/protecting_assets/) |
 | ダッシュボードのアクセスインジケータ | 編集制限されたダッシュボードは右上にアクセスインジケータが表示される [出典](https://docs.datadoghq.com/dashboards/configure/) |
 
-![ダッシュボードのアクセス制御ダイアログ](../../assets/images/monitoring-as-code/dashboard-access-popup.png)
+![ダッシュボードのアクセス制御ダイアログ](../assets/images/monitoring-as-code/dashboard-access-popup.png)
 
 - **キャプション:** ダッシュボードの「Who has access?」ダイアログ（編集制限の設定画面）。
 - **画面の説明:** ダッシュボード名（例: Mobile overview）の下に「Who has access?」と表示され、赤い鍵アイコンとともに `Restricted`（Access is restricted to some）の状態が示される。右側に `Restore Full Access` ボタン。下部の `Add Access` で `Select roles` ドロップダウンから Role（Datadog Admin Role、Datadog Beta Tester、Datadog Read Only Role など）を選んで `Add` し、`Save` で保存する。保存時には、操作者自身が所属する Role を少なくとも 1 つ含める必要がある [出典](https://docs.datadoghq.com/dashboards/configure/)。Terraform で管理する場合は同じ制御を `datadog_restriction_policy`（または `datadog_dashboard` の `restricted_roles`）で行う。
@@ -649,7 +649,7 @@ module "payments_monitors" {
 
 ### 7.3 JSON テンプレートによるモジュール化
 
-UI で作成したモニター JSON を `datadog_monitor_json` + `templatefile()` で変数化するパターンも広く使われる。UI からエクスポートした JSON を `file()` で外部ファイル化し、`templatefile()` で `${...}` に変数を埋め込むことで、監視タイプごとに JSON を整理できる【第三者情報】[Zenn: yuta28](https://zenn.dev/yuta28/articles/datadog_monitor_json_terraform)（2023-12-16 公開。2 年近く前の記事のため Provider v4 での挙動は要確認）。
+UI で作成したモニター JSON を `datadog_monitor_json` + `templatefile()` で変数化するパターンも広く使われる。UI からエクスポートした JSON を `file()` で外部ファイル化し、`templatefile()` で `${...}` に変数を埋め込むことで、監視タイプごとに JSON を整理できる【第三者情報】[Zenn: yuta28](https://zenn.dev/yuta28/articles/datadog_monitor_json_terraform)（2023-12-16 公開。2年以上前の記事のため、現行 Provider（v4）の仕様と異なる可能性がある）。
 
 ```hcl
 resource "datadog_monitor_json" "cpu_high" {
@@ -697,7 +697,7 @@ sequenceDiagram
   Dev->>Git: ブランチで HCL を変更し PR 作成
   Git->>CI: PR イベント
   CI->>CI: terraform fmt -check / validate / tflint
-  CI->>DD: terraform plan（validate=true でクエリ検証）
+  CI->>DD: terraform plan（datadog_monitor の validate でクエリ検証）
   CI->>Git: plan 結果を PR にコメント
   Git->>Git: CODEOWNERS（所有チーム + 監視基盤チーム）がレビュー・承認
   Git->>CI: main へマージ
@@ -711,7 +711,7 @@ sequenceDiagram
 |---|---|---|
 | `terraform fmt -check`、`terraform validate` | 自動 | 構文・書式 |
 | tflint / ポリシー（OPA / Sentinel 等） | 自動 | 必須タグ（`team`、`env`、`service`）、通知先の存在、`priority` 設定、本番モニターの `notify_no_data` 方針などを機械チェック【経験則】 |
-| `terraform plan` | 自動 | `validate = true`（デフォルト）なら Monitor の `query` は plan 時に API で検証される [出典](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/monitor.md) |
+| `terraform plan` | 自動 | リソース側の `datadog_monitor.validate` を `false` にしない限り、Monitor の `query` は plan 時に API で検証される（Provider の `validate` は初期化時の認証情報検証であり、別の引数） [出典](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/monitor.md) |
 | plan のサマリ確認 | 手動 | **destroy / replace が含まれていないか**を最優先で確認（`type` は作成後変更不可のため、変更すると再作成になる） |
 | アラート設計レビュー | 手動 | 閾値の根拠、通知先、Runbook リンク、評価ウィンドウ。設計観点は [アラート設計とノイズ削減](alert-design-and-noise-reduction.md) |
 | 権限変更レビュー | 手動 | Role・Restriction Policy の変更は監視基盤チーム / セキュリティの承認を必須に |
@@ -722,7 +722,7 @@ plan が成功しても apply で失敗するケースがある、という実�
 
 | 事象 | 内容 | 出典 |
 |---|---|---|
-| plan は通るが apply で失敗 | 「terraform plan では問題なくても apply 時にエラーが起きて失敗するということが多々」あった。PR で plan、マージ後に apply する運用では、エラー時にブランチを切り直す手間が生じた | 【第三者情報】[Zenn: yuta28](https://zenn.dev/yuta28/articles/datadog_monitor_json_terraform)（2023-12-16） |
+| plan は通るが apply で失敗 | 「terraform plan では問題なくても apply 時にエラーが起きて失敗するということが多々」あった。PR で plan、マージ後に apply する運用では、エラー時にブランチを切り直す手間が生じた | 【第三者情報】[Zenn: yuta28](https://zenn.dev/yuta28/articles/datadog_monitor_json_terraform)（2023-12-16 公開。2年以上前の記事のため、現行 Provider（v4）の仕様と異なる可能性がある） |
 | 存在しないメトリクス | `query` に存在しないメトリクス名を書いても検証を通る（Datadog 側はメトリクスが「まだ送られていない」可能性を許容する）。結果としてモニターは作成されるが永遠に No Data になる | 同上 + 【経験則】 |
 | 通知ハンドルの誤り | `@slack-xxx` などの通知先ハンドルの誤記は、メッセージ文字列として扱われるため plan で検出されにくい | 【経験則】 |
 | 権限不足 | Application キーのスコープ不足、Restriction Policy による編集拒否は apply 時に判明 | 【経験則】 |
@@ -769,7 +769,7 @@ Monitor Tag Policies は、**すべての Datadog モニター**にタグ規則�
 | ポリシー数の上限 | 公開情報では確認できず |
 | Terraform 引数 | `tag_policy { tag_key, tag_key_required, valid_tag_values }`。`policy_type` には `downtime`（`max_duration_ms` で Downtime の最大期間を制限）もある |
 
-![Monitor Settings の Tag Policies 画面](../../assets/images/monitoring-as-code/monitor-tag-policies.png)
+![Monitor Settings の Tag Policies 画面](../assets/images/monitoring-as-code/monitor-tag-policies.png)
 
 - **キャプション:** Monitors > Settings の Tag Policies タブ。
 - **画面の説明:** タブは `Tag Policies` と `Deleted Monitors`。「Tag policies enforce tagging rules to all your monitors」と注意書きがある。表は `REQUIRED`（チェックボックス）、`KEYS`、`VALUES`、`Allow any value` の列で構成される。例として `cost_center`（必須、値 `cc1`/`cc2`/`cc3`）、`product_id`（必須、`*` で任意の値を許可）、`env`（任意、値 `dev`/`staging`/`prod`）が設定されている。下部に `Add a Policy` ボタン。
@@ -801,7 +801,7 @@ resource "datadog_monitor_config_policy" "require_team" {
 | 方法 | 内容 |
 |---|---|
 | Terraform のマルチ Provider | `provider "datadog" { alias = "eu" ... }` のように Provider をエイリアスで複数定義し、同じモジュールを org ごとに適用 |
-| datadog-sync-cli | Datadog 公式の org 間同期ツール。`import`（送信元を JSON 保存）→ `diffs`（差分確認）→ `sync`（送信先に作成・更新）、または `migrate`（import + sync）。`--cleanup` で送信元から削除されたリソースを送信先でも削除。Monitor、Dashboard、Dashboard List、Notebook、SLO、Synthetic テスト / グローバル変数、Logs Pipeline / Index / Archive、Restriction Policy、Role、Team、User、Downtime Schedule、Sensitive Data Scanner など約 36 種に対応。ローカルの `resources` ディレクトリが同期の正となる [出典](https://github.com/DataDog/datadog-sync-cli) |
+| datadog-sync-cli | Datadog 公式の org 間同期ツール。`import`（送信元を JSON 保存）→ `diffs`（差分確認）→ `sync`（送信先に作成・更新）、または `migrate`（import + sync）。`--cleanup` で送信元から削除されたリソースを送信先でも削除。Monitor、Dashboard、Dashboard List、Notebook、SLO、Synthetic テスト / グローバル変数、Logs Pipeline / Index / Archive、Restriction Policy、Role、Team、User、Downtime Schedule、Sensitive Data Scanner など 35 種に対応（うち `downtimes`・`logs_custom_pipelines` は非推奨。2026-11-04 確認）。ローカルの `resources` ディレクトリが同期の正となる [出典](https://github.com/DataDog/datadog-sync-cli) |
 
 > Terraform 管理のリソースを datadog-sync-cli で別 org に複製すると、送信先 org では Terraform 管理外のリソースになる。両ツールの管理範囲を重ねない設計にする【経験則】。
 
@@ -809,21 +809,21 @@ resource "datadog_monitor_config_policy" "require_team" {
 
 ## 10. Provider v4 移行時の注意
 
-Terraform Provider v4.0.0（2026-03-04）は破壊的変更を含む。v3 系のまま使い続けることも可能だが、新リソースは v4 系にのみ追加される [出典](https://www.datadoghq.com/blog/datadog-terraform-provider-v4/)（2026-03-20 公開）、[v4 Upgrade Guide](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/guides/v4-upgrade-guide.md)。
+Terraform Provider v4.0.0（2026-03-04）は破壊的変更を含む。v3 系のまま使い続けることも可能で、既存の構成はアップグレードするまで引き続き動作する [出典](https://www.datadoghq.com/blog/datadog-terraform-provider-v4/)（2026-03-20 公開）、[v4 Upgrade Guide](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/guides/v4-upgrade-guide.md)。ただし Releases ページでは v3.91.0（2026-03-04）より後に v3 系のリリースはなく、今後の新機能は v4 系にのみ入る可能性が高い【推定】 [出典](https://github.com/DataDog/terraform-provider-datadog/releases)。
 
 | 変更 | 内容 | 移行手順 |
 |---|---|---|
 | Terraform CLI 要件 | 1.1.5 以上 | CI の Terraform バージョンを確認 |
 | 実装基盤 | Terraform Plugin SDK v2 → Plugin Framework（プロトコル v6） | — |
 | `datadog_monitor.locked` | **削除** | 削除し、`datadog_restriction_policy` で編集権限を制御 |
-| `datadog_monitor.restricted_roles` | 非推奨（引き続きサポート）。**sticky（設定が保持される）挙動**に変更。全制限を外すには明示的に `[]` を設定。`restriction_policy` との併用は競合の原因。更新時に一度だけ `known after apply` 差分が出ることがある | `restricted_roles` を外し、`datadog_restriction_policy` に移行 |
+| `datadog_monitor.restricted_roles` | 非推奨（引き続きサポート）。**sticky（設定が保持される）挙動**に変更。全制限を外すには明示的に `[]` を設定。`restriction_policy` との併用は競合の原因。更新時に一度だけ `known after apply` 差分が出ることがある。※ v4.0.0 のリリースノートは「Removed 'locked' and deprecated 'restricted_roles' field in favor of restriction policy」という表記で、`restricted_roles` も削除されたと読める。一方、Upgrade Guide とブログは引き続きサポート（sticky 挙動）としている。公式情報の間で表現が食い違うため、実環境で挙動を確認すること [出典](https://github.com/DataDog/terraform-provider-datadog/releases/tag/v4.0.0) | `restricted_roles` を外し、`datadog_restriction_policy` に移行 |
 | `datadog_application_key` | import 機能を削除。データソースを削除（One-Time Read モードではキー値が作成時にしか得られないため） | 既存の import ブロックを適用後に削除。キー値はシークレットマネージャーへ。state 上の既存キーは引き続き動作 |
 | AWS 連携 | `datadog_integration_aws`、`datadog_integration_aws_tag_filter`、`datadog_integration_aws_log_collection`、`datadog_integration_aws_lambda_arn` を**削除**し `datadog_integration_aws_account` に統合 | 各 AWS アカウントを `datadog_integration_aws_account` に `terraform import`（AWS Account Config ID は List all AWS integrations API で取得）→ 旧リソースを `terraform state rm` |
 | `datadog_integration_aws_event_bridge` | v2 API にアップグレード | plan で差分確認 |
 
 **移行の進め方【経験則】**
 
-1. v3 系の最新版（v3.91.0 系）で plan をクリーンにしておく。
+1. v3 系の最新版（v3.91.0。2026-03-04 リリース [出典](https://github.com/DataDog/terraform-provider-datadog/releases)）で plan をクリーンにしておく。
 2. 非推奨警告（deprecated）を v3 のうちに解消する（`locked` の削除、AWS 連携の移行）。
 3. stg 用 state で v4 に上げ、plan 差分を全件レビューする。
 4. 本番へ展開。`restricted_roles` の一時的な `known after apply` は想定内として扱う。
@@ -839,7 +839,7 @@ Terraform Provider v4.0.0（2026-03-04）は破壊的変更を含む。v3 系の
 | 全リソースを 1 state に | plan が数十分かかり、ロック競合で開発が止まる | org 設定 / チーム別に state を分割 |
 | UI 変更を禁止しただけ | 緊急時に UI で変更され、次の apply で黙って戻る（障害の再発） | Break Glass 手順 + ドリフト検知 + 書き戻し期限 |
 | PR を全変更で必須化 | 急ぎの変更が UI で行われコードに戻らない【第三者情報】[issoh](https://www.issoh.co.jp/tech/details/10105/) | PR 必須範囲を重要リソースに限定 |
-| plan だけで本番マージ | apply 時にエラーが出てブランチを切り直す【第三者情報】[Zenn](https://zenn.dev/yuta28/articles/datadog_monitor_json_terraform) | stg org での pre-merge apply、ドラフトモニター |
+| plan だけで本番マージ | apply 時にエラーが出てブランチを切り直す【第三者情報】[Zenn](https://zenn.dev/yuta28/articles/datadog_monitor_json_terraform)（2023-12-16 公開。2年以上前の記事のため、現行 Provider（v4）の仕様と異なる可能性がある） | stg org での pre-merge apply、ドラフトモニター |
 | `type` の変更 | モニター `type` は作成後変更できないため再作成となり、ID が変わる [出典](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/monitor.md) | plan の replace を必ずレビュー。ID 参照している SLO・Composite・ダッシュボードを確認 |
 | Provider バージョン未固定 | 自動で新バージョンが入り、スキーマ変更で差分が噴出 | バージョン制約 + lock ファイル + 更新 PR |
 | Terraformer / CDKTF への新規依存 | アーカイブ済みでセキュリティ修正もない | import ブロック / Export to Terraform、HCL へ移行 |
@@ -865,7 +865,7 @@ Monitoring as Code に関係する主な値を整理する（2026-11-02 時点�
 | `datadog_monitor.notify_no_data` | `false`（`no_data_timeframe` は 10 分） | 同上 |
 | `datadog_monitor.include_tags` | `true` | 同上 |
 | `datadog_monitor.draft_status` | `published` | 同上 |
-| `datadog_monitor.on_missing_data` | `default` | 同上 |
+| `datadog_monitor.on_missing_data` | 既定値は明記なし（`default` オプションの挙動はクエリタイプによって異なる） | 同上 |
 | `datadog_monitor.new_host_delay` | `300`（非推奨。`new_group_delay` を使う） | 同上 |
 | `datadog_monitor.notify_audit` | `false` | 同上 |
 | `datadog_monitor.priority` | 1（高）〜5（低） | 同上 |

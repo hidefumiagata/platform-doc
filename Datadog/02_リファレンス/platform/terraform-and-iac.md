@@ -8,32 +8,53 @@ keywords: [Terraform, IaC, Infrastructure as Code, Datadog Terraform Provider, t
 sources:
   - https://docs.datadoghq.com/integrations/terraform/
   - https://docs.datadoghq.com/getting_started/integrations/terraform/
-  - https://registry.terraform.io/providers/DataDog/datadog/latest/docs
-  - https://github.com/DataDog/terraform-provider-datadog
-  - https://github.com/DataDog/terraform-provider-datadog/blob/master/CHANGELOG.md
-  - https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/guides/v4-upgrade-guide.md
-  - https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/guides/dynamic_provider_credentials.md
-  - https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/guides/dashboard_resource_names.md
-  - https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/guides/powerpack_v2_migration.md
-  - https://www.datadoghq.com/blog/datadog-terraform-provider-v4/
   - https://docs.datadoghq.com/account_management/workload_identity_federation/
   - https://docs.datadoghq.com/account_management/guide/manage-datadog-with-terraform/
+  - https://docs.datadoghq.com/account_management/rbac/permissions/
   - https://docs.datadoghq.com/logs/guide/manage_logs_and_metrics_with_terraform/
   - https://docs.datadoghq.com/dashboards/guide/how-to-use-terraform-to-restrict-dashboard-edit/
-  - https://docs.datadoghq.com/integrations/faq/how-to-import-datadog-resources-into-terraform/
+  - https://docs.datadoghq.com/dashboards/configure/
   - https://docs.datadoghq.com/monitors/manage/
+  - https://docs.datadoghq.com/service_management/service_level_objectives/
   - https://docs.datadoghq.com/synthetics/guide/export-tests-to-terraform/
   - https://docs.datadoghq.com/security/detection_rules/
   - https://docs.datadoghq.com/api/latest/security-monitoring/export-security-monitoring-resource-to-terraform/
   - https://docs.datadoghq.com/observability_pipelines/configuration/export_pipeline_configuration/
+  - https://docs.datadoghq.com/integrations/faq/how-to-import-datadog-resources-into-terraform/
   - https://docs.datadoghq.com/integrations/pulumi/
-  - https://github.com/pulumi/pulumi-datadog
   - https://docs.datadoghq.com/integrations/guide/amazon_cloudformation/
-  - https://github.com/DataDog/datadog-cloudformation-resources
-  - https://aws.amazon.com/cloudformation/pricing/
-  - https://github.com/DataDog/datadog-operator/blob/main/docs/datadoggenericresource/datadog_generic_resource.md
   - https://docs.datadoghq.com/integrations/statefile-ingestion/
   - https://docs.datadoghq.com/api/latest/rate-limits/
+  - https://www.datadoghq.com/blog/datadog-terraform-provider-v4/
+  - https://www.datadoghq.com/blog/datadog-api-authentication/
+  - https://registry.terraform.io/providers/DataDog/datadog/latest/docs
+  - https://github.com/DataDog/terraform-provider-datadog
+  - https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/index.md
+  - https://github.com/DataDog/terraform-provider-datadog/blob/master/CHANGELOG.md
+  - https://github.com/DataDog/terraform-provider-datadog/releases
+  - https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/guides/v4-upgrade-guide.md
+  - https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/guides/dynamic_provider_credentials.md
+  - https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/guides/dashboard_resource_names.md
+  - https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/guides/powerpack_v2_migration.md
+  - https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/guides/monitors.md
+  - https://github.com/DataDog/terraform-provider-datadog/tree/master/docs/resources
+  - https://github.com/DataDog/terraform-provider-datadog/tree/master/docs/data-sources
+  - https://github.com/DataDog/terraform-provider-datadog/blob/master/datadog/internal/utils/utils.go
+  - https://github.com/DataDog/datadog-cloudformation-resources
+  - https://github.com/DataDog/datadog-cloudformation-resources/blob/master/datadog-monitors-monitor-handler/datadog-monitors-monitor.json
+  - https://github.com/DataDog/datadog-operator/blob/main/docs/datadog_monitor.md
+  - https://github.com/DataDog/datadog-operator/blob/main/docs/datadog_dashboard.md
+  - https://github.com/DataDog/datadog-operator/blob/main/docs/datadog_slo.md
+  - https://github.com/DataDog/datadog-operator/blob/main/docs/datadoggenericresource/datadog_generic_resource.md
+  - https://github.com/pulumi/pulumi-datadog
+  - https://github.com/pulumi/pulumi-datadog/releases
+  - https://github.com/pulumi/pulumi-datadog/blob/master/sdk/go.mod
+  - https://aws.amazon.com/cloudformation/pricing/
+  - https://developer.hashicorp.com/terraform/language/import/generating-configuration
+  - https://github.com/GoogleCloudPlatform/terraformer
+  - https://github.com/GoogleCloudPlatform/terraformer/blob/master/docs/datadog.md
+  - https://www.issoh.co.jp/tech/details/10105/
+  - https://zenn.dev/port_inc/articles/terraform_datadog
 ---
 
 # Terraform と IaC（Infrastructure as Code）
@@ -157,7 +178,7 @@ Datadog Terraform Provider の `provider "datadog"` ブロックの引数は、�
 | `app_key` | String（Sensitive） | Datadog アプリケーションキー。必須条件は `api_key` と同じ | `DD_APP_KEY`（`DATADOG_APP_KEY` も可） |
 | `api_url` | String | API の URL。末尾 `/api/` は不可 | 既定 `https://api.datadoghq.com`。`DD_HOST`（`DATADOG_HOST` も可） |
 | `bearer_token` | String（Sensitive） | `Authorization: Bearer <token>` で送る認証情報。PAT（`ddpat_*`）と SAT（`ddsat_*`）を受け付け、設定時は `DD-API-KEY` / `DD-APPLICATION-KEY` ヘッダーの代わりに使われる | `DD_BEARER_TOKEN`（`DATADOG_BEARER_TOKEN` も可） |
-| `cloud_provider_type` | String | クラウド認証（キーレス）に使うクラウド。**`aws` のみ**対応。Provider ドキュメント上は「Preview」と記載 | `DD_CLOUD_PROVIDER_TYPE`（`DATADOG_CLOUD_PROVIDER_TYPE` も可） |
+| `cloud_provider_type` | String | 【Preview】クラウド認証（キーレス）に使うクラウド。**`aws` のみ**対応。Provider ドキュメント上は「Preview」と記載（WIF ドキュメントとの記述の揺れは後述） | `DD_CLOUD_PROVIDER_TYPE`（`DATADOG_CLOUD_PROVIDER_TYPE` も可） |
 | `cloud_provider_region` | String | クラウド認証用のリージョン（例：`us-east-1`）。AWS で省略時は AWS SDK の既定設定チェーンから読む | — |
 | `org_uuid` | String | 組織 UUID。AWS WIF では必須。Dynamic Provider Credentials では任意（指定時はトークンの audience と一致必須） | `DD_ORG_UUID`（`DATADOG_ORG_UUID` も可） |
 | `aws_access_key_id` | String（Sensitive） | クラウド認証用の明示的な AWS アクセスキー ID。省略時は AWS SDK 既定の認証情報チェーン | `AWS_ACCESS_KEY_ID` |
@@ -330,12 +351,12 @@ HCP Terraform（旧称：Terraform Cloud）の Dynamic Provider Credentials は�
 
 ### 3.1 カテゴリ別リソース一覧
 
-Datadog Terraform Provider のリソース（2026-11-02 時点で 177 種）を、主なカテゴリ別に整理する（リソース名の接頭辞 `datadog_` は省略。全量は Registry を参照）。
+Datadog Terraform Provider のリソース（2026-11-02 時点で 177 種）を、主なカテゴリ別に整理する（リソース名の接頭辞 `datadog_` は省略。全量は [Terraform Registry](https://registry.terraform.io/providers/DataDog/datadog/latest/docs) を参照）。
 
 | カテゴリ | 主なリソース（`datadog_` 省略） | 関連ファイル |
 |---|---|---|
 | Monitor・通知 | `monitor`、`monitor_json`、`monitor_config_policy`、`monitor_notification_rule`、`downtime_schedule`、`downtime`（Deprecated）、`webhook`、`webhook_custom_variable`、`webhook_oauth2_client_credentials` | [Monitors](./monitors.md)、[通知と Downtime](./notifications-and-downtimes.md) |
-| Dashboard | `dashboard`、`dashboard_json`、`dashboard_v2`（`dashboard` のエイリアス）、`dashboard_list`、`powerpack`、`powerpack_v2`（BETA）、`secure_embed_dashboard` | [Dashboards](./dashboards.md) |
+| Dashboard | `dashboard`、`dashboard_json`、`dashboard_v2`（`dashboard` のエイリアス）、`dashboard_list`、`powerpack`、`powerpack_v2`【Preview】（公式表記は BETA）、`secure_embed_dashboard` | [Dashboards](./dashboards.md) |
 | SLO | `service_level_objective`、`slo_correction` | [SLO](./slo.md) |
 | Synthetic | `synthetics_test`、`synthetics_global_variable`、`synthetics_private_location`、`synthetics_concurrency_cap`、`synthetics_suite` | [Synthetic Monitoring](../dem/synthetic-monitoring.md) |
 | ログ | `logs_index`、`logs_index_order`、`logs_custom_pipeline`、`logs_integration_pipeline`、`logs_pipeline_order`、`logs_archive`、`logs_archive_order`、`logs_metric`、`logs_custom_destination`、`logs_restriction_query` | [Log Pipelines と処理](../logs/log-pipelines-and-processing.md)、[Indexes・保持・アーカイブ](../logs/log-indexes-retention-archives.md) |
@@ -378,7 +399,7 @@ Datadog Terraform Provider のリソース（2026-11-02 時点で 177 種）を�
 | `draft_status` | `draft`（通知しない下書き）/ `published` | `published` |
 | `notify_no_data` | データ停止時に通知するか | `false` |
 | `no_data_timeframe` | データ停止から通知までの分数（メトリクスアラームは timeframe の 2 倍以上を推奨） | 10 |
-| `on_missing_data` | データ欠損時の扱い（`default` 等。APM Trace Analytics、Audit Trail、CI、Error Tracking、Event、Logs、RUM 系で使用） | — |
+| `on_missing_data` | データ欠損時の扱い。有効値は `show_no_data`、`show_and_notify_no_data`、`resolve`、`default`。Service Check・Composite・SLO Monitor では使用不可 | — |
 | `require_full_window` | 評価にウィンドウ全体のデータを要求するか（疎なメトリクスでは `false` を強く推奨。Custom Schedule 使用時は `false` 必須） | `true` |
 | `include_tags` | 通知タイトルにトリガー元タグを入れるか | `true` |
 | `notify_audit` | Monitor 変更時にタグ付けされたユーザーへ通知するか | `false` |
@@ -386,7 +407,7 @@ Datadog Terraform Provider のリソース（2026-11-02 時点で 177 種）を�
 | `groupby_simple_monitor` | ログ Monitor でいずれかのソースが閾値超過時に 1 件のアラートにするか | `false` |
 | `evaluation_delay` | 評価の遅延（秒、metric alert のみ）。CloudWatch 等のバックフィルされるメトリクス向け | — |
 | `new_group_delay` | 新規グループの評価をスキップする秒数（`new_host_delay` は Deprecated） | — |
-| `group_retention_duration` | 欠損グループを状態から外すまでの時間（最小 1 時間、最大 72 時間） | — |
+| `group_retention_duration` | 欠損グループを状態から外すまでの時間（最小 1 時間、最大 72 時間。例：`60m`、`1h`、`2d`）。APM Trace Analytics、Audit Trail、CI、Error Tracking、Event、Logs、RUM Monitor でのみ使用可 | — |
 | `timeout_h` | データ非報告で自動 Resolve するまでの時間（0〜24 時間） | — |
 | `renotify_interval` / `renotify_occurrences` / `renotify_statuses` | 再通知の間隔（分）・回数・対象ステータス（`alert`、`warn`、`no data`） | — |
 | `notify_by` | 通知の粒度（グルーピングタグの部分集合） | — |
@@ -468,7 +489,7 @@ Datadog Terraform Provider には、API の JSON 定義をそのまま渡す JSO
 | 同じウィジェットリクエストで `q` と `query` / `formula` を併用 | `q` 単独、または `query` + `formula` のどちらかに統一 |
 | 1 個しか許されないブロックを複数記述（hostmap の `request.fill` / `request.size`、scatterplot の `request.x` / `request.y`、toplist の `style` / `style.display`、topology map の `request.query`） | 1 個にする（従来は先頭のみ送信され、残りは恒久的な差分になっていた） |
 | `group_definition` 内の `powerpack_definition` / `split_graph_definition` | API がグループ内で受け付けないため外に出す |
-| `content` が空のウィジェット | 内容を設定する |
+| （`datadog_dashboard_v2` 利用者のみ）`content` が空のウィジェット（`datadog_dashboard` と同じ挙動に統一） | 内容を設定する |
 
 その他の挙動変更:
 
@@ -479,9 +500,9 @@ Datadog Terraform Provider には、API の JSON 定義をそのまま渡す JSO
 
 出典: [Dashboard resource names guide](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/guides/dashboard_resource_names.md)、[datadog_dashboard](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/dashboard.md)
 
-### 3.5 `datadog_powerpack_v2`【BETA】
+### 3.5 `datadog_powerpack_v2`【Preview】
 
-- `datadog_powerpack_v2` は `datadog_powerpack` の改良版で、ウィジェット対応とシリアライズ挙動が `datadog_dashboard_v2` と同じ。Provider ドキュメント上 **BETA**（Experimental、変更の可能性あり）で、本番以外での検証が推奨されている。
+- `datadog_powerpack_v2` は `datadog_powerpack` の改良版で、ウィジェット対応とシリアライズ挙動が `datadog_dashboard_v2` と同じ。Provider ドキュメント上の表記は **BETA**（Experimental、変更の可能性あり。本ナレッジでは規約に従い【Preview】として扱う）で、本番以外での検証が推奨されている。
 - 両リソースは同一構成内に共存できるが、**同じ Powerpack を両方で同時に管理してはいけない**。移行は `terraform state rm datadog_powerpack.<name>`（Datadog 側の Powerpack は削除されない）→ `terraform import datadog_powerpack_v2.<name> <powerpack-id>` → `terraform plan` で差分なしを確認、の順で行う。
 
 出典: [Powerpack v2 migration guide](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/guides/powerpack_v2_migration.md)
@@ -520,7 +541,7 @@ Datadog Terraform Provider には、API の JSON 定義をそのまま渡す JSO
 ### 3.9 アクセス制御（`datadog_restriction_policy` と `restricted_roles`）
 
 - `datadog_restriction_policy` は、個別リソースに対するアクセスレベル（`viewer`、`editor` 等の `relation`）を、ロール・チーム・ユーザー・org（`principals` の `type:id` 形式：`role`、`team`、`user`、`org`）に付与する。必須は `resource_id`（`<resource_type>:<id>` 形式、例：`dashboard:abc-def-ghi`、`monitor:12345678`、`security-rule:abc-def-ghi`）。[出典](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/restriction_policy.md)
-- Provider ドキュメントの `resource_id` 説明には「Dashboards : support is in private beta」と記載がある。また Dashboard 向け Terraform ガイドは Restriction Policies を「Preview」と記載している（2026-11-02 時点）。対応状況の詳細は [組織・ユーザー・権限管理](./account-and-access-management.md) を参照。[出典](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/restriction_policy.md)、[出典](https://docs.datadoghq.com/dashboards/guide/how-to-use-terraform-to-restrict-dashboard-edit/)
+- 【Preview】Dashboard への適用：Provider ドキュメントの `resource_id` 説明には「Dashboards : support is in private beta」と記載がある。また Dashboard 向け Terraform ガイドは Restriction Policies を「Preview」と記載している（2026-11-02 時点）。対応状況の詳細は [組織・ユーザー・権限管理](./account-and-access-management.md) を参照。[出典](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/restriction_policy.md)、[出典](https://docs.datadoghq.com/dashboards/guide/how-to-use-terraform-to-restrict-dashboard-edit/)
 - `org` principal に使う org ID は `GET /api/v2/current_user` の `data.relationships.org.data.id` で取得する。ロール ID は Roles API、Roles UI、または `datadog_role` リソースの ID から得る。[出典](https://docs.datadoghq.com/dashboards/guide/how-to-use-terraform-to-restrict-dashboard-edit/)
 
 ```hcl
@@ -598,7 +619,7 @@ resource "datadog_restriction_policy" "example" {
 
 出典: [v4 Upgrade Guide](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/guides/v4-upgrade-guide.md)、[downtime](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/downtime.md)、[integration_gcp](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/integration_gcp.md)、[cloud_workload_security_agent_rule](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/cloud_workload_security_agent_rule.md)、[openapi_api](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/openapi_api.md)
 
-> **公式ドキュメント間の不整合:** Getting Started with Terraform ページ（2026-08-06 更新）は、AWS 連携のリソースとして v4.0.0 で削除済みの `integration_aws` へリンクしている。v4 系では `datadog_integration_aws_account` を使うこと。[出典](https://docs.datadoghq.com/getting_started/integrations/terraform/)、[出典](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/guides/v4-upgrade-guide.md)
+> **公式ドキュメント間の不整合:** Getting Started with Terraform ページは（2026-11-04 確認時点）、AWS 連携のリソースとして v4.0.0 で削除済みの `integration_aws` へリンクしている。v4 系では `datadog_integration_aws_account` を使うこと。[出典](https://docs.datadoghq.com/getting_started/integrations/terraform/)、[出典](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/guides/v4-upgrade-guide.md)
 
 ---
 
@@ -762,7 +783,7 @@ Pulumi Datadog Provider は、Pulumi で Datadog リソースを管理するた�
 |---|---|
 | 最新版（確認時点） | v5.17.1（2026-10-27）。v5.17.0（2026-10-22）で Terraform Provider v4.27.0 に追随 |
 | メジャー v5.0.0 | 2026-04-01 リリース（Terraform Provider v4.3.0 ベース。v4 系の最終は v4.68.0（2026-02-25）） |
-| パッケージ | Node.js：`@pulumi/datadog`、Python：`pulumi_datadog`、Go：`github.com/pulumi/pulumi-datadog/sdk/v5`、.NET：`Pulumi.Datadog` |
+| パッケージ | Node.js：`@pulumi/datadog`、Python：`pulumi_datadog`、Go：`github.com/pulumi/pulumi-datadog/sdk/v5`（README の `go get` 例は 2026-11-04 確認時点でも `sdk/v4` のままだが、`sdk/go.mod` のモジュールパスは `sdk/v5`。本表は go.mod を正とする）、.NET：`Pulumi.Datadog` |
 | 設定キー | `datadog:apiKey`（必須）、`datadog:appKey`（必須）、`datadog:apiUrl`（任意。末尾 `/api/` 不可） |
 | 環境変数 | `DATADOG_API_KEY`、`DATADOG_APP_KEY`、`DATADOG_HOST` |
 | 基本操作 | `pulumi new` でプロジェクト作成 → コードでリソース定義 → `pulumi up` で作成 |
@@ -883,10 +904,12 @@ Datadog Operator は Agent のデプロイ（`DatadogAgent`）だけでなく、
 
 | CRD | 最低 Operator バージョン | 状態 | 有効化（Helm） |
 |---|---|---|---|
-| `DatadogMonitor` | v0.6+ | **ソフト非推奨**（新規は DDGR の `type: monitor` を推奨）。対応は metric alert、query alert、service check のみ | `datadogMonitor.enabled=true` |
-| `DatadogDashboard` | v1.9+ | ソフト非推奨（新規は DDGR の `type: dashboard`） | `datadogDashboard.enabled=true` |
-| `DatadogSLO` | v1.9+ | ソフト非推奨（新規は DDGR の `type: slo`） | `datadogSLO.enabled=true` |
+| `DatadogMonitor` | v0.6+ | 引き続きサポート（公式は「Soft deprecation notice」として新規は DDGR の `type: monitor` を推奨）。公式記載上の対応は metric alert、query alert、service check のみ（下記注記参照） | `datadogMonitor.enabled=true` |
+| `DatadogDashboard` | v1.9+ | 引き続きサポート（公式は「Soft deprecation notice」として新規は DDGR の `type: dashboard` を推奨） | `datadogDashboard.enabled=true` |
+| `DatadogSLO` | v1.9+ | 引き続きサポート（公式は「Soft deprecation notice」として新規は DDGR の `type: slo` を推奨） | `datadogSLO.enabled=true` |
 | `DatadogGenericResource`（DDGR） | v1.12.0+ | 推奨。`jsonSpec` に Datadog API のペイロードをそのまま書く | `datadogCRDs.crds.datadogGenericResources=true` と `datadogGenericResource.enabled=true` の**両方**が必要（既定はどちらも無効） |
+
+> **公式ドキュメント内の不整合:** DatadogMonitor のドキュメントは「only metric alerts, query alerts, and service checks are supported」と記載する一方、同ページの `kubectl describe` 出力例には `Type: event-v2 alert` の Monitor が示されている（2026-11-04 確認時点）。他タイプを使う場合は利用中の Operator バージョンで動作を検証するか、DDGR の `type: monitor` を使うこと。[出典](https://github.com/DataDog/datadog-operator/blob/main/docs/datadog_monitor.md)
 
 出典: [DatadogMonitor](https://github.com/DataDog/datadog-operator/blob/main/docs/datadog_monitor.md)、[DatadogDashboard](https://github.com/DataDog/datadog-operator/blob/main/docs/datadog_dashboard.md)、[DatadogSLO](https://github.com/DataDog/datadog-operator/blob/main/docs/datadog_slo.md)、[DatadogGenericResource](https://github.com/DataDog/datadog-operator/blob/main/docs/datadoggenericresource/datadog_generic_resource.md)
 
@@ -961,7 +984,7 @@ spec:
 
 | 注意点 | 内容 | 出典 |
 |---|---|---|
-| **AP1 等では `api_url` 必須** | 既定は US1（`https://api.datadoghq.com`）。指定漏れは認証エラーや別サイトへの作成につながる | [Terraform integration](https://docs.datadoghq.com/integrations/terraform/) |
+| **AP1 等では `api_url` 必須** | 既定は US1（`https://api.datadoghq.com`）。指定漏れは US1 への接続となり、キーが別サイトのものであれば認証エラーになる【推定】 | [Terraform integration](https://docs.datadoghq.com/integrations/terraform/) |
 | plan に API アクセスが必要 | `validate` 既定 `true` のため、Provider 初期化時の認証情報検証や、Monitor クエリ・Dashboard ウィジェットの plan 時検証で API を呼ぶ。オフライン plan は `validate = false` | [Provider docs](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/index.md)、[Dashboard guide](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/guides/dashboard_resource_names.md) |
 | 作成後に変更できない属性 | `datadog_monitor` の `type`、`datadog_logs_index` の `name`（変更すると新規 Index 作成） | [monitor](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/monitor.md)、[logs_index](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/logs_index.md) |
 | 参照されているリソースの削除 | SLO や Composite Monitor から参照される Monitor / Synthetic テストは、`force_delete` / `force_delete_dependencies` を設定しないと削除できない場合がある | [monitor](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/monitor.md)、[synthetics_test](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/synthetics_test.md) |
@@ -1060,7 +1083,6 @@ spec:
 - https://docs.datadoghq.com/api/latest/security-monitoring/export-security-monitoring-resource-to-terraform/
 - https://docs.datadoghq.com/observability_pipelines/configuration/export_pipeline_configuration/
 - https://docs.datadoghq.com/integrations/faq/how-to-import-datadog-resources-into-terraform/
-- https://docs.datadoghq.com/integrations/guide/aws-terraform-setup/
 - https://docs.datadoghq.com/integrations/pulumi/
 - https://docs.datadoghq.com/integrations/guide/amazon_cloudformation/
 - https://docs.datadoghq.com/integrations/statefile-ingestion/
@@ -1070,7 +1092,6 @@ spec:
 
 - https://www.datadoghq.com/blog/datadog-terraform-provider-v4/ （2026-03-20 公開）
 - https://www.datadoghq.com/blog/datadog-api-authentication/ （2026-06-09 公開）
-- https://www.datadoghq.com/blog/managing-datadog-with-terraform/
 
 ### Datadog 公式 GitHub / Terraform Registry
 
@@ -1098,6 +1119,7 @@ spec:
 
 - https://github.com/pulumi/pulumi-datadog （Pulumi 社公式）
 - https://github.com/pulumi/pulumi-datadog/releases
+- https://github.com/pulumi/pulumi-datadog/blob/master/sdk/go.mod
 - https://aws.amazon.com/cloudformation/pricing/ （AWS 公式）
 - https://developer.hashicorp.com/terraform/language/import/generating-configuration （HashiCorp 公式）
 - https://github.com/GoogleCloudPlatform/terraformer （アーカイブ済み）

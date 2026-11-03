@@ -9,6 +9,7 @@ keywords: [Workload Protection, ワークロード保護, Cloud Workload Securit
 sources:
   - https://docs.datadoghq.com/security/workload_protection/
   - https://docs.datadoghq.com/security/workload_protection/setup/
+  - https://docs.datadoghq.com/security/workload_protection/setup/agent/
   - https://docs.datadoghq.com/security/workload_protection/setup/agent/linux/
   - https://docs.datadoghq.com/security/workload_protection/setup/agent/kubernetes/
   - https://docs.datadoghq.com/security/workload_protection/setup/agent/docker/
@@ -18,6 +19,7 @@ sources:
   - https://docs.datadoghq.com/security/workload_protection/setup/advanced_configuration/
   - https://docs.datadoghq.com/security/workload_protection/workload_protection_agent_config
   - https://docs.datadoghq.com/security/workload_protection/guide/ebpf-free-agent/
+  - https://docs.datadoghq.com/es/security/cloud_security_management/guide/ebpf-free-agent
   - https://docs.datadoghq.com/security/workload_protection/detect_and_monitor/agent_rules/
   - https://docs.datadoghq.com/security/workload_protection/detect_and_monitor/agent_rules/secl_guide/
   - https://docs.datadoghq.com/security/workload_protection/detect_and_monitor/agent_rules/policy_management/
@@ -33,15 +35,18 @@ sources:
   - https://docs.datadoghq.com/security/workload_protection/investigate_and_triage/security_findings
   - https://docs.datadoghq.com/security/workload_protection/respond_and_report/
   - https://docs.datadoghq.com/security/workload_protection/guide/active-protection
+  - https://docs.datadoghq.com/es/security/cloud_security_management/guide/active-protection/
   - https://docs.datadoghq.com/security/workload_protection/inventory/
   - https://docs.datadoghq.com/security/workload_protection/inventory/review_improve_coverage
   - https://docs.datadoghq.com/security/workload_protection/guide/tuning-rules/
   - https://docs.datadoghq.com/security/workload_protection/troubleshooting/threats/
+  - https://docs.datadoghq.com/security/cloud_siem/guide/customize-which-logs-cloud-siem-analyzes/
   - https://docs.datadoghq.com/api/latest/csm-threats/
   - https://docs.datadoghq.com/account_management/rbac/permissions/
   - https://docs.datadoghq.com/data_security/data_retention_periods/
   - https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/csm_threats_agent_rule
   - https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/csm_threats_policy
+  - https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/cloud_workload_security_agent_rule
   - https://www.datadoghq.com/pricing/?product=workload-protection
   - https://www.datadoghq.com/pricing/list/
   - https://www.datadoghq.com/blog/stop-runtime-threats-with-workload-protection-response-actions/
@@ -49,6 +54,7 @@ sources:
   - https://www.datadoghq.com/blog/workload-protection-investigation/
   - https://www.datadoghq.com/blog/datadog-workload-protection-cryptomining/
   - https://www.datadoghq.com/blog/engineering/ebpf-workload-protection-lessons/
+  - https://github.com/DataDog/datadog-security-playground
 ---
 
 # Workload Protection（旧 CWS）
@@ -278,13 +284,14 @@ sudo chgrp dd-agent /etc/datadog-agent/system-probe.yaml /etc/datadog-agent/secu
 |---|---|---|---|
 | `/etc/datadog-agent/datadog.yaml` | `remote_configuration.enabled: true` | `false`（ファイル内コメント上の既定） | Remote Configuration |
 | 同上 | `runtime_security_config.enabled: true` | `false` | Threat Detection |
-| 同上 | `compliance_config.enabled` / `host_benchmarks.enabled` | `false` | Misconfigurations（Cloud Security） |
+| 同上 | `compliance_config.enabled` | `false` | Misconfigurations（Cloud Security） |
+| 同上 | `compliance_config.host_benchmarks.enabled` | 公開情報では明記なし | ホストベンチマーク（Misconfigurations） |
 | 同上 | `sbom.enabled`、`sbom.container_image.enabled`、`sbom.host.enabled` | ― | Vulnerabilities（Cloud Security）。脆弱性は 1 時間ごとに評価 |
 | `/etc/datadog-agent/security-agent.yaml` | `runtime_security_config.enabled: true` | `false` | Threat Detection（7.77 未満で必要） |
 | `/etc/datadog-agent/system-probe.yaml` | `runtime_security_config.enabled: true` | `false` | Threat Detection |
 | 同上 | `runtime_security_config.remote_configuration.enabled: true` | `false` | ルールの Remote Configuration 配信 |
 
-インストールスクリプトを使った場合でも、`host_benchmarks` と `sbom`（`container_image`、`host`）は `datadog.yaml` で手動有効化が必要である。[出典](https://docs.datadoghq.com/security/workload_protection/setup/agent/linux/)
+インストールスクリプトを使った場合でも、`compliance_config.host_benchmarks` と `sbom`（`container_image`、`host`）は `datadog.yaml` で手動有効化が必要である。[出典](https://docs.datadoghq.com/security/workload_protection/setup/agent/linux/)
 
 ### Kubernetes
 
@@ -445,7 +452,7 @@ Windows では `C:\ProgramData\Datadog\` の `system-probe.yaml` と `security-a
 | `hash_resolver.cache_size` | `500` | キャッシュするハッシュ数 |
 | `hash_resolver.event_types` | `["exec", "open"]` | ハッシュ計算対象にできるイベント種別 |
 | `hash_resolver.hash_algorithms` | `["sha1", "sha256", "ssdeep"]` | 計算するハッシュ（`md5` も指定可） |
-| `hash_resolver.max_file_size` | `5242880`（5 MiB） | ハッシュ計算する最大ファイルサイズ |
+| `hash_resolver.max_file_size` | `5242880`（5 MiB、5,242,880 バイト） | ハッシュ計算する最大ファイルサイズ |
 | `hash_resolver.max_hash_rate` | `500` | ハッシュ計算のレート上限 |
 | `user_sessions.ssh.enabled` | `true` | SSH ユーザーセッション機能 |
 | `syscalls.capture_all_errors.enabled` | `false` | 全 syscall エラーを取得（上級設定。変更すると Workload Protection やホストに影響し得る） |
@@ -631,14 +638,14 @@ rules:
 | `disable_container_disarmer` | 任意 | `false` | コンテナ単位の安全装置（disarmer）を無効化 |
 | `disable_executable_disarmer` | 任意 | `false` | 実行ファイル単位の安全装置を無効化 |
 
-disarmer は、一定期間内に同一対象への kill が多発した場合に以降の kill を抑止する安全装置である。`runtime_security_config.enforcement.exclude_binaries` に列挙したバイナリは kill の対象外になる。kill の結果は `agent.rule_actions` に記録され、`status` は `performed`、`partially_performed`、`error`、`kill_queued`、`kill_aborted`、`rule_disarmed`、`rule_dismantled` のいずれか。実行回数はメトリクス `datadog.runtime_security_config.rules.action_performed`（`action_name:kill`）で数える。
+disarmer は、一定期間内に同一対象への kill が多発した場合に以降の kill を抑止する安全装置である。`runtime_security_config.enforcement.exclude_binaries` に列挙したバイナリは kill の対象外になる。kill の結果は Agent Event の `agent.rule_actions` に記録され、`agent.rule_actions.status`（シグナルの Response 表に出る応答ステータスとは別の値の組）は `performed`、`partially_performed`、`error`、`kill_queued`、`kill_aborted`、`rule_disarmed`、`rule_dismantled` のいずれか。実行回数はメトリクス `datadog.runtime_security_config.rules.action_performed`（`action_name:kill`）で数える。
 
 **`hash` のパラメータ**
 
 | フィールド | 既定値 | 説明 |
 |---|---|---|
 | `field` | `exec` ルールは `exec.file`、`open` ルールは `open.file` | 他のイベント種別では必須 |
-| `max_file_size` | `5242880`（5 MB） | 超えるファイルはスキップ |
+| `max_file_size` | `5242880`（5 MiB、5,242,880 バイト） | 超えるファイルはスキップ |
 
 結果は `exec.file.hashes` 等の `*.hashes` フィールドに入る。アルゴリズムは `hash_resolver.hash_algorithms` に従う（MD5、SHA1、SHA256、SSDEEP）。
 
@@ -833,10 +840,22 @@ Workload Protection の応答機能は、当初 **Active Protection** の名称�
 
 ### 応答アクション
 
-| アクション | 内容 | ステータス値 |
-|---|---|---|
-| Kill | 悪性プロセス、またはスコープに応じて侵害コンテナ（cgroup）内の全プロセスを終了 | `performed`、`partially_performed`（一部のみ終了）、`error`（失敗し実行中のまま）、`not_triggered`（対象が見つからない。先に終了した等） |
-| Network isolation | eBPF ベースのフィルタで通信を遮断（例：特定ポートへの egress を drop）。隔離は取り消し可能 | `performed`、`error`、`not_triggered`、`removed`（隔離ルール削除＝取り消し） |
+| アクション | 内容 |
+|---|---|
+| Kill | 悪性プロセス、またはスコープに応じて侵害コンテナ（cgroup）内の全プロセスを終了 |
+| Network isolation | eBPF ベースのフィルタで通信を遮断（例：特定ポートへの egress を drop）。隔離は取り消し可能 |
+
+シグナルの Response 表に表示される応答ステータスは次の5値で、公式ページでは Kill と Network isolation で共通の1つの表に載っている。`performed`、`error`、`not_triggered` は両アクションに該当すると明記されている。`partially_performed` と `removed` は、どのアクションに該当するかが表からは読み取りにくい（`removed` は説明上、ネットワーク隔離を取り消したときに使われる）。[出典](https://docs.datadoghq.com/security/workload_protection/respond_and_report/)
+
+| ステータス（シグナルの Response 表） | 意味 |
+|---|---|
+| `performed` | アクションを実行した |
+| `partially_performed` | 一部のみ実行した（例：対象プロセスの一部だけを終了） |
+| `removed` | 実行済みのアクションを取り消した（ネットワーク隔離の解除時に使われる） |
+| `error` | 実行に失敗した（例：プロセスが実行中のまま） |
+| `not_triggered` | 対象が見つからず実行されなかった（例：先に終了していた） |
+
+この5値は、Agent Event に記録される `agent.rule_actions.status`（[アクションと変数](#アクションと変数) の kill の項を参照）とは別物である。
 
 公式ブログ（2026-09-04 公開）によると、隔離は eBPF フィルタでカーネル内の ingress / egress 通信に適用され、単一プロセスまたはコンテナを対象にでき、すべての応答アクションは記録・タイムスタンプ付きで監査できる。自動応答は「曖昧さがなく、決して正当でない」アクティビティに限って使うことが推奨されている。[出典](https://www.datadoghq.com/blog/stop-runtime-threats-with-workload-protection-response-actions/)
 

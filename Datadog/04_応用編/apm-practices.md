@@ -13,23 +13,35 @@ sources:
   - https://docs.datadoghq.com/tracing/trace_pipeline/ingestion_controls/
   - https://docs.datadoghq.com/tracing/trace_pipeline/adaptive_sampling/
   - https://docs.datadoghq.com/tracing/trace_pipeline/trace_retention/
+  - https://docs.datadoghq.com/tracing/trace_pipeline/metrics/
+  - https://docs.datadoghq.com/tracing/trace_pipeline/generate_metrics/
   - https://docs.datadoghq.com/tracing/guide/leveraging_diversity_sampling/
+  - https://docs.datadoghq.com/tracing/guide/ignoring_apm_resources/
+  - https://docs.datadoghq.com/tracing/trace_explorer/
+  - https://docs.datadoghq.com/tracing/troubleshooting/
   - https://docs.datadoghq.com/tracing/services/inferred_services/
   - https://docs.datadoghq.com/tracing/guide/service_overrides/
   - https://docs.datadoghq.com/tracing/services/service_override_removal/
   - https://docs.datadoghq.com/tracing/services/service_remapping_rules/
   - https://docs.datadoghq.com/getting_started/tagging/unified_service_tagging/
+  - https://docs.datadoghq.com/tracing/trace_collection/library_config/
+  - https://docs.datadoghq.com/tracing/trace_collection/trace_context_propagation/
   - https://docs.datadoghq.com/tracing/other_telemetry/connect_logs_and_traces/
   - https://docs.datadoghq.com/tracing/other_telemetry/connect_logs_and_traces/opentelemetry/
   - https://docs.datadoghq.com/tracing/troubleshooting/correlated-logs-not-showing-up-in-the-trace-id-panel/
+  - https://docs.datadoghq.com/opentelemetry/guide/ingestion_sampling_with_opentelemetry/
   - https://docs.datadoghq.com/tracing/services/deployment_tracking/
   - https://docs.datadoghq.com/watchdog/faulty_deployment_detection/
   - https://docs.datadoghq.com/tracing/recommendations/
   - https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/
+  - https://docs.datadoghq.com/glossary/
   - https://www.datadoghq.com/pricing/list/
+  - https://www.datadoghq.com/pricing/?product=apm
   - https://www.datadoghq.com/architecture/mastering-distributed-tracing-data-volume-challenges-and-datadogs-approach-to-efficient-sampling/
   - https://www.datadoghq.com/architecture/optimizing-distributed-tracing-best-practices-for-remaining-within-budget-and-capturing-critical-traces/
   - https://www.datadoghq.com/blog/zendesk-cost-optimization/
+  - https://zenn.dev/ymtdzzz/articles/7f161d59072290
+  - https://utf9k.net/blog/sampling-all-the-way-down/
 ---
 
 # APM 運用の実践
@@ -63,7 +75,7 @@ sources:
 
 ### 1.1 APM データの流れと「お金がかかる場所」
 
-Datadog APM の運用設計は、データが「計装 → 取り込み（Ingestion）→ 保持（Retention / Indexing）→ 活用」の各段階でどう減り、どこで課金されるかを理解することから始まる。Trace Metrics（`trace.*`）は取り込みサンプリングの**前**に 100% のトラフィックから計算されるため、サンプリングを絞っても RED メトリクス（Requests / Errors / Duration）とそれを使うモニター・SLO の精度は保たれる [出典](https://docs.datadoghq.com/tracing/guide/trace_ingestion_volume_control/)。
+Datadog APM の運用設計は、データが「計装 → 取り込み（Ingestion）→ 保持（Retention / Indexing）→ 活用」の各段階でどう減り、どこで課金されるかを理解することから始まる。Trace Metrics（`trace.*`）は取り込みサンプリングの**前**に 100% のトラフィックから計算されるため、サンプリングを絞っても RED メトリクス（Requests / Errors / Duration）とそれを使うモニター・SLO の精度は保たれる [出典](https://docs.datadoghq.com/tracing/guide/trace_ingestion_volume_control/)。ただしこれは Datadog SDK と Agent で計装・送信する場合の話である。OpenTelemetry の SDK や Collector でサンプリングする場合、APM メトリクスは既定でサンプル済みデータから計算される。`span_metrics` connector（または Datadog Connector）をサンプリングより前に置く必要がある（§2.4）。
 
 ```mermaid
 flowchart LR
@@ -104,7 +116,7 @@ Datadog APM の計装方式は大きく 4 つある。各方式の詳細仕様�
 | Single Step Instrumentation（SSI） | Agent 導入時に APM SDK をプロセス／Pod に自動注入。コード・イメージ変更不要 | 多数のサービスを短期間で計装したい。プラットフォームチームが中央管理したい | 既定では全プロセス・全 Namespace が対象になるため、ターゲティングで範囲を制御する。言語・ランタイムの対応要件あり |
 | SDK の手動導入（Manual / Local） | アプリのビルド・起動設定に SDK を組み込む | 計装をアプリチームが所有する。SDK バージョンや設定を厳密に管理したい | サービスごとに導入作業が必要。設定のばらつきが出やすい |
 | Kubernetes の Local SDK Injection | Pod 単位のアノテーション／ラベルで SDK を注入（SSI を使わない） | クラスタ全体ではなく一部ワークロードだけ注入したい | Admission Controller が必要 |
-| OpenTelemetry（OTel SDK / Collector） | OTel で計装し、Datadog Agent の OTLP 受信、DDOT Collector、OTel Collector 等で送信 | ベンダー中立性が要件。既に OTel 計装済み | Agent の自動サンプリング（`auto`）が適用されない。Trace Metrics の算出位置に注意（§4.7） |
+| OpenTelemetry（OTel SDK / Collector） | OTel で計装し、Datadog Agent の OTLP 受信、DDOT Collector、OTel Collector 等で送信 | ベンダー中立性が要件。既に OTel 計装済み | Agent の自動サンプリング（`auto`）が適用されない。Trace Metrics の算出位置に注意（§2.4） |
 
 出典：[APM インスツルメンテーション](../02_リファレンス/apm/apm-instrumentation.md)、[Ingestion Mechanisms](https://docs.datadoghq.com/tracing/trace_pipeline/ingestion_mechanisms/)
 
@@ -127,7 +139,7 @@ Datadog APM の計装方式は大きく 4 つある。各方式の詳細仕様�
 
 **ステップ 2：サービスをティア分けして順序を決める【経験則】**
 
-| ティア | 例 | 計装の優先度 | サンプリング・保持の方針（§4.2） |
+| ティア | 例 | 計装の優先度 | サンプリング・保持の方針（§4.3） |
 |---|---|---|---|
 | Tier 1 | 決済、認証、注文、公開 API ゲートウェイ | 最優先。パイロット直後 | 重要エンドポイントは高めのレート、カスタム Retention Filter を検討 |
 | Tier 2 | 社内向け業務 API、通知、検索 | 次点 | 既定（Agent 自動）＋ Intelligent Retention |
@@ -202,7 +214,7 @@ Datadog APM の `service` 名は、Trace Metrics のタグ、Software Catalog（
 | 環境・リージョン・バージョンを `service` 名に含めない | `env`、リージョン（Primary Tag や通常タグ）、`version` は別タグで表現する。`payments-prod` のような命名は `env` × `service` の組み合わせを無駄に増やす | `env`×`service` の一意な組み合わせは 40 分間隔あたり 5,000 まで [出典](https://docs.datadoghq.com/tracing/troubleshooting/) |
 | `version` は**デプロイごとに変わる値**にする | Deployment Tracking と Faulty Deployment Detection の前提。`env`×`service` あたりの一意な `version` は 40 分間隔あたり 30 まで | [Unified Service Tagging](https://docs.datadoghq.com/getting_started/tagging/unified_service_tagging/)、[APM Troubleshooting](https://docs.datadoghq.com/tracing/troubleshooting/) |
 | 長さは 100 文字以内 | `service` は 100 文字で切り詰められる | [APM Troubleshooting](https://docs.datadoghq.com/tracing/troubleshooting/) |
-| 大文字小文字を統一する（小文字推奨） | サンプリングルールのサービス名照合は大文字小文字を区別する | [Ingestion Mechanisms](https://docs.datadoghq.com/tracing/trace_pipeline/ingestion_mechanisms/) |
+| 大文字小文字を統一する（小文字推奨） | サンプリングルールのサービス名照合は大文字小文字を区別する（公式に明記されているのは Java SDK のみ。他言語でも同様と考えて統一しておくのは【経験則】） | [Ingestion Mechanisms](https://docs.datadoghq.com/tracing/trace_pipeline/ingestion_mechanisms/) |
 | DB・キャッシュ・外部 API を独立した `service` にしない | 依存先は Inferred Services（`peer.*` タグ）で表現する（§3.4） | [Inferred Services](https://docs.datadoghq.com/tracing/services/inferred_services/) |
 | `service` 名を Software Catalog のエンティティと一致させ、オーナー（`team`）を登録する | 所有者不明のサービスを作らない | [Software Catalog](../02_リファレンス/platform/software-catalog.md) |
 
@@ -278,7 +290,7 @@ Datadog で `service` 名が決まる優先順位（上ほど優先）は以下�
 
 > **サイト差異:** Integration Override Removal は `app.ddog-gov.com` および `us2.ddog-gov.com`（US1-FED 等の GovCloud 系）では非対応 [出典](https://docs.datadoghq.com/tracing/services/service_override_removal/)。
 
-![Remove Integration Service Overrides 画面](../../assets/images/apm-practices/service-override-removal.png)
+![Remove Integration Service Overrides 画面](../assets/images/apm-practices/service-override-removal.png)
 
 - **キャプション**：Integration service override の削除画面（Remove Integration Service Overrides）
 - **画面の説明**：上部に「Integration service overrides は Redis、Kafka、HTTP クライアント等の共通統合に対して Datadog トレーサーが自動作成し、APM 画面で別サービスとして表示されサービスカタログを散らかす。トレーサーが `base_service` タグを記録するよう更新されれば override を削除してメインサービスに集約できる」旨の説明。緑色の「Ready to Remove（All tracer versions are up to date）」バナー、「Migration Progress（0 of 10 overrides removed）」の進捗バー、検索ボックス。一覧は INTEGRATION SERVICE OVERRIDE（例：`auth-dotnet-command`、`auth-dotnet-postgres`、`aws.sqs`、`ecs-redis`、`java-aws-sdk`、`mongodb`、`mysql`）、MONITORS（参照モニター数。例：`auth-dotnet-postgres` は 1）、DASHBOARDS（参照ダッシュボード数。例：11）、TRACER VERSION（言語アイコンとバージョン）、STATUS（UNMIGRATED）の列を持ち、右上に「Remove All Overrides」ボタンがある。
@@ -338,7 +350,7 @@ Service Remapping Rules は、トレーサー設定の変更や再デプロイ�
 
 出典：[Service Remapping Rules](https://docs.datadoghq.com/tracing/services/service_remapping_rules/)
 
-![Software Catalog のサービスサイドパネルから Service Renaming を開く](../../assets/images/apm-practices/service-remapping-side-panel.png)
+![Software Catalog のサービスサイドパネルから Service Renaming を開く](../assets/images/apm-practices/service-remapping-side-panel.png)
 
 - **キャプション**：Software Catalog（Internal Developer Portal）でサービスのサイドパネルから Service Renaming を開く操作
 - **画面の説明**：左ペインに Software の分類（My Components、Systems、Services 547、Datastores 54、Queues 39、Frontend Apps 10、External Providers 15）。中央は「56 Inferred Services」の一覧（TYPE、NAME 列。例：`localhost`、`shopist-returns`、`bitssocialnetwork.com`）。右側に `bitssocialnetwork.com` のサイドパネルが開き、Ownership・Reliability・Performance・Security・Costs・Delivery・Relationships タブ、`env:prod` `operation:dns.resolve` のフィルター、「Requests and Errors」と「Latency」のグラフ。右上の **Service Page** ボタンのドロップダウンに Copy Service Name、GO TO（**Service Renaming**、Service Page、Service Map）、VIEW RELATED（Traces、Error Tracking Issues）が並ぶ。
@@ -512,7 +524,7 @@ Datadog Architecture Center は、インシデント中に重要サービスの�
 
 | 対象 | 取り込みサンプリングを下げた場合 |
 |---|---|
-| `trace.*` の RED メトリクス・それを使うモニター・SLO | 影響なし（100% から算出） |
+| `trace.*` の RED メトリクス・それを使うモニター・SLO | 影響なし（100% から算出。Datadog SDK + Agent の場合。OTel SDK／Collector でサンプリングする場合は、`span_metrics` connector をサンプリングより前に置かないとサンプル済みデータから計算される（§2.4）） |
 | Span-based Metrics（Count 型） | 値が減る |
 | Span-based Metrics（Distribution 型、例：duration） | 概ね一様サンプリングのため大きな影響なし |
 | Count ベースの Trace Analytics Monitor | 影響を受ける（Manage Monitors で `type:trace-analytics` を検索して洗い出す） |
@@ -596,7 +608,7 @@ Datadog SDK はアプリケーションログにトレース ID・スパン ID�
 
 | 情報 | 主に残す場所 | 理由 |
 |---|---|---|
-| リクエスト数・エラー率・レイテンシの傾向 | `trace.*` メトリクス（APM 料金に含まれる） | 100% 精度で 15 か月保持 |
+| リクエスト数・エラー率・レイテンシの傾向 | `trace.*` メトリクス（APM 料金に含まれる） | 100% 精度で 15 か月保持（Datadog SDK + Agent の場合。OTel でサンプリングする場合は §2.4） |
 | 代表的なエラー・遅延の詳細 | Intelligent Retention のトレース（30 日、課金なし） | 追加コストなし |
 | エラー時の詳細文脈（例外メッセージ、入力値の概要） | エラーログ（インデックス対象） | ログの方が検索・パターン分析（Log Patterns）に向く |
 | 正常系の詳細ログ | インデックスしない（アーカイブ、Flex Logs 等）か、ログベースメトリクス化 | 量が多くコストがかかる |
@@ -645,7 +657,7 @@ APM ホスト料金の範囲内で得られる可視性を最大限使い、追�
 
 月間の取り込み同梱枠は `150 GB × APM ホスト数`（全ホストで合算）。Ingestion Control 画面の月間使用量 KPI で、推定使用量が同梱枠の何 % かを確認できる [出典](https://docs.datadoghq.com/tracing/guide/trace_ingestion_volume_control/)。
 
-![Ingestion Control の月間使用量 KPI](../../assets/images/apm-practices/ingestion-overage.png)
+![Ingestion Control の月間使用量 KPI](../assets/images/apm-practices/ingestion-overage.png)
 
 - **キャプション**：Ingestion Control 画面上部の月間取り込み使用量 KPI（同梱枠を超過している例）
 - **画面の説明**：左に「Est. Monthly Usage」として **170%**（オレンジ色のバー）と「Usage & Billing」リンク、右に「Of Monthly Available」として **23.3 TB**、「Across All Infrastructure」と表示される。すなわち全インフラ合計の月間同梱枠 23.3 TB に対し、推定使用量が 170% に達している状態を示す。
@@ -655,7 +667,7 @@ APM ホスト料金の範囲内で得られる可視性を最大限使い、追�
 
 Ingestion Control の表を **Downstream Bytes/s** で並べ替え、Traffic Breakdown 列でサンプリング率の高いサービスを探す。`datadog.estimated_usage.apm.ingested_bytes` の `sampling_service` タグは、スパンを発したサービスではなく Head-based の判定をしたサービスにバイトを帰属させるため、真の発生源の特定に使える [出典](https://docs.datadoghq.com/tracing/guide/trace_ingestion_volume_control/) [出典](https://docs.datadoghq.com/tracing/trace_pipeline/metrics/)。
 
-![Traffic Breakdown のツールチップ](../../assets/images/apm-practices/sampling-25-percent.png)
+![Traffic Breakdown のツールチップ](../assets/images/apm-practices/sampling-25-percent.png)
 
 - **キャプション**：Ingestion Control のサービス行の Traffic Breakdown 列にカーソルを合わせたツールチップ
 - **画面の説明**：横棒グラフ（青緑色の塗りつぶし部分が約 4 分の 1）に対し、ツールチップで「25.0% complete traces ingested（完全なトレースの 25% を取り込み）」「75.0% complete traces not retained by the default ingestion mechanism（既定の取り込みメカニズムで保持されなかった 75%）」と表示される。背後の行には traces/s、MB/s（例：2.52 MB/s、89.6 MB/s）の列が見える。
@@ -735,7 +747,7 @@ APM Recommendations（**APM > Recommendations**）は、トレース（APM）・
 | Reliability | High Exception Volumes | APM + Continuous Profiler |
 | Reliability | Dependency Timeouts | APM + RUM |
 
-- 各推奨のステータスを REVIEWED / IGNORED / RESOLVED で管理でき、ダッシュボードの List ウィジェットにも表示できる。AI による推奨タイプは非 Gov サイトで申請制の【Preview】[出典](https://docs.datadoghq.com/tracing/recommendations/)。
+- 各推奨のステータスを FOR REVIEW（初期状態）/ REVIEWED / IGNORED / RESOLVED で管理でき、ダッシュボードの List ウィジェットにも表示できる。AI による推奨タイプは非 Gov サイトで申請制の【Preview】[出典](https://docs.datadoghq.com/tracing/recommendations/)。
 - 【経験則】スプリント計画やパフォーマンス改善の定例で、チーム（`team`）単位に推奨を確認し、ステータスを更新する運用にすると放置されにくい。
 
 > **サイト差異:** APM Recommendations は `app.ddog-gov.com`、`us2.ddog-gov.com` では非対応 [出典](https://docs.datadoghq.com/tracing/recommendations/)。
@@ -917,12 +929,11 @@ APM の設定変更はコストと可視性に直結するため、権限を限�
 - Pricing Comparison: https://www.datadoghq.com/pricing/list/
 - Pricing - APM: https://www.datadoghq.com/pricing/?product=apm
 
-公式ブログ・Architecture Center・イベント
+公式ブログ・Architecture Center
 
 - Mastering Distributed Tracing: Data Volume Challenges and Datadog's Approach to Efficient Sampling（2025-03-18 公開、Stefano Mazzone）: https://www.datadoghq.com/architecture/mastering-distributed-tracing-data-volume-challenges-and-datadogs-approach-to-efficient-sampling/
 - Optimizing Distributed Tracing: Best practices for remaining within budget and capturing critical traces（2025-05-19 公開、Stefano Mazzone）: https://www.datadoghq.com/architecture/optimizing-distributed-tracing-best-practices-for-remaining-within-budget-and-capturing-critical-traces/
 - Optimizing Datadog at scale: Cost-efficient observability at Zendesk（2025-12-26 公開）: https://www.datadoghq.com/blog/zendesk-cost-optimization/
-- Datadog Summit Tokyo 2024 ワークショップ「APMと分散トレーシング - 高品質なソフトウェアの提供」（2024-10-16 開催）: https://datadoghq.com/ja/summit/tokyo24/agenda/dd_apm
 
 第三者情報
 

@@ -2,7 +2,7 @@
 title: 製品別料金表（料金の正本）
 category: implementation
 domain: cost
-last_verified: 2026-11-02
+last_verified: 2026-11-03
 summary: datadoghq.com/pricing および /pricing/list/ に掲載された全製品の定価（年契約・月契約・オンデマンド、各エディション）、課金単位、同梱の無料枠（コンテナ、カスタムメトリクス、スパン等の allotment）を、US/EU1 と AP1（日本）の両価格で網羅した料金の正本。サイト別価格係数と US1-FED の非提供製品も記載。
 keywords: [pricing, 料金, 定価, 価格表, 料金表, list price, 年契約, 月契約, オンデマンド, billed annually, month-to-month, on-demand, allotment, 無料枠, 同梱枠, Infrastructure Pro, Infrastructure Enterprise, DevSecOps, APM Pro, APM Enterprise, Custom Metrics, Metric Name pricing, Flex Logs, Archive Search, RUM Measure, RUM Investigate, RUM without Limits, Cloud SIEM, Cloud Security, CSM, Cloud Security Management, Workload Protection, CWS, App and API Protection, ASM, Code Security, Agent Observability, LLM Observability, AI Credits, Bits AI, Incident Response, On-Call, AP1, サイト別価格, UK1, US1-FED]
 sources:
@@ -28,7 +28,7 @@ sources:
 
 | 項目 | 内容 |
 |---|---|
-| 取得日 | **2026-11-03**（本ナレッジ基準日 2026-11-02 の翌日に取得。基準日時点の値として扱う） |
+| 取得日 | **2026-11-03**（本ナレッジ基準日 2026-11-02 の翌日に取得。規約 §7 の「取得日（2026-11-02 時点）」併記に対する例外として、本ファイルは実取得日 2026-11-03 を `last_verified` とする。基準日 2026-11-02 時点の価格と同一である保証はない） |
 | 取得元 | `https://www.datadoghq.com/pricing/`（製品別カード・FAQ）、`https://www.datadoghq.com/pricing/list/`（全製品比較表）。いずれもページ内に埋め込まれたサイト別価格データ（US / EU1 / AP1 / AP2 / UK1 / US1-FED）を参照 |
 | 通貨 | USD（円建ての価格は公式に掲載されていない。円換算が必要な場合は [コスト見積り手法](cost-estimation.md) で【推定】として扱う） |
 | 契約形態 | 年契約（Billed Annually）／月契約（Billed Month-to-month）／オンデマンド（Billed On-demand）の 3 列 |
@@ -56,12 +56,13 @@ Datadog の料金ページは、すべての製品について 3 つの契約形
 | 契約形態（料金ページ表記） | 意味 | 価格水準の傾向（掲載値から読み取れる範囲） |
 |---|---|---|
 | Billed Annually（年契約） | 年間コミット。最も安い単価 | 基準 |
-| Billed Month-to-month（月契約） | 月単位のコミット | 年契約の概ね 1.15〜1.2 倍（製品により異なる。ホスト課金製品の多くは年契約より約 17〜20% 高い） |
-| Billed On-demand（オンデマンド） | コミットなしの従量。コミット超過分にも適用 | 年契約の概ね 1.2〜1.5 倍。ホスト課金製品の多くは月契約と同額 |
+| Billed Month-to-month（月契約） | 月単位のコミット | 年契約の 1.0〜1.6 倍程度（製品により大きく異なる。ホスト課金製品の多くは年契約より約 17〜20% 高い） |
+| Billed On-demand（オンデマンド） | コミットなしの従量。コミット超過分にも適用 | 年契約の 1.2〜1.8 倍程度（製品により大きく異なる）。ホスト課金製品の多くは月契約と同額 |
 
 - 上記の倍率は掲載値を比較した結果であり、製品ごとの正確な値は各表を参照すること（例：Infrastructure Pro は $15 / $18 / $18、Logs 15 日保持インデックスは $1.70 / $2.04 / $2.55）。
+- 典型値から大きく外れる SKU の例（US、年 / 月 / オンデマンド）：Feature Flags（100万〜1,000万 MFCR）$55 / $89 / $100（月 1.62 倍・オンデマンド 1.82 倍）、Error Tracking（1,000万超〜2,000万）$0.12 / $0.14 / $0.22（オンデマンド 1.83 倍）、Error Tracking（2,000万超）$0.10 / $0.12 / $0.18（オンデマンド 1.8 倍）、Serverless Workload Monitoring - Apps $3 / $4 / $4.32（月 1.33 倍）、Agent Observability Pro $160 / $200 / $240（月 1.25 倍）。**見積りでは倍率で概算せず、各表の掲載値を使うこと。**
 - Log Management のコミット超過は「年契約価格 + 50%」で課金されると料金ページ FAQ に記載されている（"pay for additional services (+50% of the annual price) only on the volume that exceeds your commitment"）[出典](https://www.datadoghq.com/pricing/?product=log-management)。公式ドキュメントでも「超過分のオンデマンド利用は 50% のプレミアム付きで課金」とされる [出典](https://docs.datadoghq.com/account_management/billing/log_management/)。
-- Metric Name pricing（後述 §2.6）では、ドキュメント上「月契約 = 年契約 +20%、オンデマンド = 年契約 +40%」と明記されている [出典](https://docs.datadoghq.com/account_management/billing/metric_name_pricing/)。
+- Metric Name pricing（後述 [§2.5](#25-custom-metrics-の-2-つの課金モデル)）では、ドキュメント上「月契約 = 年契約 +20%、オンデマンド = 年契約 +40%」と明記されている [出典](https://docs.datadoghq.com/account_management/billing/metric_name_pricing/)。
 - ホスト課金製品の請求方式（High watermark plan / Hybrid monthly/hourly plan）は [課金計算の仕組み](billing-mechanics.md) を参照。
 
 ### 1.2 サイト（リージョン）別の価格
@@ -82,6 +83,7 @@ Datadog の料金ページは、すべての製品について 3 つの契約形
 - 比率は掲載値どうしの割り算であり、公式に「1.25 倍」と明言された記述は確認できない。**見積りでは比率ではなく本ファイルの AP1 列（公式掲載値）を使うこと。**
 - 例外：Audit Trail（月額利用料に対する %）は全サイト共通で 年 2% / 月 3% / オンデマンド 3%。
 - UK1 サイトは料金ページのセレクタに存在するが、UK1 の提供開始時期・エンドポイント等は [Datadog Sites](../02_リファレンス/platform/datadog-sites.md) を参照。
+- **US2-FED** は公式のサイト一覧には存在する（全 9 サイト。[Datadog Sites](../02_リファレンス/platform/datadog-sites.md) 参照）が、料金ページのサイトセレクタは上表の 6 区分のみで US2-FED を含まない。US2-FED の価格は料金ページに掲載されておらず、要問合せ [出典](https://www.datadoghq.com/pricing/)。
 - 本ファイルの各表は **US/EU1 列と AP1 列**を併記する。AP2・UK1・US1-FED の年契約価格は [§18 付録](#18-サイト別価格一覧付録と-us1-fed-の非提供製品) を参照。
 
 ### 1.3 表の読み方
@@ -114,7 +116,7 @@ Datadog の料金ページは、すべての製品について 3 つの契約形
 | Infrastructure DevSecOps Pro | インフラホスト/月 | $22 | $27 | $27 | $27.50 | $33.75 | $33.75 |
 | Infrastructure DevSecOps Enterprise | インフラホスト/月 | $34 | $41 | $41 | $42.50 | $51.25 | $51.25 |
 
-出典：[Pricing Comparison](https://www.datadoghq.com/pricing/list/)、[Pricing - Infrastructure](https://www.datadoghq.com/pricing/?product=infrastructure)（取得日 2026-11-03）
+出典：[Pricing Comparison](https://www.datadoghq.com/pricing/list/)、[Pricing - Infrastructure](https://www.datadoghq.com/pricing/?product=infrastructure-monitoring)（取得日 2026-11-03）
 
 - **Infrastructure Basic** は "Contact Sales"（価格非公開）。Basic ホストは Pro または Enterprise ホストと同一アカウント内で混在できる（"Basic hosts can be mixed with either Pro or Enterprise hosts in the same account."）。
 - **DevSecOps Pro** = Infrastructure Pro + Cloud Security（CSM）Pro の全機能。**DevSecOps Enterprise** = Infrastructure Enterprise + Cloud Security（CSM）Enterprise の全機能（File Integrity Monitoring、Workload Protection を含む）。
@@ -139,7 +141,7 @@ Datadog の料金ページは、すべての製品について 3 つの契約形
 | Data Access Control | 10 datasets | 10 datasets | 100 datasets |
 | Cross-Org Visibility | 5 connections | 5 connections | 100 connections |
 
-出典：[Pricing - Infrastructure（Features 表）](https://www.datadoghq.com/pricing/?product=infrastructure)（取得日 2026-11-03）。チェックマークが 1 つだけの行（Watchdog 〜 Governance Console）は、Enterprise カードの説明（"Machine learning-based alerts / Live Processes / Governance Console"）と整合するため Enterprise のみと判断した。機能差の詳細は [エディション・プラン](editions-and-plans.md) を参照。
+出典：[Pricing - Infrastructure（Features 表）](https://www.datadoghq.com/pricing/?product=infrastructure-monitoring)（取得日 2026-11-03）。Watchdog 〜 Governance Console の各行は、料金ページの HTML 上で 3 列（Basic/Pro/Enterprise）のうち Enterprise 列のみにチェック（SVG）が置かれていることを確認した（2026-11-04 に HTML で再確認）。Enterprise カードの説明（"Machine learning-based alerts / Live Processes / Governance Console"）とも整合する。機能差の詳細は [エディション・プラン](editions-and-plans.md) を参照。
 
 DevSecOps バンドルの同梱枠：
 
@@ -151,7 +153,7 @@ DevSecOps バンドルの同梱枠：
 | Workflows | セキュリティ Finding・Signal からの起動は無料 | 同左 |
 
 - 準拠ベンチマーク：DevSecOps Pro / Enterprise は CIS、PCI DSS、SOC 2 など 15 以上の業界ベンチマークへの準拠を追跡できる。
-- **組み合わせ制約**：アカウントで選べる Infrastructure のカバレッジレベルは Pro / Enterprise / DevSecOps Pro / DevSecOps Enterprise のいずれか 1 つ。Pro または Enterprise を選んだ場合のみ、一部ホストを Basic にできる。**DevSecOps バンドルは環境全体を対象とし、単体の Infrastructure・コンテナ・Cloud Security 製品と組み合わせられない**（"The DevSecOps bundles cover your entire environment, and can't be combined with standalone infrastructure, container, or cloud security products."）[出典](https://www.datadoghq.com/pricing/?product=infrastructure)。
+- **組み合わせ制約**：アカウントで選べる Infrastructure のカバレッジレベルは Pro / Enterprise / DevSecOps Pro / DevSecOps Enterprise のいずれか 1 つ。Pro または Enterprise を選んだ場合のみ、一部ホストを Basic にできる。**DevSecOps バンドルは環境全体を対象とし、単体の Infrastructure・コンテナ・Cloud Security 製品と組み合わせられない**（"The DevSecOps bundles cover your entire environment, and can't be combined with standalone infrastructure, container, or cloud security products."）[出典](https://www.datadoghq.com/pricing/?product=infrastructure-monitoring)。
 
 ### 2.3 Infrastructure の追加 SKU（コンテナ・カスタムメトリクス・イベントほか）
 
@@ -167,7 +169,7 @@ DevSecOps バンドルの同梱枠：
 | Kubernetes Autoscaling | オートスケール対象 vCPU/月 | $3 | $3.60 | $4.32 | $3.75 | $4.50 | $5.40 |
 | Storage Management | 監視オブジェクト 100万件/月 | $0.35 | $0.42 | $0.50 | $0.4375 | $0.525 | $0.625 |
 
-出典：[Pricing Comparison](https://www.datadoghq.com/pricing/list/)、[Pricing - Infrastructure FAQ](https://www.datadoghq.com/pricing/?product=infrastructure)（取得日 2026-11-03）。DevSecOps Containers の値は /pricing/ ページの価格データ（`CONT-DEVSECOPS-ENT`）による。
+出典：[Pricing Comparison](https://www.datadoghq.com/pricing/list/)、[Pricing - Infrastructure FAQ](https://www.datadoghq.com/pricing/?product=infrastructure-monitoring)（取得日 2026-11-03）。DevSecOps Containers の値は /pricing/ ページの価格データ（`CONT-DEVSECOPS-ENT`）による。
 
 - **コンテナ**：Pro は 5、Enterprise は 10 コンテナ/ホストが無料。超過分はオンデマンドで $0.002/コンテナ/時間（US）。前払い（prepaid）は $1/コンテナ/月、DevSecOps Containers は $1.50/コンテナ/月（FAQ 記載）。Basic ホストではコンテナ監視は利用不可。
 - コンテナ同梱枠はホスト単位ではなく**アカウント全体で平均**される。Datadog Agent のコンテナ、Kubernetes の pause コンテナは同梱枠にカウントされない [出典](https://docs.datadoghq.com/account_management/billing/containers/)。
@@ -183,7 +185,7 @@ DevSecOps バンドルの同梱枠：
 
 | 項目 | 内容 | 出典 |
 |---|---|---|
-| Free tier | トライアル終了後に選択可能。**Basic ホスト 5 台まで、メトリクス保持 1 日**、無料 | [Pricing - Infrastructure FAQ](https://www.datadoghq.com/pricing/?product=infrastructure) |
+| Free tier | トライアル終了後に選択可能。**Basic ホスト 5 台まで、メトリクス保持 1 日**、無料 | [Pricing - Infrastructure FAQ](https://www.datadoghq.com/pricing/?product=infrastructure-monitoring) |
 | 無料トライアル | 料金ページ各所に "Free Trial" / "Start Free Trial" の導線。トライアル期間・管理画面は [料金体系の全体像](pricing-overview.md) を参照 | [Pricing](https://www.datadoghq.com/pricing/) |
 | Datadog for Startups | 「1 年間の Datadog Pro を無料」（Agent Observability セクション内の告知） | [Pricing - Agent Observability](https://www.datadoghq.com/pricing/?product=llm-observability) |
 
@@ -255,7 +257,7 @@ Custom Metrics には 2 つの課金モデルがあり、契約上の SKU が相
 | Serverless Application APM | トレース対象アプリケーションインスタンス/月 | $6 | $7.20 | $9 | $7.50 | $9 | $11.25 |
 | Data Streams Monitoring for AWS Fargate | アクティブアプリケーションインスタンス/月 | $2.90 | $3.50 | $4.40 | $3.625 | $4.375 | $5.50 |
 
-出典：[Pricing Comparison](https://www.datadoghq.com/pricing/list/)、[Pricing - Serverless](https://www.datadoghq.com/pricing/?product=serverless)（取得日 2026-11-03）。DSM for Fargate は /pricing/ の DSM カード "Serverless Applications - AWS Fargate $2.90 per active application instances ($4.40 on-demand)" による。
+出典：[Pricing Comparison](https://www.datadoghq.com/pricing/list/)、[Pricing - Serverless](https://www.datadoghq.com/pricing/?product=serverless-monitoring)（取得日 2026-11-03）。DSM for Fargate は /pricing/ の DSM カード "Serverless Applications - AWS Fargate $2.90 per active application instances ($4.40 on-demand)" による。
 
 ### 4.1 対象プラットフォームと課金単位
 
@@ -270,7 +272,7 @@ Custom Metrics には 2 つの課金モデルがあり、契約上の SKU が相
 | Google Cloud Run | 同上 $3 | 同上 $6 | 一意のアクティブコンテナ。Cloud Run services、Cloud Run Functions（Gen1/Gen2）は同一価格 |
 | GKE Autopilot | 同上 $3 | 同上 $6 | 5 分間隔で 1 回以上アクティブだった一意の Pod の月平均。OTel 計装のワークロードは現時点で Serverless Apps APM のみ課金 |
 
-- 計算例（公式）：時間 1 に 2 関数、時間 2 に 1 関数、時間 3 に 3 関数がアクティブ → (2+1+3)/3 = 平均 2 アクティブ関数 × $5 = $10。通常月の分母はその月の時間数（30 日なら 720 時間）。月に 1 回だけ呼ばれた関数は 1/720 × $5 [出典](https://www.datadoghq.com/pricing/?product=serverless)。
+- 計算例（公式）：時間 1 に 2 関数、時間 2 に 1 関数、時間 3 に 3 関数がアクティブ → (2+1+3)/3 = 平均 2 アクティブ関数 × $5 = $10。通常月の分母はその月の時間数（30 日なら 720 時間）。月に 1 回だけ呼ばれた関数は 1/720 × $5 [出典](https://www.datadoghq.com/pricing/?product=serverless-monitoring)。
 - Serverless Functions APM は Serverless Workload Monitoring なしでは購入できない（オプションのアドオン）。
 - GKE Autopilot は GKE Standard と異なり Serverless カテゴリで課金される [出典](https://docs.datadoghq.com/account_management/billing/containers/)。
 
@@ -278,11 +280,13 @@ Custom Metrics には 2 つの課金モデルがあり、契約上の SKU が相
 
 | SKU | 同梱枠 | 出典 |
 |---|---|---|
-| Serverless Application Monitoring（アクティブアプリケーションインスタンス） | 取り込みカスタムメトリクス 20 + インデックスカスタムメトリクス 20/インスタンス | [Pricing - Serverless FAQ](https://www.datadoghq.com/pricing/?product=serverless) |
-| Serverless Application APM（アドオン） | 取り込みスパン 30 GB、インデックススパン 19.5 万件（"30GB of Ingested Spans and Indexed Spans allotment to 195k"） | 同上。APM Billing ドキュメントでも Fargate 1 タスクあたり 195,000 Indexed Spans / 30 GB Ingested Spans [出典](https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/) |
-| Serverless Functions APM | トレース済み呼び出し 100 万回あたり 取り込みスパン 50 GB、インデックススパン 30 万件（超過は $0.10/GB、インデックスは 15 日保持 $1.70/100 万件・オンデマンド $2.55） | [Pricing - Serverless FAQ](https://www.datadoghq.com/pricing/?product=serverless) |
+| Serverless Application Monitoring（アクティブアプリケーションインスタンス） | 取り込みカスタムメトリクス 20 + インデックスカスタムメトリクス 20/インスタンス | [Pricing - Serverless FAQ](https://www.datadoghq.com/pricing/?product=serverless-monitoring) |
+| Serverless Application APM（アドオン） | 取り込みスパン 30 GB、インデックススパン 19.5 万件（"30GB of Ingested Spans and Indexed Spans allotment to 195k"） | 同上。APM Billing ドキュメントの料金表でも "195,000 Indexed Spans and 30 GB of Ingested Spans included in pricing"（集計単位の明記なし）[出典](https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/) |
+| Serverless Functions APM | トレース済み呼び出し 100 万回あたり 取り込みスパン 50 GB、インデックススパン 30 万件（超過は $0.10/GB、インデックスは 15 日保持 $1.70/100 万件・オンデマンド $2.55） | [Pricing - Serverless FAQ](https://www.datadoghq.com/pricing/?product=serverless-monitoring) |
 | Serverless Workload Monitoring - Functions | Pro / Enterprise プランでは課金対象関数 1 つあたりカスタムメトリクス 5 個 | [Billing](https://docs.datadoghq.com/account_management/billing/) |
 
+> 注意：Serverless Application APM（Fargate）の同梱インデックススパンは、料金ページ FAQ と APM Billing の料金表では 19.5 万件／30 GB（1 タスクあたりなどの集計単位の明記なし）である。一方、同ドキュメントの計算例では 20 タスクで 130 万件（1 タスクあたり 6.5 万件相当）を同梱として差し引いている（§5.3 の APM 計算例を参照）。公式情報の中で食い違っているため、契約時に確認すること [出典](https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/)。
+>
 > 注意：APM Billing ドキュメントの Lambda 計算例は「100 万呼び出しあたり 150,000 Indexed Spans 同梱」としており、料金ページ FAQ の「30 万件」と食い違う。本ファイルは料金ページの値（30 万件）を正とするが、契約時に確認すること。
 
 詳細は [Serverless Monitoring](../02_リファレンス/infrastructure/serverless.md) を参照。
@@ -350,7 +354,7 @@ Custom Metrics には 2 つの課金モデルがあり、契約上の SKU が相
 
 出典：[Pricing Comparison](https://www.datadoghq.com/pricing/list/)、[Pricing - APM / USM / Data Streams Monitoring / OTLP APM Ingest](https://www.datadoghq.com/pricing/)（取得日 2026-11-03）
 
-- **Managed Platform OTLP（OTLP APM Ingest）**：Collector なしで OTLP を直接 Datadog に送る方式。$0.50/GB（全契約形態同一）。**同梱枠なし**、取り込み GB とインデックス 100 万スパンの純粋な従量課金。マルチイヤー・ボリューム割引なし。対応マネージドパートナー：Cloudflare、Mulesoft、Retool、Modal ほか [出典](https://www.datadoghq.com/pricing/?product=otlp-apm-ingest)。
+- **Managed Platform OTLP（OTLP APM Ingest）**：Collector なしで OTLP を直接 Datadog に送る方式。$0.50/GB（全契約形態同一）。**同梱枠なし**、取り込み GB とインデックス 100 万スパンの純粋な従量課金。マルチイヤー・ボリューム割引なし。対応マネージドパートナー：Cloudflare、Mulesoft、Retool、Modal ほか [出典](https://www.datadoghq.com/pricing/?product=managed-platform-otlp)。
 - **Universal Service Monitoring（USM）**：単体購入は全 Infrastructure（Pro/Enterprise）ホストが対象で $9/ホスト（年契約）、Infrastructure 必須。一部ホストのみに USM を使いたい場合は APM を購入（APM ホストに USM が含まれる）。ECS Fargate、EKS Fargate、Lambda は非対応。
 - **Data Streams Monitoring**：課金対象ホスト = Agent が導入され、DSM 計装済みのプロデューサー/コンシューマーが動作するホスト。**Infrastructure Pro / Enterprise が必須**。マップ履歴 30 日、メトリクス 15 か月保持。
 - **Kafka Console**：$100/ブローカーホスト/月（年契約）、月・オンデマンド $120。セルフホストと Amazon MSK Provisioned が対象。MSK Serverless と Confluent Cloud は課金対象外。
@@ -366,7 +370,7 @@ APM の計算例（公式ドキュメント、年契約・15 日保持）：
 | APM ホスト 5 台 + Fargate タスク平均 20、インデックス 2,000 万件 | 5×$31 + 20×$6 + 13.7M×$1.70/M（5M + 1.3M 同梱） | **$298.29** |
 | APM Enterprise 20 ノード（K8s）、プロファイル対象コンテナ計 100、インデックス 2,000 万件 | 20×$40 + (100−80)×$2 | **$840** |
 
-出典：[APM Billing](https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/)。インジェスト制御の詳細は [APM の概念とインジェスト制御](../02_リファレンス/apm/apm-concepts-and-ingestion.md) を参照。
+出典：[APM Billing](https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/)。Fargate の計算例の「1.3M 同梱」（20 タスク）は、同ドキュメント料金表の 195,000 Indexed Spans と整合しない（[§4.2](#42-サーバーレスの同梱枠) の注意を参照）。インジェスト制御の詳細は [APM の概念とインジェスト制御](../02_リファレンス/apm/apm-concepts-and-ingestion.md) を参照。
 
 ---
 
@@ -697,7 +701,7 @@ APM の計算例（公式ドキュメント、年契約・15 日保持）：
 | Code Coverage | 請求期間中の最大アクティブコミッター数で課金。**Test Optimization / Code Security の課金対象コミッター 1 人につき 1 コミッター分が無料**（例：Test Optimization 25 人 → Code Coverage 25 人分無料）。GitHub、GitLab、Azure DevOps 対応 |
 | Feature Flags | **月 100 万 MFCR（Monthly Flag Configuration Requests）未満は無料**。超過分を 100 万単位で課金（100 万〜1,000 万と 1,000 万超で単価が異なる）。APM・RUM の SDK を利用するが他製品のライセンスは不要。US・EU・APAC ホストで提供、GovCloud 非提供 |
 
-- **コミッター**：Git author email で識別、**月 3 回以上コミット**で課金対象。Git に紐づかないパイプラインはパイプライン実行者のユーザー名を使用。検証済みボットや GitHub UI 上の操作によるコミットは課金対象外 [出典](https://docs.datadoghq.com/account_management/billing/ci_visibility/)。
+- **コミッター**：Git author email で識別、**月 3 回以上コミット**で課金対象。検証済みボットや GitHub UI 上の操作によるコミットは課金対象外 [出典](https://docs.datadoghq.com/account_management/billing/ci_visibility/)。Git に紐づかないパイプラインでは、パイプライン実行者のユーザー名を課金対象コミッターとして使用 [出典](https://www.datadoghq.com/pricing/?product=ci-cd-monitoring)。
 - 複数の Software Delivery 製品を別々のコミッター数で購入できる（例：10 人中 8 人を Pipeline Visibility、5 人を Test Optimization）。
 - GitHub 上のリポジトリでは、Datadog GitHub App（`Contents: Read`）により複数メールのコミッターを 1 人に重複排除できる（GitLab・Azure DevOps・Bitbucket は対象外）。
 
@@ -789,7 +793,7 @@ APM の計算例（公式ドキュメント、年契約・15 日保持）：
 | 製品・サービス | 価格 | 内容 |
 |---|---|---|
 | Datadog Disaster Recovery（DDR） | **カスタム見積（Contact Sales）**。カバレッジ範囲に基づく | クラウドリージョン障害時にテレメトリ取り込みをセカンダリ Datadog サイトへフェイルオーバー。ダッシュボード・モニター・アラートを再計装なしで継続。対象：Infrastructure Monitoring、Log Management、APM ワークロード。トライアル可。**GovCloud（US1-FED）非提供** |
-| サポートプラン | 料金ページ上は "Support Plans & Post Sales Services" の導線のみで、**価格は公開情報では確認できず** | 標準でチャット・メールの技術サポート、コミュニティフォーラム、オンラインドキュメント。詳細は [サポートと教育](support-and-training.md) |
+| サポートプラン | **Premier：月額利用料の 8%（最低 $2,000）、最低 1 年コミット**（"8% of monthly spend ($2,000 minimum)"、"Premier Support is available with a minimum one year commitment."）。Standard は有償エディションに標準付帯。料金ページ上は "Support Plans & Post Sales Services" の導線のみで、価格は [Support Plans](https://www.datadoghq.com/support-services/plans/) ページに記載（取得日 2026-11-04） | 標準でチャット・メールの技術サポート、コミュニティフォーラム、オンラインドキュメント。詳細は [サポートと教育](support-and-training.md) |
 
 出典：[Pricing - Datadog Disaster Recovery](https://www.datadoghq.com/pricing/)（取得日 2026-11-03）
 
@@ -815,7 +819,7 @@ APM の計算例（公式ドキュメント、年契約・15 日保持）：
 | APM ホスト | Universal Service Monitoring | 同一ホストで無料 | — |
 | APM Enterprise ホスト／Continuous Profiler ホスト | プロファイル対象コンテナ | 4/ホスト | 全プロファイル対象ホストで平均 |
 | Serverless Application Monitoring インスタンス | カスタムメトリクス | 取り込み 20 + インデックス 20/インスタンス | — |
-| Serverless Application APM（Fargate 等） | スパン | 取り込み 30 GB、インデックス 19.5 万件 | — |
+| Serverless Application APM（Fargate 等） | スパン | 取り込み 30 GB、インデックス 19.5 万件（公式計算例では 1 タスクあたり 6.5 万件相当。[§4.2](#42-サーバーレスの同梱枠) の注意を参照） | 公開情報では確認できず（タスク単位かどうかの明記なし） |
 | Serverless Functions APM | スパン | 100 万トレース済み呼び出しあたり 取り込み 50 GB、インデックス 30 万件 | 月末 |
 | Serverless Workload Monitoring - Functions（Pro/Enterprise プラン） | カスタムメトリクス | 5/課金対象関数 | — |
 | Jobs Monitoring ホスト | スパン | 取り込み 0.205 GB、インデックス 1,370 件/ホスト/時 | — |
@@ -885,7 +889,7 @@ APM の計算例（公式ドキュメント、年契約・15 日保持）：
 | Audit Trail | 検索・分析 90 日 |
 | Jobs Monitoring | ジョブ実行トレース 90 日、メトリクス 15 か月 |
 | Agent Observability | トレース 15 日（デフォルト）、トレースメトリクス 15 か月、データセット 3 年 |
-| Workflow Automation | 最大実行時間 24 時間、最大 100 ステップ |
+| Workflow Automation | 料金ページの注記は最大実行時間 24 時間、最大 100 ステップ。ただしドキュメントの Limits ページは 7 日・150 ステップで、仕様としては後者が正（[Workflow Limits](https://docs.datadoghq.com/actions/workflows/limits/)、[Workflow Automation](../02_リファレンス/service-management/workflow-automation.md)） |
 | ブラウザテスト / Mobile App Testing の 1 実行 | 25 ステップ |
 | RUM セッション | 15 分無操作で終了、最長 4 時間 |
 | Code Security / CI のコミッター判定 | 月 3 コミット以上 |
@@ -1057,6 +1061,7 @@ APM の計算例（公式ドキュメント、年契約・15 日保持）：
 |---|---|---|
 | Cloud SIEM の課金単位 | /pricing/list/ は「Per 1M analyzed events」、/pricing/ の製品カードは「Per GB analyzed」。単価は同じ（$5 / $6 / $7.50） | 料金比較表と公式ドキュメント（百万イベント単位）に合わせ「分析イベント 100 万件」を主表記とし、カード表記を併記 |
 | Pipeline / Test 追加スパン | FAQ 本文は「$3 per million spans」、価格データは 年 $2.50 / 月 $3 / OD $3.75 | 価格データを表に掲載し FAQ 記述を注記 |
+| Serverless Application APM（Fargate）の同梱インデックススパン | 料金ページ FAQ と APM Billing の料金表は 19.5 万件／30 GB（単位の明記なし）、同ドキュメントの計算例は 1 タスクあたり 6.5 万件相当（20 タスクで 130 万件） | 公式情報内の食い違いとして注記し、契約時に確認 |
 | Serverless Functions APM の同梱インデックススパン | 料金ページ FAQ は 100 万呼び出しあたり 30 万件、APM Billing ドキュメントの計算例は 15 万件 | 料金ページを正とし注記 |
 | APM の「$31」 | 「With Infrastructure Monitoring attached」の価格。スタンドアロンは $36 | 両方を掲載 |
 | Agent Observability 保持アドオン | FAQ 本文の価格（$6.50 / $8 / $9）はオンデマンド価格、料金比較表の年契約価格は $5 / $6.50 / $7.50 | 料金比較表の 3 列を掲載 |
@@ -1079,11 +1084,11 @@ APM の計算例（公式ドキュメント、年契約・15 日保持）：
 | DBM の正規化クエリ超過単価 | 公開情報では確認できず |
 | APM Edge Devices の価格 | 要問合せ |
 | Datadog Disaster Recovery の価格 | カスタム見積 |
-| サポートプラン（Premier 等）の価格 | 公開情報では確認できず |
 | ボリュームディスカウント・多年契約の割引率 | 非公開（[購入経路と契約](procurement-and-contracts.md) で【第三者情報】【推定】として扱う） |
 | 円建て価格 | 料金ページは USD のみ |
 | AI Guard の APM 同梱量 | 「APM allotment を含む」とあるが量は非掲載 |
-| UK1 サイトの提供開始時期 | 料金ページからは確認できず |
+| UK1 サイトの提供開始時期 | 料金ページからは確認できず（AWS London リージョンでの提供発表などは [Datadog Sites](../02_リファレンス/platform/datadog-sites.md) を参照） |
+| US2-FED サイトの価格 | 料金ページのサイトセレクタになく非掲載（要問合せ） |
 
 ---
 

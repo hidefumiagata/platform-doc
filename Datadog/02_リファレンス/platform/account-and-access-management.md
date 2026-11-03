@@ -2,9 +2,9 @@
 title: 組織・ユーザー・権限管理
 category: reference
 domain: platform
-last_verified: 2026-11-02
+last_verified: 2026-11-04
 summary: Datadog の Organization（組織）、マルチオーガニゼーション（親子org・Organization Groups・Cross-Organization Visibility）、ユーザー／サービスアカウント管理、ログイン方式（パスワード・Google・SAML・MFA）、SAML/SSO と SCIM、RBAC（標準ロール・カスタムロール・権限一覧）、Teams、Granular Access Control（Restriction Policies）、ログのデータアクセス制御（Restriction Query）と Data Access Control（Restricted Datasets）、IP Allowlist 等の仕様・設定手順・制限値をまとめたリファレンス。
-keywords: [Organization, 組織, Organization Settings, マルチオーガニゼーション, multi-org, 親org, 子org, parent organization, child organization, Organization Groups, Shared Roles, Cross-Organization Visibility, クロスorg, ユーザー管理, User Management, Service Account, サービスアカウント, Login Methods, MFA, 多要素認証, SAML, SSO, シングルサインオン, JIT, Just-in-Time, SAML Strict, SAML Group Mapping, AuthN Mapping, SCIM, Okta, Microsoft Entra ID, Azure AD, RBAC, ロール, Datadog Admin Role, Datadog Standard Role, Datadog Read Only Role, カスタムロール, Custom Roles, Role Templates, 権限, Permissions, user_access_manage, org_management, Minimal Access Roles, default_permissions_opt_out, Teams, チーム, Team handle, Granular Access Control, Restriction Policy, 細粒度アクセス制御, Logs RBAC, Restriction Query, logs_read_data, Data Access Control, Restricted Datasets, IP Allowlist, Domain Allowlist, Governance Console, セッションタイムアウト]
+keywords: [Organization, 組織, Organization Settings, マルチオーガニゼーション, multi-org, 親org, 子org, parent organization, child organization, Organization Groups, Shared Roles, Cross-Organization Visibility, クロスorg, ユーザー管理, User Management, Service Account, サービスアカウント, Login Methods, MFA, 多要素認証, SAML, SSO, シングルサインオン, JIT, Just-in-Time, SAML Strict, SAML Group Mapping, AuthN Mapping, SCIM, Okta, Microsoft Entra ID, Azure AD, RBAC, ロール, Datadog Admin Role, Datadog Standard Role, Datadog Read Only Role, カスタムロール, Custom Roles, Role Templates, 権限, Permissions, user_access_manage, org_management, Minimal Access Roles, default_permissions_opt_out, Teams, チーム, Team handle, Granular Access Control, Restriction Policy, 細粒度アクセス制御, Logs RBAC, Restriction Query, logs_read_data, Data Access Control, Restricted Datasets, IP Allowlist, Domain Allowlist, Governance Console, セッションタイムアウト, Agent Observability, LLM Observability, logs_archive_search, logs_write_archive_search]
 sources:
   - https://docs.datadoghq.com/account_management/rbac/
   - https://docs.datadoghq.com/account_management/rbac/permissions/
@@ -36,6 +36,7 @@ sources:
   - https://docs.datadoghq.com/api/latest/roles/
   - https://docs.datadoghq.com/api/latest/restriction-policies/
   - https://docs.datadoghq.com/dashboards/configure/
+  - https://docs.datadoghq.com/dashboards/guide/is-read-only-deprecation/
   - https://www.datadoghq.com/pricing/
   - https://www.datadoghq.com/blog/volkswagen-organizations/
 ---
@@ -238,7 +239,7 @@ Organization Groups はユーザー管理・RBAC・機能ロールアウトを o
 
 | 項目 | 内容 |
 |---|---|
-| ステータス | 英語版ページでは明記なし。検索結果上の他言語版・関連ページでは Preview・要申請とされる。最新状況は Datadog 担当に確認（公開情報では GA 有無を確認できず） |
+| ステータス | 公式ページ（英語版）には Preview・ベータ・要申請の表記なし（2026-11-04 確認）。GA 時期等は公開情報で確認できないため、最新状況は Datadog 担当に確認。[出典](https://docs.datadoghq.com/account_management/organization_groups/) |
 | Owner org | グループを作成・管理。ポリシー、適用ティア、Shared Roles を設定。階層のルート親org がグループを所有し、Owner org からのみ表示・管理 |
 | Member org | グループに統制される。**1 つの org は同時に 1 グループのみ**所属 |
 | ポリシー | 組織設定 × 値 × 適用ティアの組。設定可能な項目の一覧は公開ページに記載なし |
@@ -736,7 +737,8 @@ Datadog は **4〜6 個のカスタムロール**から始め、意味のある�
 | `logs_write_processors` | Std | プロセッサ（パイプライン単位で制限可、旧来ユーザー向け） |
 | `logs_write_archives` | Admin | アーカイブの作成・編集・削除 |
 | `logs_write_historical_view` | Std | リハイドレート（Archive Search の Search & Rehydration モード） |
-| `logs_write_archive_search` | Std | Archive Search の作成・編集 |
+| `logs_write_archive_search` | Std | Archive Search の作成・編集（権限一覧ページ記載） |
+| `logs_archive_search` | — | Archive Search の Search モードのみ実行（Logs RBAC Permissions ページ記載、[13.2](#132-インデックスアーカイブパイプライン単位の権限) 参照）。権限一覧ページには未掲載で、`logs_write_archive_search` との関係は公式に説明がない。最新の権限一覧で確認すること |
 | `logs_write_facets` | Std | ログファセット |
 | `logs_generate_metrics` | Std | ログからのメトリクス生成 |
 | `logs_delete_data` | Admin | ログデータ・インデックスの削除 |
@@ -823,7 +825,7 @@ Datadog は **4〜6 個のカスタムロール**から始め、意味のある�
 | `execution_groups_read` / `_write` | RO / Admin | Execution Groups |
 | `assistant_access` | RO | Bits Chat |
 | `bits_investigations_read` / `_write`、`bits_dev_write` | RO / Std / Std | Bits AI 調査、Bits Code |
-| `llm_observability_read` / `_write` | RO / Std | LLM / Agent Observability |
+| `llm_observability_read` / `_write` | RO / Std | Agent Observability（旧称：LLM Observability。権限名は旧称のまま） |
 | `ci_visibility_read` / `cd_visibility_read` | RO | CI / CD Visibility（Restricted permission） |
 | `ci_provider_settings_write` / `ci_ingestion_control_write` / `quality_gate_rules_write` / `static_analysis_settings_write` | Admin | CI 系の管理設定 |
 | `test_optimization_read` / `_write` / `_settings_write` | RO / Std / Std | Test Optimization |
@@ -976,7 +978,7 @@ Teams Settings > **Team Provisioning Sources** で設定する。[出典](https:
 
 - principal 形式：`role:<role_id>`、`team:<team_uuid>`、`user:<user_id>`（**サービスアカウント ID も可**）、`org:<org_id>`。org ID は `GET /api/v2/current_user` の `data.relationships.org.data.id`。
 - クエリパラメータ `allow_self_lockout`（既定 `false`）：`user_access_manage` 保持者が自分のアクセスを外すことを許可する。既定では自己ロックアウトを防止。
-- Terraform：`datadog_restriction_policy` リソース（`resource_id` と `bindings { relation, principals }`）。ダッシュボードの旧 `is_read_only` からの移行には Terraform Provider **v3.27.0 以上**。[出典](https://docs.datadoghq.com/dashboards/guide/how-to-use-terraform-to-restrict-dashboard-edit/)
+- Terraform：`datadog_restriction_policy` リソース（`resource_id` と `bindings { relation, principals }`）。ダッシュボードの旧 `is_read_only` からの移行には Terraform Provider **v3.27.0 以上**。[出典](https://docs.datadoghq.com/dashboards/guide/is-read-only-deprecation/)
 
 ```hcl
 resource "datadog_restriction_policy" "dash" {
@@ -1029,7 +1031,7 @@ resource "datadog_restriction_policy" "dash" {
 | 粒度 | **org 全体のみ**（トークン・API キー・ユーザー・エンドポイント単位は不可） |
 | 形式 | IPv4 / IPv6 アドレスと CIDR、エントリごとにメモ |
 | 権限 | `org_management` |
-| プラン | ドキュメント：Pro+ または Enterprise プランで利用可、サポートに依頼。料金ページでは「IP Allowlist」が管理機能として掲載 |
+| プラン | ドキュメント：Pro+ または Enterprise プランで利用可、それ以外はサポートに依頼（[出典](https://docs.datadoghq.com/account_management/org_settings/ip_allowlist/)）。一方、料金ページ（Infrastructure の機能比較表）では **Enterprise 列のみ**に掲載（[製品別料金表](../../03_導入編/pricing-by-product.md) の読み取り）。ドキュメントと料金ページで記載が食い違うため、契約前に Datadog に確認 |
 | ロックアウト防止 | 有効化・変更時、**現在の IP を含むエントリが最低 1 つ必要**。エントリは最低 1 件必要 |
 | 継承 | 親子 org 間で**継承されない**（org ごとに設定） |
 | 管理 | UI：Organization Settings > Security > IP Allowlist（Add IP → Confirm → バナーの Enable）。API：状態確認・切替・一覧・追加・メモ編集・削除・**全置換（API のみ）**。Terraform：`datadog_ip_allowlist` |
@@ -1063,7 +1065,7 @@ Organization Settings > Security > Public Sharing で、共有ダッシュボー
 |---|---|
 | 概要 | 複数チームを抱えるアカウント向けの Datadog 利用状況・普及状況・設定の一元ビュー。ポリシー適用と既定設定の適用が可能 |
 | 画面 | Summary（製品利用概要）、Products（製品ごとの使用量・上限・クォータ）、Controls（Governance Controls：設定ドリフトを検知し責任者に通知、自動適用も可） |
-| プラン | **Enterprise プランのみ**。サポートに依頼 |
+| プラン | Enterprise プランで提供。利用にはサポートへの依頼が必要（公式："available for customers on an enterprise plan only. Request access by contacting support."）。[出典](https://docs.datadoghq.com/account_management/governance_console/) |
 | 権限 | `governance_console_read`（UI・レポート閲覧）、`governance_console_write`（統制の適用、Admin 既定）。個別製品の設定変更には各製品の権限（例：メトリクス設定は `metric_tags_write`）が必要 |
 
 > **サイト差異:** Governance Console は `app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com` で非対応。[出典](https://docs.datadoghq.com/account_management/governance_console/)
@@ -1106,7 +1108,7 @@ Organization Settings > Security > Public Sharing で、共有ダッシュボー
 | `logs_read_archives` | 全体またはアーカイブ単位 | 制限なしのアーカイブは権限保持者全員が利用可。制限付きアーカイブは登録ロールかつ権限保持者のみ |
 | `logs_write_processors`（旧来ユーザーのみ） | 全体またはパイプライン単位 | パイプラインの Edit モーダルでロールを指定（Restriction Policy の `logs-pipeline` relation `processors_editor` も参照） |
 | `logs_write_historical_view` | 全体（`logs_read_archives` を持つアーカイブのみ） | リハイドレートには両方が必要 |
-| `logs_archive_search` | 全体（各アーカイブに `logs_read_archives` も必要） | Archive Search の Search モードのみ（結果は 24 時間保持、リハイドレート不可） |
+| `logs_archive_search` | 全体（各アーカイブに `logs_read_archives` も必要） | Archive Search の Search モードのみ（結果は 24 時間保持、リハイドレート不可。Search & Rehydration モードには `logs_write_historical_view` も付与）。注：権限一覧ページには本権限は掲載されず `logs_write_archive_search`（Archive Search の作成・編集）が掲載されており、公式ドキュメント間で名称が揃っていない（[9.6](#96-log-managementログ) 参照） |
 
 - **リハイドレートしたログは元のタグを保持**するため、Restriction Query はリハイドレート済みログにも効く。ただし Legacy の `logs_read_index_data` を使っている場合、Historical View へのアクセスは異なる挙動になる（公式例：`service:ci-cd` ログを Prod Archive からリハイドレートした場合、Legacy 権限なしなら CI-CD メンバーが閲覧可、Legacy 権限ありなら PROD と ADMIN のみ）。
 - `logs_read_data` は Legacy 権限の上に重ねて適用される（例：`service:api` に制限され、`audit` と `errors` インデックスの `logs_read_index_data` を持つユーザーは、その 2 インデックス内の `service:api` ログのみ閲覧可）。
@@ -1140,13 +1142,13 @@ Organization Settings > Security > Public Sharing で、共有ダッシュボー
 
 | 区分 | テレメトリ |
 |---|---|
-| 対応 | Agent Observability（LLM Observability：トレース、Experiments、Datasets、Annotation Queues、Evaluator configs、Managed Prompts）、APM トレース、Cloud Cost、**カスタムメトリクス**（標準メトリクスは非対応）、Error Tracking issues、ログ、RUM セッション、セキュリティシグナル（Cloud SIEM・Workload Protection）、CI Visibility パイプライン（リポジトリ情報）、Workload Protection Agent Events |
+| 対応 | Agent Observability（旧称：LLM Observability。トレース、Experiments、Datasets、Annotation Queues、Evaluator configs、Managed Prompts）、APM トレース、Cloud Cost、**カスタムメトリクス**（標準メトリクスは非対応）、Error Tracking issues、ログ、RUM セッション、セキュリティシグナル（Cloud SIEM・Workload Protection）、CI Visibility パイプライン（リポジトリ情報）、Workload Protection Agent Events |
 | 申請制 Preview | Database Monitoring、Hosts、Processes、Containers、セキュリティ検出結果（findings）、Serverless |
 
 テレメトリ別の注意：
 
 - **CI Visibility**：パイプラインのみ（Test Optimization のテストは非対応）。CI ログは Logs のデータセットで制御。使えるタグは `@git.repository_url`、`@git.repository.id`、`@git.repository.id_v2`、`@gitlab.groups`。
-- **LLM Observability**：トレースは任意タグ。Experiments・Datasets・Annotation Queues はプロジェクト単位（`ml_app`）、プロジェクトに紐づかない Annotation Queue は制限不可。Prompt Management で直接作成したプロンプトは制限不可。OpenTelemetry データは APM・メトリクスにも届くため、そちらのデータセットも必要になる場合がある。
+- **Agent Observability**：トレースは任意タグ。Experiments・Datasets・Annotation Queues はプロジェクト単位（`ml_app`）、プロジェクトに紐づかない Annotation Queue は制限不可。Prompt Management で直接作成したプロンプトは制限不可。OpenTelemetry データは APM・メトリクスにも届くため、そちらのデータセットも必要になる場合がある。
 - **RUM**：RUM の Restricted Dataset を作ると、**Session Replay Extended Retention（15 か月）と Session Replay Playlists が無効化**される。
 
 ### 14.3 タグルール・制限モード
@@ -1249,8 +1251,8 @@ Organization Settings > Security > Public Sharing で、共有ダッシュボー
 | ユーザー数 | 料金ページ上「Unlimited User Accounts」（ユーザー課金なし） |
 | SAML SSO | 料金ページ上、Infrastructure の全プラン列で提供 |
 | SCIM | ドキュメント上 Infrastructure Pro / Enterprise / Startup プラン（料金ページの比較表では Basic 列にもチェックがあり、記述が揺れている） |
-| Multiple SAML Providers、Governance Console、Email Domain Allowlist | ドキュメント上 Enterprise 向け（Domain Allowlist は非 Enterprise も申請可） |
-| IP Allowlist | ドキュメント上 Pro+ / Enterprise、要申請 |
+| Multiple SAML Providers、Governance Console、Email Domain Allowlist | ドキュメント上 Enterprise 向け（Governance Console は Enterprise でもサポートへの依頼が必要。Domain Allowlist は非 Enterprise も申請可）。料金ページの機能比較表でも Enterprise 列のみ（[製品別料金表](../../03_導入編/pricing-by-product.md)） |
+| IP Allowlist | ドキュメント上 Pro+ / Enterprise（他プランはサポートに依頼）。料金ページの機能比較表では **Enterprise 列のみ**で、ドキュメントと食い違う |
 | Data Access Control | データセット数：Basic / Pro 10、Enterprise 100（料金ページ）。ドキュメント上、Enterprise でテレメトリタイプを Restricted にした場合は最大 1,000 |
 | Cross-Organization Visibility | 接続による追加料金なし（データは複製されない）。接続数：Basic / Pro 5、Enterprise 100（料金ページ） |
 | マルチorg | 子org は親のプランを継承し、親の請求アカウントで合算請求。Usage Attribution は Enterprise 機能 |
@@ -1260,7 +1262,7 @@ Organization Settings > Security > Public Sharing で、共有ダッシュボー
 
 Infrastructure のプラン構成（Basic / Pro / Enterprise / DevSecOps）と価格は [エディション・プラン](../../03_導入編/editions-and-plans.md) と [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
 
-> 注：料金ページの機能比較表はページ構造上どの列にチェックがあるかを機械的に判別しにくい項目があった（IP Allowlist、Multiple SAML Providers、Governance Console 等）。契約前に Datadog 営業・公式料金ページで確認すること。
+> 注：料金ページの機能比較表の読み取りは [製品別料金表](../../03_導入編/pricing-by-product.md) に従う（Multiple SAML Providers / IP Allowlist / Email Domain Allowlist / Governance Console は Enterprise 列のみ）。IP Allowlist はドキュメント（Pro+ / Enterprise）と料金ページ（Enterprise のみ）で記載が異なるため、契約前に Datadog 営業に確認すること。
 
 ---
 
@@ -1341,6 +1343,7 @@ Infrastructure のプラン構成（Basic / Pro / Enterprise / DevSecOps）と�
 - Organizations API: https://docs.datadoghq.com/api/latest/organizations/
 - Dashboards – Configure（Permissions）: https://docs.datadoghq.com/dashboards/configure/
 - How to use Terraform to restrict the editing of a dashboard: https://docs.datadoghq.com/dashboards/guide/how-to-use-terraform-to-restrict-dashboard-edit/
+- Dashboards API: Migrate from is_read_only: https://docs.datadoghq.com/dashboards/guide/is-read-only-deprecation/
 - Terraform provider `datadog_restriction_policy`: https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/restriction_policy.md
 - Datadog Pricing: https://www.datadoghq.com/pricing/ 、https://www.datadoghq.com/pricing/list/ （2026-11-02 取得）
 - Best practices for managing Datadog organizations at scale（Datadog Blog、2025-03-14 公開）: https://www.datadoghq.com/blog/volkswagen-organizations/

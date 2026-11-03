@@ -647,6 +647,7 @@ Datadog MCP Server の toolset は、公開するツールを絞ってコンテ�
 | `logs-configuration` | GA | ログパイプライン、インデックス、アーカイブの管理 |
 | `networks` | GA | Cloud Network Monitoring、Network Device Monitoring |
 | `notebooks` | GA | `core` 以外の拡張 Notebook ツール |
+| `observability-pipelines` | GA | Observability Pipelines の確認・構築・検証・作成 |
 | `onboarding` | GA | ガイド付き Datadog セットアップ |
 | `product-analytics` | GA | Product Analytics クエリ |
 | `profiling` | GA | Continuous Profiler データ |
@@ -661,10 +662,11 @@ Datadog MCP Server の toolset は、公開するツールを絞ってコンテ�
 | `apm` | 【Preview】（Product Preview フォームで申請） | トレース分析、スパン検索、Watchdog インサイト、サンプリングルール等 |
 | `investigator` | 【Preview】 | Bits Investigation の起動と誘導 |
 | `live-debugger` | 【Preview】 | 再デプロイなしで実行時状態を取得する Logpoint |
-| `observability-pipelines` | 【Preview】 | パイプラインの確認・構築・検証・作成 |
 | `remote-actions` | 【Preview】（Product Preview フォームで申請） | Agent 経由のホスト上読み取り専用診断 |
 
-ツールリファレンスページには上記のほか `agent-builder`、`cloud-resources`、`experiments`（デフォルト無効）、`forms` 等の toolset も掲載されている。[出典](https://docs.datadoghq.com/mcp_server/tools/)
+Preview toolset は `apm`、`investigator`、`live-debugger`、`remote-actions` の 4 つと、`cases` の一部ツールである（2026-11-04 時点）。[出典](https://docs.datadoghq.com/mcp_server/setup/)
+
+ツールリファレンスページには上記のほか `agent-builder`、`cloud-resources`、`experiments`、`forms`、`processes`（Live Processes の検索）等の toolset も掲載されている。ツールリファレンスでは `cases`、`experiments`、`processes`、`product-analytics` が**デフォルト無効**と明記されており、`toolsets` パラメータで明示指定する（`cases` の Preview ツールは `all` では有効にならず、`cases` の名前指定が必要）。[出典](https://docs.datadoghq.com/mcp_server/tools/)
 
 `core` toolset の主なツール（抜粋）:
 
@@ -751,7 +753,7 @@ Datadog MCP Server の toolset は、公開するツールを絞ってコンテ�
 |---|---|---|
 | 非対応サイト | US1-FED（app.ddog-gov.com）、US2-FED（us2.ddog-gov.com）。全 Bits AI 製品・MCP Server・AI Credits | [出典](https://docs.datadoghq.com/bits_ai/) |
 | AI Credits のリセット | 毎月 1 日（暦月）。未使用のコミット分は繰り越し不可 | [出典](https://docs.datadoghq.com/account_management/billing/ai_credits/) |
-| AI Credits 製品のデフォルト有効化 | すべて Datadog Standard Role でデフォルト有効 | 同上 |
+| AI Credits 製品のデフォルト有効化 | すべて Datadog Standard Role でデフォルト有効（AI Credits ドキュメントの記載）。ただし Bits Chat Access は Admin / Standard / **Read Only** の 3 ロールにデフォルト付与されるため、Read Only ユーザーも Bits Chat でクレジットを消費できる | 同上、[出典](https://docs.datadoghq.com/bits_ai/bits_chat/) |
 | AI Credit 上限（org） | デフォルトなし（未設定） | [出典](https://docs.datadoghq.com/account_management/billing/ai_credit_limits/) |
 | AI Credit 上限（ユーザー） | デフォルト per-user 上限・個別オーバーライドを設定可（初期値は公開情報では確認できず） | 同上 |
 | Bits Investigation 自動調査レート制限（モニター単位） | デフォルト **24 時間ローリングで 1 回** | [出典](https://docs.datadoghq.com/bits_ai/bits_investigation/configure/) |
@@ -792,6 +794,8 @@ AI Credits は Datadog の AI 製品の利用を計量・課金する単位で�
 | オンデマンド | 1 クレジット | $1.30（500 クレジット換算 $650） |
 
 [出典](https://www.datadoghq.com/pricing/?product=ai-credits) [出典](https://www.datadoghq.com/pricing/list/)
+
+> **サイト差異:** 上表は US / EU1 の価格である。AP1（日本）では年契約 $625 / 500 クレジット、月契約 $750 / 500 クレジット、オンデマンド $1.625 / クレジット（500 クレジット換算 $812.50）。FedRAMP サイト（US1-FED / US2-FED）では AI Credits は提供されない。値は [製品別料金表](../../03_導入編/pricing-by-product.md) §14 に合わせている。[出典](https://www.datadoghq.com/pricing/?product=ai-credits)
 
 - 3 形態は組み合わせ可能。月次コミットを超えた利用は自動的にオンデマンド料金で課金される（手動チャージ不要）。
 - 料金数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。値に差異がある場合はそちらを優先する。
@@ -834,13 +838,13 @@ AI Credits は Datadog の AI 製品の利用を計量・課金する単位で�
 | 2,000 | 200 | 20 | 4,000 | 2,000（org 上限） |
 | 未設定 | 200 | 20 | 4,000 | 4,000 |
 
-> 【経験則】AI Credits 製品は Standard Role にデフォルトで有効なため、全社展開前に org 上限・per-user 上限を設定し、Auto-Investigate を有効化するモニターを絞る（モニター単位のレート制限を確認する）ことがコスト管理上重要である。第三者記事でも Standard Role へのデフォルト付与は従量製品として寛容すぎると指摘されている `【第三者情報】`（[出典](https://www.nobs.tech/blog/datadog-bits-ai-pricing-ai-credits-governance)、2026-06-11 公開）。
+> 【経験則】AI Credits 製品は Standard Role にデフォルトで有効であり、Bits Chat Access は Read Only Role にもデフォルトで付与される（AI Credits ドキュメントは Standard Role と記載）ため、全社展開前に org 上限・per-user 上限を設定し、Auto-Investigate を有効化するモニターを絞る（モニター単位のレート制限を確認する）ことがコスト管理上重要である。第三者記事でも Standard Role へのデフォルト付与は従量製品として寛容すぎると指摘されている `【第三者情報】`（[出典](https://www.nobs.tech/blog/datadog-bits-ai-pricing-ai-credits-governance)、2026-06-11 公開）。
 
 ### AI Credits 以外の課金
 
 | 製品 | 課金の扱い |
 |---|---|
-| Bits Security Analyst | 公式料金ページに価格行なし（2026-11-02 時点）。Cloud SIEM の契約に月次の無料調査枠（100 件、最低 50 件）が付与され、2026-07 に算定基準が「10 億イベント当たり」から「1 TB 分析当たり」に変わったとする第三者の記録がある `【第三者情報】`（[出典](https://pricingsaas.com/companies/datadog.cloud-siem/diffs/2026W31)、2026-07-27 記録）。公式の Cloud SIEM 価格表示（2026-11-02 取得、Per 1M analyzed events：年 $5 / 月 $6 / オンデマンド $7.50）と単位が食い違うため、契約前に担当者へ確認が必要。Cloud SIEM の料金は [製品別料金表](../../03_導入編/pricing-by-product.md) を正とする |
+| Bits Security Analyst | AI Credits の対象外。Cloud SIEM の契約に、**分析 1 TB あたり月 100 回の Bits Security Analyst 調査の無料枠（最低 月 50 回）**が含まれる（公式 Cloud SIEM 料金ページ、2026-11-04 時点）。[出典](https://www.datadoghq.com/pricing/?product=cloud-siem) なお Cloud SIEM 本体の課金単位は料金比較表では「Per 1M analyzed events」（年 $5 / 月 $6 / オンデマンド $7.50）であり、無料枠の基準（TB analyzed）と単位が異なる。[出典](https://www.datadoghq.com/pricing/list/) 無料枠を超えた調査の価格は公式料金ページに記載がない（2026-11-04 時点）。補足として、2026-07 に無料枠の算定基準が「10 億イベント当たり」から「1 TB 分析当たり」に変わったとする第三者の記録がある `【第三者情報】`（[出典](https://pricingsaas.com/companies/datadog.cloud-siem/diffs/2026W31)、2026-07-27 記録）。Cloud SIEM の料金は [製品別料金表](../../03_導入編/pricing-by-product.md) を正とする |
 | Datadog MCP Server | MCP Server 利用自体の料金は公式ドキュメント・料金ページで確認できず。`assistant` toolset で Bits Chat にメッセージを送る場合などは AI Credits が消費されると推定される `【推定】`。参照されるテレメトリの取り込み・保持は各製品の通常課金 |
 | Bits Detection / Bits Remediation / Bits Data Analysis | Preview。課金は公式ドキュメントに記載なし（公開情報では確認できず） |
 | 自然言語クエリ（NLQ） | 課金の記載なし（公開情報では確認できず） |
@@ -895,6 +899,7 @@ AI Credits は Datadog の AI 製品の利用を計量・課金する単位で�
 
 - https://www.datadoghq.com/pricing/?product=ai-credits （取得日 2026-11-02）
 - https://www.datadoghq.com/pricing/list/ （取得日 2026-11-02）
+- https://www.datadoghq.com/pricing/?product=cloud-siem （取得日 2026-11-04）
 - https://www.datadoghq.com/blog/bits-ai-sre-deeper-reasoning/ （2026-03-05 公開）
 - https://www.datadoghq.com/blog/metrics-natural-language-queries/ （2026-05-19 公開）
 - https://www.datadoghq.com/blog/bits-agent-builder/ （2026-06-04 公開）

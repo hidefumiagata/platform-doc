@@ -246,7 +246,7 @@ instances:
 |---|---|---|
 | `loader` | `python` | `core`（推奨、高速・省メモリ）または `python`（旧来） |
 | `use_device_id_as_hostname` | `false` | メトリクスとサービスチェックのホスト名に `device:<DEVICE_ID>` を使う。カスタムタグ付けに必要 |
-| `oid_batch_size` | 公開サンプルの例は `10` | 1 回の要求でまとめる OID 数。大きいほど速いが負荷が増す。コアチェックの既定値は Agent 7.30 未満で 60、7.30 以降で 5 |
+| `oid_batch_size` | サンプル上の既定値は `10` | 1 回の要求でまとめる OID 数。大きいほど速いが負荷が増す。ただし同じサンプル内の注記では、コアチェックの既定値は Agent 7.30 未満で 60、7.30 以降で 5 とされており、表記が揺れている |
 | `min_collection_interval` | `15`（秒） | 収集間隔。core ローダーでのみ有効 |
 | `global_metrics` | なし | `use_global_metrics: true` の全インスタンスに適用するメトリクス |
 | `use_remote_config_profiles` | `false` | SNMP Profile Manager のプロファイルを使い、ローカルのプロファイルを無視する |
@@ -742,7 +742,8 @@ Device Health は、フリート全体のネットワークデバイスの問題
 - **Bits Investigation** を起動すると、調査手順の要約と根本原因分析が平易な文章で示される。
 - 提案された修正（例：最後に信頼できるコンフィグ版へのロールバック）を、適用前に差分を確認して実行できる。
 - 影響を受ける可能性のある他デバイスと依存関係を、依存関係図付きで一覧する。
-- 問題の種類、要件、Agent バージョン、制限値は公開ページに記載がない（Preview）。
+- 利用には Product Preview ページからのアクセス申請が必要。[出典](https://www.datadoghq.com/product-preview/network-device-remediation-with-bits/)
+- 問題の種類、申請以外の要件、Agent バージョン、制限値は公開ページに記載がない（Preview）。
 
 ## NetFlow Monitoring
 
@@ -1029,7 +1030,7 @@ Windows で管理者として実行しないと `auth_token` のアクセス拒�
 | SNMP タイムアウト／リトライ（コアチェック、`snmp.d` インスタンス） | 既定 2 秒 / 3 回（Python チェックは 5 / 5） | 同上 |
 | SNMP タイムアウト／リトライ（`datadog.yaml` Autodiscovery） | 既定 5 秒 / 3 回 | [出典](https://github.com/DataDog/datadog-agent/blob/main/pkg/config/example/datadog-agent_linux.yaml.example) |
 | `oid_batch_size`（コアチェック） | 既定 5（Agent 7.30 以降。それ以前は 60） | [出典](https://github.com/DataDog/integrations-core/blob/master/snmp/datadog_checks/snmp/data/conf.yaml.example) |
-| Autodiscovery のスキャン間隔 | 既定 3600 秒 | [出典](https://docs.datadoghq.com/network_monitoring/devices/snmp_metrics/) |
+| Autodiscovery のスキャン間隔 | 既定 3600 秒 | [出典](https://github.com/DataDog/datadog-agent/blob/main/pkg/config/example/datadog-agent_linux.yaml.example) |
 | Autodiscovery の許容失敗回数 | 既定 3 | [出典](https://github.com/DataDog/datadog-agent/blob/main/pkg/config/example/datadog-agent_linux.yaml.example) |
 | Autodiscovery の workers | `datadog.yaml` 既定 2（公式例は 100）、`snmp.d` の Python 実装は既定 5 | 同上 |
 | デフォルトスキャンの GetBulk バッチ | 既定 20 | 同上 |
@@ -1061,19 +1062,21 @@ Windows で管理者として実行しないと `auth_token` のアクセス拒�
 
 NDM 関連の課金単位は次のとおり（公式料金ページ、2026-11-02 時点、USD）。料金の数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、課金計算の仕組みは [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。[出典](https://www.datadoghq.com/pricing/list/)、[出典](https://www.datadoghq.com/pricing/?product=network-monitoring)
 
-| SKU | 課金単位 | 年契約 | 月契約 | オンデマンド |
-|---|---|---|---|---|
-| Network Device Monitoring | ネットワークデバイス／月 | $7 | $8.50 | $10.20 |
-| Wireless Access Point Monitoring | デバイス／月 | $4 | $4.80 | $5.76 |
-| NetFlow Monitoring（15 日保持） | 集約済み NetFlow レコード 100 万件／月 | $0.60 | $0.72 | $0.86 |
-| NetFlow Monitoring（30 日保持） | 同上 | $0.65 | $0.78 | $0.94 |
-| NetFlow Monitoring（60 日保持） | 同上 | $0.75 | $0.90 | $1.08 |
-| NetFlow Monitoring（90 日保持） | 同上 | $0.85 | $1.02 | $1.22 |
-| NetFlow Monitoring（90 日超） | — | 要問い合わせ | — | — |
+| SKU | 課金単位 | US/EU1 年契約 | US/EU1 月契約 | US/EU1 オンデマンド | AP1 年契約 | AP1 月契約 | AP1 オンデマンド |
+|---|---|---|---|---|---|---|---|
+| Network Device Monitoring | ネットワークデバイス／月 | $7 | $8.50 | $10.20 | $8.75 | $10.625 | $12.75 |
+| Wireless Access Point Monitoring | デバイス／月 | $4 | $4.80 | $5.76 | $5 | $6 | $7.20 |
+| NetFlow Monitoring（15 日保持） | 集約済み NetFlow レコード 100 万件／月 | $0.60 | $0.72 | $0.86 | $0.75 | $0.90 | $1.075 |
+| NetFlow Monitoring（30 日保持） | 同上 | $0.65 | $0.78 | $0.94 | $0.8125 | $0.975 | $1.175 |
+| NetFlow Monitoring（60 日保持） | 同上 | $0.75 | $0.90 | $1.08 | $0.9375 | $1.125 | $1.35 |
+| NetFlow Monitoring（90 日保持） | 同上 | $0.85 | $1.02 | $1.22 | $1.0625 | $1.275 | $1.525 |
+| NetFlow Monitoring（90 日超） | — | 要問い合わせ | — | — | 要問い合わせ | — | — |
+
+> **サイト差異:** 価格はサイトによって異なり、AP1 は US/EU1 より高い。上記以外のサイトの価格は料金ページで確認すること。正本は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
 
 - **デバイスの定義:** 「SNMP でポーリングされる、一意の IP アドレスを持つ物理または仮想のアプライアンス」（料金ページ FAQ）。
 - **Infrastructure ホストの購入:** NDM の利用には、デバイスをポーリングするための Infrastructure ホストを 1 台以上購入する必要がある（CNM のように監視対象ホストごとの Infrastructure Pro / Enterprise は不要）。ホストの課金は [Infrastructure Monitoring](infrastructure-monitoring.md) を参照。
-- **Wireless AP SKU の対象:** Cisco Meraki など、NDM が提供する標準の API インテグレーションに対応した無線 AP が対象。**SNMP で直接監視する AP** と、**Cisco Meraki のスイッチ、アプライアンス、WLC、セルラーゲートウェイ** は対象外（料金ページ FAQ）。対象外の機器は通常の NDM デバイスとして課金されると考えられる【推定】。
+- **Wireless AP SKU の対象:** Cisco Meraki など、NDM が提供する標準の API インテグレーションに対応した無線 AP が対象。**SNMP で直接監視する AP**、**WLC 経由で監視される AP**、**Cisco Meraki のスイッチ、アプライアンス、WLC、セルラーゲートウェイ** は対象外（料金ページ FAQ）。対象外の機器は通常の NDM デバイスとして課金されると考えられる【推定】。
 - **NetFlow レコード:** Agent が生のフローを集約（既定 5 分）して送信したレコード数で課金される。`aggregator_max_flows_per_flush_interval` で量を制御できる。
 - **SNMP Traps と Syslog:** どちらも Datadog にはログとして送られる。ログとしての取り込み・インデックス課金の対象になるかは NDM ドキュメントに明記がない（公開情報では確認できず）。Log Management の課金体系で扱われる可能性が高い【推定】。ログ課金は [Indexes・保持・アーカイブ](../logs/log-indexes-retention-archives.md) を参照。
 - **NDM のメトリクス（`snmp.*`）がカスタムメトリクスとして課金されるか:** 公開情報では確認できず。

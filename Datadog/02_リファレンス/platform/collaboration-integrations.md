@@ -34,6 +34,18 @@ sources:
   - https://docs.datadoghq.com/integrations/alibaba_cloud/
   - https://docs.datadoghq.com/integrations/rapdev_ibm_cloud/
   - https://docs.datadoghq.com/api/latest/ip-ranges/
+  - https://ip-ranges.ap1.datadoghq.com/
+  - https://docs.datadoghq.com/api/latest/
+  - https://docs.datadoghq.com/api/latest/slack-integration/
+  - https://docs.datadoghq.com/api/latest/microsoft-teams-integration/
+  - https://docs.datadoghq.com/api/latest/pagerduty-integration/
+  - https://docs.datadoghq.com/api/latest/webhooks-integration/
+  - https://docs.datadoghq.com/api/latest/opsgenie-integration/
+  - https://docs.datadoghq.com/api/latest/servicenow-integration/
+  - https://docs.datadoghq.com/api/latest/jira-integration/
+  - https://store.servicenow.com/store/app/e0e963a21b246a50a85b16db234bcb67
+  - https://docs.datadoghq.com/service_management/workflows/trigger/
+  - https://docs.datadoghq.com/incident_response/status_pages/
   - https://docs.datadoghq.com/getting_started/site/
   - https://docs.datadoghq.com/account_management/billing/
   - https://www.datadoghq.com/pricing/
@@ -96,7 +108,8 @@ Datadog の主要な通知・コラボレーション連携と、そのハンド
 | Zoom | —（ハンドルなし） | Datadog → Zoom | インシデント会議の作成・要約 | [出典](https://docs.datadoghq.com/integrations/zoom_incident_management/) |
 
 - モニター通知のドキュメントは、インテグレーションのハンドル形式を `@<INTEGRATION_NAME>-<VALUES>` とし、Jira（`@jira`）、PagerDuty（`@pagerduty`）、Slack（`@slack`）、Webhooks（`@webhook`）、Microsoft Teams（`@teams`）、ServiceNow（`@servicenow`）を代表例として挙げている。[出典](https://docs.datadoghq.com/monitors/notify/)
-- Workflow Automation のワークフローは「Add Workflow」、インシデントは「Add Incident」から `@workflow-` / `@incident-` 系の宛先として追加できる（ワークフロー側に Monitor trigger が必要、`@incident-` はインシデント設定で管理者が作成）。[出典](https://docs.datadoghq.com/monitors/notify/)
+- インシデントは「Add Incident」から `@incident-` 系の宛先として追加できる（`@incident-` はインシデント設定で管理者が作成）。[出典](https://docs.datadoghq.com/monitors/notify/)
+- Workflow Automation のワークフローは「+ Add Workflow」から追加でき、`@workflow-<名前>`（入力パラメータがある場合は `@workflow-<名前>(param="")`）の形式でメッセージに入る。選択肢に出るのは Monitor trigger を持つワークフローのみ（ワークフロー側で Monitor trigger を追加して公開しておく）。[出典](https://docs.datadoghq.com/service_management/workflows/trigger/)
 - Datadog ネイティブのページング製品 On-Call の詳細は [On-Call](../service-management/on-call.md) を参照。
 
 ### 1.2 データフロー
@@ -472,10 +485,9 @@ Microsoft による Office 365 コネクタ廃止に伴い、Datadog の Teams �
 | Teams アプリ（全サイト） | メッセージの送受信（個人チャット、チャンネル／チャット）、プロフィール情報（名前、メール、会社、言語）、チーム・チャット情報（チャンネル一覧、名簿の名前とメール） |
 | Graph（Application / Delegated 両方） | `Channel.Create`、`Channel.Delete.All`、`ChannelMessage.Read.All`、`ChannelSettings.ReadWrite.All`、`TeamsTab.Create`、`Application.Read.All` |
 | Graph（Application のみ） | `Directory.Read.All`、`GroupMember.Read.All`（オートコンプリート） |
-| Graph（Delegated のみ） | `OnlineMeetings.ReadWrite`、`TeamsAppInstallation.ReadWriteSelfForTeam`、`TeamsTab.Read.All` |
-| Graph（共通） | `User.Read`、`User.Read.All`、`Team.ReadBasic.All`、`Chat.Read` |
+| Graph（Delegated のみ） | `OnlineMeetings.ReadWrite`、`TeamsAppInstallation.ReadWriteSelfForTeam`、`TeamsTab.Read.All`、`User.Read`、`User.Read.All`、`Team.ReadBasic.All`、`Chat.Read` |
 
-Graph 権限は Incident Management 用で、US1、US3、US5、EU1、AP1、AP2、UK1 に適用される。[出典](https://docs.datadoghq.com/integrations/microsoft_teams/)
+Graph 権限は Incident Management 用で、US1、US3、US5、EU1、AP1、AP2、UK1 に適用される。Delegated 権限のみで構成する場合は、Application のみの 2 権限（`Directory.Read.All`、`GroupMember.Read.All`）を除く 13 権限をすべて Delegated として付与する。[出典](https://docs.datadoghq.com/integrations/microsoft_teams/)
 
 > **サイト差異:** US1-FED / US2-FED では、Datadog アカウントは安全な環境でホストされるが、Teams 側のセキュリティは利用者の管理となる。US2-FED では組織によって利用可否が異なる（例外申請は support@ddog-gov.com）。Microsoft 365 の GCC / GCC High 環境への対応は公開情報では確認できず。[出典](https://docs.datadoghq.com/integrations/microsoft_teams/)
 
@@ -1082,6 +1094,23 @@ Datadog の Statuspage インテグレーションは 2 つの用途を持つ。
 
 > **サイト差異:** US2-FED では組織によって利用できない場合がある。Incident Management 連携は US1-FED・US2-FED で非対応。[出典](https://docs.datadoghq.com/integrations/statuspage/)
 
+**Datadog Status Pages との違い:** Datadog には Incident Response スイート（On-Call、Incident Management と並ぶ）の一部として自社製の **Status Pages** もあり、Atlassian Statuspage 連携とは別物である。[出典](https://docs.datadoghq.com/incident_response/status_pages/)
+
+| 項目 | Datadog Status Pages | Atlassian Statuspage 連携 |
+|---|---|---|
+| 位置付け | Datadog 内でステータスページ自体を作成・ホスト | 外部の Statuspage サービスを Datadog から更新／イベント取り込み |
+| 公開範囲 | 公開（リンクを知る誰でも閲覧可）／内部（組織の認証ユーザーのみ） | Statuspage 側の設定に依存 |
+| 告知 | ページの **Publish Notice** で Degradation（Investigating / Identified / Monitoring / Resolved）とメンテナンスウィンドウを告知 | Datadog インシデントから Statuspage インシデントを作成・更新 |
+| 購読通知 | Email（ダブルオプトイン）、Slack（Datadog Status Pages アプリ）、Microsoft Teams（Power Automate Workflows の Webhook URL） | Statuspage 側の機能 |
+| カスタムドメイン | 対応（CNAME / A レコード、SSL 証明書を自動発行） | Statuspage 側の機能 |
+| 上限 | 1 ページあたり未解決 Degradation 最大 100 件、予定・進行中メンテナンス最大 100 件 | — |
+| サイト | US1-FED（app.ddog-gov.com）・US2-FED では非対応 | 上記サイト差異のとおり |
+| 課金 | 料金ページの Incident Management に「Unlimited number of status pages with custom domains」として含まれる（ページ単位の追加料金の記載なし） | 連携自体の個別料金の記載なし（Statuspage 側の契約は別途） |
+
+[出典](https://docs.datadoghq.com/incident_response/status_pages/)、[出典](https://www.datadoghq.com/pricing/)
+
+既に Atlassian Statuspage を対外告知の正としている場合は連携を、インシデント対応と告知を Datadog 内で完結させたい場合は Status Pages を選ぶ、という使い分けになる（設計上の判断）。Incident Management のシート課金は [製品別料金](../../03_導入編/pricing-by-product.md)、運用の詳細は [Incident Management](../service-management/incident-management.md) を参照。
+
 ### 14.2 Zoom（Incident Management）
 
 | 項目 | 内容 |
@@ -1147,7 +1176,7 @@ Datadog Incident Management の連携は **Incidents > Settings > Integrations**
 | Google Chat、Google Meet | セットアップ対象として掲載（Google Chat はスペース自動作成、5 章） |
 | Jira | Datadog インシデントからの Jira チケット作成など |
 | ServiceNow | インシデントの作成と双方向同期（10.5） |
-| Status Pages、Atlassian Statuspage | インシデントからステータスページを更新 |
+| Status Pages、Atlassian Statuspage | インシデントからステータスページを更新（Status Pages は Datadog 自社製品、Atlassian Statuspage は外部サービス連携。違いは 14.1 参照） |
 | PagerDuty、Opsgenie | オンコールエンジニアへの通知 |
 | Webhooks | 通知の送出（例: Twilio で SMS） |
 | Zoom | インシデント用会議の作成（14.2） |
@@ -1287,7 +1316,7 @@ Datadog の OCI インテグレーション（v1.2.0）は、OCI のメトリク
 | 有効化 | 親テナンシーの OCI インテグレーション作成後、Cloud Cost Management のトグルをオン |
 | 履歴データ | Oracle はコストレポートを **1 年**保持。Datadog は有効化時に利用可能な履歴を最大 15 か月分取り込むが、実質は Oracle の保持期間が上限。それ以前のバックフィル手段なし |
 | メトリクス | `oci.cost.amortized`（割引適用後の償却コスト）、`oci.cost.ondemand`（割引前の公開オンデマンドコスト） |
-| タグ | FOCUS コストエクスポート由来の 29 タグ（`region`、`servicename`、`skuid`、`chargecategory` など）、相関タグ（Compute は `host`、Object Storage は `name`）、共通タグ（`compartment_id`、`compartment_name`、`tenancy_ocid`、`tenancy_name`、`resource_id`、`resource_type`、`dd_resource_key`） |
+| タグ | FOCUS コストエクスポート由来の 28 タグ（`region`、`servicename`、`skuid`、`chargecategory` など）、相関タグ（Compute は `host`、Object Storage は `name`）、共通タグ（`compartment_id`、`compartment_name`、`tenancy_ocid`、`tenancy_name`、`resource_id`、`resource_type`、`dd_resource_key`） |
 | 制約 | **OCI ではコンテナコスト配分は利用不可** |
 
 [出典](https://docs.datadoghq.com/cloud_cost_management/setup/oracle/)
@@ -1429,7 +1458,7 @@ Datadog の Alibaba Cloud インテグレーションは、Alibaba Cloud の各�
 
 ## 課金への影響
 
-Datadog の通知・コラボレーション連携（Slack、Teams、Google Chat、Email、PagerDuty、Opsgenie、JSM Ops、Splunk On-Call、ServiceNow、Jira、Linear、Webhooks、Statuspage、Zoom、EventBridge）について、**インテグレーションの利用自体に個別料金を設定した記載は公式料金ページでは確認できない**。インテグレーションは Infrastructure の Pro / Enterprise プランに「1,000+ integrations」として含まれる（Free / Basic は「Limited」）。[出典](https://www.datadoghq.com/pricing/)
+Datadog の通知・コラボレーション連携（Slack、Teams、Google Chat、Email、PagerDuty、Opsgenie、JSM Ops、Splunk On-Call、ServiceNow、Jira、Linear、Webhooks、Statuspage、Zoom、EventBridge）について、**インテグレーションの利用自体に個別料金を設定した記載は公式料金ページでは確認できない**。インテグレーションは Infrastructure Pro / Enterprise では「1,000+ Integrations」、Basic では「Limited」と表記される（Free tier での扱いは料金ページに記載なし）。[出典](https://www.datadoghq.com/pricing/)
 
 | 要因 | 課金への影響 | 参照 |
 |---|---|---|
@@ -1469,6 +1498,8 @@ Datadog の通知・コラボレーション連携（Slack、Teams、Google Chat
 - Linear Integration: https://docs.datadoghq.com/integrations/linear/
 - Webhooks Integration: https://docs.datadoghq.com/integrations/webhooks/
 - Statuspage Integration: https://docs.datadoghq.com/integrations/statuspage/
+- Datadog Status Pages: https://docs.datadoghq.com/incident_response/status_pages/
+- Trigger a workflow from a monitor: https://docs.datadoghq.com/service_management/workflows/trigger/
 - Zoom Incident Management: https://docs.datadoghq.com/integrations/zoom_incident_management/
 - Amazon EventBridge Integration: https://docs.datadoghq.com/integrations/amazon_event_bridge/
 - Work Management（Case Management）Settings: https://docs.datadoghq.com/service_management/case_management/settings/
@@ -1479,6 +1510,7 @@ Datadog の通知・コラボレーション連携（Slack、Teams、Google Chat
 - Alibaba Cloud Integration: https://docs.datadoghq.com/integrations/alibaba_cloud/
 - RapDev IBM Cloud（Marketplace）: https://docs.datadoghq.com/integrations/rapdev_ibm_cloud/
 - IP Ranges API: https://docs.datadoghq.com/api/latest/ip-ranges/
+- API Reference: https://docs.datadoghq.com/api/latest/
 - IP Ranges（AP1、取得 2026-11-02）: https://ip-ranges.ap1.datadoghq.com/
 - Datadog Sites: https://docs.datadoghq.com/getting_started/site/
 - Billing: https://docs.datadoghq.com/account_management/billing/

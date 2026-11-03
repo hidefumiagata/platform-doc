@@ -60,7 +60,7 @@ sources:
 - 通信要件・FW 開放: [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md)
 - 展開方式の設計: [Agent 展開設計](../../03_導入編/agent-rollout-design.md)
 
-> **基準バージョンについて:** 本ファイルのデフォルト値は、2026-11-02 時点の最新リリース **Agent 7.85.0**（2026-10-29 リリース）に同梱される設定テンプレート `datadog-agent_linux.yaml.example`（GitHub `DataDog/datadog-agent` リポジトリの `pkg/config/example/`）を一次資料としている。デフォルト値は Agent バージョンで変わることがあるため、厳密な値は利用中バージョンの `datadog.yaml.example`（Linux では `/etc/datadog-agent/datadog.yaml.example`）を確認すること。[出典](https://github.com/DataDog/datadog-agent/blob/7.85.0/pkg/config/example/datadog-agent_linux.yaml.example)
+> **基準バージョンについて:** 本ファイルのデフォルト値は、2026-11-02 時点の最新リリース **Agent 7.85.0**（リリースノート記載のリリース日 2026-10-30。GitHub Releases への公開は 2026-10-29）に同梱される設定テンプレート `datadog-agent_linux.yaml.example`（GitHub `DataDog/datadog-agent` リポジトリの `pkg/config/example/`）を一次資料としている。デフォルト値は Agent バージョンで変わることがあるため、厳密な値は利用中バージョンの `datadog.yaml.example`（Linux では `/etc/datadog-agent/datadog.yaml.example`）を確認すること。[出典](https://github.com/DataDog/datadog-agent/blob/7.85.0/pkg/config/example/datadog-agent_linux.yaml.example)
 
 ---
 
@@ -80,29 +80,23 @@ Datadog Agent の設定値は、次のソースから与えられる。
 
 ### 優先順位
 
-Datadog Agent の設定の優先順位は、高い順に次のとおりである。
+公式ドキュメントは、すべての設定ソースを通した固定の優先順位を示していない。公式に確認できるルールは次のとおりである。
 
-1. **Remote Configuration**（Fleet Automation からの適用）— リモート適用した変更はローカルの `datadog.yaml` には書き込まれない
-2. **環境変数**（Helm 等が設定するものを含む）
-3. **ローカルの `datadog.yaml`**（構成管理ツールで配布したものを含む）
-4. デフォルト値
-
-[出典（Remote Configuration）](https://docs.datadoghq.com/agent/guide/how_remote_config_works/)、[出典（環境変数）](https://docs.datadoghq.com/agent/guide/environment-variables/)
-
-補足ルール:
-
-- 同じプロパティが `datadog.yaml` と環境変数の両方にある場合、**環境変数が優先**される。[出典](https://docs.datadoghq.com/agent/guide/environment-variables/)
+- 同じプロパティが `datadog.yaml` と環境変数の両方にある場合、**環境変数が優先**される（入れ子オプションの扱いは下記。`proxy` は例外）。どちらにも指定がなければデフォルト値が使われる。[出典](https://docs.datadoghq.com/agent/guide/environment-variables/)
 - **入れ子（nested）オプションを環境変数で設定すると、その親オプション配下の入れ子オプションすべてが上書きされる**（例外は `proxy`）。つまり `datadog.yaml` 側で親オプション配下に書いた他の子キーが効かなくなることがある。[出典](https://docs.datadoghq.com/agent/guide/environment-variables/)
 - Fleet Automation による `datadog.yaml` の変更は **merge patch** として適用され、指定したフィールドだけが変わる。フィールド単位で競合した場合は Fleet Automation の値がローカル値より優先される。インテグレーション設定・カスタムログ設定は、新規ファイルとして配布するか既存ファイルに merge patch を当てる。merge patch なしで既存ファイル名を指定すると、そのファイルは**全体が上書き**される。[出典](https://docs.datadoghq.com/agent/fleet_automation/configure_agents/)
 - Fleet Automation のドキュメントは「変更元（Fleet Automation、構成管理ツール、ホスト上での直接編集）にかかわらず、最新の変更がアクティブな設定になる」とも記述している。構成管理ツールと Fleet Automation を併用する場合は、どちらで管理するキーかを分担しておくのが安全である。【経験則】 [出典](https://docs.datadoghq.com/agent/fleet_automation/configure_agents/)
+- Remote Configuration / Fleet Automation で適用した値と環境変数（`DD_*`）が競合した場合にどちらが優先されるか、またリモート適用した変更がローカルの `datadog.yaml` ファイルに書き込まれるかどうかは、公開情報では確認できず。
 
 ```mermaid
 flowchart TB
-  RC["1. Remote Configuration / Fleet Automation<br/>(ローカル datadog.yaml には書かれない)"] --> EV["2. 環境変数 DD_*<br/>(Helm / Operator / systemd environment)"]
-  EV --> YAML["3. datadog.yaml<br/>(手動・構成管理ツール)"]
-  YAML --> DEF["4. デフォルト値"]
-  RT["実行時変更 config set<br/>(再起動で消える)"] -.一時的に上書き.-> ACTIVE["稼働中 Agent の有効設定"]
-  RC --> ACTIVE
+  DEF["デフォルト値"] -->|datadog.yaml の値で上書き| YAML["datadog.yaml<br/>(手動・構成管理ツール)"]
+  YAML -->|環境変数で上書き（公式）| EV["環境変数 DD_*<br/>(Helm / Operator / systemd environment)"]
+  YAML -->|merge patch で上書き（公式: フィールド競合時は Fleet Automation 優先）| FA["Fleet Automation / Remote Configuration"]
+  EV -.相互の優先順位は公開情報では確認できず.- FA
+  EV --> ACTIVE["稼働中 Agent の有効設定"]
+  FA --> ACTIVE
+  RT["実行時変更 config set<br/>(再起動で消える)"] -.一時的に上書き.-> ACTIVE
 ```
 
 ### Remote Configuration / Fleet Automation 関連の設定キー
@@ -387,15 +381,14 @@ Agent が使う受信ポート（ローカルホストのみ）の公式一覧: 
 
 ログ送信のトランスポート:
 
-- Agent 6.19+/7.19+ の既定は**圧縮 HTTPS**。起動時に HTTPS 疎通テストを行い、成功すれば HTTPS、失敗すれば TCP にフォールバックする（テストは起動時のみ）。
+- Agent 6.19+/7.19+ の既定は**圧縮 HTTPS**（ポート 443）。
+- **TCP によるログ収集は US1（app.datadoghq.com）、EU1（app.datadoghq.eu）、US3、US5、AP1、AP2、UK1 の各サイトおよび ddog-gov サイト（US1-FED / US2-FED）でサポートされない**。これらのサイトでは HTTPS を使う（`logs_config.force_use_http: true` で明示的に固定することを推奨）。また TCP には配信・信頼性の保証がない。
 - HTTPS 送信のバッチ上限: 1 バッチ 1 MB、1 ログ 900 kB、1 バッチ 1,000 ログ。
-- ポート: HTTPS は 443。TCP は US サイトで 10516、EU サイトで 443。
-- SOCKS5 プロキシを使うと TCP が強制される（SOCKS5 は HTTPS 圧縮に未対応）。
+- 【レガシー】公式ドキュメントには、起動時の HTTPS 疎通テストに失敗すると TCP にフォールバックする挙動（テストは起動時のみ）と、TCP 送信用ポート（US サイト 10516、EU サイト 443）の記載も残っている。ただし上記のとおり主要サイトでは TCP が非サポートのため、これらのサイトでは TCP フォールバックやこれらのポートに依存した構成はとれない。フォールバックを避けるためにも `force_use_http: true` を設定する。
+- 【レガシー】SOCKS5 プロキシを使うと TCP が強制される（SOCKS5 は HTTPS 圧縮に未対応）。TCP 非サポートのサイトでは、ログ送信に SOCKS5 プロキシは使えないと考えるべきである（HTTP(S) プロキシを使う）。【推定】
 - プロキシ経由でログを転送する場合は、トランスポートを明示的に強制することが推奨される。
 
 [出典](https://docs.datadoghq.com/agent/logs/log_transport/)
-
-> **サイト差異:** 公式ドキュメントは、TCP 送信が US1（app.datadoghq.com）、EU1、US3、US5、AP1、AP2、UK1 の各サイトおよび ddog-gov サイトでサポートされないと記載している。AP1 では HTTPS（`force_use_http: true` 推奨）を使う。[出典](https://docs.datadoghq.com/agent/logs/log_transport/)
 
 ログ収集の設定詳細（ファイル tail、コンテナ、処理ルールの書式）は [ログ収集](../logs/log-collection.md) を参照。
 
@@ -731,7 +724,7 @@ Agent 7.32+ のコンテナイメージには `/readsecret_multiple_providers.sh
 | `ENC[file@/path/to/file]` | マウントされたファイル |
 | `ENC[k8s_secret@namespace/secret-name/key]` | Kubernetes Secret |
 
-有効化は Helm の `secretBackend.command`、Operator の `spec.global.secretBackend.command`、DaemonSet の `DD_SECRET_BACKEND_COMMAND`。スクリプトはアクセス可能なサブフォルダ（サービスアカウントトークンを含む）をすべて読めるため、`/var/run/secrets` ではなく専用のマウントフォルダを使うことが推奨される。他 namespace の Secret を読むには RBAC（`secrets` への `get` を許可する Role と RoleBinding）が必要。ネイティブの `secretBackend` 設定フィールドは Operator v1.25.0+、Helm chart v3.171.0+ で対応。[出典](https://docs.datadoghq.com/agent/configuration/secrets-management/)
+有効化は Helm の `secretBackend.command`、Operator の `spec.global.secretBackend.command`、DaemonSet の `DD_SECRET_BACKEND_COMMAND`。スクリプトはアクセス可能なサブフォルダ（サービスアカウントトークンを含む）をすべて読めるため、`/var/run/secrets` ではなく専用のマウントフォルダを使うことが推奨される。他 namespace の Secret を読むには RBAC（`secrets` への `get` を許可する Role と RoleBinding）が必要。ネイティブの `secretBackend` 設定フィールドの要件はバックエンドで異なる: Kubernetes Secrets・ファイルバックエンドは Datadog Operator v1.25.0+、AWS（Secrets Manager / SSM）・Azure Key Vault・GCP Secret Manager・HashiCorp Vault は Datadog Operator v1.29.0+、Helm の Kubernetes Secrets のカスタムパス・カスタム API サーバー設定は Helm chart v3.171.0+。[出典](https://docs.datadoghq.com/agent/configuration/secrets-management/)
 
 ### Secrets Management の設定キーと既定値
 
@@ -822,7 +815,7 @@ logs_config:
 
 - チェック（インテグレーション）単位のプロキシは `conf.yaml` の `proxy` / `skip_proxy` で指定でき、SOCKS5（`socks5://`、`socks5h://`）も使える。[出典](https://github.com/DataDog/integrations-core/blob/master/nginx/datadog_checks/nginx/data/conf.yaml.example)
 - クラウドメタデータ（169.254.169.254 等）へのアクセスは既定でプロキシを使わない（`use_proxy_for_cloud_metadata: false`）。
-- ログを SOCKS5 プロキシ経由にすると TCP 送信が強制される。[出典](https://docs.datadoghq.com/agent/logs/log_transport/)
+- ログを SOCKS5 プロキシ経由にすると TCP 送信が強制される。ただし TCP ログ収集は US1、EU1、US3、US5、AP1、AP2、UK1、ddog-gov の各サイトで非サポートのため、これらのサイトではログ送信に SOCKS5 プロキシは使えないと考えるべきである（本ファイル「ログ収集」節のログ送信のトランスポートを参照）。【推定】 [出典](https://docs.datadoghq.com/agent/logs/log_transport/)
 - 確認方法: `datadog-agent status` を実行し、`agent.log`・`trace-agent.log` 等で接続エラーがないか確認する。
 
 > **サイト差異:** FIPS プロキシ（`fips.enabled`）は **US1-FED のみ**で利用でき、通常のプロキシとは併用できない。[出典](https://docs.datadoghq.com/agent/configuration/proxy/)
@@ -1050,7 +1043,7 @@ Datadog Agent の設定を確認・検証するサブコマンド（`<AGENT_BINA
 | `logs_config.compression_level` の範囲 | 0〜9 | 同上 |
 | メトリクスのメモリ上リトライキュー | 既定 15 MiB（超過分は破棄） | [network](https://docs.datadoghq.com/agent/configuration/network/) |
 | ディスクリトライ保存のディスク使用率上限 | 既定 80% | 同上 |
-| シークレット実行ファイルの出力上限 | 既定 1 MiB | テンプレート |
+| シークレット実行ファイルの出力上限 | 既定 1 MiB | [datadog-agent_linux.yaml.example](https://github.com/DataDog/datadog-agent/blob/7.85.0/pkg/config/example/datadog-agent_linux.yaml.example) |
 | `file.json` / `file.yaml` バックエンドの階層 | 1 階層のみ | [secrets-management](https://docs.datadoghq.com/agent/configuration/secrets-management/) |
 | 実行時設定変更の永続性 | なし（再起動で消失） | [troubleshooting/config](https://docs.datadoghq.com/agent/troubleshooting/config/) |
 | Agent ログのバックアップ世代 | 既定 1 世代 | [agent-log-files](https://docs.datadoghq.com/agent/configuration/agent-log-files/) |
@@ -1079,6 +1072,9 @@ Datadog Agent の設定を確認・検証するサブコマンド（`<AGENT_BINA
 | Fleet Automation によるインテグレーション・シークレット設定、FIPS 版 Agent のシークレット対応 | 7.76 |
 | `multi_secret_backends` | 7.80 |
 | `windows.regkey` | 7.82 |
+| Operator のネイティブ `secretBackend` フィールド（Kubernetes Secrets・ファイル） | Datadog Operator v1.25.0 |
+| Operator のネイティブ `secretBackend` フィールド（AWS・Azure・GCP・HashiCorp） | Datadog Operator v1.29.0 |
+| Helm のネイティブ `secretBackend` フィールド（Kubernetes Secrets のカスタムパス・API サーバー） | Helm chart v3.171.0 |
 
 ---
 

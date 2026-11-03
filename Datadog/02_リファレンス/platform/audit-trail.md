@@ -54,7 +54,7 @@ Datadog のツールとポリシーは PCI v4.0 に準拠している。[出典]
 |---|---|
 | 提供状況 | GA（2022-06-23 に一般提供を発表）[出典](https://www.datadoghq.com/ja/about/latest-news/press-releases/datadog-launches-audit-trail-to-help-businesses-achieve-their-compliance-and-governance-objectives/) |
 | 画面の場所 | Organization Settings > COMPLIANCE > **Audit Trail Settings**（設定）、**Audit Trail**（Explorer、`https://app.datadoghq.com/audit-trail`） |
-| 記録対象 | 100 種類を超える監査イベント（70 超の製品カテゴリ） |
+| 記録対象 | 100 種類を超える監査イベント（68 の製品カテゴリ。2026-11-02 時点） |
 | 保持期間 | 有効時は既定 90 日。3 / 7 / 15 / 30 / 90 日から選択 |
 | 外部保管・連携 | アーカイブ（Amazon S3 / Google Cloud Storage / Azure Storage）、Custom Destinations への転送（HTTP / Splunk / Elasticsearch / Microsoft Sentinel【Preview】） |
 | 課金 | 料金ページ上の単位は「Per % of spend, per month」（支出に対する %）。詳細は「課金への影響」節を参照 |
@@ -151,7 +151,7 @@ Datadog Audit Trail の保持期間は、Audit Trail Settings の **Retention**�
 | 90 日を超える保持 | Datadog 内では選べない。長期保管にはアーカイブを使う |
 
 - 設定画面には「Changing retention period for Audit Trail does not affect pricing.」（保持期間を変えても料金は変わらない）と表示される（画面上の記載。下の画像を参照）。
-- Audit Trail を有効にすると、他製品の履歴の保持期間も延びる場合がある。例として、ダッシュボードの Version History は既定 30 日だが、Audit Trail を有効にすると 90 日になる。詳細は [Dashboards](./dashboards.md) を参照。
+- Audit Trail を有効にすると、他製品の履歴の保持期間も延びる場合がある。例として、ダッシュボードの Version History は既定 30 日だが、Audit Trail を有効にすると 90 日になる。[出典](https://docs.datadoghq.com/dashboards/guide/version_history/) 詳細は [Dashboards](./dashboards.md) を参照。
 
 ![Audit Trail の保持期間設定](../../assets/images/audit-trail/retention_period.png)
 
@@ -1042,9 +1042,10 @@ Datadog の Audit Trail Monitor は、指定した種類の監査イベントが
 | ダッシュボード削除 | `@evt.name:Dashboard @asset.type:dashboard @action:deleted` が 1 件以上 | 公式ドキュメントの例 [出典](https://docs.datadoghq.com/account_management/audit_trail/) |
 | 特定ユーザーのログイン | `@evt.name:Authentication @action:login @usr.email:<email>` が 1 件以上 | 同上 |
 | 漏洩キーの検出 | `@evt.name:"Security Notification" @asset.type:(api_key OR application_key)` が 1 件以上 | イベント定義 [出典](https://docs.datadoghq.com/account_management/audit_trail/events/) |
-| Audit Trail の無効化 | `@evt.name:"Organization Management" @asset.type:audit_logs_settings` が 1 件以上（または Cloud SIEM の OOTB ルールを使う） | 同上、および Cloud SIEM のルール |
+| Audit Trail の無効化 | `@asset.type:audit_trail_state @asset.new_value.enabled:false` が 1 件以上（Cloud SIEM の OOTB ルール「Datadog audit trail disabled」と同じ条件。OOTB ルールをそのまま使ってもよい） | OOTB ルールの検知ロジック [出典](https://docs.datadoghq.com/security/default_rules/def-000-atd/) |
+| Audit Trail 設定（保持期間など）の変更 | `@evt.name:"Organization Management" @asset.type:audit_logs_settings` が 1 件以上 | イベント定義 [出典](https://docs.datadoghq.com/account_management/audit_trail/events/)。無効化がこのイベントとしても記録されるかは公開情報では確認できず |
 
-> 公式ブログ（2022-09-20 公開）はアラートの考え方を示しているが、具体的なクエリは書いていない。上表のクエリは、公式イベント一覧のクエリを当てはめた例である。
+> 公式ブログ（2022-09-20 公開）はアラートの考え方を示しているが、具体的なクエリは書いていない。上表のクエリは、公式イベント一覧のクエリ（無効化の行は Cloud SIEM の OOTB ルールの検知条件）を当てはめた例である。
 
 ## ダッシュボード・スケジュールレポート・DDSQL
 
@@ -1284,7 +1285,7 @@ Datadog の Usage Metering API には、Audit Trail に関する次のフィー�
 | 監査イベントが記録されるまでの遅延 | 公開情報では確認できず（DDSQL では取り込み遅延で `discovery_timestamp` が `timestamp` と異なる場合があると記載） | [dd.audit](https://docs.datadoghq.com/ddsql_reference/data_directory/dd/dd.audit.dataset/) |
 | Saved View 数の上限 | 公開情報では確認できず | — |
 | アーカイブのファイル形式 | 公開情報では確認できず | — |
-| Dashboard Version History の保持 | 既定 30 日、Audit Trail 有効時は 90 日 | [Dashboards](./dashboards.md) |
+| Dashboard Version History の保持 | 既定 30 日、Audit Trail 有効時は 90 日 | [Version History](https://docs.datadoghq.com/dashboards/guide/version_history/)、[Dashboards](./dashboards.md) |
 
 ## 課金への影響
 
@@ -1331,7 +1332,7 @@ Datadog Audit Trail の課金単位は、公式料金ページで **「Per % of 
 
 - **Audit Trail は Events Explorer の代わりではなく、その逆も同じである。** Events Explorer は包括的な監査ツールとして設計されていないため、監査・コンプライアンス用途には Audit Trail を使う。[出典](https://docs.datadoghq.com/events/explorer/) 詳細は [Event Management](./event-management.md) を参照。
 - **保持期間 90 日を超える証跡要件**（例: 1 年以上の保管を求める社内規程や業界基準）がある場合は、アーカイブを最初から設定する【経験則】。Datadog 内の保持は最大 90 日である。
-- **Audit Trail 自体の改ざん・無効化対策**: Audit Trail の無効化は `@asset.type:audit_logs_settings` の変更と Cloud SIEM の「Datadog audit trail disabled」ルールで検知できる。`audit_logs_write` 権限は少数の管理者に限る【経験則】。
+- **Audit Trail 自体の改ざん・無効化対策**: Audit Trail の無効化は `@asset.type:audit_trail_state @asset.new_value.enabled:false` のイベント（Cloud SIEM の「Datadog audit trail disabled」ルールと同じ条件）で検知できる [出典](https://docs.datadoghq.com/security/default_rules/def-000-atd/)。保持期間などの設定変更は `@asset.type:audit_logs_settings` で追う。`audit_logs_write` 権限は少数の管理者に限る【経験則】。
 - **閲覧権限の最小化**: 監査イベントには利用者のメールアドレス、送信元 IP、GeoIP などの個人に関わる情報が含まれる。`audit_logs_read` は監査・セキュリティ担当に限る【経験則】。
 - **AI エージェントの操作**: 人の行動を網羅して追うには、`@usr.id` だけでなく `@delegator.id` も検索に含める。サードパーティ製エージェントは区別されないため、専用のサービスアカウントとキーを割り当て、キー単位で追跡できるようにする【経験則】。
 - **マルチ org**: Audit Trail の設定（有効化・保持・アーカイブ・転送先）とイベントは org 単位である（Usage API も org 単位で `audit_trail_enabled_hwm` を返す）。子 org を作ったら、それぞれで設定が必要かを確認する。親 org から子 org のイベントをまとめて見られるかは公開情報では確認できず。運用は [大規模・マルチorg運用](../../04_応用編/large-scale-and-multi-org.md) を参照。
@@ -1356,6 +1357,7 @@ Datadog Audit Trail の課金単位は、公式料金ページで **「Per % of 
 - Datadog audit trail disabled（OOTB ルール）: https://docs.datadoghq.com/security/default_rules/def-000-atd/
 - DDSQL dd.audit dataset: https://docs.datadoghq.com/ddsql_reference/data_directory/dd/dd.audit.dataset/
 - Events Explorer: https://docs.datadoghq.com/events/explorer/
+- Dashboard Version History: https://docs.datadoghq.com/dashboards/guide/version_history/
 - Delete data from Datadog: https://docs.datadoghq.com/account_management/delete_data/
 - Datadog Pricing List（Audit Trail）: https://www.datadoghq.com/pricing/list/ （2026-11-02 取得）
 - Datadog Pricing（Audit Trail FAQ）: https://www.datadoghq.com/pricing/?product=audit-trail （2026-11-02 取得）

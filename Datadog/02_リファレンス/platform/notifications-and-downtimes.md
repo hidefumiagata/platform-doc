@@ -21,13 +21,20 @@ sources:
   - https://docs.datadoghq.com/account_management/rbac/permissions/
   - https://docs.datadoghq.com/api/latest/downtimes/
   - https://docs.datadoghq.com/api/latest/monitors/
+  - https://docs.datadoghq.com/api/latest/synthetics/
   - https://docs.datadoghq.com/integrations/amazon_ec2/
   - https://docs.datadoghq.com/integrations/google_compute_engine/
   - https://docs.datadoghq.com/integrations/azure_vm/
   - https://docs.datadoghq.com/synthetics/platform/downtime/
   - https://docs.datadoghq.com/service_management/service_level_objectives/
+  - https://docs.datadoghq.com/service_management/service_level_objectives/monitor/
+  - https://docs.datadoghq.com/integrations/pagerduty/
   - https://www.datadoghq.com/blog/monitor-notification-rules/
   - https://www.datadoghq.com/pricing/list/
+  - https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/downtime.md
+  - https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/downtime_schedule.md
+  - https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/monitor_notification_rule.md
+  - https://dev.classmethod.jp/articles/datadog-monitor-notification-rules-tag-based-alert/
 ---
 
 # 通知と Downtime
@@ -703,14 +710,14 @@ Datadog の Downtime のスケジュールは One Time（1 回限り）と Recur
 | 用途（公式ガイドの例） | RRULE | duration | 開始時刻の例 |
 |---|---|---|---|
 | 週末のみ | `FREQ=WEEKLY;INTERVAL=1;BYDAY=SA,SU` | `24h` | 土曜 00:00 |
-| 毎日の業務時間外 | 日次の繰り返し | `12h` | 18:00（公式ガイドの例） |
+| 業務時間外（公式ガイドの例。設定値は週末を含む毎日） | `FREQ=DAILY;INTERVAL=1` | `12h` | 18:00（`2023-07-10T18:00`） |
 | 平日夜＋週末 | `FREQ=WEEKLY;INTERVAL=1;BYDAY=SU,MO,TU,WE,TH,FR`（12h）と `FREQ=WEEKLY;INTERVAL=1;BYDAY=SA,SU`（24h）の 2 つの recurrence | 12h / 24h | |
 | 毎月第 2 火曜 | 公式ガイドは `FREQ=DAILY;INTERVAL=1;BYDAY=2TU` と記載 | `2h` | `2023-07-11T08:00` |
 
 [出典](https://docs.datadoghq.com/monitors/guide/suppress-alert-with-downtimes/)
 
 - 序数付き曜日（`2TU` など）は RFC 5545 では通常 `FREQ=MONTHLY` と組み合わせる。公式ガイドの `FREQ=DAILY` の例は、適用前にプレビューで次回発生日時を確認すること。【推定】
-- 公式ガイドの「毎日の業務時間外」の例は、本文の説明（20 時〜翌 6 時）と設定値（18:00 開始・12h）が一致していない。設定値どおりなら 18:00〜翌 6:00 になる。【推定】
+- 公式ガイドの「業務時間外」の例は、本文の説明と設定値が 2 点で一致していない。本文は「平日（every weekday）20 時〜翌 6 時」としているが、設定値（start `2023-07-10T18:00`、duration `12h`、rrule `FREQ=DAILY;INTERVAL=1`）は**週末を含む毎日** 18:00〜翌 6:00 になる。平日だけにしたい場合は `FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR` を使い、時刻は開始時刻と duration で合わせる。[出典](https://docs.datadoghq.com/monitors/guide/suppress-alert-with-downtimes/)
 - API では、1 つの繰り返しスケジュールに**最大 5 つ**の RRULE（recurrence）を入れられる。スケジュールを省略すると、Downtime は作成と同時に始まり、終わらない。[出典](https://docs.datadoghq.com/api/latest/downtimes/)
 
 ### 7.6 Downtime の通知設定
@@ -1017,7 +1024,7 @@ Datadog の公式料金ページ（https://www.datadoghq.com/pricing/list/、202
 | 通知・Renotify・Notification Rules・モニター Downtime | 公式料金ページに独立した課金項目はない |
 | モニター Downtime と Synthetic テスト | モニター Downtime はテストの実行を止めないため、**テスト実行の課金は減らない** |
 | Synthetic Downtime | テストの実行自体を止めるため、Synthetic API テスト（10K 実行あたり）やブラウザテスト（1K 実行あたり）の課金対象となる実行回数を減らせる |
-| On-Call（`@oncall-` ハンドル） | Datadog On-Call はユーザー（seat）単位で別途課金される |
+| On-Call（`@oncall-` ハンドル） | モニターから `@oncall-` でページを送ること自体にシートは不要。ページを受けるユーザー（スケジュール参加者、エスカレーションポリシーの登録者、ページ受信の通知設定をする人）が On-Call シートの課金対象（2026-11-02 時点。詳細は [製品別料金表](../../03_導入編/pricing-by-product.md) の On-Call） |
 | 外部通知先 | Slack、PagerDuty、ServiceNow などの外部ツール側のライセンス費用は、各製品の契約による |
 
 [出典](https://www.datadoghq.com/pricing/list/) [出典](https://docs.datadoghq.com/synthetics/platform/downtime/)

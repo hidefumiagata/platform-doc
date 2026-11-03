@@ -108,7 +108,7 @@ RUM（モバイル）の SDK は OS・フレームワークごとに提供され
 | iOS（Apple） | SPM（`https://github.com/DataDog/dd-sdk-ios`）、CocoaPods、Carthage。モジュール `DatadogCore`・`DatadogRUM` ほか | iOS / iPadOS / tvOS / visionOS / watchOS（下表参照） | `DataDog/dd-sdk-ios` |
 | React Native | npm：`@datadog/mobile-react-native`（Expo は `expo-datadog`） | React Native 0.65+。Android は `minSdkVersion` 23 | `DataDog/dd-sdk-reactnative` |
 | Flutter | pub.dev：`datadog_flutter_plugin`（`^3.0.0`） | Flutter 3.27+（iOS / Android / Web） | `DataDog/dd-sdk-flutter` |
-| Unity | UPM の Git URL：`https://github.com/DataDog/unity-package.git` | Unity LTS 2022+。iOS / Android（WebGL のセットアップ手順あり）。デスクトップ・コンソールは非対応 | `DataDog/unity-package` |
+| Unity | UPM の Git URL：`https://github.com/DataDog/unity-package.git` | Unity LTS 2022+。公式の対応記載は iOS / Android。WebGL は Browser SDK を読み込むセットアップ手順のみ掲載されており、対応を明記した記述はない。デスクトップ・コンソールは非対応 | `DataDog/unity-package` |
 | Kotlin Multiplatform | Maven：`com.datadoghq:dd-sdk-kotlin-multiplatform-rum` | Android / iOS | `DataDog/dd-sdk-kotlin-multiplatform` |
 
 [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/ios/supported_versions/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/react_native/setup/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/flutter/setup/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/unity/setup/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/kotlin_multiplatform/setup/)
@@ -127,18 +127,14 @@ iOS SDK（Apple 各 OS 向け）の対応状況は次のとおり。
 | tvOS | 12+ | **15.0+** |
 | watchOS | 7.0+ | **9.0+** |
 | visionOS | 1.0+ | 記載なし |
-| macOS（Designed for iPad） | 11+ | 記載なし |
-| macOS（Catalyst） | 12+（公式サポート外） | 記載なし |
-| macOS | 12+（公式サポート外。`DatadogRUM`・`DatadogSessionReplay`・`DatadogObjc` は macOS でビルド不可） | 記載なし |
+| macOS | Designed for iPad 11+。Catalyst 12+ とネイティブ macOS 12+ は公式サポート外（ネイティブ macOS では `DatadogRUM`・`DatadogSessionReplay`・`DatadogObjc` をビルドできない） | 記載なし |
 
 [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/ios/supported_versions/) / [出典](https://github.com/DataDog/dd-sdk-ios/blob/develop/CHANGELOG.md)
 
 | モジュール | iOS | tvOS | watchOS | visionOS | 備考 |
 |---|---|---|---|---|---|
-| `DatadogCore` | ○ | ○ | ○ | ○ | 必須 |
+| `DatadogCore`（必須）/ `DatadogCrashReporting` / `DatadogLogs` / `DatadogTrace` / `DatadogFlags` | ○ | ○ | ○ | ○ | |
 | `DatadogRUM` | ○ | ○ | ○ | ○ | watchOS では View / Action の自動追跡、フレームレート監視、メモリ警告検知が使えない |
-| `DatadogCrashReporting` | ○ | ○ | ○ | ○ | クラッシュレポート |
-| `DatadogLogs` / `DatadogTrace` / `DatadogFlags` | ○ | ○ | ○ | ○ | |
 | `DatadogProfiling` | ○ | ○ | × | ○ | |
 | `DatadogSessionReplay` | ○ | × | × | × | |
 | `DatadogWebViewTracking` | ○ | × | × | ○ | |
@@ -186,25 +182,22 @@ RUM（モバイル）の導入は、どの SDK でも次の流れになる。
 |---|---|
 | 1. アプリケーション作成 | **Digital Experience > Add an Application** でプラットフォーム（`android`、`iOS`、React Native、Flutter、Unity、Kotlin Multiplatform など）を選び名前を入力すると、**Application ID** と **Client Token** が発行される。作成時にクライアント IP と位置情報の自動収集を無効化するトグル、WebView 計測のトグルがある |
 | 2. 依存関係の追加 | Gradle / SPM / CocoaPods / npm / pub / UPM で SDK を追加 |
-| 3. SDK 初期化 | `clientToken`・`env`・（`service`・`site`）・トラッキング同意を指定して初期化。アプリ起動のできるだけ早い時点で行う |
-| 4. RUM 有効化 | `applicationId` とサンプリング率等を指定して RUM 機能を有効化 |
-| 5. ネットワーク・View・Action の計測 | OkHttp / URLSession / Navigator 等のインスツルメンテーションを設定 |
-| 6. シンボルファイルのアップロード | mapping / dSYM / ソースマップを CI でアップロード（[10.6](#106-シンボルファイルのアップロード)） |
-| 7. 確認 | Applications ページでは最初のデータ到着まで pending 表示。RUM Explorer・Error Tracking で受信を確認 |
+| 3. SDK 初期化と RUM 有効化 | `clientToken`・`env`・（`service`・`site`）・トラッキング同意を指定して初期化し（アプリ起動のできるだけ早い時点）、`applicationId` とサンプリング率等を指定して RUM 機能を有効化 |
+| 4. ネットワーク・View・Action の計測 | OkHttp / URLSession / Navigator 等のインスツルメンテーションを設定 |
+| 5. シンボルファイルのアップロード | mapping / dSYM / ソースマップを CI でアップロード（[10.6](#106-シンボルファイルのアップロード)） |
+| 6. 確認 | Applications ページでは最初のデータ到着まで pending 表示。RUM Explorer・Error Tracking で受信を確認 |
 
 [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/setup/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/ios/setup/)
 
 > **Error Tracking のみ契約している場合:** アプリケーションは **Error Tracking > Settings > Browser and Mobile** から作成する。[出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/kotlin_multiplatform/setup/)
 
+Android SDK のセットアップページには、手動導入のほかに AI コーディングエージェントを使って導入する **Agentic Onboarding**【Preview】も示されている。[出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/setup/)
+
 ### 2.3 Client Token を使う理由
 
 RUM（モバイル）の SDK には **Client Token** を設定する。API キーはアプリのバイナリ（APK のバイトコードや iOS バイナリ）に埋め込まれて露出するため、SDK の認証に使ってはならない。キーの種類と管理は [API とキー管理](../platform/api-and-keys.md) を参照。[出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/ios/error_tracking/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/kotlin_multiplatform/setup/)
 
-### 2.4 Agentic Onboarding
-
-Android SDK のセットアップページには、AI コーディングエージェントを使って導入する **Agentic Onboarding**【Preview】と、手動導入の 2 つの方法が示されている。[出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/setup/)
-
-### 2.5 サイト指定
+### 2.4 サイト指定
 
 RUM（モバイル）の SDK は既定で US1 に送信する（Flutter は `site` が必須パラメータ）。AP1（日本）など他サイトを使う場合は初期化時に必ずサイトを指定する。
 
@@ -237,13 +230,9 @@ Android SDK の要件と主な依存関係は次のとおり。
 | 項目 | 内容 |
 |---|---|
 | 最小 OS | Android 6.0（API 23）。SDK 3.0.0 で `minSdk` を 23 に引き上げ（2.x は API 21） |
-| 対応デバイス | スマートフォン・タブレット、Android TV |
-| 言語 | Java / Kotlin |
+| 対応デバイス・言語 | スマートフォン・タブレット、Android TV。Java / Kotlin |
 | Gradle プラグイン | `com.datadoghq:dd-sdk-android-gradle-plugin`（plugin ID `com.datadoghq.dd-sdk-android-gradle-plugin`。mapping アップロード用） |
-| RUM 本体 | `com.datadoghq:dd-sdk-android-rum` |
-| ネットワーク | `dd-sdk-android-okhttp`（OkHttp）、`dd-sdk-android-cronet`（Cronet） |
-| NDK クラッシュ | `dd-sdk-android-ndk` |
-| WebView | `dd-sdk-android-webview` |
+| RUM 本体と主な追加モジュール | RUM 本体 `com.datadoghq:dd-sdk-android-rum`、ネットワーク `dd-sdk-android-okhttp`（OkHttp）・`dd-sdk-android-cronet`（Cronet）、NDK クラッシュ `dd-sdk-android-ndk`、WebView `dd-sdk-android-webview` |
 | Jetpack Compose | `dd-sdk-android-compose`（2.21.0 以降、Kotlin 1.9.23 以降、Gradle Plugin 1.17.0 以降） |
 
 [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/setup/) / [出典](https://github.com/DataDog/dd-sdk-android/blob/develop/MIGRATION.MD) / [出典](https://docs.datadoghq.com/error_tracking/frontend/mobile/android/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/jetpack_compose_instrumentation/)
@@ -254,8 +243,7 @@ Android SDK 3.0 では 2.x から次の変更があった。
 
 | 変更 | 内容 |
 |---|---|
-| 最小 API | 23 に引き上げ（AndroidX のバージョンポリシーに追従） |
-| クラッシュの Logs 送信 | 致命的クラッシュは Logs へ自動送信されなくなった。クラッシュは RUM の Crash Reporting で扱う |
+| 最小 API・クラッシュの Logs 送信 | 最小 API を 23 に引き上げ（AndroidX のバージョンポリシーに追従）。致命的クラッシュは Logs へ自動送信されなくなり、RUM の Crash Reporting で扱う |
 | OpenTracing | 依存を削除。トレース API は OpenTelemetry 版（`dd-sdk-android-trace-otel`）を推奨 |
 
 [出典](https://github.com/DataDog/dd-sdk-android/blob/develop/MIGRATION.MD)
@@ -365,20 +353,13 @@ Android SDK のネットワーク計測は OkHttp または Cronet のインス�
 
 ### 3.8 統合ライブラリ
 
-Android SDK には主要ライブラリ向けの統合モジュールがある。
+Android SDK には主要ライブラリ向けの統合モジュール（リポジトリ内ディレクトリ名）がある。
 
-| ライブラリ | モジュール（リポジトリ内ディレクトリ名） |
+| 分類 | ライブラリとモジュール |
 |---|---|
-| Coil | `dd-sdk-android-coil` |
-| Fresco | `dd-sdk-android-fresco` |
-| Glide | `dd-sdk-android-glide` |
-| Jetpack Compose | `dd-sdk-android-compose` |
-| RxJava | `dd-sdk-android-rx` |
-| SQLDelight | `dd-sdk-android-sqldelight` |
-| Apollo（GraphQL） | `dd-sdk-android-apollo` |
-| Android TV（Leanback） | `dd-sdk-android-tv` |
-| Kotlin Coroutines | `dd-sdk-android-rum-coroutines`、`dd-sdk-android-trace-coroutines` |
-| SQLite | `SQLiteOpenHelper` に `DatadogDatabaseErrorHandler` を渡す |
+| 画像読み込み | Coil `dd-sdk-android-coil`、Fresco `dd-sdk-android-fresco`、Glide `dd-sdk-android-glide` |
+| UI・非同期 | Jetpack Compose `dd-sdk-android-compose`、RxJava `dd-sdk-android-rx`、Kotlin Coroutines `dd-sdk-android-rum-coroutines`・`dd-sdk-android-trace-coroutines`、Android TV（Leanback）`dd-sdk-android-tv` |
+| データ・通信 | SQLDelight `dd-sdk-android-sqldelight`、Apollo（GraphQL）`dd-sdk-android-apollo`、SQLite は `SQLiteOpenHelper` に `DatadogDatabaseErrorHandler` を渡す |
 
 Kotlin 拡張として `Closeable.useMonitored { }`（エラー報告付き）、`context.getAssetAsRumResource(fileName)`、`context.getRawResAsRumResource(id)` がある。[出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/integrated_libraries/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/setup/)
 
@@ -388,16 +369,11 @@ Android SDK の主な手動 API は次のとおり（`GlobalRumMonitor.get()` �
 
 | 分類 | API |
 |---|---|
-| View | `startView(key, name, attributes)`（`onResume()`）、`stopView(key, attributes)`（`onPause()`）、`addViewLoadingTime(override)`、`addTiming(name)` |
-| Action | `addAction(type, name, attributes)`（type：`custom`・`click`・`tap`・`scroll`・`swipe`・`back`）、`startAction` / `stopAction` |
-| Resource | `startResource(key, method, url, attributes)`、`stopResource(resourceKey, ...)`、`stopResourceWithError(resourceKey, message, origin, throwable)`（`stopResource` の引数構成は SDK の API ドキュメントで確認） |
-| Error | `addError(message, source, throwable, attributes)` |
-| グローバル属性 | `addAttribute(key, value)`、`removeAttribute(key)` |
-| セッション | `stopSession()`、`getCurrentSessionId { }` |
-| 起動 | `reportAppFullyDisplayed()`（TTFD） |
+| View・Action | `startView(key, name, attributes)`（`onResume()`）、`stopView(key, attributes)`（`onPause()`）、`addViewLoadingTime(override)`、`addTiming(name)`。`addAction(type, name, attributes)`（type：`custom`・`click`・`tap`・`scroll`・`swipe`・`back`）、`startAction` / `stopAction` |
+| Resource・Error | `startResource(key, method, url, attributes)`、`stopResource(resourceKey, ...)`、`stopResourceWithError(resourceKey, message, origin, throwable)`（`stopResource` の引数構成は SDK の API ドキュメントで確認）。`addError(message, source, throwable, attributes)` |
+| 属性・セッション・起動 | `addAttribute(key, value)`、`removeAttribute(key)`、`stopSession()`、`getCurrentSessionId { }`、`reportAppFullyDisplayed()`（TTFD） |
 | ユーザー・アカウント | `Datadog.setUserInfo(id, name, email)`（`usr.id` 必須）、`Datadog.addUserProperties(...)`、`Datadog.setAccountInfo(id, name, extraInfo)`、`Datadog.addAccountExtraInfo(...)`、`Datadog.clearAccountInfo()` |
-| データ | `Datadog.clearAllData()`、`Datadog.stopInstance()` |
-| 確認 | `Datadog.isInitialized()`、`Datadog.setVerbosity(Log.INFO)` |
+| データ・確認 | `Datadog.clearAllData()`、`Datadog.stopInstance()`、`Datadog.isInitialized()`、`Datadog.setVerbosity(Log.INFO)` |
 
 [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/advanced_configuration/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/monitoring_app_performance/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/troubleshooting/)
 
@@ -541,16 +517,11 @@ iOS SDK の主な手動 API は次のとおり（`RUMMonitor.shared()` から呼
 
 | 分類 | API |
 |---|---|
-| View | `startView(viewController:)` / `stopView(viewController:attributes:)`、`addViewAttribute(forKey:value:)`、`addViewLoadingTime(override:)` |
-| Action | `addAction(type:name:)`、`startAction(type:name:)` / `stopAction(type:)`（同じ `type` で対にする） |
-| Resource | `startResource(resourceKey:request:)`、`stopResource(resourceKey:response:)`、`stopResourceWithError(resourceKey:error:)` |
-| Error | `addError(message:)`、`addError(error:)` |
-| グローバル属性 | `addAttribute(forKey:value:)`、`removeAttribute(forKey:)`、`addAttributes(_:)`、`removeAttributes(forKeys:)` |
-| セッション | `stopSession()`、`currentSessionID(completion:)` |
-| 起動 | `reportAppFullyDisplayed()`（TTFD） |
+| View・Action | `startView(viewController:)` / `stopView(viewController:attributes:)`、`addViewAttribute(forKey:value:)`、`addViewLoadingTime(override:)`。`addAction(type:name:)`、`startAction(type:name:)` / `stopAction(type:)`（同じ `type` で対にする） |
+| Resource・Error | `startResource(resourceKey:request:)`、`stopResource(resourceKey:response:)`、`stopResourceWithError(resourceKey:error:)`。`addError(message:)`、`addError(error:)` |
+| 属性・セッション・起動 | `addAttribute(forKey:value:)`、`removeAttribute(forKey:)`、`addAttributes(_:)`、`removeAttributes(forKeys:)`、`stopSession()`、`currentSessionID(completion:)`、`reportAppFullyDisplayed()`（TTFD） |
 | ユーザー・アカウント | `Datadog.setUserInfo(id:name:email:)`、`Datadog.addUserExtraInfo(_:)`、`Datadog.setAccountInfo(id:name:extraInfo:)`、`Datadog.clearAccountInfo()` |
-| データ・同意 | `Datadog.set(trackingConsent:)`、`Datadog.clearAllData()`、`Datadog.stopInstance()` |
-| デバッグ | `Datadog.verbosityLevel = .debug`（DEBUG 構成のみで設定） |
+| データ・同意・デバッグ | `Datadog.set(trackingConsent:)`、`Datadog.clearAllData()`、`Datadog.stopInstance()`、`Datadog.verbosityLevel = .debug`（DEBUG 構成のみで設定） |
 
 [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/ios/advanced_configuration/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/ios/troubleshooting/) / [出典](https://github.com/DataDog/dd-sdk-ios/blob/develop/MIGRATION.md)
 
@@ -743,7 +714,7 @@ Unity SDK の要件と導入手順は次のとおり。
 | 導入 | Package Manager に Git URL `https://github.com/DataDog/unity-package.git` を追加 |
 | 依存 | External Dependency Manager for Unity（EDM4U、OpenUPM で入手） |
 | Unity | LTS 2022+ |
-| プラットフォーム | iOS、Android（WebGL のセットアップ手順あり）。デスクトップ（Windows / Mac / Linux）とコンソールは非対応 |
+| プラットフォーム | 公式の対応記載は「iOS と Android（Unity LTS 2022+）」。WebGL は下記のセットアップ手順（Browser SDK の読み込み）が掲載されているが、対応プラットフォームとしては明記されていない。デスクトップ（Windows / Mac / Linux）とコンソールは「非対応」と明記されている |
 | Android 設定 | Custom Main Template と Custom Gradle Properties Template を有効化。Unity 2022.x で「Duplicate class」エラーが出る場合は `mainTemplate.gradle` に `kotlin-stdlib-jdk8:1.8.0` の制約を追加 |
 | WebGL | カスタム WebGL テンプレートで CDN の `datadog-logs.js` と `datadog-rum-slim.js` を読み込む |
 
@@ -851,9 +822,9 @@ RUM（モバイル）が収集するイベント種別と保持期間は次の�
 | Error | 30 日 | 例外・クラッシュ。発生した View に紐づく |
 | Resource | 15 日 | ファーストパーティ・API・サードパーティへのネットワークリクエスト |
 | Long Task | 15 日 | 閾値を超えてメインスレッドをブロックした処理 |
-| Vital | 公開情報では確認できず（ブラウザ版では 15 日） | アプリ起動（`@vital.type:app_launch`）等 |
+| Vital | 15 日（公式料金ページの RUM Investigate の保持仕様。モバイルの Data Collected ページには記載なし） | アプリ起動（`@vital.type:app_launch`）等 |
 
-[出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/data_collected/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/application_launch_monitoring/)
+[出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/data_collected/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/application_launch_monitoring/) / [出典](https://www.datadoghq.com/pricing/)（[製品別料金表 §11.1](../../03_導入編/pricing-by-product.md#111-rumsession-replayproduct-analyticsexperiments)：保持セッションは 30 日、resources・long tasks・vitals は 15 日）
 
 ### 9.2 共通の既定属性
 
@@ -1324,16 +1295,20 @@ RUM（モバイル）のサンプリングと RUM without Limits の仕組みは
 
 RUM（モバイル）は Web と同じく **1,000 セッション単位**で課金され、モバイル専用の RUM SKU は公式料金ページに掲載されていない。セッションは Web／モバイルアプリ上のユーザーの一連の操作で、**15 分間操作がないと終了**し、**最長 4 時間**で区切られる。[出典](https://docs.datadoghq.com/account_management/billing/rum/)
 
-| SKU | 課金対象 | 単位 | 年契約 | 月契約 | オンデマンド |
-|---|---|---|---|---|---|
-| Real User Monitoring (RUM) - Measure | 取り込んだ全セッション（full traffic） | 1,000 セッション／月 | $0.15 | $0.18 | $0.22 |
-| Real User Monitoring (RUM) - Investigate | Retention Filters で保持したセッション（filtered sessions） | 1,000 セッション／月 | $3 | $3.60 | $4.50 |
-| Session Replay（RUM と Product Analytics のアドオン） | リプレイ付きで保持されたセッション | 1,000 セッション／月 | $2.50 | $3 | $3.60 |
-| RUM Profiling（RUM Measure のアドオン） | プロファイリング対象セッション | 1,000 セッション／月 | $3 | $3.60 | $4.50 |
-| Error Tracking（RUM セッション外のエラー、最初の 50K） | エラー件数 | 50K エラーまで／月 | $25 | $30 | $36 |
-| Mobile App Testing（Synthetic Monitoring） | テスト実行回数 | 100 テスト実行／月 | $50 | $60 | $72 |
+| SKU | 課金対象 | 単位 | US/EU1 年契約 | US/EU1 月契約 | US/EU1 オンデマンド | AP1 年契約 | AP1 月契約 | AP1 オンデマンド |
+|---|---|---|---|---|---|---|---|---|
+| Real User Monitoring (RUM) - Measure | 取り込んだ全セッション（full traffic） | 1,000 セッション／月 | $0.15 | $0.18 | $0.22 | $0.1875 | $0.225 | $0.275 |
+| Real User Monitoring (RUM) - Investigate | Retention Filters で保持したセッション（filtered sessions） | 1,000 セッション／月 | $3 | $3.60 | $4.50 | $3.75 | $4.50 | $5.625 |
+| Session Replay（RUM と Product Analytics のアドオン） | リプレイ付きで保持されたセッション | 1,000 セッション／月 | $2.50 | $3 | $3.60 | $3.125 | $3.75 | $4.50 |
+| RUM Profiling（RUM Measure のアドオン） | プロファイリング対象セッション | 1,000 セッション／月 | $3 | $3.60 | $4.50 | $3.75 | $4.50 | $5.625 |
+| Error Tracking（RUM セッション外のエラー、最初の 50K） | エラー件数 | 50K エラーまで／月 | $25 | $30 | $36 | [製品別料金表](../../03_導入編/pricing-by-product.md) を参照 | 同左 | 同左 |
+| Mobile App Testing（Synthetic Monitoring） | テスト実行回数 | 100 テスト実行／月 | $50 | $60 | $72 | $62.50 | $75 | $90 |
 
 価格は公式料金ページの定価（USD、**2026-11-02 時点**）。RUM Managed Archive・Export Pipelines・Error Tracking の段階料金は [RUM（ブラウザ）の課金](./rum-browser.md#14-課金への影響) と [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。[出典](https://www.datadoghq.com/pricing/list/)
+
+> **サイト差異:** 公式料金ページの価格は Datadog サイトによって異なり、AP1 は US/EU1 と別価格（上表の SKU では US/EU1 の 1.25 倍）である。AP1 列の値は [製品別料金表 §11](../../03_導入編/pricing-by-product.md#11-digital-experiencerumproduct-analyticsexperimentssynthetic) に合わせた。[出典](https://www.datadoghq.com/pricing/list/)
+
+> **サイト差異:** Mobile App Testing について、[製品別料金表 §11.2](../../03_導入編/pricing-by-product.md#112-synthetic-monitoringmobile-app-testingcontinuous-testing) は公式料金ページの記載として「US1 / US5 / EU1 で提供、テストは AWS US West で実行」としている。基準サイトの AP1 は提供サイトに含まれない。一方、公式ドキュメント（Mobile App Testing）が非対応として明記しているのは `app.ddog-gov.com`・`us2.ddog-gov.com` だけで、AP1 については記載がない。AP1 で利用できるかどうかは製品画面か Datadog に確認する。[出典](https://docs.datadoghq.com/synthetics/mobile_app_testing/)
 
 ### 17.2 モバイル特有の課金の考え方
 
@@ -1343,6 +1318,8 @@ RUM（モバイル）の課金で注意すべき点は次のとおり。
 |---|---|
 | RUM without Limits の二段課金 | 取り込み時に RUM Measure、Retention Filters で保持されたセッションに追加で RUM Investigate が課金される（ブラウザと共通） |
 | `sessionSampleRate` で除外したセッション | SDK から送信されないため課金されない |
+| RUM-APM Flat Sampling で保持したセッション | 恒久フィルター（分散トレース付きセッションの 1%）で保持したセッションとそのトレースは、RUM・APM のどちらの課金対象にもならない（[16](#16-サンプリングと-rum-without-limitsモバイル固有の論点)） |
+| Synthetics Sessions | 恒久フィルターで保持した Synthetic テストのセッションは RUM の課金対象にならず、Synthetic Monitoring 側で課金される |
 | `trackBackgroundEvents` | バックグラウンドのイベントで追加セッションが生まれ、課金に影響しうる |
 | WebView | Browser SDK と Mobile SDK をブリッジした場合はモバイルセッションのみ課金 |
 | Session Replay | リプレイを収集したセッションは Replay の対象として課金される |
@@ -1351,7 +1328,7 @@ RUM（モバイル）の課金で注意すべき点は次のとおり。
 | APM 連携 | APM の Ingested／Indexed Spans が増えうる（APM 側で課金） |
 | カスタムメトリクス | RUM イベントから生成したメトリクスはカスタムメトリクスとして課金 |
 
-[出典](https://docs.datadoghq.com/account_management/billing/rum/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/setup/) / [出典](https://www.datadoghq.com/pricing/list/)
+[出典](https://docs.datadoghq.com/account_management/billing/rum/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/setup/) / [出典](https://docs.datadoghq.com/real_user_monitoring/rum_without_limits/retention_filters/) / [出典](https://www.datadoghq.com/pricing/list/)
 
 > 旧来のモバイル向けプラン名（「Mobile RUM」「Mobile RUM & Session Replay」など）の現行定価は、2026-11-02 時点の公式料金一覧ページでは確認できず。既存契約の条件は契約書・Usage 画面で確認する。
 
@@ -1367,20 +1344,12 @@ RUM（モバイル）の技術的制限値は次のとおり。
 
 | 項目 | 制限値 | 出典 |
 |---|---|---|
-| セッションの最大継続時間 | 4 時間 | [出典](https://docs.datadoghq.com/account_management/billing/rum/) |
-| セッションのタイムアウト | 15 分間の無操作 | [出典](https://docs.datadoghq.com/account_management/billing/rum/) |
+| セッションの最大継続時間・タイムアウト | 4 時間・15 分間の無操作 | [出典](https://docs.datadoghq.com/account_management/billing/rum/) |
 | 1 セッションあたりの最大イベント数・1 イベントの最大属性数・ネスト深さ・Intake ペイロード | ブラウザと共通（[RUM（ブラウザ）15.1](./rum-browser.md#151-技術的制限値)） | [出典](https://docs.datadoghq.com/real_user_monitoring/) |
 | 取り込みの最大遅延 | 24 時間（ブラウザと共通） | [出典](https://docs.datadoghq.com/real_user_monitoring/) |
-| Android mapping ファイル | 1 ファイル 500 MB | [出典](https://docs.datadoghq.com/error_tracking/frontend/mobile/android/) |
-| React Native ソースマップ・mapping | 1 ファイル 500 MB | [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/react_native/error_tracking/) |
-| iOS dSYM | 1 ファイル 2 GB | [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/ios/error_tracking/) |
-| Unity mapping / dSYM | 500 MB / 2 GB | [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/unity/error_tracking/) |
-| 端末内の古いデータの破棄 | 18 時間（SDK ソース上の値） | [13.2](#132-端末内保存の上限sdk-ソースコード上の値) |
-| 端末内保存の最大容量 | 512 MB（SDK ソース上の値） | [13.2](#132-端末内保存の上限sdk-ソースコード上の値) |
-| 1 バッチ | 5 MB・1,000 イベント、1 イベント 1 MB（SDK ソース上の値） | [13.2](#132-端末内保存の上限sdk-ソースコード上の値) |
-| ANR の判定 | UI スレッド 5 秒超のブロック | [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/mobile_vitals/) |
-| Frozen Frame の判定 | 700 ms 超 | [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/mobile_vitals/) |
-| Slow Render の判定 | 16 ms 超（RN は平均 55 fps 未満） | [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/mobile_vitals/) |
+| シンボルファイル（1 ファイル） | Android mapping・React Native ソースマップ / mapping・Unity mapping は 500 MB、iOS・Unity の dSYM は 2 GB | [出典](https://docs.datadoghq.com/error_tracking/frontend/mobile/android/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/react_native/error_tracking/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/ios/error_tracking/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/unity/error_tracking/) |
+| 端末内保存（SDK ソース上の値） | 古いデータは 18 時間で破棄、最大容量 512 MB、1 バッチ 5 MB・1,000 イベント、1 イベント 1 MB | [13.2](#132-端末内保存の上限sdk-ソースコード上の値) |
+| ANR・Frozen Frame・Slow Render の判定 | UI スレッド 5 秒超のブロック・700 ms 超・16 ms 超（RN は平均 55 fps 未満） | [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/mobile_vitals/) |
 | Error Tap の判定 | Action 中または終了後 100 ms 以内のエラー | [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/frustration_signals/) |
 | `appHangThreshold` の下限 | 0.1 秒（推奨 0.25〜3.0 秒、許容誤差 2.5%） | [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/ios/error_tracking/) |
 | Flutter `longTaskThreshold` の下限 | 0.02 秒 | [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/flutter/advanced_configuration/) |
@@ -1393,12 +1362,12 @@ RUM（モバイル）の技術的制限値は次のとおり。
 | データ | 保持期間 |
 |---|---|
 | Session・View・Action・Error | 30 日 |
-| Resource・Long Task | 15 日 |
+| Resource・Long Task・Vital | 15 日 |
 | Session Replay | 30 日（Extended Retention で 15 か月） |
 | `rum.measure.*` メトリクス（`rum.measure.app.startup_to_initial_display` 等） | 15 か月 |
 | RUM Debug Symbols（アップロード済みシンボル） | 公開情報では確認できず |
 
-[出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/data_collected/) / [出典](https://docs.datadoghq.com/session_replay/mobile/) / [出典](https://docs.datadoghq.com/real_user_monitoring/rum_without_limits/)
+[出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/data_collected/) / [出典](https://docs.datadoghq.com/session_replay/mobile/) / [出典](https://docs.datadoghq.com/real_user_monitoring/rum_without_limits/) / [出典](https://www.datadoghq.com/pricing/)（Vital の 15 日）
 
 ### 18.3 主要パラメータのデフォルト値（SDK 横断）
 
@@ -1431,7 +1400,9 @@ RUM（モバイル）の技術的制限値は次のとおり。
 | Intake ドメイン | AP1 は `browser-intake-ap1-datadoghq.com`（Android SDK ソース） |
 | シンボルアップロード | `datadog-ci` は `DATADOG_SITE`、Gradle プラグインは `site` でサイトを指定 |
 | UK1 | Android / iOS / RN / KMP の SDK は UK1 サイトの値を持つ（本ナレッジのサイト一覧外） |
-| RUM（モバイル）の提供可否・価格のサイト差 | 公開情報では確認できず |
+| RUM（モバイル）の価格 | サイトによって価格が異なる。AP1 は US/EU1 とは別の価格（[17.1](#171-課金単位)） |
+| Mobile App Testing の提供サイト | 料金ページの記載は US1 / US5 / EU1。AP1 での提供は確認できない（[17.1](#171-課金単位)） |
+| RUM（モバイル）SDK の提供可否のサイト差 | 公開情報では確認できず |
 
 [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/setup/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/ios/error_tracking/) / [出典](https://github.com/DataDog/dd-sdk-android/blob/develop/dd-sdk-android-core/src/main/kotlin/com/datadog/android/DatadogSite.kt)
 
@@ -1518,7 +1489,9 @@ RUM（モバイル）の技術的制限値は次のとおり。
 - Retention Filters: https://docs.datadoghq.com/real_user_monitoring/rum_without_limits/retention_filters/
 - Mobile Session Replay: https://docs.datadoghq.com/session_replay/mobile/
 - RUM & Session Replay Billing: https://docs.datadoghq.com/account_management/billing/rum/
-- Datadog 料金一覧（2026-11-02 取得）: https://www.datadoghq.com/pricing/list/
+- Datadog 料金一覧（2026-11-02 取得。サイト別価格）: https://www.datadoghq.com/pricing/list/
+- Datadog 料金ページ（RUM の保持仕様）: https://www.datadoghq.com/pricing/
+- Mobile App Testing（提供サイトの注記）: https://docs.datadoghq.com/synthetics/mobile_app_testing/
 - dd-sdk-android（CHANGELOG・MIGRATION・`FilePersistenceConfig.kt`・`Configuration.kt`・`RumFeature.kt`・`DatadogSite.kt`・`TracingInterceptor.kt`）: https://github.com/DataDog/dd-sdk-android
 - dd-sdk-ios（CHANGELOG・MIGRATION・`PerformancePreset.swift`・`DatadogConfiguration.swift`・`RUMConfiguration.swift`）: https://github.com/DataDog/dd-sdk-ios
 - dd-sdk-reactnative（Releases・`packages/core/package.json`）: https://github.com/DataDog/dd-sdk-reactnative

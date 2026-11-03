@@ -180,7 +180,7 @@ Observability Pipelines（OP）は、利用者自身の環境で動く **Observa
 
 Datadog 公式ブログ（2024-04-18 公開）は、OP を使うと「エージェントやコレクターを削除・再インストールする代わりに、OP Worker をスタンドアロンのサービスとして配置」して、既存ログベンダーを維持したまま同じログを Datadog Log Management にも送れる（新ベンダーの試用・移行が可能）と説明している。[出典](https://www.datadoghq.com/blog/observability-pipelines-dual-ship-logs/)
 
-![Observability Pipelines のアーキテクチャ概念図](../../assets/images/migration-from-other-tools/op-architecture.png)
+![Observability Pipelines のアーキテクチャ概念図](../assets/images/migration-from-other-tools/op-architecture.png)
 
 **キャプション:** Datadog Observability Pipelines の概念図（Sources → 利用者環境での処理 → Destinations）。
 
@@ -203,7 +203,7 @@ Datadog 公式ブログ（2024-04-18 公開）は、OP を使うと「エージ�
 
 [出典](https://docs.datadoghq.com/observability_pipelines/)
 
-![Observability Pipelines のテンプレート選択画面](../../assets/images/migration-from-other-tools/op-templates.png)
+![Observability Pipelines のテンプレート選択画面](../assets/images/migration-from-other-tools/op-templates.png)
 
 **キャプション:** Observability Pipelines でパイプライン作成時に表示されるテンプレート選択画面。
 
@@ -230,7 +230,7 @@ OP のログ用ソースと送信先のうち、移行で特に使うものは�
 
 OP のメトリクス用ソースは Datadog Agent、OpenTelemetry、Prometheus。メトリクス用送信先は Datadog Metrics、Elasticsearch、HTTP/S Client、OpenTelemetry、Prometheus、Splunk HEC である。[出典](https://docs.datadoghq.com/observability_pipelines/destinations/)
 
-OP の **Prometheus ソース**は、設定例の URL パスが `/api/v1/write` で、シークレット識別子に `REMOTE_WRITE` を含むことから、Prometheus remote write 形式の受信口と読み取れる（公式ページは方式名を明記していない）。設定項目は Address（例：`0.0.0.0:9091`）、URL path、Authorization（None / Plain）、任意の認証トークン、Keepalive（最大接続時間 既定 300 秒、ジッター係数 既定 0.1）、TLS（相互 TLS 可）。[出典](https://docs.datadoghq.com/observability_pipelines/sources/prometheus/)
+OP の **Prometheus ソース**は、設定例の URL パスが `/api/v1/write` で、シークレット識別子に `REMOTE_WRITE` を含むことから、Prometheus remote write 形式の受信口と読み取れる（公式ページは方式名を明記していない）。設定項目は Address（例：`0.0.0.0:9091`）、URL path、Authorization（None / Plain。Plain はユーザー名とパスワードの識別子を指定）、認証トークン（任意。Authorization が None の場合のみ設定可）、Keepalive（最大接続時間 既定 300 秒、ジッター係数 既定 0.1）、TLS（相互 TLS 可）。[出典](https://docs.datadoghq.com/observability_pipelines/sources/prometheus/)
 
 > **課金への影響:** OP 自体の料金は [製品別料金表](./pricing-by-product.md) の Observability Pipelines の項を参照。二重送信中は旧製品と Datadog の双方の取り込み料金が発生する。
 
@@ -244,6 +244,7 @@ Datadog Agent の Dual Shipping は、Agent が**複数の Datadog org やサイ
 | APM | `apm_config.additional_endpoints`（`https://trace.agent.<SITE>`） | `DD_APM_ADDITIONAL_ENDPOINTS` | 6.7.0 / 6.19・7.19 |
 | Continuous Profiler | `apm_config.profiling_additional_endpoints` | `DD_APM_PROFILING_ADDITIONAL_ENDPOINTS` | 6.7.0 / 6.19・7.19 |
 | Live Processes | `process_config.additional_endpoints`（`https://process.<SITE>`） | `DD_PROCESS_ADDITIONAL_ENDPOINTS` | 6.4.0 / 6.20・7.20 |
+| Cluster Agent メトリクス | Helm の `clusterAgent.env` で `DD_ADDITIONAL_ENDPOINTS` を指定。HPA 用の Cluster Agent metrics provider は `external_metrics_provider.endpoints`（api_key / app_key / url を複数列挙） | `DD_ADDITIONAL_ENDPOINTS`（Cluster Agent コンテナ） | 公開情報では確認できず |
 | Orchestrator | `orchestrator_explorer.orchestrator_additional_endpoints` | `DD_ORCHESTRATOR_EXPLORER_ORCHESTRATOR_ADDITIONAL_ENDPOINTS` | 公開情報では確認できず |
 | CI Visibility | `evp_proxy_config.additional_endpoints` | `DD_EVP_PROXY_CONFIG_ADDITIONAL_ENDPOINTS` | 6.38 / 7.38（YAML） |
 | Logs | `logs_config.additional_endpoints`（＋`force_use_http`） | `DD_LOGS_CONFIG_ADDITIONAL_ENDPOINTS`、`DD_LOGS_CONFIG_FORCE_USE_HTTP` | TCP 6.6、HTTPS 6.13、環境変数 6.18 / 7.18 |
@@ -281,7 +282,7 @@ logs_config:
 | `is_reliable` | Agent 7.34.0 で導入、7.37.0 以降は既定 `true`。reliable な送信先はプライマリと同じ優先度。unreliable な送信先は reliable が 1 つ以上利用可能なときのみ送信。全 reliable 送信先がダウンすると復旧まで読み取り・送信を停止 |
 | トランスポート | HTTP 系の送信先は `use_http` を明示。追加送信先はすべて同じトランスポート設定を共有 |
 | Continuous Profiler | 追加送信先へのアップロードはベストエフォート |
-| Kubernetes（Helm） | `useConfigMap: true` と `customAgentConfig`、またはキーを Secret に置き `datadog.env` / `datadog.envFrom` で `DD_ADDITIONAL_ENDPOINTS` を参照 |
+| Kubernetes（Helm） | `useConfigMap: true` と `customAgentConfig`、またはキーを Secret に置き `datadog.env` / `datadog.envFrom` で `DD_ADDITIONAL_ENDPOINTS` を参照。Cluster Agent 側は別途 `clusterAgent.env` に設定（上表） |
 | Kubernetes（Operator） | `override.nodeAgent.customConfigurations` の `configData`、または `nodeAgent.env` |
 | 課金 | 「複数の Datadog org にデータを送ると課金に影響し得る」とのみ記載。詳細は Datadog サポートへ |
 
@@ -587,7 +588,7 @@ CloudWatch からの「移行」は、多くの場合 **CloudWatch をデータ�
 
 [出典](https://docs.datadoghq.com/integrations/guide/aws-integration-and-cloudwatch-faq/)・[出典](https://docs.datadoghq.com/integrations/guide/aws-cloudwatch-metric-streams-with-kinesis-data-firehose/)
 
-![CloudWatch Metric Streams と API ポーリングの構成図](../../assets/images/migration-from-other-tools/aws-metric-streams-diagram.png)
+![CloudWatch Metric Streams と API ポーリングの構成図](../assets/images/migration-from-other-tools/aws-metric-streams-diagram.png)
 
 **キャプション:** CloudWatch Metric Streams で Datadog にメトリクスを送る構成図。
 
@@ -648,7 +649,7 @@ Datadog 公式ブログ（2025-07-03 公開）は、Cloud SIEM への移行時�
 | sourcetype / props.conf / transforms.conf（フィールド抽出） | Log Pipelines（Grok Parser、Remapper 等）、OP 上での加工 | [Log Pipelines と処理](../02_リファレンス/logs/log-pipelines-and-processing.md) |
 | SPL による検索・集計 | Log Explorer の検索構文、Log Analytics（集計・可視化）、DDSQL、Notebooks | [ログ検索と分析](../02_リファレンス/logs/log-search-and-analytics.md) |
 | lookup | Reference Tables | [Notebooks・DDSQL・Reference Tables](../02_リファレンス/platform/notebooks-and-data-tools.md) |
-| Saved search alert | Log Monitor | 頻繁に集計するものは Log-based Metrics にしてメトリクス Monitor 化するとコスト・性能面で有利【経験則】 |
+| Saved search alert | Log Monitor | Log Monitor のカスタム評価ウィンドウは最大 2 日（累積ウィンドウ Current hour / Current day も可）。頻繁に集計するものは Log-based Metrics にしてメトリクス Monitor 化するとコスト・性能面で有利【経験則】 |
 | Dashboards（Classic / Dashboard Studio） | Dashboards | Crest Data の移行アプリで一部自動変換可（4.6.3） |
 | Splunk ES 相関サーチ | Cloud SIEM Detection Rules | Sigma 経由で一部変換可（4.6.4） |
 | Splunk Observability（APM / Infrastructure） | Datadog APM / Infrastructure | OpenTelemetry ベースで計装済みなら、Collector の送信先追加で並行稼働可能【経験則】 |
@@ -662,14 +663,14 @@ Datadog Marketplace には Crest Data の **Splunk to Datadog Migration** アプ
 | 項目 | 内容 |
 |---|---|
 | 移行対象 | Splunk App のダッシュボード→Datadog ダッシュボード、パネル／検索クエリ（SPL）→Datadog のクエリ言語、可視化（チャート等）、フィールド名のマッピング |
-| アラート・保存検索 | 掲載ページで明記されていない（Crest Data に要確認） |
+| アラート・保存検索 | 保存検索のクエリ（search query）は Offline オプション（`.csv`）で変換対象。アラート／Monitor の移行は掲載ページに記載なし（Crest Data に要確認） |
 | モード | Remote：ダッシュボード移行のみ対応。Offline：ダッシュボードは `.json`、クエリは `.csv` |
 | 前提 | 関連データソースを事前に Datadog に取り込み済みであること |
 | データアクセス | メタデータのみ扱い、Splunk / Datadog のデータ本体にはアクセスしない |
 | 課金 | 成功課金（成功したパネル・クエリのみ）。単価は公開情報では確認できず |
 | 連絡先 | migrationapps@crestdata.ai（サポート）、datadog-sales@crestdata.ai（営業） |
 
-Crest Data は 2025-08 に「Migration Acceleration Service for Datadog」を Datadog Marketplace で発表し、ダッシュボード・アラート・ワークフローの最大 90% を Datadog ネイティブ形式に自動変換できるとしている【第三者情報】（ベンダー発表で独立検証なし）。[出典](https://martechseries.com/predictive-ai/ai-platforms-machine-learning/crest-data-launches-a-migration-acceleration-service-for-datadog/)（2025-08 公開）
+Crest Data は 2025-08-21 に「Migration Acceleration Service for Datadog」を Datadog Marketplace で発表した。Automated Migration Engine でダッシュボード・アラート・ワークフローの最大 90% を Datadog ネイティブ形式に自動変換し、残りは Crest Data の専門スタッフが手作業で移行するとしている【第三者情報】（ベンダー発表で独立検証なし）。[出典](https://martechseries.com/predictive-ai/ai-platforms-machine-learning/crest-data-launches-a-migration-acceleration-service-for-datadog/)（2025-08-21 公開）
 
 #### 4.6.4 SIEM 検知ルールの移行（Sigma 経由）
 
@@ -747,10 +748,10 @@ Datadog の Metric Monitor には、旧製品と挙動が異なる既定値が�
 
 | 項目 | Datadog の既定・仕様 | 旧製品との差で起きやすい問題 |
 |---|---|---|
-| 評価ウィンドウ | 5 分 / 15 分 / 1 時間 / カスタム（1 分〜48 時間、メトリクス Monitor は最大 1 か月） | Zabbix の `avg(5m)`、Prometheus の `for: 5m` と意味が異なる（Datadog はウィンドウ内集約値で判定）【経験則】 |
+| 評価ウィンドウ | 5 分 / 15 分 / 1 時間 / カスタム（1 分〜48 時間、メトリクス Monitor は最大 1 か月、Log Monitor は最大 2 日）。累積ウィンドウ（Current hour / Current day / Current month。month はメトリクス Monitor のみ）もある | Zabbix の `avg(5m)`、Prometheus の `for: 5m` と意味が異なる（Datadog はウィンドウ内集約値で判定）【経験則】 |
 | 評価頻度 | ウィンドウ 24 時間未満は 1 分ごと、24〜48 時間は 10 分ごと、48 時間以上は 30 分ごと | |
 | No Data の扱い | Count クエリは既定「Evaluate as zero」、その他は「Show last known status」。`default_zero()` 使用時は常に 0 として評価 | 旧製品の「nodata トリガー」をそのまま想定すると検知漏れ【経験則】 |
-| グループ保持 | 既定 24 時間（missing data 通知する Host Monitor・Service Check は 48 時間） | |
+| グループ保持 | 既定 24 時間（missing data 通知する Host Monitor・Service Check は 48 時間）。グループ数の多い Monitor は Dynamic retention が既定で有効。On missing data に対応する multi alert（Logs、APM Trace Analytics、Events、RUM 等）はカスタム保持 1〜72 時間 | |
 | New group delay | 既定 60 秒 | |
 | 集計関数 | `avg`、`sum`、`min`、`max` の選択と `.as_count()` / `.as_rate()` の組み合わせ | `as_count()`×`avg()` でピークを見逃した事例あり（4.4.5） |
 | APM 由来のアラート | トレース由来メトリクス（trace metrics）を使う | サンプリング済みスパンでのアラートは誤差が出る（4.4.5） |
@@ -769,7 +770,7 @@ Datadog の Metric Monitor には、旧製品と挙動が異なる既定値が�
 | OpenMetrics チェック／Prometheus Autodiscovery | Datadog（Agent 同梱） | データ取り込み | Prometheus exporter | 並行稼働・本移行 | Custom Metrics として課金 |
 | New Relic to Datadog Migration App | Crest Data（Marketplace パートナー） | 資産変換 | NR ダッシュボード・クエリ | メタデータ変換 | 成功課金（単価非公開） |
 | Splunk to Datadog Migration | Crest Data（Marketplace パートナー） | 資産変換 | Splunk ダッシュボード・SPL クエリ | メタデータ変換 | 成功課金（単価非公開） |
-| Migration Acceleration Service | Crest Data | サービス | ダッシュボード・アラート・ワークフロー | ベンダー発表で最大 90% 自動変換【第三者情報】 | 公開情報では確認できず |
+| Migration Acceleration Service | Crest Data | サービス | ダッシュボード・アラート・ワークフロー | ベンダー発表で最大 90% 自動変換、残りは手作業【第三者情報】 | 公開情報では確認できず |
 | pySigma Datadog backend / Sigma CLI | OSS（Sigma プロジェクト） | ルール変換 | Sigma 形式の SIEM ルール | ルール変換 | 無償（OSS） |
 | Terraformer | OSS | IaC 化 | Datadog 上の既存資産 | HCL・state 生成 | 無償（OSS） |
 | grafana-to-datadog | OSS（個人） | 資産変換 | Grafana Dashboard JSON | 開発途上 | 無償（OSS） |
@@ -794,7 +795,7 @@ Datadog Marketplace のパートナー製品・サービスの購入方法は [�
 | Dual Shipping `is_reliable` 既定 | Agent 7.37.0 以降 `true` | [Dual Shipping](https://docs.datadoghq.com/agent/configuration/dual-shipping/) |
 | OP Prometheus ソースの Keepalive | 最大接続時間 既定 300 秒、ジッター係数 既定 0.1 | [OP Prometheus source](https://docs.datadoghq.com/observability_pipelines/sources/prometheus/) |
 | Monitor の New group delay | 既定 60 秒 | [Monitor 設定](https://docs.datadoghq.com/monitors/configuration/) |
-| Monitor のグループ保持 | 既定 24 時間（一部 48 時間） | 同上 |
+| Monitor のグループ保持 | 既定 24 時間（一部 48 時間）。グループ数の多い Monitor は Dynamic retention が既定で有効、カスタム保持は 1〜72 時間（対応 multi alert のみ） | 同上 |
 | Crest Data 移行アプリの処理上限 | 公開情報では確認できず | ― |
 | Dashboard JSON インポートのサイズ・ウィジェット数上限 | 公開情報では確認できず（ダッシュボード自体の制限は [Dashboards](../02_リファレンス/platform/dashboards.md) 参照） | ― |
 
@@ -896,6 +897,6 @@ Datadog Marketplace のパートナー製品・サービスの購入方法は [�
 
 - RapDev「How to successfully migrate from Splunk to Datadog」（2025-11-19 公開）: https://www.rapdev.io/blog/how-to-successfully-migrate-from-splunk-to-datadog
 - Wantedly「ウォンテッドリーのアラート設計と Datadog 移行での知見」（Japan Datadog User Group Meetup #12、2025-08-20 公開）: https://speakerdeck.com/donkomura/uontetudorinoaratoshe-ji-to-datadog-yi-xing-denozhi-jian
-- MarTech Series「Crest Data launches a Migration Acceleration Service for Datadog」（2025-08 公開）: https://martechseries.com/predictive-ai/ai-platforms-machine-learning/crest-data-launches-a-migration-acceleration-service-for-datadog/
+- MarTech Series「Crest Data launches a Migration Acceleration Service for Datadog」（2025-08-21 公開）: https://martechseries.com/predictive-ai/ai-platforms-machine-learning/crest-data-launches-a-migration-acceleration-service-for-datadog/
 - Grafana Labs Datadog data source plugin（取得日 2026-11-02）: https://grafana.com/grafana/plugins/grafana-datadog-datasource/
 - guychouk/grafana-to-datadog（公開日確認できず）: https://github.com/guychouk/grafana-to-datadog

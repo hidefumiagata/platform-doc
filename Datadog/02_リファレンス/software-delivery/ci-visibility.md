@@ -143,7 +143,7 @@ CI Visibility は **US1-FED（`app.ddog-gov.com`）と `us2.ddog-gov.com`（GovC
 
 [出典](https://docs.datadoghq.com/api/latest/ci-visibility-pipelines/) [出典](https://docs.datadoghq.com/api/latest/ci-visibility-logs/send-ci-job-logs/)
 
-> **サイト差異:** 2026-11-02 時点の公式ドキュメント（API リファレンス、custom commands ページ、Jenkins トラブルシューティング表）には、本ナレッジ規約のサイト一覧にない **UK1（`uk1.datadoghq.com`）** と **`us2.ddog-gov.com`（GOV2）** も記載されている。UK1 は CI Visibility の対応サイトとして扱われ、`us2.ddog-gov.com` は US1-FED と同様に非対応である。サイト全般は [Datadog Sites](../platform/datadog-sites.md) を参照。
+> **サイト差異:** 2026-11-02 時点の公式ドキュメント（API リファレンス、custom commands ページ、Jenkins トラブルシューティング表）には、本ナレッジ規約のサイト一覧にない **UK1（`uk1.datadoghq.com`）** と **`us2.ddog-gov.com`（GOV2）** も記載されている。UK1 については、Send pipeline event API のエンドポイント一覧に `api.uk1.datadoghq.com` が掲載され、CI/CD Optimization（新 UI）の提供サイト一覧にも `uk1` が含まれる。ただし CI Visibility 自体が UK1 に対応すると明言した記述は公開情報では確認できず、UK1 対応は【推定】である（[出典](https://docs.datadoghq.com/api/latest/ci-visibility-pipelines/) [出典](https://docs.datadoghq.com/continuous_integration/)）。`us2.ddog-gov.com` は US1-FED と同様に非対応である。サイト全般は [Datadog Sites](../platform/datadog-sites.md) を参照。
 
 > **サイト差異:** CI/CD Optimization（新 UI）は `app.datadoghq.com`、`us3`、`us5`、`app.datadoghq.eu`、`ap1`、`ap2`、`uk1` で提供されている旨がドキュメントに記載されている。[出典](https://docs.datadoghq.com/continuous_integration/)
 
@@ -238,7 +238,8 @@ CI Visibility は**パイプライン実行を APM の分散トレースと同�
 | Running jobs | 実行中ジョブの識別 | — | — | — | — | — | ○ | ○ | — | — | ○ |
 | Partial retries | 一部ジョブのみ再実行した部分リトライの識別 | ○ | — | ○ | ○ | ○ | ○ | ○ | — | ○ | ○ |
 | Step granularity | ステップ単位のスパン | — | ○（Datadog Integration 方式のみ） | ○（【Preview】【推定】、Log group から生成） | — | ○【推定】 | ○ | — | ○（ジョブスパンとして表示）【推定】 | — | ○ |
-| Manual steps | 手動承認フェーズを持つジョブの識別 | 公式表では 8 プロバイダが対応。個別ページで確認できたのは Buildkite、Codefresh、GitLab、Jenkins、Other（API） | | | | | | | | | |
+
+> **Manual steps**（手動承認フェーズを持つジョブの識別）：プロバイダ別の対応可否を列単位で確定できないため表から外した。公式表では 8 プロバイダが対応している。個別ページで対応を確認できたのは Buildkite、Codefresh、GitLab、Jenkins、Other（API）の 5 つ。
 
 [出典](https://docs.datadoghq.com/continuous_integration/pipelines/) [出典](https://docs.datadoghq.com/continuous_integration/search/)
 
@@ -257,18 +258,20 @@ CI Visibility は**パイプライン実行を APM の分散トレースと同�
 | 機能 | 説明 | AWS CodePipeline | Azure | Buildkite | CircleCI | Codefresh | GitHub Actions | GitLab | Jenkins | TeamCity | Other（API） |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | Execution time | パイプラインがジョブを実行していた時間 | ○ | ○ | ○ | ○ | ○ | ○ | ○ | ○ | ○ | ○ |
-| Queue time | 実行前にキューで待っていた時間 | 公式表では 7 プロバイダが対応。個別ページで確認できたのは Buildkite、GitHub Actions、GitLab、Jenkins、TeamCity、Other（API） | | | | | | | | | |
 | Approval wait time | 手動承認待ちの時間 | ○ | ○【推定】 | — | — | — | ○ | ○ | — | — | — |
+
+> **Queue time**（実行前にキューで待っていた時間）：プロバイダ別の対応可否を列単位で確定できないため表から外した。公式表では 7 プロバイダが対応している。個別ページで対応を確認できたのは Buildkite、GitHub Actions、GitLab、Jenkins、TeamCity、Other（API）の 6 つ。
 
 #### カスタマイズと拡張
 
 | 機能 | 説明 | AWS CodePipeline | Azure | Buildkite | CircleCI | Codefresh | GitHub Actions | GitLab | Jenkins | TeamCity | Other（API） |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | Custom commands | `datadog-ci trace` でコマンド単位のスパンを追加 | ○（datadog-ci 2.40 以上） | ○（2.40 以上） | ○（2.40 以上） | ○ | — | ○（GitHub.com、2.40 以上） | ○（2.40 以上） | ○（Plugin 3.2.0 以上） | — | — |
-| Static tags（事前定義タグ） | 実行間で変わらない静的タグを CI 側で設定 | 公式表では 4 プロバイダが対応。個別ページで確認できたのは CircleCI（Receiver URL の `tags`）、GitLab（Tags 欄）、Jenkins（Global Tags 等） | | | | | | | | | |
 | Runtime tags（実行時タグ／メジャー） | `datadog-ci tag` / `measure` で実行時に追加 | — | ○ | ○ | ○ | — | ○ | ○ | ○（`datadog` ステップ） | — | ○ |
 | Parameters | パイプライン起動時のユーザー定義パラメータを `@ci.parameters` で検索可能にする | — | — | — | — | ○ | — | ○ | ○ | — | ○ |
 | Pipeline failure reasons | エラーメッセージから失敗理由を識別 | — | — | — | — | ○ | — | ○（GitLab 15.2.0 以上） | ○ | ○ | ○ |
+
+> **Static tags**（事前定義タグ。実行間で変わらない静的タグを CI 側で設定する機能）：プロバイダ別の対応可否を列単位で確定できないため表から外した。公式表では 4 プロバイダが対応している。個別ページで対応を確認できたのは CircleCI（Receiver URL の `tags`）、GitLab（Tags 欄）、Jenkins（Global Tags 等）の 3 つ。
 
 > **公式ドキュメント内の不整合**：公式 Supported features 表では Custom commands の対応に Codefresh が含まれ Jenkins が含まれない形で表示されるが、Custom Commands ページでは Jenkins（Plugin 3.2.0 以上）を対応とし Codefresh を挙げていない。同様に Logs Analysis は Supported features 表と Logs Analysis ガイドで対応プロバイダの記載が一部異なる（本表はガイド側・各プロバイダページ側を採用）。[出典](https://docs.datadoghq.com/continuous_integration/pipelines/custom_commands/) [出典](https://docs.datadoghq.com/continuous_integration/guides/use_ci_jobs_failure_analysis/)
 
@@ -679,7 +682,7 @@ Ingestion Control の除外フィルターは、CI Visibility で処理するイ
 
 | 権限名 | キー | 内容 | 既定ロール |
 |---|---|---|---|
-| CI Visibility Read | `ci_visibility_read` | CI Visibility の閲覧 | Datadog Read Only Role |
+| CI Visibility Read | `ci_visibility_read` | CI Visibility の閲覧。**Restricted permission** のため既定で全ロールに付与される。外すには UI でロールから削除するか、ロール作成・更新 API で `default_permissions_opt_out: true` を指定する | Datadog Read Only Role |
 | CI Visibility Tests Write | `ci_visibility_write` | Flaky テストの編集、Test Service の削除 | Datadog Standard Role |
 | CI Provider Settings Write | `ci_provider_settings_write` | CI プロバイダ設定の編集、GitHub アカウント／リポジトリの CI Visibility・ジョブログ収集の管理（自動リトライ有効化にも必要） | Datadog Admin Role |
 | CI Visibility Settings Write | `ci_visibility_settings_write` | リポジトリのデフォルトブランチ設定、GitHub コメント有効化、Test Service 削除 | Datadog Standard Role |
@@ -733,9 +736,13 @@ CI Visibility（Pipeline Visibility）は **アクティブな Git コミッタ�
 | SKU | 課金単位 | 年契約（Billed annually） | 月契約（Month-to-month） | オンデマンド |
 |---|---|---|---|---|
 | Pipeline Visibility（CI Pipeline Visibility） | アクティブ Git コミッター（月3コミット以上）／月 | **$8** | **$9.60** | **$12** |
-| 超過スパン | 100 万スパン／月 | $3（料金ページ FAQ の記載。契約形態ごとの差は公開情報では確認できず） | 同左 | 同左 |
+| 超過スパン（Pipeline Visibility 追加スパン） | 100 万スパン／月 | $2.50 | $3 | $3.75 |
 | Test Optimization（参考・別 SKU） | 同上 | $20 | $24 | $29 |
 | Code Coverage（参考・別 SKU） | 同上 | $8 | $9.60 | $12 |
+
+> 表の単価は US/EU1 のもの。超過スパンの値は料金ページの価格データ（`PIP-SPA-VIS`）による。料金ページ FAQ の文言は「Additional pipeline spans can be purchased at $3 per million spans per month」で、これは月契約の単価と一致する。
+
+> **サイト差異:** AP1 の単価は CI Pipeline Visibility が 年 $10／月 $12／オンデマンド $15、追加スパンが $3.125／$3.75／$4.6875、Test Optimization が $25／$30／$36.25、Code Coverage が $10／$12／$15（2026-11-02 時点）。詳細は [製品別料金表 §12](../../03_導入編/pricing-by-product.md) を参照。
 
 [出典](https://www.datadoghq.com/pricing/list/) [出典](https://www.datadoghq.com/pricing/?product=ci-cd-monitoring)
 
@@ -748,7 +755,7 @@ CI Visibility（Pipeline Visibility）は **アクティブな Git コミッタ�
 | ボット・GitHub UI 操作 | **検証済み（verified）ボット**のコミットと GitHub UI 上の操作によるコミットは自動的に課金対象外（未検証ボットは対象） |
 | 特定人物の除外 | [除外フィルター](#インジェスト制御exclusion-filters)で可能 |
 | 複数メールの重複排除 | GitHub ホストのリポジトリのみ、Datadog GitHub App（`Contents: Read`）があれば Git 作成者メールを GitHub ユーザーにマッピングして1人として数える。**GitLab、Azure DevOps、Bitbucket のリポジトリは重複排除されない** |
-| スパン | パイプライン・ステージ・ジョブがそれぞれ 1 スパン。コミッターあたり月 400,000 スパンを合算で付与、超過は 100 万スパンあたり $3／月 |
+| スパン | パイプライン・ステージ・ジョブがそれぞれ 1 スパン。コミッターあたり月 400,000 スパンを合算で付与、超過は 100 万スパン／月あたり 年契約 $2.50／月契約 $3／オンデマンド $3.75（US/EU1。AP1 の単価は上記サイト差異を参照） |
 | 製品の組み合わせ | Pipeline Visibility と Test Optimization は別々にコミッター課金。例：10 人チームで 8 人を Pipeline Visibility、5 人を Test Optimization とする混在購入が可能 |
 | Logs Storage | ジョブログは **Log Management として別課金**（保持・除外・インデックスは Log Management で設定） |
 | Billing enrichment | **CI/CD Optimization > Billing & Committers** で Reference Table をメールアドレスで結合し、`vp_name` 等のタグを課金メトリクスに付与して組織構造別に内訳化 |

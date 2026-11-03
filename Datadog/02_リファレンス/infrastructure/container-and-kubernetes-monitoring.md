@@ -523,7 +523,9 @@ Kubernetes Explorer は、Agent で設定したタグに加え、リソースの
 
 ヒント: 検索バーで `kube_` や `kube_condition` と入力すると、オートコンプリートで利用可能なタグを確認できる。[出典](https://docs.datadoghq.com/containers/monitoring/kubernetes_explorer/)
 
-**カスタムタグの追加:** `DD_ORCHESTRATOR_EXPLORER_EXTRA_TAGS`（例: `"tag1:value1 tag2:value2"`）を設定すると、Kubernetes リソースにカスタムタグを付与できる。このタグは **Kubernetes Explorer にのみ**表示される。Process Agent と Cluster Agent の**両方**に設定する必要がある。
+**カスタムタグの追加:** `DD_ORCHESTRATOR_EXPLORER_EXTRA_TAGS`（例: `"tag1:value1 tag2:value2"`）を設定すると、Kubernetes リソースにカスタムタグを付与できる。このタグは **Kubernetes Explorer にのみ**表示される。Process Agent と Cluster Agent の**両方**に設定する必要がある（Operator では `agents.containers.processAgent.env` と `clusterAgent.env`、Helm では `processAgent.env` と `clusterAgent.env`）。
+
+> 注: 公式ドキュメントは Process Agent への設定を案内しているが、Agent 7.51.0+ では orchestrator チェックが Agent コンテナで動く（[4.3](#43-有効化) 手順4）。この場合に Agent コンテナ側にも設定が必要かどうかは公開情報では確認できず。
 
 | 方式 | 設定箇所 |
 |---|---|
@@ -584,8 +586,8 @@ Kubernetes Explorer は CRD と Custom Resource（CR）を表示できる（Agen
 | `kustomize.toolkit.fluxcd.io` | kustomization | v1 | 7.76.0 |
 | `source.toolkit.fluxcd.io` | bucket、externalartifact、gitrepository、helmchart、helmrepository、ocirepository | v1 | 7.76.0 |
 | `nvidia.com` | dynamocheckpoint、dynamocomponentdeployment、dynamographdeployment、dynamographdeploymentrequest、dynamographdeploymentscalingadapter、dynamomodel、dynamoworkermetadata | v1alpha1 / v1beta1 | 7.84.0 |
-| `ray.io` | raycluster、rayjob、rayservice、raycronjob | v1、v1alpha1 | 7.84.0 |
-| `serving.kserve.io` | inferenceservice（v1beta1）、servingruntime・clusterservingruntime・trainedmodel・inferencegraph・localmodel* ほか（v1alpha1）、llminferenceservice・llminferenceserviceconfig（v1alpha2、v1alpha1） | 表記のとおり | 7.85.0 |
+| `ray.io` | raycluster・rayjob・rayservice（v1、v1alpha1）、raycronjob（v1） | 表記のとおり | 7.84.0 |
+| `serving.kserve.io` | inferenceservice（v1beta1）、servingruntime・clusterservingruntime・clusterstoragecontainer・trainedmodel・inferencegraph・localmodelcache・localmodelnamespacecache・localmodelnode・localmodelnodegroup（v1alpha1）、llminferenceservice・llminferenceserviceconfig（v1alpha2、v1alpha1） | 表記のとおり | 7.85.0 |
 
 [出典](https://docs.datadoghq.com/containers/monitoring/kubernetes_explorer_configuration/)
 
@@ -733,7 +735,7 @@ Datadog Kubernetes Autoscaling（DKA）は、Kubernetes リソースを継続的
 
 **提供状況の経緯:** Kubernetes Autoscaling は 2024-06-26 のプレスリリースでベータとして発表され、2025-06-10 公開の公式ブログで一般提供（GA）が告知された。[出典](https://www.datadoghq.com/about/latest-news/press-releases/datadog-announces-kubernetes-autoscaling-to-help-teams-intelligently-optimize-resources-and-cloud-costs/)（2024-06-26 公開） [出典](https://www.datadoghq.com/blog/datadog-kubernetes-autoscaling/)（2025-06-10 公開）
 
-> **サイト差異:** Kubernetes Autoscaling は US1-FED（Datadog for Government）では利用できない（料金ページの記載）。[出典](https://www.datadoghq.com/pricing/list/)
+> **サイト差異:** 料金ページの US1-FED（Datadog for Government）価格データには Kubernetes Autoscaling の SKU が存在しない（＝US1-FED では購入不可または非掲載。[製品別料金表 §18.2](../../03_導入編/pricing-by-product.md#182-us1-fedgovcloudで提供されない製品)）。[出典](https://www.datadoghq.com/pricing/list/)
 
 ### 7.2 要件
 
@@ -1079,6 +1081,8 @@ Datadog の Kubernetes Remediation（Bits AI Kubernetes Remediation）は、Bits
 
 Containers Explorer、Kubernetes Explorer、ECS Explorer、Kubernetes Resource Utilization は Infrastructure Monitoring（Pro / Enterprise）の一部として提供され、画面単位の追加料金は公式料金ページに記載がない。課金はホスト数・コンテナ数（または Fargate タスク／Pod 数）と、有償オプション（Kubernetes Autoscaling、Cloud Security など）で発生する。以下の金額は公式料金ページの定価（**2026-11-02 時点、USD**）。料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、課金計算の詳細は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
 
+> **サイト差異:** 以下の表の金額は US（US1/US3/US5）・EU1 の価格。**AP1（日本）では価格が異なる**（年契約 / 月契約 / オンデマンド）。Infrastructure Pro $18.75 / $22.50 / $22.50、Enterprise $28.75 / $33.75 / $33.75、追加コンテナ $1.25/月（年・月契約）/ $0.0025/時（オンデマンド）、Serverless Workload Monitoring - Apps $3.75 / $5 / $5.40、Kubernetes Autoscaling $3.75 / $4.50 / $5.40。AP2・UK1・US1-FED を含む詳細は [製品別料金表](../../03_導入編/pricing-by-product.md)（AP1 列および §18）を参照。[出典](https://www.datadoghq.com/pricing/list/)
+
 ### コンテナ（Kubernetes / Docker / ECS on EC2）
 
 | 項目 | 内容 | 出典 |
@@ -1114,7 +1118,8 @@ Containers Explorer、Kubernetes Explorer、ECS Explorer、Kubernetes Resource U
 | 定価 | **$3**（年契約）/ **$3.60**（月契約）/ **$4.32**（オンデマンド） | [Pricing list](https://www.datadoghq.com/pricing/list/) |
 | 割引 | 複数年・ボリューム割引、Cloud Cost Management とのバンドル割引あり（料金ページ記載。割引率は非公開） | [Pricing](https://www.datadoghq.com/pricing/) |
 | vCPU の数え方 | 推奨表示のみ（自動スケーリング未適用）のワークロードが課金対象か、vCPU を requests・ノード容量のどちらで数えるか、計測間隔などは公開情報では確認できず | — |
-| 提供サイト | US1-FED では利用不可 | [Pricing list](https://www.datadoghq.com/pricing/list/) |
+| AP1 価格 | **$3.75**（年契約）/ **$4.50**（月契約）/ **$5.40**（オンデマンド） | [製品別料金表 §2.3](../../03_導入編/pricing-by-product.md#23-infrastructure-の追加-skuコンテナカスタムメトリクスイベントほか) |
+| 提供サイト | 料金ページの US1-FED 価格データに SKU が存在しない（[製品別料金表 §18.2](../../03_導入編/pricing-by-product.md#182-us1-fedgovcloudで提供されない製品)） | [Pricing list](https://www.datadoghq.com/pricing/list/) |
 
 ### 機能別の課金への影響
 

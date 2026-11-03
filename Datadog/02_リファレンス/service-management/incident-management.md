@@ -187,6 +187,8 @@ Incident Management の Severity は Incident Settings の **Information** ペ�
 | SEV-5 | Minor | 顧客・ユーザーに目立った問題を起こしていない軽微なバグ |
 | Unknown | — | Severity を決める前に追加調査が必要 |
 
+[出典](https://docs.datadoghq.com/incident_response/incident_management/setup_and_configuration/information/)（ページ本文は説明文がカスタマイズ可能であることのみを記載し、既定の説明文は列挙していない。上表は同ページ掲載のスクリーンショットから採録）
+
 ![Incident Settings の Severity Levels 設定画面](../../assets/images/incident-management/settings_severity_levels.png)
 
 *キャプション：Incident Settings > Information の Severity Levels 設定画面。*
@@ -582,7 +584,7 @@ Incident Management の Follow-ups は、インシデント中に見つかった
 
 | 項目 | 仕様 |
 |---|---|
-| 作成場所 | Post-Incident タブ、Slack の `/datadog followup`（一覧は `/datadog followup list`）、Slack の 🔜 絵文字アクション、ポストモーテム Notebook の `{{incident.follow-ups}}` リスト |
+| 作成場所 | Post-Incident タブ、Slack の `/datadog followup`（一覧は `/datadog followup list`）、Slack の 🔜 絵文字アクション（[出典](https://docs.datadoghq.com/incident_response/incident_management/setup_and_configuration/integrations/slack/)）、ポストモーテム Notebook の `{{incident.follow-ups}}` リスト |
 | Status | **Open** / **Done** の 2 値 |
 | AI 提案 | 解決後、Incident AI がインシデントチャンネルから言及されたフォローアップを抽出し、ワンクリックで作成を提案（`app.ddog-gov.com` では非対応） |
 | エクスポート先 | Work Management（Datadog 内の Work Item、**双方向**同期）／ Jira（**一方向**同期） |
@@ -1039,7 +1041,7 @@ Incident Management と Status Pages の制限値・既定値は次のとおり�
 
 [出典](https://docs.datadoghq.com/incident_response/status_pages/) [出典](https://docs.datadoghq.com/incident_response/incident_management/investigate/incident_ai/) [出典](https://docs.datadoghq.com/account_management/billing/incident_response/) [出典](https://docs.datadoghq.com/incident_response/incident_management/setup_and_configuration/integrations/slack/) [出典](https://docs.datadoghq.com/incident_response/)
 
-> **サイト差異:** AP1 を含む商用サイトでは上記機能に差はない（公開情報上）。Status Page の既定ドメイン（`<prefix>.statuspage.datadoghq.com`）がサイトによって変わるかは公開情報では確認できず。公式ドキュメントの API エンドポイント表には `uk1.datadoghq.com` も掲載されている。
+> **サイト差異:** AP1 を含む商用サイトでは上記**機能**に差はない（公開情報上）。ただし**価格**は AP1 と US/EU1 で異なる（「課金への影響 > 定価」節を参照）。Status Page の既定ドメイン（`<prefix>.statuspage.datadoghq.com`）がサイトによって変わるかは公開情報では確認できず。公式ドキュメントの API エンドポイント表には `uk1.datadoghq.com` も掲載されている。
 
 ## 課金への影響
 
@@ -1047,13 +1049,15 @@ Incident Management は**シート（seat）課金**の SKU である。Incident
 
 ### 定価（2026-11-02 時点、USD、1 シートあたり月額）
 
-| SKU | 年契約（Billed Annually） | 月契約（Month-to-month） | オンデマンド | 含まれる主な機能 |
-|---|---|---|---|---|
-| Incident Management | $30 | $36 | $43.20 | 自動タイムライン、ロールとタスク、ワンクリック AI ポストモーテム、Incident Analytics、会議・チケット連携、**無制限の Status Pages（カスタムドメイン含む）**、無制限のインシデントオートメーション |
-| On-Call | $20 | $24 | $29 | 無制限のスケジュール・エスカレーション・ルーティング、SMS / 音声 / モバイルプッシュ / メールの Page、API と Webhook、On-Call Analytics、チャット連携 |
-| Incident Response（バンドル） | $40 | $48 | $58 | On-Call と Incident Management の全機能を 1 つのシートプールで提供 |
+| SKU | US/EU1 年契約（Billed Annually） | US/EU1 月契約（Month-to-month） | US/EU1 オンデマンド | AP1 年契約 | AP1 月契約 | AP1 オンデマンド | 含まれる主な機能 |
+|---|---|---|---|---|---|---|---|
+| Incident Management | $30 | $36 | $43.20 | $37.50 | $45 | $54 | 自動タイムライン、ロールとタスク、ワンクリック AI ポストモーテム、Incident Analytics、会議・チケット連携、**無制限の Status Pages（カスタムドメイン含む）**、無制限のインシデントオートメーション |
+| On-Call | $20 | $24 | $29 | $25 | $30 | $36.25 | 無制限のスケジュール・エスカレーション・ルーティング、SMS / 音声 / モバイルプッシュ / メールの Page、API と Webhook、On-Call Analytics、チャット連携 |
+| Incident Response（バンドル） | $40 | $48 | $58 | $50 | $60 | $72.50 | On-Call と Incident Management の全機能を 1 つのシートプールで提供 |
 
 [出典](https://www.datadoghq.com/pricing/list/) [出典](https://www.datadoghq.com/pricing/?product=incident-response#products)
+
+> **サイト差異:** AP1 の定価は US/EU1 と異なる（上表の AP1 列）。AP1 列の数値は料金の正本である [製品別料金表](../../03_導入編/pricing-by-product.md) §13 に従う（Pricing Comparison の既定表示は US サイトの価格）。実際の契約単価は見積・契約条件により異なる場合がある。
 
 ### シートが必要な操作・不要な操作（Incident Management）
 
@@ -1078,7 +1082,7 @@ UI 上でも Slack・Teams 経由でも、上記の操作にはシートが必�
 | 割当解除 | Seat Management で解除。解除後もインシデントの作成・閲覧・チャンネル参加は可能。On-Call の通知設定を削除してもシートは解除されない |
 | 請求額の基準 | 請求期間中の**同時割当シート数の最大値**。コミット数を超えた分はオンデマンド単価 |
 | 超過時の請求 | コミット済みシートが埋まっていても新規請求は成功し、超過分はオンデマンドとして課金 |
-| 月途中の解除 | その月は課金対象のまま、翌月の請求から外れる |
+| 月途中の解除 | その月は課金対象のまま、翌月の請求から外れる。このため同じ請求期間内にシートを別の人へ付け替えると、解除したシートもその期間は課金されるため、**その期間は 2 シート分**の請求になる（[製品別料金表](../../03_導入編/pricing-by-product.md) §13 の「シートの計数」と同じ扱い。公式ドキュメントには付け替えの明示的な記載はなく、「月途中に解除したシートはその月は課金対象」という記載からの帰結） |
 | コミット数の削減 | 更新（renewal）時に反映 |
 | 両製品が必要なユーザー | Incident Response シート 1 つで足りる（2 シートは不要） |
 | 複数 org | シートはメールアドレスで重複排除され、二重課金されない |

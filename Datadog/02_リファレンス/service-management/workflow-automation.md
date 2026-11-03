@@ -13,6 +13,7 @@ sources:
   - https://docs.datadoghq.com/actions/workflows/access_and_auth/
   - https://docs.datadoghq.com/actions/workflows/actions/
   - https://docs.datadoghq.com/actions/workflows/actions/flow_control/
+  - https://docs.datadoghq.com/actions/workflows/expressions/
   - https://docs.datadoghq.com/actions/workflows/expressions/javascript/
   - https://docs.datadoghq.com/actions/workflows/expressions/python/
   - https://docs.datadoghq.com/actions/workflows/variables/
@@ -33,14 +34,22 @@ sources:
   - https://docs.datadoghq.com/actions/private_actions/authorize_private_actions/
   - https://docs.datadoghq.com/actions/private_actions/execution_policies/
   - https://docs.datadoghq.com/actions/private_actions/reference/
+  - https://docs.datadoghq.com/actions/datastores/
   - https://docs.datadoghq.com/actions/datastores/trigger/
   - https://docs.datadoghq.com/actions/forms/
+  - https://docs.datadoghq.com/incident_response/case_management/automation_rules/
   - https://docs.datadoghq.com/getting_started/workflow_automation/
   - https://docs.datadoghq.com/account_management/rbac/permissions/
   - https://docs.datadoghq.com/account_management/api-app-keys/
   - https://docs.datadoghq.com/api/latest/workflow-automation/
+  - https://docs.datadoghq.com/actions/llms.txt
   - https://www.datadoghq.com/pricing/?product=workflow-automation#products
   - https://www.datadoghq.com/pricing/list/
+  - https://www.datadoghq.com/dg/workflow-automation/
+  - https://www.datadoghq.com/about/latest-news/press-releases/datadog-launches-workflow-automation-for-faster-remediation-of-application-issues/
+  - https://www.datadoghq.com/blog/automate-end-to-end-processes-with-datadog-workflows/
+  - https://www.datadoghq.com/blog/soar/
+  - https://www.datadoghq.com/blog/datadog-automation-rules/
 ---
 
 # Workflow Automation（ワークフロー自動化）
@@ -281,6 +290,8 @@ Workflow Automation の Security トリガーは、Cloud SIEM などの Security
 | Notification Rule | ワークフローに Security トリガーを追加 → メンション（例: `@workflow-my-workflow`）を確認 → Publish → **Configuration > Notification rules** の **Recipient** にメンションを追加 → 保存。ルール発火ごとに実行 |
 | 手動 | Cloud SIEM の Security Signal、Misconfiguration、Identity Risk のサイドパネルで **Next Steps** の **Run Workflow** → ワークフロー選択 → 入力（オブジェクトの JSON から値を貼り付け可）→ **Run**。実行状況はサイドパネルの Workflows 節に表示 |
 
+> **課金:** 公式料金ページでは、Workload Protection や DevSecOps Pro / Enterprise の欄で Workflows が「Free when triggered from security findings and signals」（Security Finding / Signal 起点の実行は無料）と記載されている（2026-11-04 時点）。詳細は [課金への影響](#課金への影響) を参照。
+
 セキュリティ用途の詳細は [Cloud SIEM](../security/cloud-siem.md)、[セキュリティ運用の実践](../../04_応用編/security-operations-practices.md) を参照。
 
 ### Catalog トリガー
@@ -398,7 +409,7 @@ Workflow Automation のテスト・デバッグ機能は次のとおり。[出�
 
 Workflow Automation の Action Catalog は、クラウドプロバイダー、SaaS ツール、Datadog 自身に対して実行できるアクションの一覧で、Workflow Automation と App Builder で共通に使われる。公式ドキュメントでは「**2,000 以上のアクション**」と記載されている。[出典](https://docs.datadoghq.com/actions/workflows/)、[出典](https://docs.datadoghq.com/actions/actions_catalog/)
 
-> **注意（件数表記の揺れ）:** 製品ページ等では「1,000+ actions」、古い第三者記事では「400+」「300+」などの記載もある。2026-11-02 時点の公式ドキュメントの表記は「2000+」。
+> **注意（件数表記の揺れ）:** 製品ページ等では「1,000+ actions」、GA 発表時の公式プレスリリース（2023-06）では「Over 300 out-of-the-box actions」（テンプレートは「more than 40」）と記載されており、第三者記事では「400+」などの記載もある。2026-11-02 時点の公式ドキュメントの表記は「2000+」。
 
 ### アクションの主なカテゴリ
 
@@ -817,7 +828,7 @@ Workflow Automation の各実行は 1 つの Datadog ID で動作し、その ID
 | 対象 | ロール | 既定 |
 |---|---|---|
 | ワークフロー | Viewer（閲覧）、Runner（実行・閲覧）、Editor（編集・実行・閲覧） | 作成者のみ Editor、組織の他メンバーは Viewer |
-| 接続 | Viewer（閲覧）、Resolver（解決・閲覧）、Editor（編集・解決・閲覧） | 作成者のみ Editor |
+| 接続 | Viewer（閲覧）、Resolver（解決・閲覧）、Editor（編集・解決・閲覧） | 作成者のみ Editor、組織の他メンバーは Viewer |
 
 制限手順（ワークフロー一覧/接続一覧で鍵アイコン → **Restrict Access** → ロールを追加して権限選択 → Save。エディタからは歯車 → Edit permissions → Who has access で **Custom**）。[出典](https://docs.datadoghq.com/actions/workflows/access_and_auth/)
 
@@ -948,7 +959,7 @@ Workflow Automation の制限値（Rate Limits for Workflow Automation）。[出
 |---|---|---|
 | Run as の既定 | Owner | [access_and_auth](https://docs.datadoghq.com/actions/workflows/access_and_auth/) |
 | ワークフローのアクセス既定 | 作成者のみ Editor、他は Viewer | 同上 |
-| 接続のアクセス既定 | 作成者のみ Editor | 同上 |
+| 接続のアクセス既定 | 作成者のみ Editor、他は Viewer | 同上 |
 | Monitor / Security トリガーの Automatic triggering | 既定で有効 | [trigger](https://docs.datadoghq.com/actions/workflows/trigger/) |
 | GitHub Webhook Secret | 16 文字以上 | 同上 |
 | ドラフト数 | ワークフローあたり 1 | [build](https://docs.datadoghq.com/actions/workflows/build/) |
@@ -987,21 +998,24 @@ Workflow Automation の課金単位は **ワークフロー実行数（Workflow 
 |---|---|---|---|---|
 | Workflow Automation | 100 Workflow Executions / 月 | **$10** | **$12** | **$14** |
 
-（2026-11-02 時点、公式料金ページの定価、USD。[出典](https://www.datadoghq.com/pricing/list/)）
+（2026-11-02 時点、公式料金ページの US/EU1 定価、USD。[出典](https://www.datadoghq.com/pricing/list/)）
+
+> **サイト差異:** 基準サイト AP1 では価格が異なり、100 Workflow Executions / 月あたり年契約 **$12.50** / 月契約 **$15** / オンデマンド **$17.50**（[製品別料金表](../../03_導入編/pricing-by-product.md) の 13 章を参照）。
 
 課金に関する公式記載の要点:
 
 | 項目 | 内容 |
 |---|---|
 | 課金対象 | **公開済み（Published）ワークフローの実行**。公開しないと自動トリガーは動作しない |
-| ドラフト | 公開済みワークフローのドラフトをエディタから実行しても**課金されない** |
+| ドラフト | 公式には「Published workflows accrue costs based on workflow executions」「Running a draft for published workflows do not accrue costs」と記載。**課金対象は公開済みワークフローの実行で、ドラフトをエディタから実行しても課金されない** |
 | 子ワークフロー | Trigger Workflow による子ワークフローの起動は**新たな 1 実行**としてカウント |
-| Incident Automations | Incident Management 内の Incident Automations は**追加課金なし**（Workflow の Incident トリガーとは別機能） |
+| Incident Automations | Incident Management 内の Incident Automations は**追加課金なし**（Workflow の Incident トリガーとは別機能。Workflow Automation の Incident トリガーによる実行は通常どおり課金対象） |
+| Security Finding / Signal 起点の実行 | Workload Protection・DevSecOps Pro / Enterprise などの料金表の欄で「Free when triggered from security findings and signals」と記載（2026-11-04 時点）。無料になる条件（対象トリガー・契約製品）は契約内容によるため営業に確認する |
 | 既存 Infrastructure 顧客 | ホスト単位の課金を変えずに Workflow Automation を追加でき、実行分のみ支払う |
 | 割引 | 複数年・ボリューム割引は営業窓口（Contact Us）経由。その他の課金プランは CSM 経由でカスタマイズ可 |
 | 使用量の帰属 | Usage Attribution の **Workflow Executions**（Enterprise プラン） |
 
-- 未公開（一度も Publish していない）ワークフローをエディタから手動実行した場合の課金扱いは、公式には「公開済みワークフローが実行ごとに課金される」との記載のみで明示されていない。【推定】課金対象外と考えられるが、公開情報では確認できず。
+- 公式の記載は「課金されるのは公開済みワークフローの実行」「公開済みワークフローのドラフト実行は課金されない」である。一度も Publish していないワークフローをエディタから実行しても、公開済みワークフローの実行には当たらないため課金対象外となる【推定】（このケースを名指しした記載はない）。
 - ステップ単体テスト（Test）の課金扱いは公開情報では確認できず。
 - 外部アクションの実行先（AWS API 呼び出し、SaaS 側の API 利用料等）の費用は各サービス側で別途発生する。
 - PAR そのものの料金行は公式料金表に掲載されていない（PAR 単体の課金は公開情報では確認できず）。Agent 組み込み型 PAR は Datadog Agent の一部として動作する。

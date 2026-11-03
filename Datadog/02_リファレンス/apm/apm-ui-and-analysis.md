@@ -82,13 +82,14 @@ Datadog APM の画面は、同じトレースデータでも**どの段階のデ
 
 | データ | 生成元 | 使う画面 | 正確さ |
 |---|---|---|---|
-| Trace Metrics（`trace.<SPAN_NAME>.hits` / `.errors` / `trace.<SPAN_NAME>` 等） | Agent がサンプリング前の 100% トラフィックから計算 | Service Page・Resource Page の Requests / Errors / Latency グラフ、Deployments 表、Endpoints リスト、Service Map の依存関係 | 全量ベース（例外：アプリ側 SDK サンプリング、OpenTelemetry SDK サンプリング、X-Ray サンプリング） |
+| Trace Metrics（`trace.<SPAN_NAME>.hits` / `.errors` / `trace.<SPAN_NAME>` 等） | Agent がサンプリング前の 100% トラフィックから計算 | Service Page・Resource Page の Requests / Errors / Latency グラフ、Deployments 表、Endpoints リスト | 全量ベース（例外：アプリ側 SDK サンプリング、OpenTelemetry SDK サンプリング、X-Ray サンプリング） |
 | 取り込み済みスパン（Ingested） | サンプリング後に Datadog に届いたスパン | Trace Explorer の Live Search（直近 15 分）、Span-based Metrics | サンプリング率に依存 |
 | インデックス済みスパン（Indexed） | Retention Filter で保持されたスパン | Trace Explorer（15 分超の期間）、ダッシュボード・ノートブック・Trace Analytics モニター | Retention Filter の設定に依存 |
 | Intelligent Retention のトレース | Diversity sampling と 1% flat sampling | Trace Queries、Trace Explorer（インデックス検索） | 代表サンプル |
 | サンプル済みトレースの集計 | 取り込み済みトレース | Service Page の「Avg Time per Request」、Resource Page の依存マップ・Span summary | サンプル（依存マップはサンプリング率で補正） |
+| ルートスパンを含む完全なトレース | APM・RUM が収集したトレース | Service Map のサービス間依存関係 | トレースベース（スパン欠落時はその期間のマップが利用できない場合がある） |
 
-[出典](https://docs.datadoghq.com/tracing/metrics/metrics_namespace/) [出典](https://docs.datadoghq.com/tracing/services/service_page/) [出典](https://docs.datadoghq.com/tracing/services/resource_page/) [出典](https://docs.datadoghq.com/tracing/trace_pipeline/trace_retention/)
+[出典](https://docs.datadoghq.com/tracing/metrics/metrics_namespace/) [出典](https://docs.datadoghq.com/tracing/services/service_page/) [出典](https://docs.datadoghq.com/tracing/services/resource_page/) [出典](https://docs.datadoghq.com/tracing/trace_pipeline/trace_retention/) [出典](https://docs.datadoghq.com/tracing/services/services_map/)
 
 ### 1.2 画面間の主な遷移
 
@@ -330,7 +331,7 @@ Datadog APM の Inferred Services は、インスツルメント済みサービ�
 
 - グローバルのサービス名に統一する設定（公式ページ上の表記は `DD_TRACE_REMOVE_INTEGRATION_SERVICE_NAMES_ENABLED`、Query Syntax ページでは `DD_TRACE_REMOVE_INTEGRATION_SERVICE_NAME_ENABLED` と表記揺れがある）を有効にすると、インテグレーションが既定と異なるサービス名を設定しなくなり、サービス間・推論サービスの可視化が改善される。ただし旧サービス名を参照するメトリクス、Span-based Metrics、Retention Filter、モニター、ダッシュボード、ノートブックの更新が必要になる。正確な環境変数名は利用する Tracing Library のドキュメントで確認すること。[出典](https://docs.datadoghq.com/tracing/services/inferred_services/) [出典](https://docs.datadoghq.com/tracing/trace_explorer/query_syntax/)
 
-> **サイト差異:** Inferred Services は `ap1`、`ap2`、`us3`、`us5`、`eu`、`us`（US1）、`uk1` で既定で有効。`app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com` では既定で利用できず、フォームからアクセスを申請する必要がある。[出典](https://docs.datadoghq.com/tracing/services/inferred_services/)
+> **サイト差異:** Inferred Services は AP1、AP2、US3、US5、EU1、US1、UK1（`uk1.datadoghq.com`）で既定で有効。`app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com` では既定で利用できず、フォームからアクセスを申請する必要がある。[出典](https://docs.datadoghq.com/tracing/services/inferred_services/)
 
 ### 4.5 Request Flow Map（Trace Explorer の可視化）
 
@@ -672,7 +673,7 @@ Datadog Watchdog の Automatic Faulty Deployment Detection は、デプロイ後
 
 [出典](https://docs.datadoghq.com/tracing/services/deployment_tracking/)
 
-> **補足:** バージョンの値の上限は、`env`×`service` あたり 40 分間隔で一意な `version` 30 個というデータ量ガイドラインがある（[APM の概念とインジェスト制御](./apm-concepts-and-ingestion.md) の制限値節）。コミットごとに異なる `version` を付けるような高頻度デプロイでは注意する。【経験則】
+> **補足:** バージョンの値の上限は、`env`×`service` あたり 40 分間隔で一意な `version` 30 個というデータ量ガイドラインがあり、超える場合はサポートへの相談が案内されている（[APM の概念とインジェスト制御](./apm-concepts-and-ingestion.md) の制限値節も参照）。[出典](https://docs.datadoghq.com/tracing/troubleshooting/) コミットごとに異なる `version` を付けるような高頻度デプロイでは、この上限に注意する。【経験則】
 
 ---
 
@@ -755,7 +756,7 @@ Trace Metrics（自動生成、`trace.*`）との違いと保持期間の一覧�
 | 課金 | 個別課金の記載なし | カスタムメトリクスとして課金 |
 | 保持 | 15 か月 | 15 か月 |
 
-[出典](https://docs.datadoghq.com/tracing/trace_pipeline/generate_metrics/) [出典](https://docs.datadoghq.com/tracing/metrics/metrics_namespace/)
+[出典](https://docs.datadoghq.com/tracing/trace_pipeline/generate_metrics/) [出典](https://docs.datadoghq.com/tracing/metrics/metrics_namespace/) [出典](https://www.datadoghq.com/pricing/?product=apm)（Trace Metrics＝RED メトリクスの 15 か月保持）
 
 ### 10.1 用途
 
@@ -867,7 +868,8 @@ Datadog APM の分析画面に関わる制限値・デフォルト値は次の�
 | Services / resources statistics の保持 | 30 日 | [Data Retention Periods](https://docs.datadoghq.com/data_security/data_retention_periods/) |
 | 閲覧したトレース（Viewed traces） | アカウント存続期間中 | 同上 |
 | APM のエラー | 15 日 | 同上 |
-| Span-based Metrics・Trace Metrics の保持 | 15 か月 | [Generate Metrics](https://docs.datadoghq.com/tracing/trace_pipeline/generate_metrics/) |
+| Span-based Metrics の保持 | 15 か月 | [Generate Metrics](https://docs.datadoghq.com/tracing/trace_pipeline/generate_metrics/) |
+| Trace Metrics（RED メトリクス）の保持 | 15 か月 | [APM Pricing](https://www.datadoghq.com/pricing/?product=apm) |
 | Service Map からサービスが消えるまで | トレースのない状態が 30 日 | [Service Map](https://docs.datadoghq.com/tracing/services/services_map/) |
 | Service Health のモニタートリガー判定期間 | 過去 2 日 | [Service Page](https://docs.datadoghq.com/tracing/services/service_page/) |
 | Deployment Comparison の比較可能範囲 | 過去 30 日以内のバージョン | [Deployment Tracking](https://docs.datadoghq.com/tracing/services/deployment_tracking/) |
@@ -920,7 +922,7 @@ Datadog APM の分析画面に関わる制限値・デフォルト値は次の�
 
 | 機能 | サイト差異 | 出典 |
 |---|---|---|
-| Inferred Services | `ap1`・`ap2`・`us3`・`us5`・`eu`・`us`（US1）・`uk1` で既定有効。US1-FED（`app.ddog-gov.com`）と `us2.ddog-gov.com` は申請が必要 | [Inferred Services](https://docs.datadoghq.com/tracing/services/inferred_services/) |
+| Inferred Services | AP1・AP2・US3・US5・EU1・US1・UK1（`uk1.datadoghq.com`）で既定有効。US1-FED（`app.ddog-gov.com`）と `us2.ddog-gov.com` は申請が必要 | [Inferred Services](https://docs.datadoghq.com/tracing/services/inferred_services/) |
 | Service Page の依存関係での推論サービス・service override 表示、Trace Explorer の peer 属性による検索の注記、Trace View の推論サービスの破線表示 | 公式ページでは上記の商用サイト向けの注記（callout）として記載 | [Service Page](https://docs.datadoghq.com/tracing/services/service_page/) [Query Syntax](https://docs.datadoghq.com/tracing/trace_explorer/query_syntax/) [Trace View](https://docs.datadoghq.com/tracing/trace_explorer/trace_view/) |
 | Endpoint Observability（Endpoints リスト） | US1-FED と `us2.ddog-gov.com` では非対応 | [Endpoints](https://docs.datadoghq.com/internal_developer_portal/catalog/endpoints/) |
 | Span-based Metrics API | サイトごとに API ホストが異なる（例：AP1 は `api.ap1.datadoghq.com`） | [API](https://docs.datadoghq.com/api/latest/spans-metrics/) |
@@ -936,7 +938,7 @@ Datadog APM の分析画面そのものに追加料金はないが、画面で�
 
 | 機能・操作 | 影響する課金項目 | 説明 |
 |---|---|---|
-| Service Page / Resource Page / Service Map / Endpoints リストの閲覧 | APM ホスト（または Fargate タスク、サーバーレス）単位の基本料金に含まれる | Trace Metrics ベースの表示に個別課金の記載はない |
+| Service Page / Resource Page / Service Map / Endpoints リストの閲覧 | APM ホスト（または Fargate タスク、サーバーレス）単位の基本料金に含まれる | Trace Metrics ベースの表示（Service Map はトレースベース）に個別課金の記載はない |
 | Trace Explorer の Live Search | Ingested Spans（GB） | 取り込み量に依存（APM ホストあたりの割当を超えた分が従量） |
 | Trace Explorer の Indexed Search、ダッシュボード・モニターへのエクスポート | Indexed Spans（100 万スパン単位、保持期間 7 / 15 / 30 日で単価が異なる） | カスタム Retention Filter でインデックスしたスパン数 |
 | Trace Queries | Intelligent Retention 分は**課金なし**。Trace-level Retention Filter（Trace rate）分は Indexed Spans | Trace rate はトレースの全スパンをインデックスするため使用量が大きく増え得る |
@@ -1001,6 +1003,7 @@ Datadog APM の分析画面そのものに追加料金はないが、画面で�
 ### Datadog 公式サイト・ブログ
 
 - Pricing List（取得日 2026-11-02）：https://www.datadoghq.com/pricing/list/
+- APM Pricing（RED メトリクスの 15 か月保持。取得日 2026-11-04）：https://www.datadoghq.com/pricing/?product=apm
 - Trace Queries 紹介ブログ（2024-02-12 公開）：https://www.datadoghq.com/blog/trace-queries/
 
 ### 画像の出典（取得日 2026-11-02、著作権は Datadog, Inc. に帰属。社内参照目的に限る）

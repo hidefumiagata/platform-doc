@@ -11,6 +11,7 @@ sources:
   - https://docs.datadoghq.com/observability_pipelines/configuration/explore_templates/
   - https://docs.datadoghq.com/observability_pipelines/configuration/set_up_pipelines/
   - https://docs.datadoghq.com/observability_pipelines/configuration/update_existing_pipelines/
+  - https://docs.datadoghq.com/observability_pipelines/configuration/export_and_import_pipeline_configurations/
   - https://docs.datadoghq.com/observability_pipelines/configuration/install_the_worker/
   - https://docs.datadoghq.com/observability_pipelines/configuration/install_the_worker/advanced_worker_configurations/
   - https://docs.datadoghq.com/observability_pipelines/configuration/install_the_worker/run_multiple_pipelines_on_a_host/
@@ -22,6 +23,18 @@ sources:
   - https://docs.datadoghq.com/observability_pipelines/sources/
   - https://docs.datadoghq.com/observability_pipelines/sources/datadog_agent/
   - https://docs.datadoghq.com/observability_pipelines/processors/
+  - https://docs.datadoghq.com/observability_pipelines/processors/filter/
+  - https://docs.datadoghq.com/observability_pipelines/processors/sample/
+  - https://docs.datadoghq.com/observability_pipelines/processors/dedupe/
+  - https://docs.datadoghq.com/observability_pipelines/processors/throttle/
+  - https://docs.datadoghq.com/observability_pipelines/processors/quota/
+  - https://docs.datadoghq.com/observability_pipelines/processors/reduce/
+  - https://docs.datadoghq.com/observability_pipelines/processors/generate_metrics/
+  - https://docs.datadoghq.com/observability_pipelines/processors/enrichment_table/
+  - https://docs.datadoghq.com/observability_pipelines/processors/grok_parser/
+  - https://docs.datadoghq.com/observability_pipelines/processors/sensitive_data_scanner/
+  - https://docs.datadoghq.com/observability_pipelines/processors/custom_processor/
+  - https://docs.datadoghq.com/observability_pipelines/guide/remap_reserved_attributes/
   - https://docs.datadoghq.com/observability_pipelines/destinations/
   - https://docs.datadoghq.com/observability_pipelines/destinations/datadog_logs/
   - https://docs.datadoghq.com/observability_pipelines/destinations/datadog_archives/
@@ -39,6 +52,7 @@ sources:
   - https://docs.datadoghq.com/observability_pipelines/guide/strategies_for_reducing_log_volume/
   - https://docs.datadoghq.com/observability_pipelines/guide/upgrade_worker/
   - https://docs.datadoghq.com/observability_pipelines/search_syntax/logs/
+  - https://docs.datadoghq.com/observability_pipelines/search_syntax/metrics/
   - https://docs.datadoghq.com/observability_pipelines/legacy/
   - https://www.datadoghq.com/pricing/?product=observability-pipelines
   - https://www.datadoghq.com/pricing/list/
@@ -97,7 +111,7 @@ Observability Pipelines の Worker には、YAML 設定ベースの旧世代（W
 | 最新版（取得時点） | Worker 2.25.0（アップグレードガイド記載の最新版） |
 | 更新方針 | マイナー・パッチリリースごと、少なくとも月1回の更新を推奨。最新のメジャーバージョンを使い更新し続けることが、新機能・修正・セキュリティ更新を得る唯一のサポートされた方法 |
 
-[出典](https://docs.datadoghq.com/observability_pipelines/guide/upgrade_worker/)
+出典：旧世代・互換性・Datadog の推奨は [(LEGACY) Observability Pipelines](https://docs.datadoghq.com/observability_pipelines/legacy/)、最新版・更新方針は [Upgrade the Worker](https://docs.datadoghq.com/observability_pipelines/guide/upgrade_worker/)
 
 > **注意:** 本ファイルは Worker 2.x（現行世代）を前提に記述する。旧世代（1.x）の Vector 形式 YAML 設定、sources / transforms / sinks リファレンスは legacy ドキュメントを参照。
 
@@ -390,7 +404,7 @@ Observability Pipelines の Processors は、データのパース、構造化�
 | 識別 | クォータ名で複数 Worker 間の同一クォータを識別 |
 | バケット上限 | 1 パイプラインあたり 1,000 バケット（増枠はサポートへ） |
 | 同期対象 Worker 数 | 既定で 1 組織あたり 100 Worker（Worker 2.16 以降は 300）。超過すると同期が不正確になり上限超過後もログが流れる可能性があり、`Failed to sync quota state` エラーが出る |
-| 同期頻度 | 1 分に数回。Worker 数とスループットにより上限を超過しうるため、上限は処理ボリュームより 1 桁以上大きく設定することを推奨 |
+| 同期頻度 | 1 分に数回。Worker 数とスループットにより上限を超過しうるため、上限は、プロセッサが受け取る見込みの 1 分あたりのログ量より 1 桁以上大きく設定することを推奨 |
 | メトリクス | `pipelines.quota_reached_events_total` など |
 
 [出典](https://docs.datadoghq.com/observability_pipelines/processors/quota/)
@@ -423,7 +437,7 @@ Observability Pipelines の Processors は、データのパース、構造化�
 | メトリクスタイプ | COUNT、GAUGE、DISTRIBUTION（gauge / distribution は数値フィールドを値に使用。distribution は数値配列も可） |
 | Group by | 指定フィールドがメトリクスのタグになる |
 | タイムスタンプ | ログの `timestamp` フィールドを使用。`timestamp` が文字列の場合は処理時刻が使われる |
-| Aggregate generated metrics | 有効時、同一系列・同一タイムスタンプのポイントを結合して送信し過少カウントを防ぐ。`worker_uuid` タグを付与し、宛先側で Worker 間の値が重複排除されず集約されるようにする |
+| Aggregate generated metrics | 有効時、同一系列・同一タイムスタンプのポイントを結合して送信し過少カウントを防ぐ。`worker_uuid` タグを付与し、宛先側で Worker 間の値が重複排除されず集約されるようにする。既定で有効（Worker 2.24.0 以降。オプション自体は 2.22.0 で追加）。不要なら無効化する |
 | 既定の宛先 | Datadog Metrics |
 | 他の宛先 | Worker 2.18 以降で Datadog Metrics 以外へ送信可能。Splunk HEC / Elasticsearch / HTTP/S Client への送信は `【Preview】` |
 | 課金 | Datadog に送った生成メトリクスは **カスタムメトリクス** として課金される |
@@ -510,7 +524,7 @@ Observability Pipelines の Destinations は、処理済みデータの送信先
 
 | デスティネーション | 備考 |
 |---|---|
-| Datadog Metrics | `【Preview】`（ドキュメント表記）。Datadog API v2 / sketches エンドポイントへ zstd 圧縮で送信 |
+| Datadog Metrics | `【Preview】`（ドキュメント表記）。Worker 2.10.0 で追加。2.15.0 以降は既定で series v2 エンドポイント（`/api/v2/series`）へ送信し、2.15.1 以降は API v2 / sketches エンドポイントへの送信に zstd 圧縮を使う（いずれも Upgrade the Worker ガイドの記載） |
 | Elasticsearch | — |
 | HTTP/S Client | — |
 | OpenTelemetry | OTLP/HTTP（例: `http://localhost:4319/v1/metrics`）。環境変数 `DD_OP_DESTINATION_OTEL_HTTP_CLIENT_URI` |
@@ -798,8 +812,9 @@ Worker は Datadog と HTTPS（443）で通信し、認証情報の検証、パ�
 | Generate Metrics の Datadog 以外の宛先、`pipeline_name` タグ、`DD_OP_LOG_FORMAT` | 2.18 以降 |
 | ディスクバッファ最大 5 TB | 2.20 系以降（それ以前は 500 GB。ドキュメント内で「2.20.x より前」「2.20.x 以前」と表記揺れあり） |
 | Datadog Archives の `compression`（gzip / zstd） | 2.21.0 以降 |
-| Aggregate のイベント時刻集約、Generate Metrics の集約オプション | 2.22.0 以降 |
+| Aggregate のイベント時刻集約、Generate Metrics の集約オプション（追加。既定では無効） | 2.22.0 以降 |
 | Enrichment Table のメトリクス対応 | 2.23.0 以降 |
+| Generate Metrics の集約オプションが既定で有効 | 2.24.0 以降 |
 | `DD_OP_REDUCE_WINDOW_SECS`、Sample のメモリ上限 128 MiB | 2.25.0 以降 |
 
 [出典](https://docs.datadoghq.com/observability_pipelines/guide/upgrade_worker/)、[出典](https://docs.datadoghq.com/observability_pipelines/processors/)、[出典](https://docs.datadoghq.com/observability_pipelines/configuration/live_capture/)、[出典](https://docs.datadoghq.com/observability_pipelines/processors/quota/)、[出典](https://docs.datadoghq.com/observability_pipelines/scaling_and_performance/buffering_and_backpressure/)
@@ -1014,10 +1029,12 @@ Granular access control は、ロール・Teams・ユーザー・サービスア
 
 Observability Pipelines の課金モデルは「取り込み GB 課金」と「vCPU 課金」の 2 種類がある（2026-11-02 取得、USD 定価）。[出典](https://www.datadoghq.com/pricing/list/)、[出典](https://www.datadoghq.com/pricing/?product=observability-pipelines)
 
-| 品目（料金ページ表記） | 課金単位 | 年契約 | 月契約 | オンデマンド |
+| 品目（料金ページ表記） | 課金単位 | US/EU1 年契約 | US/EU1 月契約 | US/EU1 オンデマンド |
 |---|---|---|---|---|
 | Observability Pipelines | 取り込み GB あたり / 月（非圧縮データ量） | $0.095 | $0.10 | $0.12 |
 | Observability Pipelines Plus | vCPU あたり / 月（Worker に割り当てた vCPU） | $1,950 | $2,340 | $2,808 |
+
+> **サイト差異:** 上表は **US/EU1 の価格**。基準サイトの AP1（日本）では価格が異なり、Observability Pipelines は年契約 $0.11875・月契約 $0.125・オンデマンド $0.15（取り込み GB あたり / 月）、Observability Pipelines Plus は年契約 $2,437.50・月契約 $2,925・オンデマンド $3,510（vCPU あたり / 月）。詳細は [製品別料金表 §7.2](../../03_導入編/pricing-by-product.md#72-sensitive-data-scanneraudit-trailobservability-pipelines) の AP1 列を参照。[出典](https://www.datadoghq.com/pricing/list/)
 
 - **取り込み GB 課金:** Worker が取り込んだ **非圧縮** データ量で課金される。月 30 TB 未満の組織向けで、使用量に応じて支払えるが、ボリュームに比例して増える。[出典](https://www.datadoghq.com/pricing/?product=observability-pipelines)
 - **vCPU 課金:** 月 30 TB 超の組織向け。料金ページでは「Worker に割り当てた vCPU あたり年額課金」と説明され、ボリュームのスパイクや変動を吸収でき予測可能。目安は月 30 TB あたり 1 vCPU。製品ページでは問い合わせ（Contact Us）扱い。[出典](https://www.datadoghq.com/pricing/?product=observability-pipelines)

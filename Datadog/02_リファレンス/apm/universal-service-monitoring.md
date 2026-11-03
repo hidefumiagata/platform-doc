@@ -11,7 +11,12 @@ sources:
   - https://docs.datadoghq.com/universal_service_monitoring/setup/
   - https://docs.datadoghq.com/universal_service_monitoring/additional_protocols/
   - https://docs.datadoghq.com/universal_service_monitoring/guide/using_usm_metrics/
+  - https://docs.datadoghq.com/tracing/guide/ddsketch_trace_metrics/
+  - https://docs.datadoghq.com/developers/guide/data-collection-resolution/
+  - https://docs.datadoghq.com/tracing/services/deployment_tracking/
+  - https://docs.datadoghq.com/agent/configuration/network/
   - https://docs.datadoghq.com/api/latest/usage-metering/
+  - https://docs.datadoghq.com/account_management/billing/usage_metrics/
   - https://www.datadoghq.com/pricing/?product=universal-service-monitoring
   - https://www.datadoghq.com/pricing/?product=apm--continuous-profiler
   - https://www.datadoghq.com/pricing/list/
@@ -19,6 +24,7 @@ sources:
   - https://www.datadoghq.com/blog/universal-service-monitoring-datadog/
   - https://www.datadoghq.com/about/latest-news/press-releases/datadog-launches-universal-service-monitoring/
   - https://www.datadoghq.com/product-preview/monitoring-kafka-and-postgresql-with-usm/
+  - https://learn.datadoghq.com/courses/getting-started-usm
 ---
 
 # Universal Service Monitoring（USM）
@@ -66,11 +72,11 @@ Universal Service Monitoring と [Cloud Network Monitoring](../infrastructure/cl
 | 観測レイヤー | L7（HTTP 等のアプリケーション層プロトコル）のリクエスト・エラー・レイテンシ | L3/L4 のフロー（送受信バイト、TCP 再送、RTT、接続数等） |
 | 表示先 | APM の Service Page / Service Map / Software Catalog | Network Analytics / Network Map |
 | 有効化キー | `service_monitoring_config.enabled` | `network_config.enabled` |
-| Windows での前提 | ネットワークカーネルドライバ（インストーラーの NPM / Cloud Network Monitoring コンポーネント）が必要 | 同左 |
+| Windows での前提 | Windows IIS の場合、ネットワークカーネルドライバ（インストーラーの NPM / Cloud Network Monitoring コンポーネント）が必要（非 IIS の要否は記載なし） | ネットワークカーネルドライバが必要 |
 
 出典：[USM Setup](https://docs.datadoghq.com/universal_service_monitoring/setup/)。CNM 側の詳細は [Cloud Network Monitoring](../infrastructure/cloud-network-monitoring.md) を参照。
 
-- USM の有効化に CNM（`network_config.enabled`）の有効化が必須とする記述は、USM の公式セットアップページでは確認できず（Windows では Agent 7.44 以前のインストール時に「Cloud Network Monitoring」コンポーネント＝ネットワークカーネルドライバの選択が必要、という形で関係する）。[出典](https://docs.datadoghq.com/universal_service_monitoring/setup/)
+- USM の有効化に CNM（`network_config.enabled`）の有効化が必須とする記述は、USM の公式セットアップページでは確認できず。ただし Windows（IIS）では Agent 6.41 / 7.41 以上をネットワークカーネルドライバ付きで導入する必要があり、Agent 7.44 以前はそのために `msiexec` に `ADDLOCAL="MainApplication,NPM"` を渡すか、GUI で Cloud Network Monitoring を選択する、という形で関係する。[出典](https://docs.datadoghq.com/universal_service_monitoring/setup/)
 
 ## 2. 仕組み（アーキテクチャとデータフロー）
 
@@ -98,13 +104,13 @@ flowchart LR
 | 段階 | 内容 | 出典 |
 |---|---|---|
 | 1. 取得 | Agent が eBPF でカーネルのネットワークスタックから HTTP(S) トラフィックを自動解析する | [公式ブログ](https://www.datadoghq.com/blog/universal-service-monitoring-datadog/) |
-| 2. 暗号化通信 | HTTPS は TLS ライブラリ（OpenSSL）の関数をフックして平文を取得する方式で対応（Go TLS、Node.js TLS、Istio mTLS は追加設定）。Windows は ETW（Event Tracing for Windows）の `Microsoft-Windows-HttpService` プロバイダを使う | [USM Setup](https://docs.datadoghq.com/universal_service_monitoring/setup/) |
+| 2. 暗号化通信 | HTTPS は OpenSSL に対応（コンテナ構成ではホスト `/` を `/host/root` にマウント）。Go TLS、Node.js TLS、Istio mTLS は追加設定。Windows は ETW（Event Tracing for Windows）の `Microsoft-Windows-HttpService` プロバイダを使う | [USM Setup](https://docs.datadoghq.com/universal_service_monitoring/setup/) |
 | 3. サービス名付与 | プロセス起動時の環境変数（`DD_SERVICE`、`DD_ENV`、`DD_VERSION`、`DD_TAGS`）を Linux では `/proc/PID/environ`、Windows ではシステム API から読む。無い場合はコンテナタグから自動命名 | [USM Setup](https://docs.datadoghq.com/universal_service_monitoring/setup/)、[USM](https://docs.datadoghq.com/universal_service_monitoring/) |
 | 4. 送信 | System Probe はソケット（`/var/run/sysprobe/sysprobe.sock`）経由で Agent プロセスと連携する。Kubernetes の手動構成では `process-agent` コンテナ（コンテナ分割時）または `agent` コンテナに USM の環境変数を設定する | [USM Setup](https://docs.datadoghq.com/universal_service_monitoring/setup/) |
 | 5. 表示 | Agent 設定後、約 5 分で Software Catalog にサービスが表示される | [USM](https://docs.datadoghq.com/universal_service_monitoring/) |
 
-- 「TLS ライブラリの関数をフックする」という内部実装の詳細（uprobe 等の具体的な eBPF プログラム種別）は USM の公式ドキュメントでは説明されておらず、公開情報では確認できず。上表 2 の記述は「OpenSSL 等ライブラリ単位で HTTPS に対応し、ライブラリ種別ごとに設定キーが分かれている」という公式の対応表から読み取れる範囲に留める。
-- 送信先エンドポイント：USM のデータは Live Process / Containers / CNM と同じ `process.<サイト>` 系エンドポイント（AP1 では `process.ap1.datadoghq.com`、TCP 443）を使う。詳細は [Datadog Sites](../platform/datadog-sites.md) と [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md) を参照。
+- HTTPS の平文取得は、TLS ライブラリ（OpenSSL 等）の関数を eBPF でフックする方式と考えられる【推定】。公式ドキュメントは「HTTPS (OpenSSL)」の対応と HOST_ROOT のマウントのみを記載しており、内部実装（uprobe 等の eBPF プログラム種別）は公開情報では確認できず。
+- 送信先エンドポイント：USM のデータは Live Containers / Live Process / Cloud Network Monitoring と同じ `process.<YOUR_DATADOG_SITE>` エンドポイント（AP1 では `process.ap1.datadoghq.com`）に送られ、ポートは TCP 443。[出典](https://docs.datadoghq.com/agent/configuration/network/) 詳細は [Datadog Sites](../platform/datadog-sites.md) と [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md) を参照。
 
 ### 2.2 必要な権限（Linux）
 
@@ -173,9 +179,9 @@ Universal Service Monitoring のプロトコル・暗号化対応は、基本（
 | HTTPS（OpenSSL） | GA | 6.40 / 7.40 | 4.14 以上 | USM 有効化＋コンテナ構成ではホスト `/` を `/host/root` にマウント | 料金ページ FAQ は「OpenSSL と GnuTLS」をサポートと記載（ドキュメントは OpenSSL のみ明記） |
 | HTTPS（Windows IIS） | GA | 6.41 / 7.41 | ― | `service_monitoring_config.enabled` | ETW `Microsoft-Windows-HttpService` を使用 |
 | HTTPS（Windows 非 IIS） | **非対応** | ― | ― | ― | ETW プロバイダが IIS 限定のため |
-| Istio mTLS（HTTPS、HTTP/2、gRPC） | GA（Preview 表記なし） | 7.50 | ― | `tls.istio.enabled` | Istio のサービスメッシュ配下の暗号化通信 |
+| Istio mTLS（HTTPS、HTTP/2、gRPC） | 個別の Preview 表記なし（ただしセットアップページは「追加プロトコル・暗号化方式は Preview」と総括。GA か否かは公開情報では確定できず） | 7.50 | ― | `tls.istio.enabled` | Istio のサービスメッシュ配下の暗号化通信 |
 | Go TLS | **【Preview】** | 7.51 | ― | `tls.go.enabled` | Go の HTTPS サーバーは HTTP/2 にアップグレードし得る。HTTP/2 対応はアカウントマネージャーに相談と記載 |
-| HTTP/2・gRPC | GA（Preview 表記なし） | 7.53 | **5.2 以上** | `enable_http2_monitoring` | gRPC は HTTP/2 上で捕捉 |
+| HTTP/2・gRPC | 個別の Preview 表記なし（同上。GA か否かは公開情報では確定できず） | 7.53 | **5.2 以上** | `enable_http2_monitoring` | gRPC は HTTP/2 上で捕捉 |
 | Kafka | **【Preview】** | 7.53 | プロデューサー・コンシューマー側 **5.2 以上** | `enable_kafka_monitoring` | プロデューサー・コンシューマーが **TLS なし**で Kafka に接続していること。公式見出しは「Kafka Console (Preview)」 |
 | Node.js TLS（HTTP、HTTP/2、gRPC） | **【Preview】** | 7.54 | ― | `tls.nodejs.enabled` | ― |
 | PostgreSQL | **【Preview】**（Product Preview Program） | 7.53.0 | 公開情報では確認できず | 公開情報では確認できず（Preview 参加後に案内） | Kafka と同じプレビューページで告知 |
@@ -183,6 +189,7 @@ Universal Service Monitoring のプロトコル・暗号化対応は、基本（
 
 出典：[USM Setup](https://docs.datadoghq.com/universal_service_monitoring/setup/)、[Cloud Service Discovery and Additional Protocols](https://docs.datadoghq.com/universal_service_monitoring/additional_protocols/)、[Monitoring Kafka and PostgreSQL with USM（Product Preview）](https://www.datadoghq.com/product-preview/monitoring-kafka-and-postgresql-with-usm/)、[料金ページ FAQ](https://www.datadoghq.com/pricing/?product=universal-service-monitoring)
 
+- **提供状況の扱い:** セットアップページは、基本サポートを HTTP と HTTPS（OpenSSL）とし、Supported versions 節で「Additional protocols and traffic encryption methods are in Preview.」、末尾で「USM is in Preview for discovering cloud services and decoding additional protocols and traffic encryption methods」と総括している。一方で「Istio Monitoring」「HTTP/2 monitoring」の見出し・本文には個別の Preview 表記が無い。このため本ファイルでは Istio mTLS と HTTP/2・gRPC を GA とは断定しない（提供状況は公開情報では確定できず。本番採用前に Datadog へ確認すること）。[出典](https://docs.datadoghq.com/universal_service_monitoring/setup/)
 - **注意（ドキュメント間の差異）:** 料金ページ FAQ は「USM は言語非依存で、HTTP / HTTPS（OpenSSL と GnuTLS）で通信するコンテナ化アプリをサポート」「Windows は IIS ベースのサービス」と記載している。一方、セットアップドキュメントは HTTPS を「OpenSSL」と明記し、Windows では非 IIS サービスの HTTP 監視も Agent 7.57 以降デフォルトで有効と記載している。本ファイルでは技術仕様はドキュメント（docs.datadoghq.com）を優先する。
 - Redis、MongoDB、AMQP 等その他のプロトコルについて、USM の公式ドキュメントに対応の明示は無く、公開情報では確認できず（Preview の対象に含まれるかは非公開）。
 - 「Postgres の Preview」は Datadog 公式の Product Preview ページの記載であり、USM セットアップページには PostgreSQL の設定キーは掲載されていない。
@@ -386,8 +393,8 @@ Universal Service Monitoring の追加設定は、`system-probe.yaml`、環境�
 | Linux 非コンテナ（ベアメタル / VM）サービス | 前提条件節で【Preview】表記 | 7.42 | `service_monitoring_config.process_service_inference.enabled: true`（`enabled: true` と併記） | `DD_SYSTEM_PROBE_PROCESS_SERVICE_INFERENCE_ENABLED=true` |
 | Go TLS | 【Preview】 | 7.51 | `service_monitoring_config.tls.go.enabled: true` | `DD_SERVICE_MONITORING_CONFIG_TLS_GO_ENABLED=true` |
 | Node.js TLS（HTTP、HTTP/2、gRPC） | 【Preview】 | 7.54 | `service_monitoring_config.tls.nodejs.enabled: true` | `DD_SERVICE_MONITORING_CONFIG_TLS_NODEJS_ENABLED=true` |
-| Istio mTLS（HTTPS、HTTP/2、gRPC） | GA（Preview 表記なし） | 7.50 | `service_monitoring_config.tls.istio.enabled: true` | `DD_SERVICE_MONITORING_CONFIG_TLS_ISTIO_ENABLED=true` |
-| HTTP/2・gRPC | GA（Preview 表記なし）、カーネル 5.2 以上 | 7.53 | `service_monitoring_config.enable_http2_monitoring: true` | `DD_SERVICE_MONITORING_CONFIG_ENABLE_HTTP2_MONITORING=true` |
+| Istio mTLS（HTTPS、HTTP/2、gRPC） | 個別の Preview 表記なし（追加プロトコル・暗号化方式は Preview との総括あり。§3.3 参照） | 7.50 | `service_monitoring_config.tls.istio.enabled: true` | `DD_SERVICE_MONITORING_CONFIG_TLS_ISTIO_ENABLED=true` |
+| HTTP/2・gRPC | 個別の Preview 表記なし（同上、§3.3 参照）、カーネル 5.2 以上 | 7.53 | `service_monitoring_config.enable_http2_monitoring: true` | `DD_SERVICE_MONITORING_CONFIG_ENABLE_HTTP2_MONITORING=true` |
 | Kafka | 【Preview】、カーネル 5.2 以上、TLS なし | 7.53 | `service_monitoring_config.enable_kafka_monitoring: true` | `DD_SERVICE_MONITORING_CONFIG_ENABLE_KAFKA_MONITORING=true` |
 | パス除外・置換 | GA | 公開情報では確認できず | `network_config.http_replace_rules` | `DD_SYSTEM_PROBE_NETWORK_HTTP_REPLACE_RULES` |
 
@@ -672,8 +679,8 @@ Universal Service Monitoring のサービスに対して、Software Catalog は�
 
 > **サイト差異:** Cloud Service Discovery と追加プロトコルの Preview は、US1、US3、US5、EU1、AP1、AP2、および uk1.datadoghq.com 向けに告知されている。GovCloud 系（app.ddog-gov.com、us2.ddog-gov.com）は対象外。[出典](https://docs.datadoghq.com/universal_service_monitoring/additional_protocols/)
 
-- 基準サイト AP1 では USM が利用可能で、データ送信先は `process.ap1.datadoghq.com`（TCP 443）。詳細は [Datadog Sites](../platform/datadog-sites.md) を参照。
-- サイトごとの USM の価格差は公式料金ページ上で確認できず（料金ページはリージョン別価格表示の仕組みを持つため、契約時に確認すること）。
+- 基準サイト AP1 では USM が利用可能で、データ送信先は `process.ap1.datadoghq.com`（TCP 443）。[出典](https://docs.datadoghq.com/agent/configuration/network/) 詳細は [Datadog Sites](../platform/datadog-sites.md) を参照。
+- AP1 の USM 定価は年契約 $11.25、月契約 $13.50、オンデマンド $16.25（US/EU1 は $9 / $10.80 / $13、2026-11-03 時点）。詳細は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
 
 ## 10. 制限値・クォータ・デフォルト値
 
@@ -708,11 +715,11 @@ Universal Service Monitoring の課金単位は **Infrastructure Monitoring ホ�
 
 ### 11.1 USM 単体の価格（公式定価）
 
-| 製品 | 課金単位 | 年契約 | 月契約（Month-to-month） | オンデマンド |
-|---|---|---|---|---|
-| Universal Service Monitoring | Infrastructure ホスト / 月 | $9 | $10.80 | $13 |
+| 製品 | 課金単位 | US/EU1 年契約 | US/EU1 月契約（Month-to-month） | US/EU1 オンデマンド | AP1 年契約 | AP1 月契約 | AP1 オンデマンド |
+|---|---|---|---|---|---|---|---|
+| Universal Service Monitoring | Infrastructure ホスト / 月 | $9 | $10.80 | $13 | $11.25 | $13.50 | $16.25 |
 
-出典：[料金一覧](https://www.datadoghq.com/pricing/list/)、[料金ページ（USM）](https://www.datadoghq.com/pricing/?product=universal-service-monitoring)（2026-11-02 時点、USD）
+出典：[料金一覧](https://www.datadoghq.com/pricing/list/)、[料金ページ（USM）](https://www.datadoghq.com/pricing/?product=universal-service-monitoring)（US/EU1 は 2026-11-02 時点、AP1 は [製品別料金表](../../03_導入編/pricing-by-product.md) §5.3 の 2026-11-03 時点の値、USD）
 
 - 料金一覧ページの列順（Billed Annually / Month-to-month / On-demand）に基づく。USM の製品ページ側の表記は「Starting At $9 Per Infrastructure Monitoring host, per month」「Billed annually or $13 on-demand」「Requires purchase of Infrastructure Monitoring」。[出典](https://www.datadoghq.com/pricing/?product=universal-service-monitoring)
 
@@ -783,7 +790,7 @@ A. かからない。APM ホストにはティアに関係なく USM が含ま�
 A. 料金ページ FAQ によれば、USM 単体（$9 / ホスト / 月、年契約）は Infrastructure の全ホストに対して購入する形態で、Pro / Enterprise Infrastructure ホストの一部だけで使う場合は APM（USM を同梱）を購入する。[出典](https://www.datadoghq.com/pricing/?product=universal-service-monitoring)
 
 **Q5. gRPC は監視できるか。**
-A. できる。HTTP/2 監視（Agent 7.53 以上、Linux カーネル 5.2 以上、`enable_http2_monitoring`）で HTTP/2 と gRPC を捕捉する。Istio mTLS（Agent 7.50 以上）や Node.js TLS（Preview、Agent 7.54 以上）経由の gRPC にも対応する。[出典](https://docs.datadoghq.com/universal_service_monitoring/setup/)
+A. できる。HTTP/2 監視（Agent 7.53 以上、Linux カーネル 5.2 以上、`enable_http2_monitoring`）で HTTP/2 と gRPC を捕捉する。Istio mTLS（Agent 7.50 以上）や Node.js TLS（Preview、Agent 7.54 以上）経由の gRPC にも対応する。ただし HTTP/2 と Istio mTLS には個別の Preview 表記が無い一方、セットアップページは「追加プロトコル・暗号化方式は Preview」と総括しており、GA か否かは公開情報では確定できない（§3.3 参照）。[出典](https://docs.datadoghq.com/universal_service_monitoring/setup/)
 
 **Q6. Kafka や PostgreSQL は監視できるか。**
 A. どちらも Preview。Kafka は Agent 7.53 以上、プロデューサー・コンシューマー側カーネル 5.2 以上、TLS なしの接続が条件。PostgreSQL は Product Preview Program として告知されている（Agent 7.53.0 以上）。[出典](https://docs.datadoghq.com/universal_service_monitoring/setup/) [出典](https://www.datadoghq.com/product-preview/monitoring-kafka-and-postgresql-with-usm/)
@@ -820,6 +827,7 @@ A. 別メトリクスはなく、`universal.http.server` / `universal.http.clien
 - DDSketch-based Metrics in APM：https://docs.datadoghq.com/tracing/guide/ddsketch_trace_metrics/
 - Data Collection Resolution：https://docs.datadoghq.com/developers/guide/data-collection-resolution/
 - Deployment Tracking：https://docs.datadoghq.com/tracing/services/deployment_tracking/
+- Network Traffic（Agent の送信先とポート）：https://docs.datadoghq.com/agent/configuration/network/
 - Usage Metering API：https://docs.datadoghq.com/api/latest/usage-metering/
 - Usage Metrics：https://docs.datadoghq.com/account_management/billing/usage_metrics/
 - Datadog 料金ページ（Universal Service Monitoring）：https://www.datadoghq.com/pricing/?product=universal-service-monitoring （2026-11-02 取得）

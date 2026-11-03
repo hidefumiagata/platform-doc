@@ -5,7 +5,7 @@ domain: platform
 last_verified: 2026-11-02
 agent_version: "7.x"
 summary: Datadog が OpenTelemetry（OTel）データを受け取る4つの経路（DDOT Collector、OTLP Ingest in the Agent、アップストリームの OTel Collector（OTLP HTTP Exporter または Datadog Exporter/Connector）、Direct OTLP Ingest）の仕様、設定キー、制限値、機能互換性、セマンティック規約のマッピング、Datadog SDK と OTel API/SDK の互換、課金上の扱いをまとめたリファレンス。
-keywords: [OpenTelemetry, OTel, OTLP, DDOT, DDOT Collector, Datadog Distribution of OpenTelemetry Collector, OTLP Ingest, OTLP Ingest in the Agent, otlp_config, Datadog Exporter, datadogexporter, Datadog Connector, datadogconnector, span_metrics, spanmetricsconnector, otlp_http, OTLP Intake Endpoint, Direct OTLP Ingest, Agentless OTLP, OTLP APM Ingest, Managed Platform OTLP, セマンティック規約, semantic conventions, infraattributes, Infrastructure Attribute Processor, resource_attributes_as_tags, dd-otel-metric-config, delta temporality, デルタ, 累積, W3C Trace Context, 128-bit trace ID, DD_TRACE_OTEL_ENABLED, DD_METRICS_OTEL_ENABLED, DD_LOGS_OTEL_ENABLED, OTEL_EXPORTER_OTLP_ENDPOINT, 4317, 4318, tail sampling, gateway, Fleet Automation, カスタムメトリクス]
+keywords: [OpenTelemetry, OTel, OTLP, DDOT, DDOT Collector, Datadog Distribution of OpenTelemetry Collector, OTLP Ingest, OTLP Ingest in the Agent, otlp_config, Datadog Exporter, datadogexporter, Datadog Connector, datadogconnector, span_metrics, spanmetricsconnector, otlp_http, OTLP Intake Endpoint, Direct OTLP Ingest, Agentless OTLP, OTLP APM Ingest, Managed Platform OTLP, セマンティック規約, semantic conventions, infraattributes, Infrastructure Attribute Processor, resource_attributes_as_tags, dd-otel-metric-config, delta temporality, デルタ, 累積, W3C Trace Context, 128-bit trace ID, DD_TRACE_OTEL_ENABLED, DD_METRICS_OTEL_ENABLED, DD_LOGS_OTEL_ENABLED, OTEL_EXPORTER_OTLP_ENDPOINT, 4317, 4318, Data Observability: Jobs Monitoring, Data Jobs Monitoring, DJM, tail sampling, gateway, Fleet Automation, カスタムメトリクス]
 sources:
   - https://docs.datadoghq.com/opentelemetry/
   - https://docs.datadoghq.com/opentelemetry/setup/
@@ -141,7 +141,7 @@ Datadog の各製品・機能がセットアップごとに使えるかどうか
 | Universal Service Monitoring（USM） | 対応 | 対応 | 非対応 | 非対応 |
 | App and API Protection（AAP、旧称：Application Security Management / ASM） | 対応 | 非対応 | 非対応 | 非対応 |
 | Continuous Profiler | 対応 | 非対応 | 非対応 | 非対応 |
-| Data Jobs Monitoring（DJM） | 対応 | 非対応 | 非対応 | 非対応 |
+| Data Observability: Jobs Monitoring（DJM、旧称：Data Jobs Monitoring） | 対応 | 非対応 | 非対応 | 非対応 |
 | Data Streams Monitoring（DSM） | 対応 | N/A（OTel に DSM 相当の機能がない） | N/A | 非対応 |
 | Real User Monitoring（RUM） | 対応 | 非対応 | 非対応 | 非対応 |
 | Source Code Integration | 対応 | 非対応 | 非対応 | 非対応 |
@@ -205,7 +205,7 @@ DDOT Collector は Datadog Agent に組み込まれたオープンソースの O
 | Amazon ECS Fargate | Agent をサイドカーコンテナとして配置 | エントリポイントは常に `--config /etc/datadog-agent/otel-config.yaml` で起動する。環境変数による構成（`env:` プロバイダ）は ECS Fargate では非対応で、独自設定はカスタムイメージに焼き込む | [出典](https://docs.datadoghq.com/opentelemetry/setup/ddot_collector/install/ecs_fargate/) |
 | Amazon EKS Fargate | Agent をアプリ Pod のサイドカーとして配置 | Fargate profile を設定した EKS クラスタ | [出典](https://docs.datadoghq.com/opentelemetry/setup/ddot_collector/install/eks_fargate/) |
 
-> **提供状況の注記:** Kubernetes 向け DDOT は一般提供（GA）と公式に案内されている。Linux のベアメタル/VM 向けは、以前は Product Preview（プレビュー）として案内されていた [出典](https://www.datadoghq.com/product-preview/ddot-for-linux-based-hosts-or-vms)。2026-11-02 時点の英語版インストールガイド（Linux / Windows / ECS Fargate / EKS Fargate）には Preview の表記がないが、GA を明示した告知は公開情報では確認できなかった。
+> **提供状況の注記:** Kubernetes 向け DDOT は、2025-05-06 の発表ブログで「production-ready」と紹介されているが [出典](https://www.datadoghq.com/blog/datadog-distribution-otel-collector/)、一般提供（GA）を明示した公式ページは 2026-11-04 時点で確認できなかった。インストールガイドに Preview の表記はない [出典](https://docs.datadoghq.com/opentelemetry/setup/ddot_collector/install/kubernetes_daemonset/)。Linux のベアメタル/VM 向けは、以前は Product Preview（プレビュー）として案内されていた [出典](https://www.datadoghq.com/product-preview/ddot-for-linux-based-hosts-or-vms)。2026-11-02 時点の英語版インストールガイド（Linux / Windows / ECS Fargate / EKS Fargate）には Preview の表記がないが、GA を明示した告知は公開情報では確認できなかった。
 
 ### OTel Collector バージョン対応
 
@@ -259,7 +259,7 @@ DDOT Collector は Datadog Agent に組み込まれたオープンソースの O
 | 項目 | Linux | Windows |
 |---|---|---|
 | Agent 設定 | `/etc/datadog-agent/datadog.yaml` | `C:\ProgramData\Datadog\datadog.yaml` |
-| Collector 設定 | `/etc/datadog-agent/otel-config.yaml`（インストーラが雛形を作成する） | 公開情報では確認できず（Linux と同様に Agent 設定ディレクトリの `otel-config.yaml` と推定）【推定】 |
+| Collector 設定 | `/etc/datadog-agent/otel-config.yaml`（インストーラが雛形を作成する） | `C:\ProgramData\Datadog\otel-config.yaml`（インストーラが雛形を作成する。`datadog.yaml` と同じフォルダ）[出典](https://docs.datadoghq.com/opentelemetry/setup/ddot_collector/install/windows/) |
 | 有効化キー | `otelcollector.enabled: true` | 同左 |
 | IPC 設定 | `agent_ipc.port: 5009`、`agent_ipc.config_refresh_interval: 60` | 同左 |
 | 既定のリッスンポート | `4317`（gRPC）、`4318`（HTTP） | 同左 |
@@ -502,7 +502,7 @@ Service-entry span（後述）を `span.kind` から判定する新しいロジ�
 - 各ホストに取り込み用の Agent が必要。**あるホストのアプリや Collector から、別ホストの Agent へ送ることはサポートされない**。
 - 受信プロトコルは gRPC か HTTP のどちらかを構成する。
 - OTel SDK で計装したアプリのデータは、App and API Protection、Continuous Profiler、Ingestion Rules では使えない。
-- **既知の問題（Docker 上の Agent 7.61.0+）**：パイプラインが `failed to register process metrics: process does not exist` で失敗することがある。回避策は次のいずれか。
+- **既知の問題（Docker 上の Agent 7.61.0 以降。公式の表記は「Starting with Agent version 7.61.0」）**：パイプラインが `failed to register process metrics: process does not exist` で失敗することがある。回避策は次のいずれか。
   - `HOST_PROC` を `/proc` に設定する
   - `volumes` から `/proc/:/host/proc/:ro` を外す
   - `pid` を `host` にする
@@ -525,7 +525,7 @@ Service-entry span（後述）を `span.kind` から判定する新しいロジ�
 
 | 項目 | 内容 |
 |---|---|
-| ディストリビューション | OpenTelemetry Collector Contrib v0.154.0 以降（Docker イメージ `otel/opentelemetry-collector-contrib:0.154.0`、バイナリ `otelcol-contrib`、Kubernetes では OpenTelemetry Helm chart） |
+| ディストリビューション | OpenTelemetry Collector Contrib v0.154.0 以降（Docker イメージ `otel/opentelemetry-collector-contrib:0.154.0`、バイナリ `otelcol-contrib`、Kubernetes では OpenTelemetry Helm chart。Helm chart の values ファイルは chart v0.147.1 で検証され、Collector 自体は v0.154.0 に固定される） |
 | 対応環境 | ベアメタル、VM、Docker、Kubernetes（Amazon EKS（Auto Mode を含む）、GKE（Standard / Autopilot）、AKS（Automatic を含む）） |
 | 非対応環境 | ECS Fargate、EKS Fargate、AWS Lambda などサーバーレスやタスクベースのランタイム（Direct OTLP Ingest を使う） |
 | デプロイパターン | Agent パターン（ホストまたはノードごとに1つ）。複数 Collector でテイルサンプリングを行う場合は、同じトレースのスパンを同じ Collector に集める Gateway 構成が必要 |
@@ -1033,7 +1033,7 @@ DDOT 関連のポートとして、ほかに `8888`（Collector のヘルスメ�
 
 > **サイト差異:** OTLP Intake のエンドポイントは `https://otlp.<DD_SITE>`（AP1 は `otlp.ap1.datadoghq.com`）、マネージドプラットフォームは `https://{subdomain}.integrations.otlp.<DD_SITE>`。組織のサイトと異なるエンドポイントに送ると `403 Forbidden` が返る。Datadog Exporter と DDOT の Exporter では `api.site` を正しく設定する（既定値は `datadoghq.com`（US1））。
 
-> **サイト差異:** 料金ページによると、OTLP APM Ingest は「全リージョンで利用可能」とされている [出典](https://www.datadoghq.com/pricing/?product=managed-platform-otlp#products)。サイトごとの機能差（例：AP1 で OTLP トレース Intake が使えるか）を明示した情報は、公開情報では確認できなかった。
+> **サイト差異:** 料金ページによると、OTLP APM Ingest は「全リージョンで利用可能」とされている [出典](https://www.datadoghq.com/pricing/?product=managed-platform-otlp#products)。ただし価格はサイトで異なる（US $0.50 / GB、AP1 $0.625 / GB。「課金への影響」節を参照）。サイトごとの機能差（例：AP1 で OTLP トレース Intake が使えるか）を明示した情報は、公開情報では確認できなかった。
 
 サイトの一覧とエンドポイントの全体像は [Datadog Sites](./datadog-sites.md) を参照。
 
@@ -1094,7 +1094,7 @@ OpenTelemetry 専用の課金体系はほとんどなく、基本的には OTel 
 | インフラホスト | OTel で送ったホストも Infrastructure Monitoring のホスト課金の対象になる。公式は「EKS Fargate に Collector を置くと、インフラホスト課金が正しく計算されない」と警告しており、OTel 経由のホストも課金計算に入ることを示している。ホスト名の不一致で同じノードが2ホストとして数えられると、課金が増えうる【第三者情報】 | [出典](https://docs.datadoghq.com/opentelemetry/compatibility/) / [出典](https://zenn.dev/tetsuya28/articles/datadog-ddot) |
 | APM ホスト | 課金対象の APM ホストは「Datadog にトレースを送っているホスト（OpenTelemetry Collector を含むが、それに限らない）」。計装していないサービスだけのホスト（DB、キャッシュ等）は対象外 | [出典](https://www.datadoghq.com/pricing/) |
 | スパン（Ingested / Indexed） | OTel トレースも APM の Ingested Spans と Indexed Spans として扱われる（詳細は [APM の概念とインジェスト制御](../apm/apm-concepts-and-ingestion.md)） | [出典](https://www.datadoghq.com/pricing/) |
-| OTLP APM Ingest（マネージドプラットフォーム、ホストレス環境向け） | **$0.50 / GB（取り込んだスパン、月額、"Starting At" 表記）**。含まれる量（allotment）はなく、取り込み GB 単位と Indexed Spans の 100 万件単位の完全従量課金。複数年割引やボリューム割引はない。全リージョンで利用可能（2026-11-02 時点、料金ページの掲載値。契約形態の別（年契約 / オンデマンド）は掲載なし） | [出典](https://www.datadoghq.com/pricing/?product=managed-platform-otlp#products) |
+| OTLP APM Ingest（マネージドプラットフォーム、ホストレス環境向け） | **US（US1/US3/US5）で $0.50 / GB（取り込んだスパン、月額、"Starting At" 表記）**。AP1 は $0.625 / GB（下記のサイト差異を参照）。含まれる量（allotment）はなく、取り込み GB 単位と Indexed Spans の 100 万件単位の完全従量課金。複数年割引やボリューム割引はない。全リージョンで利用可能（提供状況の記載であり、価格がサイト共通という意味ではない。2026-11-02 時点、料金ページの掲載値。契約形態の別（年契約 / オンデマンド）は掲載なし） | [出典](https://www.datadoghq.com/pricing/?product=managed-platform-otlp#products) |
 | OTel メトリクス（サポート対象のレシーバー） | Datadog がサポートする OTel レシーバーのメトリクス（各レシーバーの `metadata.yaml` に定義され、Metrics Mappings 表に載っているもの）は**追加料金なし**。レシーバーの設定を誤るとカスタムメトリクスとして扱われ、追加料金が発生しうる | [出典](https://docs.datadoghq.com/opentelemetry/integrations/) |
 | OTel メトリクス（アプリが OTel Metrics API で出すもの等） | Datadog の定義では「1,000 以上の Datadog インテグレーションから送られたもの以外のメトリクス」はカスタムメトリクスになる。そのため、アプリ独自の OTel メトリクスはカスタムメトリクスとして課金される（メトリクス名とタグ値の組み合わせごとにカウント）。Pro は 1 ホストあたり 100、Enterprise は 200 の Ingested / Indexed カスタムメトリクスが含まれ、アカウント全体でプールされる | [出典](https://docs.datadoghq.com/account_management/billing/custom_metrics/) |
 | 自動マッピングで追加されるメトリクス | OTel → Datadog の自動マッピングで生成されるメトリクスは課金に影響しない | [出典](https://docs.datadoghq.com/opentelemetry/mapping/metrics_mapping/) |
@@ -1103,7 +1103,11 @@ OpenTelemetry 専用の課金体系はほとんどなく、基本的には OTel 
 | DDOT で有効にする追加機能 | APM、Orchestrator Explorer、Process Collection などは追加料金が発生しうる（公式は料金ページの確認と CSM への相談を推奨） | [出典](https://docs.datadoghq.com/opentelemetry/setup/ddot_collector/install/kubernetes_daemonset/) |
 | 使用量メトリクス | `datadog.estimated_usage.apm.otlp_partner_ingested_bytes`（マネージドパートナー経由で取り込んだスパンのバイト数）が用意されている | [出典](https://docs.datadoghq.com/account_management/billing/usage_metrics/) |
 
-参考として、Infrastructure Pro の定価は、2026-11-02 時点の料金ページで **$15 / ホスト / 月（年契約）、$18 / ホスト / 月（オンデマンド）**。最新値と他製品の単価は [製品別料金表](../../03_導入編/pricing-by-product.md) で確認する。コスト削減の実践（Collector 側でのフィルタやサンプリング、タグ設計）は [コスト最適化](../../04_応用編/cost-optimization.md) と [OpenTelemetry 活用戦略](../../04_応用編/opentelemetry-strategy.md) を参照。
+参考として、Infrastructure Pro の定価は、2026-11-02 時点の料金ページで US（US1/US3/US5）が **$15 / ホスト / 月（年契約）、$18 / ホスト / 月（オンデマンド）**。最新値と他製品の単価は [製品別料金表](../../03_導入編/pricing-by-product.md) で確認する。
+
+> **サイト差異:** 料金はサイトによって異なる。AP1（日本）の掲載値は、Managed Platform OTLP（OTLP APM Ingest）が **$0.625 / GB**、Infrastructure Pro が **$18.75 / ホスト / 月（年契約）、$22.50 / ホスト / 月（オンデマンド）**。見積りでは [製品別料金表](../../03_導入編/pricing-by-product.md) の AP1 列を使う [出典](https://www.datadoghq.com/pricing/?product=managed-platform-otlp#products)。
+
+コスト削減の実践（Collector 側でのフィルタやサンプリング、タグ設計）は [コスト最適化](../../04_応用編/cost-optimization.md) と [OpenTelemetry 活用戦略](../../04_応用編/opentelemetry-strategy.md) を参照。
 
 ---
 

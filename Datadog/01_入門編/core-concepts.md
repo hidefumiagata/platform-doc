@@ -27,6 +27,7 @@ sources:
   - https://docs.datadoghq.com/account_management/billing/custom_metrics/
   - https://docs.datadoghq.com/account_management/billing/pricing/
   - https://docs.datadoghq.com/logs/explorer/facets/
+  - https://docs.datadoghq.com/logs/explorer/search_syntax/
   - https://docs.datadoghq.com/logs/log_configuration/attributes_naming_convention/
   - https://docs.datadoghq.com/logs/log_configuration/indexes/
   - https://docs.datadoghq.com/monitors/
@@ -308,7 +309,7 @@ Datadog のタグは、テレメトリ（メトリクス・ログ・トレース
 
 | 画面・機能 | 書き方の例 |
 |---|---|
-| 全般 | 複数タグの**包含は AND**、複数タグの**除外は OR** で評価される |
+| 全般（多くの画面） | 複数タグの**包含は AND**、複数タグの**除外は OR** で評価される。ただし、イベント検索（複数タグを包含するときは `OR` で区切る）やクラウド連携の取り込みフィルター（包含は OR）のように、包含が OR になる機能もあるため、機能ごとに確認する |
 | ダッシュボード / メトリクスクエリ | `from` でタグ絞り込み（`NOT`/`!`、`AND`/`,`、`OR`、`IN`、`NOT IN` が使える）、`avg by` でタグ値ごとに1本の線 |
 | モニター管理画面 | `tag:"service:coffee-house"`、否定は先頭に `-`。ワイルドカードは引用符ではなくコロンをエスケープ（`tag:service\:*`） |
 | ログ・APM・RUM の検索バー | `service:coffee-house` のように記述 |
@@ -471,7 +472,7 @@ Datadog のメトリクスは「環境に関するあらゆるものを時系列
 - 同じタイムスタンプのデータポイントが複数ある場合は、最新のものが上書きする。
 - メトリクス（タグと値）の保持期間は **15 か月**。[出典](https://docs.datadoghq.com/developers/guide/data-collection-resolution-retention/)
 
-![メトリクスクエリの構成要素](../../assets/images/core-concepts/metric-query-anatomy.jpg)
+![メトリクスクエリの構成要素](../assets/images/core-concepts/metric-query-anatomy.jpg)
 
 **図: メトリクスクエリの構成（anatomy）** — クエリ `avg:system.io.r_s{app:shopist} by {host}.rollup(avg, 3600)` を色分けして分解した図。左から「4. Space Aggregation（aggregator）」として `avg:`、「1. Metric Name」として `system.io.r_s`、「2. Filter/Scope」として `{app:shopist}`、「4. Space Aggregation（Grouping by tag）」として `by {host}`、「3. Time Aggregation（aggregator, interval）」として `.rollup(avg, 3600)` が示されている。
 出典: https://docs.datadoghq.com/metrics/ （画像取得日: 2026-11-02）
@@ -583,12 +584,12 @@ DogStatsD や送信方法の詳細は [Custom Metrics と DogStatsD](../02_リ�
 
 出典: [Log Facets](https://docs.datadoghq.com/logs/explorer/facets/)
 
-![定性ファセットの表示例](../../assets/images/core-concepts/log-facet-dimension.png)
+![定性ファセットの表示例](../assets/images/core-concepts/log-facet-dimension.png)
 
 **図: 定性ファセット（Country Name）** — Log Explorer 左側のファセットパネルで、「Country Name」ファセットを展開した状態。上部に値を絞り込む「Filter values」検索欄があり、その下に値ごとのチェックボックスとログ件数（United States 858、Czechia 180、Germany 162、France 78）が並ぶ。チェックの付け外しで検索条件に反映される。
 出典: https://docs.datadoghq.com/logs/explorer/facets/ （画像取得日: 2026-11-02）
 
-![メジャー（定量ファセット）の表示例](../../assets/images/core-concepts/log-facet-measure.png)
+![メジャー（定量ファセット）の表示例](../assets/images/core-concepts/log-facet-measure.png)
 
 **図: メジャー（Response Time）** — 定量ファセット「Response Time」を展開した状態。「Min」（0ns）と「Max」（10.1min）の数値入力欄と、範囲を指定するスライダーが表示される。メジャーには単位（この例では時間）が設定されており、表示時に自動で換算される。
 出典: https://docs.datadoghq.com/logs/explorer/facets/ （画像取得日: 2026-11-02）
@@ -611,7 +612,7 @@ DogStatsD や送信方法の詳細は [Custom Metrics と DogStatsD](../02_リ�
 
 ### 9.3 タグとアトリビュートの違い（ログ）
 
-ログには **タグ**（ホスト・連携・設定から付く `key:value`）と **アトリビュート**（ログ本体の JSON から解析された構造化フィールド）の2種類のメタデータがある。公式用語集はアトリビュートを「ログに関する情報の一片」と定義している。[出典](https://docs.datadoghq.com/glossary/) 検索ではアトリビュートを `@` 付きで指定する（例：`@http.status_code:500`）のに対し、タグは `@` なしで指定する（例：`env:prod`）。【経験則】（検索構文の詳細は [ログ検索と分析](../02_リファレンス/logs/log-search-and-analytics.md) を参照）
+ログには **タグ**（ホスト・連携・設定から付く `key:value`）と **アトリビュート**（ログ本体の JSON から解析された構造化フィールド）の2種類のメタデータがある。公式用語集はアトリビュートを「ログに関する情報の一片」と定義している。[出典](https://docs.datadoghq.com/glossary/) 検索ではアトリビュートを `@` 付きで指定する（例：`@http.status_code:500`）のに対し、タグは `@` なしで指定する（例：`env:prod`）。なお `host`・`source`・`status`・`service`・`trace_id`・`message` などの予約アトリビュートは `@` を付けずに検索できる。[出典](https://docs.datadoghq.com/logs/explorer/search_syntax/)（検索構文の詳細は [ログ検索と分析](../02_リファレンス/logs/log-search-and-analytics.md) を参照）
 
 予約アトリビュートは次のとおり。[出典](https://docs.datadoghq.com/logs/log_configuration/attributes_naming_convention/)
 
@@ -651,7 +652,7 @@ flowchart LR
 
 除外されたログやクォータ超過後のログも、Live Tail・メトリクス生成・アーカイブには流れる。[出典](https://docs.datadoghq.com/logs/log_configuration/indexes/) 課金単位は「取り込みログ：GB 単位」「インデックス済みログイベント：百万イベント単位、保持期間ポリシー別の単価」である。[出典](https://docs.datadoghq.com/account_management/billing/pricing/)
 
-![複数インデックスの設定画面](../../assets/images/core-concepts/log-multi-index.png)
+![複数インデックスの設定画面](../assets/images/core-concepts/log-multi-index.png)
 
 **図: Logs Configuration の Indexes タブ（複数インデックス）** — 上部タブに Pipelines、Standard Attributes、Indexes（選択中）、Archives、Generate Metrics が並ぶ。「3 indexes defined」と表示され、Pipelines の下に INDEXES（3 active）と FILTERS の一覧がある。1 番目 `notice-logs`（フィルター `status:notice`）、2 番目 `errorlogs`（`status:error`）、3 番目 `main`（`*`）の順に並び、ログは上から順に評価されて最初に一致したインデックスに入る。右上に「New Index」ボタン、各行の右端にドラッグ用ハンドルがある。
 出典: https://docs.datadoghq.com/logs/log_configuration/indexes/ （画像取得日: 2026-11-02）
@@ -847,7 +848,7 @@ SLI/SLO の理論・バーンレートの考え方は [オブザーバビリテ�
 
 出典: [Service Level Objectives](https://docs.datadoghq.com/service_management/service_level_objectives/)
 
-![SLO 一覧をタグでグループ化した画面](../../assets/images/core-concepts/slo-group-by-team.png)
+![SLO 一覧をタグでグループ化した画面](../assets/images/core-concepts/slo-group-by-team.png)
 
 **図: SLO 一覧のサマリービュー（タグでグループ化）** — SLOs 画面上部に検索欄と「Group by」欄があり、この例では `journey` タグでグループ化している。グループ（add_item、checkout、payment_flow、login、product_searching、signup）ごとに、BREACHED（違反）、WARNING、OK、NO DATA の SLO 件数がカード表示され、左端の色帯（赤・黄・緑）で状態が分かる。右上に「New SLO」ボタン、表示切り替え（Primary / Weekly / Monthly）がある。公式ドキュメントでは任意のタグ（例：チーム）でグループ化できる例として示されている。
 出典: https://docs.datadoghq.com/service_management/service_level_objectives/ （画像取得日: 2026-11-02）
@@ -972,13 +973,13 @@ Datadog の概念は、タグ（特に `host`・`env`・`service`・`version`・
 | モニター・SLO・ダッシュボードを設計したい | [Monitors](../02_リファレンス/platform/monitors.md)、[SLO](../02_リファレンス/platform/slo.md)、[Dashboards](../02_リファレンス/platform/dashboards.md) |
 | 組織・権限・キーを設計したい | [組織・ユーザー・権限管理](../02_リファレンス/platform/account-and-access-management.md)、[API とキー管理](../02_リファレンス/platform/api-and-keys.md) |
 | タグの命名規約を決めたい | [タグ戦略の実践](../04_応用編/tagging-strategy.md) |
-| 用語を引きたい | [用語集](../glossary.md) |
+| 用語を引きたい | 用語集（`Datadog/glossary.md`、作成予定） |
 
 ---
 
 ## 参照元
 
-すべて 2026-11-02 取得。
+特記のないものは 2026-11-02 取得。
 
 - Getting Started with Tags: https://docs.datadoghq.com/getting_started/tagging/
 - Assigning Tags: https://docs.datadoghq.com/getting_started/tagging/assigning_tags/
@@ -1000,6 +1001,7 @@ Datadog の概念は、タグ（特に `host`・`env`・`service`・`version`・
 - Custom Metrics Billing: https://docs.datadoghq.com/account_management/billing/custom_metrics/
 - Billing（Pricing）: https://docs.datadoghq.com/account_management/billing/pricing/
 - Log Facets: https://docs.datadoghq.com/logs/explorer/facets/
+- Log Search Syntax: https://docs.datadoghq.com/logs/explorer/search_syntax/（2026-11-04 取得）
 - Attributes and Aliasing（Naming Convention）: https://docs.datadoghq.com/logs/log_configuration/attributes_naming_convention/
 - Log Indexes: https://docs.datadoghq.com/logs/log_configuration/indexes/
 - Monitors: https://docs.datadoghq.com/monitors/

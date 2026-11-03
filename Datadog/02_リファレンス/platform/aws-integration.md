@@ -28,6 +28,7 @@ sources:
   - https://github.com/DataDog/datadog-serverless-functions/releases
   - https://docs.aws.amazon.com/firehose/latest/dev/create-destination.html
   - https://aws.amazon.com/cloudwatch/pricing/
+  - https://aws.amazon.com/about-aws/whats-new/2024/02/amazon-data-firehose-formerly-kinesis-data-firehose
   - https://www.datadoghq.com/pricing/list/
   - https://blog.serverworks.co.jp/2025/09/26/134325
   - https://swissmarketplace.group/fr/tech-blog/aws-cloudwatch-cost-fs24/
@@ -65,7 +66,7 @@ AWS Integration は「データの入口」の役割に特化しており、関�
 | Terraform による管理全般 | [Terraform と IaC](./terraform-and-iac.md) |
 | サイト（リージョン）の基礎 | [Datadog Sites](./datadog-sites.md) |
 
-> **名称について:** AWS は 2024 年 2 月に Amazon Kinesis Data Firehose を **Amazon Data Firehose** に改称した。Datadog ドキュメントの URL やパラメータ名には旧称「kinesis-firehose」が残っている。本ファイルでは「Amazon Data Firehose（旧称：Kinesis Data Firehose）」と表記する。【第三者情報】改称時期は AWS の発表による。
+> **名称について:** AWS は 2024 年 2 月 9 日に Amazon Kinesis Data Firehose を **Amazon Data Firehose** に改称した。Datadog ドキュメントの URL やパラメータ名には旧称「kinesis-firehose」が残っている。本ファイルでは「Amazon Data Firehose（旧称：Kinesis Data Firehose）」と表記する。改称日は AWS の公式発表（What's New、2024-02-09 掲載）による。[出典](https://aws.amazon.com/about-aws/whats-new/2024/02/amazon-data-firehose-formerly-kinesis-data-firehose)
 
 ## 全体アーキテクチャ（データフロー）
 
@@ -301,7 +302,7 @@ Terraform では、Datadog Terraform Provider の `datadog_integration_aws_accou
 | `metrics_config.metric_name_filters` | 任意 | — | ネームスペースごとに `include_only` か `exclude_only` のどちらか 1 つ |
 | `metrics_config.tag_filters` | 任意 | `tags = []` | `namespace` ごとのリソースタグフィルター。`?`、`*`、`!` 対応 |
 | `logs_config.lambda_forwarder.lambdas` | 任意 | `[]` | Forwarder の ARN 一覧 |
-| `logs_config.lambda_forwarder.sources` | 任意 | — | ログ自動サブスクリプションを有効にするサービス ID |
+| `logs_config.lambda_forwarder.sources` | 任意 | `[]` | ログ自動サブスクリプションを有効にするサービス ID |
 | `logs_config.lambda_forwarder.log_source_config.tag_filters` | 任意 | — | ログソースごとのタグフィルター |
 | `resources_config.extended_collection` | 任意 | `true` | リソースの追加属性・構成情報の収集（Cloud Security の前提） |
 | `resources_config.cloud_security_posture_management_collection` | 任意 | `false` | Cloud Security のリソーススキャン |
@@ -1077,7 +1078,7 @@ AWS Integration の設定は Datadog API（v2）で管理できる。パスは�
 
 AWS Integration そのものに追加料金はかからない。Datadog が課金するのは、AWS Integration で取り込んだデータのうち次の対象である。[出典](https://docs.datadoghq.com/account_management/billing/aws/)
 
-| 課金対象 | 内容 | 課金単位（定価は公式料金ページ、2026-11-02 時点） |
+| 課金対象 | 内容 | 課金単位（定価。正本 pricing-by-product.md〈取得日 2026-11-03〉の値と一致） |
 |---|---|---|
 | **EC2（ホスト）** | AWS Integration が検出した**すべての EC2 インスタンス**と、Agent が動くホスト。両方に該当しても**二重課金されない** | Infrastructure Monitoring のホスト単価（Pro：年契約 $15、月契約 / オンデマンド $18、Enterprise：年契約 $23、月契約 / オンデマンド $27。いずれも 1 ホスト / 月） |
 | **Lambda（アクティブ関数）** | Lambda サブインテグレーションで監視する関数 | Serverless のアクティブ関数単価（年契約 $5、月契約 $6、オンデマンド $7.20。1 アクティブ関数 / 月） |
@@ -1094,7 +1095,7 @@ AWS Integration そのものに追加料金はかからない。Datadog が課�
 - Metric Streams 自体に Datadog の追加料金はない。ただし、ストリームに EC2 や Lambda のメトリクスが含まれ、それらが AWS Integration や Agent でまだ監視されていない場合、**課金対象ホスト数や Lambda 呼び出し数が増える可能性がある**。[出典](https://docs.datadoghq.com/integrations/guide/aws-cloudwatch-metric-streams-with-kinesis-data-firehose/)
 - 課金上の扱いの確認：Infrastructure List で AWS ロゴのみのホスト（メトリクスが `aws.*` のみ）は AWS Integration だけで監視されている。Agent ロゴのホスト（`datadog.*` や `system.*` がある）は Agent で監視されている。[出典](https://docs.datadoghq.com/account_management/billing/aws/)
 
-料金の数値は `03_導入編/pricing-by-product.md` を正本とする（上表の値は 2026-11-02 時点で公式料金ページから取得したもの）。詳細は [製品別料金表](../../03_導入編/pricing-by-product.md)、[課金計算の仕組み](../../03_導入編/billing-mechanics.md)、[Usage・Usage Attribution・Cost Visibility](./usage-and-cost-attribution.md) を参照。
+料金の数値は `03_導入編/pricing-by-product.md` を正本とする（上表の値は本ファイルで 2026-11-02 に公式料金ページから取得したもので、正本の取得日 2026-11-03 時点の値と一致することを確認済み）。詳細は [製品別料金表](../../03_導入編/pricing-by-product.md)、[課金計算の仕組み](../../03_導入編/billing-mechanics.md)、[Usage・Usage Attribution・Cost Visibility](./usage-and-cost-attribution.md) を参照。
 
 ### AWS 側で発生する費用
 
@@ -1178,6 +1179,7 @@ AWS Integration を設計するときに決めておく事項を、公式ドキ�
 
 - https://docs.aws.amazon.com/firehose/latest/dev/create-destination.html
 - https://aws.amazon.com/cloudwatch/pricing/
+- https://aws.amazon.com/about-aws/whats-new/2024/02/amazon-data-firehose-formerly-kinesis-data-firehose （Firehose 改称の発表、2024-02-09 掲載）
 
 ### 第三者情報
 

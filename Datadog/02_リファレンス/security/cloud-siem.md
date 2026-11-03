@@ -105,14 +105,14 @@ Cloud SIEM の製品形態は次の 2 つの方法で判別できる。[出典](
 
 ### 製品形態ごとの機能差
 
-公式の機能比較表（2026-11-02 時点）は次のとおり。Legacy 列が空欄の機能は、ドキュメント上 Legacy での提供が明記されていない（「機能を使いたい場合はアカウントチームかサポートに相談」と案内されている）。[出典](https://docs.datadoghq.com/security/cloud_siem/guide/determine-cloud-siem-product/)
+公式の機能比較表（2026-11-02 時点）に、他ページの記述による補完（注 1・注 2）を加えたものを次に示す。「明記なし」としたセルは、公式比較表の Legacy 列が空欄の機能で、ドキュメント上 Legacy での提供が明記されていない（「機能を使いたい場合はアカウントチームかサポートに相談」と案内されている）。[出典](https://docs.datadoghq.com/security/cloud_siem/guide/determine-cloud-siem-product/)
 
 | 機能 | Standalone | Add-on with Flex Logs | Legacy |
 |---|---|---|---|
 | Content Packs | ○ | ○ | ○ |
 | OOTB 検知ルールの編集 | ○ | ○ | ○ |
 | MITRE ATT&CK Map | ○ | ○ | ○ |
-| Security Filters | ―（インデックスフィルタを使う） | ○ | ○（API のみ） |
+| Security Filters | ―（インデックスフィルタを使う） | ○ | ○（API のみ）※注 1 |
 | Log index filters | ○ | ― | ― |
 | MITRE ATT&CK Map compact view | ○ | ○ | 明記なし |
 | Scheduled rules（スケジュールルール） | ○ | ○ | 明記なし |
@@ -122,9 +122,10 @@ Cloud SIEM の製品形態は次の 2 つの方法で判別できる。[出典](
 | Dynamic Severity | ○ | ○ | 明記なし |
 | OCSF | ○ | ○ | 明記なし |
 | Threat intelligence | ○ | ○ | 明記なし |
-| Bits Security Analyst | ○ | ○ | ×（「non-legacy 版が前提」と明記） |
+| Bits Security Analyst ※注 2 | ○ | ○ | ×（「non-legacy 版が前提」と明記） |
 
-Bits Security Analyst の前提条件は [Bits Security Analyst のドキュメント](https://docs.datadoghq.com/bits_ai/bits_security_analyst/) による。
+- 注 1：公式比較表では Security Filters の Legacy 列は空欄である。「Legacy では Security Filters を API のみで設定する」という記述は [Customize which logs Cloud SIEM analyzes](https://docs.datadoghq.com/security/cloud_siem/guide/customize-which-logs-cloud-siem-analyzes/) から補った。
+- 注 2：Bits Security Analyst の行は公式比較表にはなく、前提条件を記した [Bits Security Analyst のドキュメント](https://docs.datadoghq.com/bits_ai/bits_security_analyst/) から補った。
 
 ## アーキテクチャとデータフロー
 
@@ -395,6 +396,8 @@ Cloud SIEM で利用される主なソース・カテゴリは次のとおり（
 | tor | suspicious | IP アドレス |
 | corp_vpn | benign | IP アドレス |
 | cryptomining | malicious | IP アドレス |
+
+公式のカテゴリ表では `malware`（intention: `malicious`、エンティティ種別：アプリケーションライブラリのバージョン・ファイルハッシュ）の Primary Products は CWS のみとされているため、上表には含めていない。一方、ソース表では Threatfox（malware）の Primary Products に Cloud SIEM と Workload Protection が、malware を含む Datadog Threat Research に AAP・CWS・Cloud SIEM が挙がっており、Cloud SIEM でも malware カテゴリの一致が起こりうる（[Signals Explorer の主な使い方](#signals-explorer-の主な使い方) のファセット値にも malware が含まれる）。カテゴリ表とソース表の記載はページ内で一致していない（2026-11-04 時点）。[出典](https://docs.datadoghq.com/security/threat_intelligence/)
 
 intention は `benign`（企業 VPN など情報提供）、`suspicious`（低評価）、`malicious`（悪意あり）の 3 種類。検知ルールで脅威インテリジェンスを使う場合は `@threat_intel.results.category` と `@threat_intel.results.intention` のキーを参照し、それ以外のキーは使わないよう推奨されている。[出典](https://docs.datadoghq.com/security/threat_intelligence/)
 
@@ -1184,11 +1187,11 @@ Cloud SIEM の課金単位は **分析ログ量**（Cloud SIEM が分析した�
 
 ### 定価（2026-11-02 時点、USD）
 
-料金ページ本体（`/pricing/?product=cloud-siem`）の Cloud SIEM プラン「12-months analysis & retention」は「Starting At $5 Per GB analyzed per month（年契約）」、オンデマンドは $7.50 である。料金ページのリージョン選択ごとの値（ページ内の価格データ）は次のとおり。[出典](https://www.datadoghq.com/pricing/?product=cloud-siem)
+料金ページ本体（`/pricing/?product=cloud-siem`）の Cloud SIEM プラン「12-months analysis & retention」は「Starting At $5 Per GB analyzed per month（年契約）」、オンデマンドは $7.50 である。料金ページのリージョン選択ごとの値（ページ内の価格データ）は次のとおり。単位は料金の正本 [製品別料金表](../../03_導入編/pricing-by-product.md) に合わせて料金一覧ページの表記を主とし、料金ページ本体のカード表記を併記する（表記の違いは [課金単位の表記の違い](#課金単位の表記の違いgb-と百万イベント) を参照）。[出典](https://www.datadoghq.com/pricing/?product=cloud-siem) [出典](https://www.datadoghq.com/pricing/list/)
 
 | 料金ページのリージョン | 年契約 | 月契約 | オンデマンド | 単位 |
 |---|---|---|---|---|
-| US | $5 | $6 | $7.50 | 分析 GB あたり / 月 |
+| US | $5 | $6 | $7.50 | 分析イベント 100万件/月（料金一覧の表記）。/pricing/ のカードは Per GB analyzed |
 | EU | $5 | $6 | $7.50 | 同上 |
 | AP1（日本） | $6.25 | $7.50 | $9.375 | 同上 |
 | AP2 | $6 | $7.20 | $9 | 同上 |
@@ -1224,7 +1227,7 @@ Cloud SIEM の課金単位は **分析ログ量**（Cloud SIEM が分析した�
 | カスタムルール | 追加費用なし |
 | シグナル保持（15 か月） | 追加費用なし |
 | Bits Security Analyst | 分析 1 TB あたり月 100 件の無料調査（最低月 50 件）。超過時の料金は公開情報では確認できず |
-| Workflow Automation | セキュリティの Findings とシグナルから起動するワークフローは無料。それ以外のイベントから起動するワークフローは別途課金（2026-10 上旬に料金ページへ追記されたと第三者サイトが記録【第三者情報】[出典](https://pricingsaas.com/companies/datadog.cloud-siem/diffs/2026W41)（2026-10 記録）） |
+| Workflow Automation | セキュリティの Findings とシグナルから起動するワークフローは無料。それ以外のイベントから起動するワークフローは別途課金。料金ページの DevSecOps プラン比較に「Free when triggered from security findings and signals」と記載されている [出典](https://www.datadoghq.com/pricing/)。この記述が料金ページに追記された時期は 2026-10 上旬と第三者サイトが記録している【第三者情報】[出典](https://pricingsaas.com/companies/datadog.cloud-siem/diffs/2026W41)（2026-10 記録） |
 | ユーザー数 | 無制限（料金ページ「Unlimited user accounts」） |
 | Add-on with Flex Logs のログ保存 | 分析料金とは別に Log Management（Flex Logs 等）の料金がかかると考えられる【推定】。詳細は契約で確認 |
 

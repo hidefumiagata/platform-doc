@@ -2,7 +2,7 @@
 title: サポートと教育
 category: implementation
 domain: general
-last_verified: 2026-11-02
+last_verified: 2026-11-04
 summary: Datadog のサポートプラン（Free / Standard / Premier）の応答時間・チャネル・料金、問い合わせ方法（チケット・チャット・Agent flare）、日本語サポートの提供時間、TAM・Technical Enablement 等の有償サービス、Learning Center・認定資格（Datadog Fundamentals 等）・コミュニティをまとめ、導入プロジェクトでのサポート・教育計画の根拠を提供する。
 keywords: [support, サポート, Support Plan, サポートプラン, Standard Support, Premier Support, プレミアサポート, 応答時間, SLA, Business Critical, Degraded Service, General Issue, Live Chat, チャット, サポートチケット, help.datadoghq.com, Agent flare, フレア, 日本語サポート, TAM, Technical Account Manager, テクニカルアカウントマネージャー, Technical Enablement, Foundation Enablement, Premium Virtual, Premium On-site, Implementation Services, Learning Center, ラーニングセンター, Learning Path, 認定資格, Certification, Datadog Fundamentals, Log Management Fundamentals, APM and Distributed Tracing Fundamentals, Cloud SIEM for AWS Fundamentals, Database Monitoring Fundamentals, Credly, Webassessor, Kryterion, コミュニティ, Slack Community, JDDUG, Japan Datadog User Group, Ambassadors, Champions, Datadog Summit Tokyo, DASH, Datadog Partner Network, ステータスページ, GovCloud サポート]
 sources:
@@ -34,7 +34,7 @@ Datadog のサポートと教育の仕組みは、大きく次の 4 層に分け
 |---|---|---|---|
 | ① セルフヘルプ | 公式ドキュメント、Learning Center（無料のハンズオン学習）、Slack Community、Foundation Enablement（無料ライブウェビナー）、ステータスページ | 無料 | 「セルフヘルプ」「Learning Center」「コミュニティ」 |
 | ② サポートプラン | Free / Standard（有償エディション契約に含まれる）/ Premier（有償アドオン） | Standard は追加費用なし、Premier は月額支出の 8%（最低 $2,000/月） | 「サポートプラン」「問い合わせ方法」 |
-| ③ 有償サービス | Premier Support、Technical Account Management（TAM）、Technical Enablement（Premium Virtual / Premium On-site）、Implementation Services | 個別見積り（Foundation のみ $0） | 「有償サービス」 |
+| ③ 有償サービス | Premier Support、Technical Account Management（TAM）、Technical Enablement（Premium Virtual / Premium On-site）、Implementation Services | Premier は月額支出の 8%（最低 $2,000/月）、TAM・Implementation・Premium Enablement は個別見積り、Foundation は $0 | 「有償サービス」 |
 | ④ 認定資格・コミュニティ | Datadog Certification（Datadog Fundamentals 等、1 試験 US$100）、User Group（JDDUG）、Ambassadors / Champions、イベント（DASH、Datadog Summit Tokyo） | 試験は有償 | 「認定資格」「コミュニティ」 |
 
 導入プロジェクトでは、契約時に「どのサポートプランか（Standard で足りるか Premier が必要か）」「日本語サポートの時間帯で運用要件を満たせるか」「教育計画（Learning Center、Enablement、認定資格）をどう組むか」を決めておくことが重要である。
@@ -422,16 +422,16 @@ Support Terms は以下を「セルフヘルプ」と位置づけ、**サポー�
 
 ### Learning Center の概要
 
-Datadog Learning Center は、Datadog の機能、ベストプラクティス、実装戦略を学ぶための**無料**のハンズオンコースとチュートリアルを提供する学習プラットフォームである。[出典](https://docs.datadoghq.com/getting_started/learning_center/) / [出典](https://www.datadoghq.com/blog/datadog-learning-paths/)
+Datadog Learning Center は、Datadog の機能、ベストプラクティス、実装戦略を学ぶためのハンズオンコースとチュートリアルを提供する学習プラットフォームである。[出典](https://docs.datadoghq.com/getting_started/learning_center/) 費用が**無料**である点は公式ブログに記載がある（"free, interactive courses"）。[出典](https://www.datadoghq.com/blog/datadog-learning-paths/)
 
 | 項目 | 内容 | 出典・確度 |
 |---|---|---|
 | URL | `https://learn.datadoghq.com/`（コース一覧 `https://learn.datadoghq.com/collections`） | 公式 |
 | 費用 | 無料（"free, interactive courses"） | 公式ブログ（2025-05-05 公開） |
 | 形式 | セルフペースのコース。上級コースはハンズオンラボ演習を含む | 公式ブログ |
-| ラボ環境 | 実際のクラウドコンピュートインスタンス上で演習。Datadog のトライアルアカウントを用い、コストをかけずに学べる | 公式ドキュメント（日本語版 Getting Started） |
-| コース数 | 80 以上のセルフペースコース（Learning Center 側の掲載）。2024-06 時点の第三者記事では 54 コース | 【第三者情報】 [出典](https://yagikota.github.io/blog/posts/datadog-learning-center)（2024-06 公開）。最新数は公開情報で確定できず |
-| アカウント | Learning Center 用のアカウント登録が必要（Thinkific ベースのサイト） | サイト構造から確認 |
+| ラボ環境 | ラボの実行環境（クラウドインスタンスやトライアルアカウントの扱い）の仕様は公開情報では確認できず | docs の Learning Center ページ（英語版・日本語版）・公式ブログとも記載なし（2026-11-04 確認） |
+| コース数 | 公式の最新コース数は公開情報では確認できず（docs はコース一覧 `https://learn.datadoghq.com/collections` へのリンクのみ）。【第三者情報】2024-06 時点の第三者記事では 54 コース | [出典](https://yagikota.github.io/blog/posts/datadog-learning-center)（2024-06 公開） |
+| アカウント | Learning Center 用のアカウント登録が必要【推定】（基盤となる学習管理システムの種類は公開情報では確認できず） | — |
 | 日本語コース | 公開情報では確認できず（コースは主に英語）【推定】 | — |
 | 修了証 | Learning Path 修了で Credly バッジ | 公式ブログ |
 
@@ -474,9 +474,9 @@ Learning Path は、ペルソナ・製品・関連スキルごとに推奨コー
 |---|---|---|---|---|
 | **Datadog Fundamentals** | Foundational | 基本的なコンピュータの基礎、Datadog によるインフラ展開、ネットワーク、Agent 設定、データ収集、Agent トラブルシューティング、可視化 | **英語、日本語**、韓国語、ブラジルポルトガル語、フランス語、スペイン語 | あり（25 問） |
 | **Log Management Fundamentals** | Introductory | ロギング基礎、ログ収集、パース、検索とフィルタ、分析、活用、トラブルシューティング | 英語 | あり（25 問） |
-| **APM and Distributed Tracing Fundamentals** | Introductory | APM 基礎、インスツルメンテーション、インサイトの発見、可視化、アプリケーションのトラブルシューティング | 英語、**日本語**、韓国語、ブラジルポルトガル語、スペイン語、フランス語 | あり |
-| **Datadog Cloud SIEM for AWS Fundamentals** | 公式に記載なし | AWS 向け Cloud SIEM の実装と管理（脅威検知、インシデント対応を含む） | 公開情報では確認できず | 公開情報では確認できず |
-| **Datadog Database Monitoring Fundamentals** | 公式に記載なし | データベースインテグレーション設定、パフォーマンスメトリクス分析、DB 問題のトラブルシューティング、ダッシュボードとアラート | 公開情報では確認できず | あり |
+| **APM and Distributed Tracing Fundamentals** | Introductory | APM 基礎、インスツルメンテーション、インサイトの発見、可視化、アプリケーションのトラブルシューティング | 英語、**日本語**、韓国語、ブラジルポルトガル語、スペイン語、フランス語 | あり（25 問） |
+| **Datadog Cloud SIEM for AWS Fundamentals** | 公式に記載なし | AWS 向け Cloud SIEM の実装と管理（脅威検知、インシデント対応を含む） | 公開情報では確認できず | あり（25 問） |
+| **Datadog Database Monitoring Fundamentals** | 公式に記載なし | データベースインテグレーション設定、パフォーマンスメトリクス分析、DB 問題のトラブルシューティング、ダッシュボードとアラート | 公開情報では確認できず | あり（25 問） |
 
 - 日本語での認定プログラムは **2024-02-20** に開始され、最初の対象は Datadog Fundamentals だった（英語以外で初のスキル認定）。[出典](https://www.datadoghq.com/ja/about/latest-news/press-releases/datadog-certification-in-japan/)
 - 各製品の詳細は [Log Management 関連リファレンス](../02_リファレンス/logs/log-collection.md)、[APM の概念とインジェスト制御](../02_リファレンス/apm/apm-concepts-and-ingestion.md)、[Cloud SIEM](../02_リファレンス/security/cloud-siem.md)、[Database Monitoring](../02_リファレンス/infrastructure/database-monitoring.md) を参照。
@@ -502,7 +502,7 @@ Learning Path は、ペルソナ・製品・関連スキルごとに推奨コー
 
 [出典](https://www.datadoghq.com/certification/overview/)
 
-> **注意（試験ベンダー）:** 2024-02 の日本語認定開始時のプレスリリースでは「第三者プロバイダの PSI」が認定を行うと記載されているが、現行の Certification ページでは申込が Webassessor、監督が Kryterion と案内されている。受験時は現行の公式ページの案内に従うこと。
+> **注意（試験ベンダー）:** 2024-02 の日本語認定開始時のプレスリリースでは「第三者プロバイダの PSI」が認定を行うと記載されているが、Certification ページによれば **2025-01 に試験ベンダーが Kryterion（申込は Webassessor）へ移行**した（"As of January 2025, we have selected Kryterion as our certification exam vendor."）。受験時は現行の公式ページの案内に従うこと。
 
 ### 再受験・キャンセルポリシー
 

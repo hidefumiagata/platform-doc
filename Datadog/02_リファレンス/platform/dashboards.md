@@ -108,7 +108,7 @@ Datadog Dashboards の主な構成要素は次のとおり。
 | 項目 | Dashboards（グリッド） | Timeboards | Screenboards |
 |---|---|---|---|
 | レイアウト | グリッドベース。最大幅 12 グリッド（12 列） | 自動レイアウト（ブラウザ幅に合わせて並ぶ） | 自由配置（ピクセル単位、スクロール可能なキャンバス） |
-| 時刻 | 全体の Global Time に加え、ウィジェットごとに別期間も可 | ダッシュボード全体で単一の時点（固定またはリアルタイム） | リアルタイム表示、または過去の固定時点 |
+| 時刻 | リアルタイム表示、または過去の固定時点。既定は Global Time（ウィジェットのローカル期間については後述の「主な共通オプション」を参照。グリッドでの可否を明記した公式記載はない） | ダッシュボード全体で単一の時点（固定またはリアルタイム） | リアルタイム表示、または過去の固定時点 |
 | 主な用途（公式） | ステータスボード、ストーリーテリング、デバッグ | トラブルシューティング、相関分析、データ探索 | ステータスボード、ストーリーテリング |
 | 画像・ログ等の配置 | 可 | 公開情報では個別の記載なし | 可 |
 | Group ウィジェット | 可 | 可 | **不可**（Screenboard のウィジェットはグループ化できない） |
@@ -339,7 +339,7 @@ List ウィジェットのデータソース（組織で有効な製品により
 | データソース | 必要な製品 | 状態 |
 |---|---|---|
 | Audit Trail | Audit Trail | GA |
-| Cases | Case Management | GA |
+| Cases | Work Management（旧称：Case Management） | GA |
 | CD Deployments | CD Visibility | 【Preview】 |
 | CI Pipeline | CI Pipeline Visibility | GA |
 | CI Test | Test Optimization | GA |
@@ -436,7 +436,7 @@ App Builder の詳細は [App Builder](../service-management/app-builder.md) を
 | Metrics info | メトリクスグラフの ⋮ メニュー → **Metrics Info** でメトリクスの説明を表示。メトリクス名クリックで Metric Summary へ | 同上 |
 | Unit override | 「Unit override」（単位ファミリー指定、自動スケール。例 MB→GB）、「Unit and scale override」（スケール固定）、「Custom units」（任意単位、例 "tests"）。データ自体への単位付与（Metrics Units、ログ facet の単位）の代わりにはならない | 同上 |
 | Global Time | 新規ウィジェットの既定。ダッシュボード上部の期間（移動ウィンドウまたは固定期間）を共有。**時間ベースのウィジェットのうち少なくとも 1 つは Global Time を使う必要がある**。Global Time に連動しないウィジェットは、グローバル期間の終端を基準に自身のローカル期間を表示 | 同上 |
-| ローカル期間 | Screenboard と Notebook では、ウィジェットごとに Custom timeframe か Global timeframe かを選べる（List、Funnel、Top List、Retention 等のページに記載） | [List](https://docs.datadoghq.com/dashboards/widgets/list/) |
+| ローカル期間 | Screenboard と Notebook では、ウィジェットごとに Custom timeframe か Global timeframe かを選べる（List、Funnel、Top List、Retention 等のページに記載）。Configuration ページは Global Time に連動しないウィジェットの存在を前提に説明しているが、グリッド型 Dashboards でのウィジェット単位の期間設定をレイアウト名で明記した公式記載はない | [List](https://docs.datadoghq.com/dashboards/widgets/list/)、[Configuration](https://docs.datadoghq.com/dashboards/widgets/configuration/) |
 
 ### グラフメニュー
 
@@ -474,7 +474,7 @@ App Builder の詳細は [App Builder](../service-management/app-builder.md) を
 | SLO（Summary） | Monitor-based SLO は過去 3 か月まで表示可能。グループ付き単一 Monitor-based SLO は特定グループ選択時に最大 20 グループ表示。5,000 グループを超える SLO は計算対象だが UI にグループを表示しない | [SLO widget](https://docs.datadoghq.com/dashboards/widgets/slo/) |
 | SLO List | 表示する SLO の最大数は既定 100。並び順はステータスまたはエラーバジェット | [SLO List](https://docs.datadoghq.com/dashboards/widgets/slo_list/) |
 | Split Graph | 表示するグラフ数の上限（Limit to）、並び順、グラフサイズ（4 段階）、Y 軸の統一を設定。既定では平均値が高い値を動的に選択 | [Split Graph](https://docs.datadoghq.com/dashboards/widgets/split_graph/) |
-| Wildcard | Vega-Lite 仕様で独自可視化。リクエストタイプは Scalar / Timeseries。公式はまず既存ウィジェットの利用を推奨。既知の制約: 1 リクエストあたり 5,000 行を超える高カーディナリティ、ネットワーク・階層構造、物理レイアウト、高度な地図、3D は不向き | [Wildcard](https://docs.datadoghq.com/dashboards/widgets/wildcard/) |
+| Wildcard | Vega-Lite 仕様で独自可視化。リクエストタイプは Scalar / Timeseries / Distribution（点の分布） / List（List ウィジェットのイベント系データ）。公式はまず既存ウィジェットの利用を推奨。既知の制約: 1 リクエストあたり 5,000 行を超える高カーディナリティ、ネットワーク・階層構造、物理レイアウト、高度な地図、3D は不向き | [Wildcard](https://docs.datadoghq.com/dashboards/widgets/wildcard/) |
 | Service Summary | 表示項目は Hits、Errors、Latency、Breakdown、Distribution、Resource（大サイズのみ）。列数を指定可能 | [Service Summary](https://docs.datadoghq.com/dashboards/widgets/service_summary/) |
 | Run Workflow | ワークフローを選択し、テンプレート変数を入力パラメータにマッピング。実行時は未マッピングのパラメータを入力して **Run** | [Run Workflow](https://docs.datadoghq.com/dashboards/widgets/run_workflow/) |
 
@@ -593,7 +593,7 @@ API では `template_variable_presets`（`name` と `template_variables[]`。値
 
 ### 概要
 
-Powerpacks は、グラフ作成の知見を再利用可能な部品として組織に広げるための、テンプレート化されたウィジェットグループである。Powerpack には Preset（Datadog が作成し全顧客が利用可能。例 `RUM Page Views`、`Hosts Overview`、`System Resource Utilization`）と Custom（ユーザーが作成し、その組織内でのみ利用可能）がある。**Powerpack ウィジェットは Screenboard では使えない**。[出典](https://docs.datadoghq.com/dashboards/widgets/powerpack/)、[ベストプラクティス](https://docs.datadoghq.com/dashboards/guide/powerpacks-best-practices/)
+Powerpacks は、グラフ作成の知見を再利用可能な部品として組織に広げるための、テンプレート化されたウィジェットグループである。Powerpack には Preset（Datadog が作成し全顧客が利用可能。例 `RUM Page Views`）と Custom（ユーザーが作成し、その組織内でのみ利用可能）がある。**Powerpack ウィジェットは Screenboard では使えない**。[出典](https://docs.datadoghq.com/dashboards/widgets/powerpack/)、[ベストプラクティス](https://docs.datadoghq.com/dashboards/guide/powerpacks-best-practices/)
 
 ### 作成・更新・利用
 
@@ -602,7 +602,7 @@ Powerpacks は、グラフ作成の知見を再利用可能な部品として組
 | 作成 | ダッシュボードのグループ見出しの **Save as Powerpack** アイコン → 詳細を入力 → **Add Search Categories** で検索用タグを付与 → 利用者が設定できるフィルタ（設定変数）を選択。作成後、元のグループは Powerpack のインスタンスに置き換わる。ダッシュボード書き込み権限があれば誰でも Custom Powerpack を作成可能 |
 | レイアウト更新 | 見出しの ⋮ → **Edit Powerpack Layout** → 変更 → **Confirm Changes**。**変更は Powerpack を使う全ダッシュボードに同期**。複数ダッシュボードで使用中の場合、影響を受けるインスタンスを確認するプロンプトが出る。**Timeboard ではレイアウト編集不可** |
 | 詳細更新 | ⋮ → **Edit Powerpack Details** → 情報・検索カテゴリ・フィルタ設定を変更 → **Update Powerpack** |
-| インスタンス追加 | **Add Widgets** → **Powerpacks** タブ（テキストまたはタグで検索。タグ検索は `tag:search_string`）→ Powerpack を選択 → フィルタ値と制御方法を選ぶ → **Confirm** |
+| インスタンス追加 | **Add Widgets** → **Powerpacks** タブ（テキストまたはタグで検索。タグ検索は `tag:search_string`。[出典](https://docs.datadoghq.com/dashboards/guide/powerpacks-best-practices/)）→ Powerpack を選択 → フィルタ値と制御方法を選ぶ → **Confirm** |
 | フィルタの制御方法 | **Powerpack filters**: 選んだ値がインスタンス内のウィジェットに適用 ／ **Dashboard filters**: ダッシュボードのテンプレート変数で制御（「Add to dashboard」にチェック） |
 | インスタンスのカスタマイズ | ⋮ → Edit Display Options（見出しスタイル・色・名前）／ Detach Instance（元 Powerpack とのリンク解除）／ Remove from Dashboard ／ Edit Powerpack Layout ／ Edit Powerpack Details。**インスタンスへの変更は他ダッシュボードのインスタンスには反映されない** |
 | 削除 | **作成者のみ削除可能**。削除後も既存インスタンスは残るが「Powerpack が削除された」警告が出る。警告を消すにはインスタンスを Detach して通常のウィジェットグループに変換 |

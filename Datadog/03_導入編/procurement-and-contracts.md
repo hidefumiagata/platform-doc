@@ -2,7 +2,7 @@
 title: 購入経路と契約
 category: implementation
 domain: cost
-last_verified: 2026-11-02
+last_verified: 2026-11-04
 summary: Datadog を購入する経路（直販、AWS / Azure / Google Cloud Marketplace、国内販売パートナー・CPPO）と、契約形態（年契約・月契約・オンデマンド・従量）、コミットと超過、自動更新と値上げ上限、支払い条件、サポートプラン、解約時のデータの扱いを、MSA・Support Terms・DPA 等の公式文書に基づいて整理する。
 keywords: [購入, 調達, procurement, 契約, contract, MSA, Master Subscription Agreement, Order, Order Term, 直販, リセラー, reseller, 販売パートナー, Datadog Partner Network, DPN, AWS Marketplace, Azure Marketplace, Google Cloud Marketplace, Private Offer, プライベートオファー, CPPO, Channel Partner Private Offers, EDP, PPA, MACC, commit drawdown, コミット, commitment, オンデマンド, on-demand, 超過, overage, トゥルーアップ, true-up, 自動更新, auto-renewal, 値上げ, CPI, 支払い条件, Net 30, 請求書, invoice, クレジットカード, ACH, wire, Premier Support, Standard Support, サポートプラン, 解約, 非更新, non-renewal, データ削除, DPA, Data Processing Addendum, 無料トライアル, free trial, Datadog for Startups, Azure Native ISV Service, Datadog Japan, 伊藤忠テクノソリューションズ, CTC, クラスメソッド, NTTデータ]
 sources:
@@ -65,7 +65,7 @@ sources:
 
 ### 1.1 購入経路の一覧
 
-Datadog の購入経路は大きく 5 つに分かれる。
+Datadog の購入経路は大きく 6 つ（A〜F）と、パートナー経由 Marketplace の派生形（F'）に分かれる。
 
 | # | 購入経路 | 契約の相手方（請求元） | 契約条件の根拠 | 通貨 | 主な用途・メリット |
 |---|---|---|---|---|---|
@@ -151,7 +151,7 @@ Datadog の直販セルフサービスでは、無料トライアルから Plan 
 | Standard Support | 追加料金なしで含まれる | MSA §5.1 |
 | 購買発注書（PO） | PO の写しは `purchaseorders@datadoghq.com` | [Billing](https://docs.datadoghq.com/account_management/billing/) |
 
-> **補足:** MSA 上の支払い通貨は USD であり、Datadog 直販で円建て請求が可能かどうかは**公開情報では確認できず**。円建て・国内請求書払いが社内規程上必要な場合は、国内販売パートナー（§5）や AWS Marketplace の JPY 建て Private Offer（§3.4）を検討する【経験則】。
+> **補足:** MSA 上の支払い通貨は USD であり、Datadog 直販で円建て請求が可能かどうかは**公開情報では確認できず**。円建て・国内請求書払いが社内規程上必要な場合は、国内販売パートナー（§8）や AWS Marketplace の JPY 建て Private Offer（§3.4）を検討する【経験則】。
 
 ### 2.3 分割払いのオプション（第三者情報）
 
@@ -243,12 +243,12 @@ AWS Marketplace の Pay-As-You-Go リスティングは、使用量を**時間�
 
 [出典](https://aws.amazon.com/marketplace/pp/prodview-7tlwraipohxq6)
 
-- Infra Pro Hosts の $0.03/時間は月 720 時間換算で $21.6 となり、Datadog 料金ページのオンデマンド単価（Infrastructure Pro $18/ホスト/月）とは計算方法が異なる。Datadog 側の請求計算（ハイウォーターマーク方式等）と AWS 側の時間次元との対応関係は**公開情報では確認できず**。Marketplace の単価で見積もる場合は、必ず Datadog 営業に Marketplace 上での実際の請求方法を確認する。
+- Infra Pro Hosts の $0.03/時間は月 720 時間換算で $21.6 となり、Datadog 料金ページのオンデマンド単価（Infrastructure Pro $18/ホスト/月）とは計算方法が異なる。Datadog 側の請求計算（ハイウォーターマーク（99 パーセンタイル）方式／MHP）と AWS 側の時間次元との対応関係は**公開情報では確認できず**。Marketplace の単価で見積もる場合は、必ず Datadog 営業に Marketplace 上での実際の請求方法を確認する。
 - 料金ページの単価（年契約・月契約・オンデマンド）とサイト別価格は [製品別料金表](pricing-by-product.md) を正とする。AWS Marketplace の公開リスティング単価は **US 価格の USD 建て**と考えられるが、AP1 サイト（料金ページ上 US の 1.25 倍）での扱いは**公開情報では確認できず**。
 
 ### 3.3 Datadog Pro（1 か月契約）リスティングの単価
 
-AWS Marketplace の「Datadog Pro」リスティング（コミット型）の **1 か月契約**の掲載値（取得日 2026-11-03）。12 か月契約の単価はページ上に表示されず、「最大 20% 割引」とのみ表記されている。
+AWS Marketplace の「Datadog Pro」リスティング（コミット型）の **1 か月契約**の掲載値（取得日 2026-11-03）。リスティングの 1 か月契約には 22 の次元があり、以下は確認できた次元の抜粋である。12 か月契約の単価はページ上に表示されず、「最大 20% 割引」とのみ表記されている。
 
 | 次元 | 契約単価（/月） | 超過単価 |
 |---|---|---|
@@ -317,7 +317,7 @@ Subscribe 後のアカウント連携（第三者ブログによる手順）：
 
 [出典](https://dev.classmethod.jp/articles/datadog-aws-marketplace/)【第三者情報】（2020-09-02 公開。2 年以上前の情報で、画面・手順・単価は現行と異なる可能性がある）
 
-> **サイト差異:** AWS Marketplace から新規組織を作成する際に Datadog サイト（AP1 等）を選択できるかどうかは**公開情報では確認できず**。Datadog のサイトは作成後に移行できない（[Datadog Sites](../02_リファレンス/platform/datadog-sites.md)）ため、AP1 で運用したい場合は**先に AP1 で組織を作成してから Marketplace の購読を既存組織に紐づける**か、営業に手順を確認する【経験則】。`us2.ddog-gov.com`（US1-FED）の利用者は、インテグレーションの利用可否を組織管理者に確認し、例外申請は `support@ddog-gov.com` へ連絡する [出典](https://docs.datadoghq.com/integrations/guide/aws-marketplace-datadog-trial/)。
+> **サイト差異:** AWS Marketplace から新規組織を作成する際に Datadog サイト（AP1 等）を選択できるかどうかは**公開情報では確認できず**。Datadog のサイトは作成後に移行できない（[Datadog Sites](../02_リファレンス/platform/datadog-sites.md)）ため、AP1 で運用したい場合は**先に AP1 で組織を作成してから Marketplace の購読を既存組織に紐づける**か、営業に手順を確認する【経験則】。`us2.ddog-gov.com`（US2-FED）の利用者は、インテグレーションの利用可否を組織管理者に確認し、例外申請は `support@ddog-gov.com` へ連絡する [出典](https://docs.datadoghq.com/integrations/guide/aws-marketplace-datadog-trial/)。
 
 ### 3.7 AWS Marketplace 経由の解約
 
@@ -366,7 +366,7 @@ Azure では、Datadog は **Azure Native ISV Service**（Microsoft と Datadog 
 | Marketplace 課金の組織で、**他のリソースも同じ組織にマップ**されている | 削除したリソースに対応する Azure サブスクリプションのログ・メトリクス送信のみ停止 |
 | Marketplace 課金ではない組織（リンクのみ） | その Azure サブスクリプションのインテグレーションが削除されるだけ |
 
-出典：[Azure Native Integration](https://docs.datadoghq.com/integrations/guide/azure-native-integration/)（取得日 2026-11-02）。削除時に Datadog 組織そのものや蓄積データがどう扱われるかは同ページに記載がなく、**公開情報では確認できず**（MSA §11.5 の一般規定は §8 を参照）。
+出典：[Azure Native Integration](https://docs.datadoghq.com/integrations/guide/azure-native-integration/)（取得日 2026-11-02）。削除時に Datadog 組織そのものや蓄積データがどう扱われるかは同ページに記載がなく、**公開情報では確認できず**（MSA §11.5 の一般規定は §10.2 を参照）。
 
 ---
 
@@ -381,7 +381,7 @@ Azure では、Datadog は **Azure Native ISV Service**（Microsoft と Datadog 
 | プラン・単価・契約期間 | **公開情報では確認できず**（Marketplace コンソールへのログインが必要） | — |
 | Private Offer | Google Cloud Marketplace 自体は Private Offer に対応。Datadog の提供条件は公開情報では確認できず | [Google Cloud Blog](https://cloud.google.com/blog/topics/partners/announcing-google-cloud-marketplace-private-offers/) |
 
-Google Cloud Marketplace の購入がコミット（Minimum Commitment）消化にどこまで算入されるかは Google の「commitment drawdown」規定に従う。Google の公式ドキュメントは Marketplace 購入の算入ルールと除外対象を定めており、2025-06-09 以降は認定チャネルパートナー経由の購入について「コミット総額の 25% を上限に 100% 算入」という条件が報じられている [Google Cloud: Commit drawdown](https://cloud.google.com/marketplace/docs/commit-drawdown)【第三者情報を含む】。Datadog 個別の算入可否・率は**公開情報では確認できず**。
+Google Cloud Marketplace の購入がコミット（Minimum Commitment）消化にどこまで算入されるかは Google の「commitment drawdown」規定に従う。Google の公式ドキュメントでは、Google Cloud Marketplace Services への支出は**除外対象を除き 100% 算入**され得る。除外対象には、Google Cloud 上で動作しない Marketplace サービス、ベンダーが Google Cloud Marketplace のリセールプログラムに opt-in していない場合のリセラー経由購入、購入者（リセラー・ディストリビューター含む）または関連会社が所有する Marketplace サービス、Professional Services 等が含まれ、リストは Google の裁量で変更され得る [Google Cloud: Commit drawdown](https://docs.cloud.google.com/marketplace/docs/commit-drawdown)（取得日 2026-11-04）。Datadog がどの扱いになるか（算入可否・リセールプログラムへの参加有無）は**公開情報では確認できず**。
 
 > **サイト差異:** Google Cloud Marketplace から作成・リンクできる Datadog サイトの範囲は**公開情報では確認できず**。
 
@@ -414,7 +414,7 @@ Datadog の料金ページは製品ごとに **Billed Annually（年契約）／
 | Log Management の超過 | コミットはデイリー量でレート制限されない。超過分は**年契約価格 + 50%** | [Pricing](https://www.datadoghq.com/pricing/) |
 | APM のオンデマンド | 時間単位で計測され、ある時間の超過は他の時間に関係なく課金 | 同上 |
 | AI Credits | 月次でリセット、未使用分は繰り越さない。月次バンドル超過分はオンデマンド単価で自動課金 | 同上 |
-| 期中解約時のコミット | 顧客都合の解約では**コミット済み料金は Order 期間全体分が支払対象**。解約前の使用に基づくコミット超過分の料金も支払対象 | [MSA §11.4](https://www.datadoghq.com/legal/msa/) |
+| 期中解約時のコミット | 顧客による §2・§11.2 に基づく解約、Datadog による §12.2 に基づく解約以外の理由で Order が終了した場合、**コミット済み料金は Order 期間全体分が支払対象**（公開 MSA に顧客の任意解約権の定めはない）。解約前の使用に基づくコミット超過分の料金も支払対象 | [MSA §11.4](https://www.datadoghq.com/legal/msa/) |
 | 契約満了後の継続利用 | 満了後も利用を続けた場合は **Pricing Page の料金**で課金 | MSA §6.3 |
 
 > **補足（トゥルーアップ）:** Datadog の公開 MSA には「トゥルーアップ（true-up：年度末に使用実績とコミットを精算する仕組み）」という条項は存在しない。公開情報上の仕組みは「**月次で使用量を計測し、コミット超過分を毎月オンデマンド単価で後払い請求**」であり、年次一括精算ではない（MSA §5.1）。年間プールのコミット、超過単価の個別交渉、期中のコミット増額などは Order 個別条件で決まる【推定】。超過計算の詳細は [課金計算の仕組み §7](billing-mechanics.md) を参照。
@@ -463,7 +463,7 @@ Datadog の料金ページは製品ごとに **Billed Annually（年契約）／
 | 対象 | **Core Services**（Order 上の機能のうち、当該月にコミット済み支出があるもの。ベータは除く） | §2 |
 | 除外（Exceptions） | 顧客の違反・誤設定、顧客環境の障害、不可抗力、§5.2 / §8.3 に基づく停止、事前通知されたメンテナンス | §2 |
 | 救済 | **2 か月連続**で基準を下回った場合、書面通知により当該 Core Service の Order コミットを翌暦月から解約でき、**按分返金（Pro-Rated Refund）** | §2, §11.4 |
-| その他の解約時の返金 | §2 または §11.2（Datadog の重大な違反等）による解約時のみ、未使用の前払い額を按分返金。それ以外は Order 期間全体の前払い・コミット料金は返金されない | §11.4 |
+| その他の解約時の返金 | 顧客による §2 または §11.2（Datadog の重大な違反等）に基づく解約、または Datadog による §12.2（IP 侵害対応でサービス提供を継続できない場合）に基づく解約の場合に、未使用の前払い額を按分返金。それ以外は Order 期間全体の前払い・コミット料金は返金されない | §11.4 |
 
 ### 6.7 Marketplace・リセラー経由の購入（Indirect Purchases）
 
@@ -735,7 +735,7 @@ AWS Marketplace 経由で購入すれば AWS 請求に統合される。EDP / PP
 Azure Native ISV Service の Datadog リソースは US3 組織のみ対応のため、AP1 では利用できない。AP1 組織を Azure 請求で購入する手段の有無は公開情報では確認できず（§4.1）。
 
 **Q4. 年間コミットを途中で減らせるか。**
-公開 MSA では、顧客都合の期中解約でもコミット済み料金は Order 期間全体分が支払対象（§11.4）。第三者情報では「増額は可能だが減額は不可」とされる（§6.3）。
+公開 MSA には顧客の任意解約権の定めがなく、§2・§11.2（顧客による）・§12.2（Datadog による）以外の理由で Order が終了した場合もコミット済み料金は Order 期間全体分が支払対象（§11.4）。第三者情報では「増額は可能だが減額は不可」とされる（§6.3）。
 
 **Q5. コミットを超えたらどうなるか。**
 超過分は月次でオンデマンド単価により後払い請求される。Log Management では年契約価格 + 50%。データ取り込みはコミット超過で停止しない（§6.2）。
@@ -759,7 +759,7 @@ Support Terms 上、Premier Support は現時点で英語のみ（§9.1）。日
 | 国内パートナー各社の円建て単価・為替・支払いサイト・最低契約期間 | 非公開 |
 | AWS Marketplace 12 か月契約・Enterprise リスティングの単価 | ページ上に非表示または本調査で未取得 |
 | AWS Marketplace での AP1 等のサイト指定方法 | 公開情報では確認できず |
-| AWS Marketplace の時間次元と Datadog の 99 パーセンタイル計算との対応関係 | 公開情報では確認できず |
+| AWS Marketplace の時間次元と Datadog のハイウォーターマーク（99 パーセンタイル）方式／MHP との対応関係 | 公開情報では確認できず |
 | Datadog が JPY 建て Private Offer を発行するか | 公開情報では確認できず |
 | Google Cloud Marketplace のプラン・単価・契約期間・対応サイト | 公開情報では確認できず |
 | AP1 組織を Azure 請求（MACC 消化）で購入する方法 | 公開情報では確認できず |
@@ -810,7 +810,7 @@ Support Terms 上、Premier Support は現時点で英語のみ（§9.1）。日
 - AWS What's New（2024-10）: https://aws.amazon.com/about-aws/whats-new/2024/10/aws-marketplace-offers-new-currencies-non-us-bank-accounts-disbursement/
 - AWS What's New（2025-10）: https://aws.amazon.com/about-aws/whats-new/2025/10/aws-marketplace-currencies-usage-based-private-offers
 - Microsoft Learn: Datadog overview - Azure Native Integrations（2026-10-30 更新）: https://learn.microsoft.com/en-us/azure/partner-solutions/datadog/overview
-- Google Cloud: Commitment drawdown: https://cloud.google.com/marketplace/docs/commit-drawdown
+- Google Cloud: Commitment drawdown: https://docs.cloud.google.com/marketplace/docs/commit-drawdown
 - Google Cloud Blog: Marketplace private offers: https://cloud.google.com/blog/topics/partners/announcing-google-cloud-marketplace-private-offers/
 
 第三者情報：

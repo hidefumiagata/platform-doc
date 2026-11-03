@@ -4,7 +4,7 @@ category: introduction
 domain: general
 last_verified: 2026-11-02
 summary: Datadog, Inc. の会社概要（創業者・創業年・上場・本社・日本法人）、統合オブザーバビリティ＋セキュリティプラットフォームという製品思想、SaaS 提供形態、主要ユースケース、Gartner Magic Quadrant 等による市場での位置づけを 2026-11-02 時点でまとめた入門ファイル。
-keywords: [Datadog, データドッグ, Datadog Inc, DDOG, Datadog Japan, Datadog Japan合同会社, Olivier Pomel, Alexis Lê-Quôc, オブザーバビリティ, Observability, 監視, SaaS, 統合プラットフォーム, unified platform, Gartner Magic Quadrant, Observability Platforms, Digital Experience Monitoring, Forrester Wave, AIOps, AP1, DASH, Bits AI, 会社概要, 市場シェア, ユースケース]
+keywords: [Datadog, データドッグ, Datadog Inc, DDOG, Datadog Japan, Datadog Japan合同会社, Olivier Pomel, Alexis Lê-Quôc, オブザーバビリティ, Observability, 監視, SaaS, 統合プラットフォーム, unified platform, Gartner Magic Quadrant, Observability Platforms, Digital Experience Monitoring, Forrester Wave, AIOps, AP1, DASH, Bits AI, Bits Investigation, Bits AI SRE, Agent Observability, LLM Observability, App and API Protection, Application Security Management, ASM, Cloud Security, Cloud Security Management, CSM, Workload Protection, Cloud Workload Security, CWS, Software Catalog, Service Catalog, Cloud Network Monitoring, Network Performance Monitoring, NPM, Test Optimization, Test Visibility, 会社概要, 市場シェア, ユースケース]
 sources:
   - https://www.sec.gov/Archives/edgar/data/1561550/000162828026008819/ddog-20251231.htm
   - https://www.sec.gov/Archives/edgar/data/0001561550/000162828026053829/ex-991x20260630x8k.htm
@@ -53,7 +53,7 @@ Datadog 自身は、2026 年時点の企業説明（プレスリリース末尾�
 
 | 時期 | Datadog の自己定義（要旨） | 重点の変化 |
 |---|---|---|
-| 2019 年（日本法人設立時） | インフラメトリクス、アプリケーショントレース、ログ、合成監視、ネットワークパフォーマンス監視を統合した**クラウド監視**プラットフォーム | クラウド監視（Monitoring） |
+| 2019 年（日本法人設立時） | **クラウド時代**の開発者・IT 運用チーム・ビジネスユーザー向け**モニタリングおよび分析**プラットフォーム（the monitoring and analytics platform for developers, IT operations teams and business users in the cloud age）。補足：同リリース本文ではインフラメトリクス、アプリケーショントレース、ログ、合成監視、ネットワークパフォーマンス監視を統合した製品と説明 | クラウド監視（Monitoring） |
 | 2025 年 5 月 | クラウドアプリケーションのための**オブザーバビリティおよびセキュリティ**プラットフォーム | 監視＋セキュリティの統合 |
 | 2026 年 | **AI 時代**のリーディングなオブザーバビリティおよびセキュリティプラットフォーム | AI（AI による自律的な調査・修復、AI アプリケーションの監視）を前面に |
 
@@ -79,7 +79,7 @@ Datadog, Inc. の基本情報は次のとおり。
 | 上場市場・ティッカー | 米 NASDAQ（Nasdaq Global Select Market）、ティッカー `DDOG` | [Form 10-K FY2025](https://www.sec.gov/Archives/edgar/data/1561550/000162828026008819/ddog-20251231.htm) |
 | 新規株式公開（IPO） | 2019 年 9 月 19 日取引開始。公開価格 1 株 27 ドル、2,400 万株（調達額約 6.48 億ドル） | 【第三者情報】[Wikipedia](https://en.wikipedia.org/wiki/Datadog)、[InvestorPlace](https://investorplace.com/?p=1453008)（2019-09 公開） |
 | S&P 500 採用 | 2025 年 7 月 9 日の取引開始前から S&P 500 構成銘柄（Juniper Networks と入替） | 【第三者情報】[Briefing.com](https://briefing.com/story-stocks/archive/2025/7/3/datadog-soars-as-observability-leader-lands-s-and-p-500-spot-replacing-juniper-networks-(ddog))（2025-07-03 公開） |
-| 従業員数 | 約 8,100 人（2025-12-31 時点、35 か国）。うち約 44% が米国外、全従業員の 34% がフランス所在 | [Form 10-K FY2025](https://www.sec.gov/Archives/edgar/data/1561550/000162828026008819/ddog-20251231.htm) |
+| 従業員数 | 約 8,100 人（2025-12-31 時点、35 か国）。フルタイム従業員の約 44% が米国外に所在し、そのうち 34%（全体の約 15%）がフランス所在 | [Form 10-K FY2025](https://www.sec.gov/Archives/edgar/data/1561550/000162828026008819/ddog-20251231.htm) |
 | 顧客数 | 約 32,700 社（2025-12-31 時点、160 か国以上） | [Form 10-K FY2025](https://www.sec.gov/Archives/edgar/data/1561550/000162828026008819/ddog-20251231.htm) |
 | 主な R&D 拠点 | ニューヨーク、パリ（フランス）ほか。2015 年にパリに R&D オフィスを開設 | 【第三者情報】[Wikipedia](https://en.wikipedia.org/wiki/Datadog)（2026-11-02 参照） |
 | 研究開発投資 | 年間 10 億ドル超（Non-GAAP）を R&D に投資と公表 | [2026 Gartner MQ プレスリリース](https://www.datadoghq.com/ja/about/latest-news/press-releases/datadog-named-a-leader-in-the-2026-gartner-magic-quadrant-for-observability-platforms/)（2026-07-15 公開） |
@@ -364,8 +364,8 @@ Datadog の製品は多数あり、公式サイトの料金ページでは **AI�
 | Digital Experience | RUM（Real User Monitoring）、Session Replay、Product Analytics、Synthetic Monitoring | エンドユーザーの体験、Web/モバイル | [RUM（ブラウザ）](../02_リファレンス/dem/rum-browser.md) |
 | Security | Cloud SIEM、Cloud Security（旧称：Cloud Security Management / CSM）、Workload Protection（旧称：Cloud Workload Security / CWS）、App and API Protection（旧称：Application Security Management / ASM）、Code Security | クラウド設定の不備、脅威検知、アプリの攻撃防御、脆弱性 | [Datadog Security 概要](../02_リファレンス/security/security-platform-overview.md) |
 | Software Delivery | CI Visibility、Test Optimization（旧称：Test Visibility）、DORA Metrics、Quality Gates | CI/CD パイプライン、テスト、デリバリー指標 | [CI Visibility](../02_リファレンス/software-delivery/ci-visibility.md) |
-| Service Management | Incident Management、On-Call、Case Management、Workflow Automation、App Builder、Event Management | 障害対応、当番、自動化 | [Incident Management](../02_リファレンス/service-management/incident-management.md) |
-| AI | Bits AI（Bits AI SRE ほか AI エージェント群）、LLM Observability | AI による調査・修復、AI/LLM アプリの監視 | [Bits AI](../02_リファレンス/ai/bits-ai.md)、[LLM Observability](../02_リファレンス/ai/llm-observability.md) |
+| Service Management | Incident Management、On-Call、Work Management（旧称：Case Management）、Workflow Automation、App Builder、Event Management | 障害対応、当番、自動化 | [Incident Management](../02_リファレンス/service-management/incident-management.md) |
+| AI | Bits AI（Bits Investigation（旧称：Bits AI SRE）、Bits Code、Bits Chat、Bits Security Analyst、Bits Data Analysis、Bits Detection、Bits Remediation 等の AI エージェント群）、Agent Observability（旧称：LLM Observability） | AI による調査・修復、AI エージェント/LLM アプリの監視 | [Bits AI](../02_リファレンス/ai/bits-ai.md)、[Agent Observability](../02_リファレンス/ai/llm-observability.md) |
 | Data | Data Jobs Monitoring、Data Observability | データパイプライン、データ品質 | [Data Observability](../02_リファレンス/data/data-observability.md) |
 | Platform（共通基盤） | Agent、Integrations（1,000 超）、Tagging、Metrics、Monitors、Dashboards、Notebooks、SLO、Watchdog、Software Catalog（旧称：Service Catalog）、Audit Trail、Fleet Automation | すべての製品の土台 | [Integrations](../02_リファレンス/platform/integrations.md) |
 
@@ -402,8 +402,8 @@ Datadog の主要なユースケースを、目的・使う製品・関連ファ
 | 9 | DevSecOps・ソフトウェアデリバリー改善 | CI の遅延・不安定テストの検出、DORA 指標、コード脆弱性 | CI Visibility、Test Optimization、Code Security、DORA Metrics | [DORA Metrics・Quality Gates](../02_リファレンス/software-delivery/software-delivery-insights.md) |
 | 10 | クラウドコスト管理（FinOps） | クラウド費用と利用状況の可視化、最適化 | Cloud Cost Management | [Cloud Cost Management](../02_リファレンス/infrastructure/cloud-cost-management.md) |
 | 11 | データベース・データパイプライン監視 | クエリ性能、データジョブ、データ品質 | Database Monitoring、Data Jobs Monitoring、Data Observability | [Database Monitoring](../02_リファレンス/infrastructure/database-monitoring.md) |
-| 12 | AI / LLM アプリケーションの監視・保護 | LLM の応答品質・コスト・トレース、AI エージェントの防御 | LLM Observability、AI Guard | [LLM Observability](../02_リファレンス/ai/llm-observability.md) |
-| 13 | AI による運用自動化（AIOps） | アラートの自律調査・根本原因特定・修復 | Bits AI（Bits AI SRE 等）、Watchdog、Event Management | [Bits AI](../02_リファレンス/ai/bits-ai.md)、[Event Management](../02_リファレンス/platform/event-management.md) |
+| 12 | AI / LLM アプリケーションの監視・保護 | LLM の応答品質・コスト・トレース、AI エージェントの防御 | Agent Observability（旧称：LLM Observability）、AI Guard | [Agent Observability](../02_リファレンス/ai/llm-observability.md) |
+| 13 | AI による運用自動化（AIOps） | アラートの自律調査・根本原因特定・修復 | Bits AI（Bits Investigation（旧称：Bits AI SRE）等）、Watchdog、Event Management | [Bits AI](../02_リファレンス/ai/bits-ai.md)、[Event Management](../02_リファレンス/platform/event-management.md) |
 | 14 | 既存監視ツールの統合・移行 | 複数ツールの集約、OSS/他社製品からの移行 | Integrations、OpenTelemetry サポート | [他製品からの移行](../03_導入編/migration-from-other-tools.md)、[OpenTelemetry サポート](../02_リファレンス/platform/opentelemetry.md) |
 
 出典: 製品分類は [10-K](https://www.sec.gov/Archives/edgar/data/1561550/000162828026008819/ddog-20251231.htm) および [Pricing](https://www.datadoghq.com/pricing/)（2026-11-02 取得）。ユースケースの整理は本ナレッジによる。
@@ -422,13 +422,11 @@ Gartner の Magic Quadrant（MQ）は、ベンダーを「実行能力（Ability
 |---|---|---|---|---|
 | 初掲載年（年は公開情報では確認できず） | Magic Quadrant for Application Performance Monitoring | Visionary | 初めて掲載された年は Visionary だったと Datadog が説明 | [2021 公式ブログ](https://www.datadoghq.com/blog/datadog-apm-gartner-magic-quadrant-2021/) |
 | 2021（2021-04-09 発行） | Magic Quadrant for Application Performance Monitoring | **Leader**（初） | 17 ベンダーを評価 | [公式プレスリリース](https://www.datadoghq.com/about/latest-news/press-releases/datadog-named-a-leader-in-the-2021-gartner-magic-quadrant-for-application-performance-monitoring/) |
-| 2022 | Magic Quadrant for APM and Observability | **Leader** | 2024 年発表の「4 年連続」から逆算。2022 年の個別発表は本調査で未取得 | [2024 公式発表](https://www.datadoghq.com/blog/datadog-observability-platforms-gartner-magic-quadrant-2024/) |
-| 2023 | Magic Quadrant for APM and Observability | **Leader** | 同上（2023 年の個別発表は本調査で未取得） | 同上 |
+| 2022（2022-06-07 発行） | Magic Quadrant for Application Performance Monitoring and Observability | **Leader**（2 年連続） | レポート名が APM から「APM and Observability」に変更。Datadog は Ability to Execute で最高位と発表。著者：Padraig Byrne、Gregg Siegfried、Mrudula Bangera | [公式プレスリリース](https://datadoghq.com/about/latest-news/press-releases/datadog-named-a-leader-in-the-2022-gartner-magic-quadrant-for-application-performance-monitoring-and-observability)（2022-06-10）、[公式ブログ](https://datadoghq.com/blog/datadog-apm-observability-gartner-magic-quadrant-2022) |
+| 2023（2023-07 発行） | Magic Quadrant for Application Performance Monitoring and Observability | **Leader**（3 年連続） | 著者：Gregg Siegfried、Mrudula Bangera、Padraig Byrne、Matt Crossley。同年の発表では最高位等の言及なし | [公式プレスリリース](https://www.datadoghq.com/about/latest-news/press-releases/datadog-named-a-leader-in-the-2023-gartner-magic-quadranttm-for-application-performance-monitoring-and-observability/)（2023-07-10） |
 | 2024 | Magic Quadrant for **Observability Platforms** | **Leader**（4 年連続） | レポート名が Observability Platforms に変更 | [公式ブログ](https://www.datadoghq.com/blog/datadog-observability-platforms-gartner-magic-quadrant-2024/) |
 | 2025（2025-07 発行） | Magic Quadrant for Observability Platforms | **Leader**（5 年連続） | 【第三者情報】同年は 20 ベンダーが評価され、Ability to Execute の最高位は Dynatrace と同社が発表 | [公式リリース](https://www.datadoghq.com/about/latest-news/press-releases/datadog-named-a-leader-in-the-2025-gartner-magic-quadrant-for-observability-platforms/)、[Dynatrace 発表](https://www.businesswire.com/news/home/20250710820419/en/Dynatrace-Positioned-Highest-in-Execution-in-the-2025-Gartner-Magic-Quadrant-for-Observability-Platforms)（2025-07-10） |
 | 2026（2026-07-13 発行） | Magic Quadrant for Observability Platforms | **Leader**（6 年連続） | 評価対象の全ベンダー中、**Ability to Execute で最高位**。著者：Padraig Byrne、Martin Caren、D.B. Cummings、Neil Young | [公式プレスリリース（日本語）](https://www.datadoghq.com/ja/about/latest-news/press-releases/datadog-named-a-leader-in-the-2026-gartner-magic-quadrant-for-observability-platforms/)（2026-07-15） |
-
-> 2022・2023 年のレポート名「APM and Observability」は、本調査では Datadog の個別発表で直接確認できていない（2021 年の APM MQ から 2024 年の Observability Platforms MQ へ至る間の名称として一般に知られているもの）。【推定】
 
 **2025 年 Observability Platforms MQ の Leaders（各社発表ベース）** 【第三者情報】: Datadog、Dynatrace、Splunk（Cisco）、New Relic、Elastic、Grafana Labs、IBM（Instana）。[Splunk](https://investor.cisco.com/news/news-details/2025/Splunk-Named-a-Leader-in-the-Gartner-Magic-Quadrant-for-Observability-Platforms-for-the-Third-Consecutive-Year/default.aspx)、[New Relic](https://newrelic.com/es/resources/gartner-magic-quadrant-observability)、[Grafana Labs](https://grafana.com/blog/2025/07/10/grafana-labs-named-a-leader-again-in-the-2025-gartner-magic-quadrant-for-observability-platforms/)、[IBM](https://www.ibm.com/forms/mkt-53820)（いずれも 2025-07 公開）。2026 年版の Leaders 全体の顔ぶれは本調査では確認できず。
 
@@ -441,8 +439,8 @@ Gartner の Magic Quadrant（MQ）は、ベンダーを「実行能力（Ability
 | Gartner Magic Quadrant for Digital Experience Monitoring | 2024（初版） | Leader（Ability to Execute で最高位） | [公式ブログ](https://datadoghq.com/blog/datadog-digital-experience-monitoring-gartner-magic-quadrant-2024) |
 | Gartner Magic Quadrant for Digital Experience Monitoring | 2025（2025-10-27 発行） | Leader（2 年連続、Ability to Execute で最高位） | [公式プレスリリース（日本語）](https://www.datadoghq.com/ja/about/latest-news/press-releases/datadog-named-a-leader-in-the-2025-gartner-magic-quadrant-for-digital-experience-monitoring/)（2025-10-29） |
 | The Forrester Wave: AIOps Platforms | Q2 2025 | Leader | [公式ブログ](https://datadoghq.com/blog/datadog-aiops-platforms-forrester-wave-2025)（2025-04-15） |
-| The Forrester Wave: AIOps Platforms | Q4 2026 | Leader（「オブザーバビリティからエージェント型運用への明確かつ信頼できる移行」と評価） | [公式プレスリリース](https://www.datadoghq.com/about/latest-news/press-releases/datadog-named-a-leader-in-the-forrester-wave-aiops-platforms-q4-2026/)（2026-10-29） |
-| Gartner Peer Insights Customers' Choice（対象マーケット名は公開情報では確認できず） | 2025 | 選出 | [2026 MQ プレスリリース](https://www.datadoghq.com/ja/about/latest-news/press-releases/datadog-named-a-leader-in-the-2026-gartner-magic-quadrant-for-observability-platforms/) |
+| The Forrester Wave: AIOps Platforms | Q4 2026 | Leader（Innovation、Roadmap、ModelOps and AI Governance (sovereignty) を含む 11 の評価基準で最高スコア。ロードマップを「野心的かつ透明性が高く、先進的な AI 機能の継続提供にコミットしている」と評価） | [公式プレスリリース](https://www.datadoghq.com/about/latest-news/press-releases/datadog-named-a-leader-in-the-forrester-wave-aiops-platforms-q4-2026/)（2026-10-29） |
+| Gartner Peer Insights Customers' Choice（Observability Platforms マーケット） | 2025 | 選出 | [2026 MQ プレスリリース](https://www.datadoghq.com/ja/about/latest-news/press-releases/datadog-named-a-leader-in-the-2026-gartner-magic-quadrant-for-observability-platforms/) |
 
 > 2026 年版の Gartner DEM MQ は、本調査（2026-11-02）では Datadog の発表を確認できなかった。
 
@@ -514,7 +512,7 @@ Datadog は製品ごとに課金単位が異なる従量課金型 SaaS である
 ## 11. よくある質問（FAQ）
 
 **Q1. Datadog はどこの国の会社か。**
-A. 米国の会社である。Datadog, Inc. は 2010 年に米国デラウェア州で設立され、本社はニューヨーク市（620 8th Avenue）にある。共同創業者の Olivier Pomel と Alexis Lê-Quôc はフランス出身で、パリにも大規模な R&D 拠点があり、全従業員の 34% がフランス所在（2025 年末）である。[出典](https://www.sec.gov/Archives/edgar/data/1561550/000162828026008819/ddog-20251231.htm)
+A. 米国の会社である。Datadog, Inc. は 2010 年に米国デラウェア州で設立され、本社はニューヨーク市（620 8th Avenue）にある。共同創業者の Olivier Pomel と Alexis Lê-Quôc はフランス出身で、パリにも大規模な R&D 拠点がある。2025 年末時点でフルタイム従業員の約 44% が米国外に所在し、そのうち 34%（全体の約 15%）がフランス所在である。[出典](https://www.sec.gov/Archives/edgar/data/1561550/000162828026008819/ddog-20251231.htm)
 
 **Q2. Datadog は上場しているか。**
 A. 上場している。2019 年 9 月に米 NASDAQ に上場し、ティッカーは `DDOG`。2025 年 7 月に S&P 500 の構成銘柄に採用された。【第三者情報】[Wikipedia](https://en.wikipedia.org/wiki/Datadog)
@@ -575,6 +573,11 @@ A. 対応している。Datadog は OpenTelemetry へのコントリビューシ
 - DASH 2026 recap（2026-07-07）: https://www.datadoghq.com/blog/dash-2026-recap/
 - 2021 Gartner MQ for APM（プレスリリース）: https://www.datadoghq.com/about/latest-news/press-releases/datadog-named-a-leader-in-the-2021-gartner-magic-quadrant-for-application-performance-monitoring/
 - 2021 Gartner MQ for APM（ブログ）: https://www.datadoghq.com/blog/datadog-apm-gartner-magic-quadrant-2021/
+- 2022 Gartner MQ for APM and Observability（プレスリリース、2022-06-10）: https://datadoghq.com/about/latest-news/press-releases/datadog-named-a-leader-in-the-2022-gartner-magic-quadrant-for-application-performance-monitoring-and-observability
+- 2022 Gartner MQ for APM and Observability（ブログ）: https://datadoghq.com/blog/datadog-apm-observability-gartner-magic-quadrant-2022
+- 2023 Gartner MQ for APM and Observability（プレスリリース、2023-07-10）: https://www.datadoghq.com/about/latest-news/press-releases/datadog-named-a-leader-in-the-2023-gartner-magic-quadranttm-for-application-performance-monitoring-and-observability/
+- Bits AI（公式ドキュメント）: https://docs.datadoghq.com/bits_ai/
+- Agent Observability（公式ドキュメント）: https://docs.datadoghq.com/llm_observability/
 - 2024 Gartner MQ for Observability Platforms（ブログ）: https://www.datadoghq.com/blog/datadog-observability-platforms-gartner-magic-quadrant-2024/
 - 2025 Gartner MQ for Observability Platforms（プレスリリース）: https://www.datadoghq.com/about/latest-news/press-releases/datadog-named-a-leader-in-the-2025-gartner-magic-quadrant-for-observability-platforms/
 - 2026 Gartner MQ for Observability Platforms（日本語プレスリリース、2026-07-15）: https://www.datadoghq.com/ja/about/latest-news/press-releases/datadog-named-a-leader-in-the-2026-gartner-magic-quadrant-for-observability-platforms/

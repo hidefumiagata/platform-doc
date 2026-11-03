@@ -180,7 +180,7 @@ Datadog の各種エンドポイントは「`<サービス接頭辞>.<site パ�
 
 | 用途 | AP1 | US1 | 備考 |
 |---|---|---|---|
-| Web UI | `ap1.datadoghq.com` | `app.datadoghq.com` | US1 と EU1 だけ `app.` が付く |
+| Web UI | `ap1.datadoghq.com` | `app.datadoghq.com` | US1・EU1・US1-FED は `app.` が付く（その他は `<site>` そのもの） |
 | API | `api.ap1.datadoghq.com` | `api.datadoghq.com` | REST API のベース URL は `https://api.<site>` |
 | メトリクス・サービスチェック・イベント（Agent） | `<VERSION>-app.agent.ap1.datadoghq.com` | `<VERSION>-app.agent.datadoghq.com` | 例: Agent v7.31.0 は `7-31-0-app.agent.<site>`。FW では `*.agent.<site>` を許可する |
 | Agent flare | `<VERSION>-flare.agent.ap1.datadoghq.com` | `<VERSION>-flare.agent.datadoghq.com` | 同上 |
@@ -346,7 +346,7 @@ Datadog は「サイトのセキュリティ要件によって、サイトごと
 
 | 項目 | 差異の内容 | 出典 |
 |---|---|---|
-| Flex Logs のコンピュートサイズ | US3、US5、AP1、AP2、US1-FED、US2-FED で選べるのは **Starter、XS、XS+、S のみ**。M（Medium）と L（Large）は、これらのサイトでは選べない（この注記の対象外なのは US1、EU1、UK1）。 | [出典](https://docs.datadoghq.com/logs/log_configuration/flex_logs/) |
+| Flex Logs のコンピュートサイズ | US3、US5、AP1、AP2、US1-FED、US2-FED で選べるのは **Starter、XS、XS+、S のみ**。M（Medium）と L（Large）は、これらのサイトでは選べない。US1、EU1、UK1 にはこの制限の注記が無い（M・L が選べると推定。公式に明記はない）【推定】。 | [出典](https://docs.datadoghq.com/logs/log_configuration/flex_logs/) |
 | プライベート接続 | US1/AP1/AP2/UK1 は AWS PrivateLink、US3 は Azure Private Link、US5/EU1 は GCP PSC のみ（前述）。 | 前述 |
 | Azure Native Integration | US3 のみ。Azure Native Integration を使っている US3 の org では、Cloud Cost Management と Log Archives の設定に別途 App Registration が必要。 | [出典](https://docs.datadoghq.com/integrations/guide/azure-native-integration/)、[出典](https://docs.datadoghq.com/getting_started/integrations/azure/) |
 | Log Archives（US3） | US3 では、Azure Storage のファイアウォールルールに対応していない。 | [出典](https://docs.datadoghq.com/logs/log_configuration/archives/) |
@@ -392,7 +392,7 @@ Datadog は「サイトのセキュリティ要件によって、サイトごと
 |---|---|---|
 | App and API Protection（旧称: Application Security Management / ASM） | not supported | [出典](https://docs.datadoghq.com/security/application_security/) |
 | On-Call | not supported | [出典](https://docs.datadoghq.com/service_management/on-call/) |
-| Workflow Automation | Preview | [出典](https://docs.datadoghq.com/actions/workflows/) |
+| Workflow Automation | 【Preview】（US2-FED） | [出典](https://docs.datadoghq.com/actions/workflows/) |
 | AWS / Azure などのインテグレーション | org で有効になっていない場合があり、`support@ddog-gov.com` に例外申請する | [出典](https://docs.datadoghq.com/integrations/amazon_web_services/) |
 
 ### 政府向けサイトで動作が異なるもの
@@ -523,7 +523,7 @@ Classmethod の記事は、選定順序として「① GDPR などの規制の�
 | Agent の FQDN 変換 | 7.67.0 以降でデフォルト有効。7.72.0 以降は `convert_dd_site_fqdn.enabled: false` で無効化できる | [出典](https://docs.datadoghq.com/agent/configuration/network/) |
 | ネットワーク断の間のバッファ | メモリ上限は `forwarder_retry_queue_payloads_max_size`。Agent 7.27.0 以降は `forwarder_storage_max_size_in_bytes`（正の値）でディスク退避を有効にでき、ディスク使用率が `forwarder_storage_max_disk_ratio`（デフォルト 80%）未満の場合のみ書き込む | [出典](https://docs.datadoghq.com/agent/configuration/network/) |
 | OTLP 直接インテークのペイロード上限 | Metrics 512 KiB（圧縮後）、Logs 5.1 MiB（非圧縮）、Traces 15 MiB（非圧縮）。超えると HTTP 413 | [出典](https://docs.datadoghq.com/opentelemetry/setup/otlp_ingest/) |
-| Flex Logs のコンピュートサイズ | US3/US5/AP1/AP2/US1-FED/US2-FED は Starter・XS・XS+・S まで。M・L はそれ以外のサイト | [出典](https://docs.datadoghq.com/logs/log_configuration/flex_logs/) |
+| Flex Logs のコンピュートサイズ | US3/US5/AP1/AP2/US1-FED/US2-FED は Starter・XS・XS+・S まで。US1・EU1・UK1 には制限の注記が無い（M・L が選べると推定。公式に明記はない）【推定】 | [出典](https://docs.datadoghq.com/logs/log_configuration/flex_logs/) |
 | DDR の Agent 要件 | Logs・Metrics は v7.54 以降、Traces は v7.68 以降 | [出典](https://docs.datadoghq.com/disaster_recovery/) |
 | FIPS Agent の要件 | Agent 7.65.0 以降（政府向けサイト専用） | [出典](https://docs.datadoghq.com/agent/configuration/fips-compliance/) |
 | サイト別のデータ保持期間の違い | 公開情報では確認できず（データ保持期間の公式ページにサイト別の記載はない） | [出典](https://docs.datadoghq.com/data_security/data_retention_periods/) |
@@ -542,7 +542,7 @@ Datadog の公式料金ページには**リージョン（サイト）選択**�
 |---|---|---|---|---|
 | Infrastructure Pro（ホスト/月） | 年 $15 / 月 $18 / OD $18 | 年 $18.75 / 月 $22.50 / OD $22.50 | 年 $18.75 / 月 $22.50 / OD $22.50 | 年 $18 / 月 $21.60 / OD $21.60 |
 | Infrastructure Enterprise（ホスト/月） | 年 $23 / 月 $27 / OD $27 | 年 $28.75 / 月 $33.75 / OD $33.75 | 年 $28.75 / 月 $33.75 / OD $33.75 | 年 $27.60 / 月 $32.40 / OD $32.40 |
-| APM Pro（ホスト/月） | 年 $35 / 月 $42 / OD $42 | 年 $43.75 / 月 $52.50 / OD $52.50 | 年 $42 / 月 $50.40 / OD $50.40 | 年 $42 / 月 $50.40 / OD $50.40 |
+| APM Pro（ホスト/月） | 年 $35 / 月 $42 / OD $42 | 年 $43.75 / 月 $52.50 / OD $52.50 | 提供なし（料金ページの US1-FED 価格データに無い） | 年 $42 / 月 $50.40 / OD $50.40 |
 | APM Enterprise（ホスト/月） | 年 $40 / 月 $48 / OD $48 | 年 $50 / 月 $60 / OD $60 | 年 $50 / 月 $60 / OD $60 | 年 $48 / 月 $57.60 / OD $57.60 |
 | Log ingest（GB あたり） | $0.10 | $0.125 | $0.125 | $0.12 |
 | Log 標準インデックス 15 日保持（100 万イベント/月） | 年 $1.70 / 月 $2.04 / OD $2.55 | 年 $2.125 / 月 $2.55 / OD $3.1875 | 年 $2.125 / 月 $2.55 / OD $3.1875 | 年 $2.04 / 月 $2.448 / OD $3.06 |
@@ -551,12 +551,12 @@ Datadog の公式料金ページには**リージョン（サイト）選択**�
 | Database Monitoring（ホスト/月） | 年 $70 / 月 $84 / OD $84 | 年 $87.50 / 月 $105 / OD $105 | 年 $87.50 / 月 $105 / OD $105 | 年 $84 / 月 $100.80 / OD $100.80 |
 | Synthetic API Testing（1 万テスト実行/月） | 年 $5 / 月 $6 / OD $7.20 | 年 $6.25 / 月 $7.50 / OD $9 | 年 $6.25 / 月 $7.50 / OD $9 | 年 $6 / 月 $7.20 / OD $8.64 |
 | RUM Measure（1,000 セッション/月） | 年 $0.15 / 月 $0.18 / OD $0.22 | 年 $0.1875 / 月 $0.225 / OD $0.275 | 年 $0.1875 / 月 $0.225 / OD $0.275 | 年 $0.18 / 月 $0.216 / OD $0.264 |
-| Cloud SIEM（分析 GB/月） | 年 $5 / 月 $6 / OD $7.50 | 年 $6.25 / 月 $7.50 / OD $9.375 | 年 $6.25 / 月 $7.50 / OD $9.375 | 年 $6 / 月 $7.20 / OD $9 |
+| Cloud SIEM（分析イベント 100 万件/月。料金カード表記は GB あたり） | 年 $5 / 月 $6 / OD $7.50 | 年 $6.25 / 月 $7.50 / OD $9.375 | 年 $6.25 / 月 $7.50 / OD $9.375 | 年 $6 / 月 $7.20 / OD $9 |
 | On-Call Standalone（シート/月） | 年 $20 / 月 $24 / OD $29 | 年 $25 / 月 $30 / OD $36.25 | 年 $25 / 月 $30 / OD $36.25 | 年 $24 / 月 $28.80 / OD $34.80 |
 
 [出典](https://www.datadoghq.com/pricing/)（料金ページ内のリージョン別価格データ、2026-11-03 取得）
 
-- 上表から読み取れる傾向として、**AP1 は US／EU1 のおおむね 1.25 倍、AP2 と UK1 はおおむね 1.2 倍**の単価設定である。US1-FED は多くの SKU で AP1 と同じ単価だが、APM Pro（年 $42）のように 1.2 倍の SKU もあり、一律の倍率ではない。Audit Trail（利用額の 2%〜）のように、サイトに関係なく同じ料金体系の SKU もある。
+- 上表から読み取れる傾向として、**AP1 は US／EU1 のおおむね 1.25 倍、AP2 と UK1 はおおむね 1.2 倍**の単価設定である。US1-FED は、掲載されている SKU では AP1 と同じ単価（US の 1.25 倍）である。ただし APM Pro のように、US1-FED では提供されない SKU がある。Audit Trail（利用額の 2%〜）のように、サイトに関係なく同じ料金体系の SKU もある。
 - AP1 と US1 の Infrastructure Pro の差（年契約 $18.75 と $15）は、Classmethod の記事（2025-07-07 公開）でも指摘されている。
 - 料金の数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md) である。本ファイルの数値はサイト間の比較のために引用したもので、正本と食い違う場合は正本と公式料金ページを優先する。料金体系の全体像は [料金体系の全体像](../../03_導入編/pricing-overview.md)、契約形態の違いは [購入経路と契約](../../03_導入編/procurement-and-contracts.md) を参照。
 - **Dual Shipping とコスト:** 移行や DR のために複数の org（サイト）へ送ると、それぞれの org で使用量が計上され、課金に影響する可能性がある。公式ドキュメントは影響について Datadog サポートに問い合わせるよう案内している。[出典](https://docs.datadoghq.com/agent/configuration/dual-shipping/)

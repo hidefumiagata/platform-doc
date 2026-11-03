@@ -5,7 +5,7 @@ domain: security
 last_verified: 2026-11-02
 agent_version: "7.x"
 summary: Datadog Security（セキュリティ製品群）の全体像を扱うリファレンス。Cloud SIEM・Cloud Security・Workload Protection・App and API Protection・Code Security・AI Guard・Sensitive Data Scanner の役割と関係、共通データモデル（Security Signals と Findings）、Detection Rules の共通概念（ルール種別・検知方式・オプション値・管理・廃止）、Suppressions・Dynamic Severity・Automation Pipelines・Security Inbox・通知・Threat Intelligence・権限、改称履歴、保持期間と制限値、課金単位をまとめる。
-keywords: [Datadog Security, Datadog Security Platform, Cloud Security Platform, セキュリティ製品, Security Signals, セキュリティシグナル, Findings, 検出結果, Detection Rules, 検知ルール, OOTB rules, default rules, Custom rules, MITRE ATT&CK, Signals Explorer, Security Inbox, Suppressions, 抑制, Dynamic Severity, Automation Pipelines, Findings Automation, Mute rules, Due date rules, Notification Rules, 通知ルール, Dynamic routing, Threat Intelligence, 脅威インテリジェンス, BYOTI, Security Research Feed, Bits Security Analyst, Case Management, Workflow Automation, Ticketing, Assignee Management, Cloud SIEM, Security Monitoring, Cloud Security, Cloud Security Management, CSM, CSM Pro, CSM Enterprise, CSPM, KSPM, CIEM, Misconfigurations, Identity Risks, Vulnerabilities, Workload Protection, CSM Threats, Cloud Workload Security, CWS, App and API Protection, AAP, Application Security Management, ASM, Code Security, Code Analysis, Application Vulnerability Management, SAST, SCA, IAST, Secret Scanning, IaC Security, AI Guard, Sensitive Data Scanner, SDS, security_monitoring_rules_write, security_monitoring_signals_write, DevSecOps bundle]
+keywords: [Datadog Security, Datadog Security Platform, Cloud Security Platform, セキュリティ製品, Security Signals, セキュリティシグナル, Findings, 検出結果, Detection Rules, 検知ルール, OOTB rules, default rules, Custom rules, MITRE ATT&CK, Signals Explorer, Security Inbox, Suppressions, 抑制, Dynamic Severity, Automation Pipelines, Findings Automation, Mute rules, Due date rules, Notification Rules, 通知ルール, Dynamic routing, Threat Intelligence, 脅威インテリジェンス, BYOTI, Security Research Feed, Bits Security Analyst, Case Management, Workflow Automation, Ticketing, Assignee Management, Cloud SIEM, Security Monitoring, Cloud Security, Cloud Security Management, CSM, CSM Pro, CSM Enterprise, CSPM, KSPM, CIEM, Misconfigurations, Identity Risks, Vulnerabilities, Workload Protection, CSM Threats, Cloud Workload Security, CWS, App and API Protection, AAP, Application Security Management, Application Security Monitoring, ASM, Supply Chain Firewall, Code Security MCP Server, Generic Secret Scanning, Code Security, Code Analysis, Application Vulnerability Management, SAST, SCA, IAST, Secret Scanning, IaC Security, AI Guard, Sensitive Data Scanner, SDS, security_monitoring_rules_write, security_monitoring_signals_write, DevSecOps bundle]
 sources:
   - https://docs.datadoghq.com/security/
   - https://docs.datadoghq.com/security/detection_rules/
@@ -31,6 +31,11 @@ sources:
   - https://docs.datadoghq.com/bits_ai/bits_security_analyst/
   - https://docs.datadoghq.com/account_management/rbac/permissions/
   - https://docs.datadoghq.com/data_security/data_retention_periods/
+  - https://docs.datadoghq.com/account_management/billing/pricing/
+  - https://docs.datadoghq.com/security/code_security/
+  - https://docs.datadoghq.com/security/code_security/secret_scanning/
+  - https://docs.datadoghq.com/security/application_security/
+  - https://docs.datadoghq.com/api/latest/security-monitoring/list-rules/
   - https://docs.datadoghq.com/api/latest/security-monitoring/
   - https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/security_monitoring_rule
   - https://www.datadoghq.com/pricing/
@@ -53,7 +58,7 @@ sources:
 1. Cloud SIEM
 2. Code Security
 3. Cloud Security（旧称：Cloud Security Management / CSM）
-4. App and API Protection（旧称：Application Security Management / ASM）
+4. App and API Protection（旧称：Application Security Management / Application Security Monitoring。いずれも ASM）
 5. AI Guard
 6. Workload Protection（旧称：Cloud Workload Security / CWS、CSM Threats）
 7. Sensitive Data Scanner
@@ -87,7 +92,7 @@ Datadog Security の各製品の役割、データソース、主な出力を次
 | **Cloud SIEM** | Security Monitoring（API 名・権限名に残る） | ログを検知ルールでリアルタイム分析し、標的型攻撃、脅威インテリジェンスに一致する IP との通信、危険な設定変更などを検知する | Log Management に取り込んだログ（クラウド監査ログ、IdP、SaaS、ネットワーク機器等）。Audit Trail・イベント・RUM 等も検知対象にできる | Signals | [出典](https://docs.datadoghq.com/security/) [出典](https://docs.datadoghq.com/security/cloud_siem/detect_and_monitor/custom_detection_rules/create_rule/) |
 | **Cloud Security** | Cloud Security Management（CSM） | クラウド全体のリアルタイム脅威検知と継続的な構成監査を統合ビューで提供する。Workload Protection、Misconfigurations、Identity Risks、Vulnerabilities で構成される | クラウドプロバイダ連携（API）、Agent、Agentless Scanning | Findings（Misconfigurations / Identity Risks / Vulnerabilities / Attack Paths）。脅威検知部分は Workload Protection の Signals | [出典](https://docs.datadoghq.com/security/) |
 | **Workload Protection** | Cloud Workload Security（CWS）、CSM Threats | ファイル・ネットワーク・プロセスのアクティビティを監視し、インフラへの脅威をリアルタイムに検知する。自動応答（Automated response）も持つ | Datadog Agent（カーネルレベルのイベント収集） | Signals（加えて Workload Activity の Findings） | [出典](https://docs.datadoghq.com/security/) [出典](https://docs.datadoghq.com/security/security_inbox/) |
-| **App and API Protection（AAP）** | Application Security Management（ASM） | SSRF、SQL インジェクション、Log4Shell、反射型 XSS などアプリケーション層の攻撃を検知・防御する。API の発見と API Security の Findings も扱う | APM トレーサー（Datadog APM ライブラリ）、Datadog Agent、アプリ内検知ルール | Signals（攻撃）、Findings（API Security） | [出典](https://docs.datadoghq.com/security/) [出典](https://docs.datadoghq.com/security/security_inbox/) |
+| **App and API Protection（AAP）** | Application Security Management / Application Security Monitoring（いずれも ASM） | SSRF、SQL インジェクション、Log4Shell、反射型 XSS などアプリケーション層の攻撃を検知・防御する。API の発見と API Security の Findings も扱う | APM トレーサー（Datadog APM ライブラリ）、Datadog Agent、アプリ内検知ルール | Signals（攻撃）、Findings（API Security） | [出典](https://docs.datadoghq.com/security/) [出典](https://docs.datadoghq.com/security/security_inbox/) |
 | **Code Security** | Code Analysis、ASM の Application Vulnerability Management などを統合（後述「2. 改称履歴」） | 自社コードと OSS ライブラリの脆弱性を、リポジトリと稼働中サービスの両方で検出する | リポジトリ／CI（SAST、Static SCA、Secret Scanning、IaC）、APM トレーサー（Runtime SCA、IAST） | Findings | [出典](https://docs.datadoghq.com/security/) |
 | **AI Guard** | なし | AI アプリ／エージェントの入出力・ツール呼び出しをインラインで検査し、プロンプトインジェクション、ジェイルブレイク、機密データ流出をブロック・統制する | アプリに組み込む AI Guard の評価呼び出し（OpenAI、Anthropic、Bedrock、VertexAI、Azure 等の任意モデルに対応） | Signals（AI Guard Security Signals） | [出典](https://docs.datadoghq.com/security/ai_guard/) |
 | **Sensitive Data Scanner（SDS）** | なし | テレメトリ（ログ、APM スパン、RUM イベント、Event Management のイベント）とクラウドストレージ内の機密データを発見・分類し、任意でマスキングする | Datadog の取り込みパイプライン、クラウドストレージスキャン | Findings（Sensitive Data） | [出典](https://docs.datadoghq.com/security/) [出典](https://docs.datadoghq.com/security/guide/findings-schema/) |
@@ -108,8 +113,10 @@ Cloud Security と Code Security は複数の機能（サブ製品）の集合�
 | Code Security | Static Code Analysis（SAST） | 自社コードのセキュリティ・品質問題を検出する | [出典](https://docs.datadoghq.com/security/) |
 | Code Security | Software Composition Analysis（SCA） | リポジトリと稼働サービス双方の OSS 依存関係の脆弱性を検出する | [出典](https://docs.datadoghq.com/security/) |
 | Code Security | Runtime Code Analysis（IAST） | 稼働サービス内の自社コードの脆弱性を検出する | [出典](https://docs.datadoghq.com/security/) |
-| Code Security | Secret Scanning【Preview】 | 漏えいしたシークレットを検出・検証する | [出典](https://docs.datadoghq.com/security/) |
+| Code Security | Secret Scanning | 漏えいしたシークレットを検出・検証する。下位機能の Generic Secret Scanning（プロバイダのパターンに一致しない内部トークン・パスワードの検出）は【Preview】 | [出典](https://docs.datadoghq.com/security/code_security/) [出典](https://docs.datadoghq.com/security/code_security/secret_scanning/) |
 | Code Security | Infrastructure as Code（IaC）Security | IaC の設定不備を検出する（Finding type：Infrastructure as Code） | [出典](https://docs.datadoghq.com/security/security_inbox/) |
+| Code Security | Supply Chain Firewall【Preview】 | npm、pip、poetry のパッケージマネージャのコマンドを仲介し、悪性パッケージや公開直後のパッケージをインストール前にブロックする（SCA が既存の依存関係を検査するのに対し、インストール時点で働く）。申請フォームで利用申請する | [出典](https://docs.datadoghq.com/security/code_security/) |
+| Code Security | Code Security MCP Server【Preview】 | ローカルの MCP（Model Context Protocol）サーバー。SAST、シークレット検出、SCA、IaC スキャン、SBOM 生成を AI コーディングアシスタント（Cursor、Claude Desktop、VS Code 等）から実行できる | [出典](https://docs.datadoghq.com/security/code_security/) |
 
 Code Security は IDE 連携、Pull Request コメント、CI/CD ゲートを提供し、開発者・セキュリティ管理者・SRE の DevSecOps を支援する。[出典](https://docs.datadoghq.com/security/)
 
@@ -210,7 +217,7 @@ Datadog のセキュリティ製品は名称変更が多い。現行ドキュメ
 | 公開情報では正確な時期を確認できず | CSM の機能名として CSPM → **CSM Misconfigurations**、CWS → **CSM Threats** の呼称が使われた | Misconfigurations、Workload Protection | API リファレンスの分類名「CSM Threats」が現存する [出典](https://docs.datadoghq.com/api/latest/csm-threats/) |
 | 公開情報では正確な時期を確認できず（2025 年頃【推定】） | **Cloud Security Management（CSM）→ Cloud Security** に改称 | Cloud Security | 公式ブログの編集注記「Cloud Security Management (CSM) has been renamed Cloud Security」[出典](https://www.datadoghq.com/blog/security-context-with-datadog-cloud-security/)。時期は第三者の料金変更トラッカーが 2025 年第 2 四半期の CSM パッケージ変更を報告していることからの推定【推定】[出典](https://pricingsaas.com/companies/datadog.cloud-security-management/diffs/2025Q2) |
 | 公開情報では正確な時期を確認できず | **CSM Threats（旧 Cloud Workload Security / CWS）→ Workload Protection** | Workload Protection | 現行ドキュメントは Workload Protection 名で記載する。権限名は `security_monitoring_cws_agent_rules_*`（Cloud Workload Security Agent Rules）のまま [出典](https://docs.datadoghq.com/account_management/rbac/permissions/) |
-| 2025 年半ば【第三者情報】 | **Application Security Management（ASM）→ App and API Protection（AAP）** に改称 | App and API Protection | 公式ブログの編集注記「Application Security Management (ASM) has been renamed App and API Protection (AAP)」[出典](https://www.datadoghq.com/blog/datadog-app-and-api-protection/)。時期は第三者トラッカーが 2025-04-01〜2025-07-13 の変更として記録【第三者情報】[出典](https://pricingsaas.com/companies/datadog.application-security-management/diffs/2025Q2)（2025 年取得記録） |
+| 2025 年半ば【第三者情報】 | **Application Security Management（ASM）→ App and API Protection（AAP）** に改称 | App and API Protection | 公式ブログの編集注記「Application Security Management (ASM) has been renamed App and API Protection (AAP)」[出典](https://www.datadoghq.com/blog/datadog-app-and-api-protection/)。一方、現行の AAP ドキュメントは旧称を「Application Security Monitoring (ASM)」と記載しており、ASM の展開形には Monitoring と Management の両方が公式に使われている（両者の切替時期は公開情報では確認できず）[出典](https://docs.datadoghq.com/security/application_security/)。時期は第三者トラッカーが 2025-04-01〜2025-07-13 の変更として記録【第三者情報】[出典](https://pricingsaas.com/companies/datadog.application-security-management/diffs/2025Q2)（2025 年取得記録） |
 | 2023-02 → 2025-06 | **Code Analysis**（2023-02-15 の公式ブログで紹介）と ASM の **Application Vulnerability Management**（2023-04 GA）の機能が、**Code Security** として SAST / SCA / IAST / Secret Scanning / IaC を束ねる体系に整理された | Code Security | Code Analysis ブログ（2023-02-15 公開）[出典](https://www.datadoghq.com/blog/datadog-code-analysis/)、Code Security ブログ（2025-06-10 公開）[出典](https://www.datadoghq.com/blog/application-code-vulnerability-detection/)。統合の正確な日付は公開情報では確認できず |
 | 公開情報では正確な時期を確認できず | **Security Monitoring → Cloud SIEM**。API の分類名は現在も「Security Monitoring」、権限名も `security_monitoring_*` | Cloud SIEM | API リファレンス [出典](https://docs.datadoghq.com/api/latest/security-monitoring/)。第三者の検索結果では 2020 年時点の公式ブログに Cloud SIEM、2021-08 のプレスリリースに Security Monitoring の名称が見られるとされ、名称の変遷は一方向ではない可能性がある【第三者情報】 |
 | 公開情報では正確な時期を確認できず | 製品群の総称が **Security Platform / Cloud Security Platform → Datadog Security** へ | Datadog Security | 現行ドキュメントのタイトルは「Datadog Security」。ドキュメント内リンクに旧パス `/security_platform/` が残る [出典](https://docs.datadoghq.com/security/cloud_siem/detect_and_monitor/custom_detection_rules/create_rule/) |
@@ -397,20 +404,22 @@ Datadog Security は検知結果を 2 種類のオブジェクトで扱う。通
 
 ### 4.2 ルール種別（Rule type）
 
-API と Terraform では、Detection Rule の種別を `type` で指定する。
+API と Terraform では、Detection Rule の種別を `type` で指定する。ただし指定できる値の範囲は API と Terraform（`datadog_security_monitoring_rule`）で異なる。
 
-| `type` の値 | 対象製品 | 概要 |
-|---|---|---|
-| `log_detection` | Cloud SIEM | ログ（等）に対する検知。**Terraform の既定値** |
-| `signal_correlation` | Cloud SIEM | 複数シグナルを相関させるルール（集計は `event_count` 必須） |
-| `workload_security` | Workload Protection | Agent のランタイムイベントに対する検知 |
-| `workload_activity` | Workload Protection | 公開情報では詳細な定義を確認できず（Findings の Workload Activity に対応すると見られる【推定】） |
-| `application_security` | App and API Protection | アプリ層の攻撃の検知 |
-| `api_security` | App and API Protection | API Security の検知 |
-| `cloud_configuration` | Cloud Security | クラウド構成（Misconfigurations） |
-| `infrastructure_configuration` | Cloud Security | インフラ構成（Misconfigurations） |
+| `type` の値 | 対象製品 | 概要 | API の作成リクエストで指定可能 | Terraform で指定可能 |
+|---|---|---|---|---|
+| `log_detection` | Cloud SIEM | ログ（等）に対する検知。**Terraform の既定値** | ○ | ○ |
+| `signal_correlation` | Cloud SIEM | 複数シグナルを相関させるルール（集計は `event_count` 必須） | ○ | ○ |
+| `workload_security` | Workload Protection | Agent のランタイムイベントに対する検知 | ○ | ○ |
+| `workload_activity` | Workload Protection | 公開情報では詳細な定義を確認できず（Findings の Workload Activity に対応すると見られる【推定】） | ○ | × |
+| `application_security` | App and API Protection | アプリ層の攻撃の検知 | ○ | ○ |
+| `api_security` | App and API Protection | API Security の検知 | ○ | × |
+| `cloud_configuration` | Cloud Security | クラウド構成（Misconfigurations） | ○ | × |
+| `infrastructure_configuration` | Cloud Security | インフラ構成（Misconfigurations） | ×（作成リクエストの列挙値にはなく、ルール一覧取得のレスポンスに現れる値） | × |
 
-[出典](https://docs.datadoghq.com/api/latest/security-monitoring/create-a-detection-rule/) [出典](https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/security_monitoring_rule)
+> **注記:** Terraform の `type` の有効値は `application_security`、`log_detection`、`workload_security`、`signal_correlation` の 4 つだけである（既定値 `log_detection`）。Cloud Security の Misconfiguration ルールなど、それ以外の種別は Terraform のこのリソースでは作成できない。
+
+[出典](https://docs.datadoghq.com/api/latest/security-monitoring/create-a-detection-rule/) [出典](https://docs.datadoghq.com/api/latest/security-monitoring/list-rules/) [出典](https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/security_monitoring_rule)
 
 ### 4.3 検知方式（Detection method）
 
@@ -915,7 +924,7 @@ Datadog Security は製品ごとに課金単位が異なる。以下は 2026-11-
 
 | 製品 / SKU | 課金単位 | US サイト 年契約 | US サイト オンデマンド | AP1 年契約 | 出典 |
 |---|---|---|---|---|---|
-| Cloud SIEM | 分析量あたり／月（下記注記参照） | $5 | $7.50 | $6.25 | [出典](https://www.datadoghq.com/pricing/) |
+| Cloud SIEM | 分析イベント 100万件／月（料金一覧・公式ドキュメントの表記。/pricing/ の製品カードは Per GB analyzed。下記注記参照） | $5 | $7.50 | $6.25 | [出典](https://www.datadoghq.com/pricing/) [出典](https://docs.datadoghq.com/account_management/billing/pricing/) |
 | Cloud Security：CSM Pro | ホスト／月 | $10 | $12 | $12.50 | 同上 |
 | Cloud Security：CSM Enterprise | ホスト／月 | $25 | $30 | $31.25 | 同上 |
 | Workload Protection | ホスト／月 | $15 | $18 | $18.75 | 同上 |
@@ -929,7 +938,7 @@ Datadog Security は製品ごとに課金単位が異なる。以下は 2026-11-
 
 課金単位に関する主な注記は次の通り。
 
-- **Cloud SIEM の課金単位の表記揺れ:** 2026-11-02 時点で、料金ページ本体（`/pricing/`）は「Per GB analyzed, per month」、料金一覧ページ（`/pricing/list/`）は「Per 1M analyzed events, per month」と表記しており、同じ $5（年契約）でも単位の記載が一致しない。契約前に営業窓口で確認すること。[出典](https://www.datadoghq.com/pricing/) [出典](https://www.datadoghq.com/pricing/list/)
+- **Cloud SIEM の課金単位の表記揺れ:** 2026-11-02 時点で、料金ページ本体（`/pricing/`）は「Per GB analyzed, per month」、料金一覧ページ（`/pricing/list/`）は「Per 1M analyzed events, per month」と表記しており、同じ $5（年契約）でも単位の記載が一致しない。公式ドキュメントの課金ページは「Datadog charges for analyzed logs based on the millions of events per month analyzed by the Datadog Cloud SIEM service」と、月間の分析イベント数（百万件単位）で課金すると明記している。本ファイルは [製品別料金表](../../03_導入編/pricing-by-product.md) と同じく「分析イベント 100万件／月」を主表記とする。[出典](https://www.datadoghq.com/pricing/) [出典](https://www.datadoghq.com/pricing/list/) [出典](https://docs.datadoghq.com/account_management/billing/pricing/)
 - **Cloud SIEM の分析対象:** Cloud SIEM は送信を選んだログだけを分析する。Security Filters（UI / API）で分析対象を全体または一部に指定でき、課金量の制御に使える。カスタム検知ルールの作成と 15 か月のシグナル保持に追加費用はかからない。[出典](https://www.datadoghq.com/pricing/)
 - **Cloud Security のプラン:** CSM Pro と CSM Enterprise は組織単位でどちらか一方を選び、ホストごとに混在させることはできない。CSM Enterprise の課金対象ホストには Infrastructure Monitoring Pro または Enterprise の契約が必要で、CSM Pro は単体で購入できる。料金ページでは、CSM Pro に 5 コンテナ／ホスト、CSM Enterprise に 20 コンテナ／ホストのコンテナ枠が含まれる。[出典](https://www.datadoghq.com/pricing/)
 - **DevSecOps バンドル:** Infrastructure Monitoring と Cloud Security を組み合わせた DevSecOps Pro（年契約 $22／ホスト）と DevSecOps Enterprise（年契約 $34／ホスト）がある。単体のインフラ・コンテナ・クラウドセキュリティ製品とは併用できない。[出典](https://www.datadoghq.com/pricing/)
@@ -997,6 +1006,10 @@ Datadog Security は製品ごとに課金単位が異なる。以下は 2026-11-
 - API Reference：Security Monitoring: https://docs.datadoghq.com/api/latest/security-monitoring/
 - API Reference：Create a detection rule: https://docs.datadoghq.com/api/latest/security-monitoring/create-a-detection-rule/
 - API Reference：Change the triage state of a security signal: https://docs.datadoghq.com/api/latest/security-monitoring/change-the-triage-state-of-a-security-signal/
+- API Reference：List rules: https://docs.datadoghq.com/api/latest/security-monitoring/list-rules/
+- Billing：Pricing（Cloud SIEM の課金単位）: https://docs.datadoghq.com/account_management/billing/pricing/
+- Secret Scanning: https://docs.datadoghq.com/security/code_security/secret_scanning/
+- App and API Protection: https://docs.datadoghq.com/security/application_security/
 - API Reference：CSM Threats: https://docs.datadoghq.com/api/latest/csm-threats/
 
 **公式 GitHub / Terraform Registry（取得日 2026-11-02）**

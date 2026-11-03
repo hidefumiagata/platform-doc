@@ -25,6 +25,20 @@ sources:
   - https://docs.datadoghq.com/infrastructure/process/
   - https://docs.datadoghq.com/monitors/types/anomaly/
   - https://docs.datadoghq.com/integrations/guide/aws-marketplace-datadog-trial/
+  - https://www.datadoghq.com/pricing/?product=apm
+  - https://www.datadoghq.com/pricing/?product=log-management
+  - https://www.datadoghq.com/pricing/?product=cloud-cost-management
+  - https://www.datadoghq.com/pricing/?product=llm-observability
+  - https://www.datadoghq.com/pricing/?product=real-user-monitoring
+  - https://www.datadoghq.com/pricing/?product=incident-response
+  - https://www.datadoghq.com/pricing/?product=code-security
+  - https://www.datadoghq.com/free-datadog-trial/partner/
+  - https://www.datadoghq.com/blog/datadog-github-student-developer-pack/
+  - https://www.datadoghq.com/product-preview/
+  - https://docs.datadoghq.com/account_management/saml/
+  - https://docs.datadoghq.com/watchdog/
+  - https://docs.datadoghq.com/partners/multi_tenant_billing/trial-org-provisioning/
+  - https://aws.amazon.com/marketplace/pp/prodview-7tlwraipohxq6
 ---
 
 # エディション・プラン
@@ -180,7 +194,7 @@ Datadog の料金体系は**製品（SKU）ごとの独立課金**であり、Mi
 | Cross-Org Visibility | 公開情報では確認できず | 5 connections | 5 connections | **100 connections** |
 | OpenTelemetry サポート | 公開情報では確認できず | 記載なし | ○（Pro カードに記載） | ○ |
 
-出典：[Pricing - Infrastructure（Features 表・FAQ）](https://www.datadoghq.com/pricing/?product=infrastructure)（取得日 2026-11-03）。料金ページの HTML 上、Watchdog〜Governance Console の各行は 3 列のうち Enterprise 列のみにチェックが置かれていることを確認した。
+出典：[Pricing - Infrastructure（Features 表・FAQ）](https://www.datadoghq.com/pricing/?product=infrastructure)（取得日 2026-11-03）。料金ページの HTML 上、Watchdog〜Governance Console の各行は 3 列（Basic/Pro/Enterprise）のうち Enterprise 列のみにチェック（SVG）が置かれていることを確認した（2026-11-04 に HTML で再確認）。
 
 **読み方の補足**
 
@@ -245,7 +259,7 @@ flowchart TD
 | ユーザー数・期間制限 | 公開情報では確認できず（期間制限の記載はない） | — |
 | APM・Logs 等の Free | Infrastructure Free tier に APM・Log Management 等の無料枠は含まれない（製品単位の無料枠は [§13.6](#136-製品単位の無料枠一覧) を参照） | [Pricing](https://www.datadoghq.com/pricing/) |
 
-> **旧情報の注意:** 2016 年の GitHub Student Developer Pack 告知では「最大 10 ホストの無料 Pro アカウント」とされていたが、現行の学生向け提供条件とは異なる（[§15](#15-student-developer-program学生向け)）。Free tier の「5 ホスト・1 日保持」という条件は長年変わっていないと第三者サイトで紹介されているが【第三者情報】、変更履歴の公式記録は確認できず。
+> **旧情報の注意:** 2016 年の GitHub Student Developer Pack 告知では「最大 10 ホストの無料 Pro アカウント」とされていたが、現行の学生向け提供条件とは異なる（[§15](#15-student-developer-program学生向け)）。Free tier の条件（Basic ホスト 5 台・1 日保持）について、変更履歴の公式記録は確認できず。
 
 ### 3.6 Basic の位置付け
 
@@ -360,7 +374,7 @@ Log Management には Infrastructure のようなエディションはなく、*
 | Vulnerability Management（コンテナ・ホスト） | ○ | ○ |
 | CIEM | ○ | ○ |
 | クラウドリソースのインベントリとリスク | ○ | ○ |
-| Case Management | ○ | ○ |
+| Work Management（旧称：Case Management） | ○ | ○ |
 | 修復 Workflows（Finding・Signal 起点は無料） | ○ | ○ |
 | File Integrity Monitoring | — | ○ |
 | Workload Protection（Linux / Windows / Kubernetes / Docker / AWS Fargate ECS・EKS） | — | ○ |
@@ -500,7 +514,7 @@ RUM は「エディション」ではなく、**全セッションを計測す�
 | 経路 | 内容 | 出典 |
 |---|---|---|
 | AWS Marketplace | AWS Marketplace の Datadog リスティングから **14 日間の全機能無料トライアル**を開始（View purchase options → 必要なら PO 追加 → Subscribe）。コミットを追加する場合は Pro / Enterprise プランへ | [AWS Marketplace Datadog Trial](https://docs.datadoghq.com/integrations/guide/aws-marketplace-datadog-trial/) |
-| AWS Marketplace の終了後挙動 | Datadog Pro（Pay-As-You-Go）リスティングは 14 日トライアル後に自動で Pay-As-You-Go に移行すると記載 【第三者情報】（AWS 側の掲載） | [pricing-overview.md §4](pricing-overview.md) |
+| AWS Marketplace の終了後挙動 | AWS Marketplace の Datadog Pro（Pay-As-You-Go）リスティングには、14 日トライアル終了後に自動で有償の Pay-As-You-Go プランへ移行すると記載されている 【第三者情報】（AWS 側の掲載）。Datadog 公式ドキュメント（AWS Marketplace Trial 手順）には終了後の挙動の記載なし | [AWS Marketplace: Datadog Pro (Pay-As-You-Go)](https://aws.amazon.com/marketplace/pp/prodview-7tlwraipohxq6)（取得日 2026-11-04）、[pricing-overview.md §4](pricing-overview.md) |
 | パートナー経由 | パートナー向けの Free Trial ページ、マルチテナント課金のパートナーが Admin Org から顧客向けトライアル org を払い出す手順がある | [Partner Trial](https://www.datadoghq.com/free-datadog-trial/partner/)、[Trial Org Provisioning](https://docs.datadoghq.com/partners/multi_tenant_billing/trial-org-provisioning/) |
 | セールス主導 | 営業担当（AE/CSM）が設定するトライアル。Trial Management には表示されない | [Plan and Usage](https://docs.datadoghq.com/account_management/plan_and_usage/) |
 | Preview 機能 | GA 前の機能は Product Preview Program で申し込む | [Product Preview](https://www.datadoghq.com/product-preview/) |
@@ -579,7 +593,7 @@ Datadog for Startups（DDFS）は、初期段階のスタートアップに 1 �
 | サイト | **すべて US5（https://us5.datadoghq.com）に作成され、他サイトへ移行不可** |
 | 月間上限 | ホスト（Infrastructure・APM）10、取り込みログ 500 GB、コンテナ 50、Lambda 関数 10、Fargate タスク 5、Browser テスト 1,000、API テスト 10,000、Browser RUM セッション 1,000、Mobile RUM セッション 1,000、LLM リクエスト 100,000 |
 | 主な機能 | 標準・カスタムメトリクスの最大 15 か月保持、ダッシュボード、アラート、サービス間トレース |
-| 既存 Free tier アカウント | 変換不可。新規作成が必要で、ユーザー・Agent・ホスト・メトリクスは移行されない |
+| 既存の Datadog アカウント（Free tier・トライアル含む） | 現時点では学生アカウントへの変換不可。新規登録し、Agent の設定を学生アカウントの API キーに更新する。ユーザー・Agent・ホスト・メトリクスは移行されない |
 | 教員向け | studentpack@datadoghq.com（授業用アクセス・教材） |
 
 出典：[Datadog Student Developer Program](https://studentpack.datadoghq.com/)（取得日 2026-11-02）
@@ -656,7 +670,7 @@ Datadog for Startups（DDFS）は、初期段階のスタートアップに 1 �
 
 出典：[Support Plans](https://www.datadoghq.com/support-services/plans/)（取得日 2026-11-02）。営業時間は日曜 20:00〜金曜 21:00（米国東部時間、祝日除く）。
 
-- Premier の料金（8%・最低 $2,000）はサポートプランページの記載で、[pricing-by-product.md §15](pricing-by-product.md#15-datadog-disaster-recoveryサポート) では「料金ページ上では確認できず」とされている。サポート全般は [サポートと教育](support-and-training.md) を正とする。
+- Premier の料金（月額利用料の 8%・最低 $2,000、最低 1 年コミット）はサポートプランページの記載で、[pricing-by-product.md §15](pricing-by-product.md#15-datadog-disaster-recoveryサポート) と一致する。サポート全般は [サポートと教育](support-and-training.md) を正とする。
 - 日本語サポートの提供条件は [サポートと教育](support-and-training.md) を参照。
 
 ---
@@ -824,3 +838,4 @@ Enterprise は Pro より 1 ホストあたり $8/月高い（US 年契約 $23 �
 - Anomaly Monitor: https://docs.datadoghq.com/monitors/types/anomaly/
 - AWS Marketplace Datadog Trial Setup: https://docs.datadoghq.com/integrations/guide/aws-marketplace-datadog-trial/
 - Trial Org Provisioning（Partners）: https://docs.datadoghq.com/partners/multi_tenant_billing/trial-org-provisioning/
+- 【第三者情報】AWS Marketplace: Datadog Pro (Pay-As-You-Go) リスティング（取得日 2026-11-04）: https://aws.amazon.com/marketplace/pp/prodview-7tlwraipohxq6

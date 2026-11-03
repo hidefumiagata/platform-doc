@@ -80,7 +80,7 @@ Datadog 公式ブログ「Best practices to prevent alert fatigue」（2024-01-0
 | 宛先が全員・全チャンネル | 全モニターを同じ Slack チャンネルへ | §5 |
 | 計画作業・スケールイン時の誤報 | メンテナンス中のアラート、終了したインスタンスの No Data | §3.7, §3.8 |
 | クラウドメトリクスの遅延 | CloudWatch 等のバックフィルで評価時点にデータが欠けて誤報 | §3.4 |
-| 所有者不在の古いモニター | 退職者・旧サービスのモニターが鳴り続ける / 長期ミュート | §7 |
+| 所有者不在の古いモニター | 退職者・旧サービスのモニターが鳴り続ける / 長期ミュート | §8 |
 | 通知に文脈がない | タイトルが曖昧、Runbook なし、ダッシュボードリンクなし | §5.5 |
 
 ---
@@ -271,7 +271,7 @@ AWS / Azure / Google Cloud のデータを使うのに Evaluation Delay がな�
 
 API では `notify_by` で通知粒度を指定する。値はクエリのグルーピングタグの部分集合でなければならず、`["*"]` を指定すると Simple Alert になる [出典](https://docs.datadoghq.com/api/latest/monitors/create-a-monitor)。
 
-![Monitor 編集画面の Aggregation 設定](../../assets/images/alert-design-and-noise-reduction/notification-aggregation.png)
+![Monitor 編集画面の Aggregation 設定](../assets/images/alert-design-and-noise-reduction/notification-aggregation.png)
 
 - **キャプション:** Monitor 作成/編集画面の「Aggregation（通知の集約）」設定
 - **画面説明:** 2 つのラジオボタンが並ぶ。上段「Simple Alert - Send when at least one combination of `cluster_name, kube_namespace, pod_name` meets the condition.」（クエリのグルーピング次元の組み合わせのどれか 1 つが条件を満たしたら 1 通知）。下段「Multi Alert - Send for each `cluster_name` meeting the condition.」が選択されており、通知単位の次元として `cluster_name` だけが残されている（`kube_namespace` と `pod_name` は通知単位から外され Sub Groups 扱い）。これにより Pod 単位ではなくクラスター単位で通知される。
@@ -381,7 +381,7 @@ Renotify は未解決の問題をチームに再度知らせる機能 [出典](h
 {{/is_renotify}}
 ```
 
-> **On-Call との相互作用:** モニターが On-Call Team へ再通知を送る設定の場合、エスカレーションポリシーが未承認（unacknowledged）のまま完了した後に Page が再トリガーされ、エスカレーションポリシーが最初からやり直される [出典](https://docs.datadoghq.com/incident_response/on-call/pages/)。Datadog On-Call 側にエスカレーション（§6）を任せる場合、モニター側の Renotify を重ねると二重のエスカレーションになり得るため、どちらで再通知を制御するか決めておく `【経験則】`。
+> **On-Call との相互作用:** モニターが On-Call Team へ再通知を送る設定の場合、再通知時の動作は Page の状態で異なる。Resolved なら新しい Page を作成してチームのエスカレーションポリシーに回す。Acknowledged なら Page を再トリガーし、承認時に進行中だったステップから再開する。Triggered でエスカレーションポリシーの全ステップが実行済みなら Page を再トリガーし、最後のステップを再実行する。Triggered で未実行のステップが残っていれば再通知は何も起こさない [出典](https://docs.datadoghq.com/incident_response/on-call/pages/)。Datadog On-Call 側にエスカレーション（§6）を任せる場合、モニター側の Renotify を重ねると二重のエスカレーションになり得るため、どちらで再通知を制御するか決めておく `【経験則】`。
 
 `【経験則】` Slack などの Notification レベルのアラートでは再通知を無効にするか長め（数時間）にし、Page レベルではページングツール側のエスカレーションで制御するのが一般的。
 
@@ -406,7 +406,7 @@ Renotify は未解決の問題をチームに再度知らせる機能 [出典](h
 
 Composite Monitor は既存の個別モニター（最大 10 個）を論理演算子で組み合わせ、構成モニターが同時に条件を満たしたときに発火する [出典](https://docs.datadoghq.com/monitors/types/composite/)。
 
-![Composite Monitor の概念図](../../assets/images/alert-design-and-noise-reduction/composite-overview.png)
+![Composite Monitor の概念図](../assets/images/alert-design-and-noise-reduction/composite-overview.png)
 
 - **キャプション:** Composite Monitor の概念図（公式ドキュメント冒頭の図）
 - **画面説明:** 左にモニター A（赤＝ALERT）とモニター B（緑＝OK）があり、Datadog を経由して右に結果が示される。`A && B` は緑（OK＝アラートしない）、`A || B` は赤（ALERT）。AND は両方が満たされた場合のみ、OR はどちらかが満たされた場合に発火することを表す。
@@ -483,7 +483,7 @@ Anomaly Monitor は、トレンド・曜日・時間帯のパターンを考慮�
 | `agile` | 季節性があり、レベルが変化することが想定される | 頑健な SARIMA 系。レベルシフトに素早く適応するが、最近の長期異常に引きずられやすい。スケールに敏感 |
 | `robust` | 季節性が安定し、緩やかなレベル変化も異常とみなしたい | 季節-トレンド分解。長い異常でも予測が安定するが、意図したレベル変化への追従が遅い |
 
-![Anomaly 検知アルゴリズムのレベル変化への反応比較](../../assets/images/alert-design-and-noise-reduction/anomaly-alg-comparison-change.png)
+![Anomaly 検知アルゴリズムのレベル変化への反応比較](../assets/images/alert-design-and-noise-reduction/anomaly-alg-comparison-change.png)
 
 - **キャプション:** 同一メトリクスに `basic`・`robust`・`agile` を適用したときの、急なレベル低下（14:00 頃）への反応比較
 - **画面説明:** 3 つの時系列グラフ（上：basic、左下：robust、右下：agile）。灰色の帯が予測範囲（bounds）、赤い線が異常判定された区間。値は約 570 付近から 14:00 頃に約 450 へ下がり、15:00 頃に元へ戻る。basic は低下直後を異常とするがすぐ帯が下に広がり低下状態を正常扱いし始める。robust は低下期間全体（14:00〜15:00）を一貫して異常と判定する。agile は低下直後を異常とした後に新水準に適応し、15:00 過ぎに元の水準へ戻った時点を逆に異常と判定している。
@@ -622,7 +622,7 @@ Watchdog Monitor は、Watchdog（APM・インフラ・ログの自動異常検�
 
 Monitor Notification Rules は、タグとルールで通知先を事前定義し、スコープに一致するすべてのモニター通知に適用する機能である [出典](https://docs.datadoghq.com/monitors/notify/notification_rules/)。Datadog ブログ（2025-08-25 公開）は、各モニターの通知メッセージを編集せずに宛先を集中管理できる機能として紹介している [出典](https://www.datadoghq.com/blog/dashboards-monitors-at-scale/)。
 
-![Monitor Notification Rules の動作図](../../assets/images/alert-design-and-noise-reduction/notification-rules-diagram.png)
+![Monitor Notification Rules の動作図](../assets/images/alert-design-and-noise-reduction/notification-rules-diagram.png)
 
 - **キャプション:** 「How Monitor notification rules work」— 通知ルールの評価から宛先統合までの 4 ステップ図
 - **画面説明:** ①Notification Rule をタグ（`team:shopist`、`service:web-store`、`env:prod`）と受信者（`@slack-channel1`）で定義。②モニター（Scope A：`env:prod`、Scope B：`env:staging`、受信者 `@jira-project` と `@slack-channel1`）のタグをルールのスコープと比較。③モニターの受信者とルールの受信者を結合。④重複を除去し、最終的な通知先は `@jira-project` と `@slack-channel1` の 2 件（`@slack-channel1` は 1 回だけ通知）。
@@ -723,10 +723,10 @@ Monitor Notification Rules は、タグとルールで通知先を事前定義�
 
 ```text
 {{#is_alert}}
-## 影響
+**影響**
 {{service.name}} ({{env.name}}) の 5xx エラー率が {{value}}% （しきい値 {{threshold}}%）。ユーザーの決済が失敗している可能性。
 
-## 一次対応
+**一次対応**
 1. ダッシュボード: https://app.datadoghq.com/dashboard/xxx
 2. Runbook: https://wiki.example.com/runbooks/payment-5xx
 3. 直近デプロイを確認し、必要ならロールバック
@@ -956,7 +956,7 @@ Monitor Quality は Manage Monitors ページの **Monitor Quality** タブで�
 | 17 | Downtime を手動キャンセルし、アラート継続中に気づかない | 手動キャンセル時は終了通知が送られない | 期限切れで終了させる、または終了後に状態確認 | [公式](https://docs.datadoghq.com/monitors/downtimes/) |
 | 18 | Downtime を長期間放置 | 本当の障害も通知されない | Monitor Quality「Muted for over 60 days」を定期確認 | [公式](https://docs.datadoghq.com/monitors/quality/) |
 | 19 | On-Call への回復通知にチームメンションを入れない | Page が Resolved にならず残り続ける | `{{#is_recovery}}` にも `@oncall-…` を含める | [公式](https://docs.datadoghq.com/incident_response/on-call/pages/) |
-| 20 | モニターの Renotify と On-Call エスカレーションを重ねる | 未承認 Page の再トリガーでエスカレーションが最初からやり直し、通知過多 | どちらで再通知するかを決める | [公式](https://docs.datadoghq.com/incident_response/on-call/pages/) |
+| 20 | モニターの Renotify と On-Call エスカレーションを重ねる | 全ステップ完了後や承認後も再通知のたびに Page が再トリガーされ（最後のステップの再実行、承認時ステップからの再開）、通知過多 | どちらで再通知するかを決める | [公式](https://docs.datadoghq.com/incident_response/on-call/pages/) |
 | 21 | Escalation Policy の第 1 ステップにチーム全員（Notify All） | 毎回全員が起こされる | 当番 1 名 → 副当番 → 全体の段階構成 | `【経験則】`（仕様は [公式](https://docs.datadoghq.com/service_management/on-call/escalation_policies/)） |
 | 22 | Routing Rules のタグ大文字小文字の不一致 | `tags.env:Prod` が `prod` に一致せずフォールバックへ | タグを小文字に正規化 | [公式](https://docs.datadoghq.com/service_management/on-call/routing_rules/) |
 | 23 | Notification Rules 導入後もモニター本文のハンドルを残す | 旧宛先にも通知が届き続ける（結合される） | 移行時に本文側ハンドルを整理 | [公式](https://docs.datadoghq.com/monitors/notify/notification_rules/) |

@@ -2,7 +2,7 @@
 title: よくある失敗とアンチパターン
 category: advanced
 domain: general
-last_verified: 2026-11-02
+last_verified: 2026-11-04
 agent_version: "7.x"
 summary: Datadog の導入・運用で繰り返し起きる失敗パターン（コスト急増、タグ不統一、アラート過多、権限設計ミス、Agent バージョン放置、IaC・ダッシュボード・サイト選定などの運用プロセスの失敗）を、症状・原因・仕組み・検知方法・対策・課金への影響の形で整理したカタログ。各パターンの公式根拠と、検知に使う推定使用量メトリクス、予防のためのガードレールとチェックリストをまとめる。
 keywords: [アンチパターン, anti-pattern, 失敗パターン, pitfalls, よくある失敗, ベストプラクティス, コスト急増, 請求急増, bill shock, cost spike, カーディナリティ, cardinality, カーディナリティ爆発, custom metrics, カスタムメトリクス, high-cardinality tags, user_id, request_id, histogram, distribution, percentiles, ログ全量インデックス, debug ログ, exclusion filter, 除外フィルタ, daily quota, 日次クォータ, retention, 保持期間, Flex Logs, コンテナごとの Agent, sidecar Agent, AWS integration, IMDSv2, ec2_prefer_imdsv2, 二重課金, pause container, 99パーセンタイル, high-water mark, オンデマンド, on-demand, APM サンプリング, DD_TRACE_SAMPLING_RULES, DD_TRACE_SAMPLE_RATE, retention filter, Synthetic テスト頻度, RUM sessionSampleRate, estimated usage metrics, datadog.estimated_usage, 推定使用量メトリクス, Usage Attribution, Metrics without Limits, MWL, Metrics Volume Management, タグ不統一, タグゆれ, env:prod, env:production, Unified Service Tagging, 統合サービスタグ付け, DD_ENV, DD_SERVICE, DD_VERSION, DD_TAGS, team タグ, hostname, ホスト名重複, hostname_fqdn, アラート過多, アラート疲れ, alert fatigue, flapping, フラッピング, recovery threshold, evaluation delay, multi alert, notify_by, Monitor Quality, Monitor Notifications Overview, muted 60 days, 権限設計ミス, RBAC, Datadog Admin Role, Datadog Standard Role, Datadog Read Only Role, custom roles, logs_modify_indexes, logs_write_exclusion_filters, api_keys_write, application key, service account, サービスアカウント, API キー漏えい, One-Time Read, Restriction Policy, Audit Trail, Agent バージョン放置, Agent v5, Agent v6, Agent v7, Sectigo, Python 2, Fleet Automation, remote_updates, Remote Configuration, rare sampler, Terraform drift, ダッシュボード乱立, サイト選定, AP1, Dual Shipping]
@@ -29,7 +29,18 @@ sources:
   - https://docs.datadoghq.com/agent/versions/upgrade_between_agent_minor_versions/
   - https://docs.datadoghq.com/agent/faq/agent-5-sectigo-root-ca-rotation/
   - https://docs.datadoghq.com/agent/fleet_automation/
+  - https://docs.datadoghq.com/agent/fleet_automation/remote_management/
+  - https://docs.datadoghq.com/agent/fleet_automation/fleet_view/
+  - https://docs.datadoghq.com/agent/fleet_automation/upgrade_agents/
+  - https://docs.datadoghq.com/agent/fleet_automation/configure_agents/
+  - https://docs.datadoghq.com/agent/guide/setup_remote_config/
   - https://docs.datadoghq.com/agent/guide/upgrade/
+  - https://docs.datadoghq.com/account_management/billing/metric_name_pricing/
+  - https://docs.datadoghq.com/logs/log_configuration/logs_to_metrics/
+  - https://docs.datadoghq.com/tracing/trace_pipeline/generate_metrics/
+  - https://docs.datadoghq.com/real_user_monitoring/guide/sampling-browser-plans/
+  - https://docs.datadoghq.com/agent/configuration/dual-shipping/
+  - https://github.com/DataDog/datadog-sync-cli
   - https://www.datadoghq.com/blog/best-practices-to-prevent-alert-fatigue/
   - https://www.datadoghq.com/pricing/list/
   - https://rapdev.io/blog/top-7-mistakes-in-datadog-tagging-strategies
@@ -77,7 +88,7 @@ Datadog の失敗パターンの多くは、次の 3 つの性質から生じる
 
 | 性質 | 内容 | 失敗への結びつき |
 |---|---|---|
-| 従量課金の単位が多い | ホスト、コンテナ、カスタムメトリクス（メトリクス名 × タグ値の組み合わせ）、ログの取り込み GB とインデックス件数、スパンの取り込み GB とインデックス件数、テスト実行回数、セッション数など、製品ごとに課金単位が違う [出典](https://docs.datadoghq.com/account_management/billing/) | 「ホスト数 × 単価」で見積もった予算から外れる。設定 1 行（タグ 1 つ、ログレベル 1 つ）の変更が請求額を大きく動かす |
+| 従量課金の単位が多い | ホスト、コンテナ、カスタムメトリクス（Timeseries 課金モデルではメトリクス名 × タグ値の組み合わせ、Metric Name 課金モデルではメトリクス名とデータ点数）、ログの取り込み GB とインデックス件数、スパンの取り込み GB とインデックス件数、テスト実行回数、セッション数など、製品ごとに課金単位が違う [出典](https://docs.datadoghq.com/account_management/billing/) | 「ホスト数 × 単価」で見積もった予算から外れる。設定 1 行（タグ 1 つ、ログレベル 1 つ）の変更が請求額を大きく動かす |
 | 誰でもすぐに設定できる | Datadog Standard Role の既定権限で、モニター作成、ログ Index の変更、除外フィルタの編集などができる [出典](https://docs.datadoghq.com/account_management/rbac/permissions/) | 統制のないまま設定・ダッシュボード・モニターが増える |
 | 導入直後は問題が見えない | 監視対象と利用者が増える半年後あたりから、ダッシュボードとアラートの乱立や、請求額の内訳を説明できない状態が表面化する【第三者情報】[出典](https://www.issoh.co.jp/tech/details/16515/)（2026-08-13 公開、2026-09-27 更新） | 初期設計（タグ・権限・コスト監視）を後回しにすると、後からの是正コストが大きい |
 
@@ -152,7 +163,7 @@ Datadog のコスト急増は、**「量（ボリューム）× 単価」の量�
 |---|---|---|---|
 | ホスト | 月間の時間ごとのホスト数の上位 1% を除いた最大値 | エディション別（[料金表](../03_導入編/pricing-by-product.md) 参照） | Agent の入れ方、クラウド連携の範囲、オートスケール |
 | コンテナ | 同梱枠（Pro 5 / Enterprise 10 コンテナ/ホスト）超過分 | $1/コンテナ/月（前払い）、$0.002/コンテナ時間（オンデマンド） | 短命コンテナ、CI Pod |
-| カスタムメトリクス | メトリクス名 × タグ値の組み合わせの月平均 | $5/100 個/月（インデックス）、Ingested $0.10/100 個 | 高カーディナリティタグ |
+| カスタムメトリクス | メトリクス名 × タグ値の組み合わせの月平均（Timeseries 課金モデルの場合。Metric Name 課金モデルではメトリクス名数とデータ点数） | $5/100 個/月（インデックス）、Ingested $0.10/100 個（Timeseries 課金モデル） | 高カーディナリティタグ（Metric Name 課金モデルでは送信頻度・データ点の増加も） |
 | ログ取り込み | 非圧縮 GB | $0.10/GB | debug ログ、新サービス |
 | ログインデックス | 100 万件（保持期間別） | 15 日保持 $1.70/100 万件 | 全量インデックス、保持期間の延長 |
 | APM 取り込みスパン | GB（同梱 150 GB/APM ホスト/月） | $0.10/GB | サンプリング 100% |
@@ -165,7 +176,9 @@ Datadog のコスト急増は、**「量（ボリューム）× 単価」の量�
 
 **症状:** カスタムメトリクス数（Plan & Usage の Custom Metrics、`datadog.estimated_usage.metrics.custom`）がある日を境に数倍〜数十倍に増える。同梱枠を超えた分が請求される。
 
-**仕組み:** Datadog のカスタムメトリクスは「**メトリクス名とタグ値（`host` タグを含む）の組み合わせ**」ごとに 1 つと数える。課金対象数は「各時間の一意なカスタムメトリクス数の合計 ÷ 月の時間数」で求める月平均である。データ点の送信頻度やクエリ回数は課金に影響しない [出典](https://docs.datadoghq.com/account_management/billing/custom_metrics/)。
+**仕組み:** Timeseries（カーディナリティ）課金モデルでは、Datadog のカスタムメトリクスは「**メトリクス名とタグ値（`host` タグを含む）の組み合わせ**」ごとに 1 つと数える。課金対象数は「各時間の一意なカスタムメトリクス数の合計 ÷ 月の時間数」で求める月平均である。この課金モデルでは、データ点の送信頻度やクエリ回数は課金に影響しない [出典](https://docs.datadoghq.com/account_management/billing/custom_metrics/)。
+
+> **課金モデルの違い:** 上記と本節以降の個数計算は **Timeseries（カーディナリティ）課金モデル**の説明である。カスタムメトリクスには **Metric Name 課金モデル**もあり、契約上の SKU は Timeseries 課金と相互排他である。Metric Name 課金では、インデックス済みデータ点を送った一意なメトリクス名の数（Metric-Name）、メトリクス名あたりの基準量を超えたインデックス済みデータ点（Indexed Points）、インデックス量の 5 倍を超えた取り込みデータ点（Ingested Points）で課金されるため、**送信頻度やデータ点の量が費用に影響する** [出典](https://docs.datadoghq.com/account_management/billing/metric_name_pricing/)。自社の契約がどちらのモデルかを確認すること（[製品別料金表 2.5](../03_導入編/pricing-by-product.md)）。
 
 公式の計算例では、`request.Latency` を 2 ホスト × 2 エンドポイント × 2 ステータスコードの範囲で送ると、実際に発生した組み合わせ 4 通りがカスタムメトリクス 4 個（COUNT / RATE / GAUGE の場合）になる [出典](https://docs.datadoghq.com/account_management/billing/custom_metrics/)。ここに上限のない値（ユーザー ID、リクエスト ID、タイムスタンプ等）をタグとして足すと、組み合わせ数はその値の種類数に比例して増える。
 
@@ -198,7 +211,7 @@ Datadog のコスト急増は、**「量（ボリューム）× 単価」の量�
 | 段階 | 対策 | 補足 |
 |---|---|---|
 | 予防 | タグ規約で「メトリクスに付けてよいタグ」を決め、ID 系はログ・スパン属性に回す | 【経験則】[タグ戦略の実践](./tagging-strategy.md) |
-| 予防 | `metric_tags_write`（Metric Tags Write）権限を絞る。変更は Events Explorer で `tags:audit "Queryable tag configuration"` を検索して追跡する | [出典](https://docs.datadoghq.com/metrics/guide/custom_metrics_governance/) |
+| 予防 | `metric_tags_write`（Metric Tags Write）権限を絞る。変更は Events Explorer で `tags:audit "Queryable tag configuration"` を検索して追跡する | 権限名は [Permissions](https://docs.datadoghq.com/account_management/rbac/permissions/) の表記。[ガバナンスガイド](https://docs.datadoghq.com/metrics/guide/custom_metrics_governance/) は `metrics_tags_write` と表記している（権限の絞り込みと Events Explorer での追跡の出典はガバナンスガイド） |
 | 是正 | Metrics without Limits™ で、インデックスするタグを必要なものに限定する | 取り込み分は Ingested Custom Metrics として別課金（$0.10/100 個） |
 | 是正 | クエリされていないメトリクスを特定（Metrics Summary の Query Activity 30/60/90 日、Related Assets「Not used in any asset」）して止める | 公式は「クエリされていないメトリクスに適用すると平均で最大 70% 削減」と記載 [出典](https://docs.datadoghq.com/metrics/guide/custom_metrics_governance/) |
 | 是正 | 送信元（アプリ・DogStatsD・OpenMetrics チェック）でタグやメトリクスを絞る | 根本対策。詳細は [Custom Metrics と DogStatsD](../02_リファレンス/platform/custom-metrics-and-dogstatsd.md) |
@@ -222,6 +235,7 @@ Datadog のコスト急増は、**「量（ボリューム）× 単価」の量�
 
 - HISTOGRAM は Agent 側の設定で送る集計値を増減でき、増減に応じて個数も変わる [出典](https://docs.datadoghq.com/account_management/billing/custom_metrics/)。
 - HISTOGRAM（Agent 側集計）は送信後にタグを絞れない。一方 DISTRIBUTION は Metrics without Limits™ のタグ設定とパーセンタイルの有効・無効を後から変えられる。「個別メトリクスにしてタグを絞る方が結果的に安い」場合もある【第三者情報】。
+- 上表は Timeseries 課金モデルの数え方である。Metric Name 課金モデルでも、DISTRIBUTION には取り込み量・インデックス量の両方に乗数（既定 5 倍、パーセンタイル有効時 10 倍）がかかる [出典](https://docs.datadoghq.com/account_management/billing/metric_name_pricing/)。
 
 **対策:** パーセンタイルは本当に必要なメトリクスだけ有効にする。高カーディナリティなタグを持つメトリクスには HISTOGRAM を使わない。詳細は [Custom Metrics と DogStatsD](../02_リファレンス/platform/custom-metrics-and-dogstatsd.md) と [コスト最適化](./cost-optimization.md) を参照。
 
@@ -346,13 +360,15 @@ IMDSv2 必須の EC2 で Agent が古い場合の二重カウントは [V-03](#6
 
 **症状:** RUM のセッション数が急増する。トラフィックの多いサイトで Session Replay を全セッション有効にした場合に起きやすい。
 
+**仕組み:** Browser SDK の `sessionSampleRate` は追跡するセッション全体の割合で、既定は 100%（全セッション）である。`sessionReplaySampleRate` は全体のサンプリングの**後に**適用され、追跡したセッションのうち Browser RUM & Session Replay として収集する割合を決める（SDK v5.0.0 以降の既定は 0）。Browser RUM と Browser RUM & Session Replay は別の料金項目である [出典](https://docs.datadoghq.com/real_user_monitoring/guide/sampling-browser-plans/)。
+
 **対策:** SDK のサンプリング率（`sessionSampleRate`、`sessionReplaySampleRate`）を要件に応じて設定する。RUM without Limits を使う場合は、取り込みは全量・保持は保持フィルタで選ぶ形になるため、保持フィルタの設計が費用を決める。詳細は [RUM（ブラウザ）](../02_リファレンス/dem/rum-browser.md)、[Session Replay と Product Analytics](../02_リファレンス/dem/session-replay-and-product-analytics.md)、[コスト最適化](./cost-optimization.md)。
 
 ### 2.11 C-11 ログ・スパン由来のメトリクスを無計画に作る
 
 **症状:** アプリのカスタムメトリクスを増やしていないのに、カスタムメトリクス数が増える。
 
-**仕組み:** ログベースメトリクスとスパンベースメトリクスは、カスタムメトリクスの同梱枠を消費する（[製品別料金表](../03_導入編/pricing-by-product.md)、Log Management FAQ / APM FAQ）。ログ属性の高カーディナリティな値（`@usr.id` 等）で group by するとカスタムメトリクスが爆発する（[C-01](#21-c-01-高カーディナリティタグによるカスタムメトリクス爆発) と同じ仕組み）。
+**仕組み:** ログベースメトリクスとスパンベースメトリクスは、どちらもカスタムメトリクスとして扱われ、カスタムメトリクスとして課金される（同梱枠も消費する）[出典](https://docs.datadoghq.com/logs/log_configuration/logs_to_metrics/) [出典](https://docs.datadoghq.com/tracing/trace_pipeline/generate_metrics/)（単価は [製品別料金表](../03_導入編/pricing-by-product.md)）。ログ属性の高カーディナリティな値（`@usr.id` 等）で group by するとカスタムメトリクスが爆発する（[C-01](#21-c-01-高カーディナリティタグによるカスタムメトリクス爆発) と同じ仕組み）。公式ドキュメントも、タイムスタンプ、ユーザー ID、リクエスト ID のような上限のない属性や極端に高カーディナリティな属性での group by を避けるよう求めている [出典](https://docs.datadoghq.com/logs/log_configuration/logs_to_metrics/)。
 
 **対策:** ログ・スパンからメトリクスを作るときも、group by に使う属性は上限のある値に限る【経験則】。
 
@@ -360,7 +376,7 @@ IMDSv2 必須の EC2 で Agent が古い場合の二重カウントは [V-03](#6
 
 **症状:** 契約したコミット量を毎月超え、超過分が**オンデマンド単価**で課金される。逆に、過大なコミットで使わない分を払い続ける。
 
-**仕組み:** 多くの SKU で、年契約・月契約・オンデマンドの単価が異なる。例えばログの 15 日保持インデックスは、US で年契約 $1.70、月契約 $2.04、オンデマンド $2.55（100 万件/月）であり、オンデマンドは年契約の 1.5 倍である（[製品別料金表](../03_導入編/pricing-by-product.md)）。Log Management では月間コミットを超えてもインデックスは止まらない（可視性を保つため）とドキュメントにある [出典](https://docs.datadoghq.com/account_management/billing/log_management/)。
+**仕組み:** 多くの SKU で、年契約・月契約・オンデマンドの単価が異なる。例えばログの 15 日保持インデックスは、US で年契約 $1.70、月契約 $2.04、オンデマンド $2.55（100 万件/月）であり、オンデマンドは年契約の 1.5 倍である（[製品別料金表](../03_導入編/pricing-by-product.md)）。Log Management の課金ドキュメントは、インフラの健全性の可視性を保つことが重要なため使用量は月間コミットに制限されないとし、超過した場合はコミット分を差し引いたうえで、オンデマンド使用量が 50% の割増で課金されると記載している [出典](https://docs.datadoghq.com/account_management/billing/log_management/)。
 
 **対策:** 導入初期は数か月分の実績（Plan & Usage、推定使用量メトリクス）からコミット量を決め、契約更新時に見直す【経験則】。値引き・契約条件は非公開のため、詳細は [購入経路と契約](../03_導入編/procurement-and-contracts.md)、[コスト見積り手法](../03_導入編/cost-estimation.md) を参照。
 
@@ -740,24 +756,24 @@ Datadog は Agent を**マイナーリリース・パッチリリースのたび
 | EC2 の二重カウント防止が効かない | Datadog は EC2 インスタンスメタデータで二重課金を防ぐ。IMDSv2 必須のインスタンスでは **Agent 7.64.0 以降**、または `ec2_prefer_imdsv2: true` が必要 | Agent とインテグレーションが同じ EC2 を別ホストとして扱いうる | [出典](https://docs.datadoghq.com/account_management/billing/aws/) |
 | EKS の pause コンテナが除外されない | pause コンテナは課金されないが、AWS EKS の pause コンテナ除外には **Agent v7.20 以降**が必要 | コンテナ数が多く数えられる | [出典](https://docs.datadoghq.com/account_management/billing/containers/) |
 | APM の Rare Sampler の既定が異なる | Agent 6/7.33〜6/7.40.x は既定で有効、**7.41.0 以降は既定で無効**（`DD_APM_ENABLE_RARE_SAMPLER`） | Agent のバージョンが混在すると取り込みスパン量の傾向が揃わない | [出典](https://docs.datadoghq.com/tracing/trace_pipeline/ingestion_mechanisms/) |
-| Remote Configuration の既定 | Agent 7.47.0 以降は `remote_configuration.enabled` が既定 `true`（GovCloud・FIPS は明示が必要） | 古い Agent では Remote Configuration を使う機能が動かない | [Fleet Automation と Remote Configuration](../02_リファレンス/platform/fleet-automation.md) |
+| Remote Configuration の既定 | Agent 7.47.0 以降は `remote_configuration.enabled` が既定 `true`（GovCloud・FIPS は明示が必要） | 古い Agent では Remote Configuration を使う機能が動かない | [出典](https://docs.datadoghq.com/agent/guide/setup_remote_config/) |
 
 ### 6.4 V-04 リモート管理できない古い Agent
 
 **症状:** Fleet Automation の Fleet View には表示されるが、リモートアップグレードや設定変更ができない。
 
-**仕組み:** Fleet Automation は古い Agent や OTel Collector のバージョンを特定・更新する機能を持つが、Fleet View に表示されることとリモート管理が有効なことは別である [出典](https://docs.datadoghq.com/agent/fleet_automation/)。リモート管理には Remote Configuration の有効化と `remote_updates: true` が必要で、機能ごとに最低バージョンがある（[Fleet Automation と Remote Configuration](../02_リファレンス/platform/fleet-automation.md)）。
+**仕組み:** Fleet Automation は古い Agent や OTel Collector のバージョンを特定・更新する機能を持つが、Fleet View に表示されることとリモート管理が有効なことは別である [出典](https://docs.datadoghq.com/agent/fleet_automation/)。リモート管理には Remote Configuration の有効化と `remote_updates: true` が必要で [出典](https://docs.datadoghq.com/agent/fleet_automation/remote_management/)、機能ごとに最低バージョンがある（下表。詳細は [Fleet Automation と Remote Configuration](../02_リファレンス/platform/fleet-automation.md)）。
 
-| 機能 | 最低 Agent バージョン | 対応環境 |
-|---|---|---|
-| Fleet View の構成表示 | 7.47.0 以降で既定有効 | 全般 |
-| リモートアップグレード | Linux 7.69.0 以降、Windows 7.71.1 以降 | Linux / Windows の VM のみ（コンテナ不可） |
-| `remote_updates` の既定 `true` | 7.73.0 以降（それより前は明示が必要） | — |
-| `datadog.yaml` のリモート設定 | 7.73 以降 | Linux VM（インストールスクリプトまたは Ansible Role で導入）、Windows VM |
+| 機能 | 最低 Agent バージョン | 対応環境 | 出典 |
+|---|---|---|---|
+| Fleet View の構成表示 | 7.47.0 以降で既定有効 | 全般 | [出典](https://docs.datadoghq.com/agent/fleet_automation/fleet_view/) |
+| リモートアップグレード | Linux 7.69.0 以降、Windows 7.71.1 以降 | Linux / Windows の VM のみ（コンテナ不可） | [出典](https://docs.datadoghq.com/agent/fleet_automation/upgrade_agents/) |
+| `remote_updates` の既定 `true` | 7.73.0 以降（それより前は明示が必要） | — | [出典](https://docs.datadoghq.com/agent/guide/setup_remote_config/) |
+| `datadog.yaml` のリモート設定 | 7.73 以降（インテグレーション・シークレットの設定は 7.76 以降） | Linux VM（インストールスクリプトまたは Ansible Datadog Role で導入）、Windows VM | [出典](https://docs.datadoghq.com/agent/fleet_automation/configure_agents/) |
 
 > **メジャーバージョン移行の注意:** v6 → v7 は Linux ではインストールスクリプトに `DD_UPGRADE="true"` を付けて `install_script_agent7.sh` を実行する方法が案内されているが、**カスタム Agent チェックは自動では移行されない** [出典](https://docs.datadoghq.com/agent/guide/upgrade/)。カスタムチェックの Python 3 対応を先に済ませる。
 
-出典：[Fleet Automation と Remote Configuration](../02_リファレンス/platform/fleet-automation.md)（公式ドキュメント 2026-11-02 時点の値を整理したもの）
+値は表中の公式ドキュメント（2026-11-04 確認）による。整理は [Fleet Automation と Remote Configuration](../02_リファレンス/platform/fleet-automation.md) を参照。
 
 > **サイト差異:** US1-FED / US2-FED では Fleet View は Preview であり、Agent と SDK のアップグレードはサポートされない [出典](https://docs.datadoghq.com/agent/fleet_automation/)。
 
@@ -813,7 +829,7 @@ Datadog は Agent を**マイナーリリース・パッチリリースのたび
 
 **症状:** US1 で運用を始めたあと、データを国内に置く要件が判明した。
 
-**事実:** 既存 org のサイトを後から変更する機能は公式ドキュメントにない。取り込み済みのテレメトリを別サイトへ移す公式の手段もない（datadog-sync-cli はダッシュボードやモニターなどの設定を移すツールで、取り込み済みのログやメトリクスは対象外）。移行期間中は Agent の Dual Shipping（`additional_endpoints`）で両方のサイトに送れる。詳細は [Datadog Sites（サイト）](../02_リファレンス/platform/datadog-sites.md)。
+**事実:** 既存 org のサイトを後から変更する機能は公式ドキュメントにない。取り込み済みのテレメトリを別サイトへ移す公式の手段もない。datadog-sync-cli はダッシュボードやモニターなどの設定を移すツールで、README は取り込み済みのログやメトリクスなどの移行を目的としないと明記している [出典](https://github.com/DataDog/datadog-sync-cli)。移行期間中は Agent の Dual Shipping（`additional_endpoints`）で、メトリクス・ログ・トレースを複数の org（別サイトを含む）へ同時に送れる [出典](https://docs.datadoghq.com/agent/configuration/dual-shipping/)。詳細は [Datadog Sites（サイト）](../02_リファレンス/platform/datadog-sites.md)。
 
 > **サイト差異:** サイトによって提供機能・価格が異なる（例：AP1 の掲載単価は US の 1.25 倍）。サイトは要件定義の段階で決める（[要件定義とアーキテクチャ設計](../03_導入編/requirements-and-architecture-design.md)）。
 
@@ -852,7 +868,7 @@ Datadog は Agent を**マイナーリリース・パッチリリースのたび
 
 ### 8.3 変更時のチェック（コストに影響する変更）【経験則】
 
-テレメトリの追加・変更はコストを伴う変更として扱う。第三者の解説でも、ログ 1 行やメトリクス 1 つの追加をコストへの影響がある変更として扱う文化づくりが勧められている【第三者情報】。
+テレメトリの追加・変更はコストを伴う変更として扱う。第三者の解説でも、「1 メトリクスにつきタグの組み合わせが何通りになるか」を実装前に計算しておくことが勧められている【第三者情報】（[一創](https://www.issoh.co.jp/tech/details/16515/)、2026-08-13 公開、2026-09-27 更新）。
 
 - 新しいカスタムメトリクス：タグの組み合わせ数を見積もったか。ID 系タグはないか。HISTOGRAM / パーセンタイルは必要か。
 - 新しいログソース：1 日の件数・GB を見積もったか。どの Index に入るか。除外・クォータはあるか。
@@ -878,7 +894,7 @@ Datadog は Agent を**マイナーリリース・パッチリリースのたび
 | APM Ingested Bytes / Spans | `datadog.estimated_usage.apm.ingested_bytes`、`.apm.ingested_spans` | 取り込みスパンの量・数 | C-08 |
 | APM Indexed Spans | `datadog.estimated_usage.apm.indexed_spans` | タグベースの保持フィルタでインデックスされたスパン数 | C-08 |
 | RUM Sessions | `datadog.estimated_usage.rum.sessions`（RUM without Limits は `.rum.ingested_sessions`、`.rum.indexed_sessions`） | RUM セッション数 | C-10 |
-| Synthetic | `datadog.estimated_usage.synthetics.api_test_runs`、`.synthetics.browser_test_runs` | テスト実行回数の推定 | C-09 |
+| Synthetic | `datadog.estimated_usage.synthetics.api_test_runs`、`.synthetics.browser_test_runs`、`.synthetics.parallel_testing_slots`（Continuous Testing の並列テストスロット） | テスト実行回数・並列テストスロットの推定 | C-09 |
 | Serverless | `datadog.estimated_usage.serverless.aws_lambda_functions`、`.serverless.invocations` | 一意な関数数、呼び出し数 | — |
 | Sensitive Data Scanner | `datadog.estimated_usage.sds.scanned_bytes` | スキャン量 | — |
 
@@ -930,7 +946,8 @@ Datadog は Agent を**マイナーリリース・パッチリリースのたび
 
 | 失敗 | 課金単位 | 単価の参照先 |
 |---|---|---|
-| C-01、C-02、C-11 | カスタムメトリクス（インデックス / 取り込み、100 個単位） | [製品別料金表 2.3・2.5](../03_導入編/pricing-by-product.md) |
+| C-01、C-02、C-11 | カスタムメトリクス（Timeseries 課金モデル：インデックス / 取り込み、100 個単位） | [製品別料金表 2.3・2.5](../03_導入編/pricing-by-product.md) |
+| C-01、C-02、C-11 | カスタムメトリクス（Metric Name 課金モデル：メトリクス名数、インデックス済み / 取り込みデータ点。Timeseries 課金とは相互排他） | [製品別料金表 2.5](../03_導入編/pricing-by-product.md)、[Metric Name Pricing](https://docs.datadoghq.com/account_management/billing/metric_name_pricing/) |
 | C-03、C-04、C-12 | ログ取り込み GB、インデックス 100 万件（保持期間別）、Flex Logs | [製品別料金表 7.1](../03_導入編/pricing-by-product.md) |
 | C-05、C-06、C-14 | ホスト（Infrastructure / APM） | [製品別料金表 2](../03_導入編/pricing-by-product.md) |
 | C-07 | コンテナ（前払い / コンテナ時間） | [製品別料金表 2.3](../03_導入編/pricing-by-product.md) |
@@ -939,7 +956,7 @@ Datadog は Agent を**マイナーリリース・パッチリリースのたび
 | C-10 | RUM セッション、Session Replay | [製品別料金表 11](../03_導入編/pricing-by-product.md) |
 | P-06 | Audit Trail（別課金） | [Audit Trail](../02_リファレンス/platform/audit-trail.md) |
 
-課金計算の仕組み（時間平均、ハイウォーターマーク、日割り）は [課金計算の仕組み](../03_導入編/billing-mechanics.md) を参照。Billing ドキュメントは、予期しないコストの主な原因として、コンテナごとの Agent 導入、持続的な使用量増加、同梱枠を超えるインデックススパン（月末に課金）、初月の日割り（請求サイクルは UTC の 1 日開始）を挙げている [出典](https://docs.datadoghq.com/account_management/billing/)。
+課金計算の仕組み（時間平均、ハイウォーターマーク、日割り）は [課金計算の仕組み](../03_導入編/billing-mechanics.md) を参照。Billing ドキュメントには、関連する記述が別々の節に分かれて載っている。コンテナごとに Agent を入れると各コンテナが課金上ホストとして数えられること（Containers 節）、スパイクの影響を減らすために除外されるのは上位 1% の時間だけであること（Overview）、サーバーレスで同梱枠を超えたインデックススパンは月末に課金されること（Serverless 節）、初月は実際の登録日に基づいて日割りされ、請求サイクルは UTC の毎月 1 日に始まること（Overview）である [出典](https://docs.datadoghq.com/account_management/billing/)。これらは予期しないコスト増につながりやすい【経験則】。
 
 ---
 
@@ -1007,7 +1024,21 @@ Datadog は Agent を**マイナーリリース・パッチリリースのたび
 - Upgrade between Agent minor versions https://docs.datadoghq.com/agent/versions/upgrade_between_agent_minor_versions/
 - Agent 5 Sectigo Root CA rotation https://docs.datadoghq.com/agent/faq/agent-5-sectigo-root-ca-rotation/
 - Fleet Automation https://docs.datadoghq.com/agent/fleet_automation/
+- Remote Agent Management https://docs.datadoghq.com/agent/fleet_automation/remote_management/（取得日 2026-11-04）
+- Fleet View https://docs.datadoghq.com/agent/fleet_automation/fleet_view/
+- Upgrade Agents（Fleet Automation） https://docs.datadoghq.com/agent/fleet_automation/upgrade_agents/（取得日 2026-11-04）
+- Configure Agents（Fleet Automation） https://docs.datadoghq.com/agent/fleet_automation/configure_agents/（取得日 2026-11-04）
+- Remote Configuration for Fleet Automation https://docs.datadoghq.com/agent/guide/setup_remote_config/（取得日 2026-11-04）
 - Upgrade the Datadog Agent https://docs.datadoghq.com/agent/guide/upgrade/
+- Metric Name Pricing https://docs.datadoghq.com/account_management/billing/metric_name_pricing/（取得日 2026-11-04）
+- Generate Metrics from Ingested Logs https://docs.datadoghq.com/logs/log_configuration/logs_to_metrics/（取得日 2026-11-04）
+- Generate Metrics from Spans https://docs.datadoghq.com/tracing/trace_pipeline/generate_metrics/（取得日 2026-11-04）
+- Browser RUM & Session Replay Sampling https://docs.datadoghq.com/real_user_monitoring/guide/sampling-browser-plans/（取得日 2026-11-04）
+- Dual Shipping https://docs.datadoghq.com/agent/configuration/dual-shipping/（取得日 2026-11-04）
+
+### GitHub（Datadog 公式リポジトリ）
+
+- datadog-sync-cli https://github.com/DataDog/datadog-sync-cli（取得日 2026-11-04）
 
 ### Datadog 公式サイト・ブログ
 

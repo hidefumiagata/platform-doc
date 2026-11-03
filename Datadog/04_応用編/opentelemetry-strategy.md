@@ -15,7 +15,10 @@ sources:
   - https://docs.datadoghq.com/opentelemetry/instrument/dd_sdks/otlp_trace_export/
   - https://docs.datadoghq.com/opentelemetry/setup/
   - https://docs.datadoghq.com/opentelemetry/setup/ddot_collector/
+  - https://docs.datadoghq.com/opentelemetry/setup/ddot_collector/install/linux/
+  - https://docs.datadoghq.com/opentelemetry/setup/ddot_collector/install/kubernetes_gateway/
   - https://docs.datadoghq.com/opentelemetry/setup/collector_exporter/
+  - https://docs.datadoghq.com/opentelemetry/setup/collector_exporter/datadog_exporter/
   - https://docs.datadoghq.com/opentelemetry/setup/otlp_ingest/
   - https://docs.datadoghq.com/opentelemetry/setup/otlp_ingest_in_the_agent/
   - https://docs.datadoghq.com/opentelemetry/guide/ingestion_sampling_with_opentelemetry/
@@ -23,17 +26,28 @@ sources:
   - https://docs.datadoghq.com/opentelemetry/mapping/hostname/
   - https://docs.datadoghq.com/opentelemetry/config/hostname_tagging/
   - https://docs.datadoghq.com/opentelemetry/config/environment_variable_support/
+  - https://docs.datadoghq.com/opentelemetry/reference/trace_ids/
+  - https://docs.datadoghq.com/tracing/trace_collection/trace_context_propagation/
   - https://docs.datadoghq.com/opentelemetry/correlate/rum_and_traces/
+  - https://docs.datadoghq.com/opentelemetry/correlate/logs_and_traces/
+  - https://docs.datadoghq.com/metrics/open_telemetry/otlp_metric_types/
   - https://docs.datadoghq.com/opentelemetry/integrations/
   - https://docs.datadoghq.com/account_management/billing/custom_metrics/
+  - https://docs.datadoghq.com/agent/fleet_automation/fleet_view/
   - https://www.datadoghq.com/pricing/
+  - https://www.datadoghq.com/pricing/?product=managed-platform-otlp#products
+  - https://www.datadoghq.com/blog/datadog-distribution-otel-collector/
+  - https://www.datadoghq.com/blog/ddot-gateway/
   - https://www.datadoghq.com/blog/otel-deployments/
   - https://www.datadoghq.com/blog/native-otel-with-datadog/
   - https://www.datadoghq.com/blog/dash-2026-new-feature-roundup-observability/
   - https://www.datadoghq.com/blog/manage-opentelemetry-collectors-with-datadog-fleet-automation/
   - https://speakerdeck.com/kn_to_maxpno/datadog-x-opentelemetry-ru-men-toshi-jian-noaida
+  - https://www.cncf.io/announcements/2026/05/21/cloud-native-computing-foundation-announces-opentelemetrys-graduation/
+  - https://opentelemetry.io/blog/2026/otel-graduates/
   - https://zenn.dev/ymtdzzz/articles/7f161d59072290
   - https://zenn.dev/tetsuya28/articles/datadog-ddot
+  - https://pkg.go.dev/github.com/open-telemetry/opentelemetry-collector-contrib/receiver/datadogreceiver@v0.135.0
   - https://clickhouse.com/ja/blog/datadog-receiver-opentelemetry-collector-jp
   - https://www.guance.com/learn/articles/datadog-to-opentelemetry
 ---
@@ -42,7 +56,7 @@ sources:
 
 ## 概要
 
-OpenTelemetry（OTel、オープンテレメトリー）は、テレメトリ（トレース、メトリクス、ログ）の生成と送信をベンダー共通にするための CNCF のオープンソースプロジェクトである。Datadog は OTel で計装したデータを受け取れる。ただし、Datadog で OTel を使うかどうか、どこまで使うかによって、使える Datadog の機能、運用の手間、課金、ベンダーロックインの度合いが大きく変わる。
+OpenTelemetry（OTel、オープンテレメトリー）は、テレメトリ（トレース、メトリクス、ログ）の生成と送信をベンダー共通にするための CNCF のオープンソースプロジェクトである（2026-05-21 に CNCF の Graduated プロジェクトに昇格）[出典](https://www.cncf.io/announcements/2026/05/21/cloud-native-computing-foundation-announces-opentelemetrys-graduation/)。Datadog は OTel で計装したデータを受け取れる。ただし、Datadog で OTel を使うかどうか、どこまで使うかによって、使える Datadog の機能、運用の手間、課金、ベンダーロックインの度合いが大きく変わる。
 
 Datadog の公式ドキュメントは、OTel を使うときに決めることを次の2つに整理している [出典](https://docs.datadoghq.com/opentelemetry/)。
 
@@ -76,8 +90,8 @@ Datadog の公式分類では、計装（SDK）と送信経路（Collector / Age
 |---|---|---|---|---|
 | ① Datadog SDK + DDOT（公式推奨） | Datadog API または OTel API | Datadog SDK | DDOT Collector（Agent 内蔵） | Datadog の機能を最大限に使う。OTel API でコードを書けば、計装コードの中立性はある程度保てる |
 | ② OTel SDK + DDOT | OTel API | OTel SDK | DDOT Collector | アプリ側は完全に中立。Agent 由来の機能（ホスト、コンテナ、CNM、USM、DBM 等）は使える |
-| ③ OTel SDK + アップストリーム Collector | OTel API | OTel SDK | 自前の OTel Collector Contrib | 送信経路も含めて中立。Datadog 独自の機能は最も少ない。Collector の運用は自社の責任 |
-| ④ Direct OTLP Ingest | OTel API | OTel SDK | なし（Datadog の OTLP エンドポイントへ直接） | サーバーレス、マネージドプラットフォーム向け。前処理ができない |
+| ③ OTel SDK + アップストリーム Collector | OTel API | OTel SDK | 自前の OTel Collector Contrib | 送信経路も含めて中立。Agent 由来の機能（DBM、CNM、USM、Live Containers 等）を失い、4つの中では④ Direct OTLP に次いで Datadog 機能が少ない（§2.3）。Collector の運用は自社の責任 |
+| ④ Direct OTLP Ingest | OTel API | OTel SDK | なし（Datadog の OTLP エンドポイントへ直接） | サーバーレス、マネージドプラットフォーム向け。前処理ができない。Datadog 機能は4つの中で最も少ない（Host List、Kubernetes Monitoring も非対応） |
 
 このほか、Datadog Agent が OTLP を直接受け取る **OTLP Ingest in the Agent** もある。公式は「Kubernetes の Linux 以外のプラットフォームのユーザー、または Collector パイプラインを管理したくないユーザー」向けとしている [出典](https://docs.datadoghq.com/opentelemetry/setup/)。
 
@@ -121,7 +135,7 @@ flowchart TD
 |---|---|---|
 | 使う予定の Datadog 製品 | Profiler、AAP、RUM 連携、DSM、DJM、Source Code Integration は Datadog SDK が前提 | [機能互換性](https://docs.datadoghq.com/opentelemetry/compatibility/) |
 | 言語・ランタイム | Datadog SDK の OTel API 対応、OTel インスツルメンテーションライブラリの対応は言語ごとに違う | [OpenTelemetry サポート](../02_リファレンス/platform/opentelemetry.md) の互換性表 |
-| 実行基盤 | EKS Fargate ではアップストリーム Collector が非対応。GKE Autopilot と EKS Fargate では DDOT Gateway が非対応 | [出典](https://docs.datadoghq.com/opentelemetry/compatibility/) |
+| 実行基盤 | アップストリーム Collector + OTLP HTTP Exporter 構成は、ECS Fargate、EKS Fargate、AWS Lambda のようなサーバーレス・タスク型のコンテナ実行環境に非対応（GKE は Standard、Autopilot とも対応。Autopilot では `host_metrics` receiver を外すなどの制約あり）。互換性表も EKS Fargate のアップストリーム Collector を非対応としている。DDOT Gateway は EKS Fargate と GKE Autopilot に非対応 | [出典](https://docs.datadoghq.com/opentelemetry/setup/collector_exporter/) / [出典](https://docs.datadoghq.com/opentelemetry/compatibility/) / [出典](https://docs.datadoghq.com/opentelemetry/setup/ddot_collector/install/kubernetes_gateway/) |
 | Datadog サイト | アップストリーム Collector + OTLP HTTP Exporter 構成は `app.ddog-gov.com`、`us2.ddog-gov.com` では非サポート | [出典](https://docs.datadoghq.com/opentelemetry/setup/collector_exporter/) |
 | 既存の OTel 資産 | 既に OTel で計装済みなら、その資産を活かす構成（②③④）が自然 | — |
 | マルチバックエンドの要否 | 他ツールへの同時送信が必要なら Collector（DDOT か自前）が要る | — |
@@ -149,12 +163,12 @@ flowchart TD
 | 言語 | Datadog SDK の最低バージョン | 有効化の要点 |
 |---|---|---|
 | Java | 1.35.0 | `DD_TRACE_OTEL_ENABLED=true`。インスツルメンテーションごとに extension JAR を用意し、`OTEL_JAVAAGENT_EXTENSIONS` で指定する。OTel の incubator API は非対応。OTel インスツルメンテーションの 2.6.0-alpha 以降は非対応 |
-| Python | 2.10.0 | ddtrace の OTel API 設定のうえで `opentelemetry-python-contrib` のライブラリを使う |
+| Python | 2.10.0 | `DD_TRACE_OTEL_ENABLED=true`。ddtrace の OTel API 設定のうえで `opentelemetry-python-contrib` のライブラリを使う |
 | Ruby | 2.1.0 | `DD_TRACE_OTEL_ENABLED` は不要。`opentelemetry-ruby-contrib` を使う |
 | Go | 1.67.0 | `DD_TRACE_OTEL_ENABLED` は不要。トレーサー v2 を推奨。`opentelemetry-go-contrib` を使う |
-| Node.js | 4.3.0 | 重複する Datadog インスツルメンテーションは `DD_TRACE_DISABLED_INSTRUMENTATIONS` で無効にする |
-| PHP | 0.94.0 | 重複するインテグレーションは `DD_TRACE_<INTEGRATION>_ENABLED=false` で無効にする |
-| .NET | 2.53.0 | `ActivitySource` でスパンを出すライブラリを構成する（Azure SDK は `AZURE_EXPERIMENTAL_ENABLE_ACTIVITY_SOURCE=true`） |
+| Node.js | 4.3.0 | `DD_TRACE_OTEL_ENABLED=true`。重複する Datadog インスツルメンテーションは `DD_TRACE_DISABLED_INSTRUMENTATIONS` で無効にする |
+| PHP | 0.94.0 | `DD_TRACE_OTEL_ENABLED=true`。重複するインテグレーションは `DD_TRACE_<INTEGRATION>_ENABLED=false` で無効にする |
+| .NET | 2.53.0 | `DD_TRACE_OTEL_ENABLED=true`。`ActivitySource` でスパンを出すライブラリを構成する（Azure SDK は `AZURE_EXPERIMENTAL_ENABLE_ACTIVITY_SOURCE=true`） |
 
 C の共通の制限として、SpanProcessor や OTLP Trace Exporter のような「OTel SDK 固有の操作」は使えない [出典](https://docs.datadoghq.com/opentelemetry/instrument/dd_sdks/instrumentation_libraries/)。
 
@@ -281,7 +295,7 @@ Datadog は DDOT でも Gateway 構成を提供している（Kubernetes、Helm 
 
 ### 4.2 H1：Datadog SDK に OTel API を載せる
 
-- **やること**：Datadog SDK（自動計装を含む）を入れ、手動計装を OTel Tracing API で書く。言語によっては `DD_TRACE_OTEL_ENABLED=true` が必要（Java SDK は既定で `true`）[出典](https://docs.datadoghq.com/opentelemetry/instrument/api_support/)。
+- **やること**：Datadog SDK（自動計装を含む）を入れ、手動計装を OTel Tracing API で書く。Java、Python、.NET、PHP では `DD_TRACE_OTEL_ENABLED=true`（Java はシステムプロパティ `dd.trace.otel.enabled` でも可）を設定する。Node.js、Go、Ruby、Rust のトレース設定手順にはこの設定の記載がない [出典](https://docs.datadoghq.com/opentelemetry/instrument/api_support/)。
 - **得られるもの**：Datadog の全機能を使いながら、手動計装コードを OTel 標準に寄せられる。将来 OTel SDK に差し替えるときに、手動計装の書き直しが少ない。
 - **残る依存**：自動計装の部分（Datadog SDK のインテグレーション）、Datadog 固有のタグや命名、`DD_*` 環境変数。
 - **注意点**：
@@ -427,7 +441,7 @@ OTel がはっきり効くのは **L1〜L3（アプリとパイプライン）**
 | 5 | サンプリング後に Trace Metrics を計算する | RED メトリクスがサンプル済みのデータから計算され、実トラフィックより小さく見える | `span_metrics` / Datadog Connector をサンプリングより前に置く。Direct OTLP の Trace Metrics はサンプリング後になることを理解する | [出典](https://docs.datadoghq.com/opentelemetry/setup/collector_exporter/) |
 | 6 | OTel 側と Datadog 側で別々にサンプリングする | クロスサービスのトレースが欠ける | 決定箇所を一か所に寄せる（§6.2） | 【第三者情報】[出典](https://zenn.dev/ymtdzzz/articles/7f161d59072290)（2023-12-18 公開） |
 | 7 | Agent の Probabilistic sampler を古い Agent で OTLP と併用する | Agent 7.70.0 未満では、サンプラー有効時に受信した OTLP トレースがすべて落ちることがある | Agent 7.70.0 以上にする | [出典](https://docs.datadoghq.com/opentelemetry/guide/ingestion_sampling_with_opentelemetry/) |
-| 8 | `resource_attributes_as_tags` を安易に有効にする | タグのカーディナリティが増え、カスタムメトリクス課金が増える。公式の OTLP HTTP 構成例ではこの値が `true` になっている点に注意 | 必要な属性だけをタグにする。Collector で不要な属性を落とす | [出典](https://docs.datadoghq.com/opentelemetry/mapping/semantic_mapping/) / [出典](https://docs.datadoghq.com/opentelemetry/setup/collector_exporter/) |
+| 8 | `resource_attributes_as_tags` を安易に有効にする | タグのカーディナリティが大きく増えることがある（公式の警告）。カスタムメトリクスはメトリクス名 × タグ値の組み合わせで数えるため、課金も増えうる【推定】。公式の OTLP HTTP 構成例ではこの値が `true` になっている点に注意 | 必要な属性だけをタグにする。Collector で不要な属性を落とす | [出典](https://docs.datadoghq.com/opentelemetry/mapping/semantic_mapping/) / [出典](https://docs.datadoghq.com/account_management/billing/custom_metrics/) / [出典](https://docs.datadoghq.com/opentelemetry/setup/collector_exporter/) |
 | 9 | アプリ独自の OTel メトリクスを大量に出す | カスタムメトリクス（メトリクス名 × タグ値の組み合わせ）として課金される | 属性設計を事前にレビューする。Metrics without Limits を検討する | [出典](https://docs.datadoghq.com/account_management/billing/custom_metrics/) |
 | 10 | OTel レシーバーの設定ミス | 本来は無料のインテグレーションのメトリクスがカスタムメトリクス扱いになる | サポート対象のレシーバーとマッピング表を確認する | [出典](https://docs.datadoghq.com/opentelemetry/integrations/) |
 | 11 | 累積（cumulative）テンポラリティのまま送る | 起動直後のデータ点が欠ける。Direct OTLP のメトリクスはデルタのみ受け付ける | `OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE=delta`、または `cumulativetodelta` processor | [出典](https://docs.datadoghq.com/metrics/open_telemetry/otlp_metric_types/) |
@@ -548,12 +562,12 @@ OTel 専用の課金体系はほとんどなく、OTel 経由のデータにも�
 
 | 時期 | 出来事 | 状態 | 出典 |
 |---|---|---|---|
-| 2025-05-06 | DDOT（Datadog Distribution of OpenTelemetry Collector）を発表（当初は Agent v7.65 以上） | Kubernetes 向けは GA と案内 | [出典](https://www.datadoghq.com/blog/datadog-distribution-otel-collector/)（2025-05-06 公開） |
+| 2025-05-06 | DDOT（Datadog Distribution of OpenTelemetry Collector）を発表（Agent v7.65 以上で利用可能と案内） | — | [出典](https://www.datadoghq.com/blog/datadog-distribution-otel-collector/)（2025-05-06 公開） |
 | 2025-05-12 | OTel のデプロイパターン（Collector なし / Agent / Gateway）の解説ブログ | — | [出典](https://www.datadoghq.com/blog/otel-deployments/)（2025-05-12 公開） |
 | 2025-12-01 | Fleet Automation で OTel Collector（DDOT とアップストリームの互換ディストリビューション）の一覧と構成を表示 | 【Preview】（公開時点） | [出典](https://www.datadoghq.com/blog/manage-opentelemetry-collectors-with-datadog-fleet-automation/)（2025-12-01 公開） |
 | 2025-12-01 | DDOT Gateway の発表 | — | [出典](https://www.datadoghq.com/blog/ddot-gateway/)（2025-12-01 公開） |
 | 2026-03 | OTel Profiles のアルファ版がアップストリームでリリース（Datadog のエンジニアが共著） | アップストリームの alpha | [出典](https://www.datadoghq.com/blog/native-otel-with-datadog/)（2026-07-20 公開） |
-| 2026-05-21 | OpenTelemetry が CNCF の Graduated プロジェクトに昇格（講演資料による） | — | [出典](https://speakerdeck.com/kn_to_maxpno/datadog-x-opentelemetry-ru-men-toshi-jian-noaida)（2026-06-05 公開）。CNCF の一次情報は本ファイルでは未確認 |
+| 2026-05-21 | OpenTelemetry が CNCF の Graduated プロジェクトに昇格 | Graduated | [出典](https://www.cncf.io/announcements/2026/05/21/cloud-native-computing-foundation-announces-opentelemetrys-graduation/)（2026-05-21 公開） / [出典](https://opentelemetry.io/blog/2026/otel-graduates/) |
 | 2026-06-09 | DASH 2026：OTel のセマンティック規約をプラットフォーム全体でネイティブに解決（【Preview】）、Host List の OTel ネイティブ対応、Kubernetes Explorer の OTel 対応、APM の OTel ネイティブ RED メトリクス（【Preview】）、Fleet Automation からの DDOT リモート構成（【Preview】）、OTel Gateway の Topology View、Service Remapping（GA） | 項目ごとに異なる | [出典](https://www.datadoghq.com/blog/dash-2026-new-feature-roundup-observability/)（2026-06-09 公開） |
 | 2026-07-20 | 標準の OTLP HTTP Exporter での取り込み、Direct OTLP Intake の GA、OTel スパンのセマンティクスでの APM 検索、OTel データでの Kubernetes Explorer、Full Host Profiler（【Preview】） | Direct OTLP Intake は GA | [出典](https://www.datadoghq.com/blog/native-otel-with-datadog/)（2026-07-20 公開） |
 
@@ -611,6 +625,7 @@ DASH 2026 の発表では「OTel のデータは、Datadog のセマンティク
 - Send Data to Datadog: https://docs.datadoghq.com/opentelemetry/setup/
 - DDOT Collector: https://docs.datadoghq.com/opentelemetry/setup/ddot_collector/
 - DDOT Collector（Linux）: https://docs.datadoghq.com/opentelemetry/setup/ddot_collector/install/linux/
+- DDOT Collector Gateway（Kubernetes）: https://docs.datadoghq.com/opentelemetry/setup/ddot_collector/install/kubernetes_gateway/
 - OpenTelemetry Collector（OTLP HTTP Exporter）: https://docs.datadoghq.com/opentelemetry/setup/collector_exporter/
 - Datadog Exporter: https://docs.datadoghq.com/opentelemetry/setup/collector_exporter/datadog_exporter/
 - Direct OTLP Ingest: https://docs.datadoghq.com/opentelemetry/setup/otlp_ingest/
@@ -640,6 +655,11 @@ DASH 2026 の発表では「OTel のデータは、Datadog のセマンティク
 - DASH 2026 End-to-End Observability（2026-06-09 公開）: https://www.datadoghq.com/blog/dash-2026-new-feature-roundup-observability/
 - Use OpenTelemetry-native observability with Datadog from ingestion to investigation（2026-07-20 公開）: https://www.datadoghq.com/blog/native-otel-with-datadog/
 - Datadog × OpenTelemetry 入門と実践のあいだ（Datadog Sales Engineer 講演資料、2026-06-05 公開）: https://speakerdeck.com/kn_to_maxpno/datadog-x-opentelemetry-ru-men-toshi-jian-noaida
+
+### OpenTelemetry / CNCF
+
+- CNCF Announces OpenTelemetry's Graduation（2026-05-21 公開）: https://www.cncf.io/announcements/2026/05/21/cloud-native-computing-foundation-announces-opentelemetrys-graduation/
+- OpenTelemetry is a CNCF Graduated Project: https://opentelemetry.io/blog/2026/otel-graduates/
 
 ### 第三者情報
 

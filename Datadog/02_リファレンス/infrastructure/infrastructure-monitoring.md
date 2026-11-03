@@ -40,6 +40,8 @@ sources:
   - https://www.datadoghq.com/blog/infrastructure-monitoring-basic/
   - https://www.datadoghq.com/blog/datadog-host-map/
   - https://www.datadoghq.com/blog/datadog-resource-catalog/
+  - https://www.datadoghq.com/blog/datadog-agent/
+  - https://pricingsaas.com/companies/datadog/diffs/2026D301
   - https://github.com/DataDog/datadog-agent/blob/main/pkg/config/example/datadog-agent_linux.yaml.example
 ---
 
@@ -173,7 +175,7 @@ Hostnames
 
 ### ホストエイリアス
 
-EC2 上のホスト 1 台には、インスタンス ID（`i-abcd1234`）、IP ベースの既定名（`ip-192-0-0-1`）、社内 DNS の名前（`myhost.mydomain`）など複数の名前がありうる。Datadog はこれらを正規ホスト名のエイリアスとして結び付ける。エイリアスは Host List のホスト詳細パネルで確認できるが、**検索・フィルタには使えない**。[出典](https://docs.datadoghq.com/agent/faq/how-datadog-agent-determines-the-hostname/)
+EC2 上のホスト 1 台には、インスタンス ID（`i-abcd1234`）、IP ベースの既定名（`ip-192-0-0-1`）、社内 DNS の名前（`myhost.mydomain`）など複数の名前がありうる。Datadog はこれらを正規ホスト名のエイリアスとして結び付ける。エイリアスは Host List のホスト詳細サイドパネル（Hostnames and aliases）で確認できる。[出典](https://docs.datadoghq.com/infrastructure/list/) ホスト名 FAQ は、エイリアスを「ホスト行にカーソルを置いて Inspect ボタンを押すと開く inspect パネル」（Legacy 表示の操作）で見られると説明しており、エイリアスは**検索・フィルタには使えない**としている。[出典](https://docs.datadoghq.com/agent/faq/how-datadog-agent-determines-the-hostname/)
 
 Hosts API（`GET /api/v1/hosts`）で AWS ホストを取得したときは、次の属性が返る。[出典](https://docs.datadoghq.com/agent/faq/how-datadog-agent-determines-the-hostname/)
 
@@ -430,7 +432,7 @@ Datadog の **Host Map** は、ホスト・Pod・コンテナ・クラスタを 
 
 Datadog **Resource Catalog** は、インフラリソースを一元管理する画面である。ホスト、データベース、ストレージなどのクラウドリソースについて、メタデータ、所有者、構成、リソース間の関係、セキュリティリスクを確認できる。データ源は Datadog のクラウドインテグレーションと Datadog Agent である。[出典](https://docs.datadoghq.com/infrastructure/resource_catalog/)
 
-Resource Catalog は全顧客に一般提供（GA）されている。Security タブを使うには Datadog Cloud Security が、Cost タブを使うには Cloud Cost Management が必要である。[出典](https://www.datadoghq.com/blog/datadog-resource-catalog/)（2023-11-28 公開、2024-12-04 更新。公開から 2 年近く経っており、タブ構成などは現行画面と異なる可能性がある）
+Resource Catalog は全顧客に一般提供（GA）されている。Security タブを使うには Datadog Cloud Security が、Cost タブを使うには Cloud Cost Management が必要である。[出典](https://www.datadoghq.com/blog/datadog-resource-catalog/)（2023-11-28 公開、2024-12-04 更新。公開から約 3 年、最終更新からも 2 年以上経っており、タブ構成などは現行画面と異なる可能性がある）
 
 ![Resource Catalog の Catalog タブ](../../assets/images/infrastructure-monitoring/resource-catalog.png)
 
@@ -1015,7 +1017,7 @@ API キーとアプリケーションキーの扱いは [API とキー管理](..
 | Host List の既定の表示範囲 | 直近 15 分間に動きのあったホスト | [出典](https://docs.datadoghq.com/infrastructure/list/) |
 | INACTIVE ホストが Host List から消えるまで | 最大 2 時間 | [出典](https://docs.datadoghq.com/account_management/billing/) |
 | インテグレーションで除外したインスタンスが `???` で残る期間 | 最大 2 時間（課金対象外） | [出典](https://docs.datadoghq.com/account_management/billing/aws/) |
-| ホストエイリアス | 検索・フィルタには使えない（詳細パネルでのみ表示） | [出典](https://docs.datadoghq.com/agent/faq/how-datadog-agent-determines-the-hostname/) |
+| ホストエイリアス | 検索・フィルタには使えない（ホスト詳細パネル／Legacy 表示の inspect パネルでのみ表示） | [出典](https://docs.datadoghq.com/agent/faq/how-datadog-agent-determines-the-hostname/) |
 | `hostname_fqdn` の既定値 | `false` | [出典](https://github.com/DataDog/datadog-agent/blob/main/pkg/config/example/datadog-agent_linux.yaml.example) |
 | `infrastructure_mode` の既定値 | `full` | [出典](https://docs.datadoghq.com/agent/configuration/infrastructure-modes/) |
 | Infrastructure モードの最低 Agent バージョン | `full` / `basic` 7.73.0（Windows の `basic` は 7.76.2）、`end_user_device` 7.76.2、`none` 7.77.0 | 同上 |
@@ -1079,7 +1081,7 @@ Infrastructure Monitoring の課金単位を簡潔にまとめる。料金の正
 | Infrastructure DevSecOps Pro | インフラホスト / 月 | $22 | $27 | $27 |
 | Infrastructure DevSecOps Enterprise | インフラホスト / 月 | $34 | $41 | $41 |
 | Container Monitoring（割り当て超過分） | コンテナ時間 | — | — | $0.002 |
-| Container Monitoring（前払い） | コンテナ / 月 | $1（DevSecOps は $1.50） | — | — |
+| Container Monitoring（前払い） | コンテナ / 月 | $1（DevSecOps は $1.50） | $1（DevSecOps は $1.50） | — |
 | Custom Metrics（超過分） | 100 カスタムメトリクス / 月 | $5 | $5 | $5 |
 
 [出典](https://www.datadoghq.com/pricing/list/)、[出典](https://www.datadoghq.com/pricing/)

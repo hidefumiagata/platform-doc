@@ -5,7 +5,7 @@ domain: platform
 last_verified: 2026-11-02
 agent_version: "7.x"
 summary: Datadog のタグを「どう設計し、どう付け、どう守らせるか」を実務観点でまとめる。タグ設計の原則、標準タグ辞書、カーディナリティ管理（カスタムメトリクス課金との関係）、チーム/所有権タグ、コスト配賦タグ（Usage Attribution・Cloud Cost Tag Pipelines）、Monitor Tag Policies・Resource Policies・Tag Rules による組織的な強制、典型的な失敗例に答える。
-keywords: [tagging, タグ, タグ戦略, タグ設計, tag governance, タグガバナンス, Unified Service Tagging, 統合サービスタグ, env, service, version, team, cost_center, カーディナリティ, cardinality, custom metrics, カスタムメトリクス, Metrics without Limits, MwL, DD_CHECKS_TAG_CARDINALITY, DD_DOGSTATSD_TAG_CARDINALITY, Usage Attribution, Cost Attribution, Tag Pipelines, Cloud Cost Management, Monitor Tag Policies, Tag Rules, Resource Policies, Resource Catalog, Teams, team handle, primary tags, chargeback, showback, コスト配賦]
+keywords: [tagging, タグ, タグ戦略, タグ設計, tag governance, タグガバナンス, Unified Service Tagging, 統合サービスタグ, env, service, version, team, cost_center, カーディナリティ, cardinality, custom metrics, カスタムメトリクス, Metrics without Limits, MwL, DD_CHECKS_TAG_CARDINALITY, DD_DOGSTATSD_TAG_CARDINALITY, Usage Attribution, Cost Attribution, Tag Pipelines, Cloud Cost Management, Monitor Tag Policies, Tag Rules, Resource Policies, Resource Catalog, Software Catalog, Service Catalog, Teams, team handle, primary tags, chargeback, showback, コスト配賦]
 sources:
   - https://docs.datadoghq.com/getting_started/tagging/
   - https://docs.datadoghq.com/getting_started/tagging/unified_service_tagging/
@@ -30,7 +30,8 @@ sources:
   - https://docs.datadoghq.com/extend/guide/what-best-practices-are-recommended-for-naming-metrics-and-tags
   - https://docs.datadoghq.com/logs/log_configuration/attributes_naming_convention/
   - https://www.datadoghq.com/blog/tagging-best-practices/
-  - https://www.pulumi.com/registry/packages/datadog/api-docs/tagrule/
+  - https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/tag_rule.md
+  - https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/index.md
   - https://rapdev.io/blog/top-7-mistakes-in-datadog-tagging-strategies
   - https://www.issoh.co.jp/tech/details/16515/
 ---
@@ -141,7 +142,7 @@ Datadog では「タグ」と「属性（ログ属性・スパン属性・RUM �
 | キー | 必須度 | 対象データ | 許可値（例） | 付与元（推奨） | 備考 |
 |---|---|---|---|---|---|
 | `env` | 必須 | 全テレメトリ・モニター・SLO・ダッシュボード | `prod`、`stg`、`dev`（語彙を固定） | SDK（`DD_ENV`）／Agent／コンテナラベル | 予約キー。APM の必須プライマリタグ。未設定時は APM 上 `env:none` |
-| `service` | 必須（アプリ） | トレース・ログ・アプリメトリクス・RUM | Software Catalog に登録したサービス名 | SDK（`DD_SERVICE`）／`tags.datadoghq.com/service` ラベル | 予約キー。ホストタグとして付けない |
+| `service` | 必須（アプリ） | トレース・ログ・アプリメトリクス・RUM | Software Catalog（旧称：Service Catalog）に登録したサービス名 | SDK（`DD_SERVICE`）／`tags.datadoghq.com/service` ラベル | 予約キー。ホストタグとして付けない |
 | `version` | 必須（アプリ） | トレース・ログ・アプリメトリクス・RUM | デプロイ単位で変わる値（Git SHA、イメージタグ等） | CI/CD → `DD_VERSION`／ラベル | 予約キー。デプロイ追跡に使用 |
 | `team` | 必須 | サービス・モニター・ダッシュボード・SLO・インフラ | Datadog Teams の team handle | Software Catalog／IaC／クラウドタグ | 予約キー。Teams 定義済み handle に揃える |
 | `cost_center` | 必須（コスト配賦する場合） | インフラ・クラウドリソース | 経理の部門コード | クラウドタグ（IaC）／Tag Pipelines | 公式ブログ例あり |
@@ -387,7 +388,7 @@ MwL 適用時の計算例（許可リスト `endpoint`、`status`）: Count/Rate
 
 > **位置付け:** MwL は「付けてしまったタグを課金対象から外す」対症療法であり、根本対策は送信コード側で無界タグを付けないことである。【第三者情報】[issoh](https://www.issoh.co.jp/tech/details/16515/)（2026-08 公開）。コスト観点の詳細は [コスト最適化](cost-optimization.md) を参照。
 
-![Metrics without Limits のタグ構成画面（資産で使われているタグの表示）](../../assets/images/tagging-strategy/mwl-tags-used-assets.png)
+![Metrics without Limits のタグ構成画面（資産で使われているタグの表示）](../assets/images/tagging-strategy/mwl-tags-used-assets.png)
 
 *図: Metrics without Limits™ のタグ構成モーダル*
 
@@ -409,7 +410,7 @@ MwL 適用時の計算例（許可リスト `endpoint`、`status`）: Count/Rate
 
 調査手順（公式ガイドの要約）:
 
-1. Plan & Usage の Custom Metrics タブで Top Custom Metrics を確認（上位 5,000 まで表示）。
+1. Plan & Usage の Custom Metrics タブで Top Custom Metrics を確認（上位 5,000 まで表示）。[出典](https://docs.datadoghq.com/metrics/custom_metrics/)
 2. Metrics Volume Management で急増したメトリクスを特定。
 3. メトリクス詳細のサイドパネルで **Custom Metrics Tags Cardinality Explorer** を開き、ユニーク値が急増したタグキーを特定。
 4. 送信元を修正、または MwL で除外。
@@ -498,7 +499,7 @@ APM のトレースメトリクスは、プライマリタグ（primary tags）�
 
 > **サイト差異:** GovCloud（US1-FED）の顧客は、Cost Attribution を有効化する前に免責事項（disclaimer）への同意が必要。[出典](https://docs.datadoghq.com/account_management/billing/usage_attribution/)
 
-![Usage Attribution のタグ編集ポップオーバー](../../assets/images/tagging-strategy/usage-attribution-edit-tags.png)
+![Usage Attribution のタグ編集ポップオーバー](../assets/images/tagging-strategy/usage-attribution-edit-tags.png)
 
 *図: Usage Attribution の配賦タグ（最大 3 キー）を設定する Edit Tags ポップオーバー*
 
@@ -546,7 +547,7 @@ Tag Pipelines は、クラウド請求データ上の**欠落・誤りのある�
 | タグ正規化 | 新規ユーザーには推奨のタグ正規化ルールがデフォルトで有効 |
 | 権限 | 公開情報では確認できず |
 
-![Tag Pipelines の Alias Tag Keys ルール作成画面](../../assets/images/tagging-strategy/ccm-tag-pipelines-alias.png)
+![Tag Pipelines の Alias Tag Keys ルール作成画面](../assets/images/tagging-strategy/ccm-tag-pipelines-alias.png)
 
 *図: Cloud Cost Management の Tag Pipelines で Alias Tag Keys ルールを作成する画面*
 
@@ -635,7 +636,7 @@ Monitor Settings の **Tag policies** タブで、すべてのモニターにタ
 | 設定手順 | [Monitors Settings](https://app.datadoghq.com/monitors/settings) → Tag policies タブ → ルール設定 → 緑のチェックマークで保存 |
 | 数値上限（ポリシー数・値数） | 公開情報では確認できず |
 
-![Monitor Settings の Tag Policies 画面](../../assets/images/tagging-strategy/monitor-tag-policies.png)
+![Monitor Settings の Tag Policies 画面](../assets/images/tagging-strategy/monitor-tag-policies.png)
 
 *図: Monitors Settings の Tag Policies タブ*
 
@@ -705,7 +706,7 @@ Tag Rules は、特定のテレメトリソース（`logs`、`spans`、`metrics`
 
 [出典（一覧）](https://docs.datadoghq.com/api/latest/tag-rules/list-tag-rules/)、[出典（作成）](https://docs.datadoghq.com/api/latest/tag-rules/create-a-tag-rule/)
 
-**IaC での扱い:** Terraform Datadog プロバイダには `datadog_tag_rule` リソースがあり（Pulumi の Datadog プロバイダ v5.18.0 のドキュメントで確認、2026-11 公開）、`force_blocking_on_create = true` を指定すると `surfacing` で作成した直後に `blocking` へ更新する。この更新に失敗すると `surfacing` のルールが残りリソースは tainted になる。また `blocking` の利用には組織で blocking tag rules が有効化されている必要があり、未有効だと `403 permission denied` になる。`tag_value_patterns` は正規表現ではなく、英数字・`_`・`:`・`-`・`.`・`,`・`/` とワイルドカード `*` を使え、`*` のみのパターンは拒否される。【第三者情報】[Pulumi Registry](https://www.pulumi.com/registry/packages/datadog/api-docs/tagrule/)（2026-11 公開）
+**IaC での扱い:** Terraform Datadog プロバイダには `datadog_tag_rule` リソースがあり、`force_blocking_on_create = true` を指定すると `surfacing` で作成した直後に `blocking` へ更新する。この更新に失敗すると `surfacing` のルールが残りリソースは tainted になる。また `blocking` の利用には組織で blocking tag rules が有効化されている必要があり、未有効だと `403 permission denied` になる。`tag_value_patterns` は正規表現ではなく、英数字・`_`・`:`・`-`・`.`・`,`・`/` とワイルドカード `*` を使える。`*` 単独のパターンは任意の値に一致し、`required: true` なら「値は問わずタグが必須」、`negated: true` なら「タグがあってはならない」を意味する。ただし `required` と `negated` が両方 false（ルールに効果がない）または両方 true（準拠できる値がない）の組み合わせでは拒否される。[出典（Terraform プロバイダ `datadog_tag_rule`）](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/tag_rule.md)
 
 **導入の勘所【経験則】:**
 
@@ -718,7 +719,7 @@ Tag Rules は、特定のテレメトリソース（`logs`、`spans`、`metrics`
 
 | 手法 | 内容 | 出典・確度 |
 |---|---|---|
-| プロバイダのデフォルトタグ | Datadog Terraform プロバイダの `default_tags` ブロック（Experimental）で、対象リソースに共通タグを一括付与。対象は Action Connections、Logs Indexes、Logs Pipelines、Monitors、Security Monitoring Rules、SLO に限定 | 【第三者情報】[Pulumi Registry（Datadog provider 設定）](https://www.pulumi.com/docs/reference/pkg/datadog/provider/)。Terraform Registry 上の正式記述は公開情報では未確認 |
+| プロバイダのデフォルトタグ | Datadog Terraform プロバイダの `default_tags` ブロック（Experimental）で、対象リソースに共通タグを一括付与。対象は Action Connections、Logs Indexes、Logs Pipelines、Monitors、Security Monitoring Rules、SLO に限定 | [公式（Terraform プロバイダ docs）](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/index.md) |
 | 共通モジュール | モニター・ダッシュボード用の社内 Terraform モジュールで `team`・`env`・`service`・`managed_by` を必須変数にする | 【経験則】 |
 | CI での静的チェック | `terraform plan` の JSON 出力や OPA/Conftest 等で、必須タグ欠落・許可外の値を検出して PR をブロック | 【経験則】 |
 | クラウドリソースの既定タグ | AWS プロバイダの `default_tags` 等で `cost_center`・`team` を全リソースに付与し、Datadog に流入させる | 【経験則】 |
@@ -927,14 +928,17 @@ IaC の詳細は [Monitoring as Code](monitoring-as-code.md) と [Terraform と 
 - Naming best practices for metrics and tags: https://docs.datadoghq.com/extend/guide/what-best-practices-are-recommended-for-naming-metrics-and-tags
 - Log attributes naming convention: https://docs.datadoghq.com/logs/log_configuration/attributes_naming_convention/
 
+GitHub（Datadog 公式）
+
+- terraform-provider-datadog, `datadog_tag_rule` resource: https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/tag_rule.md
+- terraform-provider-datadog, Provider configuration（`default_tags`）: https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/index.md
+
 公式ブログ
 
 - Best practices for tagging your infrastructure and applications（2019-12-11 公開、2023-11-30 更新）: https://www.datadoghq.com/blog/tagging-best-practices/
 
 第三者情報
 
-- Pulumi Registry, datadog.TagRule（Datadog provider v5.18.0、2026-11 公開）: https://www.pulumi.com/registry/packages/datadog/api-docs/tagrule/
-- Pulumi Registry, Datadog provider configuration（`default_tags`）: https://www.pulumi.com/docs/reference/pkg/datadog/provider/
 - RapDev, Top 7 Mistakes in Datadog Tagging Strategies（2026-03-03 公開）: https://rapdev.io/blog/top-7-mistakes-in-datadog-tagging-strategies
 - issoh, Datadog運用のベストプラクティス：タグ設計・監視対象の絞り込み・アラート・コスト抑制（2026-08-13 公開、2026-09-27 更新）: https://www.issoh.co.jp/tech/details/16515/
 

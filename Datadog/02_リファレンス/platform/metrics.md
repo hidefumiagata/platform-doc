@@ -30,6 +30,9 @@ sources:
   - https://docs.datadoghq.com/account_management/billing/usage_metrics/
   - https://docs.datadoghq.com/account_management/rbac/permissions/
   - https://www.datadoghq.com/pricing/list/
+  - https://www.datadoghq.com/product/metrics/
+  - https://www.datadoghq.com/blog/metrics-without-limits/
+  - https://www.datadoghq.com/blog/engineering/computing-accurate-percentiles-with-ddsketch/
 ---
 
 # Metrics（メトリクス）
@@ -245,7 +248,9 @@ Datadog Metrics の DISTRIBUTION は、フラッシュ間隔内の生値をそ�
 | GAUGE | `self.gauge()` → GAUGE | `dog.gauge()` → GAUGE | `type` = gauge → GAUGE |
 | SET | 記載なし | `dog.set()` → GAUGE | 記載なし |
 | HISTOGRAM | `self.histogram()` → GAUGE, RATE | `dog.histogram()` → GAUGE, RATE | 記載なし |
-| DISTRIBUTION | 記載なし | `dog.distribution()` → DISTRIBUTION | `/api/v1/distribution_points` → DISTRIBUTION |
+| DISTRIBUTION | 記載なし | `dog.distribution()` → DISTRIBUTION（送信タブの表では GAUGE, COUNT） | `/api/v1/distribution_points`（`submit_distribution_points(...)`）→ GAUGE, COUNT（公式表の記載。メトリクス型は DISTRIBUTION） |
+
+- DISTRIBUTION の in-app type は、公式ページ内で表記が揃っていない。送信元ごとの表（DogStatsD・API）では「GAUGE, COUNT」、末尾のまとめ表（DogStatsD のみ）では「DISTRIBUTION」と書かれている。前者は集約結果の表現（GAUGE / COUNT）を、後者はメトリクス自体の型を示すと考えられる【推定】（本ページの「DISTRIBUTION（集約は GAUGE / COUNT として表現）」の記述と同じ意味）。
 
 [出典](https://docs.datadoghq.com/metrics/types/)
 
@@ -512,6 +517,8 @@ Datadog の Metrics Explorer は、メトリクスをアドホックにグラフ
 | デフォルト期間 | Past 1 Hour |
 | 生クエリ編集 | `</>` ボタンでクエリ文字列を直接編集 |
 
+[出典](https://docs.datadoghq.com/metrics/explorer/)
+
 ## Metrics Summary
 
 ### 概要
@@ -533,6 +540,8 @@ Datadog の Metrics Summary は、選択した期間（過去 1 時間／1 日�
 | メトリクス名検索 | あいまい検索（enhanced fuzzy matching）対応 |
 | タグ検索 | ワイルドカードとブール論理対応（例：`team:*` はタグキーを持つ、`NOT team:*` は持たない） |
 | タグ検索候補の保持 | タグ値は 28 時間、タグ検索欄の候補に残る。28 時間送信のない値は候補に出ない（サイドパネルには表示される場合あり） |
+
+[出典](https://docs.datadoghq.com/metrics/summary/)
 
 ### ファセット
 
@@ -559,6 +568,8 @@ Datadog の Metrics Summary は、選択した期間（過去 1 時間／1 日�
 | プラットフォーム・カタログ | API Catalog、Catalog、Datadog Platform |
 | フォールバック | Other（対応する Datadog インテグレーションがない） |
 
+[出典](https://docs.datadoghq.com/metrics/summary/)
+
 ### Configure Metrics（一括構成）
 
 | メニュー | 内容 |
@@ -566,6 +577,8 @@ Datadog の Metrics Summary は、選択した期間（過去 1 時間／1 日�
 | Manage tags | 名前空間に一致する複数のカスタムメトリクスのタグを MWL で一括構成 |
 | Percentile aggregations | 複数 Distribution のパーセンタイルを一括有効化／無効化 |
 | Historical metrics ingestion | HMI を一括有効化／無効化 |
+
+[出典](https://docs.datadoghq.com/metrics/summary/)
 
 ### メトリクス詳細サイドパネル
 
@@ -855,7 +868,7 @@ Datadog の Metrics は、**標準メトリクス**（Agent・標準インテグ
 
 [出典](https://docs.datadoghq.com/account_management/billing/custom_metrics/)
 
-**公式料金ページの定価（2026-11-02 時点）**
+**公式料金ページの定価（US1/EU1 等、2026-11-02 時点）**
 
 | 品目 | 単位 | 年契約 | 月契約 | オンデマンド |
 |---|---|---|---|---|
@@ -863,6 +876,8 @@ Datadog の Metrics は、**標準メトリクス**（Agent・標準インテグ
 | Ingested Custom Metrics | 100 ingested メトリクスあたり / 月 | $0.10 | $0.10 | $0.10 |
 
 [出典](https://www.datadoghq.com/pricing/list/)（取得日 2026-11-02）
+
+> **サイト差異:** AP1 では Custom Metrics $6.25、Ingested Custom Metrics $0.125（100 あたり／月、全契約形態）。料金ページの既定表示（Datadog Site: US）は上表の値。サイト別の単価は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
 
 - 既存顧客の割当量は最新の契約書を参照するよう料金ページに注記がある。
 - indexed 超過分の単価は「契約で定める」と課金ドキュメントに記載。
@@ -949,4 +964,4 @@ Usage 画面と Usage Attribution の詳細は [Usage・Usage Attribution・Cost
 - https://www.datadoghq.com/pricing/list/ （取得日 2026-11-02）
 - https://www.datadoghq.com/product/metrics/ （取得日 2026-11-02）
 - https://www.datadoghq.com/blog/metrics-without-limits/ （2021 年公開、取得日 2026-11-02）
-- https://www.datadoghq.com/blog/engineering/computing-accurate-percentiles-with-ddsketch/ （DDSketch 解説）
+- https://www.datadoghq.com/blog/engineering/computing-accurate-percentiles-with-ddsketch/ （DDSketch 解説、取得日 2026-11-02）

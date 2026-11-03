@@ -5,7 +5,7 @@ domain: apm
 last_verified: 2026-11-02
 agent_version: "7.x"
 summary: Datadog APM でアプリケーションを計装（インスツルメンテーション）する方法をまとめたリファレンス。Single Step Instrumentation（SSI）の対応環境、導入手順、設定キー、言語別 Datadog SDK（旧称：トレーサー／トレーシングライブラリ。Java、Python、Node.js、Go、.NET、Ruby、PHP、C++、Rust）の対応バージョンと導入方法、自動計装と手動（カスタム）計装、ログとトレースの相関、主なライブラリ設定とデフォルト値、トレースコンテキスト伝播、OpenTelemetry API による計装を扱う。
-keywords: [APM, インスツルメンテーション, 計装, instrumentation, Single Step Instrumentation, SSI, Single Step APM, Datadog SDK, トレーサー, tracer, tracing library, dd-trace, dd-trace-java, dd-java-agent, ddtrace, ddtrace-run, dd-trace-js, dd-trace-go, Orchestrion, dd-trace-dotnet, Datadog.Trace, datadog gem, ddtrace gem, dd-trace-php, datadog-setup.php, dd-trace-cpp, datadog-opentelemetry, Rust, 自動計装, auto-instrumentation, カスタム計装, custom instrumentation, 手動計装, Admission Controller, Local SDK Injection, ライブラリインジェクション, library injection, DatadogInstrumentation, instrumentation rules, targets, ddTraceVersions, ddTraceConfigs, DD_APM_INSTRUMENTATION_ENABLED, DD_APM_INSTRUMENTATION_LIBRARIES, DD_INSTRUMENT_SERVICE_WITH_APM, DD_LOGS_INJECTION, ログとトレースの相関, log correlation, dd.trace_id, dd.span_id, DD_TRACE_PROPAGATION_STYLE, W3C Trace Context, tracecontext, baggage, B3, DD_TRACE_OTEL_ENABLED, OpenTelemetry API, runtime metrics, ランタイムメトリクス, Unified Service Tagging, DD_SERVICE, DD_ENV, DD_VERSION]
+keywords: [APM, インスツルメンテーション, 計装, instrumentation, Single Step Instrumentation, SSI, Single Step APM, Datadog SDK, トレーサー, tracer, tracing library, dd-trace, dd-trace-java, dd-java-agent, ddtrace, ddtrace-run, dd-trace-js, dd-trace-go, Orchestrion, dd-trace-dotnet, Datadog.Trace, datadog gem, ddtrace gem, dd-trace-php, datadog-setup.php, dd-trace-cpp, datadog-opentelemetry, Rust, 自動計装, auto-instrumentation, カスタム計装, custom instrumentation, 手動計装, Admission Controller, Local SDK Injection, ライブラリインジェクション, library injection, DatadogInstrumentation, instrumentation rules, targets, ddTraceVersions, ddTraceConfigs, DD_APM_INSTRUMENTATION_ENABLED, DD_APM_INSTRUMENTATION_LIBRARIES, DD_INSTRUMENT_SERVICE_WITH_APM, DD_LOGS_INJECTION, ログとトレースの相関, log correlation, dd.trace_id, dd.span_id, DD_TRACE_PROPAGATION_STYLE, W3C Trace Context, tracecontext, baggage, B3, DD_TRACE_OTEL_ENABLED, OpenTelemetry API, runtime metrics, ランタイムメトリクス, Agentless mode, DD_AGENTLESS_ENABLED, Unified Service Tagging, DD_SERVICE, DD_ENV, DD_VERSION]
 sources:
   - https://docs.datadoghq.com/tracing/trace_collection/
   - https://docs.datadoghq.com/tracing/trace_collection/single-step-apm/
@@ -29,6 +29,7 @@ sources:
   - https://docs.datadoghq.com/tracing/trace_collection/compatibility/dotnet-framework/
   - https://docs.datadoghq.com/tracing/trace_collection/automatic_instrumentation/dd_libraries/dotnet-core/
   - https://docs.datadoghq.com/tracing/trace_collection/compatibility/ruby/
+  - https://docs.datadoghq.com/tracing/trace_collection/automatic_instrumentation/dd_libraries/ruby/
   - https://docs.datadoghq.com/tracing/trace_collection/compatibility/php/
   - https://docs.datadoghq.com/tracing/trace_collection/automatic_instrumentation/dd_libraries/php/
   - https://docs.datadoghq.com/tracing/trace_collection/compatibility/cpp/
@@ -64,15 +65,15 @@ sources:
 
 ## 概要
 
-APM インスツルメンテーション（計装）は、アプリケーションに Datadog SDK を組み込み、リクエスト処理やDB呼び出しなどの処理単位をスパン（span）として記録し、Datadog Agent 経由で Datadog に送信できるようにする作業である。Datadog の公式ドキュメントは、アプリケーションに組み込むライブラリを現在 **Datadog SDK** と呼ぶ（従来の呼称：トレーサー（tracer）／トレーシングライブラリ。GitHub リポジトリ名は引き続き `dd-trace-*`）[出典](https://docs.datadoghq.com/tracing/trace_collection/)。
+APM インスツルメンテーション（計装）は、アプリケーションに Datadog SDK を組み込み、リクエスト処理やDB呼び出しなどの処理単位をスパン（span）として記録し、Datadog Agent 経由で（Python と Node.js では Agentless mode により直接）Datadog に送信できるようにする作業である。Datadog の公式ドキュメントは、アプリケーションに組み込むライブラリを現在 **Datadog SDK** と呼ぶ（従来の呼称：トレーサー（tracer）／トレーシングライブラリ。GitHub リポジトリ名は引き続き `dd-trace-*`）[出典](https://docs.datadoghq.com/tracing/trace_collection/)。
 
-APM の計装方法は、公式ドキュメント上で次の5つに整理されている。複数の方法は組み合わせて使える（例：SSI で SDK を入れ、重要な業務処理だけコードでカスタムスパンを追加する）[出典](https://docs.datadoghq.com/tracing/trace_collection/)。
+公式ドキュメントは Datadog の計装オプションとして次の 1〜4 の4つを挙げ、これとは別にベンダー中立の選択肢として OpenTelemetry（5）を紹介している。複数の方法は組み合わせて使える（例：SSI で SDK を入れ、重要な業務処理だけコードでカスタムスパンを追加する）[出典](https://docs.datadoghq.com/tracing/trace_collection/)。
 
 1. **Single Step Instrumentation（SSI、推奨）**：Agent のインストール時に1コマンドで SDK を自動インストール・自動ロードする。コード変更は不要。
 2. **手動管理の Datadog SDK（Manually managed SDKs）**：SDK をアプリケーションのコード、ビルド、起動コマンドに自分で組み込み、環境変数とコードで細かく制御する。
 3. **Dynamic Instrumentation**：Datadog UI でルールを定義し、再デプロイなしで実行時にカスタムスパンを追加する（詳細は [Dynamic Instrumentation と Live Debugger](./dynamic-instrumentation.md)）。
 4. **コードによるカスタム計装（Code-based custom instrumentation）**：Datadog API または OpenTelemetry API をコードから呼び、業務処理のスパンやタグを追加する。
-5. **OpenTelemetry**：ベンダー中立の OTel SDK で計装し、Datadog に送る（データ経路の詳細は [OpenTelemetry サポート](../platform/opentelemetry.md)）。
+5. **OpenTelemetry（Datadog の計装オプションとは別枠の代替手段）**：ベンダー中立の OTel SDK で計装し、Datadog に送る（データ経路の詳細は [OpenTelemetry サポート](../platform/opentelemetry.md)）。
 
 なお **自動計装（auto-instrumentation）** は独立した計装方法ではなく、SDK がロードされると対応フレームワーク・ライブラリのスパンが自動生成されるという、上記すべての土台となる既定動作である [出典](https://docs.datadoghq.com/tracing/trace_collection/)。
 
@@ -133,7 +134,7 @@ Datadog SDK のセットアップ方法は、SSI と手動管理の2つに分か
 
 ## トレースのデータフロー
 
-APM のトレースは、アプリケーション内の Datadog SDK が生成し、ローカルの Datadog Agent（Trace Agent）に送られ、Agent から Datadog のバックエンドに転送される [出典](https://docs.datadoghq.com/tracing/trace_collection/)。
+APM のトレースは、アプリケーション内の Datadog SDK が生成し、ローカルの Datadog Agent（Trace Agent）に送られ、Agent から Datadog のバックエンドに転送される [出典](https://docs.datadoghq.com/tracing/trace_collection/)。これが標準の構成であり、本節の図と表はこの Agent 経由の経路を示す。Python と Node.js では Agent を経由せず直接送る Agentless mode も選べる（後述の「[Agentless mode](#agentless-modeagent-を経由しない直接送信)」）。
 
 ![APM パイプライン](../../assets/images/apm-instrumentation/apm-pipeline.png)
 
@@ -161,6 +162,22 @@ Datadog Agent 側のトレース受信設定は次のとおり [出典](https://
 | 受信アドレス（UDS） | SDK はまず `/var/run/datadog/apm.socket` を試し、存在しなければ `http://localhost:8126` にフォールバックする |
 | コンテナからの受信 | `apm_config.apm_non_local_traffic: true`（環境変数 `DD_APM_NON_LOCAL_TRAFFIC=true`） |
 | SDK 側の送信先上書き | `DD_TRACE_AGENT_URL`（ソケット、ホスト、ポートをまとめて指定） |
+
+### Agentless mode（Agent を経由しない直接送信）
+
+Python と Node.js の Datadog SDK は、Datadog Agent を経由せずにデータを Datadog に直接送る Agentless mode に対応する [出典](https://docs.datadoghq.com/tracing/trace_collection/library_config/python/)、[出典](https://docs.datadoghq.com/tracing/trace_collection/library_config/nodejs/)。
+
+| 項目 | Python（`ddtrace`） | Node.js（`dd-trace`） |
+|---|---|---|
+| 最小 SDK | v4.15.0 | v5.125.0 / v6.14.0 |
+| 必須の環境変数 | `DD_AGENTLESS_ENABLED=true`、`DD_API_KEY`、`DD_SITE`（`DD_API_KEY` 未設定だと起動時にエラー） | `DD_AGENTLESS_ENABLED=true`、`DD_API_KEY`、`DD_SITE` |
+| 直接送信されるデータ | トレース、Remote Configuration、Dynamic Instrumentation、Test Optimization、LLM Observability | トレース、Remote Configuration、Dynamic Instrumentation、ログ（3つのロギングライブラリから）、Test Optimization、LLM Observability、Feature Flags の設定 |
+| Agent が必要で効かない機能 | ランタイムメトリクス、Profiling、Tracer flare | ランタイムメトリクス、Data Streams Monitoring、DogStatsD カスタムメトリクス、Profiling（`DD_PROFILING_EXPORTERS` に `agent` 以外のエクスポーターを含める場合を除く） |
+| サンプリング設定 | 公式ページに Agentless 固有の注記なし | `DD_TRACE_SAMPLING_RULES` と `DD_TRACE_RATE_LIMIT` は無視され、`DD_TRACE_SAMPLE_RATE` のみ有効 |
+| その他 | `DD_CIVISIBILITY_AGENTLESS_ENABLED`、`DD_LLMOBS_AGENTLESS_ENABLED` は既定で `DD_AGENTLESS_ENABLED` の値に従い、個別に上書きできる | — |
+
+- Agentless mode では SDK が送信先サイトを直接決めるため、`DD_SITE` を自組織のサイト（例：`ap1.datadoghq.com`）に合わせる（[Datadog Sites（サイト）](../platform/datadog-sites.md)）。
+- 上記以外の言語（Java、Go、.NET、Ruby、PHP など）の Agentless mode は、本ファイルの調査範囲の公開情報では確認できず。
 
 ## Single Step Instrumentation（SSI）
 
@@ -672,7 +689,7 @@ java -javaagent:/path/to/dd-java-agent.jar \
 
 既定で無効の統合（明示的に有効化が必要）：Grizzly クライアント／Grizzly-HTTP、Hazelcast（クライアント側）、Ignite、JAX-WS、JDBC Datasource、Mulesoft、Netty Promise、Ning、Spark Java、TIBCO BusinessWorks、URL Connection、WebSocket メッセージ、ZIO など。有効化は `-Ddd.integration.<名前>.enabled=true`（WebSocket メッセージは `-Ddd.trace.websocket.messages.enabled=true`）。全統合を既定無効にするには `DD_INTEGRATIONS_ENABLED=false` [出典](https://docs.datadoghq.com/tracing/trace_collection/compatibility/java/)。
 
-> 上表の Mulesoft は対応フレームワーク一覧（4.5.0+）に載る一方で、既定無効の統合一覧にも含まれる。利用時は `dd.integration.<名前>.enabled` での有効化が必要かを公式互換性ページで確認すること。
+> 上表の Mulesoft（4.5.0 以上、Fully Supported）は対応しているが既定では無効である。`-Ddd.integration.mule.enabled=true`（インスツルメンテーション名 `mule`）で有効化する [出典](https://docs.datadoghq.com/tracing/trace_collection/compatibility/java/)。
 
 #### Java の制限・注意
 
@@ -900,7 +917,11 @@ func main() {
 
 出典：[Ruby 互換性](https://docs.datadoghq.com/tracing/trace_collection/compatibility/ruby/)
 
-導入の基本形は、`Gemfile` に `gem 'datadog', require: 'datadog/auto_instrument'` を追加し、`Datadog.configure` で `env`、`service`、`version` やトレースの有効化を設定する方法である（Rails は initializer に記述）。詳細手順は公式の Ruby セットアップページを参照。
+導入の基本形は次のとおり [出典](https://docs.datadoghq.com/tracing/trace_collection/automatic_instrumentation/dd_libraries/ruby/)。
+
+- **Rails / Hanami**：`Gemfile` に `gem 'datadog', require: 'datadog/auto_instrument'` を追加し、`config/initializers/datadog.rb` に `Datadog.configure do |c| ... end` ブロックを作成して `env`、`service`、`version` などを設定する。
+- **その他の Ruby アプリケーション**：`Gemfile` に `gem 'datadog'` を追加し、トレース対象のライブラリ・フレームワークを require した**後に** `require 'datadog/auto_instrument'` を記述し、同様に `Datadog.configure` で設定する。
+- Agent 側では `DD_APM_ENABLED=true`（コンテナでは `DD_APM_NON_LOCAL_TRAFFIC=true` も）を設定しておく。
 
 ### PHP
 
@@ -916,7 +937,7 @@ func main() {
 | 5.4〜5.6 | EOL | 1.0.0 未満（0.99 が最終） |
 
 - SAPI：apache2handler、cli、fpm-fcgi、cgi-fcgi、FrankenPHP（NTS / ZTS とも）。
-- OS：Linux GNU / MUSL の amd64 と arm64（arm64 は 0.78.0 超）、Windows amd64（0.98.0 超、PHP 7.2 以上。Windows は APM のみ）。
+- OS：Linux GNU / MUSL の amd64 と arm64（arm64 は 0.78.0 以上）、Windows amd64（0.98.0 以上、PHP 7.2 以上。Windows は APM のみ）。
 - フレームワーク計装：CakePHP、CodeIgniter 2.x、Drupal、Laminas、Laravel、Lumen、Magento 2、RoadRunner、Slim、Symfony 2.x〜7.x、WordPress 4.x〜6.x、Yii 2.0 など。CLI のトレースは既定で有効（`DD_TRACE_CLI_ENABLED=false` で無効）。
 - 制限：SDK をインストールした環境で `pcntl_unshare(CLONE_NEWUSER)` を呼ぶとアプリケーションがクラッシュする（SDK の送信スレッドと競合するため）。fork したプロセスのトレースは `DD_TRACE_FORKED_PROCESS` で無効化できる。
 
@@ -1149,11 +1170,11 @@ Datadog SDK は環境変数と言語固有の設定（Java のシステムプロ
 | `DD_SPAN_SAMPLING_RULES` | 単一スパンのサンプリングルール | なし |
 | `DD_LOGS_INJECTION` | ログへのトレース ID 注入 | 前節「言語別の自動注入」参照 |
 | `DD_RUNTIME_METRICS_ENABLED` | ランタイムメトリクス | Java と .NET 6 以降（3.40.0 以上）は既定で有効、他は `false` |
-| `DD_PROFILING_ENABLED` | Continuous Profiler | `false`（SSI では `auto` を推奨） |
+| `DD_PROFILING_ENABLED` | Continuous Profiler | Java・Node.js は `false`。Go は既定 `true`（コードで `profiler.Start()` を呼んだ場合に効く）。SSI では `auto` を推奨 |
 | `DD_TRACE_PROPAGATION_STYLE` | コンテキスト伝播形式 | `datadog,tracecontext,baggage`（.NET 2.48.0 以降は `datadog,tracecontext`） |
 | `DD_TRACE_128_BIT_TRACEID_GENERATION_ENABLED` | 128 ビットのトレース ID 生成 | `true` |
-| `DD_TRACE_PARTIAL_FLUSH_ENABLED` | 長いトレースの部分送信 | `true`（Java は Agent 7.26.0 以降が必要） |
-| `DD_TRACE_PARTIAL_FLUSH_MIN_SPANS` | 部分送信するスパン数の閾値 | Java `1000`、Python `300` |
+| `DD_TRACE_PARTIAL_FLUSH_ENABLED` | 長いトレースの部分送信 | Java・Python は `true`（Agent 7.26.0 以降が必要）、Go は `false` |
+| `DD_TRACE_PARTIAL_FLUSH_MIN_SPANS` | 部分送信するスパン数の閾値 | Java・Go・Node.js `1000`、Python `300` |
 | `DD_TRACE_HEADER_TAGS` | HTTP ヘッダーをスパンタグにする（Java は `DD_TRACE_REQUEST_HEADER_TAGS` / `DD_TRACE_RESPONSE_HEADER_TAGS` もある） | なし |
 | `DD_TRACE_CLIENT_IP_ENABLED` | クライアント IP を `http.client_ip` に記録 | `false`（Java） |
 | `DD_TRACE_HTTP_SERVER_ERROR_STATUSES` | サーバー側でエラー扱いする HTTP ステータス | `500-599`（Java） |
@@ -1220,7 +1241,7 @@ Datadog 形式のヘッダー：`x-datadog-trace-id`（128 ビット ID の下�
 
 > **サイト差異:** SSI の Instrumentation Rules は `app.ddog-gov.com`（US1-FED）で利用できない [出典](https://docs.datadoghq.com/tracing/trace_collection/single-step-apm/linux/)。
 
-> **サイト差異:** ランタイムメトリクスの公式ドキュメントは、US3、US5、EU1、政府系サイトなどでは Agent に `DD_SITE` を正しく設定するよう注記している [出典](https://docs.datadoghq.com/tracing/metrics/runtime_metrics/)。SDK 自体は Agent に送るだけなのでサイトを意識しないが、Agentless 構成や Agent 側の送信先はサイトごとに異なる（[Datadog Sites（サイト）](../platform/datadog-sites.md)）。
+> **サイト差異:** ランタイムメトリクスの公式ドキュメントは、US3、US5、EU1、政府系サイトなどでは Agent に `DD_SITE` を正しく設定するよう注記している [出典](https://docs.datadoghq.com/tracing/metrics/runtime_metrics/)。Agent 経由の通常構成では SDK は Agent に送るため送信先サイトは Agent 側の `DD_SITE` で決まるが、Agentless mode（Python、Node.js）では SDK 自身に `DD_SITE` の設定が必要である（[Agentless mode](#agentless-modeagent-を経由しない直接送信)、[Datadog Sites（サイト）](../platform/datadog-sites.md)）。
 
 上記以外に、SDK・SSI の機能提供についてサイト別（AP1 を含む）の差異は公開情報では確認できず。
 
@@ -1245,7 +1266,8 @@ Datadog 形式のヘッダー：`x-datadog-trace-id`（128 ビット ID の下�
 | SSI：対応しない環境 | ECS Fargate、強化 SELinux、Kubernetes の Windows Pod、musl 上の Ruby | [SSI 互換性](https://docs.datadoghq.com/tracing/trace_collection/single-step-apm/compatibility/) |
 | Local SDK Injection：Kubernetes 最小 | 1.14（Cluster Agent 7.40 / .NET・Ruby は 7.44） | [Local SDK Injection](https://docs.datadoghq.com/tracing/guide/local_sdk_injection/) |
 | `DD_TRACE_RATE_LIMIT` 既定 | 100 トレース／秒 | [Java 設定](https://docs.datadoghq.com/tracing/trace_collection/library_config/java/) |
-| `DD_TRACE_PARTIAL_FLUSH_MIN_SPANS` 既定 | Java 1000、Python 300 | [Java 設定](https://docs.datadoghq.com/tracing/trace_collection/library_config/java/)、[Python 設定](https://docs.datadoghq.com/tracing/trace_collection/library_config/python/) |
+| `DD_TRACE_PARTIAL_FLUSH_MIN_SPANS` 既定 | Java・Go・Node.js 1000、Python 300 | [Java 設定](https://docs.datadoghq.com/tracing/trace_collection/library_config/java/)、[Python 設定](https://docs.datadoghq.com/tracing/trace_collection/library_config/python/)、[Go 設定](https://docs.datadoghq.com/tracing/trace_collection/library_config/go/)、[Node.js 設定](https://docs.datadoghq.com/tracing/trace_collection/library_config/nodejs/) |
+| Agentless mode の最小 SDK | Python `ddtrace` 4.15.0、Node.js `dd-trace` 5.125.0 / 6.14.0 | [Python 設定](https://docs.datadoghq.com/tracing/trace_collection/library_config/python/)、[Node.js 設定](https://docs.datadoghq.com/tracing/trace_collection/library_config/nodejs/) |
 | `DD_TRACE_AGENT_TIMEOUT` 既定 | 10 秒（Java） | [Java 設定](https://docs.datadoghq.com/tracing/trace_collection/library_config/java/) |
 | トレース ID | 既定で 128 ビット生成 | 同上 |
 | .NET の CLR プロファイラー | 1プロセス1つ | [.NET Core セットアップ](https://docs.datadoghq.com/tracing/trace_collection/automatic_instrumentation/dd_libraries/dotnet-core/) |
@@ -1258,13 +1280,15 @@ Datadog 形式のヘッダー：`x-datadog-trace-id`（128 ビット ID の下�
 
 計装方法（SSI、手動 SDK、OTel API）の違いそのものによる課金差は、公式の課金ページでは説明されていない [出典](https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/)。課金はトレースを送信したホスト・タスク数と、スパンの取り込み量・インデックス量で決まる。
 
-| 課金単位 | 内容（2026-11-02 時点の公式料金ページ。年契約 / 月契約・オンデマンド） |
+| 課金単位 | 内容（2026-11-02 時点の公式料金ページ。US/EU1、年契約 / 月契約・オンデマンド） |
 |---|---|
-| APM ホスト | トレースを送信する APM 導入ホスト1台あたり月額 $31 / $36 |
-| APM Pro（APM＋Data Streams Monitoring） | ホストあたり月額 $35 / $42 |
-| APM Enterprise（APM＋Data Streams Monitoring＋Continuous Profiler） | ホストあたり月額 $40 / $48 |
+| APM ホスト（Infrastructure Pro/Enterprise 併用時の単価） | トレースを送信する APM 導入ホスト1台あたり月額 $31 / $36 |
+| APM Pro（APM＋Data Streams Monitoring、Infrastructure 併用時） | ホストあたり月額 $35 / $42 |
+| APM Enterprise（APM＋Data Streams Monitoring＋Continuous Profiler、Infrastructure 併用時） | ホストあたり月額 $40 / $48 |
 | 取り込みスパン（Ingested Spans） | 超過分 $0.10 / GB（ホストあたり150 GB を含む） |
 | インデックス化スパン（Indexed Spans、15日保持） | 超過分 100万スパンあたり $1.70（年契約）（ホストあたり100万スパンを含む） |
+
+- 上表の APM ホスト単価（$31 / $35 / $40）は、すべての APM ホストに Infrastructure Pro または Enterprise が必要な**併用モデル**の価格である。Infrastructure を使わない**スタンドアロン**価格（年契約 $36 / $41 / $47）も別にある。併用モデルの月契約 $36 とスタンドアロン年契約 $36 は別物なので取り違えないこと（[製品別料金表 §5.1](../../03_導入編/pricing-by-product.md#51-apm-エディションinfrastructure-併用スタンドアロン)）。
 
 - ホストは1時間ごとに計測され、月末に上位の値を除いて課金される（99パーセンタイル方式／ハイウォーターマーク方式）。Kubernetes では Pod ではなく基盤ノード単位。1コンテナに1 Agent を置く構成では各コンテナがホストとして数えられる [出典](https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/)。
 - 計装で有効化する付随機能（`DD_PROFILING_ENABLED`、`DD_APPSEC_ENABLED`、`DD_DATA_STREAMS_ENABLED`、`DD_IAST_ENABLED` など）は、それぞれの製品の課金対象になりうる。特に SSI で `DD_PROFILING_ENABLED=auto` を全体に適用すると Profiler の課金対象ホスト／コンテナが増える可能性がある【推定】。
@@ -1311,6 +1335,7 @@ Datadog 形式のヘッダー：`x-datadog-trace-id`（128 ビット ID の下�
 - https://docs.datadoghq.com/tracing/trace_collection/compatibility/dotnet-framework/
 - https://docs.datadoghq.com/tracing/trace_collection/automatic_instrumentation/dd_libraries/dotnet-core/
 - https://docs.datadoghq.com/tracing/trace_collection/compatibility/ruby/
+- https://docs.datadoghq.com/tracing/trace_collection/automatic_instrumentation/dd_libraries/ruby/
 - https://docs.datadoghq.com/tracing/trace_collection/compatibility/php/
 - https://docs.datadoghq.com/tracing/trace_collection/automatic_instrumentation/dd_libraries/php/
 - https://docs.datadoghq.com/tracing/trace_collection/compatibility/cpp/

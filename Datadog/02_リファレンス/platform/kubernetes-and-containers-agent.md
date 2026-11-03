@@ -34,6 +34,7 @@ sources:
   - https://docs.datadoghq.com/containers/docker/integrations/
   - https://docs.datadoghq.com/containers/amazon_ecs/
   - https://docs.datadoghq.com/containers/amazon_ecs/managed_instances/
+  - https://docs.datadoghq.com/resources/json/datadog-agent-ecs.json
   - https://docs.datadoghq.com/integrations/ecs_fargate/
   - https://docs.datadoghq.com/integrations/eks_fargate/
   - https://docs.datadoghq.com/integrations/kubernetes_state_core/
@@ -43,8 +44,11 @@ sources:
   - https://www.datadoghq.com/pricing/list/
   - https://github.com/DataDog/helm-charts/blob/main/charts/datadog/values.yaml
   - https://github.com/DataDog/helm-charts/blob/main/charts/datadog-operator/values.yaml
+  - https://github.com/DataDog/helm-charts/releases
   - https://github.com/DataDog/datadog-operator
+  - https://github.com/DataDog/datadog-operator/blob/main/docs/configuration.v2alpha1.md
   - https://github.com/DataDog/datadog-operator/blob/main/docs/kubectl-plugin.md
+  - https://github.com/DataDog/datadog-operator/releases
   - https://github.com/DataDog/datadog-agent/releases
   - https://hub.docker.com/r/datadog/agent
 ---
@@ -340,10 +344,12 @@ Datadog Operator は Kubernetes Operator パターンで Datadog Agent を展開
 - 1 つの `DatadogAgent` CR で Node Agent、Cluster Agent、Cluster Checks Runner をまとめて展開する。
 - Agent 設定のバリデーション、設定との継続的な同期（reconcile）、CR の status への展開状態・ヘルス・エラーの報告を行う。
 - クラスタープロバイダーを自動検出し、Amazon EKS や Red Hat OpenShift の制御プレーン監視などプロバイダー固有の設定を自動適用する（[4.4](#44-クラスタープロバイダーの自動検出)）。
-- Fleet Automation によるリモート管理に対応（docs 上は private preview と記載）。
+- Fleet Automation によるリモート管理【Preview】に対応（docs 上は private preview と記載）。
 - `DatadogAgent` の API バージョンは `datadoghq.com/v2alpha1`。旧 `v1alpha1` からの移行には v1.7.0 の変換 Webhook が必要。ExtendedDaemonSet のサポートは削除済み。
 
 **Operator 方式で既定で有効な機能**（README 記載）: Cluster Agent、Admission Controller、Cluster Checks、Kubernetes Event Collection、Kubernetes State Core Check、Live Container Collection、Orchestrator Explorer、DogStatsD（および APM 有効時は APM）の Unix Domain Socket 通信、Process Discovery、Control Plane Monitoring。[出典](https://github.com/DataDog/datadog-operator)
+
+> **注意:** Control Plane Monitoring は「既定で有効」だが、Control Plane Monitoring ドキュメントは EKS / OpenShift 4 の Operator 方式について「introspection の有効化が必要」としている。一方、Operator chart の `introspection.enabled` の既定値は `false` である（[4.2](#42-operator-が扱うカスタムリソースcrd)）。そのため、既定構成のままでは自動設定が効かない可能性がある（[11.8](#118-制御プレーン監視)）。[出典](https://docs.datadoghq.com/containers/kubernetes/control_plane/)
 
 ### 4.2 Operator が扱うカスタムリソース（CRD）
 
@@ -376,7 +382,7 @@ DatadogAgentProfile（DAP、プロファイル）は、`DatadogAgent`（DDA）�
 | 構造 | `profileAffinity`（NodeSelectorRequirement のリストで対象ノードを選ぶ）と `config`（DatadogAgentSpec 形式の上書き内容） |
 | 動作 | DAP ごとに DAP 名の DaemonSet を新規作成し、既定プロファイル用の DaemonSet も作成する |
 | 重複 | 複数 DAP は共存できるが、互いに異なるノードサブセットを対象にする必要がある |
-| 前提 | Operator v1.5.0 以降。Helm でプロファイルコントローラー（`datadogAgentProfile.enabled`）と CRD（`datadogCRDs.crds.datadogAgentProfiles`）を有効化。既定は無効 |
+| 前提 | Operator v1.5.0 以降（v1.5.0 で導入、v1.24.0 で GA。Operator chart の values.yaml のコメントには「beta」の表記が残っている）。Helm でプロファイルコントローラー（`datadogAgentProfile.enabled`）と CRD（`datadogCRDs.crds.datadogAgentProfiles`）を有効化。既定は無効 |
 | 制約 | Operator がノードをパッチできる必要があり、GKE Autopilot などノード変更を禁止する環境では使えない。有効化すると Operator のリソース消費が増える |
 | プロバイダー指定 | DAP に `agent.datadoghq.com/cluster-provider` アノテーション（例: `gke-cos`、`eks-ec2-use-hostname-from-file`）を付けてノードサブセット単位でプロバイダー設定を適用できる。Operator はセレクターとアノテーションの整合を検証しないため、セレクターが広すぎると不適切なノードに適用される |
 
@@ -391,6 +397,8 @@ Operator はノードラベル等からクラスタープロバイダーを検�
 | `eks` | `eks.amazonaws.com/*` または `alpha.eksctl.io/*` ノードラベル | v1.29.0 | API Server・Controller Manager・Scheduler の制御プレーン監視 |
 | `openshift`（`openshift-<os_id>`） | `node.openshift.io/os_id` ノードラベル | v1.29.0 | API Server・Controller Manager・Scheduler・etcd の制御プレーン監視。v1.31.0 以降は Node Agent の SCC、SELinux、toleration、kubelet TLS 検証も設定 |
 | `talos` | ノード `osImage` が `Talos (` で始まる | v1.31.0 | Talos にないホストパスを外し、eBPF 機能用に tracefs をマウント。v1.32.0 以降は制御プレーン監視も有効化 |
+
+- `eks` / `openshift` の制御プレーン監視の自動設定には、introspection の有効化が必要な場合がある（Operator chart の既定は `introspection.enabled: false`。詳細は [11.8](#118-制御プレーン監視)）。
 
 自動検出されず、アノテーションでのみ指定するプロバイダー: `gke-cos`、`eks-ec2-use-hostname-from-file`、`gke-autopilot`、`windows`。
 
@@ -815,7 +823,7 @@ Helm の主な Admission Controller 既定値（`clusterAgent.admissionControlle
 | `configMode` | 未設定（自動判定） | `hostip` / `service` / `socket` / `csi` |
 | `failurePolicy` | `Ignore` | Webhook が利用不能でも Pod を作成させる。`Fail` にすると注入できない Pod は作成されない |
 | `port` | `8000` | Webhook ポート |
-| `remoteInstrumentation.enabled` | `false` | Remote Config によるライブラリ注入（beta、Cluster Agent 7.43 以降、Deployment をパッチする権限が付与される） |
+| `remoteInstrumentation.enabled` | `false` | Remote Config によるライブラリ注入【Preview】（Helm values では beta 表記、Cluster Agent 7.43 以降、Deployment をパッチする権限が付与される） |
 | `probe.enabled` | `false` | Webhook 到達性プローブ（Cluster Agent 7.78.0 以降、間隔 60 秒、初回猶予 60 秒） |
 | `agentSidecarInjection.enabled` | `false` | Agent サイドカー注入（`provider` は現状 `fargate` のみ） |
 
@@ -1176,7 +1184,8 @@ OpenShift 3.11 と 4 をサポートし、4 での利用が推奨される。昇
 | RKE v2.5 以降 / それ以前 | 4 コンポーネント | PushProx + headless service / エンドポイントアノテーション |
 | AKS / GKE | 対象外 | マネージド制御プレーンにアクセスできないため不可 |
 
-- Operator の EKS / OpenShift 4 自動設定には `introspection.enabled: true` が必要。[出典](https://docs.datadoghq.com/containers/kubernetes/control_plane/)
+- Operator の EKS / OpenShift 4 自動設定には introspection の有効化が必要（Helm では `introspection.enabled: true`、OperatorHub 経由の導入では CSV に `--introspectionEnabled=true` を追加）。ドキュメントは「制御プレーン監視は既定で有効だが、introspection の有効化が必要」と説明している。[出典](https://docs.datadoghq.com/containers/kubernetes/control_plane/)
+- ただし、Operator chart の `introspection.enabled` の既定値は `false` である（Operator バイナリのフラグ既定値も `false`）。v1.29.0 以降のプロバイダー検出（[4.4](#44-クラスタープロバイダーの自動検出)）でもこの要件が残るのかは、公式ドキュメントに明記がない。EKS / OpenShift で制御プレーン監視を使う場合は、`introspection.enabled: true` を明示的に設定する。[出典](https://github.com/DataDog/helm-charts/blob/main/charts/datadog-operator/values.yaml) [出典](https://docs.datadoghq.com/containers/datadog_operator/providers/)
 
 ---
 
@@ -1392,6 +1401,8 @@ Agent 共通のトラブルシューティング（status / flare / debug モー
 ## 課金への影響
 
 コンテナ/Kubernetes 向け Agent 自体は無償で、課金は Agent が監視する対象（ホスト、コンテナ、Fargate タスクなど）と有効化した製品に応じて発生する。以下の金額は公式料金ページの定価（2026-11-02 時点、USD）。料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、課金計算の詳細は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+
+> **サイト差異:** 以下の金額は US / EU1 の定価である。AP1（日本）は掲載値ベースで約 1.25 倍、AP2 は約 1.20 倍になる。AP1 の例は次のとおり。Infrastructure Pro は年契約 $18.75 / 月契約・オンデマンド $22.50。コンテナは前払い $1.25 / コンテナ・月、オンデマンド $0.0025 / コンテナ・時。Serverless Apps は $3.75 / $5 / $5.40。Kubernetes Autoscaling は $3.75 / $4.50 / $5.40。正確な値は [製品別料金表](../../03_導入編/pricing-by-product.md) の AP1 列を参照。
 
 ### コンテナ（Kubernetes / Docker / ECS on EC2）
 

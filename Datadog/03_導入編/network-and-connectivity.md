@@ -28,6 +28,7 @@ sources:
   - https://docs.datadoghq.com/network_monitoring/devices/netflow/
   - https://docs.datadoghq.com/network_monitoring/devices/snmp_traps/
   - https://docs.datadoghq.com/integrations/ntp/
+  - https://github.com/DataDog/datadog-agent/tree/main/pkg/config/example
   - https://ip-ranges.ap1.datadoghq.com/
   - https://ip-ranges.datadoghq.com/
   - https://www.datadoghq.com/blog/datadog-aws-cross-region-privatelink/
@@ -53,6 +54,11 @@ Datadog は SaaS 型のオブザーバビリティ基盤であり、監視対象
 | インターネット非接続環境 | [閉域環境の設計パターン](#閉域環境の設計パターン) |
 | 通信断時の挙動 | [ネットワーク断時のバッファリング](#ネットワーク断時のバッファリング) |
 | 帯域見積り | [帯域見積り](#帯域見積り) |
+| サイト別の閉域接続可否 | [サイト別の閉域接続可否（まとめ）](#サイト別の閉域接続可否まとめ) |
+| 複数送信先への同時送信 | [デュアルシッピング（複数送信先）](#デュアルシッピング複数送信先) |
+| 疎通確認・障害切り分け | [疎通確認とトラブルシューティング](#疎通確認とトラブルシューティング) |
+| 制限値・既定値の一覧 | [制限値・クォータ・デフォルト値](#制限値クォータデフォルト値) |
+| 課金への影響 | [課金への影響](#課金への影響) |
 
 基準サイトは AP1（日本、`ap1.datadoghq.com`）とし、他サイトとの差異は「サイト差異」として明記する。Agent の設定キー全体は [Agent 設定リファレンス](../02_リファレンス/platform/agent-configuration.md)、サイトの詳細は [Datadog Sites](../02_リファレンス/platform/datadog-sites.md) を参照。
 
@@ -73,14 +79,14 @@ Datadog Agent の通信には、公式ドキュメントで明記された次の
 ```mermaid
 flowchart LR
   subgraph 顧客環境
-    APP[アプリ/トレーサー] -- "localhost:8126 (APM)\nlocalhost:8125/udp (DogStatsD)" --> AG[Datadog Agent]
-    OTEL[OTel SDK] -- "4317/4318 (OTLP)" --> AG
-    AG --> PX[(HTTP(S) プロキシ\n任意)]
-    PL[Synthetics\nPrivate Location] --> PX
+    APP["アプリ/トレーサー"] -- "localhost:8126 (APM)<br>localhost:8125/udp (DogStatsD)" --> AG["Datadog Agent"]
+    OTEL["OTel SDK"] -- "4317/4318 (OTLP)" --> AG
+    AG --> PX[("HTTP(S) プロキシ<br>任意")]
+    PL["Synthetics<br>Private Location"] --> PX
   end
-  PX -- "TCP 443 / TLS" --> DD[(Datadog サイト\n例: *.ap1.datadoghq.com)]
+  PX -- "TCP 443 / TLS" --> DD[("Datadog サイト<br>例: *.ap1.datadoghq.com")]
   AG -. "PrivateLink 等(任意)" .-> DD
-  BR[エンドユーザーのブラウザ/モバイル\nRUM SDK] -- "TCP 443" --> DD
+  BR["エンドユーザーのブラウザ/モバイル<br>RUM SDK"] -- "TCP 443" --> DD
 ```
 
 > **注意:** 例外的に、Datadog のクラウドインテグレーション（AWS / Azure / Google Cloud）のメトリクス収集やログ転送（Forwarder、Firehose 等）は Agent を介さない経路で動く。これらのネットワーク要件は [AWS Integration](../02_リファレンス/platform/aws-integration.md)、[Azure Integration](../02_リファレンス/platform/azure-integration.md)、[Google Cloud Integration](../02_リファレンス/platform/gcp-integration.md) を参照。
@@ -274,6 +280,8 @@ Network Path（Agent 7.75 以降）は送信元のパブリック IP を解決�
 | 6162 | TCP | Process Agent ランタイム | — | 6162 |
 | 4317 / 4318 | TCP | OTLP 受信（gRPC / HTTP、有効化時） | `otlp_config.receiver.protocols.*.endpoint` | 無効 |
 
+（ポート番号と用途の出典は [Network Traffic](https://docs.datadoghq.com/agent/configuration/network/)。`GUI_port` の OS 別既定値（Windows/macOS は `5002`、Linux は `-1`）および `dogstatsd_non_local_traffic`（`DD_DOGSTATSD_NON_LOCAL_TRAFFIC`、既定 `false`）の出典は Agent の設定例ファイル [datadog-agent_linux.yaml.example](https://github.com/DataDog/datadog-agent/blob/main/pkg/config/example/datadog-agent_linux.yaml.example)（2026-11-04 確認）。設定キー全体は [Agent 設定リファレンス](../02_リファレンス/platform/agent-configuration.md) を参照。）
+
 > **注意:** DogStatsD・APM のポートを変更した場合は、アプリ側の SDK/トレーサーの送信先設定も合わせて変更する。コンテナ環境ではアプリコンテナから Agent（DaemonSet のホストポート、または UDS）に到達できる必要がある。詳細は [Custom Metrics と DogStatsD](../02_リファレンス/platform/custom-metrics-and-dogstatsd.md)、[APM インスツルメンテーション](../02_リファレンス/apm/apm-instrumentation.md)。
 
 ### Kubernetes クラスター内の通信
@@ -320,8 +328,9 @@ Datadog は Intake の静的 IP レンジを JSON で公開している。URL �
 | AP2 | `https://ip-ranges.ap2.datadoghq.com` |
 | UK1 | `https://ip-ranges.uk1.datadoghq.com` |
 | US1-FED | `https://ip-ranges.ddog-gov.com` |
+| US2-FED | `https://ip-ranges.us2.ddog-gov.com` |
 
-（URL はいずれも `https://ip-ranges.<site パラメーター>` の規則に従う。上表の全 URL が HTTP 200 を返すことを 2026-11-02 に確認済み。）
+（URL はいずれも `https://ip-ranges.<site パラメーター>` の規則に従う。上表の全 URL が HTTP 200 を返すことを 2026-11-02 に確認済み（US2-FED は 2026-11-04 に確認）。）
 
 ### JSON の構造
 
@@ -521,19 +530,19 @@ AP1 は「2 階層 DNS」構成で、各 DNS 名は `<color>.intake.ap1.datadogh
 6. エンドポイントを作成し、ステータスが **Pending → Available** になるまで待つ（最大 10 分程度）。
 7. Agent を再起動する。
 
-![AWS VPC Dashboard の Endpoints 画面と Create Endpoint ボタン](../../assets/images/network-and-connectivity/privatelink-create_vpc_endpoint.png)
+![AWS VPC Dashboard の Endpoints 画面と Create Endpoint ボタン](../assets/images/network-and-connectivity/privatelink-create_vpc_endpoint.png)
 
 *キャプション:* AWS VPC Dashboard の Endpoints 一覧画面。
 *画面説明:* 左メニュー「Virtual Private Cloud」配下の **Endpoints** を選択すると、右側に既存エンドポイントの一覧（Name、Endpoint ID、VPC ID、Service name 列）が表示され、上部の **Create Endpoint** ボタンから新規作成を開始する。旧 UI のスクリーンショットであり、現行の AWS コンソールとは見た目が異なる場合がある。
 *出典:* Datadog 公式ドキュメント画像 https://datadog-docs.imgix.net/images/agent/guide/private_link/create_vpc_endpoint.png （ガイド: https://docs.datadoghq.com/agent/guide/private-link/ ）、取得日 2026-11-02。
 
-![Create Endpoint 画面で Find service by name を選びサービス名を Verify する](../../assets/images/network-and-connectivity/privatelink-vpc_service_name.png)
+![Create Endpoint 画面で Find service by name を選びサービス名を Verify する](../assets/images/network-and-connectivity/privatelink-vpc_service_name.png)
 
 *キャプション:* Create Endpoint 画面でのサービス名検証。
 *画面説明:* **Service category** で「Find service by name」を選び、**Service Name** 欄に `com.amazonaws.vpce.<region>.vpce-svc-...` 形式の Datadog サービス名を入力して **Verify** を押すと、「Service name found.」と表示される。
 *出典:* https://datadog-docs.imgix.net/images/agent/guide/private_link/vpc_service_name.png （ガイド: https://docs.datadoghq.com/agent/guide/private-link/ ）、取得日 2026-11-02。
 
-![Enable DNS name のチェックボックス](../../assets/images/network-and-connectivity/privatelink-enabled_dns_private.png)
+![Enable DNS name のチェックボックス](../assets/images/network-and-connectivity/privatelink-enabled_dns_private.png)
 
 *キャプション:* エンドポイントのプライベート DNS 名の有効化。
 *画面説明:* **Private DNS name** に `*.datadoghq.com` 系のホスト名、**Domain verification status** に「Verified」が表示され、**Enable DNS name** の「Enable for this endpoint」にチェックを入れる。注記として、VPC の「Enable DNS hostnames」と「Enable DNS Support」を `true` にする必要がある旨が表示される。
@@ -825,7 +834,7 @@ Agent は同じデータを複数の Datadog 組織・サイトへ同時送信�
 | NTP | UDP 123 | 同上 |
 | DogStatsD 既定ポート | UDP 8125（既定でローカルのみ受信） | 同上 |
 | APM レシーバー既定ポート | TCP 8126 | 同上 |
-| IPC API / expvar / GUI | 5001 / 5000 / 5002（Linux は GUI 既定無効 `-1`） | 同上 |
+| IPC API / expvar / GUI | 5001 / 5000 / 5002（Linux は GUI 既定無効 `-1`） | 同上、GUI 既定値は [Agent 設定例](https://github.com/DataDog/datadog-agent/blob/main/pkg/config/example/datadog-agent_linux.yaml.example) |
 | OTLP 受信 | gRPC 4317 / HTTP 4318（既定無効） | [OTLP](https://docs.datadoghq.com/opentelemetry/setup/otlp_ingest_in_the_agent/) |
 | Cluster Agent | TCP 5005 | [Cluster Agent](https://docs.datadoghq.com/containers/cluster_agent/setup/) |
 | Admission Controller | Service 443 → 8000 | [Admission Controller](https://docs.datadoghq.com/containers/cluster_agent/admission_controller/) |
@@ -894,6 +903,9 @@ Agent は同じデータを複数の Datadog 組織・サイトへ同時送信�
 - NetFlow Monitoring：https://docs.datadoghq.com/network_monitoring/devices/netflow/
 - SNMP Traps：https://docs.datadoghq.com/network_monitoring/devices/snmp_traps/
 - NTP Integration：https://docs.datadoghq.com/integrations/ntp/
+
+**Agent ソースリポジトリ（2026-11-04 確認）**
+- Agent 設定例（Linux / Windows / macOS）：https://github.com/DataDog/datadog-agent/tree/main/pkg/config/example
 
 **IP レンジ（2026-11-02 取得の実データ）**
 - https://ip-ranges.ap1.datadoghq.com/ （version 11、modified 2026-08-12）

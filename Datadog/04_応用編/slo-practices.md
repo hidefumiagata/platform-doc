@@ -240,7 +240,7 @@ Datadog は、SLO の目標値を SLA より厳しく設定することを推奨
 | 5 | 1〜2 四半期運用して見直す（厳しすぎ・緩すぎ） | SLO 履歴、Audit History | 【経験則】 |
 
 - メルカリ（Merpay SRE）は、SLO 目標は最初から適切に決めるのが難しいため、まずはデフォルト的な値で始め、定期的に見直すべきとしている。【第三者情報】 [出典](https://engineering.mercari.com/en/blog/entry/20211215-practical_alerting_methods_based_on_customer_impact/)（2021-12-16 公開）
-- エムスリーの BIR チームは、目標値をチーム内で合意し、改善余地のある SLO は期ごとに目標を引き上げる方針を報告している。【第三者情報】 [出典](https://www.m3tech.blog/entry/2022/08/31/104925)（2022-08-31 公開）
+- エムスリーの BIR チームは、目標値をチーム内で合意し、改善余地のある SLO は期ごとに目標を引き上げる方針を報告している。【第三者情報】 [出典](https://www.m3tech.blog/entry/2022/08/31/104925)（2022-08-31 公開。2 年以上前の記事のため現行仕様と異なる可能性がある）
 
 > 注意：ログ由来のカスタムメトリクスは**メトリクスを作成した時点以降**のログからしか生成されない。Wantedly は、新しく作った SLO は有効なデータ期間が短く、90 日分のデータが貯まるまでエラーバジェットの消費が実態と異なって見えることがあると報告している。【第三者情報】 [出典](https://sg.wantedly.com/companies/wantedly/post_articles/944549)（2024-12-20 公開）。新規 SLI の場合、データが貯まるまではアラートを通知のみにする運用が安全である。【経験則】
 
@@ -322,9 +322,11 @@ Google の SRE Workbook は、エラーバジェットポリシーの例とし�
 | 経営層への報告 | Reliability Overview（SLO Summary score）、Scheduled Reports | 月次 PDF 配信 |
 | 判断の記録 | SLO の説明欄（Markdown）にポリシー文書・Runbook へのリンク | — |
 
-Datadog 公式ブログのエラーバジェットアラートの例では、Alert 90%・Warn 75% を設定し、通知メッセージで「90% 超消費：機能開発を止めて信頼性作業に集中」「75% 超消費：機能開発を減速し信頼性作業を優先することを検討」と、ポリシーに沿った行動を指示している（下の画像参照）。また、エラーバジェットアラートでは誰かをページングする必要はなく、メールやコラボレーションツールに送ってチームが対応を判断すればよいとしている。[出典](https://www.datadoghq.com/blog/monitor-service-performance-with-slo-alerts/)（2022-07-05 公開）
+Datadog 公式ドキュメント（Error Budget Alerts）の設定画面例では、Alert 90%・Warn 75% を設定し、通知メッセージで「90% 超消費：機能開発を止めて信頼性作業に集中」「75% 超消費：機能開発を減速し信頼性作業を優先することを検討」と、ポリシーに沿った行動を指示している（下の画像参照）。[出典](https://docs.datadoghq.com/service_management/service_level_objectives/error_budget/)
 
-![SLO Monitor の Error Budget アラート設定画面](../../assets/images/slo-practices/slo-error-budget-alert.png)
+Datadog 公式ブログも Alert 80%・Warn 70% のエラーバジェットアラートを例に挙げている。そのうえで、エラーバジェットアラートでは誰かをページングする必要はなく、メールやコラボレーションツールに送ってチームが対応を判断すればよいとしている。[出典](https://www.datadoghq.com/blog/monitor-service-performance-with-slo-alerts/)（2022-07-05 公開）
+
+![SLO Monitor の Error Budget アラート設定画面](../assets/images/slo-practices/slo-error-budget-alert.png)
 
 - **キャプション:** SLO アラート（Error Budget）の作成画面。
 - **画面説明:** パンくずは `Monitors > New Monitor > SLO Monitor`。ステップ 1「Select SLO」で対象 SLO（例：Latency SLO for web-store service）を選び、右に「View SLO」リンクがある。ステップ 2「Set alert conditions」で **Error Budget** / **Burn Rate** のタブを切り替える。Error Budget タブでは「Alert if `90` % of budget for `7-day target (primary)` is consumed.」「Warn if `75` % is consumed.」のように、消費率の閾値と対象期間を指定する。ステップ 3「Notify your team」では通知メッセージを編集でき、`{{#is_alert}}` / `{{#is_warning}}` の条件ブロックでポリシーに沿った行動（機能開発の停止、信頼性作業の優先）を記載している。
@@ -365,10 +367,13 @@ Status Corrections は SLO 計算から特定期間を除外（Time Slice では
 ## バジェット残量に応じた行動
 | 残りバジェット | Datadog での検知 | 行動 |
 |---|---|---|
-| 50% 超 | — | 通常リリース |
-| 25〜50% | Error Budget アラート Warning（消費 50%） | リリース前のリスク確認を強化 |
-| 0〜25% | Error Budget アラート Alert（消費 75%） | 新機能リリースを減速、信頼性タスクを優先 |
-| 0% 以下 | Error Budget アラート（消費 100%） | P0・セキュリティ修正以外のリリースを停止。SLO 内に戻るまで継続 |
+| 25% 超 | — | 通常リリース |
+| 10〜25% | Error Budget アラート① Warning（消費 75%） | リリース前のリスク確認を強化 |
+| 0〜10% | Error Budget アラート① Alert（消費 90%） | 新機能リリースを減速、信頼性タスクを優先 |
+| 0% 以下 | Error Budget アラート②（消費 100%） | P0・セキュリティ修正以外のリリースを停止。SLO 内に戻るまで継続 |
+
+※ Error Budget アラート 1 本で設定できる閾値は Alert（Critical）と Warning の 2 つだけ。
+  消費 100% の段階は 2 本目の Error Budget アラート（②）を作成して検知する。
 
 ## 障害ポリシー
 - Fast burn アラート発報時はインシデントを宣言する
@@ -413,7 +418,7 @@ Datadog の Burn Rate アラートは、この方式 6 の「マルチウィン�
 
 [出典](https://www.datadoghq.com/blog/burn-rate-is-better-error-rate/)（2024-09-04 公開）
 
-スタディサプリ（Quipper SRE）は、当初バーンレート ≥ 1 の単純な閾値で試したところ常時アラートが鳴る状態になり、SRE Workbook のマルチウィンドウ方式に切り替えたと報告している。また、バーンレート監視は不具合のあるリリースなどの劣化を、バジェット枯渇型の監視（数日後に鳴り原因調査が難しくなる）よりはるかに早く検知できたとしている。【第三者情報】 [出典](https://blog.studysapuri.jp/entry/slo-burn-rate-monitoring)（2022-12-01 公開）
+スタディサプリ（Quipper SRE）は、当初バーンレート ≥ 1 の単純な閾値で試したところ常時アラートが鳴る状態になり、SRE Workbook のマルチウィンドウ方式に切り替えたと報告している。また、バーンレート監視は不具合のあるリリースなどの劣化を、バジェット枯渇型の監視（数日後に鳴り原因調査が難しくなる）よりはるかに早く検知できたとしている。【第三者情報】 [出典](https://blog.studysapuri.jp/entry/slo-burn-rate-monitoring)（2022-12-01 公開。2 年以上前の記事のため現行仕様と異なる可能性がある）
 
 ### Datadog の設定可能範囲（設計の前提）
 
@@ -425,7 +430,7 @@ Datadog の Burn Rate アラートは、この方式 6 の「マルチウィン�
 | 対応 SLO タイプ | Metric-based、Time Slice、Metric 系モニターのみで構成した Monitor-based | 同上 |
 | グループ単位のアラート | Metric-based / Time Slice のグループ付き SLO で個別グループまたは全体。Monitor-based は全体のみ | 同上（Error Budget アラートでグループ単位に対応するのは Time Slice のみ） |
 | 対象期間 | `7d` / `30d` / `90d`（SLO に設定済みの期間） | 同上 |
-| Warning 閾値 | 設定可能（画面例：Alert 14.4、Warn 7.2） | [出典](https://docs.datadoghq.com/monitors/types/slo/) |
+| Warning 閾値 | 設定可能（例：Alert 14.4、Warn 7.2） | [出典](https://docs.datadoghq.com/service_management/service_level_objectives/burn_rate/) |
 
 > 注意：グループ単位のアラート対応状況は、公式ドキュメントのページ間で表記が異なる（Burn Rate ページは「Metric-based と Time Slice はグループ単位可」、SLO タイプ比較ガイドは「Metric-based はグループ付きでも全体 SLO のみ」）。2026-11-02 時点で両方の記載があるため、実装前に UI で確認すること。[出典（Burn Rate）](https://docs.datadoghq.com/service_management/service_level_objectives/burn_rate/)、[出典（比較ガイド）](https://docs.datadoghq.com/service_management/service_level_objectives/guide/slo_types_comparison/)
 
@@ -492,7 +497,7 @@ Datadog の Burn Rate アラートのロングウィンドウ上限は 48 時間
 - Merpay SRE は 30 日 SLO に対して 14.4（1h / 5m）と 6（6h / 30m）の 2 本を作成し、別々に通知されるのを避けるため Composite Monitor で OR 結合して 1 本のアラートにまとめ、Slack に通知している。通知メッセージには SLO ステータスへのリンクと、顧客影響の確認・調査・プレイブックによる緩和の指示を含めている。【第三者情報】 [出典](https://engineering.mercari.com/en/blog/entry/20211215-practical_alerting_methods_based_on_customer_impact/)（2021-12-16 公開。記事執筆時点で Burn Rate アラートは Public Beta であり、現在は GA）
 - Zenn の実装例は 30 日 SLO に 6（6h / 30m）の Burn Rate アラートと、100% の Error Budget アラートを Terraform で作成している。【第三者情報】 [出典](https://zenn.dev/nhiguchi/articles/85c17a00d790b1)（2023-12-07 公開）
 
-![SLO Monitor の Burn Rate アラート設定画面](../../assets/images/slo-practices/slo-burn-rate-alert.png)
+![SLO Monitor の Burn Rate アラート設定画面](../assets/images/slo-practices/slo-burn-rate-alert.png)
 
 - **キャプション:** SLO アラート（Burn Rate）の作成画面。
 - **画面説明:** パンくずは `Monitors > New Monitor > SLO Monitor`。ステップ 2「Set alert conditions」で **Burn Rate** タブを選ぶと「Get notified when the rate of error budget consumption is too fast.」と表示され、「Evaluate the last `1` h and the last `5m` for `7-day target (primary)`」でロングウィンドウ（時間）と対象期間を指定する（ショートウィンドウ `5m` はロングウィンドウの 1/12 として自動表示）。「Alert when both burn rates are `14.4` or more.」「Warn if they are `7.2` or more.」で閾値を設定し、「Advanced options」を展開できる。ステップ 3「Notify your team」の通知メッセージ例は「Burn rate has exceeded 14.4 in the past hour! Declare an incident and block deployments until the issue is resolved.」。
@@ -732,7 +737,7 @@ SLO を意思決定に使うには、定期的に見る場を作る必要があ�
 | 経営報告 | 月次〜四半期 | 管理職・経営層 | 全社の信頼性傾向、バジェット枯渇サービスと対策 | Reliability Overview、Scheduled Reports |
 
 - Wantedly は、以前はインフラチームが週次でダッシュボードを確認するだけでアラートがなく、属人化と判断のばらつきが生じていたが、Burn Rate アラートで監視方法を定義したことで解消を図ったと報告している。【第三者情報】 [出典](https://sg.wantedly.com/companies/wantedly/post_articles/944549)（2024-12-20 公開）
-- エムスリーの BIR チームは、APM のエンドポイント別メトリクスで改善対象が明確になり、レイテンシーや SLO 値の改善が目に見えることがエンジニアのモチベーション向上につながったとしている。【第三者情報】 [出典](https://www.m3tech.blog/entry/2022/08/31/104925)（2022-08-31 公開）
+- エムスリーの BIR チームは、APM のエンドポイント別メトリクスで改善対象が明確になり、レイテンシーや SLO 値の改善が目に見えることがエンジニアのモチベーション向上につながったとしている。【第三者情報】 [出典](https://www.m3tech.blog/entry/2022/08/31/104925)（2022-08-31 公開。2 年以上前の記事のため現行仕様と異なる可能性がある）
 
 ### 変更の統制と監査
 
@@ -760,7 +765,7 @@ SLO を意思決定に使うには、定期的に見る場を作る必要があ�
 
 ## 事例から得られた知見
 
-以下は国内企業の公開記事から得られる Datadog SLO 運用の知見である。すべて【第三者情報】であり、各記事の公開時点の仕様に基づく。
+以下は国内企業の公開記事から得られる Datadog SLO 運用の知見である。すべて【第三者情報】であり、各記事の公開時点の仕様に基づく。いずれも公開から 2 年以上経過しているため、現行仕様と食い違う可能性がある（例：当時は Time Slice SLO が未提供、一部機能の GA 状況が異なる）。設定値や手順を転用する前に現行の公式ドキュメントで確認すること。
 
 | 組織（記事） | 公開日 | SLI / SLO | アラート | 主な知見 |
 |---|---|---|---|---|

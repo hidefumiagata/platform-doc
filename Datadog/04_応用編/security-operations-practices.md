@@ -10,7 +10,12 @@ sources:
   - https://docs.datadoghq.com/security/cloud_siem/guide/customize-which-logs-cloud-siem-analyzes/
   - https://docs.datadoghq.com/security/cloud_siem/guide/determine-cloud-siem-product/
   - https://docs.datadoghq.com/security/cloud_siem/guide/automate-the-remediation-of-detected-threats/
+  - https://docs.datadoghq.com/security/cloud_siem/ingest_and_enrich/content_packs/
   - https://docs.datadoghq.com/security/suppressions/
+  - https://docs.datadoghq.com/security/cloud_siem/detect_and_monitor/historical_jobs/
+  - https://docs.datadoghq.com/security/cloud_siem/detection_rules/mitre_attack_map/
+  - https://docs.datadoghq.com/security/detection_rules/
+  - https://docs.datadoghq.com/ja/security/detection_rules/
   - https://docs.datadoghq.com/security/cloud_siem/triage_and_investigate/investigate_security_signals/
   - https://docs.datadoghq.com/security/cloud_siem/respond_and_report/
   - https://docs.datadoghq.com/security/cloud_siem/respond_and_report/security_operational_metrics/
@@ -21,12 +26,16 @@ sources:
   - https://docs.datadoghq.com/security/automation_pipelines/set_due_date/
   - https://docs.datadoghq.com/security/ticketing_integrations/
   - https://docs.datadoghq.com/security/access_control/
+  - https://docs.datadoghq.com/observability_pipelines/
   - https://www.datadoghq.com/blog/detection-as-code-cloud-siem/
   - https://www.datadoghq.com/blog/datadog-detection-as-code/
   - https://www.datadoghq.com/blog/writing-datadog-security-detection-rules/
   - https://www.datadoghq.com/blog/soar/
   - https://www.datadoghq.com/blog/cloud-siem-cases/
   - https://www.datadoghq.com/blog/cloud-siem-whats-new-rsa-2026/
+  - https://www.datadoghq.com/blog/stop-runtime-threats-with-workload-protection-response-actions/
+  - https://www.datadoghq.com/blog/manage-high-volume-logs-with-observability-pipeline-packs/
+  - https://www.datadoghq.com/product/observability-pipelines/
   - https://github.com/DataDog/threatest
   - https://github.com/DataDog/stratus-red-team
   - https://www.issoh.co.jp/tech/details/16600/
@@ -235,7 +244,7 @@ Standalone では、Cloud SIEM のインデックスに入るログがそのま�
 | 課金対象外のソースを把握する | Workload Protection の Agent のログ（`source:runtime-security-agent`）と Cloud Security Misconfigurations のログ（`source:compliance-agent`）は、フィルタ設定に関係なく分析ログとして課金されない | [出典](https://docs.datadoghq.com/security/cloud_siem/guide/customize-which-logs-cloud-siem-analyzes/) |
 | Content Pack 単位で入れる | 使っていない Content Pack を有効にしない。有効化と無効化でフィルタが自動で変わる | [出典](https://docs.datadoghq.com/security/cloud_siem/guide/customize-which-logs-cloud-siem-analyzes/) |
 | 環境単位で除外する | 例：既定フィルタに `env:staging` の除外フィルタを追加（Add-on with Flex Logs / Legacy） | [出典](https://docs.datadoghq.com/security/cloud_siem/guide/customize-which-logs-cloud-siem-analyzes/) |
-| 取り込み前に削る | Observability Pipelines で、VPC Flow Logs などの大量ログをフィルタ・重複排除・フィールド削減してから送る。セキュリティ向けのログと運用向けのログで送り先を分けることもできる | [出典](https://www.datadoghq.com/blog/manage-high-volume-logs-with-observability-pipeline-packs/)（2025-11 公開）、[Observability Pipelines](../02_リファレンス/logs/observability-pipelines.md) |
+| 取り込み前に削る | Observability Pipelines で、VPC Flow Logs などの大量ログをフィルタ・重複排除・フィールド削減してから送る。セキュリティ向けのログと運用向けのログで送り先を分けることもできる（Split Logs テンプレート） | [出典](https://www.datadoghq.com/blog/manage-high-volume-logs-with-observability-pipeline-packs/)（2025-11 公開）、送り先の分割は[出典](https://docs.datadoghq.com/observability_pipelines/)、[Observability Pipelines](../02_リファレンス/logs/observability-pipelines.md) |
 | 分析量を監視する | Usage 画面の Cloud SIEM タイルを定期的に確認し、急増時に原因ソースを特定する | [Usage・Usage Attribution・Cost Visibility](../02_リファレンス/platform/usage-and-cost-attribution.md) |
 
 コスト最適化の全体像は [コスト最適化](./cost-optimization.md) を、ログの取り込み・保持の設計は [ログ管理の実践](./log-management-practices.md) を参照。
@@ -251,14 +260,14 @@ Standalone では、Cloud SIEM のインデックスに入るログがそのま�
 | まず OOTB ルールを一巡させる | Content Packs に既製ルールが含まれる。一般的な攻撃パターンを自作すると OOTB ルールと重複して保守だけが残るので、自作は自社固有のタグ・資産命名・業務ロジックに依存する条件に絞る | 【第三者情報】[出典](https://www.issoh.co.jp/tech/details/16600/)（2026-08-16 公開） |
 | クエリを先に Log Explorer で確かめる | 検知ルールのクエリは Datadog 共通の検索構文なので、Log Explorer で期待どおりのログが返るかを確認してからルールにする | [出典](https://www.datadoghq.com/blog/writing-datadog-security-detection-rules/)（2021-12-15 公開、2023-10-02 更新。2 年以上前の情報のため UI 名称等が現行と異なる可能性あり） |
 | 前処理で標準属性に寄せる | ログを前処理して標準属性（例：`evt.name`、`evt.outcome`、`network.client.geoip`）にそろえると、環境をまたいで使える汎用ルールを書ける | 同上 |
-| 新ルールはバックテストしてから有効化 | Historical Jobs で過去ログに当て、件数を見てから有効化する | [出典](https://docs.datadoghq.com/security/cloud_siem/detect_and_monitor/historical_jobs/)、【第三者情報】[出典](https://www.issoh.co.jp/tech/details/16600/) |
-| 学習型の検知は平常データがたまってから | New Value・Anomaly・Impossible Travel など学習期間が必要な検知方式は、平常時のデータがたまってから評価する | 【第三者情報】[出典](https://www.issoh.co.jp/tech/details/16600/) |
+| 新ルールはバックテストしてから有効化 | Historical Jobs で過去ログに当て、件数を見てから有効化する | [出典](https://docs.datadoghq.com/security/cloud_siem/detect_and_monitor/historical_jobs/)、【第三者情報】[出典](https://www.issoh.co.jp/tech/details/16600/)（2026-08-16 公開、2026-10-12 更新） |
+| 学習型の検知は平常データがたまってから | New Value・Anomaly・Impossible Travel など学習期間が必要な検知方式は、平常時のデータがたまってから評価する | 【第三者情報】[出典](https://www.issoh.co.jp/tech/details/16600/)（2026-08-16 公開、2026-10-12 更新） |
 | シグナルのメッセージを定型化する | ルールの目的、検知の考え方、修復手順、MITRE ATT&CK・CIS などへのタグ付けを含むテンプレートで書く。テンプレート変数（例：`{{@network.client.ip}}`）で、その IP に絞ったダッシュボードへのリンクを埋め込む | [出典](https://www.datadoghq.com/blog/writing-datadog-security-detection-rules/) |
 | MITRE のタグを正しく付ける | カスタムルールを MITRE ATT&CK Map に表示するには、正しい組の `tactic:` と `technique:` タグが必要（アクティブソースに表示するには `source` タグも必要） | [出典](https://docs.datadoghq.com/security/cloud_siem/detection_rules/mitre_attack_map/) |
 
 ### 5.2 誤検知への対処の判断表
 
-ノイズの多いルールへの対処は、**ルールを無効化するのではなく、最小範囲で除外する**のが原則である。ルールを無効化すると、その検知の観点がまるごと失われる【第三者情報】。[出典](https://www.issoh.co.jp/tech/details/16600/)
+ノイズの多いルールへの対処は、**ルールを無効化するのではなく、最小範囲で除外する**のが原則である。ルールを無効化すると、その検知の観点がまるごと失われる【第三者情報】。[出典](https://www.issoh.co.jp/tech/details/16600/)（2026-08-16 公開、2026-10-12 更新）
 
 | 症状 | 第一の対処 | Datadog の機能 |
 |---|---|---|
@@ -279,7 +288,7 @@ Suppressions は Cloud SIEM・Workload Protection・App and API Protection で�
 | 原則 | 理由・根拠 |
 |---|---|
 | **ログ / イベント属性の抑制を使う** | シグナル属性の抑制はシグナル作成時にしか評価されず、シグナル更新時には再評価されない。ログ / イベント属性の抑制は、一致イベントが新規シグナルにも既存シグナルの更新にも影響しない。公式は確実な除外にログ / イベント属性の抑制を勧めている [出典](https://docs.datadoghq.com/security/suppressions/) |
-| **条件は特定できる属性に絞る** | 踏み台ホスト、CI 実行ロール、VPN の出口 IP のように特定できる属性に限定し、重大度でまとめて落とすような粗い条件は避ける【第三者情報】[出典](https://www.issoh.co.jp/tech/details/16600/) |
+| **条件は特定できる属性に絞る** | 踏み台ホスト、CI 実行ロール、VPN の出口 IP のように特定できる属性に限定し、重大度でまとめて落とすような粗い条件は避ける【第三者情報】[出典](https://www.issoh.co.jp/tech/details/16600/)（2026-08-16 公開、2026-10-12 更新） |
 | **説明欄に理由を書く** | Suppression ルールには説明欄があり、なぜ抑制するのかを記録できる [出典](https://docs.datadoghq.com/security/suppressions/)。チケット番号や承認者も書いておくと棚卸しが楽になる【経験則】 |
 | **有効期限を付ける** | 有効期限は任意だが、期限を設定すると期限日に自動で無効化される [出典](https://docs.datadoghq.com/security/suppressions/)。恒久的な除外以外は期限を付け、四半期ごとに棚卸しする【経験則】 |
 | **複数ルールに共通の除外は Suppression ルールにまとめる** | 1 つの Suppression ルールを複数の検知ルールに適用できる [出典](https://docs.datadoghq.com/security/suppressions/)。例：脆弱性スキャナーの送信元 IP は、全 Web 系ルールに対して 1 か所で管理する |
@@ -326,7 +335,7 @@ API からは `POST /api/v2/siem-historical-detections/jobs` で、`from`・`to`
 
 ### 5.7 OOTB ルールの更新と廃止への追従
 
-OOTB ルールは Datadog が更新・追加・廃止する。廃止の扱いは [Datadog Security 概要 §4.8](../02_リファレンス/security/security-platform-overview.md#48-ルールの廃止deprecation) を参照。OOTB ルールは名前の変更やクエリの拡張ができる（元のクエリそのものは編集できず、カスタムクエリを追加する形になる）。[出典](https://docs.datadoghq.com/ja/security/detection_rules/) 大きく変える場合は、複製したカスタムルールとして管理し、元の OOTB ルールを無効化するほうが、Datadog の更新と自社の変更が混ざらず追跡しやすい【経験則】。
+OOTB ルールは Datadog が更新・追加・廃止する。廃止の扱いは [Datadog Security 概要 §4.8](../02_リファレンス/security/security-platform-overview.md#48-ルールの廃止deprecation) を参照。OOTB ルールもカスタムルールと同様に編集できる（三点メニュー → Edit default rule）。元のルールを残したい場合は、複製して変更し、元のルールを無効化する方法が公式に示されている。[出典](https://docs.datadoghq.com/security/detection_rules/) 大きく変える場合は、OOTB ルールを直接編集するより、複製したカスタムルールとして管理し元の OOTB ルールを無効化するほうが、Datadog の更新と自社の変更が混ざらず追跡しやすい【経験則】。
 
 ---
 
@@ -824,8 +833,8 @@ Datadog の機能に沿った定期作業の例を示す【経験則】。
 
 | アンチパターン | 何が起きるか | 対策 |
 |---|---|---|
-| すべてのログを Cloud SIEM に分析させる | 分析量（課金）とトリアージ待ちが同時に膨らむ【第三者情報】[出典](https://www.issoh.co.jp/tech/details/16600/) | §4 の優先順位で Content Pack 単位に入れる |
-| シグナルを閉じる担当を決めずに有効化する | Open が積み上がり、誰も見なくなる【第三者情報】[出典](https://www.issoh.co.jp/tech/details/16600/) | §3.1 のフェーズ 0（体制）を先に済ませる |
+| すべてのログを Cloud SIEM に分析させる | 分析量（課金）とトリアージ待ちが同時に膨らむ【第三者情報】[出典](https://www.issoh.co.jp/tech/details/16600/)（2026-08-16 公開、2026-10-12 更新） | §4 の優先順位で Content Pack 単位に入れる |
+| シグナルを閉じる担当を決めずに有効化する | Open が積み上がり、誰も見なくなる【第三者情報】[出典](https://www.issoh.co.jp/tech/details/16600/)（2026-08-16 公開、2026-10-12 更新） | §3.1 のフェーズ 0（体制）を先に済ませる |
 | ノイズの多いルールを無効化する | その検知の観点がまるごと失われる | 抑制や Dynamic Severity で最小範囲を除外する（§5.2） |
 | シグナル属性で抑制する | シグナル更新時に再評価されず、除外漏れが起きる | ログ / イベント属性の抑制を使う [出典](https://docs.datadoghq.com/security/suppressions/) |
 | 期限のない抑制・ミュートを増やす | 前提が変わっても除外が残り、本物の攻撃を見逃す | 有効期限と理由を必須にし、四半期ごとに棚卸しする |
@@ -903,7 +912,7 @@ Datadog の機能に沿った定期作業の例を示す【経験則】。
 | カスタム検知ルールの追加 | 追加費用なし | — |
 | Bits Security Analyst の利用 | 分析 1 TB あたり月 100 回まで無料（最低 月 50 回） | 超過分は [Bits AI と AI 機能](../02_リファレンス/ai/bits-ai.md) と料金ページで確認 |
 | SOAR（セキュリティの Findings・シグナル起点のワークフロー） | 無料。それ以外のイベント起点のワークフローは別途課金 | [出典](https://www.datadoghq.com/pricing/) |
-| Cloud Security のプラン選択（CSM Pro / Enterprise、DevSecOps バンドル） | ホスト単位。CSM Pro と Enterprise はホストごとに混在できない | CSM Pro 年契約 $10、CSM Enterprise $25／ホスト／月 |
+| Cloud Security のプラン選択（CSM Pro / Enterprise、DevSecOps バンドル） | ホスト単位。CSM Pro と CSM Enterprise は組織内で混在できない（組織としてどちらか一方を選ぶ）。DevSecOps バンドルは Cloud Security 単体製品と併用できない | CSM Pro 年契約 $10、CSM Enterprise $25／ホスト／月 |
 | Workload Protection の適用範囲 | ホスト単位（コンテナ・Fargate は追加単位あり） | 年契約 $15／ホスト／月 |
 | App and API Protection を有効化するサービスの範囲 | AAP が有効でスパンを送るホスト単位。サービス単位で有効化でき、全 APM ホストへの展開は不要 | 年契約 $31／ホスト／月 |
 | Code Security・PR Gates の対象リポジトリ | コミッター単位（SAST・SCA・Secret・IaC）。PR Gates は各ソース製品の課金が前提 | [Code Security](../02_リファレンス/security/code-security.md) |
@@ -965,6 +974,7 @@ Datadog の機能に沿った定期作業の例を示す【経験則】。
 - Set due date rules: https://docs.datadoghq.com/security/automation_pipelines/set_due_date/
 - Ticketing Integrations: https://docs.datadoghq.com/security/ticketing_integrations/
 - Access Control（Datadog Security）: https://docs.datadoghq.com/security/access_control/
+- Observability Pipelines: https://docs.datadoghq.com/observability_pipelines/
 
 **Datadog 公式ブログ・料金ページ**
 

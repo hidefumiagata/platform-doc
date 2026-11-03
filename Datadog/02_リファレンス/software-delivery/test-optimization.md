@@ -297,7 +297,7 @@ CI 変数（`GITHUB_SHA`、`CI_COMMIT_SHA` 等）はジョブ開始時に確定�
 
 [出典](https://docs.datadoghq.com/tests/setup/junit_xml/)
 
-JUnit XML の注意：テスト失敗時もアップロードが走るよう CI を構成する（GitHub Actions は `if: always()`、GitLab は `after_script`、Jenkins は `post`、CircleCI は `when: always`）。CODEOWNERS 連携は GitHub のみ対応で、`<testcase>` / `<testsuite>` に `file` 属性が必要（ない場合は `test.source.file` タグを付与）。アップロード時点で **71時間より古いタイムスタンプのレポートと、名前のない testsuite は破棄**される。[出典](https://docs.datadoghq.com/tests/setup/junit_xml/) [出典](https://docs.datadoghq.com/tests/troubleshooting/)
+JUnit XML の注意：テスト失敗時もアップロードが走るよう CI を構成する（GitHub Actions は `if: always()`、GitLab は `after_script`、Jenkins は `post`、CircleCI は `when: always`）。CODEOWNERS 連携は GitHub のみ対応で、`<testcase>` / `<testsuite>` に `file` 属性が必要（ない場合は `test.source.file` タグを付与）。[出典](https://docs.datadoghq.com/tests/setup/junit_xml/) アップロード時点で **71時間より古いタイムスタンプのレポートと、名前のない testsuite は破棄**される。[出典](https://docs.datadoghq.com/tests/troubleshooting/)
 
 ### テスト構成（Test configurations）とテストの同一性
 
@@ -456,7 +456,7 @@ Flaky Tests Management は、検出されたフレーキーテストを一元的
 
 ### 自動ポリシー（Flaky Test Policies）
 
-Flaky Test Policies は **CI/CD Optimization > Settings > Repositories** で組織既定またはリポジトリ単位に設定する。リポジトリ側は「Inherit（組織既定に従う）」も選べる。[出典](https://docs.datadoghq.com/tests/flaky_management/)
+Flaky Test Policies は **Software Delivery > Settings > CI/CD Optimization > Repositories** で組織既定またはリポジトリ単位に設定する。リポジトリ側は「Inherit（組織既定に従う）」も選べる。[出典](https://docs.datadoghq.com/tests/flaky_management/)
 
 ![Flaky Test Policies の設定パネル](../../assets/images/test-optimization/flaky-policies.png)
 
@@ -544,7 +544,7 @@ Early Flake Detection は、**新規に追加されたテスト**をデフォル
 | 対象外 | 5分を超えるテスト、既に実行済みのテスト |
 | フレーキー判定 | 再試行のいずれかが失敗すればフレーキーとしてタグ付け |
 | known tests の上限 | テストサービスの known tests が **100,000 件超**の場合、ページネーション対応 SDK が必要（非対応だと新規判定ができず EFD はそのセッションで動作しない） |
-| 設定 | CI/CD Optimization > Settings > Repositories の **Prevention > Early Flake Detection**。組織既定／リポジトリ／テストサービス単位 |
+| 設定 | Software Delivery > Settings > CI/CD Optimization > Repositories の **Prevention > Early Flake Detection**。組織既定／リポジトリ／テストサービス単位 |
 | ファセット | `@test.early_flake.enabled`（セッション）、`@test.is_new`、`@test.is_retry` |
 | PR Gates 連携 | 新規フレーキーテストがある場合にマージをブロック可能（[PR Gates](software-delivery-insights.md)） |
 | Agent 要件 | Agent 経由の場合 v6.40 / v7.40 以降 |
@@ -596,7 +596,7 @@ Test Impact Analysis は、各テストがカバーするコード（ファイ�
 
 ### 設定項目
 
-TIA の設定は **CI/CD Optimization > Settings > Repositories** で、**組織既定 → リポジトリ → テストサービス**の3階層で行い、下位が上位を上書きする。リポジトリ・テストサービス階層では各項目を **Inherit** または **Custom** にできる。[出典](https://docs.datadoghq.com/tests/test_impact_analysis/)
+TIA の設定は **Software Delivery > Settings > CI/CD Optimization > Repositories** で、**組織既定 → リポジトリ → テストサービス**の3階層で行い、下位が上位を上書きする。リポジトリ・テストサービス階層では各項目を **Inherit** または **Custom** にできる。[出典](https://docs.datadoghq.com/tests/test_impact_analysis/)
 
 ![TIA の Repository Settings 画面](../../assets/images/test-optimization/tia-configuration.png)
 
@@ -711,7 +711,7 @@ CI Test Monitor は、Test Optimization のテストイベントに対するモ�
 | 新規フレーキーアラート | `is_new_flaky` は初回の該当実行のみに付与。`@test.full_name` でグループ化して重複アラートを防ぐ |
 | 性能劣化 | `duration` メジャーで任意ブランチの劣化を検出 |
 | 通知 | コードオーナー別ルーティング（`is_match` で `citest.attributes.test.codeowners` を判定）。最大10件のサンプルを含められる |
-| 上限 | CI/CD & Test モニターは組織あたり既定 **1,000** 件（サポートに依頼して引き上げ可） |
+| 上限 | CI/CD & Test モニターはアカウント（組織）あたり既定 **1,000** 件（サポートに依頼して引き上げ可） |
 
 [出典](https://docs.datadoghq.com/monitors/types/ci/) モニター全般は [Monitors](../platform/monitors.md)、通知は [通知と Downtime](../platform/notifications-and-downtimes.md) を参照。
 
@@ -770,7 +770,7 @@ Agentless モードでテストホストから到達が必要な Datadog のエ�
 
 ## サイト差異
 
-> **サイト差異:** Test Optimization（TIA・EFD・ATR・Flaky Tests Management・CI Test Monitor・CI/CD Optimization を含む）は **`app.ddog-gov.com`（US1-FED）および `us2.ddog-gov.com` では非対応**。料金ページでも Test Optimization は US-FED サイトで利用不可と表記されている。US1・US3・US5・EU1・AP1・AP2 では利用可能で、機能差は公開情報では確認できず。[出典](https://docs.datadoghq.com/tests/) [出典](https://www.datadoghq.com/pricing/)
+> **サイト差異:** Test Optimization（TIA・EFD・ATR・Flaky Tests Management・CI Test Monitor・CI/CD Optimization を含む）は **`app.ddog-gov.com`（US1-FED）および `us2.ddog-gov.com` では非対応**。料金ページでも Test Optimization は US-FED サイトで利用不可と表記されている。US1・US3・US5・EU1・AP1・AP2 では利用可能で、機能差は公開情報では確認できず。なお価格は AP1 で US/EU1 と異なる（[課金への影響](#課金への影響)を参照）。[出典](https://docs.datadoghq.com/tests/) [出典](https://www.datadoghq.com/pricing/)
 
 > **サイト差異:** Agentless 送信時は `DD_SITE` を必ずサイトに合わせる（既定は US1 の `datadoghq.com`）。AP1 の場合は `DD_SITE=ap1.datadoghq.com`、JUnit XML アップロードでは `DATADOG_SITE=ap1.datadoghq.com`。サイト一覧は [Datadog Sites](../platform/datadog-sites.md) を参照。
 
@@ -811,7 +811,7 @@ Agentless モードでテストホストから到達が必要な Datadog のエ�
 | JUnit XML タイムスタンプ | アップロード時点で 71時間超前のものは破棄 | [Troubleshooting](https://docs.datadoghq.com/tests/troubleshooting/) |
 | `datadog-ci junit upload` 同時アップロード数 | 既定 20 | [JUnit XML](https://docs.datadoghq.com/tests/setup/junit_xml/) |
 | RUM フラッシュ待機 | 既定 500 ms（`DD_CIVISIBILITY_RUM_FLUSH_WAIT_MILLIS`） | [Troubleshooting](https://docs.datadoghq.com/tests/troubleshooting/) |
-| CI/CD & Test モニター数 | 組織あたり既定 1,000 | [CI Monitor](https://docs.datadoghq.com/monitors/types/ci/) |
+| CI/CD & Test モニター数 | アカウント（組織）あたり既定 1,000 | [CI Monitor](https://docs.datadoghq.com/monitors/types/ci/) |
 | モニターの Group by | 最大4ファセット（最大グループ数 625〜1,000） | 同上 |
 | モニター評価ウィンドウ | 1分〜2日 | 同上 |
 | `DD_GIT_COMMIT_SHA` | 40文字 SHA1 | [Troubleshooting](https://docs.datadoghq.com/tests/troubleshooting/) |
@@ -824,20 +824,23 @@ Agentless モードでテストホストから到達が必要な Datadog のエ�
 
 Test Optimization は **アクティブな Git コミッター数**（月3回以上コミットした Git 作成者メールアドレス）単位で月額課金される。公式料金ページ掲載の定価（2026-11-02 取得）は次のとおり。数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。[出典](https://www.datadoghq.com/pricing/list/)
 
-| 製品 | 課金単位 | 年契約（Billed Annually） | 月契約（Month-to-month） | オンデマンド |
-|---|---|---|---|---|
-| Test Optimization | アクティブ Git コミッター（月3コミット以上）／月 | $20 | $24 | $29 |
-| 参考: Pipeline Visibility | 同上 | $8 | $9.60 | $12 |
-| 参考: Code Coverage | 同上 | $8 | $9.60 | $12 |
+| 製品 | 課金単位 | US/EU1 年契約（Billed Annually） | US/EU1 月契約（Month-to-month） | US/EU1 オンデマンド | AP1 年契約 | AP1 月契約 | AP1 オンデマンド |
+|---|---|---|---|---|---|---|---|
+| Test Optimization | アクティブ Git コミッター（月3コミット以上）／月 | $20 | $24 | $29 | $25 | $30 | $36.25 |
+| Test Optimization 追加スパン | 100万スパン／月 | $2.50 | $3 | $3.75 | $3.125 | $3.75 | $4.6875 |
+| 参考: Pipeline Visibility | アクティブ Git コミッター／月 | $8 | $9.60 | $12 | $10 | $12 | $15 |
+| 参考: Code Coverage | アクティブ Git コミッター／月 | $8 | $9.60 | $12 | $10 | $12 | $15 |
 
-[出典](https://www.datadoghq.com/pricing/list/)
+[出典](https://www.datadoghq.com/pricing/list/) [出典](https://www.datadoghq.com/pricing/?product=ci-visibility)
+
+> **サイト差異:** 基準サイト AP1 では価格が US/EU1 と異なる（上表の AP1 列）。数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md) §12。
 
 | 課金上の要点 | 内容 |
 |---|---|
 | コミッターの定義 | Git 作成者メールアドレスで識別されるアクティブ Git コントリビューター。月3コミット以上で課金対象 |
 | リポジトリに紐づかない実行 | パイプラインが Git リポジトリに紐づかない場合、実行をトリガーしたユーザーが課金対象（料金ページ記載） |
 | 含有テストスパン | **テストの個々の実行1回 = 1 スパン**。コミッターあたり月 1,000,000 スパン（1,370 スパン／時）が含まれる |
-| 超過 | 追加スパンは 100万スパンあたり月 $3（料金ページ記載） |
+| 超過 | 追加スパン：100万スパン／月あたり 年契約 $2.50／月契約 $3／オンデマンド $3.75（US/EU1、2026-11-02 時点。AP1 は $3.125／$3.75／$4.6875。料金ページ FAQ の表記は $3） |
 | 保持期間 | 3か月（変更不可） |
 | TIA | 追加料金の記載なし（Test Optimization に含まれる機能として掲載） |
 | Code Coverage との関係 | Test Optimization の課金コミッター1人につき Code Coverage のコミッター1人分が追加費用なしで含まれる |
@@ -877,7 +880,7 @@ Test Optimization は **アクティブな Git コミッター数**（月3回以
 | テスト履歴が欠ける・フレーキー判定されない・TIA でスキップされない | 非決定的パラメータ | パラメータを固定 |
 | セッション履歴が1件しかない・TIA 節約時間が出ない | セッション指紋の不安定化（可変のコマンド引数） | `DD_TEST_SESSION_NAME` を固定 |
 | RUM とテストが紐づかない | RUM のサンプリング、フラッシュ遅れ | サンプリング確認、`DD_CIVISIBILITY_RUM_FLUSH_WAIT_MILLIS` を増加 |
-| Vitest のオーバーヘッドが大きい | `isolate: true` によるファイルごとのセットアップ | `isolate: false` / `--no-isolate`、または `DD_EXPERIMENTAL_TEST_OPT_VITEST_NO_WORKER_INIT=true`（Vitest 3.2.6+、dd-trace 5.111.0+ / 6.0.0+。カスタムタグ・カスタムスパン・ログ相関・Failed Test Replay・TIA は非対応になる） |
+| Vitest のオーバーヘッドが大きい | `isolate: true` によるファイルごとのセットアップ | `isolate: false` / `--no-isolate`、または `DD_EXPERIMENTAL_TEST_OPT_VITEST_NO_WORKER_INIT=true`（Vitest 3.2.6+、dd-trace 5.111.0+ / 6.0.0+。カスタムタグ・カスタムスパン・ログ相関・Failed Test Replay は非対応になる。TIA も非対応（[TIA JavaScript セットアップ](https://docs.datadoghq.com/tests/test_impact_analysis/setup/javascript/)）） |
 | コードオーナーが古い | デフォルトブランチで未実行、CODEOWNERS の場所 | デフォルトブランチで実行、Test Code Owners ファセットを確認 |
 | Disabled テストが Fixed にならない | Disabled は自動移行対象外 | Attempt to Fix を実行、または Active / Quarantined に戻す |
 | Attempt to Fix が発動しない | キーが古い、squash でキー消失、キー形式誤り | UI のキーをそのまま使い、直近コミットに含める |

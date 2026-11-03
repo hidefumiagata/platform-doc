@@ -29,6 +29,7 @@ sources:
   - https://github.com/DataDog/datadog-agent/blob/main/pkg/config/example/datadog-agent_linux.yaml.example
   - https://www.datadoghq.com/pricing/list/
   - https://www.datadoghq.com/pricing/?product=apm--continuous-profiler
+  - https://www.datadoghq.com/pricing/?product=serverless
 ---
 
 # APM の概念とインジェスト制御
@@ -416,7 +417,7 @@ Datadog Agent の APM 関連設定は `datadog.yaml` の `apm_config` セクシ�
 |---|---|---|---|
 | `enabled` | `DD_APM_ENABLED` | `true` | Trace Agent の有効化 |
 | `receiver_port` | `DD_APM_RECEIVER_PORT`（`DD_RECEIVER_PORT`） | `8126` | トレース受信ポート。`0` で HTTP レシーバー無効 |
-| `receiver_socket` | 公開情報では確認できず（サンプルファイルの抜粋範囲外） | `/var/run/datadog/apm.socket` | Unix Domain Socket の受信パス |
+| `receiver_socket` | `DD_APM_RECEIVER_SOCKET` | `/var/run/datadog/apm.socket` | Unix Domain Socket の受信パス。空文字列（`""`）で UDS 受信を無効化。Windows では使えない |
 | `apm_non_local_traffic` | `DD_APM_NON_LOCAL_TRAFFIC` | `false` | 他ホスト／他コンテナからのトレースを受け付ける場合に `true` |
 | `target_traces_per_second` | `DD_APM_TARGET_TPS` | `10` | Head-based sampling の目標 traces/秒。Agent 7.35.0 以降サンプリングは無効化できない |
 | `max_traces_per_second` | `DD_APM_MAX_TPS`（`DD_MAX_TPS`） | `10` | **非推奨**。`target_traces_per_second` を使う |
@@ -429,10 +430,10 @@ Datadog Agent の APM 関連設定は `datadog.yaml` の `apm_config` セクシ�
 | `ignore_resources` | `DD_APM_IGNORE_RESOURCES` | なし | ルートスパンのリソース名に一致する正規表現でトレースを破棄（4.3 参照） |
 | `filter_tags.require` / `filter_tags.reject` | `DD_APM_FILTER_TAGS_REQUIRE` / `DD_APM_FILTER_TAGS_REJECT` | なし | ルートスパンのタグでトレースを保持／破棄（4.3 参照） |
 | `filter_tags_regex.require` / `.reject` | `DD_APM_FILTER_TAGS_REGEX_REQUIRE` / `DD_APM_FILTER_TAGS_REGEX_REJECT` | なし | 正規表現版（Agent 7.49 以降） |
-| `replace_tags` | 公開情報では確認できず（サンプルファイルの抜粋範囲外） | なし | タグ値の正規表現置換（機微情報のマスキング等） |
+| `replace_tags` | `DD_APM_REPLACE_TAGS`（JSON list） | なし（`[]`） | タグ値の正規表現置換（機微情報のマスキング等） |
 | `obfuscation.*` | 各種 | 項目ごと | SQL、Redis、Memcached、MongoDB、Elasticsearch、HTTP、クレジットカード番号等の難読化 |
-| `compute_stats_by_span_kind` | 公開情報では確認できず（サンプルファイルの抜粋範囲外） | `true` | Span kind に基づく統計計算 |
-| `peer_tags_aggregation` | 公開情報では確認できず（サンプルファイルの抜粋範囲外） | `true` | peer タグによる集計 |
+| `compute_stats_by_span_kind` | `DD_APM_COMPUTE_STATS_BY_SPAN_KIND` | `true` | Span kind に基づく統計計算 |
+| `peer_tags_aggregation` | `DD_APM_PEER_TAGS_AGGREGATION` | `true` | peer タグによる集計 |
 | `probabilistic_sampler.enabled` / `.sampling_percentage` / `.hash_seed` | `DD_APM_PROBABILISTIC_SAMPLER_ENABLED` / `DD_APM_PROBABILISTIC_SAMPLER_SAMPLING_PERCENTAGE` | `false` / `0` / `0` | Probabilistic sampler（3.10 参照） |
 | `features` | `DD_APM_FEATURES` | なし | 機能フラグ（例：`error_rare_sample_tracer_drop`、`disable_cid_stats`） |
 | `trace_buffer` | `DD_APM_TRACE_BUFFER` | `0` | **使用しないこと**（デバッグ／一時対処用。負荷時に性能劣化・メモリ増加） |
@@ -512,11 +513,11 @@ Datadog APM でヘルスチェック等の不要なリクエストを除外す�
 
 ## 5. Ingestion Control 画面
 
-Datadog の Ingestion Control 画面（**APM > Traces > Ingestion Control**）は、サービス単位のインジェスト設定と量を確認・変更する画面である。APM メトリクスは全トレースから計算されるため、この画面での設定変更の影響を受けない。[出典](https://docs.datadoghq.com/tracing/trace_pipeline/ingestion_controls/)
+Datadog の Ingestion Control 画面（URL パス `apm/traces/ingestion-control`。公式ドキュメントでの分類は APM > The Trace Pipeline > Ingestion Controls）は、サービス単位のインジェスト設定と量を確認・変更する画面である。APM メトリクスは全トレースから計算されるため、この画面での設定変更の影響を受けない。[出典](https://docs.datadoghq.com/tracing/trace_pipeline/ingestion_controls/)
 
 ![Ingestion Control 画面](../../assets/images/apm-concepts-and-ingestion/ingestion-control-page.png)
 
-*図: Ingestion Control 画面（APM > Traces > Ingestion Control）*
+*図: Ingestion Control 画面（`app.datadoghq.com/apm/traces/ingestion-control`）*
 
 画面説明: 画面右上に「Manage Adaptive Sampling」（Adaptive Sampling のターゲット設定）と「Manage Remote Agent Ingestion」（Agent レベル設定のリモート変更）のボタンがある。上段に3つのパネルが並ぶ。左の **MONTHLY INGESTION** は当月の取り込み量のゲージ（例：Ingested 2.4 TB、Projected 4.3 TB、Allotment 30.2 TB）と「On Track」等のステータス、Usage / Billing へのリンク。中央の **APM ADAPTIVE SAMPLING** は Adaptive Sampling が月間割当のどれだけをカバーしているか（COVERAGE）と、Adaptive に登録済み／Compatible なサービス数（SERVICES）。右の **INGESTION OVER TIME** は取り込み量の推移を APM / Other products / OTel / Unknown の起点別に積み上げ表示し、TOTAL ALLOTMENT を示す。下段「Ingestion management per service」には「All services」「Managed by APM / Adaptive Sampling」「Managed by other Datadog products」「Managed by OTel」のタブ、サービス名検索・Env・Configuration・Adaptive sampling のフィルター、「Root services only」トグルがあり、サービス一覧表に TYPE、NAME、DOWNSTREAM BYTES/S、TRAFFIC BREAKDOWN（警告アイコン付きの場合あり）、INGESTED BYTES/S、INGESTED TRACES/S、CONFIGURATION（APM LOCAL / APM REMOTE / APM AGENT / N CONFIGURATIONS）、APM ADAPTIVE SAMPLING（DISABLED / COMPATIBLE / NOT COMPATIBLE / PARTIAL）の列が並ぶ。
 
@@ -674,7 +675,7 @@ Datadog APM の Adaptive Sampling は、指定した**月間の取り込み量�
 
 [出典](https://docs.datadoghq.com/tracing/trace_pipeline/adaptive_sampling/)
 
-> **注意:** 上記割当式の「Fargate タスクあたり 10GB」は Adaptive Sampling ページの記載であり、課金ドキュメント（Fargate タスクあたり Ingested Spans 30 GB）と値が異なる。またサーバーレスの「50GB × トレース対象呼び出し数」の呼び出し数の単位（100 万回あたり等）は公開情報では確認できず。契約上の割当は課金ドキュメントおよび契約書を正とする（第9節参照）。
+> **注意:** 上記割当式の「Fargate タスクあたり 10GB」は Adaptive Sampling ページの記載であり、課金ドキュメントおよび料金ページ（Fargate タスクあたり Ingested Spans 30 GB）と値が異なる。またサーバーレスの「50GB × トレース対象呼び出し数」は、Adaptive Sampling ページには単位の記載がないが、料金ページでは「トレース対象呼び出し 100 万回あたり 50 GB」と記載されている（[出典](https://www.datadoghq.com/pricing/?product=serverless)）。契約上の割当は課金ドキュメントおよび契約書を正とする（第9節参照）。
 
 ### 6.3 サービスの登録（Onboarding）手順
 
@@ -884,9 +885,9 @@ Datadog APM の Trace Metrics は、トレースから自動生成されるメ�
 
 | 区分 | タグ |
 |---|---|
-| 共通 | `env`、`service`、`version`、`resource`、`http.status_code`、`http.status_class`、`rpc.grpc.status_code`（Agent 7.65.0 以降）、Agent のタグ |
-| ホスト／Primary Tag | Host Agent のホストタグと追加 Primary Tag |
-| メトリクスごとの差異 | `resource_name` は hits / errors / レイテンシー分布に付く。`synthetics` はレイテンシー分布と apdex に付く。`http.status_class` は `by_http_status` 系に付く |
+| 共通 | `env`、`service`、`resource`、追加 Primary Tag |
+| ホスト／Primary Tag | Host Agent のホストタグ（レイテンシー分布と apdex には記載なし）と追加 Primary Tag |
+| メトリクスごとの差異 | `version` はレガシーの duration 系（`.duration`、`.duration.by_http_status`）以外に付く。`http.status_code` は apdex 以外に付く。`http.status_class` は `by_http_status` 系のみに付く。`rpc.grpc.status_code`（Agent 7.65.0 以降）は hits / errors / レイテンシー分布のみに付く（`by_http_status` 系には付かない）。`resource_name` は hits / errors / レイテンシー分布（および apdex、hits.by_http_status）に付く。`synthetics` はレイテンシー分布と apdex に付く |
 | 付かないもの | 上記以外のスパンタグは Trace Metrics のタグとして使えない（任意タグで集計したい場合は Span-based Metrics を使う） |
 
 [出典](https://docs.datadoghq.com/tracing/metrics/metrics_namespace/)
@@ -1090,9 +1091,9 @@ Datadog APM の課金は、**APM ホスト**（または Fargate タスク、サ
 | APM ホスト | APM を導入しトレースを送信するホスト。毎時計測し、月の上位 1% の時間を除外した値（9 番目に高い時間値、2 月は 8 番目）で課金（High watermark プラン） |
 | Kubernetes | Pod ではなくノード単位。pause コンテナは除外。コンテナごとに Agent を置く構成では各コンテナがホストとして数えられる |
 | Fargate | 5 分間隔で計測し、タスクの平均稼働数で課金。課金ドキュメントでは同時実行タスクあたり $6 / 月、Indexed Spans 195,000 件・Ingested Spans 30 GB を含むと記載 |
-| AWS Lambda | 課金ドキュメントでは 100 万呼び出しあたり Indexed Spans 150,000 件を含むと記載 |
+| AWS Lambda（Serverless Functions APM） | 料金ページでは、トレース対象呼び出し 100 万回あたり Ingested Spans 50 GB（超過 $0.10/GB）・Indexed Spans 30 万件を含むと記載（正本 [製品別料金表](../../03_導入編/pricing-by-product.md) はこの値を正とする）。課金ドキュメントの計算例は 100 万呼び出しあたり Indexed Spans 150,000 件としており、料金ページと食い違う |
 
-[出典](https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/)
+[出典](https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/) [出典](https://www.datadoghq.com/pricing/?product=serverless)（Fargate の「30GB of Ingested Spans and Indexed Spans allotment to 195k」、Lambda の「50GB Ingested Spans per 1M traced invocations」「300 thousand Indexed Spans per 1M traced invocations」。取得日 2026-11-04）
 
 > **注意:** 課金ドキュメントには Fargate について「20 タスクで 130 万件の Indexed Spans が含まれる」とする計算例もあり、タスクあたり約 65,000 件に相当して 195,000 件の記載と一致しない。また Adaptive Sampling ページの割当式は Fargate タスクあたり 10 GB としており、課金ドキュメントの 30 GB と異なる。料金一覧ページ（/pricing/list/）では Serverless Application APM（$6 / トレース対象アプリケーションインスタンス、年契約）と Serverless Functions APM（$10 / 100 万トレース対象呼び出し、年契約）が掲載されている。Fargate / サーバーレスの割当は契約時に Datadog へ確認すること。
 
@@ -1148,6 +1149,7 @@ Datadog APM のインジェスト・保持設計で押さえるべき点を、�
 
 - Pricing List: https://www.datadoghq.com/pricing/list/ （2026-11-02 取得）
 - Pricing（APM & Continuous Profiler）: https://www.datadoghq.com/pricing/?product=apm--continuous-profiler （2026-11-02 取得）
+- Pricing（Serverless）: https://www.datadoghq.com/pricing/?product=serverless （2026-11-04 取得）
 - DASH 2024 new feature roundup（Applications）: https://www.datadoghq.com/blog/dash-2024-new-feature-roundup-applications/ （2024-06 公開）
 
 画像（いずれも Datadog, Inc. 公式ドキュメントより 2026-11-02 取得、社内参照目的に限る）

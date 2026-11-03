@@ -20,6 +20,9 @@ sources:
   - https://docs.datadoghq.com/logs/guide/delete_logs_with_sensitive_data/
   - https://docs.datadoghq.com/tracing/configure_data_security/
   - https://docs.datadoghq.com/session_replay/browser/privacy_options/
+  - https://docs.datadoghq.com/api/latest/data-deletion
+  - https://docs.datadoghq.com/getting_started/site/
+  - https://docs.datadoghq.com/agent/guide/private-link/?site=ap1
   - https://www.datadoghq.com/security/
   - https://trust.datadoghq.com/
   - https://www.datadoghq.com/legal/subprocessors/
@@ -27,11 +30,21 @@ sources:
   - https://www.datadoghq.com/legal/privacy/
   - https://www.datadoghq.com/legal/hipaa-eligible-services/
   - https://www.datadoghq.com/blog/datadog-achieves-fedramp-high-certification/
+  - https://www.datadoghq.com/ja/about/latest-news/press-releases/datadog-for-government-fedramp-high-2026/
+  - https://www.datadoghq.com/about/latest-news/press-releases/datadog-for-government-achieves-fedramp-high-in-process-status-to-support-mission-critical-federal-workloads/
+  - https://www.datadoghq.com/about/latest-news/press-releases/datadog-achieves-fedramp-moderate-impact-authorization/
+  - https://investors.datadoghq.com/news-releases/news-release-details/datadog-achieves-fedramp-low-impact-saas-authorization
+  - https://www.datadoghq.com/blog/datadog-achieves-govramp-high-authorization/
   - https://www.datadoghq.com/blog/datadog-achieves-iso-42001/
   - https://www.datadoghq.com/blog/iso-27701-processor-data-privacy-compliance-datadog/
+  - https://www.datadoghq.com/ja/about/latest-news/press-releases/iso-27001-27017-27018/
+  - https://www.datadoghq.com/blog/datadog-pci-compliance-log-management-apm/
   - https://www.datadoghq.com/ja/about/latest-news/press-releases/datadog-launches-new-data-center-in-japan/
+  - https://www.datadoghq.com/blog/observability-data-hosting-uk-aws/
   - https://www.ppc.go.jp/all_faq_index/faq1-q10-25
   - https://www.soumu.go.jp/main_sosiki/joho_tsusin/d_syohi/gaibusoushin_kiritsu.html
+  - https://www.cyber.go.jp/policy/group/general/ismap.html
+  - https://www.issoh.co.jp/md/column/17146
 ---
 
 # セキュリティとコンプライアンス
@@ -77,7 +90,7 @@ Datadog の Trust Center（https://trust.datadoghq.com/）には、2026-11-02 �
 | 決済カード | PCI DSS | PCI DSS | 公式ドキュメントは PCI DSS v4.0 準拠と記載 |
 | 医療（米国） | HIPAA | HIPAA | BAA を締結（[1.4](#14-hipaa)） |
 | 米国政府 | FedRAMP High | FedRAMP High | Datadog for Government（US1-FED）が対象（[1.5](#15-fedramp--govramp米国政府向け)） |
-| 米国州・地方政府 | GovRAMP | GovRAMP | |
+| 米国州・地方政府 | GovRAMP | GovRAMP | Trust Center ではレベルの表示なし。公式ブログでは High と発表（[1.5](#15-fedramp--govramp米国政府向け)） |
 | 豪州政府 | IRAP | IRAP | |
 | 英国 | Cyber Essentials Plus | Cyber Essentials Plus | |
 | 自動車業界（欧州） | TISAX | TISAX | |
@@ -95,10 +108,11 @@ Datadog の Trust Center（https://trust.datadoghq.com/）には、2026-11-02 �
 
 ### 1.2 Trust Center で入手できる主な文書
 
-Trust Center では、認証書類のほかに次のカテゴリの文書が公開・申請対象になっている（2026-11-02 取得時点の表示）。[出典](https://trust.datadoghq.com/)
+Trust Center では、認証書類のほかに次のカテゴリの文書が公開・申請対象になっている（2026-11-02 取得時点の表示。各カテゴリの文書は抜粋）。[出典](https://trust.datadoghq.com/)
 
-| カテゴリ | 主な文書 |
+| カテゴリ | 主な文書（抜粋） |
 |---|---|
+| Product Security | Audit Logging、Data Security、Integrations |
 | Reports | Network and Dataflow Diagrams、Pen Test Report（2026 年のペネトレーションテスト要約は NCC Group が実施。Datadog / Eppo / Cloudcraft 別） |
 | Self-Assessments | CAIQ、HECVAT Full、SIG Core |
 | Legal | Subprocessors、Cyber Insurance、Data Processing Addendum |
@@ -107,6 +121,7 @@ Trust Center では、認証書類のほかに次のカテゴリの文書が公�
 | Data Privacy | Cookies、Data Out of System、Privacy Center |
 | Access Control | Data Access、Logging、Password Security |
 | Infrastructure | Status Monitoring、Amazon Web Services、Azure |
+| Endpoint Security | Mobile Device Management |
 | Network Security | Firewall、IDS/IPS、SIEM |
 | Corporate Security | Asset Management Practices、Email Protection、Employee Training |
 | Policies and Procedures | Acceptable Use、Datadog Privacy and Data Governance Policy、Access Control、Information Security Policy |
@@ -168,9 +183,9 @@ BAA を締結した org には、次の機能制限がある。[出典](https://
 |---|---|---|
 | FedRAMP High | **2026-05-06** に Datadog for Government が FedRAMP High 認証の取得を発表。公式ブログでは「Datadog for Government (US1-FED) now operates within a FedRAMP High-certified environment」と記載 | [公式ブログ](https://www.datadoghq.com/blog/datadog-achieves-fedramp-high-certification/)、[プレスリリース（日本語）](https://www.datadoghq.com/ja/about/latest-news/press-releases/datadog-for-government-fedramp-high-2026/) |
 | データ所在 | US1-FED の GovCloud 環境内で処理・保存。NIST 800-53 Rev. 5 に準拠 | 同上 |
-| 経緯 | 2020 年に FedRAMP Low（SaaS）認可、その後 Moderate 認可を経て、2025 年 5 月に High の「In Process」を発表 | [Low 認可](https://investors.datadoghq.com/news-releases/news-release-details/datadog-achieves-fedramp-low-impact-saas-authorization)、[High In Process](https://www.datadoghq.com/about/latest-news/press-releases/datadog-for-government-achieves-fedramp-high-in-process-status-to-support-mission-critical-federal-workloads/) |
+| 経緯 | 2020 年に FedRAMP Low（SaaS）認可、2022-01-26 に Moderate 認可（退役軍人省がスポンサー）を発表、2025 年 5 月に High の「In Process」を発表 | [Low 認可](https://investors.datadoghq.com/news-releases/news-release-details/datadog-achieves-fedramp-low-impact-saas-authorization)、[Moderate 認可](https://www.datadoghq.com/about/latest-news/press-releases/datadog-achieves-fedramp-moderate-impact-authorization/)、[High In Process](https://www.datadoghq.com/about/latest-news/press-releases/datadog-for-government-achieves-fedramp-high-in-process-status-to-support-mission-critical-federal-workloads/) |
 | IL5 | 2026-05 時点では「IL5 認可に向けて進行中」で、取得済みではない | [公式ブログ](https://www.datadoghq.com/blog/datadog-achieves-fedramp-high-certification/) |
-| GovRAMP | Trust Center に GovRAMP High が掲載されている（州・地方政府向け） | [Trust Center](https://trust.datadoghq.com/)、[公式ブログ](https://www.datadoghq.com/blog/datadog-achieves-govramp-high-authorization/) |
+| GovRAMP | Trust Center に GovRAMP が掲載（レベルの表示なし）。公式ブログ（2026-06-29）で GovRAMP High 認可の取得を発表（州・地方政府向け。対象サイトはブログに明記なし） | [Trust Center](https://trust.datadoghq.com/)、[公式ブログ](https://www.datadoghq.com/blog/datadog-achieves-govramp-high-authorization/) |
 | US2-FED | FedRAMP High の発表記事は US1-FED のみに言及。US2-FED の認可レベルは公開情報では確認できず | — |
 
 > **サイト差異:** FedRAMP は **US1-FED（Datadog for Government）サイトだけが対象**である。AP1 を含む商用サイトの org は FedRAMP の認可範囲に入らない。政府サイトでは FIPS Agent（FIPS 140-2 検証済み暗号モジュール）が使えるが、商用サイトでは使えない。詳細は [Datadog Sites](../02_リファレンス/platform/datadog-sites.md) を参照。
@@ -194,12 +209,14 @@ ISMAP（Information system Security Management and Assessment Program：政府�
 | 時期 | 出来事 | 出典 |
 |---|---|---|
 | 2020-02 | ISO 27001 認証取得、ISO 27017 / 27018 準拠を発表（当時の規格版は ISO/IEC 27001:2013、27017:2015、27018:2019） | [プレスリリース](https://www.datadoghq.com/ja/about/latest-news/press-releases/iso-27001-27017-27018/) |
+| 2022-01-26 | FedRAMP Moderate 認可を発表 | [プレスリリース](https://www.datadoghq.com/about/latest-news/press-releases/datadog-achieves-fedramp-moderate-impact-authorization/) |
 | 2022 | PCI 準拠の Log Management / APM を発表（当時は US1 限定、PCI Level 1 Service Provider と記載） | [公式ブログ](https://www.datadoghq.com/blog/datadog-pci-compliance-log-management-apm/) |
 | 2023-04-19 | 日本（東京）データセンター AP1 の開設を発表 | [プレスリリース](https://www.datadoghq.com/ja/about/latest-news/press-releases/datadog-launches-new-data-center-in-japan/) |
 | 2023-04-28 | ISO 27701 Processor 認証取得を発表 | [公式ブログ](https://www.datadoghq.com/blog/iso-27701-processor-data-privacy-compliance-datadog/) |
 | 2025-05 | FedRAMP High「In Process」を発表 | [プレスリリース](https://www.datadoghq.com/about/latest-news/press-releases/datadog-for-government-achieves-fedramp-high-in-process-status-to-support-mission-critical-federal-workloads/) |
 | 2026-03-26 | ISO 42001（AI マネジメントシステム）認証取得を発表。同記事は他の認証として ISO 27001、ISO 27701 Processor、HIPAA、PCI、TISAX を挙げている | [公式ブログ](https://www.datadoghq.com/blog/datadog-achieves-iso-42001/) |
 | 2026-05-06 | FedRAMP High 認証取得を発表（US1-FED） | [公式ブログ](https://www.datadoghq.com/blog/datadog-achieves-fedramp-high-certification/) |
+| 2026-06-29 | GovRAMP High 認可の取得を発表（対象サイトの明記なし） | [公式ブログ](https://www.datadoghq.com/blog/datadog-achieves-govramp-high-authorization/) |
 
 > **現行の ISO 規格版について:** ISO/IEC 27001 は 2022 年版への移行期限（2025-10-31）を過ぎている。Datadog の現行証明書が 27001:2022 版かどうかは Trust Center の証明書で確認すること（公開情報では確認できず）。
 
@@ -277,7 +294,7 @@ AP1 を選んでも、**すべての処理が日本国内で完結するとは�
 |---|---|---|
 | 最低 TLS バージョン | Datadog のシステムは **TLS 1.2 以上**を必須とする | [TLS Ciphers Deprecation](https://docs.datadoghq.com/data_security/guide/tls_ciphers_deprecation/) |
 | HSTS | Datadog のツールを通るデータは TLS と HSTS で保護される | [Data Security](https://docs.datadoghq.com/data_security/) |
-| 暗号スイートの縮退（2024-04-01） | 商用サイトで、SHA256 を使う CBC モードの ECDHE スイート 4 つと RSA スイート 2 つを無効化 | [TLS Ciphers Deprecation](https://docs.datadoghq.com/data_security/guide/tls_ciphers_deprecation/) |
+| 暗号スイートの縮退（2024-04-01） | 商用サイトで、SHA256 / SHA384 を使う CBC モードの ECDHE スイート 4 つと、RSA 鍵交換の CBC-SHA256 スイート 2 つ（計 6 つ）を無効化：`TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256`、`TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256`、`TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384`、`TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384`、`TLS_RSA_WITH_AES_128_CBC_SHA256`、`TLS_RSA_WITH_AES_256_CBC_SHA256` | [TLS Ciphers Deprecation](https://docs.datadoghq.com/data_security/guide/tls_ciphers_deprecation/) |
 | 暗号スイートの縮退（2026-09-01） | 商用サイト（US1/EU1/US3/US5/AP1/AP2/UK1）で、残りの CBC モード ECDHE・RSA スイートと、RSA 鍵交換の AES-GCM スイートを無効化 | 同上 |
 | 商用サイトで受け付けるスイート（2026-09-01 以降） | TLS 1.2：ECDHE-ECDSA / ECDHE-RSA × AES-128-GCM-SHA256 / AES-256-GCM-SHA384 / CHACHA20-POLY1305-SHA256。TLS 1.3：`TLS_AES_128_GCM_SHA256`、`TLS_AES_256_GCM_SHA384`、`TLS_CHACHA20_POLY1305_SHA256` | 同上 |
 | 政府サイトで受け付けるスイート | TLS 1.2：ECDHE-RSA / ECDHE-ECDSA × AES-128-GCM-SHA256 / AES-256-GCM-SHA384。TLS 1.3：`TLS_AES_128_GCM_SHA256`、`TLS_AES_256_GCM_SHA384`（CHACHA20 は不可） | 同上 |
@@ -300,7 +317,9 @@ AP1 を選んでも、**すべての処理が日本国内で完結するとは�
 | インテグレーションの認証情報（クラウドの資格情報等） | 暗号化して専用の安全な認証情報データストアに保存。アクセスは制御・監査される | [Data Security](https://docs.datadoghq.com/data_security/) |
 | インテグレーションのデータ | 保存時・通信時ともに暗号化。異常検知ツールで不正アクセスを監視 | 同上 |
 | RUM データ | Datadog 管理のクラウドインスタンスに保存し、保存時暗号化 | [RUM Data Security](https://docs.datadoghq.com/data_security/real_user_monitoring/) |
-| Synthetic の認証情報（Private Location） | テスト設定・変数・結果のリクエスト署名用の認証情報は AES-GCM（256 ビット）で暗号化保存。テスト結果の機微部分（レスポンスヘッダー・ボディ）はデフォルトで暗号化保存 | [Synthetics Data Security](https://docs.datadoghq.com/data_security/synthetics/) |
+| Synthetic のテスト設定・変数 | 共通鍵暗号 AES-GCM（256 ビット鍵）で暗号化（マネージド／Private Location とも） | [Synthetics Data Security](https://docs.datadoghq.com/data_security/synthetics/) |
+| Synthetic の Private Location 認証情報 | テスト設定・変数・テスト結果のリクエスト署名に使う認証情報は AES-GCM で暗号化保存（鍵長の記載なし） | 同上 |
+| Synthetic のテスト結果の機微部分 | デフォルトはレスポンスヘッダー・ボディが対象。非対称暗号 RSA（4096 ビット鍵）で暗号化保存し、取得時に復号 | 同上 |
 | DPA 上の約束 | 保存時・通信時の暗号化を DPA のセキュリティ措置として記載 | [DPA](https://www.datadoghq.com/legal/data-processing-addendum/) |
 
 ### 3.3 顧客管理鍵（CMK / BYOK）
@@ -341,9 +360,9 @@ flowchart LR
 |---|---|---|
 | Logs（Agent） | Agent v6 以降で `log_processing_rules` による除外（`exclude_at_match` / `include_at_match`）とマスク（`mask_sequences`）が可能 | [Logs Data Security](https://docs.datadoghq.com/data_security/logs/) |
 | Logs（取り込み時） | Sensitive Data Scanner にクレジットカード番号、メールアドレス、IP アドレス、API キーなどの定義済みルールがあり、独自の正規表現ルールも追加できる。Agent 上・Observability Pipelines 上でも動かせる | 同上 |
-| APM（Agent） | **デフォルト有効**：MongoDB、Elasticsearch、Redis、Memcached、クレジットカード番号の難読化。SQL はリテラル・バインド変数を難読化。**デフォルト無効**：HTTP クエリ文字列の削除（`DD_APM_OBFUSCATION_HTTP_REMOVE_QUERY_STRING`）、数字を含むパスの難読化、スタックトレース削除、Redis 引数の全削除、クレジットカードの Luhn チェック | [Tracing Data Security](https://docs.datadoghq.com/tracing/configure_data_security/) |
+| APM（Agent） | **デフォルト有効**：MongoDB、Elasticsearch、Redis、Memcached、クレジットカード番号の難読化。SQL はリテラル・バインド変数を難読化。**デフォルト無効と明記**：HTTP クエリ文字列の削除（`DD_APM_OBFUSCATION_HTTP_REMOVE_QUERY_STRING`）、スタックトレース削除、Redis 引数の全削除（`remove_all_args`）。**デフォルト値は公式に明記なし**：数字を含むパスの難読化（`remove_paths_with_digits`。サンプル設定では有効）、クレジットカードの Luhn チェック（サンプル設定では `luhn: false`） | [Tracing Data Security](https://docs.datadoghq.com/tracing/configure_data_security/) |
 | APM（タグの置換・除外） | `replace_tags`（`DD_APM_REPLACE_TAGS`）でタグ値を正規表現置換、`ignore_resources`（`DD_APM_IGNORE_RESOURCES`）でリソースごと破棄 | 同上 |
-| APM（トレーサー） | `DD_TRACE_OBFUSCATION_QUERY_STRING_REGEXP` で一致した値を `<redacted>` に置換。`DD_HTTP_SERVER_TAG_QUERY_STRING`（デフォルト `true`）を `false` にするとクエリ文字列を収集しない。クライアント IP は Python / Ruby / Go などでデフォルト非収集 | 同上 |
+| APM（トレーサー） | `DD_TRACE_OBFUSCATION_QUERY_STRING_REGEXP` で一致した値を `<redacted>` に置換。`DD_HTTP_SERVER_TAG_QUERY_STRING`（デフォルト `true`）を `false` にするとクエリ文字列を収集しない。クライアント IP は Ruby・Go の注記でデフォルト非収集と明記（ただし Go の表は収集扱い）。Python は注記（非収集）と表（収集）が食い違うため、SDK のバージョンごとに確認する | 同上 |
 | Database Monitoring | Agent がクエリのバインドパラメータをすべて難読化し、パスワードや PII がクエリメトリクス・サンプル・実行計画に出ないようにする | [Data Security](https://docs.datadoghq.com/data_security/) |
 | Live Processes / Containers | 既定のキーワードでコマンド引数等をスクラブ。`custom_sensitive_words`、`DD_ORCHESTRATOR_EXPLORER_CUSTOM_SENSITIVE_WORDS` で拡張 | 同上 |
 | Serverless | AWS Lambda のリクエスト・レスポンスペイロードから特定パラメータをスクラブ可能 | 同上 |
@@ -366,7 +385,7 @@ Browser SDK の `defaultPrivacyLevel` は次の 3 種類である（`defaultPriv
 
 要素単位では、HTML 属性 `data-dd-privacy`（値：`allow`、`mask`、`hidden`、`mask-user-input`）またはクラス名 `dd-privacy-allow` / `dd-privacy-mask` / `dd-privacy-hidden` / `dd-privacy-mask-user-input` で上書きできる。[出典](https://docs.datadoghq.com/session_replay/browser/privacy_options/)
 
-![Session Replay のプライバシーレベル mask の再生画面例](../../assets/images/security-and-compliance/session-replay-privacy-mask-all.png)
+![Session Replay のプライバシーレベル mask の再生画面例](../assets/images/security-and-compliance/session-replay-privacy-mask-all.png)
 
 *キャプション:* Session Replay でプライバシーレベル `mask` を適用したときの再生画面の例。
 
@@ -374,7 +393,7 @@ Browser SDK の `defaultPrivacyLevel` は次の 3 種類である（`defaultPriv
 
 *出典:* https://docs.datadoghq.com/session_replay/browser/privacy_options/ （画像 URL: https://docs.dd-static.net/images/real_user_monitoring/session_replay/browser-privacy-mask-all.828d42fbb8e33a86f125b6202fcec774.png、2026-11-02 取得）
 
-![Session Replay のプライバシーレベル mask-user-input の再生画面例](../../assets/images/security-and-compliance/session-replay-privacy-mask-user-input.png)
+![Session Replay のプライバシーレベル mask-user-input の再生画面例](../assets/images/security-and-compliance/session-replay-privacy-mask-user-input.png)
 
 *キャプション:* Session Replay でプライバシーレベル `mask-user-input` を適用したときの再生画面の例。
 
@@ -461,12 +480,12 @@ Datadog は製品・データ種別ごとに保持期間を定めている。下
 | 対象 | 手段 | 実施者 | 出典 |
 |---|---|---|---|
 | ログ（時間範囲＋クエリ指定） | **Logs Data Deletion**（UI：Organization Settings > Data Deletion） | `Logs Delete Data` 権限を持つユーザー | [Delete Data](https://docs.datadoghq.com/account_management/delete_data/) |
-| ログ・RUM（API） | Data Deletion API。ログは `logs_delete_data`、RUM は `rum_delete_data` 権限が必要 | 権限を持つユーザー／サービスアカウント | [Data Deletion API](https://docs.datadoghq.com/api/latest/data-deletion) |
+| ログ（API） | Data Deletion API（Logs のみ有効。`logs_delete_data` 権限が必要） | 権限を持つユーザー／サービスアカウント | [Data Deletion API](https://docs.datadoghq.com/api/latest/data-deletion) |
 | ログ（インデックスごと） | Log Indexes ページでインデックスを削除 | 権限を持つユーザー | [Delete Logs with Sensitive Data](https://docs.datadoghq.com/logs/guide/delete_logs_with_sensitive_data/) |
 | ログ（自然消滅） | インデックスの保持期間を短縮する（期間を過ぎたログは削除） | 同上 | 同上 |
 | ログ（見せない） | Restriction Query 等で該当ログをクエリ不可にする（保持期間満了まで非表示） | 同上 | 同上 |
-| RUM（時間範囲） | ハードデリート。**アプリケーション単位の指定はできず**、指定時間範囲の全データを削除。サポートに依頼 | Datadog サポート | [RUM Data Security](https://docs.datadoghq.com/data_security/real_user_monitoring/) |
-| ログ・RUM 以外の製品 | サポートに依頼 | Datadog サポート | [Delete Data](https://docs.datadoghq.com/account_management/delete_data/) |
+| RUM（時間範囲） | サポートに依頼するハードデリート（時間範囲単位）。**アプリケーション単位の指定はできず**、指定時間範囲の全データを削除。ユーザーが UI・API で削除する手段はない | Datadog サポート | [RUM Data Security](https://docs.datadoghq.com/data_security/real_user_monitoring/) |
+| ログ以外の製品（RUM を含む） | サポートに依頼（「To delete data from a product other than Logs, contact Support」） | Datadog サポート | [Delete Data](https://docs.datadoghq.com/account_management/delete_data/) |
 | Log Archives | 顧客のバケットで削除（Datadog の削除機能の対象外） | 顧客 | 【推定】Archives は顧客ストレージのため |
 
 ### 5.3 Logs Data Deletion の手順と仕様
@@ -717,7 +736,7 @@ Datadog 導入時のセキュリティ審査で確認・準備すべき項目を
 | 対応 | 課金の有無・単位 | 参照 |
 |---|---|---|
 | Audit Trail の有効化（90 日保持） | 有料の製品（課金単位は料金表を参照） | [製品別料金表](pricing-by-product.md)、[Audit Trail](../02_リファレンス/platform/audit-trail.md) |
-| Sensitive Data Scanner | 有料の製品（スキャン量ベース） | [製品別料金表](pricing-by-product.md)、[Sensitive Data Scanner](../02_リファレンス/security/sensitive-data-scanner.md) |
+| Sensitive Data Scanner | 有料の製品。Full（検出＋マスキング）はスキャン GB 単位、Detect（10% サンプリング・検出のみ）は取り込み GB 単位。Observability Pipelines 上の SDS 処理は OP 価格に含まれる（[製品別料金表 7.2](pricing-by-product.md#72-sensitive-data-scanneraudit-trailobservability-pipelines)） | [製品別料金表](pricing-by-product.md)、[Sensitive Data Scanner](../02_リファレンス/security/sensitive-data-scanner.md) |
 | Log Archives | Datadog 側の追加料金ではなく、顧客ストレージの費用が発生。リハイドレートは課金対象 | [Indexes・保持・アーカイブ](../02_リファレンス/logs/log-indexes-retention-archives.md) |
 | AWS PrivateLink 等の閉域接続 | クラウド事業者側の費用（Datadog 側の追加料金の有無は [ネットワーク・接続要件](network-and-connectivity.md) を参照） | [ネットワーク・接続要件](network-and-connectivity.md) |
 | サイト選択（AP1 など） | サイトにより価格が異なる場合がある | [Datadog Sites](../02_リファレンス/platform/datadog-sites.md)、[料金体系の全体像](pricing-overview.md) |
@@ -776,7 +795,8 @@ Datadog 導入時のセキュリティ審査で確認・準備すべき項目を
 - Datadog for Government Achieves FedRAMP High Certification（2026-05-06）: https://www.datadoghq.com/blog/datadog-achieves-fedramp-high-certification/
 - Datadog for Government、FedRAMP High 認証を取得（2026-05-06）: https://www.datadoghq.com/ja/about/latest-news/press-releases/datadog-for-government-fedramp-high-2026/
 - FedRAMP High In Process（2025-05）: https://www.datadoghq.com/about/latest-news/press-releases/datadog-for-government-achieves-fedramp-high-in-process-status-to-support-mission-critical-federal-workloads/
-- GovRAMP High: https://www.datadoghq.com/blog/datadog-achieves-govramp-high-authorization/
+- Datadog Achieves GovRAMP High Authorization（2026-06-29）: https://www.datadoghq.com/blog/datadog-achieves-govramp-high-authorization/
+- FedRAMP Moderate-Impact Authorization（2022-01-26）: https://www.datadoghq.com/about/latest-news/press-releases/datadog-achieves-fedramp-moderate-impact-authorization/
 - FedRAMP Low-Impact SaaS Authorization（2020）: https://investors.datadoghq.com/news-releases/news-release-details/datadog-achieves-fedramp-low-impact-saas-authorization
 - Datadog Achieves ISO 42001（2026-03-26）: https://www.datadoghq.com/blog/datadog-achieves-iso-42001/
 - ISO 27701 Processor Certification（2023-04-28）: https://www.datadoghq.com/blog/iso-27701-processor-data-privacy-compliance-datadog/

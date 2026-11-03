@@ -62,7 +62,7 @@ Datadog Continuous Profiler（継続的プロファイラー）は、本番環�
 - Continuous Profiler は 2020-08-11 に一般提供（GA）が発表された（発表時の価格は現行と異なるため参照しないこと）。[出典](https://www.datadoghq.com/about/latest-news/press-releases/continuous-profiler/)
 - 関連ファイル：APM 全体の概念は [APM の概念とインジェスト制御](./apm-concepts-and-ingestion.md)、トレーサー（SDK）導入は [APM インスツルメンテーション](./apm-instrumentation.md)、APM 画面（Service Page の Profiling タブ等）は [APM 画面と分析機能](./apm-ui-and-analysis.md) を参照。
 
-> **名称について:** 公式ドキュメントの現行の節名は「Trace to Profiling integration」（トレースとプロファイルの連携）および「Endpoint Profiling」である。スパンからコードレベルのプロファイルへ辿る機能は、以前は「Code Hotspots」と呼ばれ、トレーサーのコードや GitHub の PR・Issue、製品ページ等で現在もこの名称が見られる。改称時期は公開情報では確認できず。[出典](https://docs.datadoghq.com/profiler/connect_traces_and_profiles/) [出典](https://github.com/DataDog/dd-trace-rb/pull/3510)
+> **名称について:** 公式ドキュメントの該当ページ（ページタイトル「Investigate Slow Traces or Endpoints」）は、スパンからプロファイルへ辿る機能を前提条件の本文中で「Trace to Profiling integration」（トレースとプロファイルの連携）と呼び、エンドポイント単位の機能を「Endpoint profiling」（H3 見出し・本文）と表記している。本書ではこれらを「Trace to Profiling 連携」「Endpoint Profiling」と表記する。スパンからコードレベルのプロファイルへ辿る機能は、以前は「Code Hotspots」と呼ばれ、トレーサーのコードや GitHub の PR・Issue、製品ページ等で現在もこの名称が見られる。改称時期は公開情報では確認できず。[出典](https://docs.datadoghq.com/profiler/connect_traces_and_profiles/) [出典](https://github.com/DataDog/dd-trace-rb/pull/3510)
 
 ---
 
@@ -461,7 +461,7 @@ Continuous Profiler のオーバーヘッドについて、Datadog は「本番�
 | Python | Timeline（`DD_PROFILING_TIMELINE_ENABLED`）はサンプルへのタイムスタンプ付与により一定のオーバーヘッドがある。例外サンプリング間隔を小さくするほどオーバーヘッドが増える | [ddtrace 設定](https://ddtrace.readthedocs.io/en/stable/configuration.html) |
 | Go | Block・Mutex・Goroutine はオーバーヘッドを抑えるため既定で無効 | [Enabling Go](https://docs.datadoghq.com/profiler/enabling/go/) |
 | Go | Block プロファイルは本番で目立つオーバーヘッドを生む場合がある。goroutine が 10,000 を超えると Goroutines プロファイル取得時に Stop-the-world 停止が発生 | [Profile Types](https://docs.datadoghq.com/profiler/profile_types/) |
-| Go | 実行トレース（Timeline 用）は GC に似た CPU 増加を起こしうる。Go 1.21 で軽減パッチが入っている。15 分ごとに最大 1 分（または 5 MiB）を記録 | [Connect Traces and Profiles](https://docs.datadoghq.com/profiler/connect_traces_and_profiles/) |
+| Go | 実行トレース（Timeline 用）は GC に似た CPU 増加を起こしうる。Go 1.21 で軽減パッチが入っている。15 分ごとに最大 1 分（または 5 MiB）を記録 | [Investigate Slow Traces or Endpoints](https://docs.datadoghq.com/profiler/connect_traces_and_profiles/) |
 | Java | 割り当てプロファイル（JFR）は Java 8〜15 ではオーバーヘッドと記録サイズのため既定無効。JFR テンプレートの Minimal（閾値 500 ms、割り当て・例外イベント無効）でオーバーヘッド低減、Comprehensive（閾値 10 ms）で粒度向上と引き換えにオーバーヘッド増 | [Java トラブルシューティング](https://docs.datadoghq.com/profiler/profiler_troubleshooting/java/) |
 | Java | 例外の多発でプロファイラーが圧迫される場合は一時的に `-Ddd.integration.throwables.enabled=false`。Live Heap による GC 遅延は `sample_percent` を下げる（例 `10`） | [Java トラブルシューティング](https://docs.datadoghq.com/profiler/profiler_troubleshooting/java/) |
 | Java | ディスク使用でポッドが退避される場合は ephemeral storage の request を約 100MB 追加 | [Java トラブルシューティング](https://docs.datadoghq.com/profiler/profiler_troubleshooting/java/) |
@@ -776,7 +776,7 @@ APM 運用における Profiler の活用方法は [APM 運用の実践](../../0
 | アップロード間隔 | 1 分に 1 回（Python `DD_PROFILING_UPLOAD_INTERVAL` 既定 `60.0` 秒、Go `DefaultPeriod` 1 分） | [Profile Visualizations](https://docs.datadoghq.com/profiler/profile_visualizations/)、[ddtrace 設定](https://ddtrace.readthedocs.io/en/stable/configuration.html)、[dd-trace-go](https://pkg.go.dev/github.com/DataDog/dd-trace-go/v2/profiler) |
 | 1 プロファイルの対象時間 | 言語により 15〜60 秒 | [Profile Visualizations](https://docs.datadoghq.com/profiler/profile_visualizations/) |
 | 割り当てプロファイルの期間 | Go・Ruby 既定 60 秒、PHP 既定 67 秒、Rust/C/C++ 既定 59 秒 | [Profile Types](https://docs.datadoghq.com/profiler/profile_types/) |
-| Full profile（スパンから開いた場合） | サービスプロセス全体の 60 秒 | [Connect Traces and Profiles](https://docs.datadoghq.com/profiler/connect_traces_and_profiles/) |
+| Full profile（スパンから開いた場合） | サービスプロセス全体の 60 秒 | [Investigate Slow Traces or Endpoints](https://docs.datadoghq.com/profiler/connect_traces_and_profiles/) |
 | `DD_PROFILING_ENABLED` | 既定 `false`（Python、Ruby、.NET で明記）。SSI では `auto` 推奨 | 各言語の有効化ページ |
 | Go の既定プロファイル種別 | CPU、Heap | [Enabling Go](https://docs.datadoghq.com/profiler/enabling/go/) |
 | .NET の既定プロファイル種別 | Wall Time、CPU（＋ Timeline 用 GC） | [Enabling .NET](https://docs.datadoghq.com/profiler/enabling/dotnet/) |
@@ -789,7 +789,7 @@ APM 運用における Profiler の活用方法は [APM 運用の実践](../../0
 | 項目 | 値 | 出典 |
 |---|---|---|
 | スタックの最大フレーム数 | Python 既定 64（上限 599）、Ruby 既定 400、Node.js の Heap Live Size は 64 フレームで切り詰め | [ddtrace 設定](https://ddtrace.readthedocs.io/en/stable/configuration.html)、[Enabling Ruby](https://docs.datadoghq.com/profiler/enabling/ruby/)、[Profile Types](https://docs.datadoghq.com/profiler/profile_types/) |
-| Go 実行トレース | 15 分ごとに最大 1 分または 5 MiB | [Connect Traces and Profiles](https://docs.datadoghq.com/profiler/connect_traces_and_profiles/) |
+| Go 実行トレース | 15 分ごとに最大 1 分または 5 MiB | [Investigate Slow Traces or Endpoints](https://docs.datadoghq.com/profiler/connect_traces_and_profiles/) |
 | Go Goroutines プロファイル | 10,000 goroutine 超で Stop-the-world 停止 | [Profile Types](https://docs.datadoghq.com/profiler/profile_types/) |
 | Go アップロードタイムアウト | 既定 10 秒 | [dd-trace-go](https://pkg.go.dev/github.com/DataDog/dd-trace-go/v2/profiler) |
 | .NET コンテナ | 1 コア未満では既定で無効（`DD_PROFILING_MIN_CORES_THRESHOLD`） | [.NET トラブルシューティング](https://docs.datadoghq.com/profiler/profiler_troubleshooting/dotnet/) |
@@ -949,7 +949,7 @@ APM 全体の料金（APM ホスト、Ingested／Indexed Spans）は [APM の概
 - Search Profiles: https://docs.datadoghq.com/profiler/search_profiles/
 - Profile Visualizations: https://docs.datadoghq.com/profiler/profile_visualizations/
 - Comparing Profiles: https://docs.datadoghq.com/profiler/compare_profiles/
-- Connect Traces and Profiles: https://docs.datadoghq.com/profiler/connect_traces_and_profiles/
+- Investigate Slow Traces or Endpoints: https://docs.datadoghq.com/profiler/connect_traces_and_profiles/
 - Automated Analysis: https://docs.datadoghq.com/profiler/automated_analysis/
 - Java Profiler Troubleshooting: https://docs.datadoghq.com/profiler/profiler_troubleshooting/java/
 - .NET Profiler Troubleshooting: https://docs.datadoghq.com/profiler/profiler_troubleshooting/dotnet/

@@ -270,7 +270,7 @@ Log Management の Processor は、Pipeline 内で実行されるデータ構造
 | 3 | Array Processor | `array-processor` | `array_processor` | 配列からの値抽出・長さ算出・追加・key-value 展開 | 公開情報では明記なし |
 | 4 | Attribute Remapper（Remapper） | `attribute-remapper` | `attribute_remapper` | 属性・タグを別の属性・タグへリマップ | `override_on_conflict` 次第 |
 | 5 | Category Processor | `category-processor` | `category_processor` | 検索クエリに一致したログにカテゴリ値を付与 | 後勝ち |
-| 6 | Decoder Processor | 公開情報では確認できず | `decoder_processor` | Base64 / Hex（Base16）のデコード | 後勝ち |
+| 6 | Decoder Processor | `decoder-processor`（※） | `decoder_processor` | Base64 / Hex（Base16）のデコード | 後勝ち |
 | 7 | Exclude Attribute Processor | `exclude-attribute` | `exclude_attribute_processor` | 指定属性をログから削除 | — |
 | 8 | GeoIP Parser | `geo-ip-parser` | `geo_ip_parser` | IP アドレスから大陸・国・地域・都市を抽出 | 後勝ち |
 | 9 | Grok Parser | `grok-parser` | `grok_parser` | Grok ルールでメッセージ／属性をパース | 後勝ち |
@@ -278,7 +278,7 @@ Log Management の Processor は、Pipeline 内で実行されるデータ構造
 | 11 | Log Message Remapper | `message-remapper` | `message_remapper` | 属性をログの公式メッセージに設定 | 先勝ち |
 | 12 | Log Status Remapper | `status-remapper` | `status_remapper` | 属性をログの公式ステータスに設定 | 先勝ち |
 | 13 | Lookup Processor | `lookup-processor` | `lookup_processor`（手動マッピング）／`reference_table_lookup_processor`（Reference Table） | 属性値を対応表／Reference Table で可読な値に変換 | 後勝ち |
-| 14 | OCSF Processor | 公開情報では確認できず | `schema_processor` | セキュリティログを OCSF スキーマに正規化 | 公開情報では明記なし |
+| 14 | OCSF Processor | `schema-processor`（※） | `schema_processor` | セキュリティログを OCSF スキーマに正規化 | 公開情報では明記なし |
 | 15 | Service Remapper | `service-remapper` | `service_remapper` | 属性をログの公式サービスに設定 | 先勝ち |
 | 16 | Span Remapper | `span-id-remapper` | `span_id_remapper` | 属性をスパン ID に設定 | 先勝ち |
 | 17 | String Builder Processor | `string-builder-processor` | `string_builder_processor` | テンプレートで属性と文字列を連結 | 後勝ち |
@@ -287,7 +287,7 @@ Log Management の Processor は、Pipeline 内で実行されるデータ構造
 | 20 | URL Parser | `url-parser` | `url_parser` | URL からクエリパラメーター等を抽出 | 後勝ち |
 | 21 | User-Agent Parser | `user-agent-parser` | `user_agent_parser` | User-Agent から OS・ブラウザ・デバイスを抽出 | 後勝ち |
 
-- API の `type` は各 Processor ドキュメントの API ペイロード例から転記した。Terraform のブロック名は `terraform-provider-datadog` の `datadog_logs_custom_pipeline` リソースのドキュメントに基づく（Nested Pipeline は `processor.pipeline` ブロック）。[出典](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/logs_custom_pipeline.md)
+- API の `type` は各 Processor ドキュメントの API ペイロード例から転記した。※印（Decoder Processor・OCSF Processor）は Processor ドキュメントに API ペイロードの記載がないため、Datadog 公式 API クライアントの OpenAPI 定義（v1）の `LogsDecoderProcessorType`・`LogsSchemaProcessorType` から転記した。[出典](https://github.com/DataDog/datadog-api-client-go/blob/master/.generator/schemas/v1/openapi.yaml)Terraform のブロック名は `terraform-provider-datadog` の `datadog_logs_custom_pipeline` リソースのドキュメントに基づく（Nested Pipeline は `processor.pipeline` ブロック）。[出典](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/logs_custom_pipeline.md)
 - 書き込み規則の詳細は「[同一属性への書き込み優先順位](#同一属性への書き込み優先順位)」を参照。
 - 全 Processor 共通で、API の `is_enabled` の**デフォルトは `false`**（API で作成する場合は明示的に `true` を指定しないと無効状態で作成される）。`name` は任意。
 
@@ -571,7 +571,7 @@ Log Management の Lookup Processor は、ログ属性の値と、人が読め�
 
 Terraform では Reference Table 版を `reference_table_lookup_processor` ブロック（必須：`lookup_enrichment_table`、`source`、`target`）で定義する。[出典](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/logs_custom_pipeline.md)
 
-**Reference Table の主な制限**（Lookup Processor で使う場合に関係する値） [出典](https://docs.datadoghq.com/reference_tables/#reference-table-limits)
+**Reference Table の主な制限**（Lookup Processor で使う場合に関係する値。列数〜テーブル数は [出典](https://docs.datadoghq.com/reference_tables/#reference-table-limits)、更新・削除は各行の出典）
 
 | 項目 | 上限 |
 |---|---|
@@ -580,8 +580,9 @@ Terraform では Reference Table 版を `reference_table_lookup_processor` ブ�
 | ファイルサイズ（UI アップロード、クラウドバケット、インテグレーション経由） | 各 200MB |
 | テーブル数 | 100 テーブル／組織 |
 | テーブル名・列名 | 小文字英字、数字、`_` のみ（非対応文字は正規化される） |
-| 更新反映 | ファイル更新後の upsert 処理は非同期で、完了まで最大 10 分 |
-| 削除時 | Reference Table を削除すると、それを使う Lookup Processor のエンリッチメントは停止（停止まで最大 10 分） |
+| 更新反映 | CSV でデータを置き換えると upsert され、処理は非同期で完了まで最大 10 分（[出典](https://docs.datadoghq.com/reference_tables/) の「Replace data with a CSV file」） |
+| 自動更新頻度 | クラウドストレージ（Amazon S3、Azure Storage、Google Cloud Storage）は 5 分ごと、インテグレーションは 1 時間ごと、CSV の手動アップロードは自動更新なし（[出典](https://docs.datadoghq.com/reference_tables/#automatic-update-frequency)） |
+| 削除時 | Reference Table を削除すると、それを使う Lookup Processor のエンリッチメントは停止（停止まで最大 10 分。[出典](https://docs.datadoghq.com/reference_tables/) の「Delete a Reference Table」） |
 
 Reference Tables 全般は [Notebooks・DDSQL・Reference Tables](../platform/notebooks-and-data-tools.md) を参照。
 
@@ -681,7 +682,17 @@ Log Management の Decoder Processor は、Base64 や Hex（Base16）でエン�
 
 > **サイト差異:** Decoder Processor は **US1-FED（app.ddog-gov.com）では利用できない**。必要な場合は Datadog サポートに問い合わせる。[出典](https://docs.datadoghq.com/logs/log_configuration/processors/decoder_processor/)
 
-API ペイロード（`type` 名など）は 2026-11-02 時点の Processor ドキュメントに記載がなく、公開情報では確認できず（Terraform では `decoder_processor` ブロックが存在）。
+API ペイロードは 2026-11-02 時点の Processor ドキュメントには記載がないが、Datadog 公式 API クライアントの OpenAPI 定義（v1）に `LogsDecoderProcessor` として定義されている（Terraform では `decoder_processor` ブロック）。[出典](https://github.com/DataDog/datadog-api-client-go/blob/master/.generator/schemas/v1/openapi.yaml)
+
+| パラメーター | 型 | 必須 | 説明 |
+|---|---|---|---|
+| `type` | String | Yes | `decoder-processor` |
+| `source` | String | Yes | エンコードされたデータを含む属性 |
+| `target` | String | Yes | デコード結果を格納する属性 |
+| `binary_to_text_encoding` | String | Yes | `base64` または `base16` |
+| `input_representation` | String | Yes | 元の表現。`utf_8` または `integer` |
+| `name` | String | No | Processor 名 |
+| `is_enabled` | Boolean | No | 有効化するか。既定 `false` |
 
 ### Exclude Attribute Processor
 
@@ -718,7 +729,7 @@ Log Management の OCSF Processor は、セキュリティログを **OCSF（Ope
 | `Invalid OCSF attribute` | 属性パスが OCSF スキーマに存在しない |
 | `ENUM attribute` | ENUM 属性は ENUM 設定セクションで入力する必要がある |
 
-詳細と Cloud SIEM 側の利用は [Cloud SIEM](../security/cloud-siem.md) を参照。Terraform では `schema_processor` ブロック（必須：`mappers`、`schema`）で定義する。OCSF Processor の利用に Cloud SIEM の契約が必要かどうかは、Processor ドキュメント上では公開情報では確認できず。
+詳細と Cloud SIEM 側の利用は [Cloud SIEM](../security/cloud-siem.md) を参照。Terraform では `schema_processor` ブロック（必須：`mappers`、`schema`）で定義する。API では `type` が `schema-processor` で、必須項目は `name`・`mappers`・`schema`・`type`（OpenAPI 定義 v1 の `LogsSchemaProcessor`。現在サポートされるスキーマは OCSF）。[出典](https://github.com/DataDog/datadog-api-client-go/blob/master/.generator/schemas/v1/openapi.yaml) OCSF Processor の利用に Cloud SIEM の契約が必要かどうかは、Processor ドキュメント上では公開情報では確認できず。
 
 ### Threat Intel Processor
 
@@ -1202,9 +1213,11 @@ Logs Pipelines API 固有のレート制限値は、公開情報では確認で�
 
 Log Management における Pipeline・Processor の処理は、**Ingest（取り込み）料金に含まれ、Pipeline や Processor 単体の課金はない**。Datadog の料金ページでは、Ingest 階層について「Ingest, process, enrich, live tail, and archive all your logs」と説明されている。[出典](https://www.datadoghq.com/pricing/?product=log-management)
 
-| 項目 | 課金単位 | 2026-11-02 時点の公式定価（年契約 / 月契約 / オンデマンド） |
-|---|---|---|
-| Log Ingest（処理を含む） | 取り込み GB / 月 | $0.10 / $0.10 / $0.10 |
+| 項目 | 課金単位 | US/EU1（年契約 / 月契約 / オンデマンド） | AP1（年契約 / 月契約 / オンデマンド） |
+|---|---|---|---|
+| Log Ingest（処理を含む） | 取り込みログ 1GB（非圧縮）/ 月 | $0.10 / $0.10 / $0.10 | $0.125 / $0.125 / $0.125 |
+
+> **サイト差異:** Log Ingest の単価はサイトで異なる。基準サイト AP1 では $0.125/GB、US/EU1 では $0.10/GB（いずれも年契約・月契約・オンデマンド共通、2026-11-02 時点。正本は [製品別料金表](../../03_導入編/pricing-by-product.md) §7.1）。
 
 - **取り込み量は Pipeline 処理の前に計測される**ため、Exclude Attribute Processor で属性を削除しても Ingest 料金は減らない。[出典](https://docs.datadoghq.com/logs/log_configuration/processors/exclude_attribute_processor/)
 - Indexing（Standard Indexing / Flex Logs）はログイベント件数単位の課金であり、Pipeline で属性を増やしても件数は変わらない。Index・保持期間の課金は [Indexes・保持・アーカイブ](./log-indexes-retention-archives.md) を参照。
@@ -1293,6 +1306,7 @@ Log Management における Pipeline・Processor の処理は、**Ingest（取�
 - https://www.datadoghq.com/blog/cloud-siem-ocsf-processor/ （2025-12-30 公開）
 - https://www.datadoghq.com/blog/log-pipeline-scanner-datadog/ （2023-12-20 公開）
 - https://github.com/DataDog/terraform-provider-datadog/tree/master/docs/resources （`logs_custom_pipeline`、`logs_integration_pipeline`、`logs_pipeline_order`、取得日: 2026-11-02）
+- https://github.com/DataDog/datadog-api-client-go/blob/master/.generator/schemas/v1/openapi.yaml （公式 API クライアントの OpenAPI 定義 v1。`LogsDecoderProcessor`・`LogsSchemaProcessor`、取得日: 2026-11-04）
 
 第三者情報
 

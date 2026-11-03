@@ -155,7 +155,7 @@ Agent Observability は span を **span kind** で分類する。root span に�
 | SDK＋自動計装 | Python、Node.js、Java | 対応フレームワーク/プロバイダーの呼び出しをコード変更なしでトレース | [Auto Instrumentation](https://docs.datadoghq.com/llm_observability/instrument/auto_instrumentation/) |
 | SDK＋手動計装 | Python、Node.js、Java、Go（実験的、手動のみ） | デコレーター / `wrap` / `startXSpan` などで任意の span を作成 | [SDK Reference](https://docs.datadoghq.com/llm_observability/instrument/sdk/) |
 | HTTP API | 任意 | `POST /api/intake/llm-obs/v1/trace/spans` に JSON で送信 | [HTTP API](https://docs.datadoghq.com/llm_observability/instrument/api/) |
-| OpenTelemetry | 任意 | OTel GenAI セマンティック規約 1.37+ または OpenInference 規約の span を OTLP で送信。SDK・Agent 不要 | [OTel Instrumentation](https://docs.datadoghq.com/llm_observability/instrument/otel_instrumentation/) |
+| OpenTelemetry | 任意 | OTel GenAI セマンティック規約 1.37+ の span（OpenInference、OpenLLMetry 0.47+、Langfuse 計装にも対応）を OTLP で送信。SDK・Agent 不要 | [OTel Instrumentation](https://docs.datadoghq.com/llm_observability/instrument/otel_instrumentation/) |
 | AWS Lambda | Python / Node.js 等 | Datadog Extension と言語レイヤーで計装 | [Lambda ガイド](https://docs.datadoghq.com/llm_observability/guide/trace-an-llm-application-in-aws-lambda/) |
 
 ## SDK リファレンス
@@ -231,7 +231,19 @@ LLMObs.enable(
 | Java | `annotateIO`、`setMetrics`/`setMetric`、`setTags`/`setTag`、`setMetadata`、`addThrowable`、`setErrorMessage`、`setError` | null / 空引数は無視 |
 | Go | `AnnotateLLMIO`、`AnnotateTextIO`、`AnnotateEmbeddingIO`、`AnnotateRetrievalIO` ＋ `WithAnnotatedMetrics` 等のオプション | `WithAnnotatedSessionID`、`WithAnnotatedPrompt`、`WithAnnotatedCostTagKeys` 等 |
 
-**認識されるメトリクスキー:** `input_tokens`、`output_tokens`、`total_tokens`、`cache_read_input_tokens`、`cache_write_input_tokens`、`reasoning_output_tokens`、`billable_character_count`、`time_to_first_token`（秒）。これ以外のキーはカスタムメトリクスとして受け付けられる。[出典](https://docs.datadoghq.com/llm_observability/instrument/sdk/)
+**メトリクスキー:** 公式は「such as」「etc.」の形で例示しており、網羅的な一覧は示していない。公式 SDK リファレンスで確認できるキーは次のとおり。[出典](https://docs.datadoghq.com/llm_observability/instrument/sdk/)
+
+| 区分 | キー | 公式で示されている箇所 |
+|---|---|---|
+| トークン | `input_tokens`、`output_tokens`、`total_tokens` | 全言語（Python・Node.js・Java・Go）の `metrics` 説明 |
+| トークン（キャッシュ内訳） | `cache_read_input_tokens`、`cache_write_input_tokens` | Go の定数一覧、Python・Node.js・Java のコスト監視の例 |
+| トークン（キャッシュ内訳） | `non_cached_input_tokens` | Python・Node.js・Java のコスト監視の例（任意） |
+| トークン（その他） | `reasoning_output_tokens`、`billable_character_count` | Go の定数一覧 |
+| レイテンシ | `time_to_first_token`（秒） | Python の `metrics` 説明、Go の定数一覧 |
+| コスト（手動入力） | `input_cost`、`output_cost`、`total_cost`、`non_cached_input_cost`、`cache_read_input_cost`、`cache_write_input_cost` | Python・Node.js・Java のコスト監視（カスタムモデル）の例。Go（Experimental）の例は `input_cost`・`output_cost` のみ |
+
+- コストキーはドル単位で指定し、nanodollars で保存される（後述「コスト追跡」）。SDK リファレンスのコスト監視節の注記は `input_cost`・`output_cost` を「recognized keys」の例に含めている。一方、Go の定数一覧の説明では、手動コスト追跡用の `input_cost`・`output_cost` は一覧外のキーとして「custom metrics として受け付けられる」と書かれている。どちらもコストとして扱われるが、公式内の分類の表現は揃っていない。
+- 上記以外のキーはカスタムメトリクスとして受け付けられる。
 
 ### その他の SDK 機能
 
@@ -317,8 +329,10 @@ SDK を有効にして実行すると、対応する LLM インテグレーシ�
 |---|---|---|
 | Spans API | `POST https://api.<DD_SITE>/api/intake/llm-obs/v1/trace/spans` | span の送信。ヘッダー `DD-API-KEY`、`Content-Type: application/json` |
 | Evaluations API | `POST https://api.<DD_SITE>/api/intake/llm-obs/v2/eval-metric` | 評価結果・エンドユーザーフィードバックの送信（span / trace / session、またはフィードバック結合キーに紐づけ） |
-| Export API | — | 外部評価やオフライン保管のために span を検索・取得 |
+| Export API（検索） | `POST https://api.<DD_SITE>/api/v2/llm-obs/v1/spans/events/search` | 外部評価やオフライン保管のために span を検索・取得。ヘッダー `DD-API-KEY`、`DD-APPLICATION-KEY`、`Content-Type: application/vnd.api+json` |
+| Export API（一覧） | `GET https://api.<DD_SITE>/api/v2/llm-obs/v1/spans/events` | クエリパラメーターでフィルタして span を取得 |
 
+- Export API は既定で直近 15 分の span を返す（`from` / `to` で変更）。`limit` は既定 10、最大 5,000。レスポンスは 50 MB まで。`page[cursor]` でページング。[出典](https://docs.datadoghq.com/llm_observability/evaluations/export_api/)
 - Spans API は **タイムスタンプが 24 時間以内** の span のみ受け付ける（限定的なバックフィル）。[出典](https://docs.datadoghq.com/llm_observability/instrument/api/)
 - APM の `dd-trace` と HTTP API を併用する場合、APM の span ID を API リクエストに含めると APM と Agent Observability の span が相互リンクされる。[出典](https://docs.datadoghq.com/llm_observability/instrument/agent_observability_and_apm/)
 
@@ -326,10 +340,11 @@ SDK を有効にして実行すると、対応する LLM インテグレーシ�
 
 | 項目 | 内容 |
 |---|---|
-| 対応規約 | OpenTelemetry **1.37+ GenAI セマンティック規約**、または OpenInference セマンティック規約（Langfuse 系属性の一部マッピングもあり） |
+| 対応規約 | OpenTelemetry **1.37+ GenAI セマンティック規約**。加えて OpenInference の span、OpenLLMetry **0.47+**、Langfuse のネイティブ OpenTelemetry 計装に対応 |
+| 旧仕様のフレームワーク | 1.37 より前の OTel 仕様を出力していたフレームワークでは `OTEL_SEMCONV_STABILITY_OPT_IN=gen_ai_latest_experimental` の設定も必要 |
 | 送信方法 | OTLP（`OTEL_EXPORTER_OTLP_TRACES_PROTOCOL=http/protobuf`）。ヘッダー `dd-api-key=<API_KEY>,dd-otlp-source=llmobs` |
 | SDK / Agent | 不要 |
-| 属性の扱い | 明示的にマッピングされない `gen_ai.*` 属性は LLM span のタグになり、値は **256 文字** で切り詰め。その他の非 `gen_ai` 属性は破棄。メタデータには 256 文字制限なし |
+| 属性の扱い | 明示的にマッピングされない `gen_ai.*` 属性は LLM span のタグになり、値は **256 文字** で切り詰め。メタデータには 256 文字制限なし。非 `gen_ai` 属性の扱いは公式ページ内で記述が割れている：Tags 節では非 `gen_ai.*` 属性を `key:value` タグに変換する（`_dd.*`、`llm.*`、`ddtags`、`events`、マッピング済みの `gen_ai.*` は除外）と記載し、別の注記では「その他の非 gen_ai 属性は破棄」と記載。実挙動は要確認 |
 | Claude Platform | Anthropic の Claude Platform は GenAI 規約の span をネイティブ出力でき、Claude Console で Datadog を送信先に設定可能 |
 
 [出典](https://docs.datadoghq.com/llm_observability/instrument/otel_instrumentation/)
@@ -382,7 +397,7 @@ Agent Observability の評価は、**Evaluators** 画面（`app.datadoghq.com/ll
 | End-User Feedback | 顧客アプリ | 👍/👎、変更の受け入れ、自由記述コメント等を span / trace / session / 任意エンティティに紐づけ |
 | Annotation Queues | 人手 | 体系的な人手レビュー（評価器の妥当性検証、ゴールデンデータセット作成） |
 
-> 旧来ドキュメントで「OOTB（out-of-the-box）評価」として Datadog 側で実行されていた Hallucination、Failure to Answer、Topic Relevancy、Toxicity、Sentiment、Prompt Injection 等は、2026-11 時点の公式ドキュメントでは **LLM-as-a-judge テンプレート**（顧客の LLM アカウントで実行）として位置づけられている。
+> 2024-06 の GA 時点では「out-of-the-box quality and safety evaluations」が提供され、評価の例として topic relevance と toxicity が挙げられていた（hallucination や failure to answer も検出対象の例として言及。プロンプト攻撃は「prompt hacking」対策として言及）。[出典](https://www.datadoghq.com/about/latest-news/press-releases/datadog-llm-observability-is-now-generally-available-to-help-businesses-monitor-improve-and-secure-generative-ai-applications/) 2026-11 時点の公式ドキュメントでは、Hallucination、Prompt Injection 等の評価は **LLM-as-a-judge テンプレート**（顧客の LLM アカウントで実行）として位置づけられている。
 
 ### Managed Evaluators
 
@@ -700,15 +715,15 @@ AI Gateway は、組織の LLM トラフィックを単一エンドポイント�
 
 ## 課金への影響
 
-Agent Observability は **LLM span（LLM プロバイダーへの 1 回の呼び出し）の月間件数** で課金される。tool / workflow / retrieval / agent / task 等の周辺 span は課金されない。1 つのエージェントワークフローが複数の LLM span を生むことがある。[出典](https://www.datadoghq.com/pricing/?product=llm-observability)
+Agent Observability は **LLM span（LLM プロバイダーへの 1 回の呼び出し）の月間件数** で課金される。tool span、retrieval span、その他モデル呼び出しを囲む workflow span は課金されない（公式 FAQ の表現）。agent / task / embedding span の扱いは名指しされておらず、公開情報では確認できず。1 つのエージェントワークフローが複数の LLM span を生むことがある。[出典](https://www.datadoghq.com/pricing/?product=llm-observability)
 
 以下は 2026-11-02 時点の公式料金ページ掲載の定価（USD）。数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。
 
 | プラン / 項目 | 単位 | 年契約 | 月契約 | オンデマンド |
 |---|---|---|---|---|
-| Free | 月 40K LLM span まで、15 日保持 | $0 | $0 | $0 |
+| Free | 月 40K LLM span まで、15 日保持 | $0 | $0 | — |
 | Pro（基本） | 最初の 100K LLM span / 月（15 日保持） | $160 / 月 | $200 / 月 | $240 / 月 |
-| 追加 LLM span（15 日保持） | 10K LLM span / 月 | $3.50 | $4.20 | $5 |
+| 追加 LLM span（15 日保持、実験 3 か月※年契約・月契約。オンデマンドは 15 日） | 10K LLM span / 月 | $3.50 | $4.20 | $5 |
 | 追加 LLM span（30 日保持、実験 6 か月） | 10K LLM span / 月 | $5 | $5.70 | $6.50 |
 | 追加 LLM span（60 日保持、実験 9 か月） | 10K LLM span / 月 | $6.50 | $7.20 | $8 |
 | 追加 LLM span（90 日保持、実験 12 か月） | 10K LLM span / 月 | $7.50 | $8.20 | $9 |
@@ -720,7 +735,7 @@ Agent Observability は **LLM span（LLM プロバイダーへの 1 回の呼び
 | 含まれる機能 | Free・Pro とも全機能（トレース、評価、Playground、Datasets、Experiments、アノテーション、ダッシュボード、CLI・MCP アクセス）。「Unlimited context & evals」 |
 | Sensitive Data Scanner | 追加料金なし。10K LLM span ごとに 1 GB の SDS 処理枠 |
 | 実験の保持 | 年契約・月契約は 3 か月（90 日）、それ以外は 15 日 |
-| LLM-as-a-judge / Patterns / Playground の LLM 費用 | 顧客自身のプロバイダーアカウントに課金される（Datadog の料金とは別）【推定：BYOK の仕組みからの推論】 |
+| LLM-as-a-judge / Patterns / Playground の LLM 費用 | これらの機能は顧客自身の LLM プロバイダーアカウントで実行される（公式記載、[出典](https://docs.datadoghq.com/llm_observability/investigate/evaluations/llm_as_a_judge_evaluations/connect_to_account/)）。その LLM 利用料がプロバイダーから顧客に請求され、Datadog の料金とは別になる点は【推定：BYOK の仕組みからの推論】 |
 | 評価のトレース | 「Trace Evaluations」を有効にすると、評価器の LLM 呼び出しも `datadog-evaluations` として span 化され、課金対象 span が増える |
 | サンプリング | `DD_LLMOBS_SAMPLE_RATE` 等で送信トレースを減らすと課金対象の LLM span も減る【推定】。ただし `ml_obs.*` メトリクスは 100% に基づく |
 | Offline Experiments の span | 実験タスク内の LLM 呼び出しが LLM span として課金対象になるかは公開情報では明示されていない（公開情報では確認できず） |
@@ -750,6 +765,8 @@ Agent Observability は **LLM span（LLM プロバイダーへの 1 回の呼び
 - SDK Reference: https://docs.datadoghq.com/llm_observability/instrument/sdk/
 - Automatic Instrumentation: https://docs.datadoghq.com/llm_observability/instrument/auto_instrumentation/
 - HTTP API Reference: https://docs.datadoghq.com/llm_observability/instrument/api/
+- Export API: https://docs.datadoghq.com/llm_observability/evaluations/export_api/
+- GA プレスリリース（2024-06-26）: https://www.datadoghq.com/about/latest-news/press-releases/datadog-llm-observability-is-now-generally-available-to-help-businesses-monitor-improve-and-secure-generative-ai-applications/
 - OpenTelemetry Instrumentation: https://docs.datadoghq.com/llm_observability/instrument/otel_instrumentation/
 - Multimodal Support: https://docs.datadoghq.com/llm_observability/instrument/multimodal/
 - Correlating Agent Observability and APM: https://docs.datadoghq.com/llm_observability/instrument/agent_observability_and_apm/

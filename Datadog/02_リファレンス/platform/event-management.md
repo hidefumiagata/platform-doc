@@ -744,7 +744,7 @@ Extend dedupe window が有効なら、未解決の Alert A/B のイベントは
 |---|---|---|
 | `event_correlation_config_read` | 相関ルールと設定の閲覧 | Datadog Standard Role |
 | `event_correlation_config_write` | 相関ルールと設定の管理 | Datadog Standard Role |
-| `cases_shared_settings_write` | Work Management 共有設定の書き込み（Maintenance Windows の作成に必要） | 公開情報では既定ロールを確認できず |
+| `cases_shared_settings_write` | Work Management 共有設定の書き込み（Maintenance Windows の作成に必要） | Datadog Standard Role |
 
 [出典（権限）](https://docs.datadoghq.com/account_management/rbac/permissions/)、[出典（Maintenance Windows）](https://docs.datadoghq.com/events/correlation/maintenance_windows/)
 
@@ -961,6 +961,9 @@ Datadog は旧 Event Stream と旧 Event Monitor を廃止し、新しい Events
 | `events_write_processors` | パイプライン内の Processor の追加・変更 | Datadog Standard Role |
 | `event_correlation_config_read` | 相関ルール・設定の閲覧 | Datadog Standard Role |
 | `event_correlation_config_write` | 相関ルール・設定の管理 | Datadog Standard Role |
+| `cases_shared_settings_write` | Work Management 共有設定の書き込み（Maintenance Windows の作成に必要） | Datadog Standard Role |
+| `cases_read` | Work Item の閲覧 | Datadog Read Only Role |
+| `cases_write` | Work Item の作成・更新 | Datadog Standard Role |
 
 [出典](https://docs.datadoghq.com/account_management/rbac/permissions/)
 
@@ -1090,7 +1093,7 @@ Events から生成したメトリクスは**カスタムメトリクスとし�
 | 監査用途 | Events Explorer は監査ツールではない。設定変更の追跡は Audit Trail を使う | 公式 [出典](https://docs.datadoghq.com/events/explorer/) |
 | 長期のトレンド分析 | Event Monitor の評価ウィンドウは最大 48 時間。長期は Generate Metrics で 15 か月保持のメトリクスにする（カスタムメトリクス課金に注意） | 公式 [出典](https://docs.datadoghq.com/events/guides/migrating_to_new_events_features/) |
 | 古いタイムスタンプ | 18 時間より古いタイムスタンプは受け付けない。バッチで遅れて送るシステムでは注意 | 公式 [出典](https://docs.datadoghq.com/api/latest/events/post-an-event/) |
-| 機密データ | イベントに含まれる機密データは Sensitive Data Scanner で検出・マスキングできる | 公式 [出典](https://docs.datadoghq.com/events/)、[Sensitive Data Scanner](../security/sensitive-data-scanner.md) |
+| 機密データ | イベントに含まれる機密データは Sensitive Data Scanner で検出・秘匿化できる。スキャン対象はイベントの属性値だけで、使えるアクションは Redact・Partially redact・Hash（Mask はイベント非対応） | 公式 [出典](https://docs.datadoghq.com/sensitive_data_scanner/)、[Sensitive Data Scanner](../security/sensitive-data-scanner.md) |
 
 アラート疲れ対策の全体設計は [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md)、他製品からの移行時のイベント統合は [他製品からの移行](../../03_導入編/migration-from-other-tools.md) を参照。
 

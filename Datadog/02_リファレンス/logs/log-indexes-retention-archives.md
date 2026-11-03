@@ -709,7 +709,7 @@ Log Forwarding（Custom Destinations）は、Datadog に取り込んだログ（
 ### 設定手順・再試行
 
 1. IP ranges 一覧の **webhooks** の IP を宛先側の許可リストに追加する。
-2. **Log Archiving & Forwarding** から **Custom Destinations** を選ぶ。
+2. **Logs > Configuration > Log Forwarding** タブで **Custom Destinations** を選ぶ（公式手順上の表記：Log Archiving & Forwarding）。
 3. **New Destination** をクリックする。
 4. フィルタークエリを入力する。
 5. 宛先の種類を選び、設定を入力する。
@@ -840,7 +840,7 @@ BYOC Logs（Bring Your Own Cloud Logs、製品ページ上の名称は **BYOC Lo
 | Standard Indexing | オンデマンドの既定保持期間 | 15 日 | [Pricing FAQ](https://www.datadoghq.com/pricing/?product=log-management) |
 | Flex Logs | 保持期間（Scalable） | 30〜450 日 | [Flex Logs](https://docs.datadoghq.com/logs/log_configuration/flex_logs/) |
 | Flex Logs | 保持期間（Starter） | 3 / 6 / 12 / 15 か月 | 同上 |
-| Flex Logs | Compute サイズ | Starter、XS、XS+、S、M、L（US3 / US5 / AP1 / AP2 / US1-FED は Starter〜S のみ） | 同上 |
+| Flex Logs | Compute サイズ | Starter、XS、XS+、S、M、L（US3 / US5 / AP1 / AP2 / US1-FED / US2-FED は Starter / XS / XS+ / S のみ） | 同上 |
 | Flex Logs | 組織あたりの Compute | 同時に 1 サイズ、組織間で共有不可 | 同上 |
 | Flex Logs | ダウングレード頻度 | 15 日に 1 回まで | 同上 |
 | Flex Logs | 同時クエリ数・1 クエリの最大スキャン件数 | 公開情報では確認できず | — |
@@ -871,9 +871,9 @@ BYOC Logs（Bring Your Own Cloud Logs、製品ページ上の名称は **BYOC Lo
 
 ## 課金への影響
 
-Log Management の保持・転送に関わる課金単位は次のとおり。料金の数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md) であり、本節は公式料金ページの値（**2026-11-02 時点**、USD）を引用する。課金計算の詳細は [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、削減策は [コスト最適化](../../04_応用編/cost-optimization.md) と [ログ管理の実践](../../04_応用編/log-management-practices.md) を参照。
+Log Management の保持・転送に関わる課金単位は次のとおり。料金の数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md) であり、本節は公式料金ページの値（**2026-11-02 時点**、USD、**US/EU1 の価格**）を引用する。課金計算の詳細は [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、削減策は [コスト最適化](../../04_応用編/cost-optimization.md) と [ログ管理の実践](../../04_応用編/log-management-practices.md) を参照。
 
-| 品目 | 課金単位 | 年契約 | 月契約 | オンデマンド |
+| 品目 | 課金単位 | US/EU1 年契約 | US/EU1 月契約 | US/EU1 オンデマンド |
 |---|---|---|---|---|
 | Log Ingestion（取り込み） | 取り込み GB（非圧縮）/ 月 | $0.10 | $0.10 | $0.10 |
 | Indexed Logs 保持 3 日 | インデックス化 100 万件 / 月 | $1.06 | $1.27 | $1.59 |
@@ -883,11 +883,14 @@ Log Management の保持・転送に関わる課金単位は次のとおり。�
 | Indexed Logs 保持 30 日超 | — | 要問い合わせ | 要問い合わせ | 要問い合わせ |
 | Flex Logs Storage | 保存 100 万イベント / 月 | $0.05 | $0.06 | $0.075 |
 | Flex Logs Compute（XS / S / M / L 等） | インスタンス時間 / 月 | 要問い合わせ | 要問い合わせ | 要問い合わせ |
-| Flex Logs Starter | 保存 100 万イベント / 月（Compute 込み） | $0.60 | $0.72 | $0.90 |
+| Flex Logs Starter | 保存 100 万イベント / 月（Compute 込み、最低保持 3 か月） | $0.60 | $0.72 | $0.90 |
+| Archive Search | スキャン GB（年契約はコミット済みスキャン容量） | $0.05 | $0.06 | $0.07 |
 | Log Forwarding to Custom Destinations | 転送 GB（非圧縮）/ 宛先 / 月 | $0.25 | $0.25 | $0.25 |
 | Rehydration | スキャンした圧縮 GB | $0.10（料金ページ記載） | — | — |
 
-[出典](https://www.datadoghq.com/pricing/list/)、[出典](https://www.datadoghq.com/pricing/?product=log-management)（2026-11-02 取得）
+[出典](https://www.datadoghq.com/pricing/list/)、[出典](https://www.datadoghq.com/pricing/?product=log-management)（2026-11-02 取得。Archive Search 行は [製品別料金表 §7.1](../../03_導入編/pricing-by-product.md) の値（2026-11-03 取得）に合わせた）
+
+> **サイト差異:** AP1 は価格が異なる（例：Ingestion $0.125/GB、Indexed Logs 保持 15 日 $2.125、Flex Logs Storage $0.0625、Flex Logs Starter $0.75、Archive Search $0.0625/GB、Log Forwarding $0.3125/GB。いずれも年契約）。Archive Search は US-FED サイトでは提供されない。詳細は [製品別料金表 §7.1](../../03_導入編/pricing-by-product.md) を参照。
 
 課金の仕組みに関する公式の注記は次のとおり。
 
@@ -897,8 +900,8 @@ Log Management の保持・転送に関わる課金単位は次のとおり。�
 | アーカイブ | S3・GCP・Azure のアーカイブへの転送は Ingestion 単価 $0.10/GB に含まれる（ストレージ料金・API 料金・リージョン間転送料金は各クラウドから別途請求） |
 | Log Forwarding | アーカイブ以外の宛先への転送は、非圧縮 GB × 宛先数で課金 |
 | Rehydration | 圧縮 GB のスキャン量で課金（$0.10/GB）。Rehydrate でインデックス化したイベントは、選んだ保持期間の契約インデックス単価で課金。キャンセルしてもスキャン済み・インデックス済み分は課金 |
-| Archive Search | スキャン量に対してのみ課金し、先頭 100,000 件の一時保持は無料。Archive Search 固有の単価は料金ページで確認できず（Ingest の注記「or compressed data scanned for rehydrating」から、スキャン GB 単価で課金されると推測される【推定】）。クラウドの egress 料金は別途クラウド事業者が課金 |
-| Flex Logs | 100 万イベントごとに時間単位で計測。各 100 万件は最低 30 日分（または最低 $0.05）課金。Scalable Compute はティアごとの定額、Starter は保管＋Compute のバンドル単価（月 20 億件未満・保存累計 100 億件未満向けの Starter Compute を含む） |
+| Archive Search | スキャン GB 単位で課金（US/EU1 年契約 $0.05/GB、オンデマンド $0.07/GB。最小スキャン量・上限なし）。結果の 24 時間・最大 100,000 件の一時保持は追加費用なし。クラウドの egress 料金は別途クラウド事業者が課金 |
+| Flex Logs | 100 万イベントごとに時間単位で計測。各 100 万件は最低 30 日分（または最低 $0.05）課金。Scalable Compute はティアごとの定額、Starter は保管＋Compute のバンドル単価（月 20 億件未満・保存累計 100 億件未満向けの Starter Compute を含む、最低保持 3 か月）。月 30 億件以上はボリューム割引を相談できる |
 | コミット超過 | 月次のログコミットを超えた分は年契約単価の +50% で課金 |
 | ログベースメトリクス | Custom Metrics の割り当てにカウントされる（[Custom Metrics と DogStatsD](../platform/custom-metrics-and-dogstatsd.md)） |
 | BYOC Logs | 公開料金表に単価なし（公開情報では確認できず） |

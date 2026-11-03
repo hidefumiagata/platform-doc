@@ -24,9 +24,19 @@ sources:
   - https://docs.datadoghq.com/database_monitoring/database_monitoring_workbench/
   - https://docs.datadoghq.com/database_monitoring/pr_reviews/
   - https://docs.datadoghq.com/database_monitoring/troubleshooting/
+  - https://docs.datadoghq.com/database_monitoring/explore/
   - https://docs.datadoghq.com/database_monitoring/setup_postgres/
   - https://docs.datadoghq.com/database_monitoring/setup_postgres/selfhosted/
   - https://docs.datadoghq.com/database_monitoring/setup_postgres/rds/
+  - https://docs.datadoghq.com/database_monitoring/setup_postgres/azure/
+  - https://docs.datadoghq.com/database_monitoring/setup_postgres/gcsql/
+  - https://docs.datadoghq.com/database_monitoring/setup_postgres/alloydb/
+  - https://docs.datadoghq.com/database_monitoring/setup_postgres/supabase/agent/
+  - https://docs.datadoghq.com/database_monitoring/setup_mysql/rds/
+  - https://docs.datadoghq.com/database_monitoring/setup_mariadb/rds/
+  - https://docs.datadoghq.com/database_monitoring/setup_sql_server/gcsql/
+  - https://docs.datadoghq.com/database_monitoring/setup_documentdb/
+  - https://docs.datadoghq.com/database_monitoring/setup_clickhouse/cloud/
   - https://docs.datadoghq.com/database_monitoring/setup_postgres/advanced_configuration/
   - https://docs.datadoghq.com/database_monitoring/setup_postgres/troubleshooting/
   - https://docs.datadoghq.com/database_monitoring/setup_mysql/
@@ -116,9 +126,9 @@ Database Monitoring の主な機能と画面を次に示す。画面は Datadog 
 | Query Completions / Errors | SQL Server の Extended Events によるクエリ完了・エラーの収集 | SQL Server | GA |
 | APM 連携 | トレースと DBM データの相互参照 | Postgres、MySQL、SQL Server、Oracle、MongoDB | GA |
 | DBM モニター | 待機クエリ数、長時間クエリ、実行計画コストの変化などでアラート | — | GA |
-| Database Investigations in Bits Chat | Bits Chat による根本原因分析（AI Credits 課金） | 全対応 DB | 公開情報では提供段階の表記なし |
+| Database Investigations in Bits Chat（旧称：Database Investigator） | Bits Chat による根本原因分析（AI Credits 課金） | 全対応 DB | 公開情報では提供段階の表記なし |
 | Bits Database Optimization | 低性能クエリの最適化を検証し PR を作成（AI Credits 課金） | PostgreSQL、MySQL | 公開情報では提供段階の表記なし |
-| Database Monitoring Workbench | 本番相当の一時的な Postgres サンドボックス | PostgreSQL | 【Preview】 |
+| Database Monitoring Workbench | 本番相当の一時的な Postgres サンドボックス | PostgreSQL 12〜18 | 【Preview】 |
 | Database Monitoring PR Reviews | GitHub PR 上でクエリ・スキーマ変更の影響をレビュー | Postgres ほか | 【Preview】 |
 
 [出典](https://docs.datadoghq.com/database_monitoring/)、[出典](https://docs.datadoghq.com/database_monitoring/explore/)、[出典](https://docs.datadoghq.com/database_monitoring/schema_explorer/)、[出典](https://docs.datadoghq.com/database_monitoring/recommendations/)、[出典](https://docs.datadoghq.com/database_monitoring/database_monitoring_workbench/)、[出典](https://docs.datadoghq.com/database_monitoring/pr_reviews/)
@@ -144,24 +154,24 @@ Database Monitoring は、**Postgres、MySQL、MariaDB、Oracle、SQL Server、M
 
 ### PostgreSQL の対応バージョン
 
-次の表は Postgres 設定ページの対応表（2026-11-02 時点）である。○は対応、空欄は表で対応と記載されていないことを示す。
+Postgres 設定ページにも対応表があるが、そのソース（Markdown）は行ごとにセル数が揃っておらず（9.6 行は yes が 4 個、10〜13 行は 5 個、17 行と 18 行は同一）、列の対応を確定できない。そのため次の表は、各ホスティング形態の個別セットアップページ（2026-11-02 時点）の記載を正として作成した。○は個別ページで対応と記載されていることを示す。
 
-| バージョン | Self-hosted | Amazon RDS | Amazon Aurora | Google Cloud SQL | Google AlloyDB | Azure | Supabase |
-|---|---|---|---|---|---|---|---|
-| Postgres 9.6 | ○ | ○ | ○ | | | ○ | |
-| Postgres 10 | ○ | ○ | ○ | ○ | | ○ | |
-| Postgres 11 | ○ | ○ | ○ | ○ | | ○ | |
-| Postgres 12 | ○ | ○ | ○ | ○ | | ○ | |
-| Postgres 13 | ○ | ○ | ○ | ○ | | ○ | |
-| Postgres 14 | ○ | ○ | ○ | ○ | ○ | ○ | ○ |
-| Postgres 15 | ○ | ○ | ○ | ○ | ○ | ○ | ○ |
-| Postgres 16 | ○ | ○ | ○ | ○ | ○ | ○ | ○ |
-| Postgres 17 | ○ | ○ | ○ | ○ | ○ | | ○ |
-| Postgres 18 | ○ | ○ | ○ | ○ | ○ | ○ | |
+| バージョン | Self-hosted | Amazon RDS | Amazon Aurora | Google Cloud SQL | Google AlloyDB | Azure |
+|---|---|---|---|---|---|---|
+| Postgres 9.6 | ○ | ○ | ○ | | | ○ |
+| Postgres 10 | ○ | ○ | ○ | ○ | | ○ |
+| Postgres 11 | ○ | ○ | ○ | ○ | | ○ |
+| Postgres 12 | ○ | ○ | ○ | ○ | | ○ |
+| Postgres 13 | ○ | ○ | ○ | ○ | | ○ |
+| Postgres 14 | ○ | ○ | ○ | ○ | ○ | ○ |
+| Postgres 15 | ○ | ○ | ○ | ○ | ○ | ○ |
+| Postgres 16 | ○ | ○ | ○ | ○ | ○ | ○ |
+| Postgres 17 | ○ | ○ | ○ | ○ | ○ | ○ |
+| Postgres 18 | ○ | ○ | ○ | ○ | ○ | ○ |
 
-[出典](https://docs.datadoghq.com/database_monitoring/setup_postgres/)
+[出典](https://docs.datadoghq.com/database_monitoring/setup_postgres/selfhosted/)、[出典](https://docs.datadoghq.com/database_monitoring/setup_postgres/rds/)、[出典](https://docs.datadoghq.com/database_monitoring/setup_postgres/azure/)、[出典](https://docs.datadoghq.com/database_monitoring/setup_postgres/gcsql/)、[出典](https://docs.datadoghq.com/database_monitoring/setup_postgres/alloydb/)、[出典](https://docs.datadoghq.com/database_monitoring/setup_postgres/)（対応表）
 
-- 個別ページの記載は、Self-hosted / RDS / Aurora / Azure が 9.6〜18、Cloud SQL が 10〜18、AlloyDB が 14〜18、Supabase Self-Hosted が 9.6〜17 である。**Azure の Postgres 17 は、対応表では空欄だが Azure 個別ページでは対応と記載**されており、ページ間で食い違いがある。[出典](https://docs.datadoghq.com/database_monitoring/setup_postgres/azure/)
+- 個別ページの記載は、Self-hosted / RDS / Aurora / Azure が 9.6〜18、Cloud SQL が 10〜18、AlloyDB が 14〜18 である。Supabase は Supabase Self-Hosted が 9.6〜17 と記載されている。Supabase Cloud の対応バージョンは、公式対応表の列が崩れているため確定できない。[出典](https://docs.datadoghq.com/database_monitoring/setup_postgres/supabase/agent/)、[出典](https://docs.datadoghq.com/database_monitoring/setup_postgres/)
 - Azure の対応デプロイ形態は PostgreSQL on Azure VMs、Single Server、Flexible Server である。[出典](https://docs.datadoghq.com/database_monitoring/setup_postgres/azure/)
 
 ### MySQL / MariaDB の対応バージョン
@@ -276,7 +286,7 @@ Database Monitoring のデータは、通常のメトリクス・ログとは別
 
 ### Agent のオーバーヘッド
 
-Database Monitoring の既定設定は保守的で、公式ドキュメントは「ほとんどのワークロードで Agent はクエリ実行時間の 1% 未満、CPU の 1% 未満」としている。次は公式ベンチマーク（Agent ホスト EC2 `c5.xlarge`、DB は RDS `db.m5.large` で TPC-C 20 warehouses）の結果である。[出典](https://docs.datadoghq.com/database_monitoring/agent_integration_overhead/)
+Database Monitoring の既定設定は保守的で、公式ドキュメントは「ほとんどのワークロードで Agent はクエリ実行時間の 1% 未満、CPU の 1% 未満」としている。[出典](https://docs.datadoghq.com/database_monitoring/setup_postgres/selfhosted/)、[出典](https://docs.datadoghq.com/database_monitoring/setup_mysql/selfhosted/)（各ページの Performance impact 節）。次は公式ベンチマーク（Agent ホスト EC2 `c5.xlarge`、DB は RDS `db.m5.large` で TPC-C 20 warehouses）の結果である。[出典](https://docs.datadoghq.com/database_monitoring/agent_integration_overhead/)
 
 | 項目 | Postgres | MySQL | SQL Server | Oracle |
 |---|---|---|---|---|
@@ -506,9 +516,9 @@ instances:
 | Deadlock 監視 | Datadog 用 Extended Events（XE）セッションを作成し、`collect_deadlocks` を有効化（Agent 7.70 で `deadlocks_collection` から改名）。XE セッションがない場合は既定の system health XE セッションから収集を試みる。RDS では `MEMORY_PARTITION_MODE = PER_NODE` 行を削除 | Agent 7.59.0+（Azure DB は 7.64.0+）。既定 `enabled: false`、`collection_interval: 600`、`max_deadlocks: 100` |
 | Query Completions / Query Errors | XE でクエリ完了イベントとエラー・タイムアウトを収集（`collect_xe.query_completions` / `collect_xe.query_errors`） | Agent 7.67.0+ |
 | ストアドプロシージャメトリクス | `procedure_metrics`（既定 `enabled: true`、`collection_interval: 60`） | — |
-| SQL Server Agent ジョブ | `agent_jobs`（既定 `enabled: false`、`collection_interval: 15`） | Agent 7.57+、`msdb` の権限 |
+| SQL Server Agent ジョブ | `agent_jobs`（既定 `enabled: false`、`collection_interval: 15`） | SQL Server 2016 以降、Agent 7.57+、`msdb` の権限 |
 
-[出典](https://docs.datadoghq.com/database_monitoring/guide/sql_deadlock/)、[出典](https://docs.datadoghq.com/database_monitoring/guide/sql_extended_events/)、[出典](https://github.com/DataDog/integrations-core/blob/master/sqlserver/datadog_checks/sqlserver/data/conf.yaml.example)
+[出典](https://docs.datadoghq.com/database_monitoring/guide/sql_deadlock/)、[出典](https://docs.datadoghq.com/database_monitoring/guide/sql_extended_events/)、[出典](https://github.com/DataDog/integrations-core/blob/master/sqlserver/datadog_checks/sqlserver/data/conf.yaml.example)、[出典](https://docs.datadoghq.com/database_monitoring/setup_sql_server/gcsql/)（Agent ジョブの対応版）
 
 - SQL Server の Query Metrics と Plan Samples では、SQL Server 側の技術的制約により `user` タグをサポートしない。[出典](https://docs.datadoghq.com/database_monitoring/setup_sql_server/troubleshooting/)
 
@@ -973,7 +983,7 @@ Database Monitoring モニター（Monitors > New Monitor > Database Monitoring�
 |---|---|---|---|
 | Database Investigations in Bits Chat | Overview の Investigate ボタン、Metrics タブ、Blocking Queries / Deadlocks パネル、Query Metrics、Query Samples から起動し、Bits Chat が根本原因分析と修正手順（SQL を含む）を返す。Bits Chat が DB に接続したり SQL を実行したりすることはない。共有 URL、Notebook へのエクスポート、インシデント作成が可能。データソースは Datadog MCP Server からも利用可能 | 全 DBM 対応 DB。権限は Bits Chat Access と Database Monitoring Read | AI Credits |
 | Bits Database Optimization | DBM テレメトリから影響の大きいクエリを選び、スキーマの統計的性質から生成した合成データのシミュレーション DB で最適化を検証し、GitHub PR を作成。Continuous Optimizations を有効にすると、**DB インスタンスあたり月 50 個の異なるクエリ**まで分析（最適化が見つからなくてもカウント、UTC の月初にリセット） | PostgreSQL、MySQL。スキーマ収集が必須。PR 自動作成には APM 連携と GitHub リポジトリ連携が必要。設定には DBM Read と Org Management 権限 | AI Credits |
-| Database Monitoring Workbench【Preview】 | DBM が収集したスキーマと統計から、本番と同形の一時的な Postgres を作成（合成データ、実データはコピーしない）。MCP Server（`create_datadog_database_workbench` 等 3 ツール）、API（`/api/unstable/databases/workbench/session`）、SQL クライアントで利用。TTL は既定 1,800 秒（30 分）でリクエストでは変更不可 | PostgreSQL。対象 DB のスキーマ収集と Database Monitoring Read 権限 | 公開情報では確認できず |
+| Database Monitoring Workbench【Preview】 | DBM が収集したスキーマと統計から、本番と同形の一時的な Postgres を作成（合成データ、実データはコピーしない）。MCP Server（`create_datadog_database_workbench` 等 3 ツール）、API（`/api/unstable/databases/workbench/session`）、SQL クライアントで利用。TTL は既定 1,800 秒（30 分）でリクエストでは変更不可 | PostgreSQL 12〜18（他エンジンは非対応）。対象 DB のスキーマ収集と Database Monitoring Read 権限 | 公開情報では確認できず |
 | Database Monitoring PR Reviews【Preview】 | GitHub PR のクエリ・スキーマ変更を、直近 24 時間の本番クエリと照合してインラインコメント。DB 負荷に占める割合 5% 以上を High、0.5〜5% を Medium、0.5% 未満を Low とする。`DROP TABLE`、`DROP COLUMN`、`RENAME` を検出し、Missing index や `SELECT *` の提案も行う | GitHub インテグレーション。影響分析は Postgres ＋ スキーマ収集 ＋ Workbench | 公開情報では確認できず |
 
 [出典](https://docs.datadoghq.com/database_monitoring/database_investigator/)、[出典](https://docs.datadoghq.com/database_monitoring/bits_database_optimization/)、[出典](https://docs.datadoghq.com/database_monitoring/database_monitoring_workbench/)、[出典](https://docs.datadoghq.com/database_monitoring/pr_reviews/)
@@ -1022,15 +1032,15 @@ API キー・アプリケーションキーの管理は [API とキー管理](..
 | DBM モニターのグループ化 | 最大 4 ファセット | [出典](https://docs.datadoghq.com/monitors/types/database_monitoring/) |
 | 収集される SQL 長（Postgres / MySQL） | DB 側の既定 1,024 文字。`track_activity_query_size` / `max_digest_length` 等を `4096` に設定して拡大 | [出典](https://docs.datadoghq.com/database_monitoring/setup_postgres/selfhosted/) |
 | `pg_stat_statements.max` | 推奨 `10000`（それ以上は収集遅延・タイムアウトの原因） | [出典](https://docs.datadoghq.com/database_monitoring/setup_postgres/troubleshooting/) |
-| Query Metrics 収集間隔（既定） | Postgres / MySQL 10 秒、SQL Server 60 秒 | 各 `conf.yaml.example` |
-| Query Samples 収集間隔（既定） | Postgres / MySQL 1 秒 | 各 `conf.yaml.example` |
-| 実行計画の取得上限（既定） | Postgres / MySQL：正規化クエリあたり 60 件/時、サンプル 15 件/時。SQL Server：`samples_per_hour_per_query` 4 | 各 `conf.yaml.example` |
-| 設定値収集間隔（既定） | 600 秒 | 各 `conf.yaml.example` |
+| Query Metrics 収集間隔（既定） | Postgres / MySQL 10 秒、SQL Server 60 秒 | [Postgres](https://github.com/DataDog/integrations-core/blob/master/postgres/datadog_checks/postgres/data/conf.yaml.example)、[MySQL](https://github.com/DataDog/integrations-core/blob/master/mysql/datadog_checks/mysql/data/conf.yaml.example)、[SQL Server](https://github.com/DataDog/integrations-core/blob/master/sqlserver/datadog_checks/sqlserver/data/conf.yaml.example) |
+| Query Samples 収集間隔（既定） | Postgres / MySQL 1 秒 | [Postgres](https://github.com/DataDog/integrations-core/blob/master/postgres/datadog_checks/postgres/data/conf.yaml.example)、[MySQL](https://github.com/DataDog/integrations-core/blob/master/mysql/datadog_checks/mysql/data/conf.yaml.example) |
+| 実行計画の取得上限（既定） | Postgres / MySQL：正規化クエリあたり 60 件/時、サンプル 15 件/時。SQL Server：`samples_per_hour_per_query` 4 | [Postgres](https://github.com/DataDog/integrations-core/blob/master/postgres/datadog_checks/postgres/data/conf.yaml.example)、[MySQL](https://github.com/DataDog/integrations-core/blob/master/mysql/datadog_checks/mysql/data/conf.yaml.example)、[SQL Server](https://github.com/DataDog/integrations-core/blob/master/sqlserver/datadog_checks/sqlserver/data/conf.yaml.example) |
+| 設定値収集間隔（既定） | 600 秒 | [Postgres](https://github.com/DataDog/integrations-core/blob/master/postgres/datadog_checks/postgres/data/conf.yaml.example)、[MySQL](https://github.com/DataDog/integrations-core/blob/master/mysql/datadog_checks/mysql/data/conf.yaml.example)、[SQL Server](https://github.com/DataDog/integrations-core/blob/master/sqlserver/datadog_checks/sqlserver/data/conf.yaml.example) |
 | スキーマ収集（既定） | 間隔 600 秒、`max_tables` 300（Postgres / SQL Server）、Postgres `max_columns` 50、SQL Server `max_views` 1000 | [出典](https://docs.datadoghq.com/database_monitoring/schema_explorer/) |
 | 列統計（Postgres、既定） | 無効、間隔 3,600 秒、`max_tables` 500 | [出典](https://docs.datadoghq.com/database_monitoring/setup_postgres/advanced_configuration/) |
 | `custom_queries` の実行間隔（既定） | 15 秒 | [出典](https://docs.datadoghq.com/database_monitoring/custom_metrics/) |
-| SQL Server デッドロック（既定） | 無効、間隔 600 秒、`max_deadlocks` 100 | 設定例ファイル |
-| SQL Server ストアドプロシージャ本文 | 500 文字（`stored_procedure_characters_limit`） | 設定例ファイル |
+| SQL Server デッドロック（既定） | 無効、間隔 600 秒、`max_deadlocks` 100 | [出典](https://github.com/DataDog/integrations-core/blob/master/sqlserver/datadog_checks/sqlserver/data/conf.yaml.example) |
+| SQL Server ストアドプロシージャ本文 | 500 文字（`stored_procedure_characters_limit`） | [出典](https://github.com/DataDog/integrations-core/blob/master/sqlserver/datadog_checks/sqlserver/data/conf.yaml.example) |
 | MySQL 監視ユーザーの接続数 | `MAX_USER_CONNECTIONS 5`（例示値） | [出典](https://docs.datadoghq.com/database_monitoring/setup_mysql/selfhosted/) |
 | MongoDB slow operations（`getLog`） | 直近 1,024 イベントまで | [出典](https://docs.datadoghq.com/database_monitoring/setup_mongodb/selfhosted/) |
 | ClickHouse Query Samples 間隔 | 1 秒 | [出典](https://docs.datadoghq.com/database_monitoring/setup_clickhouse/selfhosted/) |
@@ -1046,7 +1056,7 @@ API キー・アプリケーションキーの管理は [API とキー管理](..
 
 Database Monitoring の課金単位は **データベースホスト / 月** である。料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、計算の仕組みは [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
 
-### 定価（公式料金ページ掲載値、2026-11-03 取得）
+### 定価（公式料金ページ掲載値、2026-11-02 基準、2026-11-03 再確認）
 
 | サイト | 年契約（Billed annually） | 月契約（Month-to-month） | オンデマンド |
 |---|---|---|---|
@@ -1067,7 +1077,7 @@ Database Monitoring の課金単位は **データベースホスト / 月** で
 | High Watermark Plan（HWMP） | 月末に、毎時の計測値の下位 99% における最大値（上位 1% を除外）で課金 |
 | Hybrid Monthly/Hourly Plan（MHP） | 月額の最低コミットを課金し、超過分はホスト時間あたりの時間単価で課金 |
 | 正規化クエリ | 各データベースホストに 200 正規化クエリの割当が含まれる。課金ドキュメントは「任意の時点で追跡されている設定済み正規化クエリの総数」に基づいて課金すると記載している |
-| ホストの数え方 | `database_identifier` が異なるインスタンスはそれぞれ 1 ホストとして課金される（1 台に複数インスタンスを同居させる場合に注意） |
+| ホストの数え方 | 課金対象のデータベースホストは、1 つ以上の論理 DB を動かす DB インスタンス（セルフホスト／クラウドマネージド問わず）である。**Azure SQL Database** は DB が分離ネットワークにデプロイされるため、**DB ごとに 1 ホスト**として扱われる（料金ページ FAQ）。また `database_identifier` が異なるインスタンスはそれぞれ 1 ホストとして課金される（1 台に複数インスタンスを同居させる場合に注意） |
 | 前提契約 | Infrastructure Monitoring の契約が必要（DBM 単体購入不可）。DB ホストの一部だけに DBM を適用できる |
 | `custom_queries` | MySQL、Oracle、Postgres、SQL Server インテグレーションは「カスタムメトリクスを収集するよう設定できる」標準インテグレーションに分類され、`custom_queries` のメトリクスはカスタムメトリクスとして扱われる（[Custom Metrics と DogStatsD](../platform/custom-metrics-and-dogstatsd.md) を参照） |
 | AI 機能 | Database Investigations in Bits Chat と Bits Database Optimization は AI Credits で課金 |
@@ -1146,6 +1156,9 @@ Datadog は、最新の安定版 Agent を使い、最新のセットアップ�
 - https://docs.datadoghq.com/database_monitoring/setup_postgres/selfhosted/
 - https://docs.datadoghq.com/database_monitoring/setup_postgres/rds/
 - https://docs.datadoghq.com/database_monitoring/setup_postgres/azure/
+- https://docs.datadoghq.com/database_monitoring/setup_postgres/gcsql/
+- https://docs.datadoghq.com/database_monitoring/setup_postgres/alloydb/
+- https://docs.datadoghq.com/database_monitoring/setup_postgres/supabase/agent/
 - https://docs.datadoghq.com/database_monitoring/setup_postgres/advanced_configuration/
 - https://docs.datadoghq.com/database_monitoring/setup_postgres/troubleshooting/
 - https://docs.datadoghq.com/database_monitoring/setup_mysql/

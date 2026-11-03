@@ -2,7 +2,7 @@
 title: Data Observability（データオブザーバビリティ）
 category: reference
 domain: data
-last_verified: 2026-11-02
+last_verified: 2026-11-04
 agent_version: "7.x"        # PostgreSQL 連携（Agent 7.81.0 以降）および Jobs Monitoring で Agent を使用
 summary: Datadog Data Observability（Quality Monitoring・Data Catalog・Lineage・CI/CD・Data Observability Monitor）の機能、対応データソース（Snowflake / Databricks / BigQuery / Redshift ほか）、セットアップ要件、制限値、ウェアハウス側コスト、課金単位（Monitored Table）を網羅するリファレンス。
 keywords: [Data Observability, データオブザーバビリティ, データ品質, Data Quality, Quality Monitoring, Data Quality Monitoring, Data Catalog, Lineage, データリネージ, カラムリネージ, column-level lineage, Data Observability Monitor, Freshness, Row Count, Custom SQL, dd_value, Schema Change, Source to Target, Snowflake, Databricks, BigQuery, Redshift, ClickHouse, AWS Glue, Iceberg, Amazon Athena, PostgreSQL, dbt, Airflow, OpenLineage, Fivetran, Airbyte, Hightouch, Looker, Tableau, Sigma, Metabase, Power BI, Hex, Metaplane, Metaplane by Datadog, monitored table, Jobs Monitoring, Data Jobs Monitoring, CI/CD, Drift Detection, Impact Lineage, lineage_score]
@@ -26,6 +26,7 @@ sources:
   - https://docs.datadoghq.com/monitors/types/data_observability/
   - https://docs.datadoghq.com/api/latest/data-observability/
   - https://www.datadoghq.com/pricing/list/
+  - https://www.datadoghq.com/pricing/?product=quality-monitoring
   - https://www.datadoghq.com/products/observability/data-observability/
   - https://www.datadoghq.com/about/latest-news/press-releases/datadog-metaplane-aquistion/
   - https://www.datadoghq.com/blog/monitor-warehouse-data-quality-beyond-pipeline-health/
@@ -56,7 +57,7 @@ Data Observability の主な価値は次の 4 点とされる。[出典](https:/
 
 ### 製品の経緯（Metaplane 買収と名称）
 
-- 2025-04-23、Datadog はデータオブザーバビリティ SaaS の **Metaplane** の買収を発表した。Metaplane は ML によるデータ監視とカラムレベルリネージを提供していた製品で、買収後も既存顧客向けに **Metaplane by Datadog** として提供を継続すると発表された。当時の Datadog のデータ系製品は Data Jobs Monitoring と [Data Streams Monitoring](../apm/data-streams-monitoring.md) であった。[出典](https://www.datadoghq.com/about/latest-news/press-releases/datadog-metaplane-aquistion/)（2025-04-23 公開）
+- 2025-04-23、Datadog はデータオブザーバビリティ SaaS の **Metaplane** の買収を発表した。Metaplane は ML によるデータ監視とカラムレベルリネージを提供していた製品で、買収後は既存顧客のサポートと新規顧客のオンボーディングを継続し、**Metaplane by Datadog** として提供すると発表された。当時の Datadog のデータ系製品は Data Jobs Monitoring と [Data Streams Monitoring](../apm/data-streams-monitoring.md) であった。[出典](https://www.datadoghq.com/about/latest-news/press-releases/datadog-metaplane-aquistion/)（2025-04-23 公開）
 - Quality Monitoring の機能（ML 異常検知、カラムレベルリネージ、BI 連携など）は Metaplane の技術を Datadog に統合したものと位置づけられる【推定】（Datadog 公式ドキュメントの Overview が Metaplane 買収のプレスリリースを関連資料として挙げていることに基づく）。
 - 料金ページ上では 2026-01 頃に、**Data Jobs Monitoring** が「**Data Observability: Jobs Monitoring**」に改称され、「**Data Observability: Quality Monitoring**」が新設された。【第三者情報】[出典](https://pricingsaas.com/companies/datadog/diffs/2026W03)（2026-01 の料金ページ差分記録）
 
@@ -135,12 +136,11 @@ Quality Monitoring・Lineage が対応するデータソースは以下のとお
 | Data lakes | AWS Glue（Apache Iceberg テーブル） | Iceberg メタデータから鮮度・行数・サイズ・スキーマ | GA（Athena によるクエリは【Preview】） |
 | Data lakes | Amazon Athena | クエリ履歴・失敗・性能・コスト | 公開情報では確認できず |
 | Transactional databases | PostgreSQL | スキーマ、テーブル寸法、行数、カラムメトリクス、Custom SQL | 【Preview】（担当者による有効化が必要） |
-| Transformation / Orchestration | Databricks、Airflow、dbt Core、dbt Cloud、Spark on Kubernetes、Spark on Amazon EMR、Spark on Google Dataproc、AWS Glue Jobs、Azure Data Factory、OpenLineage によるカスタムジョブ | ジョブ実行・リネージ | [data-jobs-monitoring.md](./data-jobs-monitoring.md) 参照 |
+| Transformation / Orchestration | Databricks、Airflow、dbt Core、dbt Cloud、Spark on Kubernetes、Spark on Amazon EMR、Spark on Google Dataproc、AWS Glue Jobs、OpenLineage によるカスタムジョブ。Azure Data Factory は Lineage ページにリネージ収集元として記載（[出典](https://docs.datadoghq.com/data_observability/lineage/)） | ジョブ実行・リネージ | [data-jobs-monitoring.md](./data-jobs-monitoring.md) 参照 |
 | ELT（リネージ） | Airbyte、Fivetran、Hightouch | ソース → ウェアハウスのリネージ | — |
-| BI（下流影響） | Looker、Tableau、Sigma、Metabase、Power BI、Hex | ウェアハウス → ダッシュボード/レポート/フィールドのリネージ | — |
+| BI（下流影響） | Looker、Tableau、Sigma、Metabase、Power BI、Hex（Hex は BI 概要ページのみに記載。[出典](https://docs.datadoghq.com/data_observability/quality_monitoring/business_intelligence/)） | ウェアハウス → ダッシュボード/レポート/フィールドのリネージ | — |
 
 - 製品ページでは対応ウェアハウスを「Snowflake, Databricks, BigQuery, Redshift, Iceberg Tables (AWS Glue)」と記載し、OpenLineage でカスタムソースに拡張できるとしている。[出典](https://www.datadoghq.com/products/observability/data-observability/)
-- 古い「Datasets」ページ（`/data_observability/datasets`）は Snowflake と BigQuery のみを対応ソースとして記載しており、現行の Quality Monitoring ページと食い違う。**現行の Quality Monitoring ページを正とする。**
 - BI 連携はダッシュボード・データセット・フィールドのメタデータを取り込み、ウェアハウスのテーブル/カラムから BI のダッシュボード・レポート・フィールドへのリネージを構築する。どの BI 連携が Preview かは BI 概要ページに記載がなく、公開情報では確認できず。[出典](https://docs.datadoghq.com/data_observability/quality_monitoring/business_intelligence/)
 
 > **サイト差異:** Data Observability（Data Catalog、Lineage、Quality Monitoring、CI/CD、Data Observability Monitor、各ウェアハウス連携）は **US1-FED（`app.ddog-gov.com`）および `us2.ddog-gov.com` では非対応**。US1 / US3 / US5 / EU1 / AP1 / AP2（および UK1）では利用可能。料金ページでも Quality Monitoring は「US-FED サイトでは提供なし」と表記されている。[出典](https://docs.datadoghq.com/data_observability/) / [出典](https://www.datadoghq.com/pricing/?product=quality-monitoring#products)
@@ -530,13 +530,14 @@ Data Observability の CI/CD は、dbt モデルを変更する Pull Request に
 2. CI/CD 設定で **Add CI/CD Checks** をクリックし、dbt プロジェクト、メインジョブ、（自動推定されない場合は）リポジトリを選ぶ。dbt がリポジトリ直下にない場合は詳細設定でパスを指定する。
 3. 各チェックを個別に有効化する（両方有効にすると最も充実したレポートになる）。Drift Detection では CI ジョブを設定する。
    - **dbt Cloud**：CI ジョブの URL を指定。Bitbucket Cloud / Azure DevOps では dbt Cloud Administrative API でパイプラインから CI ジョブを起動する必要がある場合がある。
-   - **dbt Core**：CI ジョブ名と（設定していれば）OpenLineage namespace を指定。CI ジョブから OpenLineage イベントを送信し、`sourceCodeLocation` facet で PR 番号と head コミットを付与する（**`openlineage-dbt` 1.46.0 以降**が必要）。
+   - **dbt Core**：CI ジョブ名と（設定していれば）OpenLineage namespace を指定。CI ジョブから OpenLineage イベントを送信し、`sourceCodeLocation` facet で PR 番号と head コミットを付与する（**`openlineage-dbt` 1.46.0 以降**が必要）。あわせて環境変数 `OPENLINEAGE__FACETS__SOURCE_CODE_LOCATION__DISABLED=false` を設定し、`sourceCodeLocation` facet を有効にする。
 4. CI ジョブが書き込むデータベースに対し、Datadog ロールへ `USAGE` と `SELECT` を付与する（`grant_database_access` プロシージャを利用）。付与しないと Drift Detection が失敗する。
 
 [出典](https://docs.datadoghq.com/data_observability/cicd/)
 
 ### CI/CD の注意点
 
+- dbt Cloud の API 起動例では、`schema_override` で CI のテーブルを本番スキーマから分離し、スキーマ名に CI ジョブ ID を含めて CI ジョブ同士が同じスキーマに書き込まないようにする。
 - dbt Cloud は API 起動の CI 実行で CI スキーマを削除しないため、定期的なクリーンアップが必要。
 - PR ごとのエフェメラル DB を使う場合は、作成時に Datadog への権限付与を行う（Snowflake の `grant_database_access` を CI に組み込む）。
 - コンテナ化された dbt Core ジョブでは、リポジトリ URL、head SHA、PR 番号を渡す追加設定が必要。
@@ -728,7 +729,7 @@ Jobs Monitoring 側（Agent・トレーサー・ログ収集）のオーバー�
 | Databricks サービスプリンシパル | ワークスペースあたり 1 | [Databricks](https://docs.datadoghq.com/data_observability/quality_monitoring/data_warehouses/databricks/) |
 | ClickHouse Cloud 接続ポート / メトリクス間隔 | HTTPS 8443 / 毎時 | [ClickHouse](https://docs.datadoghq.com/data_observability/quality_monitoring/data_warehouses/clickhouse/) |
 | PostgreSQL 連携の Agent 最低バージョン | 7.81.0 | [PostgreSQL](https://docs.datadoghq.com/data_observability/quality_monitoring/transactional_databases/postgres/) |
-| CI/CD の dbt Core 要件 | `openlineage-dbt` 1.46.0 以降（`sourceCodeLocation` facet） | [CI/CD](https://docs.datadoghq.com/data_observability/cicd/) |
+| CI/CD の dbt Core 要件 | `openlineage-dbt` 1.46.0 以降、`OPENLINEAGE__FACETS__SOURCE_CODE_LOCATION__DISABLED=false`（`sourceCodeLocation` facet） | [CI/CD](https://docs.datadoghq.com/data_observability/cicd/) |
 | 初回同期時間 | Snowflake / Databricks / BigQuery / Redshift：数時間、AWS Glue：最大 1 時間程度、PostgreSQL：約 1 時間 | 各ページ |
 | Lineage の Depth | 上流・下流それぞれ任意の階層数、`∞` で全階層 | [Lineage](https://docs.datadoghq.com/data_observability/lineage/) |
 | Lineage 時間ウィンドウのデフォルト | 公開情報では確認できず（例示は `1w`） | 同上 |
@@ -741,12 +742,12 @@ Jobs Monitoring 側（Agent・トレーサー・ログ収集）のオーバー�
 
 ## 権限（RBAC）
 
-- Data Observability の設定（`Data Observability > Settings`）、モニター作成、Catalog / Lineage 閲覧に必要な Datadog 側の RBAC 権限名は、公開情報では確認できず。モニター作成には一般的な Monitors 権限（`monitors_write` 等）が関係すると考えられる【推定】。権限体系は [account-and-access-management.md](../platform/account-and-access-management.md) を参照。
+- Data Observability の設定（`Data Observability > Settings`）、モニター作成、Catalog / Lineage 閲覧に必要な Datadog 側の RBAC 権限名は、公開情報では確認できず。例外として PostgreSQL 連携では、組織で Remote Configuration を有効化するために `org_management`、Agent の API キーが Remote Configuration capability を持つか確認・変更するために `api_keys_write` が必要と明記されている。[出典](https://docs.datadoghq.com/data_observability/quality_monitoring/transactional_databases/postgres/)モニター作成には一般的な Monitors 権限（`monitors_write` 等）が関係すると考えられる【推定】。権限体系は [account-and-access-management.md](../platform/account-and-access-management.md) を参照。
 - ウェアハウス側は、各連携で**読み取り専用**の専用ロール/ユーザー/サービスプリンシパルを作成する方式（上記「ウェアハウス別セットアップ要件」）。
 
 ## 課金への影響
 
-Data Observability は **Quality Monitoring** と **Jobs Monitoring** で別々に課金される。以下は公式料金ページの定価（**2026-11-02 時点**、USD、US サイト表示）。料金の正本は [pricing-by-product.md](../../03_導入編/pricing-by-product.md)。[出典](https://www.datadoghq.com/pricing/list/)
+Data Observability は **Quality Monitoring** と **Jobs Monitoring** で別々に課金される。以下は公式料金ページの定価（**2026-11-02 時点**、USD、US / EU1 サイト表示。AP1 は表下のサイト差異を参照）。料金の正本は [pricing-by-product.md](../../03_導入編/pricing-by-product.md)。[出典](https://www.datadoghq.com/pricing/list/)
 
 | 製品 | 課金単位 | 年契約（Billed Annually） | 月契約（Month-to-month） | オンデマンド |
 |---|---|---|---|---|
@@ -754,6 +755,8 @@ Data Observability は **Quality Monitoring** と **Jobs Monitoring** で別々�
 | Data Observability: Jobs Monitoring（Clusters） | ホストあたり / 時間 | $0.05 | $0.06 | $0.072 |
 | Data Observability: Jobs Monitoring（Databricks Serverless） | DBU あたり | $0.025 | $0.03 | $0.036 |
 | Data Observability: Jobs Monitoring（Orchestrators） | ジョブあたり / 時間 | $0.10 | $0.12 | $0.144 |
+
+> **サイト差異:** 上表は US / EU1 の定価。基準サイト **AP1** では単価が異なり、Quality Monitoring は年契約 **$20** / 月契約 $26.25 / オンデマンド $30、Jobs Monitoring は Clusters $0.0625 / $0.075 / $0.09、Databricks Serverless $0.03125 / $0.0375 / $0.045、Orchestrators $0.125 / $0.15 / $0.18。最新値は正本の [pricing-by-product.md](../../03_導入編/pricing-by-product.md) を参照。[出典](https://www.datadoghq.com/pricing/list/)
 
 > Jobs Monitoring の課金詳細は [data-jobs-monitoring.md](./data-jobs-monitoring.md) を参照。2026-01 時点の料金ページでは Databricks Serverless が「$0.50/job/hr」と記録されており、その後 DBU 単位に変更されたとみられる【第三者情報】[出典](https://pricingsaas.com/companies/datadog/diffs/2026W03)（2026-01 の差分記録）。
 
@@ -767,12 +770,14 @@ Quality Monitoring の課金単位「**monitored table**」は次の規則で数
 | 1 テーブルに Freshness・Row Count・Nullness・Uniqueness 等の**標準モニター**を複数設定（テーブル単位・カラム単位を問わない） | **1** |
 | **Custom SQL モニター** | **モニター 1 本ごとに +1**（標準モニターのカウントに加算） |
 | 例：標準モニター 2 本 ＋ Custom SQL 3 本のテーブル | **4** |
+| **GROUP BY モニター**（例：1 テーブルで 100 グループを評価） | **1** |
 
-- 「少なくとも 1 つのアクティブな Data Observability モニターが設定されたテーブル/ビュー」が課金対象【第三者情報】（検索要約による定義。公式 FAQ の文言は「モニターを追加した時点でカウント」）。
+- 課金対象は **1 時間ごとに計測した monitored table 数の月平均**。月内でテーブル数が増減しても平均で課金される。**最低数はなく**、1 テーブルから開始できる。[出典](https://www.datadoghq.com/pricing/?product=quality-monitoring)
+- 公式 FAQ では「テーブルは、テーブル・ビュー・マテリアライズドビュー・カラムにモニター（freshness、nullness、row count 等の品質チェック）を追加した時点で monitored table になる」とされる。[出典](https://www.datadoghq.com/products/observability/data-observability/)
 - 1 モニターが複数テーブルを対象にする場合（例：`schema:PROD` で 300 テーブル）、対象テーブル数がそのまま monitored table として数えられると解される【推定】。広いクエリでモニターを作ると課金テーブル数が急増するため、`lineage_score` 等で重要テーブルに絞ることがコスト面でも重要。
 - 無料トライアルは **14 日間**（製品ページ記載）。[出典](https://www.datadoghq.com/products/observability/data-observability/)
 - Datadog 料金とは別に、**監視クエリのウェアハウス側コスト**（Snowflake クレジット、Databricks DBU、BigQuery スキャン/スロット、Athena クエリ料金、ClickHouse コンピュート）が顧客側で発生する（前述「ウェアハウス側のオーバーヘッドとコスト」）。
-- 試算例：1,200 テーブルを年契約定価で監視すると約 $230,000/年（$16 × 1,200 × 12 ≒ $230,400）という第三者の試算がある【第三者情報】。値引き条件は非公開で、実際の契約額は異なりうる【推定】。
+- 試算例（定価からの単純計算）：1,200 テーブルを US / EU1 の年契約定価で監視すると $16 × 1,200 × 12 = $230,400/年、AP1 では $20 × 1,200 × 12 = $288,000/年。値引き条件は非公開で、実際の契約額は異なりうる【推定】。
 
 使用量の確認は [usage-and-cost-attribution.md](../platform/usage-and-cost-attribution.md)、見積り手法は [cost-estimation.md](../../03_導入編/cost-estimation.md)、最適化は [cost-optimization.md](../../04_応用編/cost-optimization.md) を参照。
 
@@ -808,7 +813,6 @@ Quality Monitoring の課金単位「**monitored table**」は次の規則で数
 - https://docs.datadoghq.com/data_observability/quality_monitoring/transactional_databases/postgres/
 - https://docs.datadoghq.com/data_observability/quality_monitoring/business_intelligence/
 - https://docs.datadoghq.com/data_observability/quality_monitoring/guides/anomaly_detection/
-- https://docs.datadoghq.com/data_observability/datasets （旧ページ。対応ソース記載が現行と不一致）
 - https://docs.datadoghq.com/monitors/types/data_observability/
 - https://docs.datadoghq.com/api/latest/data-observability/
 

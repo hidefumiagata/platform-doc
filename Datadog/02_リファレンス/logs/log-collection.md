@@ -25,10 +25,12 @@ sources:
   - https://docs.datadoghq.com/logs/guide/azure-native-logging-guide/
   - https://docs.datadoghq.com/logs/guide/google-cloud-log-forwarding/
   - https://docs.datadoghq.com/api/latest/logs/
+  - https://docs.datadoghq.com/api/latest/logs/send-logs/
   - https://docs.datadoghq.com/logs/log_configuration/pipelines/
   - https://docs.datadoghq.com/logs/log_configuration/attributes_naming_convention/
   - https://github.com/DataDog/datadog-agent/blob/main/pkg/config/example/datadog-agent_linux.yaml.example
   - https://www.datadoghq.com/pricing/list/
+  - https://www.datadoghq.com/pricing/?product=log-management
 ---
 
 # ログ収集（Log Collection）
@@ -145,7 +147,7 @@ Agent の設定ディレクトリの場所（Linux `/etc/datadog-agent/`、Windo
 
 ### `logs_config`（`datadog.yaml`）の主な設定キー
 
-以下は Agent の設定テンプレート（`datadog-agent_linux.yaml.example`、GitHub main ブランチ、2026-11-03 取得）と公式ドキュメントに記載された `logs_config` 配下の主要キーである。実際の既定値はインストールした Agent バージョンのテンプレートで確認すること。[出典](https://github.com/DataDog/datadog-agent/blob/main/pkg/config/example/datadog-agent_linux.yaml.example)
+以下は Agent の設定テンプレート（`datadog-agent_linux.yaml.example`、GitHub main ブランチ、2026-11-02 時点取得）と公式ドキュメントに記載された `logs_config` 配下の主要キーである。実際の既定値はインストールした Agent バージョンのテンプレートで確認すること。[出典](https://github.com/DataDog/datadog-agent/blob/main/pkg/config/example/datadog-agent_linux.yaml.example)
 
 | キー | 環境変数 | デフォルト | 説明 |
 |---|---|---|---|
@@ -164,7 +166,7 @@ Agent の設定ディレクトリの場所（Linux `/etc/datadog-agent/`、Windo
 | `compression_level` | `DD_LOGS_CONFIG_COMPRESSION_LEVEL` | `6` | 圧縮レベル `0`（無圧縮）〜`9`（最大） |
 | `batch_wait` | `DD_LOGS_CONFIG_BATCH_WAIT` | `5`（秒） | バッチを満たすまで待つ最大秒数。1〜10 の整数 |
 | `close_timeout` | `DD_LOGS_CONFIG_CLOSE_TIMEOUT` | `60`（秒） | ローテーション後のファイルを読み続ける最大秒数 |
-| `open_files_limit` | `DD_LOGS_CONFIG_OPEN_FILES_LIMIT` | `500`（macOS は `200`） | 同時に tail できるファイル数の上限（設定可能になったのは Agent 7.40.0 以降） |
+| `open_files_limit` | `DD_LOGS_CONFIG_OPEN_FILES_LIMIT` | `500`（macOS は `200`） | 同時に tail できるファイル数の上限 |
 | `file_wildcard_selection_mode` | `DD_LOGS_CONFIG_FILE_WILDCARD_SELECTION_MODE` | `"by_name"` | ワイルドカードの一致数が上限を超えたときの選択方式（`by_name` / `by_modification_time`） |
 | `max_message_size_bytes` | `DD_LOGS_CONFIG_MAX_MESSAGE_SIZE_BYTES` | `900000` | 1 ログの最大バイト数。超過分は分割され `...TRUNCATED...` が付与される |
 | `integrations_logs_files_max_size` | `DD_LOGS_CONFIG_INTEGRATIONS_LOGS_FILES_MAX_SIZE` | `100`（MB） | インテグレーションのログファイル 1 つあたりの最大サイズ |
@@ -247,7 +249,8 @@ logs:
 | 項目 | 値 |
 |---|---|
 | `logs_config.open_files_limit` 既定値 | `500`（macOS は `200`） |
-| 設定可能になったバージョン | Agent 7.40.0 以降 |
+| `open_files_limit` が設定可能になったバージョン | 公開情報では確認できず |
+| `file_wildcard_selection_mode`（`by_modification_time` での優先選択）の要件 | Agent 7.40.0 以降 |
 | `file_wildcard_selection_mode: by_name`（既定） | ソースごとに一致ファイルを名前の逆辞書順に並べ、上限に達するまで選ぶ |
 | `file_wildcard_selection_mode: by_modification_time` | 固定パスのソースを優先し、残りを更新日時が新しい順に上限まで選ぶ。`by_name` より性能が低くディスク I/O が増える |
 
@@ -480,7 +483,7 @@ Integration Pipeline は既定で、一般的なロギングライブラリの�
 
 - **キャプション:** Log Explorer でエラーログを開いたときの、スタックトレース属性の表示例。
 - **画面説明:** 左側はログ件数の時系列バー（赤色）とログ一覧（DATE / CONTENT 列。`DatabaseConnectionError` などのエラー行）。上部に Watchdog Insights（Log anomalies）のバナーがある。右側はログ詳細パネルで、タブ「Event Attributes」「Trace」「Metrics」「Processes」が並ぶ。Event Attributes には「LOGGER NAME」（`logger.name`、例 `Serilog.AspNetCore.RequestLo...`）が表示され、その下の「Error Stack」に「Parsed」「Raw」の切り替えがある。Parsed ではエラーメッセージ行の下にスタックフレームが並び、「Show all 18 frames」で全フレームを展開できる。最下部に HTTP メソッド・パス・ステータス（例 `POST /check-token 500 INTERNAL SERVER ERROR`）と JSON 属性ツリーが表示される。
-- **出典:** https://docs.datadoghq.com/logs/log_collection/ （画像 https://docs.dd-static.net/images/logs/log_collection/stack_trace.6d73ceca149a8c347b307d31f696cd47.png 、2026-11-03 取得）
+- **出典:** https://docs.datadoghq.com/logs/log_collection/ （画像 https://docs.dd-static.net/images/logs/log_collection/stack_trace.6d73ceca149a8c347b307d31f696cd47.png 、2026-11-02 時点取得）
 
 ### Agent Check からの送信
 
@@ -549,7 +552,7 @@ Datadog Forwarder は AWS Lambda 関数で、CloudWatch Logs と S3 のログ、
 
 #### 自動サブスクリプション対応サービス
 
-Forwarder の自動トリガーに対応する AWS サービス（公式ガイド記載、2026-11-03 取得）：
+Forwarder の自動トリガーに対応する AWS サービス（公式ガイド記載、2026-11-02 時点取得）：
 
 | 対応状況 | サービス |
 |---|---|
@@ -592,7 +595,7 @@ Azure の自動ログ転送は、ARM テンプレート（または Datadog 画�
 
 - **キャプション:** Azure 自動ログ転送の主要コンポーネント（Main components of Azure automated log forwarding）。
 - **画面説明:** 左から「CONTROL PLANE」「LOG FORWARDER」の 2 つのボックスが並び、両者の下に「Datadog deploys to customer's environment（Datadog が顧客環境にデプロイする）」という括弧書きがある。右側に監視対象の「AZURE RESOURCES」が配置されている。
-- **出典:** https://docs.datadoghq.com/logs/guide/azure-automated-log-forwarding/ （画像 https://docs.dd-static.net/images/logs/guide/azure_automated_logs_architecture/high_level_architecture_06-13-2025.37a95339be3a7e4ff56898ff94445c59.png 、2026-11-03 取得）
+- **出典:** https://docs.datadoghq.com/logs/guide/azure-automated-log-forwarding/ （画像 https://docs.dd-static.net/images/logs/guide/azure_automated_logs_architecture/high_level_architecture_06-13-2025.37a95339be3a7e4ff56898ff94445c59.png 、2026-11-02 時点取得）
 
 | コンポーネント | 内容 |
 |---|---|
@@ -643,7 +646,7 @@ Google Cloud のログは、Cloud Logging のログシンク → Pub/Sub トピ�
 
 - **キャプション:** Google Cloud Dataflow の「Create job from template」画面（Pub/Sub to Datadog テンプレート）。
 - **画面説明:** 左メニューは Dataflow（Overview、Jobs、Pipelines、Workbench、Snapshots、SQL workspace）。右側フォームに「Job name」（例 `export-logs-to-datadog`）、「Regional endpoint」（例 `us-west1 (Oregon)`）、「Dataflow template」で `Pub/Sub to Datadog` を選択し、「A pipeline that reads from a Pub/Sub subscription and writes to Datadog's Logs API.」という説明が表示される。「Required parameters」に「Pub/Sub input subscription」（`projects/.../subscriptions/export-logs-to-datadog-sub`）、「Datadog Logs API URL」（例 `http-intake.logs.datadoghq.com`。VPC からルーティング可能である必要がある旨の説明付き）、「Output deadletter Pub/Sub topic」（`projects/.../topics/datadog-dlq`）、「Temporary location」（`gs://.../temp`）が並ぶ。
-- **出典:** https://docs.datadoghq.com/logs/guide/google-cloud-log-forwarding/ （画像 https://docs.dd-static.net/images/integrations/google_cloud_platform/dataflow_parameters.c071c6b343c8ce7492e120cd402a41c6.png 、2026-11-03 取得）
+- **出典:** https://docs.datadoghq.com/logs/guide/google-cloud-log-forwarding/ （画像 https://docs.dd-static.net/images/integrations/google_cloud_platform/dataflow_parameters.c071c6b343c8ce7492e120cd402a41c6.png 、2026-11-02 時点取得）
 
 | Dataflow テンプレートのパラメータ | 内容 |
 |---|---|
@@ -691,7 +694,7 @@ Google Cloud のログは、Cloud Logging のログシンク → Pub/Sub トピ�
 
 [出典](https://docs.datadoghq.com/api/latest/logs/)
 
-> **サイト差異:** 公式 API リファレンス（2026-11-03 取得）には、本ナレッジのサイト一覧（US1、US3、US5、EU1、AP1、AP2、US1-FED）に加えて `us2.ddog-gov.com` と `uk1.datadoghq.com` のエンドポイントが掲載されている。これらのサイトの位置づけは [Datadog Sites](../platform/datadog-sites.md) を参照。
+> **サイト差異:** 公式 API リファレンス（2026-11-02 時点取得）には、本ナレッジのサイト一覧（US1、US3、US5、EU1、AP1、AP2、US1-FED）に加えて `us2.ddog-gov.com` と `uk1.datadoghq.com` のエンドポイントが掲載されている。これらのサイトの位置づけは [Datadog Sites](../platform/datadog-sites.md) を参照。
 
 ### リクエスト仕様
 
@@ -1086,7 +1089,7 @@ JSON ログは Pipelines に入る前に前処理（Preprocessing）され、以
 | レガシー自動マルチライン検出 | 7.37 |
 | journald の `start_position` | 6.38 / 7.38 |
 | journald `include_matches` / `exclude_matches` | 7.39.0 |
-| `open_files_limit` 設定 | 7.40.0 |
+| `file_wildcard_selection_mode`（`by_modification_time` での優先選択） | 7.40.0 |
 | journald `config_id`、Windows EventID 正規化 | 7.41 |
 | Windows Event `init_config` の `legacy_mode` | 7.49 |
 | Windows `dd_security_events` プロファイル | 7.54 |
@@ -1106,15 +1109,15 @@ Log Management の課金は「取り込み（Ingest）」と「インデック�
 
 | 課金項目 | 課金単位 | 定価（年契約 / 月契約 / オンデマンド） |
 |---|---|---|
-| Log Ingestion（取り込み） | 取り込み GB / 月 | $0.10 / $0.10 / $0.10 |
+| Log Ingestion（取り込み） | 取り込み GB（非圧縮）/ 月 | $0.10 / $0.10 / $0.10 |
 | Indexed Log Events（標準インデックス、保持期間別） | 100 万イベント / 月 | 例：15 日保持 $1.70 / $2.04 / $2.55 |
 | Observability Pipelines | 取り込み GB / 月 | $0.095 / $0.10 / $0.12 |
 | Sensitive Data Scanner | スキャン GB / 月 | $0.30 / $0.36 / $0.45 |
 
-（公式料金ページ https://www.datadoghq.com/pricing/list/ 、2026-11-03 取得。USD。保持期間別の全価格・Flex Logs は正本の [製品別料金表](../../03_導入編/pricing-by-product.md) を参照）
+（公式料金ページ https://www.datadoghq.com/pricing/list/ 、2026-11-02 時点取得。USD。保持期間別の全価格・Flex Logs は正本の [製品別料金表](../../03_導入編/pricing-by-product.md) を参照）
 
 - Agent の `exclude_at_match` / `include_at_match` や Forwarder の `ExcludeAtMatch`、Google Cloud のシンクフィルタで**送信前に除外したログは取り込み課金の対象外**になる。一方、Index の Exclusion filter で除外したログは取り込み課金の対象（インデックス課金のみ回避）。
-- 取り込み課金の計量が圧縮前サイズか圧縮後サイズかは、公開情報（本ファイルで確認した範囲）では明記を確認できず。詳細は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+- Log Ingestion は**非圧縮の取り込み GB** あたりで課金される（Rehydration は圧縮状態でスキャンした GB あたり $0.10）。Agent や HTTP API の圧縮送信は転送量を減らすが、取り込み課金量は減らない。[出典](https://www.datadoghq.com/pricing/?product=log-management)。詳細は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
 - クラウド転送では Datadog の料金とは別に、AWS Lambda / Firehose、Azure Function・Container Apps・ストレージ / Event Hub、Google Cloud Pub/Sub・Dataflow の利用料がクラウド側で発生する。
 - 削減策の実践は [コスト最適化](../../04_応用編/cost-optimization.md)、[ログ管理の実践](../../04_応用編/log-management-practices.md) を参照。
 
@@ -1159,4 +1162,4 @@ Log Management の課金は「取り込み（Ingest）」と「インデック�
 - Attributes and Aliasing: https://docs.datadoghq.com/logs/log_configuration/attributes_naming_convention/
 - Datadog Agent 設定テンプレート（Linux）: https://github.com/DataDog/datadog-agent/blob/main/pkg/config/example/datadog-agent_linux.yaml.example
 - Datadog Pricing（List）: https://www.datadoghq.com/pricing/list/
-- 画像取得元（2026-11-03 取得）: https://docs.dd-static.net/images/logs/log_collection/stack_trace.6d73ceca149a8c347b307d31f696cd47.png 、https://docs.dd-static.net/images/logs/guide/azure_automated_logs_architecture/high_level_architecture_06-13-2025.37a95339be3a7e4ff56898ff94445c59.png 、https://docs.dd-static.net/images/integrations/google_cloud_platform/dataflow_parameters.c071c6b343c8ce7492e120cd402a41c6.png
+- 画像取得元（2026-11-02 時点取得）: https://docs.dd-static.net/images/logs/log_collection/stack_trace.6d73ceca149a8c347b307d31f696cd47.png 、https://docs.dd-static.net/images/logs/guide/azure_automated_logs_architecture/high_level_architecture_06-13-2025.37a95339be3a7e4ff56898ff94445c59.png 、https://docs.dd-static.net/images/integrations/google_cloud_platform/dataflow_parameters.c071c6b343c8ce7492e120cd402a41c6.png

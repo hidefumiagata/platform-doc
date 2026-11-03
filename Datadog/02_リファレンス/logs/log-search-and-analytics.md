@@ -2,8 +2,8 @@
 title: ログ検索と分析
 category: reference
 domain: logs
-last_verified: 2026-11-02
-summary: Datadog Log Management の Log Explorer における検索構文、時間範囲、Facets / Measures、Calculated Fields、Advanced Search、Log Analytics（Fields / Patterns / Transactions と各可視化）、Live Tail、Watchdog Insights、Log Workspaces（現 Notebooks の Analysis Features）、Export、Saved Views、Generate Metrics（ログベースメトリクス）、Log Monitor、検索 API について、仕様・設定項目・制限値・権限・課金への影響をまとめたリファレンス。
+last_verified: 2026-11-03
+summary: Datadog Log Management の Log Explorer における検索構文、時間範囲、Facets / Measures、Calculated Fields、Advanced Search、Log Analytics（Fields / Patterns / Transactions と各可視化）、Live Tail、Watchdog Insights、Notebooks Analysis Features（旧称：Log Workspaces）、Export、Saved Views、Generate Metrics（ログベースメトリクス）、Log Monitor、検索 API について、仕様・設定項目・制限値・権限・課金への影響をまとめたリファレンス。
 keywords: [logs, ログ, Log Management, Log Explorer, ログエクスプローラー, ログ検索, search syntax, 検索構文, full-text search, free-text search, 全文検索, wildcard, ワイルドカード, CIDR, Facets, ファセット, Measures, メジャー, facet panel, Aliased facet, Calculated Fields, 計算フィールド, Advanced Search, subquery, サブクエリ, Reference Tables, Log Analytics, ログ分析, Group into Fields, Patterns, パターン, Pattern Inspector, Transactions, トランザクション, Timeseries, Top List, Table, Tree Map, Pie Chart, Live Tail, ライブテイル, Watchdog Insights, Log Anomaly Detection, Error Outliers, Log Workspaces, Logs Workspaces, ログワークスペース, Notebooks Analysis Features, Saved Views, 保存ビュー, Export, CSV, Generate Metrics, logs-to-metrics, ログベースメトリクス, log-based metrics, Log Monitor, ログモニター, Natural Language Query, NLQ, Include Flex Logs, Flex Logs, logs_read_data, logs_write_facets, logs_generate_metrics, saved_views_write, /api/v2/logs/events/search, /api/v2/logs/analytics/aggregate]
 sources:
   - https://docs.datadoghq.com/logs/explorer/
@@ -51,7 +51,7 @@ Datadog Log Management の **Log Explorer（ログエクスプローラー）** 
 - Facets（ファセット）と Measures（メジャー）の違い、作成・非表示・グループ化・エイリアス・削除の方法
 - Calculated Fields（計算フィールド）と Advanced Search（サブクエリ、Reference Tables による絞り込み）
 - Log Analytics の集計・可視化・関数・数式、Patterns、Transactions の仕様
-- Live Tail、Watchdog Insights、Log Workspaces（現在は Notebooks の Analysis Features に統合）の位置づけ
+- Live Tail、Watchdog Insights、Notebooks Analysis Features（旧称：Log Workspaces）の位置づけ
 - Export（CSV の行数上限など）、Saved Views、Generate Metrics（ログベースメトリクス）、Log Monitor の仕様
 - 検索・集計 API、RBAC 権限、制限値、課金への影響
 
@@ -72,7 +72,7 @@ Log Management の検索・分析系機能は以下のとおり。
 | Transactions | 共通属性（例: `requestId`）で一連のログを束ねる | Index 済みログ | [出典](https://docs.datadoghq.com/logs/explorer/analytics/transactions/) |
 | Live Tail | ほぼリアルタイムのログストリーム表示 | Index されないログ・Exclusion Filter で除外されたログも含む | [出典](https://docs.datadoghq.com/logs/explorer/live_tail/) |
 | Watchdog Insights | 異常ログ・エラー外れ値の自動提示 | `service` タグを持つデータ。Flex Logs 非対応 | [出典](https://docs.datadoghq.com/logs/explorer/insights/) |
-| Log Workspaces → Notebooks Analysis Features | 複数データソースの結合・変換・SQL 分析 | Logs、RUM、Spans、Reference Tables など | [出典](https://docs.datadoghq.com/notebooks/advanced_analysis/) |
+| Notebooks Analysis Features（旧称：Log Workspaces） | 複数データソースの結合・変換・SQL 分析 | Logs、RUM、Spans、Reference Tables など | [出典](https://docs.datadoghq.com/notebooks/advanced_analysis/) |
 | Export | CSV、Dashboard / Notebook、Monitor、Metric、cURL、共有リンク | 表示中のビュー | [出典](https://docs.datadoghq.com/logs/explorer/export/) |
 | Saved Views | クエリ・時間範囲・可視化・Facet 表示の保存 | Log Explorer の状態 | [出典](https://docs.datadoghq.com/logs/explorer/saved_views/) |
 | Generate Metrics | 取り込みストリームからログベースメトリクスを生成 | 取り込み時点の全ログ（Index の有無に依存しない） | [出典](https://docs.datadoghq.com/logs/log_configuration/logs_to_metrics/) |
@@ -496,7 +496,7 @@ Log Explorer でログをクリックすると Log Side Panel が開く。上部
 | 機能 | 仕様 |
 |---|---|
 | View in context | 選択ログの直前・直後のログ（フィルタに一致しないものも含む）を表示。`Hostname`、`Service`、`filename`、`container_id`、タグを使う |
-| Metrics タブ | ログ時刻の前後 **30 分間**のインフラメトリクス |
+| Metrics タブ | ログ時刻を含む **30 分間の時間枠**のインフラメトリクス（前後の内訳は公開情報では確認できず） |
 | Host / Container / Serverless セクション | ホストダッシュボード、Network Analytics、コンテナページ、関数詳細ページへのリンク |
 | Trace タブ | トレース ID で APM トレース全体の中のログ位置を表示。`View Trace Details` で APM へ遷移。トレースが取り込まれていない・サンプリングで落ちた場合は欠落メッセージを表示（設定エラーではない） |
 | 属性操作 | JSON 属性名・値のクリックで列の追加・削除、検索への含める／除外 |
@@ -653,7 +653,7 @@ Log Management の Live Tail は、インフラ全体のログをほぼリアル
 | 権限 | `logs_read_data`（旧 `logs_live_tail` はレガシー権限） [出典](https://docs.datadoghq.com/account_management/rbac/permissions/) |
 | レート・表示件数の上限 | 公開情報では確認できず |
 
-## Log Workspaces（現 Notebooks の Analysis Features）
+## Notebooks Analysis Features（旧称：Log Workspaces / Logs Workspaces）
 
 **Log Workspaces（Logs Workspaces）** は、複数のデータソースのログを結合・変換・SQL で多段分析するための作業環境として提供された機能である。2025-06-10 公開の公式ブログでは、Notebooks が「以前は Logs Workspaces でのみ利用可能だった高度な分析機能」をサポートするようになったと説明されており、現在の公式ドキュメント（`/logs/workspaces/`）は Notebooks の **Analysis Features** ページの内容を表示する。[出典](https://www.datadoghq.com/blog/advanced-analysis-tools/)（2025-06-10 公開）、[出典](https://docs.datadoghq.com/logs/workspaces/)
 
@@ -672,7 +672,7 @@ Log Management の Live Tail は、インフラ全体のログをほぼリアル
 
 [出典](https://docs.datadoghq.com/notebooks/advanced_analysis/)、[出典](https://docs.datadoghq.com/account_management/rbac/permissions/)
 
-> **サイト差異:** Analysis Features（旧 Log Workspaces の機能）は `US1-FED`（app.ddog-gov.com）および us2.ddog-gov.com では非対応。US1・US3・US5・EU1・AP1・AP2 などでは一部の Advanced Data Sources が未提供の場合がある。[出典](https://docs.datadoghq.com/notebooks/advanced_analysis/)
+> **サイト差異:** Notebooks Analysis Features（旧称：Log Workspaces）は `US1-FED`（app.ddog-gov.com）および us2.ddog-gov.com では非対応。US1・US3・US5・EU1・AP1・AP2 などでは一部の Advanced Data Sources が未提供の場合がある。[出典](https://docs.datadoghq.com/notebooks/advanced_analysis/)
 
 - 既存の Log Workspace を Notebook へ移行する公式手順、Log Workspaces 単独 UI の提供終了日は公開情報では確認できず。
 
@@ -738,7 +738,7 @@ Log Explorer の Saved Views は、調査コンテキストを保存して自分
 |---|---|
 | Default view（既定ビュー） | 現在の Log Explorer の状態。**本人のみ表示**され組織には影響しない。UI 操作や別構成のリンクを開くと一時的に上書きされる。Views パネルから再読込・現在値で更新・Datadog 既定にリセットが可能 |
 | Integration saved views | 多くの Log Management インテグレーションに同梱。**読み取り専用**でインテグレーションのロゴ付き |
-| Custom saved views | ユーザーが Save ボタンで作成。作成者のアバター付き。**組織全体で共有**され、組織内の任意のユーザーが編集可能 |
+| Custom saved views | ユーザーが Save ボタンで作成。作成者のアバター付き。**組織全体で共有**され、組織内の任意のユーザー（Read Only ユーザーを除く）が編集可能 |
 
 ### 操作
 
@@ -923,8 +923,8 @@ Log Management の検索・分析に関係する主な権限は以下のとお�
 | 機能 | サイト差異 | 出典 |
 |---|---|---|
 | 自然言語クエリ（NLQ、`Ask`） | `US1-FED`（app.ddog-gov.com）・us2.ddog-gov.com で利用不可 | [出典](https://docs.datadoghq.com/logs/explorer/search/) |
-| Notebooks Analysis Features（旧 Log Workspaces） | `US1-FED`・us2.ddog-gov.com で非対応。その他サイトでも一部データソースは未提供 | [出典](https://docs.datadoghq.com/notebooks/advanced_analysis/) |
-| Flex Logs Compute サイズ | `US3`、`US5`、`AP1`、`AP2`、`US1-FED` などでは Starter、XS、XS+、S のみ（Flex Logs を Explorer で検索する際の性能に影響） | [出典](https://docs.datadoghq.com/logs/log_configuration/flex_logs/) |
+| Notebooks Analysis Features（旧称：Log Workspaces） | `US1-FED`・us2.ddog-gov.com で非対応。その他サイトでも一部データソースは未提供 | [出典](https://docs.datadoghq.com/notebooks/advanced_analysis/) |
+| Flex Logs Compute サイズ | `US3`、`US5`、`AP1`、`AP2`、`US1-FED`、`US2-FED` では Starter、XS、XS+、S のみ（Flex Logs を Explorer で検索する際の性能に影響） | [出典](https://docs.datadoghq.com/logs/log_configuration/flex_logs/) |
 | Archive Search | 料金ページで US-FED では利用不可と記載 | [出典](https://www.datadoghq.com/pricing/?product=log-management) |
 | API ホスト | サイトごとに異なる | [Datadog Sites（サイト）](../platform/datadog-sites.md) |
 
@@ -951,7 +951,7 @@ Log Management の検索・分析に関係する主な権限は以下のとお�
 | Patterns のサンプル数 | 10,000 件 | [出典](https://docs.datadoghq.com/logs/explorer/analytics/patterns/) |
 | Patterns の既定 | クラスタリング `message`、グループ化 `Status` と `Service` | [出典](https://docs.datadoghq.com/logs/explorer/analytics/patterns/) |
 | Transactions の上限（ログ数・期間） | 公開情報では確認できず | ― |
-| Log Side Panel のメトリクス表示範囲 | ログ前後 30 分 | [出典](https://docs.datadoghq.com/logs/explorer/side_panel/) |
+| Log Side Panel のメトリクス表示範囲 | ログ時刻を含む 30 分間の時間枠（前後の内訳は公開情報では確認できず） | [出典](https://docs.datadoghq.com/logs/explorer/side_panel/) |
 | Watchdog の重大ログ異常 | エラーを含み 10 分以上継続 | [出典](https://docs.datadoghq.com/logs/explorer/insights/) |
 | Live Tail のレート・表示上限 | 公開情報では確認できず（多い場合はランダムサンプリング） | [出典](https://docs.datadoghq.com/logs/explorer/live_tail/) |
 | CSV エクスポート（個別ログ） | 100,000 行 | [出典](https://docs.datadoghq.com/logs/explorer/export/) |
@@ -979,14 +979,14 @@ Log Management の検索・分析に関係する主な権限は以下のとお�
 
 Log Management の検索・分析機能（Log Explorer、Facets、Patterns、Transactions、Saved Views、Export、Log Monitor）には、**機能単位の個別課金項目は公式料金ページで確認できない**。課金はログの取り込み量（Ingest）と、検索対象として保存するログの件数（Standard Indexing / Flex Logs）で決まる。[出典](https://www.datadoghq.com/pricing/?product=log-management)
 
-| 課金項目 | 課金単位 | 2026-11-02 時点の公式定価（年契約 / 月契約 / オンデマンド） | 本ファイルの機能との関係 |
-|---|---|---|---|
-| Logs - Ingestion | 取り込み GB / 月 | $0.10 / $0.10 / $0.10 | Live Tail、Generate Metrics は Ingest の範囲で利用できる（料金ページで Ingest に処理・付加・Live Tail・アーカイブが含まれると記載） |
-| Logs - Indexed Log Events（15 日保持） | 100 万イベント / 月 | $1.70 / $2.04 / $2.55 | Log Explorer の検索・Analytics・Patterns・Transactions・Log Monitor・Watchdog Insights の対象にするための課金 |
-| Flex Logs Storage | 100 万イベント保存 / 月 | $0.05 / $0.06 / $0.075 | `Include Flex Logs` で検索可能。Monitor・Watchdog は非対応 |
-| Flex Logs Compute | インスタンス時間 / 月 | 料金ページは「Contact Us for Pricing」 | Flex Logs のクエリ性能・同時実行数 |
+| 課金項目 | 課金単位 | US/EU1 の公式定価（年契約 / 月契約 / オンデマンド） | AP1 の公式定価（年契約 / 月契約 / オンデマンド） | 本ファイルの機能との関係 |
+|---|---|---|---|---|
+| Logs - Ingestion | 取り込み GB / 月 | $0.10 / $0.10 / $0.10 | $0.125 / $0.125 / $0.125 | Live Tail、Generate Metrics は Ingest の範囲で利用できる（料金ページで Ingest に処理・付加・Live Tail・アーカイブが含まれると記載） |
+| Logs - Indexed Log Events（15 日保持） | 100 万イベント / 月 | $1.70 / $2.04 / $2.55 | $2.125 / $2.55 / $3.1875 | Log Explorer の検索・Analytics・Patterns・Transactions・Log Monitor・Watchdog Insights の対象にするための課金 |
+| Flex Logs Storage | 100 万イベント保存 / 月 | $0.05 / $0.06 / $0.075 | $0.0625 / $0.075 / $0.09375 | `Include Flex Logs` で検索可能。Monitor・Watchdog は非対応 |
+| Flex Logs Compute | インスタンス時間 / 月 | 料金ページは「Contact Us for Pricing」 | 同左 | Flex Logs のクエリ性能・同時実行数 |
 
-（公式料金ページ https://www.datadoghq.com/pricing/list/ 、2026-11-03 取得。USD。3 / 7 / 30 日保持の Indexing、Flex Logs Starter などの全価格は正本の [製品別料金表](../../03_導入編/pricing-by-product.md) を参照）
+（公式料金ページ https://www.datadoghq.com/pricing/list/ 、2026-11-03 取得。USD。料金ページの「Datadog Site」セレクタで US/EU1 と AP1 を切り替えた掲載値。3 / 7 / 30 日保持の Indexing、Flex Logs Starter などの全価格は正本の [製品別料金表](../../03_導入編/pricing-by-product.md) を参照）
 
 - **ログベースメトリクス**は個別課金されず、**カスタムメトリクス**としてインフラプランのカスタムメトリクス割当を消費する（パーセンタイルを含む）。Group by するタグの組み合わせ数（カーディナリティ）がカスタムメトリクス数に直結する。[出典](https://docs.datadoghq.com/logs/log_configuration/logs_to_metrics/)、[出典](https://www.datadoghq.com/pricing/?product=log-management)
 - **Log Monitor** は Standard Index 済みログを評価するため、Log Monitor 用に Index するログの件数が Indexing 課金に効く。Index しないログを監視するにはログベースメトリクス（カスタムメトリクス課金）との比較で設計する。
@@ -1052,7 +1052,7 @@ Log Management の検索・分析機能（Log Explorer、Facets、Patterns、Tra
 - Live Tail: https://docs.datadoghq.com/logs/explorer/live_tail/
 - Export Logs: https://docs.datadoghq.com/logs/explorer/export/
 - Saved Views: https://docs.datadoghq.com/logs/explorer/saved_views/
-- Log Workspaces（Notebooks Analysis Features を表示）: https://docs.datadoghq.com/logs/workspaces/
+- Notebooks Analysis Features（旧称：Log Workspaces）: https://docs.datadoghq.com/logs/workspaces/
 - Notebooks Analysis Features: https://docs.datadoghq.com/notebooks/advanced_analysis/
 - Generate Metrics from Ingested Logs: https://docs.datadoghq.com/logs/log_configuration/logs_to_metrics/
 - Flex Logs: https://docs.datadoghq.com/logs/log_configuration/flex_logs/

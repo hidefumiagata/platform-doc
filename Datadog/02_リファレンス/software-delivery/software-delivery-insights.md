@@ -1,20 +1,20 @@
 ---
-title: DORA Metrics・Quality Gates・Code Coverage
+title: DORA Metrics・PR Gates（旧称：Quality Gates）・Code Coverage
 category: reference
 domain: software-delivery
 last_verified: 2026-11-02
 summary: Datadog Software Delivery のうち、DORA Metrics（Delivery Performance）、PR Gates（旧称：Quality Gates）、Code Coverage、CD Visibility、Deployment Gates の仕様（データソース、計算方法、設定項目、CLI/API、権限、制限値、課金単位）をまとめたリファレンス。
 keywords: [DORA Metrics, DORA メトリクス, Delivery Performance, AI Impact, Deployment Frequency, Change Lead Time, Change Failure Rate, Failed Deployment Recovery Time, Time to Restore, PR Gates, Quality Gates, 品質ゲート, Code Coverage, コードカバレッジ, patch coverage, carryforward, code-coverage.datadog.yml, CD Visibility, Continuous Delivery Visibility, Deployment Visibility, Argo CD, Deployment Gates, Faulty Deployment Detection, datadog-ci, datadog-ci dora deployment, datadog-ci coverage upload, datadog-ci deployment gate, datadog-ci deployment mark, datadog-ci gate evaluate, Software Delivery]
 sources:
-  - https://docs.datadoghq.com/dora_metrics/
+  - https://docs.datadoghq.com/delivery_performance/dora_metrics/
   - https://docs.datadoghq.com/delivery_performance/
   - https://docs.datadoghq.com/delivery_performance/dora_metrics/setup/
   - https://docs.datadoghq.com/delivery_performance/dora_metrics/calculation/
   - https://docs.datadoghq.com/delivery_performance/dora_metrics/data_collected/
   - https://docs.datadoghq.com/delivery_performance/dora_metrics/change_failure_detection/
   - https://docs.datadoghq.com/api/latest/dora-metrics/
-  - https://docs.datadoghq.com/quality_gates/
-  - https://docs.datadoghq.com/quality_gates/setup/
+  - https://docs.datadoghq.com/pr_gates/
+  - https://docs.datadoghq.com/pr_gates/setup/
   - https://docs.datadoghq.com/code_coverage/
   - https://docs.datadoghq.com/code_coverage/setup/
   - https://docs.datadoghq.com/code_coverage/configuration/
@@ -24,6 +24,7 @@ sources:
   - https://docs.datadoghq.com/code_coverage/monorepo_support/
   - https://docs.datadoghq.com/code_coverage/data_collected/
   - https://docs.datadoghq.com/code_coverage/dashboards/
+  - https://docs.datadoghq.com/tests/code_coverage/
   - https://docs.datadoghq.com/continuous_delivery/
   - https://docs.datadoghq.com/continuous_delivery/deployments/
   - https://docs.datadoghq.com/continuous_delivery/deployments/argocd/
@@ -42,7 +43,7 @@ sources:
   - https://www.datadoghq.com/pricing/?product=software-delivery
 ---
 
-# DORA Metrics・Quality Gates・Code Coverage
+# DORA Metrics・PR Gates（旧称：Quality Gates）・Code Coverage
 
 ## 概要
 
@@ -54,9 +55,9 @@ sources:
 | **PR Gates**（旧称：Quality Gates） | SAST/SCA/カバレッジ/IaC/シークレット/新規フレーキーテストのルールで PR のマージをブロック | Software Delivery > PR Gates > PR Gate Rules（`/ci/pr-gates`） | GA（Preview 表記なし）。旧 Quality Gates は 2026 年に PR Gates へ置換 |
 | **Code Coverage** | カバレッジレポートをアップロードし、PR 単位の total / patch カバレッジを可視化・ゲート化 | Software Delivery > Code Coverage | GA（有償 SKU あり）。carryforward 機能のみ【Preview】 |
 | **CD Visibility**（Continuous Delivery Visibility） | Argo CD や CI プロバイダー上のデプロイ実行を可視化 | Software Delivery > CD Visibility（Deployments / Deployment Executions） | 【Preview】（登録済み組織のみ） |
-| **Deployment Gates** | モニター状態や APM Faulty Deployment Detection でデプロイ続行可否を判定 | Software Delivery > Deployment Gates（Configuration / Evaluations） | 評価用 CLI は beta コマンド、API は【Preview】 |
+| **Deployment Gates** | モニター状態や APM Faulty Deployment Detection でデプロイ続行可否を判定 | Software Delivery > Deployment Gates（Configuration / Evaluations） | 製品ページに GA/Preview の明記なし。評価用 CLI（`datadog-ci deployment gate`）は【Preview】コマンド（`DD_BETA_COMMANDS_ENABLED=1` が必要）、API は【Preview】 [出典](https://docs.datadoghq.com/deployment_gates/) [出典](https://docs.datadoghq.com/deployment_gates/setup/jit/) |
 
-> **サイト差異:** 上記5機能はいずれも **`US1-FED`（app.ddog-gov.com）および us2.ddog-gov.com では非対応**。`US1`／`US3`／`US5`／`EU1`／`AP1`／`AP2`（および uk1.datadoghq.com）では利用可能（CD Visibility はこれらのサイトでも Preview 登録組織限定）。[出典](https://docs.datadoghq.com/dora_metrics/) [出典](https://docs.datadoghq.com/continuous_delivery/)
+> **サイト差異:** 上記5機能はいずれも **`US1-FED`（app.ddog-gov.com）および us2.ddog-gov.com では非対応**。`US1`／`US3`／`US5`／`EU1`／`AP1`／`AP2`（および uk1.datadoghq.com）では利用可能（CD Visibility はこれらのサイトでも Preview 登録組織限定）。[出典](https://docs.datadoghq.com/delivery_performance/dora_metrics/) [出典](https://docs.datadoghq.com/continuous_delivery/)
 
 ### 機能間の関係
 
@@ -82,7 +83,7 @@ flowchart LR
   end
 ```
 
-- **PR Gates** は Monitor と同様に「互換製品の結果を消費し条件を適用する」仕組みで、ゲート自体は検査を行わない。検査は Code Security（[Code Security](../security/code-security.md)）、Code Coverage、Test Optimization 側で実行されている必要がある。[出典](https://docs.datadoghq.com/quality_gates/)
+- **PR Gates** は Monitor と同様に「互換製品の結果を消費し条件を適用する」仕組みで、ゲート自体は検査を行わない。検査は Code Security（[Code Security](../security/code-security.md)）、Code Coverage、Test Optimization 側で実行されている必要がある。[出典](https://docs.datadoghq.com/pr_gates/)
 - **DORA Metrics** の PR フィールドには、Code Coverage の `Patch Coverage`、CI Visibility の `Time CI Failing`、Test Optimization の `Test Session Duration` など他製品データが連結される。[出典](https://docs.datadoghq.com/delivery_performance/dora_metrics/data_collected/)
 - **Deployment Gates** の APM ルールは Watchdog の Faulty Deployment Detection 分析を用いる（[Watchdog](../platform/watchdog.md)、[APM 画面と分析機能](../apm/apm-ui-and-analysis.md)）。
 
@@ -105,13 +106,13 @@ flowchart LR
 | Change Failure Rate | 変更失敗率 | 即時対応が必要となった失敗デプロイの割合 | 変更失敗数 ÷ 総デプロイ数 |
 | Failed Deployment Recovery Time | 失敗デプロイ復旧時間（旧来の Time to Restore に相当） | 即時対応が必要な失敗デプロイから復旧するまでの時間 | 失敗デプロイの `finished_at` から是正デプロイ（rollback / rollforward）の `finished_at` までの秒数。集計は中央値 |
 
-[出典](https://docs.datadoghq.com/dora_metrics/) [出典](https://docs.datadoghq.com/delivery_performance/dora_metrics/calculation/) [出典](https://docs.datadoghq.com/delivery_performance/dora_metrics/change_failure_detection/)
+[出典](https://docs.datadoghq.com/delivery_performance/dora_metrics/) [出典](https://docs.datadoghq.com/delivery_performance/dora_metrics/calculation/) [出典](https://docs.datadoghq.com/delivery_performance/dora_metrics/change_failure_detection/)
 
 ![DORA Metrics の Explorer 画面](../../assets/images/software-delivery-insights/dora-overview.png)
 
 - **キャプション:** DORA Metrics の Explorer 画面（カスタムタグ Language でフィルタした例）
 - **画面説明:** 左上に「DORA Metrics」、タブは **Explorer** と **Reports**。上部のフィルタバーに **Deployment Source**、**Failure Source**、**Service**、**Env**、**Team**、**Repository Id**、右側に期間（例: Past 1 Month）と **Settings** ボタン。その下に4指標のサマリーカード（Deployment Frequency（週あたり平均）、Change Lead Time（中央値）、Change Failure Rate（デプロイあたり平均）、Time To Restore（失敗あたり中央値））が並び、各カードに前期間比の増減率が表示される。中段の **Deployment Frequency** セクションは週別デプロイ数の棒グラフと、右側に By Service / By Env / By Team のタブ付きランキング表（FREQ.、CHANGE 列）。下段の **Change Lead Time** セクションは折れ線グラフと By Service / By Env / By Team / By Stage のタブ、STAGE BREAKDOWN 列（ステージ別の内訳バー）。各セクション右上に **View Deployments** リンク。
-- **出典:** https://docs.datadoghq.com/dora_metrics/ （2026-11-02 取得）
+- **出典:** https://docs.datadoghq.com/delivery_performance/dora_metrics/ （2026-11-02 取得）
 
 ### DORA Metrics の画面と操作
 
@@ -124,7 +125,7 @@ flowchart LR
 | ダッシュボード利用 | カスタムタグは属性扱いのため、ダッシュボードやグラフでフィルタ／グループ化する際は **`@` 接頭辞**が必要（例: `@language`） |
 | ステータス手動修正 | View Deployments でデプロイを開き **Deployment status** ドロップダウンで failed / stable を切替 |
 
-[出典](https://docs.datadoghq.com/dora_metrics/) [出典](https://docs.datadoghq.com/delivery_performance/dora_metrics/change_failure_detection/)
+[出典](https://docs.datadoghq.com/delivery_performance/dora_metrics/) [出典](https://docs.datadoghq.com/delivery_performance/dora_metrics/change_failure_detection/)
 
 ### DORA Metrics のデプロイデータソース
 
@@ -352,16 +353,16 @@ Delivery Performance の General settings でリポジトリ内の自動化ボ�
 
 ### PR Gates の概要と名称変更
 
-- **PR Gates** は、ルールを設定して基準を満たさないコードを含む Pull Request のマージをブロックする機能。Monitor と同様に互換製品の検出結果を消費し、条件を適用する。[出典](https://docs.datadoghq.com/quality_gates/)
+- **PR Gates** は、ルールを設定して基準を満たさないコードを含む Pull Request のマージをブロックする機能。Monitor と同様に互換製品の検出結果を消費し、条件を適用する。[出典](https://docs.datadoghq.com/pr_gates/)
 - **PR のコード変更で新たに持ち込まれた違反のみ**でブロックし、ブランチ作成前から存在していた既存の検出結果ではブロックしない。
-- ドキュメント URL は旧来の `/quality_gates/` のまま（`/pr_gates/` でも参照可能）で、ページタイトルは「PR Gates」。権限 ID も `quality_gate_rules_*` と旧名称のまま。
+- ドキュメント URL は現在 `/pr_gates/`（旧 `/quality_gates/` は 301 で `/pr_gates/` にリダイレクト）で、ページタイトルは「PR Gates」。権限 ID も `quality_gate_rules_*` と旧名称のまま。[出典](https://docs.datadoghq.com/pr_gates/)
 - **旧 Quality Gates（`datadog-ci gate evaluate` で CI から評価する方式）は deprecated** で、「2026 年に新しい PR Gates へ置き換えられる」とされ、移行フォームが案内されている。[出典](https://cdn.jsdelivr.net/npm/@datadog/datadog-ci-plugin-gate@5.21.2/README.md)（datadog-ci 公式 npm パッケージの README、2026-11-02 取得）
 
 ![PR Gates Rules 一覧画面](../../assets/images/software-delivery-insights/pr-gates-rules-list.png)
 
 - **キャプション:** PR Gates Rules 一覧画面
 - **画面説明:** 左上のプロダクト切替に「PR Gates」、タブは **PR Gates Rules**、右上に青い **+ New Rule** ボタン。一覧表の列は **SOURCE**（例: Static Code Analysis (SAST)、Code Coverage）、**CONDITION**（例: "No new code vulnerabilities High or above"、"No overall code coverage below 80%"）、**SCOPE**（"All repositories" または `repository:github.com/...` のリポジトリ指定）、**LAST MODIFIED**、**CREATOR**。右上に **Options**、右下に Results per page。
-- **出典:** https://docs.datadoghq.com/quality_gates/ （2026-11-02 取得）
+- **出典:** https://docs.datadoghq.com/pr_gates/ （2026-11-02 取得）
 
 ### PR Gates のルール種別と条件
 
@@ -374,7 +375,7 @@ Delivery Performance の General settings でリポジトリ内の自動化ボ�
 | Secret Scanning | 漏えいシークレット | 指定重大度以上の新規シークレットを1件以上 |
 | New Flaky Tests | 新規フレーキーテスト | PR が新規フレーキーテストを1件以上持ち込む（Early Flake Detection と併用） |
 
-[出典](https://docs.datadoghq.com/quality_gates/)
+[出典](https://docs.datadoghq.com/pr_gates/)
 
 - 各ソース製品が対象リポジトリで稼働している必要がある。SAST/SCA/IaC/Secret は [Code Security](../security/code-security.md)、New Flaky Tests は [Test Optimization](./test-optimization.md) を参照。
 - 重大度の選択肢としてドキュメント例に現れるのは `Critical`（ほか画面例で High、Medium）。全選択肢の一覧は公開情報では確認できず。
@@ -388,7 +389,7 @@ Delivery Performance の General settings でリポジトリ内の自動化ボ�
 5. **Preview checks** で SCM プロバイダーを選び、PR に付くステータスチェックをプレビュー。
 6. **ブロッキング**の有無を決めて **Create Rule**。新ルールは非ブロッキングで検証してからブロッキング化するのが推奨。
 
-[出典](https://docs.datadoghq.com/quality_gates/setup/)
+[出典](https://docs.datadoghq.com/pr_gates/setup/)
 
 ### PR Gates の強制（マージブロック）方法
 
@@ -399,7 +400,7 @@ Delivery Performance の General settings でリポジトリ内の自動化ボ�
 | Azure DevOps | Azure DevOps Source Code インテグレーション | ブランチポリシーでチェックを required に設定 |
 | Bitbucket Cloud | Bitbucket Cloud Source Code インテグレーション | チェックを required に設定。**ブロッキングチェックには Bitbucket Cloud Premium が必要** |
 
-[出典](https://docs.datadoghq.com/quality_gates/setup/)
+[出典](https://docs.datadoghq.com/pr_gates/setup/)
 
 ### PR Gates の動作仕様
 
@@ -413,7 +414,7 @@ Delivery Performance の General settings でリポジトリ内の自動化ボ�
 | テスト方法 | 意図的に条件違反する新規ブランチと PR を作成して確認するのが推奨 |
 | ルール管理 | 一覧でルールにホバーし Edit / Delete（Clone も可能） |
 
-[出典](https://docs.datadoghq.com/quality_gates/) [出典](https://docs.datadoghq.com/quality_gates/setup/)
+[出典](https://docs.datadoghq.com/pr_gates/) [出典](https://docs.datadoghq.com/pr_gates/setup/)
 
 ### 旧 Quality Gates（`datadog-ci gate evaluate`）
 
@@ -438,7 +439,7 @@ Delivery Performance の General settings でリポジトリ内の自動化ボ�
 ### Code Coverage の概要
 
 - **Code Coverage** は、カバレッジレポートを Datadog にアップロードし、PR 単位で集約したカバレッジを可視化し、設定した閾値でマージをブロックする製品。[出典](https://docs.datadoghq.com/code_coverage/)
-- Test Optimization にも旧来のカバレッジ機能（`@test.code_coverage.lines_pct`）があるが、こちらはレガシー扱いで、新規には本製品が推奨される（[Test Optimization](./test-optimization.md) 参照）。
+- Test Optimization にも旧来のカバレッジ機能（`@test.code_coverage.lines_pct`）があるが、こちらはレガシー扱いで、新規には本製品が推奨される（[Test Optimization](./test-optimization.md) 参照）。[出典](https://docs.datadoghq.com/tests/code_coverage/)
 - アップロードされるのはカバレッジレポートとメタデータで、**ソースコードはアップロードされない**。[出典](https://docs.datadoghq.com/code_coverage/data_collected/)
 
 ![Code Coverage の PR 詳細画面](../../assets/images/software-delivery-insights/code-coverage-pr-details.png)
@@ -848,7 +849,7 @@ Terraform では Datadog プロバイダーの `deployment_gate` リソースを
 
 | 方法 | 実行内容 | 要件・デフォルト |
 |---|---|---|
-| **datadog-ci CLI** | `datadog-ci deployment gate --service <svc> --env <env> [--identifier <id>] --version <ver> [--config <file>]` | datadog-ci **v3.17.0 以降**（`--config` は **v5.19.0 以降**）。`DD_API_KEY`、`DD_APP_KEY`、`DD_BETA_COMMANDS_ENABLED=1`（beta コマンド）。評価完了までブロック、タイムアウト設定可、自動リトライ内蔵、`--fail-on-error` で Datadog 側の予期せぬエラー時の挙動を制御 |
+| **datadog-ci CLI** | `datadog-ci deployment gate --service <svc> --env <env> [--identifier <id>] --version <ver> [--config <file>]` | datadog-ci **v3.17.0 以降**（`--config` は **v5.19.0 以降**）。`DD_API_KEY`、`DD_APP_KEY`、`DD_BETA_COMMANDS_ENABLED=1`（【Preview】コマンドのため必須）。評価完了までブロック、タイムアウト設定可、自動リトライ内蔵、`--fail-on-error` で Datadog 側の予期せぬエラー時の挙動を制御 |
 | **Argo Rollouts** | AnalysisTemplate / ClusterAnalysisTemplate の Job で上記 CLI を実行 | 例: イメージ `datadog/ci`（`--config` 利用時は v5.19.0 以上）、`ttlSecondsAfterFinished: 300`、`backoffLimit: 0`（ゲート失敗時に再試行しない）、`restartPolicy: Never`。Rollout のラベル `tags.datadoghq.com/service`／`env`／`version` を引数に渡す。`clusterScope: true` はクラスタテンプレートのときのみ |
 | **GitHub Actions** | `DataDog/deployment-gate-github-action`（`config` 入力は **v2.1.0 以降**） | 入力: `service`、`env`、`identifier`、`version`、`config`、`fail-on-error`、タイムアウト。`DD_API_KEY`／`DD_APP_KEY` |
 | **汎用シェルスクリプト**（公式サンプル） | curl + jq で開始・ポーリング | `MAX_RETRIES=3`、`DELAY_SECONDS=5`、`POLL_INTERVAL_SECONDS=15`、`MAX_POLL_TIME_SECONDS=10800`（3 時間）。開始時 5xx はリトライし、使い切ったら**成功扱い**（デプロイを止めない設計）、4xx は失敗。ポーリング中 404 と 5xx はリトライ |
@@ -1040,7 +1041,7 @@ API リファレンス上、全エンドポイントが Preview 表記。[出典
 
 公式ドキュメント（2026-11-02 取得）
 
-- DORA Metrics: https://docs.datadoghq.com/dora_metrics/
+- DORA Metrics: https://docs.datadoghq.com/delivery_performance/dora_metrics/
 - Delivery Performance: https://docs.datadoghq.com/delivery_performance/
 - DORA Metrics Setup: https://docs.datadoghq.com/delivery_performance/dora_metrics/setup/
 - DORA Metrics Calculation: https://docs.datadoghq.com/delivery_performance/dora_metrics/calculation/
@@ -1049,9 +1050,8 @@ API リファレンス上、全エンドポイントが Preview 表記。[出典
 - DORA Metrics API: https://docs.datadoghq.com/api/latest/dora-metrics/
 - Send a deployment event: https://docs.datadoghq.com/api/latest/delivery-performance/send-a-deployment-event.md
 - Send an incident event: https://docs.datadoghq.com/api/latest/delivery-performance/send-an-incident-event.md
-- PR Gates: https://docs.datadoghq.com/quality_gates/
-- Set up PR Gate Rules: https://docs.datadoghq.com/quality_gates/setup/
-- PR Gates Guides: https://docs.datadoghq.com/quality_gates/guide/
+- PR Gates: https://docs.datadoghq.com/pr_gates/
+- Set up PR Gate Rules: https://docs.datadoghq.com/pr_gates/setup/
 - Code Coverage: https://docs.datadoghq.com/code_coverage/
 - Code Coverage Setup: https://docs.datadoghq.com/code_coverage/setup/
 - Code Coverage Configuration: https://docs.datadoghq.com/code_coverage/configuration/
@@ -1061,6 +1061,7 @@ API リファレンス上、全エンドポイントが Preview 表記。[出典
 - Monorepo Support: https://docs.datadoghq.com/code_coverage/monorepo_support/
 - Code Coverage Data Collected: https://docs.datadoghq.com/code_coverage/data_collected/
 - Code Coverage Dashboards: https://docs.datadoghq.com/code_coverage/dashboards/
+- Test Optimization Code Coverage（レガシー）: https://docs.datadoghq.com/tests/code_coverage/
 - CD Visibility: https://docs.datadoghq.com/continuous_delivery/
 - Deployment Visibility: https://docs.datadoghq.com/continuous_delivery/deployments/
 - Argo CD: https://docs.datadoghq.com/continuous_delivery/deployments/argocd/

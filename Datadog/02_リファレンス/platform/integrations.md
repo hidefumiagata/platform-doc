@@ -72,7 +72,7 @@ sources:
 
 ## 概要
 
-Datadog の Integrations（インテグレーション）は、Datadog の外にあるシステム（ミドルウェア、データベース、クラウドサービス、SaaS、プログラミング言語ランタイムなど）からメトリクス・ログ・イベント・サービスチェック・トレースなどを Datadog に取り込む、または Datadog のデータを外部へ連携するための部品の総称である。Datadog の公式ドキュメントは「1,000 を超える組み込みインテグレーション（More than 1,000 built-in integrations）」を提供していると記載しており、料金ページでも Pro / Enterprise に「1,000+ integrations」が含まれると記載されている。[出典](https://docs.datadoghq.com/integrations/) [出典](https://www.datadoghq.com/pricing/)
+Datadog の Integrations（インテグレーション）は、Datadog の外にあるシステム（ミドルウェア、データベース、クラウドサービス、SaaS、プログラミング言語ランタイムなど）からメトリクス・ログ・イベント・サービスチェック・トレースなどを Datadog に取り込む、または Datadog のデータを外部へ連携するための部品の総称である。Datadog の公式ドキュメントは「1,000 を超える組み込みインテグレーション（More than 1,000 built-in integrations）」を提供していると記載しており、料金ページでも Infrastructure Pro に「1,000+ integrations」と記載され、Enterprise も同項目を含む。[出典](https://docs.datadoghq.com/integrations/) [出典](https://www.datadoghq.com/pricing/)
 
 Datadog のインテグレーションは、データの取り込み方式で次の 3 種類に大別される。[出典](https://docs.datadoghq.com/getting_started/integrations/)
 
@@ -406,7 +406,7 @@ metadata:
 
 - テンプレート変数: `%%host%%`（コンテナの IP）、`%%port%%`、`%%env_<VAR>%%`（Agent プロセスから見える環境変数。パスワードを平文で書かないために使う）など。[出典](https://docs.datadoghq.com/containers/kubernetes/integrations/)
 - `DatadogInstrumentation` リソースは Agent / Cluster Agent v7.82+、Datadog Operator v1.29+、Helm チャート v3.236.0+ が必要。[出典](https://docs.datadoghq.com/containers/kubernetes/prometheus/)
-- **設定の優先順位:** Kubernetes アノテーション ＞ `DatadogInstrumentation` リソース ＞ 静的設定（`auto_conf.yaml`、Operator / Helm の設定を含む）。`auto_conf.yaml` は Autodiscovery の他の設定より優先される。[出典](https://docs.datadoghq.com/containers/kubernetes/integrations/) [出典](https://docs.datadoghq.com/containers/guide/auto_conf/)
+- **設定の優先順位:** 優先度の高い順に 1. Kubernetes アノテーション、2. `DatadogInstrumentation` リソース、3. `auto_conf.yaml`、4. Datadog Operator / Helm チャートの Autodiscovery 設定。`auto_conf.yaml` は Operator / Helm の Autodiscovery 設定より優先される。[出典](https://docs.datadoghq.com/containers/kubernetes/integrations/) [出典](https://docs.datadoghq.com/containers/guide/auto_conf/)
 - Agent に同梱されないインテグレーション（Community / Marketplace）をコンテナで使うには、そのインテグレーションを含むカスタム Agent イメージをビルドする（§4.4）。[出典](https://docs.datadoghq.com/containers/kubernetes/integrations/)
 
 #### 自動設定（auto_conf.yaml）
@@ -668,7 +668,7 @@ instances:
 
 ### 6.4 主なパラメータ
 
-Tomcat の `conf.yaml.example`（JMX 系インテグレーション共通のテンプレート）と Java/JMX ドキュメントに基づく。[出典](https://github.com/DataDog/integrations-core/blob/master/tomcat/datadog_checks/tomcat/data/conf.yaml.example) [出典](https://docs.datadoghq.com/integrations/java/)
+Tomcat の `conf.yaml.example`（JMX 系インテグレーション共通のテンプレート）と Java/JMX ドキュメントに基づく。既定値は `conf.yaml.example`（GitHub）に基づく。Java/JMX の公式ドキュメントには `rmi_connection_timeout` / `rmi_client_timeout` の既定値の記載はない。[出典](https://github.com/DataDog/integrations-core/blob/master/tomcat/datadog_checks/tomcat/data/conf.yaml.example) [出典](https://docs.datadoghq.com/integrations/java/)
 
 | パラメータ | 配置 | 既定値 | 内容 |
 |---|---|---|---|
@@ -714,7 +714,7 @@ Tomcat の `conf.yaml.example`（JMX 系インテグレーション共通のテ�
 | `attribute` | 属性名のリストまたは辞書 |
 | 任意の Bean パラメータ名 | 例 `type: [Caches]` のように Bean のキー・値で絞り込み |
 
-- 正規表現は Java の正規表現形式。これらのフィルタは（Agent）5.5.0 で追加された。正規表現以外の値は大文字小文字を区別する。[出典](https://docs.datadoghq.com/integrations/java/)
+- `domain_regex` / `bean_regex` の正規表現は Java の正規表現形式。これらの正規表現フィルタは（Agent）5.5.0 で追加された。正規表現以外の値は大文字小文字を区別する。[出典](https://docs.datadoghq.com/integrations/java/)
 - エイリアスのキャメルケースはスネークケースに変換される（`MyMetricName` → `my_metric_name`）。[出典](https://docs.datadoghq.com/integrations/java/)
 
 ### 6.6 `attribute` の書き方とメトリクスタイプ
@@ -1052,7 +1052,7 @@ LABEL "com.datadoghq.ad.instances"='[{"host":"%%host%%","port":"6379","password"
 
 多くのミドルウェアのインテグレーションは、`conf.yaml` の `logs` セクションでログ収集も設定でき、`source` にインテグレーション名（例 `nginx`、`apache`、`kafka`）を指定すると、そのインテグレーション用の既定ログパイプラインが自動適用される。ログ収集自体は `datadog.yaml` の `logs_enabled: true` で有効にする（既定は無効）。[出典](https://docs.datadoghq.com/integrations/iis/) [出典](https://docs.datadoghq.com/integrations/kafka/)
 
-- Kafka の例では、`log4j` の既定変換パターン `%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n` と `%d [%t] %-5p %c - %m%n` がインテグレーションパイプラインでサポートされる。[出典](https://docs.datadoghq.com/integrations/kafka/)
+- Kafka の例では、`log4j` の既定変換パターン `%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n`、`%d [%t] %-5p %c - %m%n`、`%r [%t] %p %c %x - %m%n`、`[%d] %p %m (%c)%n` の 4 種が既定でインテグレーションパイプラインでサポートされる。[出典](https://docs.datadoghq.com/integrations/kafka/)
 - ログ収集とパイプラインの詳細は [ログ収集](../logs/log-collection.md)、[Log Pipelines と処理](../logs/log-pipelines-and-processing.md) を参照。
 
 ---
@@ -1195,7 +1195,7 @@ Agent チェックの開発要件:
 | JMX チェックのメトリクス上限 | インスタンスあたり 350（JMXFetch の `max_returned_metrics` 既定値。公式は引き上げにサポート連絡が必要と記載） | [出典](https://docs.datadoghq.com/integrations/java/) [出典](https://github.com/DataDog/jmxfetch/blob/master/src/main/java/org/datadog/jmxfetch/Instance.java) |
 | JMXFetch の Java 要件 | Java 1.7 以上 | [出典](https://docs.datadoghq.com/integrations/java/) |
 | JMX `refresh_beans` | 600 秒 | [出典](https://docs.datadoghq.com/integrations/java/) |
-| JMX `rmi_connection_timeout` / `rmi_client_timeout` | 20000 ms / 15000 ms | [出典](https://github.com/DataDog/integrations-core/blob/master/tomcat/datadog_checks/tomcat/data/conf.yaml.example) |
+| JMX `rmi_connection_timeout` / `rmi_client_timeout` | 20000 ms / 15000 ms（`conf.yaml.example` の既定値。公式ドキュメントに記載なし） | [出典](https://github.com/DataDog/integrations-core/blob/master/tomcat/datadog_checks/tomcat/data/conf.yaml.example) |
 | JMX トラブルシュートコマンド | Agent 6.2 以降（`--flare` は 6.26 / 7.26 以降） | [出典](https://docs.datadoghq.com/integrations/faq/troubleshooting-jmx-integrations/) |
 | OpenMetrics / Prometheus チェックのメトリクス上限 | インスタンスあたり既定 2000（`max_returned_metrics`。0 は不可） | [出典](https://docs.datadoghq.com/integrations/openmetrics/) [出典](https://github.com/DataDog/integrations-core/blob/master/datadog_checks_base/datadog_checks/base/checks/base.py) |
 | OpenMetrics チェックの最低 Agent | 6.6.0（latest 設定例は 7.32.0 以降、`OpenMetricsBaseCheckV2` は 7.26.x 以降） | [出典](https://docs.datadoghq.com/integrations/openmetrics/) [出典](https://docs.datadoghq.com/extend/custom_checks/prometheus/) |
@@ -1213,7 +1213,7 @@ Agent チェックの開発要件:
 
 ## 課金への影響
 
-Datadog のインテグレーション自体には追加料金がかからない（Pro / Enterprise の Infrastructure プランに「1,000+ integrations」が含まれ、Free / Basic は「Limited」）。ただし、次の点で課金に影響する。[出典](https://www.datadoghq.com/pricing/)
+Datadog のインテグレーション自体には追加料金がかからない（Infrastructure Pro は「1,000+ integrations」と記載され、Enterprise も同項目を含む。Basic は「Limited」。Free 枠についてはインテグレーション数の記載なし）。ただし、次の点で課金に影響する。[出典](https://www.datadoghq.com/pricing/)
 
 | 要因 | 課金への影響 | 出典 |
 |---|---|---|
@@ -1231,8 +1231,10 @@ Datadog のインテグレーション自体には追加料金がかからない
 | 項目 | 値 | 契約形態 |
 |---|---|---|
 | 1 ホストあたりの含まれる量 | Pro: 100、Enterprise: 200（ingested / indexed とも。アカウント全体でプール） | — |
-| 超過分 Custom Metrics | 100 カスタムメトリクスあたり月 $5 | 年契約・月契約・オンデマンドとも同額 |
-| Ingested Custom Metrics（Metrics without Limits™ 利用時） | 100 ingested カスタムメトリクスあたり月 $0.10 | 年契約・月契約・オンデマンドとも同額 |
+| 超過分 Custom Metrics（US/EU1 価格） | 100 カスタムメトリクスあたり月 $5 | 年契約・月契約・オンデマンドとも同額 |
+| Ingested Custom Metrics（Metrics without Limits™ 利用時、US/EU1 価格） | 100 ingested カスタムメトリクスあたり月 $0.10 | 年契約・月契約・オンデマンドとも同額 |
+
+> **サイト差異:** AP1 は Custom Metrics が 100 カスタムメトリクスあたり月 $6.25、Ingested Custom Metrics が 100 あたり月 $0.125（年契約・月契約・オンデマンドとも同額）。[製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
 
 [出典](https://www.datadoghq.com/pricing/list/) [出典](https://docs.datadoghq.com/account_management/billing/custom_metrics/)
 

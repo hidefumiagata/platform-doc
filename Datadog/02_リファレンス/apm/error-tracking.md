@@ -2,7 +2,7 @@
 title: Error Tracking
 category: reference
 domain: apm
-last_verified: 2026-11-02
+last_verified: 2026-11-04
 agent_version: "7.x"
 summary: Datadog Error Tracking が APM・RUM・Logs（および Standalone の Backend/Frontend SDK、Sentry SDK）から収集したエラーを Issue に集約する仕組み（取り込み条件、グルーピング／fingerprint、Issue 状態と自動解決・Regression、Suspected Causes、Suspect Commits、チーム所有、Exception Replay、Bits AI 調査、Monitor、チケット連携、API、RBAC）と、Rules・Rate Limit・Dynamic Sampling によるデータ量制御、保持期間・制限値、Error Tracking 単体利用の構成と課金単位をまとめたリファレンス。
 keywords: [Error Tracking, エラートラッキング, エラー追跡, Issue, イシュー, fingerprint, error.fingerprint, フィンガープリント, グルーピング, Error Grouping, For Review, Reviewed, Resolved, Ignored, Excluded, Snooze, スヌーズ, Regression, リグレッション, 自動解決, Suspected Causes, Suspected Cause, Suspect Commits, Auto Assign, Issue Team Ownership, CODEOWNERS, Exception Replay, 例外リプレイ, source:dd_debugger, DD_EXCEPTION_REPLAY_ENABLED, Standalone Backend Error Tracking, error_tracking_standalone, DD_APM_ERROR_TRACKING_STANDALONE_ENABLED, DD_APM_ERROR_TRACKING_STANDALONE, DD_CORE_AGENT_ENABLED, Error Tracking for Logs, Error Tracking Rules, Rate Limits, Dynamic Sampling, datadog.estimated_usage.error_tracking.logs.events, Error Tracking Monitor, error-tracking(), Bits Investigation, Bits AI, Replay Snippets, Sentry SDK, Jira, Linear, Work Management, Case Management, source maps, ソースマップ, dSYM, mapping file, Crash Reporting, クラッシュレポート, error_tracking_read, error_tracking_write, error_tracking_settings_write, error_tracking_exclusion_filters_write]
@@ -19,27 +19,48 @@ sources:
   - https://docs.datadoghq.com/error_tracking/manage_data_collection/
   - https://docs.datadoghq.com/error_tracking/monitors/
   - https://docs.datadoghq.com/error_tracking/troubleshooting/
+  - https://docs.datadoghq.com/error_tracking/apm/
+  - https://docs.datadoghq.com/error_tracking/backend/
+  - https://docs.datadoghq.com/error_tracking/backend/getting_started/
   - https://docs.datadoghq.com/error_tracking/backend/exception_replay/
   - https://docs.datadoghq.com/error_tracking/backend/getting_started/dd_libraries/
   - https://docs.datadoghq.com/error_tracking/backend/getting_started/single_step_instrumentation/
   - https://docs.datadoghq.com/error_tracking/backend/capturing_handled_errors/
   - https://docs.datadoghq.com/error_tracking/backend/logs/
+  - https://docs.datadoghq.com/error_tracking/frontend/
   - https://docs.datadoghq.com/error_tracking/frontend/browser/
   - https://docs.datadoghq.com/error_tracking/frontend/collecting_browser_errors/
   - https://docs.datadoghq.com/error_tracking/frontend/logs/
   - https://docs.datadoghq.com/error_tracking/frontend/replay_errors/
+  - https://docs.datadoghq.com/error_tracking/frontend/mobile/android/
+  - https://docs.datadoghq.com/error_tracking/frontend/mobile/ios/
+  - https://docs.datadoghq.com/error_tracking/frontend/mobile/reactnative/
+  - https://docs.datadoghq.com/error_tracking/frontend/mobile/flutter/
+  - https://docs.datadoghq.com/error_tracking/frontend/mobile/unity/
+  - https://docs.datadoghq.com/error_tracking/frontend/mobile/roku/
   - https://docs.datadoghq.com/error_tracking/guides/sentry_sdk/
   - https://docs.datadoghq.com/error_tracking/guides/enable_apm/
+  - https://docs.datadoghq.com/error_tracking/guides/enable_infra/
   - https://docs.datadoghq.com/error_tracking/bits_investigation/
   - https://docs.datadoghq.com/error_tracking/ticketing_systems/
+  - https://docs.datadoghq.com/error_tracking/ticketing_systems/jira/
+  - https://docs.datadoghq.com/error_tracking/ticketing_systems/linear/
+  - https://docs.datadoghq.com/error_tracking/ticketing_systems/work_management/
   - https://docs.datadoghq.com/error_tracking/link_pull_requests/
   - https://docs.datadoghq.com/tracing/error_tracking/
+  - https://docs.datadoghq.com/real_user_monitoring/error_tracking/
   - https://docs.datadoghq.com/real_user_monitoring/guide/upload-javascript-source-maps/
+  - https://docs.datadoghq.com/logs/error_tracking/
   - https://docs.datadoghq.com/data_security/data_retention_periods/
   - https://docs.datadoghq.com/account_management/rbac/permissions/
+  - https://docs.datadoghq.com/account_management/billing/usage_metrics/
   - https://docs.datadoghq.com/api/latest/error-tracking/
   - https://www.datadoghq.com/pricing/?product=error-tracking
   - https://www.datadoghq.com/pricing/list/
+  - https://www.datadoghq.com/ja/about/latest-news/press-releases/error-tracking
+  - https://www.datadoghq.com/blog/error-tracking/
+  - https://www.datadoghq.com/blog/error-tracking-logs/
+  - https://www.datadoghq.com/blog/error-tracking-and-github/
 ---
 
 # Error Tracking
@@ -251,7 +272,9 @@ Standalone Backend Error Tracking は、APM トレーサー（Datadog SDK）で�
 | Linux ホスト / VM（`datadog.yaml`） | `core_agent.enabled: false` と `apm_config.error_tracking_standalone.enabled: true` を設定し Agent を再起動 |
 | Docker | 環境変数 `DD_CORE_AGENT_ENABLED=false`、`DD_APM_ERROR_TRACKING_STANDALONE_ENABLED=true` |
 | Kubernetes（Helm） | `agents.containers.agent.env` に `DD_CORE_AGENT_ENABLED="false"`、`datadog.processAgent.enabled: false` / `containerCollection: false`、`datadog.apm.errorTrackingStandalone.enabled: true` |
-| Kubernetes（Datadog Operator v1.14.0 以上） | `global.env` に `DD_CORE_AGENT_ENABLED="false"`、`features.apm.errorTrackingStandalone.enabled: true` |
+| Kubernetes（Datadog Operator v1.14.0 以上。Single Step Instrumentation 手順のみ） | `global.env` に `DD_CORE_AGENT_ENABLED="false"`、`features.apm.errorTrackingStandalone.enabled: true`（公式例は SSI 用の `features.apm.instrumentation.enabled: true` も同時に設定） |
+
+Linux・Docker・Helm の行は Datadog SDK による手動計装ページ、Operator の行は Single Step Instrumentation ページ（Kubernetes）に基づく。手動計装ページには Operator の手順は掲載されていない。[出典](https://docs.datadoghq.com/error_tracking/backend/getting_started/dd_libraries/) / [出典](https://docs.datadoghq.com/error_tracking/backend/getting_started/single_step_instrumentation/)
 
 ```yaml
 # datadog.yaml（Standalone Backend Error Tracking）
@@ -584,7 +607,7 @@ Exception Replay は、APM で計装されたアプリで例外が発生した�
 | Java（GovCloud） | `BatchUploader` が HTTP 403 の WARN を定期出力する。止めるには `DD_EXCEPTION_REPLAY_ENABLED=false`、`DD_DYNAMIC_INSTRUMENTATION_ENABLED=false`、`DD_CODE_ORIGIN_FOR_SPANS_ENABLED=false` を設定して再起動 |
 | スナップショットが見えない | Exception Replay 未有効、選択時間範囲外、`source:dd_debugger` ログがインデックスの保持・除外フィルターで落ちている、のいずれか |
 
-> **サイト差異:** Exception Replay は `app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com`（FedRAMP リージョン）では利用不可。US1・US3・US5・EU1・AP1・AP2 での差異は公開情報では確認できず。[出典](https://docs.datadoghq.com/error_tracking/backend/exception_replay/)
+> **サイト差異:** Exception Replay は `app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com`（FedRAMP リージョン）では利用不可。US1・US3・US5・EU1・AP1・AP2・UK1 での差異は公開情報では確認できず（UK1 は本ページに言及なし）。[出典](https://docs.datadoghq.com/error_tracking/backend/exception_replay/)
 
 ---
 
@@ -608,7 +631,7 @@ Error Tracking Explorer は Issue の閲覧・フィルター・調査を行う�
 
 | 並べ替え | 内容 |
 |---|---|
-| Relevance | Issue の古さ、直近の発生、直近 1 時間のスパイク、クラッシュの有無を組み合わせたスコア |
+| Relevance | コード起因・最近・急増中の Issue を優先するスコア。Issue の古さ、直近 1 日の発生数、直近 1 時間の顕著な増加、アプリのクラッシュの有無を分析する |
 | Count | 選択期間内の総発生数 |
 | Newest | 初回発生時刻 |
 | Impacted Sessions | 影響を受けた RUM セッション数 |
@@ -719,7 +742,7 @@ Work Management との状態マッピング（単一 Issue の場合）：[出�
 
 > **サイト差異:** Jira 連携と Linear 連携は `app.ddog-gov.com`・`us2.ddog-gov.com` では非対応。[出典](https://docs.datadoghq.com/error_tracking/ticketing_systems/jira/) / [出典](https://docs.datadoghq.com/error_tracking/ticketing_systems/linear/)
 
-Work Management（旧称：Case Management）本体は [Case Management](../service-management/case-management.md) を参照。
+Work Management（旧称：Case Management）本体は [Work Management](../service-management/case-management.md) を参照。
 
 ### 10.2 GitHub Pull Request 連携
 
@@ -904,12 +927,14 @@ Error Tracking の課金単位は**月間の課金対象エラー件数**であ�
 
 ## 15. サイト差異のまとめ
 
-| 機能 | US1 / US3 / US5 / EU1 / AP1 / AP2 | US1-FED（`app.ddog-gov.com`）/ `us2.ddog-gov.com` |
+| 機能 | US1 / US3 / US5 / EU1 / AP1 / AP2 / UK1 | US1-FED（`app.ddog-gov.com`）/ `us2.ddog-gov.com` |
 |---|---|---|
 | Error Tracking 本体・API | 利用可（API はすべてのサイトのエンドポイントを掲載） | API エンドポイントは掲載あり |
 | Exception Replay | 利用可 | **利用不可** |
 | Bits Investigation | Preview | **非対応** |
 | Jira / Linear 連携 | 利用可 | **非対応** |
+
+> **サイト差異:** UK1（`uk1.datadoghq.com`）は Bits Investigation の Preview 対象サイトと API エンドポイントの一覧に明記されている。Exception Replay・Jira 連携のページは非対応サイトとして `app.ddog-gov.com`・`us2.ddog-gov.com` だけを挙げ、UK1 には言及していない。このため上表では UK1 を商用サイト側に含めたが、UK1 で利用できると明記されているのは Bits Investigation と API だけである（2026-11-04 確認）。[出典](https://docs.datadoghq.com/error_tracking/bits_investigation/) / [出典](https://docs.datadoghq.com/error_tracking/backend/exception_replay/) / [出典](https://docs.datadoghq.com/error_tracking/ticketing_systems/jira/)
 
 > **サイト差異:** 公式料金ページの FAQ は「Error Tracking は EU および US でホストされるすべてのアカウントで利用可能」と記載しており、AP1・AP2 には明示的に言及していない（2026-11-02 取得）。一方でドキュメントでは AP1・AP2 の API エンドポイントや Bits Investigation の Preview 対象サイトとして AP1・AP2 が明記されている。AP1 での Standalone 契約可否や価格差は公開情報では確認できず、契約時に営業へ確認することを推奨する。[出典](https://www.datadoghq.com/pricing/?product=error-tracking) / [出典](https://docs.datadoghq.com/api/latest/error-tracking/) / [出典](https://docs.datadoghq.com/error_tracking/bits_investigation/)
 
@@ -942,7 +967,7 @@ APM 運用全体の実践は [APM 運用の実践](../../04_応用編/apm-practi
 - [RUM（ブラウザ）](../dem/rum-browser.md) / [RUM（モバイル）](../dem/rum-mobile.md) / [Session Replay と Product Analytics](../dem/session-replay-and-product-analytics.md)
 - [ログ収集](../logs/log-collection.md) / [Log Pipelines と処理](../logs/log-pipelines-and-processing.md) / [Indexes・保持・アーカイブ](../logs/log-indexes-retention-archives.md)
 - [Monitors（モニター）](../platform/monitors.md) / [Software Catalog（旧 Service Catalog）](../platform/software-catalog.md) / [Tagging（タグ）](../platform/tagging.md)
-- [Case Management](../service-management/case-management.md) / [Bits AI と AI 機能](../ai/bits-ai.md)
+- [Work Management（旧称：Case Management）](../service-management/case-management.md) / [Bits AI と AI 機能](../ai/bits-ai.md)
 - [製品別料金表](../../03_導入編/pricing-by-product.md) / [課金計算の仕組み](../../03_導入編/billing-mechanics.md) / [他製品からの移行](../../03_導入編/migration-from-other-tools.md)
 
 ## 参照元

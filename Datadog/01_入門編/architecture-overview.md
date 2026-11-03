@@ -33,7 +33,10 @@ sources:
   - https://docs.datadoghq.com/remote_configuration/
   - https://docs.datadoghq.com/data_security/data_retention_periods/
   - https://docs.datadoghq.com/monitors/
+  - https://docs.datadoghq.com/synthetics/
   - https://docs.datadoghq.com/api/latest/
+  - https://docs.datadoghq.com/api/latest/logs/
+  - https://www.datadoghq.com/product-preview/ddot-for-linux-based-hosts-or-vms
   - https://www.datadoghq.com/blog/engineering/introducing-husky/
   - https://www.datadoghq.com/blog/engineering/husky-deep-dive/
   - https://www.datadoghq.com/blog/engineering/husky-query-architecture/
@@ -49,7 +52,7 @@ Datadog は **SaaS 型のオブザーバビリティ／セキュリティプラ�
 2. **クラウド連携（Agentless）層**：AWS／Azure／Google Cloud 等のクラウド API を Datadog 側から呼び出してメトリクス・リソース情報を取得する経路、およびクラウドのログ転送機能から Datadog へ送る経路。Agent を置かずに収集できる。
 3. **Datadog SaaS バックエンド（Datadog Site）**：顧客が選んだ **Datadog Site（サイト／リージョン）** 上にある Intake（取り込み口）、処理（パイプライン、サンプリング、インデックス）、保存（時系列ストア、イベントストア）、可視化（Dashboards、Explorer 群）、アラート（Monitors、Watchdog）、自動化（Workflow Automation、Incident Management 等）。
 
-Datadog のデータフローは **収集 → 送信（Intake）→ 処理 → 保存 → 可視化 → アラート／アクション** という一方向の流れで、**通信は常に顧客環境側から Datadog へ向けて開始される**（Datadog から Agent へセッションを張ることはない）。設定の配布（Remote Configuration）も、Agent 側が Datadog をポーリングして取りに行くプル型である。[出典](https://docs.datadoghq.com/agent/configuration/network/) [出典](https://docs.datadoghq.com/remote_configuration/)
+Datadog のデータフローは **収集 → 送信（Intake）→ 処理 → 保存 → 可視化 → アラート／アクション** という一方向の流れで、**Agent・SDK・Private Location などの収集コンポーネントからの通信は常に顧客環境側から Datadog へ向けて開始される**（Datadog から Agent へセッションを張ることはない）。ただし例外として、マネージドロケーションからの Synthetic テストや Webhook 通知は Datadog 側から顧客の公開エンドポイントへ開始される接続であり、クラウド API 連携や SaaS インテグレーション（クローラー型）も Datadog 側から各サービスの API を呼び出す（§6・§11 参照）[出典](https://docs.datadoghq.com/synthetics/)。設定の配布（Remote Configuration）も、Agent 側が Datadog をポーリングして取りに行くプル型である。[出典](https://docs.datadoghq.com/agent/configuration/network/) [出典](https://docs.datadoghq.com/remote_configuration/)
 
 本ファイルは「全体像」を示す入門編であり、各要素の詳細仕様はリファレンス編の該当ファイルへリンクする。Datadog の製品概要は [Datadogとは](./what-is-datadog.md)、製品群の全体像は [製品ポートフォリオ全体像](./product-map.md)、タグ・サービスなどの必須概念は [必須概念](./core-concepts.md) を参照。
 
@@ -132,7 +135,7 @@ Datadog アーキテクチャを構成する主要コンポーネントを、配
 | 収集（Agentless） | クラウド連携（AWS / Azure / Google Cloud 等） | Datadog 側からクラウド API を呼ぶ | クラウドのメトリクス、リソース情報、ログの取り込み | [AWS](../02_リファレンス/platform/aws-integration.md)、[Azure](../02_リファレンス/platform/azure-integration.md)、[Google Cloud](../02_リファレンス/platform/gcp-integration.md) |
 | 収集（Agentless） | Agentless Scanning | 顧客クラウドアカウント内の専用 VM | ディスクスナップショットから SBOM を生成し脆弱性を検出 | [Cloud Security](../02_リファレンス/security/cloud-security.md) |
 | 送信先 | Intake（インテーク） | Datadog Site | 製品・データ種別ごとの受付エンドポイント | [ネットワーク・接続要件](../03_導入編/network-and-connectivity.md) |
-| バックエンド | 処理・保存・可視化・アラート | Datadog Site | パイプライン処理、インデックス、ストレージ、UI、モニター評価 | 本ファイル §6〜§9 |
+| バックエンド | 処理・保存・可視化・アラート | Datadog Site | パイプライン処理、インデックス、ストレージ、UI、モニター評価 | 本ファイル §8〜§11 |
 | 制御 | Remote Configuration / Fleet Automation | Datadog Site ↔ Agent（プル型） | Agent・トレーサー等への設定配布、Agent の一元管理 | [Fleet Automation と Remote Configuration](../02_リファレンス/platform/fleet-automation.md) |
 | 制御 | API / Terraform | Datadog Site | 設定・データの読み書き、IaC | [API とキー管理](../02_リファレンス/platform/api-and-keys.md)、[Terraform と IaC](../02_リファレンス/platform/terraform-and-iac.md) |
 
@@ -241,7 +244,7 @@ Agent はローカルホスト上でいくつかのポートを待ち受け、�
 |---|---|---|---|
 | 外向き | 443/TCP | メトリクス、APM、コンテナ、ライブプロセス、CNM、USM、ログ（HTTPS）等ほぼすべて | 「ほとんどの Agent データは 443 を使う」 |
 | 外向き | 123/UDP | NTP | |
-| 外向き | 10516/TCP | ログの TCP 送信（US） | TCP ログ送信は非推奨・サポート対象外 |
+| 外向き | 10516/TCP | ログの TCP 送信（US。EU は 443） | ただし TCP ログ送信は US1 を含む全商用サイト（および FED サイト）でサポート対象外。値は Log Transport ページによる（Network Traffic ページには記載なし） |
 | 外向き | 8042/TCP | Remote Configuration の接続性テスト（生の TLS 接続） | 顧客データは含まず、ブロックしても機能に影響しない |
 | 外向き | 8443/TCP | Custom Agent Autoscaling | US1・EU1 の表にのみ記載 |
 | 内向き（ローカル） | 5000/TCP | `go_expvar` サーバー（Agent ランタイムメトリクス） | `expvar_port` |
@@ -336,7 +339,7 @@ DDOT Collector（Datadog Distribution of OpenTelemetry Collector）は、Datadog
 
 [出典](https://docs.datadoghq.com/opentelemetry/setup/ddot_collector/) [出典](https://www.datadoghq.com/product-preview/ddot-for-linux-based-hosts-or-vms)
 
-![DDOT Collector の構成図](../../assets/images/architecture-overview/otel-ddot-collector.png)
+![DDOT Collector の構成図](../assets/images/architecture-overview/otel-ddot-collector.png)
 
 **キャプション:** DDOT Collector（Datadog Agent に組み込まれた OTel Collector）の構成図。
 
@@ -414,7 +417,7 @@ Datadog は Agent を置かずにデータを取り込む経路も多数持つ�
 
 ### 7.1 Intake の基本原則
 
-- **通信方向:** 「トラフィックは常に Agent から Datadog へ開始され、Datadog から Agent へセッションが開始されることはない」。そのため顧客環境側のファイアウォールで受信ポートを開ける必要はない（OTLP や DogStatsD をホスト外から受ける場合の内部通信を除く）。
+- **通信方向:** 「トラフィックは常に Agent から Datadog へ開始され、Datadog から Agent へセッションが開始されることはない」。そのため Agent の通信のために顧客環境側のファイアウォールで受信ポートを開ける必要はない（OTLP や DogStatsD をホスト外から受ける場合の内部通信を除く）。なお、マネージドロケーションからの Synthetic テストや Webhook 通知は Datadog 側から顧客の公開エンドポイントへ開始される接続のため、これらを使う場合は対象エンドポイント側で Datadog からの着信を許可する必要がある（§6.3・§11）。
 - **プロトコル:** ほぼすべて HTTPS（443/TCP）。
 - **エンドポイントは製品・データ種別ごとに分かれる。** プロキシや許可リストを設計する際は、使う製品のホスト名をすべて許可する必要がある。
 - **IP レンジ:** `https://ip-ranges.<サイト>` で製品別 JSON（`/apm.json`、`/logs.json` 等）が公開され、時間とともに変わるため全レンジの許可が推奨される。
@@ -491,7 +494,7 @@ Datadog の大きな設計上の特徴は、**取り込み（Ingest）と、検�
 
 [出典](https://docs.datadoghq.com/logs/) [出典](https://docs.datadoghq.com/metrics/) [出典](https://docs.datadoghq.com/tracing/trace_pipeline/) [出典](https://docs.datadoghq.com/tracing/trace_pipeline/ingestion_mechanisms/)
 
-![Logging without Limits の全体像](../../assets/images/architecture-overview/logs-marketecture.png)
+![Logging without Limits の全体像](../assets/images/architecture-overview/logs-marketecture.png)
 
 **キャプション:** Log Management の「Logging without Limits」全体図。
 
@@ -499,7 +502,7 @@ Datadog の大きな設計上の特徴は、**取り込み（Ingest）と、検�
 
 **出典:** https://docs.datadoghq.com/logs/ （画像取得日：2026-11-02）
 
-![APM のトレースパイプライン](../../assets/images/architecture-overview/apm-trace-pipeline.png)
+![APM のトレースパイプライン](../assets/images/architecture-overview/apm-trace-pipeline.png)
 
 **キャプション:** APM のトレースパイプライン（取り込みから保持まで）。
 
@@ -518,7 +521,7 @@ Observability Pipelines は、ログを Datadog に送る**前に**顧客環境�
 
 [出典](https://docs.datadoghq.com/observability_pipelines/) [出典](https://docs.datadoghq.com/remote_configuration/)
 
-![Observability Pipelines の全体像](../../assets/images/architecture-overview/observability-pipelines.png)
+![Observability Pipelines の全体像](../assets/images/architecture-overview/observability-pipelines.png)
 
 **キャプション:** Datadog Observability Pipelines のアーキテクチャ図（Collect, optimize, and route logs）。
 
@@ -604,7 +607,7 @@ flowchart LR
   MON --> INC["Incident Management"]
   MON --> ONC["On-Call"]
   MON --> WF["Workflow Automation"]
-  SIG --> CASE["Case Management"]
+  SIG --> CASE["Work Management<br/>（旧称：Case Management）"]
   DT["Downtime"] -.->|通知抑止| NOTIF
 ```
 
@@ -615,7 +618,7 @@ flowchart LR
 | Watchdog | 機械学習による自動異常検知 | [Watchdog](../02_リファレンス/platform/watchdog.md) |
 | SLO | サービスレベル目標と Error Budget の追跡 | [SLO](../02_リファレンス/platform/slo.md) |
 | Event Management | イベントの集約・相関 | [Event Management](../02_リファレンス/platform/event-management.md) |
-| Incident Management / On-Call / Case Management | インシデント対応、当番呼び出し、ケース管理 | [Incident Management](../02_リファレンス/service-management/incident-management.md)、[On-Call](../02_リファレンス/service-management/on-call.md)、[Case Management](../02_リファレンス/service-management/case-management.md) |
+| Incident Management / On-Call / Work Management（旧称：Case Management） | インシデント対応、当番呼び出し、ケース（Work Item）管理 | [Incident Management](../02_リファレンス/service-management/incident-management.md)、[On-Call](../02_リファレンス/service-management/on-call.md)、[Case Management](../02_リファレンス/service-management/case-management.md) |
 | Workflow Automation / App Builder | 自動修復・ランブック自動化、内部ツール作成 | [Workflow Automation](../02_リファレンス/service-management/workflow-automation.md)、[App Builder](../02_リファレンス/service-management/app-builder.md) |
 
 [出典](https://docs.datadoghq.com/monitors/)
@@ -639,7 +642,7 @@ flowchart LR
 
 [出典](https://docs.datadoghq.com/remote_configuration/)
 
-![Remote Configuration の仕組み](../../assets/images/architecture-overview/remote-config-diagram.png)
+![Remote Configuration の仕組み](../assets/images/architecture-overview/remote-config-diagram.png)
 
 **キャプション:** Remote Configuration の動作を示す図。
 
@@ -777,7 +780,7 @@ Datadog 導入時にアーキテクチャ観点で最初に決めるべき事項
 A. Datadog のバックエンドは SaaS（Datadog Site）で提供される。顧客環境で動くのは Agent・SDK・Observability Pipelines Worker・Private Location 等の収集／前処理コンポーネントである。バックエンド自体のセルフホスト版は公開情報では確認できず。[出典](https://docs.datadoghq.com/getting_started/site/)
 
 **Q. ファイアウォールで受信ポートを開ける必要はあるか？**
-A. Datadog への送信は顧客側から開始される外向き HTTPS のため、Datadog からの着信用ポートは不要。ただし DogStatsD（8125）や APM（8126）、OTLP（4317/4318）をホスト外のアプリから Agent に送る場合は、顧客環境内部でそのポートの通信を許可する。[出典](https://docs.datadoghq.com/agent/configuration/network/)
+A. Agent から Datadog への送信は顧客側から開始される外向き HTTPS のため、Agent のために Datadog からの着信用ポートを開ける必要はない。ただし、マネージドロケーションからの Synthetic テストや Webhook 通知は Datadog 側から顧客の公開エンドポイントへ開始されるため、それらの対象エンドポイントでは Datadog からの着信を許可する必要がある。また DogStatsD（8125）や APM（8126）、OTLP（4317/4318）をホスト外のアプリから Agent に送る場合は、顧客環境内部でそのポートの通信を許可する。[出典](https://docs.datadoghq.com/agent/configuration/network/)
 
 **Q. Agent が Datadog に到達できない間のデータはどうなるか？**
 A. メトリクスはメモリ上の再送キューに保持され、上限を超えると破棄される。Agent v7.27.0 以降はディスクバッファを有効化できる。ログ・トレースの到達不能時の詳細挙動は本ファイルで参照した公開情報では確認できず、[Datadog Agent](../02_リファレンス/platform/agent.md) を参照。[出典](https://docs.datadoghq.com/agent/configuration/network/)

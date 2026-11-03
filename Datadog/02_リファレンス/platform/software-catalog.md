@@ -250,7 +250,7 @@ Datadog は 4 つのスキーマバージョンをサポートしている。新
 - v1 は 2026-11 時点のサポート対象に含まれていない。ただし v3 移行ツールは v1 からの変換に対応している。[出典](https://docs.datadoghq.com/internal_developer_portal/catalog/entity_model/v3_migration/)
 - JSON Schema は GitHub の [DataDog/schema](https://github.com/DataDog/schema/tree/main/service-catalog)（`service-catalog/v2`、`v2.1`、`v2.2`、`v3`）で公開されている。SchemaStore にも登録されているため、対応 IDE（VS Code など）では補完と検証が効く。[出典](https://docs.datadoghq.com/internal_developer_portal/catalog/entity_model/)
 
-> **サイト差異:** Entity Model schema v3.0 は、`app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com` では**サポートされていない**。これらのサイトでは v2.2 以前を使う。[出典](https://docs.datadoghq.com/internal_developer_portal/catalog/entity_model/)
+> **サイト差異:** Entity Model schema v3.0 は、`app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com`（US2-FED）では**サポートされていない**。これらのサイトでは v2.2 以前を使う。[出典](https://docs.datadoghq.com/internal_developer_portal/catalog/entity_model/)
 
 ### ファイル名と配置
 
@@ -433,7 +433,7 @@ spec:
 | 方式 | 条件と動作 |
 |---|---|
 | 明示的な継承 | `inheritFrom: <entity_kind>:<name>` を書くと、参照先エンティティのメタデータを継承する |
-| 暗黙的な継承 | `kind:service`、`kind:datastore`、`kind:queue`、`kind:ui` のコンポーネントは、(1) YAML ファイル内に定義された system が 1 つだけで、(2) `inheritFrom` が書かれていない場合に、その system のメタデータをすべて継承する |
+| 暗黙的な継承 | `kind:service`、`kind:datastore`、`kind:queue`、`kind:ui` のコンポーネントは、(1) YAML ファイル内に定義された system が 1 つだけで、(2) `inheritFrom` が書かれていない場合に、その system のメタデータをすべて継承する（公式ドキュメントの表記は `kind:ui`。ネイティブエンティティの一覧に `ui` はなく、`frontend` を指すかどうかは公開情報では確認できず） |
 
 1 つのコンポーネントが複数の system に属する場合は、system ごとの YAML にそのコンポーネントを書く必要がある。[出典](https://docs.datadoghq.com/internal_developer_portal/catalog/entity_model/)
 
@@ -702,7 +702,7 @@ Software Catalog のエンティティに Datadog Teams をオーナーとして
 - **Team hierarchies（チーム階層）**：チームを入れ子（サブチーム）にでき、IDP の Teams map で可視化できる。親チームを選ぶとサブチームのデータもまとめて絞り込める（ロールアップ）。設定方法は GitHub Teams の階層同期、ServiceNow の親グループ同期、Teams API、Terraform（`datadog_team_hierarchy_links`）、Datadog UI の 5 通り。[出典](https://docs.datadoghq.com/account_management/teams/manage/)
 - **チームフィルターの操作**：チームをクリックすると、そのチームと配下のサブチームがすべて選択される。Shift+クリックすると「チーム単体」または「サブチームのみ」を選べる。フィルターの固定（pin）はブラウザに保存され、Datadog アカウントには保存されない。[出典](https://docs.datadoghq.com/account_management/teams/)
 
-> **サイト差異:** Team hierarchies は `app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com` ではサポートされていない。[出典](https://docs.datadoghq.com/account_management/teams/manage/)
+> **サイト差異:** Team hierarchies は `app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com`（US2-FED）ではサポートされていない。[出典](https://docs.datadoghq.com/account_management/teams/manage/)
 
 ### オーナーシップのベストプラクティス（公式推奨）
 
@@ -728,7 +728,7 @@ Scorecards は、Software Catalog のエンティティを、組織が定めた�
 
 **出典：** https://docs.datadoghq.com/internal_developer_portal/scorecards/ （取得日 2026-11-02）
 
-> **サイト差異:** Scorecards（カスタムルールや Scorecard レポートを含む）は `app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com` ではサポートされていない。[出典](https://docs.datadoghq.com/internal_developer_portal/scorecards/)
+> **サイト差異:** Scorecards（カスタムルールや Scorecard レポートを含む）は `app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com`（US2-FED）ではサポートされていない。[出典](https://docs.datadoghq.com/internal_developer_portal/scorecards/)
 
 ### 既定の Scorecard とルール（OOTB ルール 10 個）
 
@@ -842,7 +842,7 @@ Campaigns は、移行やセキュリティ対応などの**期限付き**のエ
 
 [出典](https://docs.datadoghq.com/internal_developer_portal/campaigns/)、[出典](https://docs.datadoghq.com/api/latest/scorecards/)
 
-> **サイト差異:** Campaigns は `app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com` ではサポートされていない。[出典](https://docs.datadoghq.com/internal_developer_portal/campaigns/)
+> **サイト差異:** Campaigns は `app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com`（US2-FED）ではサポートされていない。[出典](https://docs.datadoghq.com/internal_developer_portal/campaigns/)
 
 ---
 
@@ -858,7 +858,7 @@ Self-Service Actions は、プラットフォームチームが定義したテ�
 
 **出典：** https://docs.datadoghq.com/internal_developer_portal/self_service_actions/ （取得日 2026-11-02）
 
-> **サイト差異:** Self-Service Actions と Software Templates は `app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com` ではサポートされていない。[出典](https://docs.datadoghq.com/internal_developer_portal/self_service_actions/)
+> **サイト差異:** Self-Service Actions と Software Templates は `app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com`（US2-FED）ではサポートされていない。[出典](https://docs.datadoghq.com/internal_developer_portal/self_service_actions/)
 
 ### 用途
 
@@ -991,7 +991,7 @@ Software Catalog の [Endpoints リスト](https://app.datadoghq.com/services?se
 
 [出典](https://docs.datadoghq.com/internal_developer_portal/catalog/troubleshooting/)、[出典](https://docs.datadoghq.com/internal_developer_portal/catalog/entity_model/native_entities/)
 
-> **サイト差異:** Endpoint Observability、Engineering Reports、Homepage、Overview Pages、External Provider Status は、いずれも `app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com` ではサポートされていない。[出典](https://docs.datadoghq.com/internal_developer_portal/catalog/endpoints/)、[出典](https://docs.datadoghq.com/internal_developer_portal/eng_reports/)、[出典](https://docs.datadoghq.com/internal_developer_portal/developer_homepage/)、[出典](https://docs.datadoghq.com/internal_developer_portal/overview_pages/)、[出典](https://docs.datadoghq.com/internal_developer_portal/external_provider_status/)
+> **サイト差異:** Endpoint Observability、Engineering Reports、Homepage、Overview Pages、External Provider Status は、いずれも `app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com`（US2-FED）ではサポートされていない。[出典](https://docs.datadoghq.com/internal_developer_portal/catalog/endpoints/)、[出典](https://docs.datadoghq.com/internal_developer_portal/eng_reports/)、[出典](https://docs.datadoghq.com/internal_developer_portal/developer_homepage/)、[出典](https://docs.datadoghq.com/internal_developer_portal/overview_pages/)、[出典](https://docs.datadoghq.com/internal_developer_portal/external_provider_status/)
 
 ---
 
@@ -1007,7 +1007,7 @@ Software Catalog の [Endpoints リスト](https://app.datadoghq.com/services?se
 | GitHub / GitLab | 定義ファイルの取り込み、Homepage の PR / MR 表示、Self-Service のアクション | インテグレーションタイルで設定 |
 | Slack / Microsoft Teams / Jira / Asana / LaunchDarkly / StatusPage / Freshservice / CircleCI / Jenkins / Azure DevOps | Action Catalog のアクションとして使う | － |
 
-> **サイト差異:** IDP の PagerDuty 連携と Opsgenie 連携は、`app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com` ではサポートされていない。[出典](https://docs.datadoghq.com/internal_developer_portal/integrations/)
+> **サイト差異:** IDP の PagerDuty 連携と Opsgenie 連携は、`app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com`（US2-FED）ではサポートされていない。[出典](https://docs.datadoghq.com/internal_developer_portal/integrations/)
 
 **PagerDuty / Opsgenie の書き方はスキーマのバージョンで異なる。** IDP Integrations ページの設定例は旧形式（PagerDuty は `pagerduty: <URL>`、Opsgenie は `service-url`）で書かれている。使うスキーマに合わせて、次のように書き分ける。[出典](https://docs.datadoghq.com/internal_developer_portal/integrations/)、[出典](https://github.com/DataDog/schema/tree/main/service-catalog)
 
@@ -1111,7 +1111,7 @@ Campaign 作成時（`POST /api/v2/scorecard/campaigns`）の属性：
 
 | 項目 | 値 | 出典 |
 |---|---|---|
-| スキーマバージョン | v2.0、v2.1、v2.2、v3.0（v3.0 は US1-FED / us2.ddog-gov.com では非対応） | [出典](https://docs.datadoghq.com/internal_developer_portal/catalog/entity_model/) |
+| スキーマバージョン | v2.0、v2.1、v2.2、v3.0（v3.0 は US1-FED / US2-FED では非対応） | [出典](https://docs.datadoghq.com/internal_developer_portal/catalog/entity_model/) |
 | 定義ファイル名 | `service.datadog.yaml`、`entity.datadog.yaml`、`catalog-info.yaml`（Backstage） | [出典](https://docs.datadoghq.com/internal_developer_portal/catalog/set_up/create_entities/) |
 | 1 ファイルあたりの定義数 | `---` 区切りで複数可。上限は公開情報では確認できず | 同上 |
 | `metadata.name` | 必須、1 文字以上。テレメトリの識別子と完全一致したときに相関する | [出典](https://github.com/DataDog/schema/blob/main/service-catalog/v3/metadata.schema.json) |
@@ -1151,7 +1151,7 @@ Campaign 作成時（`POST /api/v2/scorecard/campaigns`）の属性：
 
 ## サイト差異のまとめ
 
-| 機能 | US1 / US3 / US5 / EU1 / AP1 / AP2（UK1 を含む） | US1-FED（`app.ddog-gov.com`）/ `us2.ddog-gov.com` |
+| 機能 | US1 / US3 / US5 / EU1 / AP1 / AP2 / UK1 | US1-FED（`app.ddog-gov.com`）/ US2-FED（`us2.ddog-gov.com`） |
 |---|---|---|
 | Software Catalog（schema v2.x） | ○ | ○ |
 | Entity Model schema v3.0 | ○ | × |

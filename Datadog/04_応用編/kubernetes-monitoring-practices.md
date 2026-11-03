@@ -115,7 +115,7 @@ Datadog は新規導入では **Datadog Operator を推奨**しており、Opera
 | 既存の Helm ベース GitOps 資産が大きい | 移行コストを評価 | ○（移行手順は [リファレンス §3.4](../02_リファレンス/platform/kubernetes-and-containers-agent.md#34-helm-から-operator-への移行)） |
 
 - APM の Single Step Instrumentation（SSI）は Agent と同じ Namespace の Pod を計装しないため、**Agent は専用 Namespace（例: `datadog`）に置く**。[出典](https://docs.datadoghq.com/containers/kubernetes/installation/)
-- 手動 DaemonSet マニフェストはサポートされるが非推奨。
+- 公式は Operator を推奨（recommended）としており、手動 DaemonSet マニフェストは 3 つのインストール方式の 1 つとして載っている（明示的な非推奨表記はない）。[出典](https://docs.datadoghq.com/containers/kubernetes/installation/)
 
 ### 1.3 段階的な有効化の進め方
 
@@ -208,7 +208,7 @@ Node Agent が載っていないノードは「監視されていないノード
 
 ノードのサイズ（例: 4 vCPU と 64 vCPU）やワークロード密度が大きく異なるクラスターでは、全ノード一律の Agent リソースでは過不足が出る【経験則】。
 
-- Operator の `DatadogAgentProfile`（DAP）は `profileAffinity`（ノードセレクター）で対象ノードを選び、Agent の設定・リソースを上書きする。DAP ごとに専用 DaemonSet が作られ、複数 DAP は異なるノードサブセットを対象にする必要がある。Operator v1.5.0 以降、既定は無効。GKE Autopilot などノードのパッチを禁止する環境では使えない。[出典](https://docs.datadoghq.com/containers/datadog_operator/datadog_agent_profiles/)
+- Operator の `DatadogAgentProfile`（DAP）は `profileAffinity`（ノードセレクター）で対象ノードを選び、Agent の設定・リソースを上書きする。DAP ごとに専用 DaemonSet が作られ、複数 DAP は異なるノードサブセットを対象にする必要がある。DAP は Operator v1.5.0 で導入され、v1.24.0 で GA になった。既定は無効。GKE Autopilot などノードのパッチを禁止する環境では使えない。[出典](https://docs.datadoghq.com/containers/datadog_operator/datadog_agent_profiles/)
 - Helm で同じことをする場合は、`nodeSelector`/`affinity` を変えた複数リリースを作ることになり、RBAC や Cluster Agent の重複に注意が必要【経験則】。
 
 ### 2.7 機能有効化の判断表
@@ -300,9 +300,9 @@ Agent の異常は「データが来ない」という形でしか見えない�
 
 ### 3.5 アプリケーション側のリソース設計（Resource Utilization の活用）
 
-Agent ではなくワークロード側の requests / limits の見直しには、Kubernetes Resource Utilization 画面を使う。Agent v7.45.0 以降が要件で、直近の値だけでなく長めの期間を見て判断することが推奨されている。[出典](https://docs.datadoghq.com/containers/monitoring/kubernetes_resource_utilization/)
+Agent ではなくワークロード側の requests / limits の見直しには、Kubernetes Resource Utilization 画面を使う。Agent v7.45.0 以降と Kubernetes Explorer の有効化が要件で、直近の値だけでなく長めの期間を見て判断することが推奨されている。[出典](https://docs.datadoghq.com/containers/monitoring/kubernetes_resource_utilization/)
 
-![Kubernetes Resource Utilization 画面](../../assets/images/kubernetes-monitoring-practices/kubernetes-resource-utilization.png)
+![Kubernetes Resource Utilization 画面](../assets/images/kubernetes-monitoring-practices/kubernetes-resource-utilization.png)
 
 **キャプション:** Kubernetes Resource Utilization 画面（Pod グループ単位の CPU 使用量と requests / limits の比較）。
 
@@ -524,7 +524,7 @@ metadata:
 ### 6.5 ログローテーションと tail 上限
 
 - Kubernetes のコンテナログは kubelet がローテーションする。ローテーションが速すぎる（小さい `containerLogMaxSize` と高いログ出力レート）と、Agent が追いつく前に古いファイルが削除され、ログが欠ける可能性がある【経験則】。kubelet 側の設定値はディストリビューションにより異なるため、各クラウドのドキュメントで確認する。
-- Agent が同時に tail できるファイル数は `logs_config.open_files_limit`（コンテナ環境では `DD_LOGS_CONFIG_OPEN_FILES_LIMIT`）で制御され、ドキュメント上の既定は 500（Agent バージョン・OS で異なる場合がある）。上げると Agent のリソース消費が増え得る。[出典](https://docs.datadoghq.com/logs/guide/increase-number-of-log-files-tailed/)
+- Agent が同時に tail できるファイル数は `logs_config.open_files_limit`（コンテナ環境では `DD_LOGS_CONFIG_OPEN_FILES_LIMIT`）で制御され、既定は 500（macOS は 200。バージョンにより異なる）。[出典](https://github.com/DataDog/datadog-agent/blob/main/pkg/config/example/datadog-agent_linux.yaml.example) 上げると Agent のリソース消費が増え得る。[出典](https://docs.datadoghq.com/logs/guide/increase-number-of-log-files-tailed/)
 - 1 ノードに数百 Pod を詰め込むノードでは、ログの tail 数が上限に近づいていないか `agent status` の Logs Agent 節で確認する【経験則】。
 
 ---
@@ -593,7 +593,7 @@ Datadog 上でクラスターを識別する基本は `clusterName`（Operator `
 
 | 規則 | 内容 | 出典 |
 |---|---|---|
-| 文字種 | 小文字英字・数字・ドット・ハイフン・アンダースコアのみ。英数字で始まり英数字で終わる。末尾ピリオドなしの FQDN 風 | [Cluster Name Detection](https://docs.datadoghq.com/containers/guide/kubernetes-cluster-name-detection/) |
+| 文字種 | 小文字英字・数字・ドット・ハイフン・アンダースコアのみ。英数字で始まり英数字で終わる。末尾ピリオドなしの FQDN 風。ただし Installation / Configuration ページでは小文字英字・数字・ハイフンのみ、英字で始まり英数字で終わると記載されており、公式内で不一致がある。安全側では英字始まり・小文字英数字とハイフンのみにする【経験則】 | [Cluster Name Detection](https://docs.datadoghq.com/containers/guide/kubernetes-cluster-name-detection/)、[Installation](https://docs.datadoghq.com/containers/kubernetes/installation/)、[Configuration](https://docs.datadoghq.com/containers/kubernetes/configuration/) |
 | 一意性 | 一意にする | 同上 |
 | 長さ | 80 文字（Configuration ページの `DD_CLUSTER_NAME` の説明では 40 文字。公式内で不一致のため 40 文字以内に収めるのが安全【経験則】） | [リファレンス §3.7](../02_リファレンス/platform/kubernetes-and-containers-agent.md#37-クラスター名clustername-の規則) |
 | 自動検出 | GKE（メタデータサーバー）、AKS（リソースグループ名から解析）、EKS（EC2 タグ `kubernetes.io/cluster/<NAME>: owned`。`ec2:DescribeTags` 権限が必要、EKS Pod Identity は非対応） | [Cluster Name Detection](https://docs.datadoghq.com/containers/guide/kubernetes-cluster-name-detection/) |
@@ -631,7 +631,7 @@ Datadog 上でクラスターを識別する基本は `clusterName`（Operator `
 
 | 論点 | 内容 | 出典 |
 |---|---|---|
-| Fleet Automation のリモートアップグレード | コンテナ化されたワークロードの Agent のリモートアップグレードはサポートされない（対象は Linux / Windows の VM、Agent 7.66 以降、Remote Configuration が前提）。Kubernetes の Agent は Operator / Helm でバージョンを上げる | [Upgrade Agents](https://docs.datadoghq.com/agent/fleet_automation/upgrade_agents/) |
+| Fleet Automation のリモートアップグレード | コンテナ化されたワークロードの Agent のリモートアップグレードはサポートされない（対象は Linux / Windows の VM（Agent は Linux 7.69.0 以降、Windows 7.71.1 以降）。Remote Configuration と、対象 Agent での `remote_updates: true` が前提）。Kubernetes の Agent は Operator / Helm でバージョンを上げる | [Upgrade Agents](https://docs.datadoghq.com/agent/fleet_automation/upgrade_agents/) |
 | Kubernetes と Agent の最低バージョン | Kubernetes 1.33 以降は Agent / Cluster Agent 7.67.0 以降が必要など、K8s のアップグレード時に Agent の最低版が上がる | [リファレンス §2.1](../02_リファレンス/platform/kubernetes-and-containers-agent.md#21-kubernetes-と-agent-の最低バージョン) |
 | Node Agent と Cluster Agent の揃え | 同じバージョンに揃えることが推奨 | [Installation](https://docs.datadoghq.com/containers/kubernetes/installation/) |
 | chart 既定タグとのずれ | chart の既定イメージタグは最新 Agent より遅れることがある。バージョンは `agents.image.tag` 等で明示的に固定する | [リファレンス §2.2](../02_リファレンス/platform/kubernetes-and-containers-agent.md#22-2026-11-02-時点の最新リリース) |
@@ -759,7 +759,7 @@ Datadog 上でクラスターを識別する基本は `clusterName`（Operator `
 | `containerCollectAll` | `false` | [Kubernetes Log Collection](https://docs.datadoghq.com/containers/kubernetes/log/) |
 | `containerCollectUsingFiles`（Helm 既定） | `true` | [values.yaml](https://github.com/DataDog/helm-charts/blob/main/charts/datadog/values.yaml) |
 | `autoMultiLineDetection`（Helm 既定） | `true` | 同上 |
-| 同時 tail ファイル数 `open_files_limit` | 500（バージョン・OS により異なる場合あり） | [Increase the Number of Log Files Tailed](https://docs.datadoghq.com/logs/guide/increase-number-of-log-files-tailed/) |
+| 同時 tail ファイル数 `open_files_limit` | 500（macOS は 200。バージョンにより異なる） | [datadog-agent 設定例（Linux）](https://github.com/DataDog/datadog-agent/blob/main/pkg/config/example/datadog-agent_linux.yaml.example)、[リファレンス](../02_リファレンス/logs/log-collection.md#同時オープンファイル数とワイルドカード選択) |
 | 新規コンテナの走査間隔（ログ） | 約 5 秒 | [Log Collection Troubleshooting](https://docs.datadoghq.com/containers/troubleshooting/log-collection/) |
 | `DD_LOGS_CONFIG_TAGGER_WARMUP_DURATION` | 0 秒 | 同上 |
 | Job の `ttlSecondsAfterFinished` 推奨 | 15 秒以上 | 同上 |
@@ -840,6 +840,7 @@ Kubernetes 監視の設計判断は次の課金単位に直結する。以下の
 - Datadog ブログ「Datadog Cluster Agent」: https://www.datadoghq.com/blog/datadog-cluster-agent/ （2018 公開）
 - Datadog on Kubernetes Monitoring（Datadog on 講演）: https://datadogon.datadoghq.com/talks/datadog-on-kubernetes-monitoring/ （2020-11-16）
 - Helm chart `datadog` values.yaml（chart 3.264.0）: https://github.com/DataDog/helm-charts/blob/main/charts/datadog/values.yaml
+- datadog-agent 設定例（Linux、`open_files_limit` の既定値）: https://github.com/DataDog/datadog-agent/blob/main/pkg/config/example/datadog-agent_linux.yaml.example （取得日 2026-11-04）
 - KSM Core metadata.csv: https://github.com/DataDog/integrations-core/blob/master/kubernetes_state_core/metadata.csv
 - Kubelet metadata.csv: https://github.com/DataDog/integrations-core/blob/master/kubelet/metadata.csv
 

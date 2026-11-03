@@ -12,6 +12,7 @@ sources:
   - https://docs.datadoghq.com/administrators_guide/plan/
   - https://docs.datadoghq.com/administrators_guide/build/
   - https://docs.datadoghq.com/administrators_guide/run/
+  - https://docs.datadoghq.com/getting_started/site/
   - https://docs.datadoghq.com/getting_started/tagging/unified_service_tagging/
   - https://docs.datadoghq.com/account_management/billing/usage_metrics/
   - https://docs.datadoghq.com/internal_developer_portal/onboarding_guide/
@@ -70,7 +71,7 @@ Administrator's Guide は、導入時に以下の問題を防ぐことを目的�
 
 ### 1.2 Plan / Build / Run の3フェーズ
 
-![Administrator's Guide の Plan / Build / Run フェーズ図](../../assets/images/implementation-methodology/plan_build_run.png)
+![Administrator's Guide の Plan / Build / Run フェーズ図](../assets/images/implementation-methodology/plan_build_run.png)
 
 - **キャプション:** Datadog Administrator's Guide が示す導入の3フェーズ（Plan / Build / Run）の構成図。
 - **画面（図）の説明:** 図は上から3段の帯で構成される。最上段の紫色の帯「PLAN PHASE」では、中央の「BLUEPRINT（青写真）」から「GOALS（目標）」「REQUIREMENTS（要件）」「ARCHITECTURE（アーキテクチャ）」の3つに分岐する。中段の青色の帯「BUILD PHASE」では、「DEVELOP（開発）」から「CODE（コード）」と「TEST（テスト）」に分岐し、両者が「IMPLEMENT（実装）」に合流する。最下段のオレンジ色の帯「RUN PHASE」では、「OPERATIONS（運用）」から「MONITOR（監視）→ DASHBOARD（ダッシュボード）」と「IMPROVE（改善）→ METRICS（メトリクス）」の2系統に分岐する。各帯は上から下へ矢印でつながる。
@@ -90,7 +91,7 @@ Datadog の Services and Enablement ページは、顧客のジャーニーを3�
 | ジャーニー段階（公式） | 対応する Datadog サービス | 本ファイルのフェーズ対応 |
 |---|---|---|
 | Plan & Implement | Implementation Services、Premier Support、Technical Account Management（TAM） | 計画〜展開 |
-| Adopt & Engage | Technical Enablement Services、TAM | 展開〜定着 |
+| Adopt & Engage | Enablement（Technical Enablement Services）、TAM | 展開〜定着 |
 | Optimize & Scale | Premier Support、TAM | 定着（継続改善） |
 
 各サービスの内容は「[7.4 Datadog 側・パートナーの支援](#74-datadog-側パートナーの支援)」を参照。
@@ -178,7 +179,7 @@ Datadog 公式の Administrator's Guide は、導入後に得られる効果と�
 
 **ゲート（完了基準）`【経験則】`:** 目的・KPI・スコープ・体制・概算予算がスポンサーに承認されていること。
 
-> **サイト差異:** Datadog の org（組織）は作成時に Datadog Site（`US1`、`US3`、`US5`、`EU1`、`AP1`、`AP2`、`US1-FED`）を選び、トライアル申込ページは「リージョン間でデータを移行できない（can't migrate data between regions）」と警告している。[出典](https://www.datadoghq.com/trial/) PoC 用の org を作る前に、本番で使うサイト（日本のデータ所在要件があれば `AP1` 等）を計画フェーズで決めておく。サイトの詳細は [Datadog Sites](../02_リファレンス/platform/datadog-sites.md) を参照。
+> **サイト差異:** Datadog の org（組織）は作成時に Datadog Site（`US1`、`US3`、`US5`、`EU1`、`US1-FED`、`US2-FED`、`AP1`、`AP2`、`UK1`）を選ぶ。[出典](https://docs.datadoghq.com/getting_started/site/) トライアル申込ページは申込時にデータの保管リージョンを選ばせ、「リージョン間でデータを移行できない（can't migrate data between regions）」と警告している。[出典](https://www.datadoghq.com/trial/) PoC 用の org を作る前に、本番で使うサイト（日本のデータ所在要件があれば `AP1` 等）を計画フェーズで決めておく。サイトの詳細は [Datadog Sites](../02_リファレンス/platform/datadog-sites.md) を参照。
 
 ### 3.2 フェーズ2: 要件定義
 
@@ -190,7 +191,7 @@ Datadog 公式は、Plan フェーズの最初に **Scoping exercise（スコー
 
 | 調査項目（公式例） | 記入例 | 設計への影響 |
 |---|---|---|
-| Application name | order-api | `service` タグ名、Software Catalog の登録単位 |
+| Application name | order-api | `service` タグ名、Software Catalog（旧称：Service Catalog）の登録単位 |
 | Language | Java / Go / Python | APM の SDK、Single Step Instrumentation の可否 |
 | Frameworks | Spring Boot | 自動インスツルメンテーションの対応可否 |
 | Model / View / Controller 層 | DB、フロント、API | APM・DBM・RUM の適用範囲 |
@@ -296,18 +297,26 @@ Datadog 公式 Build ページは、構築には「信頼性があり再現可�
 | Create content | Datadog は RESTful API プラットフォームで UI 操作の大半はプログラムで実行できる。ダッシュボード、アラート、ノートブック、ログパース、クラウド連携設定は JSON として保存され、エクスポート/インポートできる。これにより IaC 準拠、構成バックアップ、アカウント移行、再利用が可能になる。Terraform Provider と CLI ツール（datadog-sync-cli）がある |
 | Provisioning | 既存のプロビジョニングプロセスに統合する。**File**（構成をソース管理し Jinja2・Ansible 等でテンプレート化）、**Package**（.rpm、.msi、コンテナ版 Agent を Artifactory・Nexus 等の社内リポジトリに配置）、**Service**（IaC やシェルスクリプトでランタイムを管理）。Ansible、Puppet、Chef、PowerShell、Bash、CloudFormation、Terraform 等のサンプル/連携がある。Bash のみでの展開は推奨されず、IaC は早期に導入する |
 
-公式 Build ページが「社内ユーザーが利用する導入タスク」として定義を求めている作業は以下である。[出典](https://docs.datadoghq.com/administrators_guide/build/) これらは展開・定着フェーズのサービスカタログ（申請メニュー）にそのまま使える。
+公式 Build ページは、社内ユーザーが利用する導入タスクの一覧と、依頼時に最低限収集する情報の一覧を、それぞれ別のリストとして例示している（タスクごとの収集情報の対応は示していない）。[出典](https://docs.datadoghq.com/administrators_guide/build/) これらは展開・定着フェーズのサービスカタログ（申請メニュー）にそのまま使える。
 
-| 社内向け導入タスク（公式） | 依頼時に最低限収集する情報（公式） |
-|---|---|
-| ソフトウェアとインフラを含む新規アプリのオンボーディング | 社内コストセンターコード |
-| クラウドアカウントの追加 | アプリ名、オーナー、運用チーム |
-| vSphere クラスタノードの追加 | ローカル環境固有の詳細 |
-| データベースインスタンスの追加 | （同上） |
-| サードパーティ製品の監視追加 | （同上） |
-| Synthetic Monitoring テストの追加 | （同上） |
-| アラート/モニターの作成 | （同上） |
-| ダッシュボードの作成・更新 | （同上） |
+社内向け導入タスクの例（公式）:
+
+- ソフトウェアとインフラを含む新規アプリのオンボーディング
+- クラウドアカウントの追加
+- vSphere クラスタノードの追加
+- データベースインスタンスの追加
+- サードパーティ製品の監視追加
+- Synthetic Monitoring テストの追加
+- アラート/モニターの作成
+- ダッシュボードの作成・更新
+
+依頼時に最低限収集する情報の例（公式）:
+
+- 社内コストセンターコード
+- アプリ名、オーナー、運用チーム
+- ローカル環境固有の詳細
+
+`【経験則】` 申請フォームでは、いずれのタスクの依頼でも上記3項目（コストセンターコード、アプリ名・オーナー・運用チーム、ローカル環境固有の詳細）を共通の必須項目にし、タスク固有の項目（クラウドアカウント ID、DB エンドポイント等）を追加する形にすると運用しやすい。
 
 `【経験則】` 構築フェーズの主な作業と成果物:
 
@@ -356,7 +365,7 @@ Datadog 公式 Build ページは、構築には「信頼性があり再現可�
 | 利用量・コスト | `datadog.estimated_usage.*` メトリクスと予算計画との差異 |
 | 利用者の受け入れ | ダッシュボード閲覧・モニター作成など利用状況、問い合わせ件数 |
 
-![Fleet Automation の Manage Agents 画面](../../assets/images/implementation-methodology/fleet_automation.png)
+![Fleet Automation の Manage Agents 画面](../assets/images/implementation-methodology/fleet_automation.png)
 
 - **キャプション:** Fleet Automation の「Manage Agents」画面（Agent の一元管理画面）。展開フェーズで Agent の展開状況・バージョン・連携エラーを追跡するのに使う。
 - **画面の説明:** 上部タブに Integrations、Marketplace、Agent、Fleet Automation 等が並び、Fleet Automation 内に「Manage Agents」「Upgrades」「Policies」のサブタブがある。見出し「Centrally manage all your Datadog Agents in one place」の下に3枚のサマリーカードがあり、左から「アップグレード対象の Agent 数（例: 197 agents are due for an upgrade）」、「インテグレーションの問題を報告している Agent 数（BROKEN / WARNING / UNCONFIGURED の内訳）」、「Agent が稼働しているホストの割合（例: 16.06% of hosts are running agents）と Agent 未導入ホストの表示リンク」が表示される。その下に検索バーと Group by、左側に Agent Version、API Key Name、Products Enabled、OTel Collector Version、Remote Config Status などのファセット、右側に HOSTNAME、AGENT（バージョン）、INTEGRATIONS、SERVICES、REMOTE CONFIG STATUS 列を持つ Agent 一覧表がある。
@@ -478,7 +487,7 @@ Datadog 公式ブログ（Stripe の講演に基づく）は、導入推進の�
 | AWS Marketplace 経由のトライアル | AWS Marketplace から全機能の 14 日間無料トライアルを開始できる。チェックアウト時に購買発注（PO）を追加できる | [出典](https://docs.datadoghq.com/integrations/guide/aws-marketplace-datadog-trial/) |
 | AWS Marketplace 経由のトライアル終了後 | AWS Marketplace の出品ページでは、キャンセルしない限り従量課金（pay-as-you-go）プランへ自動移行する旨が記載されている | [出典](https://aws.amazon.com/marketplace/pp/prodview-7tlwraipohxq6)（2026-11-02 参照） |
 
-> **サイト差異:** AWS Marketplace 経由のトライアルについて、公式ドキュメントは `US1-FED`（us2.ddog-gov.com）利用者には、Integrations ページまたは管理者に提供可否を確認し、例外申請は support@ddog-gov.com に送るよう案内している。[出典](https://docs.datadoghq.com/integrations/guide/aws-marketplace-datadog-trial/)
+> **サイト差異:** AWS Marketplace 経由のトライアルについて、公式ドキュメントは `US2-FED`（us2.ddog-gov.com）利用者には、自組織の Integrations ページで提供可否を確認し、例外申請は support@ddog-gov.com に送るよう案内している。[出典](https://docs.datadoghq.com/integrations/guide/aws-marketplace-datadog-trial/) `US1-FED`（app.ddog-gov.com）への適用可否は同ページに記載がない（公開情報では確認できず）。
 
 `【経験則】` PoC を 14 日で終えるには、トライアル開始前に「対象環境・アカウント権限・ネットワーク許可・評価シナリオ・評価者」をすべて準備しておく必要がある。準備不足のままトライアルを開始すると、Agent 導入やファイアウォール申請で期間の大半を消費しやすい。
 
@@ -588,10 +597,10 @@ Datadog は、利用量を準リアルタイムで推定する `datadog.estimate
 | Indexed Custom Metrics | `metrics.custom`、`metrics.custom.by_metric`、`metrics.custom.by_tag` | 直近1時間のユニークメトリクス |
 | Ingested Custom Metrics | `metrics.custom.ingested` ほか | 直近1時間 |
 | Logs | `logs.ingested_bytes`、`logs.ingested_events` ほか | 取り込み量（除外ログを含む件数） |
-| APM | `apm_hosts`、`apm.indexed_spans`、`apm.ingested_bytes`、`apm.ingested_spans` ほか | APM ホストは直近1時間 |
+| APM | `apm_hosts`、`apm.indexed_spans`、`apm.ingested_bytes`、`apm.ingested_spans`、`apm.fargate_tasks` ほか | APM ホストは直近1時間、`apm.fargate_tasks` は直近5分 |
 | RUM | `rum.sessions`、`rum.ingested_sessions`、`rum.indexed_sessions` | — |
 | Serverless | `serverless.aws_lambda_functions`、`serverless.invocations` | 直近1時間 |
-| Synthetics | `synthetics.api_test_runs`、`synthetics.browser_test_runs` | — |
+| Synthetics | `synthetics.api_test_runs`、`synthetics.browser_test_runs`、`synthetics.parallel_testing_slots` | — |
 | Network | `network.hosts`、`network.devices` | 直近1時間 |
 | DBM | `dbm.hosts` | 直近1時間 |
 
@@ -841,7 +850,7 @@ Datadog の Services and Enablement ページに記載されている有償/契�
 | サービス | 公式の説明（要約） | 導入フェーズでの使いどころ |
 |---|---|---|
 | Implementation Services | Datadog のアーキテクトが導入の設計と実行をガイドする。検証済みの導入方法論に基づくカスタマイズされた計画・設計、主要な意思決定への専門的助言とデプロイを加速する自動化ツール、移行とツール統合の支援 | 計画〜展開。移行を伴う大規模導入 |
-| Technical Enablement Services | 基礎から上級までのカスタマイズされたトレーニング。事前のカリキュラム調整のうえ、顧客環境で対面・オンライン・ハイブリッドで実施。セッション録画と資料を共有 | 展開〜定着の教育 |
+| Enablement（Technical Enablement Services） | 基礎から上級までのカスタマイズされたトレーニング。事前のカリキュラム調整のうえ、顧客環境で対面・オンライン・ハイブリッドで実施。セッション録画と資料を共有 | 展開〜定着の教育 |
 | Premier Support | ライブトラブルシューティング、専任の Premier Account Liaison（定期ケースレビューと四半期ビジネスレビュー）、年最大 5 日の Elevated Support Days、迅速な応答 | 展開・本番運用の立ち上がり |
 | Technical Account Management（TAM） | 技術的助言とベストプラクティス、四半期ごとのアカウントレビュー（ヘルスチェックと最適化機会の発見）、コラボレーションスペース・オフィスアワー・オンサイト訪問 | 計画〜定着の全期間 |
 
@@ -899,7 +908,7 @@ Datadog 公式 Plan ページも、Datadog がハイパーバイザー、コン�
 
 - Datadog 公式が定めるフェーズごとの標準期間、標準 WBS、標準成果物テンプレート（公開情報では確認できず。Implementation Services の「検証済み方法論」の詳細は非公開）
 - 無料トライアルの延長可否・条件、トライアル中のホスト数等の上限、直接申込のトライアル終了後の扱い（公開情報では確認できず）
-- Implementation Services、Technical Enablement Services、Premier Support、TAM の価格（公式ページに価格の記載なし）
+- Implementation Services、Enablement（Technical Enablement Services）、Premier Support、TAM の価格（公式ページに価格の記載なし）
 - パートナー各社の導入サービスの期間・価格（掲載ページに記載なし）
 
 ## 参照元
@@ -911,6 +920,7 @@ Datadog 公式 Plan ページも、Datadog がハイパーバイザー、コン�
 - Administrator's Guide — Plan: https://docs.datadoghq.com/administrators_guide/plan/
 - Administrator's Guide — Build: https://docs.datadoghq.com/administrators_guide/build/
 - Administrator's Guide — Run: https://docs.datadoghq.com/administrators_guide/run/
+- Getting Started with Datadog Sites: https://docs.datadoghq.com/getting_started/site/
 - Unified Service Tagging: https://docs.datadoghq.com/getting_started/tagging/unified_service_tagging/
 - Estimated Usage Metrics: https://docs.datadoghq.com/account_management/billing/usage_metrics/
 - Internal Developer Portal Onboarding Guide: https://docs.datadoghq.com/internal_developer_portal/onboarding_guide/

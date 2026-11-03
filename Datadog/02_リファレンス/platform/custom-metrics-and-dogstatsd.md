@@ -575,7 +575,7 @@ Origin Detection は、DogStatsD が受け取ったメトリクスに**送信元
 | cgroup | クライアントが Linux の `/proc/self/cgroup` または `/proc/self/mountinfo` からコンテナ ID を取得しデータグラムに付与（`c:` フィールド）。cgroup v2 ではディレクトリの inode を使う（v1.4 拡張） | 既定で有効 |
 | UDP + `DD_ENTITY_ID` | `DD_ENTITY_ID` を `metadata.uid`（Pod UID）から設定すると、クライアントが `entity_id` タグを付ける | 環境変数を Pod に設定 |
 | `DD_EXTERNAL_ENV` | Pod にラベル `admission.datadoghq.com/enabled: "true"` を付けると Admission Controller が変数を注入し、クライアントが `e:` フィールドで送る（v1.5 拡張） | Admission Controller 有効化 |
-| UDS + 認証情報 | UDS のソケット資格情報から送信元プロセスを特定。信頼性のためにホスト PID 名前空間アクセスが必要 | Docker：`--pid=host`、ECS：タスク定義の `pidMode`、Kubernetes：`hostPID: true`、EKS Fargate：`shareProcessNamespace: true` |
+| UDS + 認証情報 | UDS のソケット資格情報から送信元プロセスを特定。信頼性のためにホスト PID 名前空間アクセスが必要 | Docker：`--pid=host`、ECS（EC2）：タスク定義で `"pidMode": "host"`、ECS Fargate：`"pidMode": "task"`（host は非対応）、Kubernetes：`hostPID: true`、EKS Fargate：`shareProcessNamespace: true` |
 
 [出典](https://docs.datadoghq.com/developers/dogstatsd/)、[出典](https://docs.datadoghq.com/developers/dogstatsd/unix_socket/)
 
@@ -793,7 +793,7 @@ DogStatsD のサンプリングは、クライアントが `sample_rate` の確�
 
 - `datadog-agent dogstatsd-stats` で、受信メトリクスを量順に一覧できる（`dogstatsd_stats_enable` が必要）。
 - バーストを検知すると Agent ログに「A burst of metrics has been detected by DogStatsD」の警告が出る。
-- 複数処理パイプラインは CPU に余裕がある場合のみ使い、クライアントでドロップが出ている場合でも 2 CPU を超えないようにする。
+- UDS で高スループット時にドロップが出ている場合、またはクライアントテレメトリでドロップが出ているのに、使える CPU があってもサーバーが 2 CPU（2 コア）より多く使っていない場合は、`dogstatsd_pipeline_autoadjust: true` で複数コアを使って処理させる（CPU 使用率は上がるがドロップは減る）。
 
 [出典](https://docs.datadoghq.com/developers/dogstatsd/high_throughput/)
 
@@ -874,7 +874,7 @@ Agent を経由せず、HTTP API で Datadog に直接メトリクスを送れ�
 | host 指定 | `resources: [{"name": "<host>", "type": "host"}]` | `host` フィールド |
 | 成功応答 | `202` `{"errors": []}` | `202` `{"status": "ok"}` |
 
-共通：タイムスタンプは POSIX 秒で、**未来 10 分以内・過去 1 時間以内**。値は数値（文字列不可）。Agent を経由しない送信はペイロードあたり約 100 バイトと見積もられている。エラー応答は 400（不正リクエスト）、403（認証失敗）、408（タイムアウト）、413（ペイロード過大）、429（レート制限）。[出典](https://docs.datadoghq.com/api/latest/metrics/submit-metrics.md)
+共通：タイムスタンプは POSIX 秒で、**未来 10 分以内・過去 1 時間以内**。値は数値（文字列不可）。API へ直接送る場合、1 データポイントあたりのペイロードはおよそ 100 バイト（タイムスタンプ 64 bit＋値 64 bit＋メトリクス名約 20 バイト＋時系列約 50 バイト）と公式は見積もっている。エラー応答は 400（不正リクエスト）、403（認証失敗）、408（タイムアウト）、413（ペイロード過大）、429（レート制限）。[出典](https://docs.datadoghq.com/api/latest/metrics/submit-metrics.md)
 
 ### v2 リクエストボディのフィールド
 
@@ -1049,16 +1049,18 @@ RUM ベースメトリクスは、Sessions / Views について「クエリに�
 
 ## 課金への影響
 
-| 課金対象 | 課金単位 | 公式定価（2026-11-02 時点） |
-|---|---|---|
-| Custom Metrics（indexed、カーディナリティ課金） | 100 カスタムメトリクスあたり / 月（ホスト割当超過分） | **$5**（年契約・月契約・オンデマンドとも） |
-| Ingested Custom Metrics（MWL 構成メトリクスのみ） | 100 ingested カスタムメトリクスあたり / 月 | **$0.10**（年契約・月契約・オンデマンドとも） |
-| Metric Name Pricing | メトリクス名数＋indexed / ingested データポイント（5 段階の限界価格） | 公式料金ページ・ドキュメントにドル単価の記載なし（契約で決定）。月契約は年契約比 +20%、オンデマンドは +40% |
+| 課金対象 | 課金単位 | 公式定価 US/EU1（2026-11-02 時点） | 公式定価 AP1（同） |
+|---|---|---|---|
+| Custom Metrics（indexed、カーディナリティ課金） | 100 カスタムメトリクスあたり / 月（ホスト割当超過分） | **$5**（年契約・月契約・オンデマンドとも） | **$6.25**（年契約・月契約・オンデマンドとも） |
+| Ingested Custom Metrics（MWL 構成メトリクスのみ） | 100 ingested カスタムメトリクスあたり / 月 | **$0.10**（年契約・月契約・オンデマンドとも） | **$0.125**（年契約・月契約・オンデマンドとも） |
+| Metric Name Pricing | メトリクス名数＋indexed / ingested データポイント（5 段階の限界価格） | 公式料金ページ・ドキュメントにドル単価の記載なし（契約で決定）。月契約は年契約比 +20%、オンデマンドは +40% | 同左 |
 
 [出典](https://www.datadoghq.com/pricing/list/)、[出典](https://docs.datadoghq.com/account_management/billing/custom_metrics/)、[出典](https://docs.datadoghq.com/account_management/billing/metric_name_pricing/)
 
+> **サイト差異:** 価格はサイトによって異なる。AP1 は 100 カスタムメトリクスあたり $6.25、Ingested は $0.125。AP2・UK1 は $6 / $0.12、US1-FED は $6.25 / $0.125。詳細は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
+
 - 料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。数値に差異がある場合はそちらを優先する。
-- 課金ドキュメント上、indexed 超過分の単価は「契約で指定された額」と記載されており、上表の $5 は公式料金ページ（list）の掲載定価。既存顧客の割当・単価は最新の契約に従う。
+- 課金ドキュメント上、indexed 超過分の単価は「契約で指定された額」と記載されており、上表の $5（AP1 は $6.25）は公式料金ページ（list）の掲載定価。既存顧客の割当・単価は最新の契約に従う。
 - カスタムメトリクス数を左右する主な要因：
 
 | 要因 | 影響 | 対策の方向性（詳細は応用編） |

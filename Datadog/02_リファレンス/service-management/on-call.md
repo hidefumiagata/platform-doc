@@ -28,12 +28,24 @@ sources:
   - https://docs.datadoghq.com/account_management/rbac/permissions/#on-call
   - https://docs.datadoghq.com/api/latest/on-call/
   - https://docs.datadoghq.com/api/latest/on-call-paging/
+  - https://docs.datadoghq.com/api/latest/on-call/create-on-call-page/
+  - https://docs.datadoghq.com/api/latest/on-call/create-on-call-schedule/
+  - https://docs.datadoghq.com/api/latest/on-call/create-on-call-escalation-policy/
+  - https://docs.datadoghq.com/api/latest/on-call/set-on-call-team-routing-rules/
+  - https://docs.datadoghq.com/api/latest/on-call/create-an-on-call-notification-rule-for-a-user/
+  - https://docs.datadoghq.com/api/latest/on-call/create-an-on-call-notification-channel-for-a-user/
+  - https://docs.datadoghq.com/api/latest/events/post-an-event/
   - https://registry.terraform.io/providers/DataDog/datadog/latest/docs
+  - https://github.com/DataDog/terraform-provider-datadog/tree/master/docs/resources
   - https://www.datadoghq.com/pricing/?product=incident-response#products
   - https://www.datadoghq.com/pricing/list/
   - https://www.datadoghq.com/blog/datadog-on-call/
   - https://www.datadoghq.com/blog/this-month-in-datadog-january-2025/
+  - https://www.datadoghq.com/blog/fedramp-high-incident-response/
   - https://www.datadoghq.com/product-preview/on-call-recall
+  - https://zenn.dev/hacobu/articles/904b2d5707da7c
+  - https://speakerdeck.com/sheepland/datadog-on-cal-now-in-production
+  - https://www.issoh.co.jp/tech/details/16598/
 ---
 
 # On-Call（オンコール）
@@ -44,7 +56,7 @@ Datadog On-Call は、モニタリング・ページング（呼び出し）・�
 
 - 製品の位置づけ：Datadog の **Incident Response** 製品群の一部で、[Incident Management](./incident-management.md) と組み合わせて使う（単独でも利用可能）。[出典](https://www.datadoghq.com/pricing/?product=incident-response#products)
 - 提供開始：2024-06-26 公開の公式ブログで発表され（DASH 2024 時期）、2025-01-30 公開の「This Month in Datadog - January 2025」で一般提供（GA）が告知された。[出典](https://www.datadoghq.com/blog/datadog-on-call/) [出典](https://www.datadoghq.com/blog/this-month-in-datadog-january-2025/)
-- ドキュメントの URL：公式ドキュメントのパスは `docs.datadoghq.com/service_management/on-call/` から `docs.datadoghq.com/incident_response/on-call/` に移動している（旧 URL は新 URL に転送される）。本ファイルでは新 URL を出典とする。
+- ドキュメントの URL：公式ドキュメントのパスは `docs.datadoghq.com/service_management/on-call/` から `docs.datadoghq.com/incident_response/on-call/` に移動している。旧 URL へのアクセスが新 URL へ 301 リダイレクト（`Location: /incident_response/on-call/`）されることを 2026-11-04 に HTTP 応答で確認した。本ファイルでは新 URL を出典とする。[出典](https://docs.datadoghq.com/incident_response/on-call/)
 - 課金：**シート（seat）課金**。スケジュール参加者・エスカレーションポリシー登録者・Page 受信の通知設定をしたユーザーが課金対象（「課金への影響」節）。
 - 本ファイルの扱う範囲：Team の On-Call 化、Page の発生・応答、Routing Rules、Escalation Policy、Schedule、通知設定（電話・SMS・プッシュ）、Handover（引き継ぎ）、外部連携、移行、API/Terraform、権限、制限値、課金。インシデント宣言後の運用（Severity、タイムライン、ポストモーテム、Status Pages）は [Incident Management](./incident-management.md) を参照。
 
@@ -132,7 +144,7 @@ Datadog On-Call を使い始めるには、まず Team を On-Call に登録（o
 2. 以下のいずれかを選ぶ。
    - **New Team**：新規作成。
    - **Existing Team**：既存の Datadog Team をドロップダウンから選択。
-   - **Import team from PagerDuty** / **Import team from OpsGenie**：移行ツール（「移行」節）。
+   - **Import team from PagerDuty** / **Import team from OpsGenie**：移行ツール（「移行」節）。[出典](https://docs.datadoghq.com/incident_response/on-call/guides/migrate-your-pagerduty-resources-to-on-call/) [出典](https://docs.datadoghq.com/incident_response/on-call/guides/migrate-your-opsgenie-resources-to-on-call/)
 3. **デフォルトのエスカレーションポリシー**を追加する。Datadog は *Interrupt Handler*、*Primary*、*Secondary* の 3 スケジュールを提案する。次のステップで定義するか、他 Team が所有する既存スケジュールを通知先にできる。
 4. **スケジュール**を定義する（Schedule Time Zone と Schedule Rotations）。
 5. 次の作業：Monitor・Incident などから Page を送る設定、メンバー各自の通知設定。
@@ -186,7 +198,7 @@ Page は Team に送られ、Team のエスカレーションポリシーとス�
 | 手動（Microsoft Teams） | Datadog Teams アプリをインストールし、チャンネルまたはチャットで `@Datadog page` → Team を選択 | 常に `high` | — |
 | API | `POST /api/v2/on-call/pages`（「API」節） | `low` / `high` を指定 | 対象は `team_id` / `team_handle` / `user_id` |
 | 外部ツール | ネイティブ Integration または Events API による汎用 Webhook（「外部ツール連携」節） | — | — |
-| 他 org | [Cross-org Paging](#cross-org-paging別-org-データセンターへの-page)【Preview】 | — | 自動ワークフローのみ |
+| 他 org | [Cross-org Paging](#cross-org-paging別-orgデータセンターへの-page)【Preview】 | — | 自動ワークフローのみ |
 
 [出典](https://docs.datadoghq.com/incident_response/on-call/pages/) [出典](https://docs.datadoghq.com/incident_response/on-call/integrations/)
 
@@ -621,7 +633,7 @@ On-Call Recall は Product Preview Program で提供される機能で、利用�
 | Timeline コメント | 調査済み事項など、引き継ぎ時の文脈を Page に残す | 「Page への応答」節 |
 | Shift reminder | シフト開始前に本人へ通知 | 「その他の通知」節 |
 
-AI 機能全般（Bits AI SRE など）は [Bits AI と AI 機能](../ai/bits-ai.md) を参照。
+AI 機能全般（Bits Investigation（旧称：Bits AI SRE）など）は [Bits AI と AI 機能](../ai/bits-ai.md) を参照。
 
 ---
 
@@ -875,6 +887,8 @@ Page 操作 API の専用ホスト：
 
 [出典](https://docs.datadoghq.com/api/latest/on-call-paging/)
 
+> 注：API リファレンスには `us2.ddog-gov.com` も `navy.oncall.datadoghq.com` として掲載されているが、製品ドキュメントでは `us2.ddog-gov.com` は Datadog On-Call 非対応とされている（「サイト差異」節）。食い違いの理由は公開情報では確認できず。[出典](https://docs.datadoghq.com/api/latest/on-call-paging/) [出典](https://docs.datadoghq.com/incident_response/on-call/)
+
 ```bash
 # AP1 で Team ハンドル宛てに高緊急度の Page を作成する例
 curl -X POST "https://saffron.oncall.datadoghq.com/api/v2/on-call/pages" \
@@ -921,7 +935,7 @@ resource "datadog_on_call_escalation_policy" "payments" {
 
 ## サイト差異
 
-> **サイト差異:** Datadog On-Call（Page、Routing Rules、スケジュール、Handover Automation、Live Call Routing、Cross-org Paging、Integrations、API を含む）は **`us2.ddog-gov.com` では非対応**。US1-FED の `app.ddog-gov.com` は API リファレンスに Page 操作のホストが掲載されており、2026-10-08 公開の公式ブログで、FedRAMP High 認証が Incident Response（ページングを含む）に拡大され US1-FED で利用できると紹介されている。[出典](https://docs.datadoghq.com/incident_response/on-call/) [出典](https://docs.datadoghq.com/api/latest/on-call-paging/) [出典](https://www.datadoghq.com/blog/fedramp-high-incident-response/)
+> **サイト差異:** Datadog On-Call（Page、Routing Rules、スケジュール、Handover Automation、Live Call Routing、Cross-org Paging、Integrations、API を含む）は **`us2.ddog-gov.com` では非対応**（ただし Page 操作 API のリファレンスには `us2.ddog-gov.com` のホストも `navy.oncall.datadoghq.com` として掲載されており、製品ドキュメントと食い違っている）。US1-FED の `app.ddog-gov.com` は API リファレンスに Page 操作のホストが掲載されており、2026-10-08 公開の公式ブログで、FedRAMP High 認証が Incident Response（ページングを含む）に拡大され US1-FED で利用できると紹介されている。[出典](https://docs.datadoghq.com/incident_response/on-call/) [出典](https://docs.datadoghq.com/api/latest/on-call-paging/) [出典](https://www.datadoghq.com/blog/fedramp-high-incident-response/)
 
 > **サイト差異:** Page 操作 API（作成・Acknowledge・Escalate・Resolve・Reroute）は、通常の `api.<site>` ではなくサイト別の `*.oncall.datadoghq.com`（EU1 は `beige.oncall.datadoghq.eu`）を使う。AP1 は `saffron.oncall.datadoghq.com`。[出典](https://docs.datadoghq.com/api/latest/on-call-paging/)
 
@@ -1106,7 +1120,6 @@ Datadog On-Call は**シート（seat）課金**である。On-Call と Incident
 - https://www.datadoghq.com/pricing/list/
 - https://www.datadoghq.com/blog/datadog-on-call/ （2024-06-26 公開）
 - https://www.datadoghq.com/blog/this-month-in-datadog-january-2025/ （2025-01-30 公開）
-- https://www.datadoghq.com/blog/on-call-paging/ （2025-03-26 公開）
 - https://www.datadoghq.com/blog/fedramp-high-incident-response/ （2026-10-08 公開）
 - https://www.datadoghq.com/product-preview/on-call-recall
 

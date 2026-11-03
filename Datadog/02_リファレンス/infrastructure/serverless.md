@@ -134,8 +134,8 @@ Datadog Lambda Extension は「Lambda 関数の実行中にカスタムメトリ
 | 対応ワークロード | ログ・メトリクスは全ワークロード。APM トレースは Python / Node.js / Go / Java / .NET / Ruby |
 | 世代 | Next-generation（次世代）版が GA。コールドスタートが大幅に速く、リソース消費が少ない。v67〜v87 は `DD_EXTENSION_VERSION=compatibility` で旧版（Compatibility 版）に戻せる。**v88 以降は次世代版のみ** |
 | 実装言語 | 公式ドキュメント本文には明記なし。FIPS ページでは Compatibility 版が Go バイナリ、Next Generation 版が Rust バイナリと記載 [出典](https://docs.datadoghq.com/serverless/aws_lambda/fips-compliance/) |
-| AAP 利用時 | `DD_SERVERLESS_APPSEC_ENABLED=true` の場合はデフォルトで互換版が使用される（`false` で最適化版、v67+）[出典](https://docs.datadoghq.com/serverless/aws_lambda/configuration/) |
-| Lambda Managed Instances | v90 以降で対応。`AWS_LAMBDA_INITIALIZATION_TYPE` 環境変数で自動検知し追加設定不要 |
+| AAP 利用時 | Configuration ページは「v67+ の Extension は `DD_SERVERLESS_APPSEC_ENABLED=true` の場合にデフォルトで互換版を使う（`false` にすると最適化版）」と記載している [出典](https://docs.datadoghq.com/serverless/aws_lambda/configuration/)。一方、Extension ページは「v88+ は次世代版のみ」としている [出典](https://docs.datadoghq.com/serverless/libraries_integrations/extension/)。そのため、v88 以降で AAP を有効にしたときにどちらの版で動くかは、公式ドキュメント内で記述が一致していない。利用する前に Datadog へ確認すること |
+| Lambda Managed Instances【Preview】 | v90 以降で対応。`AWS_LAMBDA_INITIALIZATION_TYPE` 環境変数で自動検知し追加設定不要 |
 | 最新版 | GitHub Releases 上の最新は **v102（2026-11-02 リリース、セキュリティ更新。侵害された eMudhra（emSign）CA 鍵で発行された証明書を信頼しない変更を含み、全ユーザーにアップグレードを推奨）**。公式ドキュメントのインストール例は v101 を使用 [出典](https://github.com/DataDog/datadog-lambda-extension/releases) |
 | アップグレード方法 | Lambda Layer のバージョン、またはコンテナイメージの Dockerfile 上のバージョンを更新。事前にリリースノートを確認 |
 
@@ -149,7 +149,7 @@ Datadog Lambda Extension のデータ送信タイミングは次のとおり。[
 | 定期フラッシュ（自動切替） | 呼び出しが安定かつ高頻度（1分に1回超）になると、データをバッチ化し、フラッシュ期限が来た呼び出しの開始時に送信 |
 | 固定間隔 | `DD_SERVERLESS_FLUSH_STRATEGY=periodically,60000` で1分ごとにフラッシュ（オーバーヘッド削減） |
 | ローカルエミュレータ | Telemetry API がないエミュレータでは `DD_SERVERLESS_FLUSH_STRATEGY=periodically,1` [出典](https://docs.datadoghq.com/serverless/aws_lambda/configuration/) |
-| Lambda Managed Instances（v90+） | バックグラウンドで継続的にフラッシュ。デフォルト 30 秒ごと |
+| Lambda Managed Instances【Preview】（v90+） | バックグラウンドで継続的にフラッシュ。デフォルト 30 秒ごと |
 
 #### オーバーヘッドの考え方
 
@@ -424,7 +424,7 @@ Lambda のカスタムメトリクスはすべて**ディストリビューシ�
 | トレース | Python、Node.js、Java、.NET のみ |
 | 提供されないメトリクス | `aws.lambda.enhanced.estimated_cost`、`aws.lambda.enhanced.billed_duration` |
 | ログ・トレース相関 | `DD_TRACE_ENABLED=true`、`DD_LOGS_INJECTION=true` |
-| Extension | v90 以降で自動検知、30 秒ごとのバックグラウンドフラッシュ |
+| Extension | v90 以降で自動検知、30 秒ごとのバックグラウンドフラッシュ [出典](https://docs.datadoghq.com/serverless/libraries_integrations/extension/) |
 | 課金 | 公開情報では確認できず |
 
 [出典](https://docs.datadoghq.com/serverless/aws_lambda/managed_instances/)
@@ -643,9 +643,9 @@ Google Cloud Run 向け Serverless Monitoring は、Google Cloud Integration に
 
 | ワークロード種別 | ステータス | 対応ランタイム（手動計装ガイド） | Enhanced Metrics |
 |---|---|---|---|
-| Containers（サービス） | GA | Python、Node.js、Go、Java、.NET、Ruby、PHP | `gcp.run.container.enhanced.*` |
+| Containers（サービス） | Preview 表記なし（GA 相当） | Python、Node.js、Go、Java、.NET、Ruby、PHP | `gcp.run.container.enhanced.*` |
 | Jobs | 【Preview】（申請フォームで利用申込） | Python、Node.js、Go、Java、.NET、Ruby、PHP | `gcp.run.job.enhanced.*` |
-| Functions（Cloud Run functions） | GA | Python、Node.js、Go、Java、.NET、Ruby | 公開情報では確認できず |
+| Functions（Cloud Run functions） | Preview 表記なし（GA 相当） | Python、Node.js、Go、Java、.NET、Ruby | 公開情報では確認できず |
 | Functions（1st gen） | 別ガイドあり | 公開情報では確認できず | 公開情報では確認できず |
 
 共通の前提条件：Google Cloud Integration の設定、サービスアカウントへの `cloud asset viewer` ロール付与、Cloud Asset Inventory API の有効化。[出典](https://docs.datadoghq.com/serverless/google_cloud_run/containers/in_container/)
@@ -740,7 +740,7 @@ Datadog の料金ページでは AWS Fargate（ECS タスク / EKS ポッド）�
 | Lambda カスタムメトリクスの過去タイムスタンプ | 本文「最大1時間前」、コード例コメント「20分以内」（公式内で不一致） | 同上 |
 | Extension のログ収集デフォルト | 有効 | [Logs](https://docs.datadoghq.com/serverless/aws_lambda/logs/) |
 | Extension の定期フラッシュ切替条件 | 1分に1回を超える安定した呼び出し | [Extension](https://docs.datadoghq.com/serverless/libraries_integrations/extension/) |
-| Lambda Managed Instances のフラッシュ間隔 | デフォルト 30 秒（Extension v90+） | 同上 |
+| Lambda Managed Instances【Preview】のフラッシュ間隔 | デフォルト 30 秒（Extension v90+） | 同上 |
 | 次世代 Extension のみとなるバージョン | v88 以降（v67〜v87 は `compatibility` 指定可） | 同上 |
 | `DD_TRACE_ENABLED`（Lambda） | 有効 | [Configuration](https://docs.datadoghq.com/serverless/aws_lambda/configuration/) |
 | `DD_CAPTURE_LAMBDA_PAYLOAD` | 無効 | 同上 |
@@ -782,6 +782,8 @@ AWS 側の制限（Datadog 固有ではないが計装に影響）：Lambda 関�
 
 > **サイト差異:** Azure App Service（Windows / Linux）の `DD_SITE` はデフォルト `datadoghq.com`（US1）のため、AP1 を使う場合は必ず `ap1.datadoghq.com` を設定する。Lambda・Cloud Run 等でも `DD_SITE` を明示する。
 
+> **サイト差異:** Serverless の価格はサイトによって異なる（AP1・US1-FED 等）。本ファイルの課金節は US / EU1 の価格である。サイト別の価格は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
+
 ---
 
 ## 課金への影響
@@ -793,7 +795,7 @@ Serverless の課金は「Workload / Application Monitoring（監視の基本料
 | 製品 | 対象 | 課金単位 | 年契約 | 月契約 | オンデマンド |
 |---|---|---|---|---|---|
 | Serverless Workload Monitoring（Functions） | AWS Lambda | アクティブ関数 / 月 | $5 | $6 | $7.20 |
-| Serverless Workload Monitoring | AWS Step Functions | アクティブ Step Function / 月 | $5 | 公開情報では確認できず | $7.20 |
+| Serverless Workload Monitoring（Functions） | AWS Step Functions | アクティブ Step Function / 月 | $5 | $6 | $7.20 |
 | Serverless Application Monitoring（Apps） | Azure App Service、Azure Container Apps、Azure Functions、Google Cloud Run、AWS Fargate、GKE Autopilot | アクティブアプリインスタンス / 月 | $3 | $4 | $4.32 |
 
 ### APM・セキュリティ
@@ -801,16 +803,22 @@ Serverless の課金は「Workload / Application Monitoring（監視の基本料
 | 製品 | 対象 | 課金単位 | 年契約 | 月契約 | オンデマンド |
 |---|---|---|---|---|---|
 | Serverless Functions APM | AWS Lambda | 100 万トレース対象呼び出し（traced invocations）/ 月 | $10 | $12 | $15 |
-| Serverless Functions APM | AWS Step Functions | 100 万ステート遷移 / 月 | $10 | 公開情報では確認できず | $15 |
+| Serverless Functions APM | AWS Step Functions | 100 万ステート遷移 / 月 | $10 | $12 | $15 |
 | Serverless Application APM | Azure App Service / Container Apps / Functions、Cloud Run、Fargate、GKE Autopilot | アクティブにトレースされたアプリインスタンス / 月 | $6 | $7.20 | $9 |
-| Serverless App and API Protection | AWS Lambda | 100 万トレース対象呼び出し / 月 | $10 | $12 | $15 |
+| Serverless App and API Protection | AWS Lambda（他プラットフォームについては下記の注意を参照） | 100 万トレース対象呼び出し / 月 | $10 | $12 | $15 |
+
+> 注意: /pricing/list/ には Step Functions 専用の行がない。Step Functions は「Serverless Workload Monitoring - Functions」と「Serverless Functions APM」の行に含まれ、価格は Lambda と同じ。[出典](https://www.datadoghq.com/pricing/list/)
+
+> 注意: Serverless App and API Protection の対象について、料金ページの FAQ で確認できるのは AWS Lambda の記述だけである。[製品別料金表](../../03_導入編/pricing-by-product.md) は対象を AWS Lambda、GCP Cloud Run、Azure App Service、Azure Container Apps、Azure Functions としているが、Lambda 以外も対象になるかどうかは公開情報では確認できなかった。契約時に Datadog へ確認すること。[出典](https://www.datadoghq.com/pricing/?product=serverless-monitoring)
+
+> **サイト差異:** 上の表は US / EU1 の価格である。AP1 や US1-FED などでは価格が異なる（例：AP1 の Serverless Workload Monitoring - Functions は年契約 $6.25）。サイト別の価格は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
 
 ### 課金単位の定義
 
 | 用語 | 定義 |
 |---|---|
 | アクティブ関数（Lambda） | 1時間ごとに「1回以上実行され、かつ Datadog で監視された関数」を数え、月末にその時間平均をとる。課金対象関数は一意の関数 ARN で識別。Lambda@Edge はリージョンごとに別関数として計上 [出典](https://docs.datadoghq.com/account_management/billing/serverless/) |
-| 計算例（公式） | 月に1回だけ呼ばれた関数は 1 関数 ÷ 720 時間 × $5。3時間の平均が2関数なら 2 × $5 = $10（30日月は分母 720 時間） |
+| 計算例（公式） | 月に1回だけ呼ばれた関数は 1 関数 ÷ 720 時間 × $5。3時間の平均が2関数なら 2 × $5 = $10（30日月は分母 720 時間）[出典](https://www.datadoghq.com/pricing/?product=serverless-monitoring) |
 | アクティブ Step Function | 1時間ごとのアクティブなステートマシン数の月平均 |
 | アクティブアプリインスタンス | 5分間の計測区間で1回以上アクティブだった一意のインスタンスの数を月平均。Azure App Service は Web App / Function App のインスタンス、Azure Container Apps はレプリカ、Cloud Run はアプリケーションコンテナ、Fargate は実行中タスク（ECS）/ ポッド（EKS）、GKE Autopilot はポッド |
 | Azure Functions の計上先 | ホスティング基盤で区分：App Service Plan 上の関数は App Service インスタンス、Consumption / Premium プランは Azure Functions、Container Apps 上は Container App レプリカとして計上。なお料金ページの Azure Functions の定義文は「Container App Replicas」と記載されており、公式表記に揺れがある |
@@ -827,6 +835,8 @@ Serverless の課金は「Workload / Application Monitoring（監視の基本料
 | Serverless Functions APM（Lambda / Step Functions） | 100 万トレース対象呼び出しあたり取り込みスパン 50GB・インデックス化スパン 30 万 |
 | Serverless Application APM（Azure、Cloud Run、Fargate、GKE Autopilot） | 取り込みスパン 30GB・インデックス化スパン 19.5 万（料金ページ表記「195k」。期間・単位の詳細は APM の FAQ 参照と記載） |
 | 超過分 | 取り込みスパン $0.10/GB、インデックス化スパン $1.70 / 100 万（15日保持、年契約）・$2.55（オンデマンド） |
+
+> 注意: APM Billing ドキュメントの Lambda の計算例は「100 万呼び出しあたり Indexed Spans 150,000 件が同梱」としており、料金ページ FAQ の「30 万件」と食い違う。本ファイルは料金ページ FAQ の値（30 万件）を正とするが、契約時に確認すること。[出典](https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/)
 
 ### 課金上の注意点
 

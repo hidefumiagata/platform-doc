@@ -109,7 +109,7 @@ Datadog Web UI のナビゲーションメニューは画面左端の**サイド
 | Digital Experience | RUM（Real User Monitoring）、Session Replay、Product Analytics、Synthetic Monitoring & Testing | [RUM（ブラウザ）](../02_リファレンス/dem/rum-browser.md)、[Synthetic Monitoring](../02_リファレンス/dem/synthetic-monitoring.md) |
 | Software Delivery | CI Visibility、Test Optimization、Code Coverage / DORA Metrics 等 | [CI Visibility](../02_リファレンス/software-delivery/ci-visibility.md) |
 | Security | Cloud SIEM、Cloud Security、App & API Protection、Workload Protection、Code Security、Sensitive Data Scanner | [Datadog Security 概要](../02_リファレンス/security/security-platform-overview.md) |
-| Service Management | Incidents、On-Call、Case Management、Workflow Automation、App Builder | [Incident Management](../02_リファレンス/service-management/incident-management.md) |
+| Service Management | Incidents、On-Call、Work Management（旧称：Case Management）、Workflow Automation、App Builder | [Incident Management](../02_リファレンス/service-management/incident-management.md) |
 | Metrics | Metrics Explorer、Metrics Summary 等 | [Metrics](../02_リファレンス/platform/metrics.md) |
 | Logs | Log Explorer、Live Tail、Pipelines、Indexes 等 | [ログ検索と分析](../02_リファレンス/logs/log-search-and-analytics.md) |
 | Dashboards | Dashboard List、各ダッシュボード、Notebooks | [Dashboards](../02_リファレンス/platform/dashboards.md)、[Notebooks・DDSQL・Reference Tables](../02_リファレンス/platform/notebooks-and-data-tools.md) |
@@ -132,7 +132,7 @@ Datadog Web UI のナビゲーションメニューは画面左端の**サイド
 
 ### 画面に共通するレイアウト
 
-Datadog の多くの「Explorer（エクスプローラ）」系画面（Log Explorer、Trace Explorer、RUM Explorer、Manage Monitors など）は、次の共通レイアウトを持つ。
+Datadog の多くの「Explorer（エクスプローラ）」系画面（Log Explorer、Trace Explorer、RUM Explorer、Manage Monitors など）は、おおむね次の共通レイアウトを持つ。表は下記の各画面の公式記述をまとめて一般化したもので、すべての画面で各領域の位置が公式に明記されているわけではない（位置の一般化は【推定】）。
 
 | 領域 | 位置 | 役割 |
 |---|---|---|
@@ -146,6 +146,8 @@ Datadog の多くの「Explorer（エクスプローラ）」系画面（Log Exp
 - Log Explorer の時間範囲は**画面右上の時間範囲セレクタ**で選ぶ。[出典](https://docs.datadoghq.com/logs/explorer/search/)
 - Log Explorer の Saved Views は**画面左上**からアクセスする。[出典](https://docs.datadoghq.com/logs/explorer/saved_views/)
 - Manage Monitors 画面は**左にファセットパネル、上に検索バー**があり、チェックボックスの選択と検索バーの内容は相互に同期する。結果はリアルタイムに更新され、検索ボタンはない。[出典](https://docs.datadoghq.com/monitors/manage/search/)
+- Trace Explorer では、**画面右上の時間セレクタ**で Live Search と Indexed Data Search を切り替える。ファセットはサイドバー（facets sidebar）に並ぶ。スパンを選ぶとストリームが一時停止し、**トレースサイドパネル**に詳細が表示される。ファセットサイドバーとサイドパネルが左右どちら側にあるかは、本文には明記されていない。[出典](https://docs.datadoghq.com/tracing/trace_explorer/)
+- RUM Explorer では、検索バーに入力して RUM イベントを絞り込む（ファセットや最近のクエリのオートコンプリートあり）。List 表示で行をクリックすると**イベントサイドパネル**が開く。ファセットパネルと時間セレクタの位置は公式ドキュメントの本文に記載がない。[出典](https://docs.datadoghq.com/real_user_monitoring/explorer/)、[出典](https://docs.datadoghq.com/real_user_monitoring/explorer/events/)
 
 ### 主要画面の一覧
 
@@ -159,13 +161,13 @@ Datadog の多くの「Explorer（エクスプローラ）」系画面（Log Exp
 | APM（Traces / Service Map 等） | APM | エンドツーエンドのリクエストトレース、処理段階ごとの所要時間の内訳、Service Map、ログ・メトリクス・ユーザーセッションとの相関 |
 | RUM Explorer / Session Replay | Digital Experience | Web・モバイルのユーザー行動のリアルタイム監視、セッション記録、Core Web Vitals / Mobile Vitals、エラー追跡、Rage Click 等のフラストレーションシグナル、フィーチャーフラグ監視 |
 | Synthetic Monitoring | Digital Experience > Synthetic Monitoring & Testing | API・ブラウザ・モバイル・Network Path テストを世界各地から実行し、停止や性能劣化を検知 |
-| Integrations | Integrations | 1,000 以上のインテグレーション（クラウド、インシデント対応、データ層、セキュリティ、AI 等）の導入・設定 |
+| Integrations | Integrations | 1,000 のインテグレーション（クラウド、インシデント対応、データ層、セキュリティ、AI 等）の導入・設定 |
 | Dashboard List / Dashboards | Dashboards > Dashboard List | メトリクス・ログ・APM・RUM を組み合わせたグラフ。標準（out-of-the-box）ダッシュボード、ドラッグ＆ドロップのウィジェット、イベント・コメント注釈 |
 | Monitors List | Monitors | メトリクス閾値、インテグレーションの可用性、ネットワークエンドポイント等に基づくアラート。複数条件ロジック、`@` メンションによる Slack・メール・PagerDuty 通知、ダウンタイム設定 |
 
 #### スクリーンショット：Host Map
 
-![Host Map を availability-zone でグループ化した画面](../../assets/images/ui-navigation/host-map.png)
+![Host Map を availability-zone でグループ化した画面](../assets/images/ui-navigation/host-map.png)
 
 **キャプション:** Infrastructure > Host Map の画面（availability-zone でグループ化）。
 
@@ -210,7 +212,7 @@ Dashboard List はダッシュボードを検索・閲覧・作成する画面�
 
 | メニュー | 主な項目 |
 |---|---|
-| Configure（右上の設定アイコン） | Display UTC time（UTC と既定タイムゾーンの切替）、Increase density（高密度モード）、TV Mode、Keyboard shortcuts（ショートカット一覧）、Pause Auto-Refresh、Default timeframe、Include Flex Logs、Clone dashboard、ダッシュボード JSON の Copy / Import / Export |
+| Configure（右上の設定アイコン） | Display UTC time（UTC と既定タイムゾーンの切替）、Increase density（高密度モード）、TV Mode、Keyboard shortcuts（ショートカット一覧）、Pause Auto-Refresh、Default timeframe、Include Flex Logs、Clone dashboard、ダッシュボード JSON の Copy / Import / Export、Version history（過去版のプレビュー・復元・複製）、View audit events（組織内の利用者の確認。個人ユーザーには自分の操作履歴が表示される）、Delete dashboard（星を外してから削除する。プリセットリスト Recently Deleted から 30 日以内なら復元できる） |
 | Share（右上） | 共有ダッシュボード（公開・招待制・埋め込み）、コピー・エクスポート、スケジュールレポート等 |
 | ウィジェットの Export / Share メニュー | Copy、Share snapshot、インシデント宣言・追加、Case 作成、Notebook へ保存、Link to widget、PNG / SVG / CSV ダウンロード |
 
@@ -447,7 +449,7 @@ Log Explorer の Saved Views は画面左上の **Views** パネルから使う�
 
 #### スクリーンショット：Log Explorer の Custom saved view
 
-![組織内で共有されるカスタム Saved View の項目](../../assets/images/ui-navigation/logs-saved-views-custom.png)
+![組織内で共有されるカスタム Saved View の項目](../assets/images/ui-navigation/logs-saved-views-custom.png)
 
 **キャプション:** Log Explorer の Views パネルに表示されるカスタム Saved View の 1 項目。
 
@@ -553,7 +555,7 @@ Datadog ダッシュボードのテンプレート変数（Template Variables）
 
 #### スクリーンショット：チームフィルタ（Team filter）
 
-![ダッシュボードヘッダーで team 変数をチームフィルタとして開いた状態](../../assets/images/ui-navigation/team-template-variable.png)
+![ダッシュボードヘッダーで team 変数をチームフィルタとして開いた状態](../assets/images/ui-navigation/team-template-variable.png)
 
 **キャプション:** ダッシュボードヘッダーのテンプレート変数。`cluster`、`env`、`region` は通常の値セレクタ、`team` 変数はチームフィルタとして展開されている。
 
@@ -575,7 +577,7 @@ Datadog ダッシュボードのテンプレート変数（Template Variables）
 
 #### スクリーンショット：Saved Views の作成
 
-![Save selections as view で Saved View を作成する画面](../../assets/images/ui-navigation/template-variable-saved-view-create.png)
+![Save selections as view で Saved View を作成する画面](../assets/images/ui-navigation/template-variable-saved-view-create.png)
 
 **キャプション:** ダッシュボードの Saved Views ドロップダウンから「Save selections as view」を選んだ状態。
 
@@ -622,7 +624,7 @@ Datadog Clipboard（旧称：Widget Clipboard）は、Datadog の各ページを
 
 #### スクリーンショット：Datadog Clipboard
 
-![Datadog Clipboard を開いた状態](../../assets/images/ui-navigation/clipboard-full.png)
+![Datadog Clipboard を開いた状態](../assets/images/ui-navigation/clipboard-full.png)
 
 **キャプション:** 画面下部に開いた Datadog Clipboard。
 
@@ -742,7 +744,7 @@ Datadog Mobile App は、iOS（Apple App Store）と Android（Google Play Store
 
 #### スクリーンショット：モバイルアプリのダッシュボード一覧
 
-![iOS と Android のモバイルアプリのダッシュボード一覧](../../assets/images/ui-navigation/mobile-dashboards-list.png)
+![iOS と Android のモバイルアプリのダッシュボード一覧](../assets/images/ui-navigation/mobile-dashboards-list.png)
 
 **キャプション:** Datadog モバイルアプリの Dashboards 画面（左：iOS、右：Android）。
 
@@ -849,6 +851,8 @@ Datadog モバイルアプリは、iOS と Android の**ホーム画面ウィジ
 - Log Explorer Saved Views: https://docs.datadoghq.com/logs/explorer/saved_views/
 - Log Explorer Search: https://docs.datadoghq.com/logs/explorer/search/
 - Manage Monitors Search: https://docs.datadoghq.com/monitors/manage/search/
+- Trace Explorer: https://docs.datadoghq.com/tracing/trace_explorer/ （2026-11-04 取得）
+- RUM Explorer: https://docs.datadoghq.com/real_user_monitoring/explorer/ 、Event Side Panel: https://docs.datadoghq.com/real_user_monitoring/explorer/events/ （2026-11-04 取得）
 - Account Management（Personal Settings）: https://docs.datadoghq.com/account_management/
 - Getting Started with Datadog Sites: https://docs.datadoghq.com/getting_started/site/
 - Datadog Mobile App: https://docs.datadoghq.com/mobile/

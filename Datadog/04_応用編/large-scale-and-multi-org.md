@@ -255,13 +255,13 @@ flowchart TD
 | Log Management サブタブ > Logs Usage by Index | インデックス名・org・保持日数・ライブ／リハイドレート件数・寄与率。CSV 可 |
 | Individual Organizations | 子 org ごとの使用量（絶対値／割合）。org 名クリックで Usage Details へ |
 
-![マルチ org の Usage 画面（Month-to-Date Total Usage）](../../assets/images/large-scale-and-multi-org/multi-org-usage-month-to-date.png)
+![マルチ org の Usage 画面（Month-to-Date Total Usage）](../assets/images/large-scale-and-multi-org/multi-org-usage-month-to-date.png)
 
 - **キャプション:** 親 org の Plan & Usage > Usage & Cost 画面（Overall タブ）。
 - **画面説明:** 上部に「Overall」と「Individual Organizations」の切替タブ。その下に「Usage Summary」と製品カテゴリのタブ（All、Infrastructure、APM、Custom Metrics、Log Management、Serverless、UX Monitoring。括弧内は項目数）。「Month-to-Date Total Usage」パネルには Infra Hosts、APM Hosts、Custom Metrics、Indexed Logs (15 day retention)、Serverless Functions、Synthetics API Test Runs、Synthetics Browser Test Runs などのタイルが並び、各タイルに当月の使用量とオンデマンド分（例「1.00 ON-DEMAND」）が表示される。右上に「Billable / All」の切替ボタンがある。
 - **出典:** https://docs.datadoghq.com/account_management/multi_organization/ （取得日 2026-11-02）
 
-![マルチ org の Logs Usage by Index](../../assets/images/large-scale-and-multi-org/multi-org-logs-usage-by-index.jpg)
+![マルチ org の Logs Usage by Index](../assets/images/large-scale-and-multi-org/multi-org-logs-usage-by-index.jpg)
 
 - **キャプション:** Log Management サブタブの「Logs Usage by Index」表。
 - **画面説明:** インデックスごとに、インデックス名、所属 org、保持日数、ライブ／リハイドレートのログ件数、全体に対する寄与率（%）を一覧表示する表。CSV ダウンロード可能。どの子 org のどのインデックスがログ課金を押し上げているかを特定するのに使う。
@@ -273,7 +273,7 @@ flowchart TD
 
 ### 4.1 概要
 
-Organization Groups は、マルチ org のまま運用を続ける組織向けに、**複数 org を 1 単位として統制する**ガバナンス機能である。2026-11-02 時点で公式ドキュメント（英語版）では Preview 扱いとされ、関連 API（`/api/v2/org_groups` 系 24 エンドポイント）もすべて「preview」と表示されている。利用にはアカウントチームへの問い合わせが必要 [出典](https://docs.datadoghq.com/account_management/organization_groups/)、[出典](https://docs.datadoghq.com/api/latest/org-groups/)、[出典](https://docs.datadoghq.com/getting_started/access_for_enterprises/sharing_across_organizations/)。
+Organization Groups は、マルチ org のまま運用を続ける組織向けに、**複数 org を 1 単位として統制する**ガバナンス機能である。2026-11-02 時点で、機能ページ（英語版）には Preview 等のステータス表記はない。一方、API リファレンスでは `/api/v2/org_groups` 系 24 エンドポイントがすべて「preview」と表示されている（本ファイルの【Preview】ラベルはこの API 表記を根拠とする）。Enterprise 向けガイドでは、Organization Groups の詳細はアカウントチームに問い合わせるよう案内されている [出典](https://docs.datadoghq.com/account_management/organization_groups/)、[出典](https://docs.datadoghq.com/api/latest/org-groups/)、[出典](https://docs.datadoghq.com/getting_started/access_for_enterprises/sharing_across_organizations/)。
 
 | 機能 | 内容 |
 |---|---|
@@ -308,7 +308,7 @@ Shared Roles は常に **Group managed**（Override allowed なし）。メン�
 
 [出典](https://docs.datadoghq.com/account_management/organization_groups/)、[出典](https://docs.datadoghq.com/api/latest/org-groups/)
 
-![Organization Groups のポリシー画面](../../assets/images/large-scale-and-multi-org/org-groups-policies.png)
+![Organization Groups のポリシー画面](../assets/images/large-scale-and-multi-org/org-groups-policies.png)
 
 - **キャプション:** Organization Settings > Organization Groups でグループを開き、Policies タブを表示した画面。
 - **画面説明:** 左ナビの「IDENTITY & ACCOUNTS」配下に「Organization Groups」があり、中央にグループ一覧（例: Access & Orgs、App Infra、Cloud Integrations、Revenue Engineering）。右側パネルに選択グループ（App Infra）の UUID と「Delete Group」ボタン、「Organizations」「Policies」タブ。Policies タブには「These policies apply to all organizations in this group」という説明と「Add Policy」ボタン、ポリシー一覧（列: POLICY、ORG OVERRIDES、VALUE）。例として「Dash Share Invite Max Access Days = 30 days（鍵アイコン＝Group managed）」「Disable Automatic Monitor Creation = OFF（鍵アイコン）」「Enable Domain Allowlist = ON（SRE Org が上書き）」「Idle Session Timeout = OFF（SRE Org が上書き）」が表示されている。
@@ -381,7 +381,7 @@ Cross-Organization Visibility は、**同一アカウント内の org 間でデ�
 | 削除 | ゴミ箱（Delete）アイコン → 確認 |
 | API | Cross-Organizations Connections API。サービスアカウントのアプリケーションキーを使用可能 |
 
-**サービスアカウントでの作成を推奨**：接続は作成者に紐づき、作成者のアカウントを削除すると接続も削除されるため [出典](https://docs.datadoghq.com/account_management/org_settings/cross_org_visibility/)。
+**サービスアカウントでの作成を推奨**：接続は作成者に紐づき、作成者のアカウントが無効化（deactivate）されると接続も削除され、データフローが中断するため [出典](https://docs.datadoghq.com/account_management/org_settings/cross_org_visibility/)。
 
 ### 5.6 org 横断ウィジェットの作り方
 
@@ -394,7 +394,7 @@ Cross-Organization Visibility は、**同一アカウント内の org 間でデ�
 
 [出典](https://docs.datadoghq.com/account_management/org_settings/cross_org_visibility/)
 
-![org 横断クエリの作成](../../assets/images/large-scale-and-multi-org/cross-org-query.png)
+![org 横断クエリの作成](../assets/images/large-scale-and-multi-org/cross-org-query.png)
 
 - **キャプション:** ダッシュボードウィジェットのクエリエディタで org 横断クエリを選ぶ画面。
 - **画面説明:** 「Graph your data」セクションの Edit タブ。クエリ a は通常の「Metrics」で `sum` / `datadog.estimated_usage.events.ingested_events` / `from service:undefined` / `as count`。クエリ b ではデータソースのドロップダウンに「cross」と入力し、候補「Metrics (Cross Org)」を選択している。下部に「Add Query」「Add Formula」ボタンがある。
@@ -426,10 +426,10 @@ JSON の構造例（公式例を簡略化）:
 
 | 項目 | 内容 |
 |---|---|
-| Org Connection Read | 接続一覧の閲覧（既定で付与） |
+| Org Connection Read | 接続一覧の閲覧（既定では本権限を持つロールのユーザーのみ閲覧可） |
 | Org Connection Write | 接続の作成・削除 |
 | Granular Access Control | 南京錠アイコン > Restrict Access。source 側は接続の編集者、destination 側は共有データの閲覧者と接続の編集者を制御。既定はメンバー Viewer。保存前に自分が属するロールか Team を最低 1 つ含める必要あり。解除は Restore Full Access |
-| データアクセス制限の継承 | 接続は**作成者の**データアクセス制限（Data Access Control、Log Restriction Queries）を継承する。接続を削除してもその制限は解除されない |
+| データアクセス制限の継承 | 接続は**作成者の**データアクセス制限（Data Access Control、Log Restriction Queries）を継承する。作成者のアカウントが無効化されると接続は削除され、データフローは中断するが、継承したデータアクセス制限は解除されない |
 | HIPAA | HIPAA 対応 org からの接続は PHI を共有し得る。機微データの転送は顧客責任 |
 
 [出典](https://docs.datadoghq.com/account_management/org_settings/cross_org_visibility/)
@@ -605,7 +605,7 @@ multi-SAML により、**「IdP が違うので org を分ける」必要性は 
 
 | 項目 | 仕様 |
 |---|---|
-| 対応テレメトリ | APM traces、Cloud costs、カスタムメトリクス（標準メトリクスは非対応）、Error Tracking issues、Logs、RUM sessions、Security signals（Cloud SIEM・Workload Protection）、CI Visibility pipelines、Workload Protection Agent Events、Agent Observability 関連 |
+| 対応テレメトリ | APM traces、Cloud costs、カスタムメトリクス（標準メトリクスは非対応）、Error Tracking issues、Logs、RUM sessions、Security signals（Cloud SIEM・Workload Protection）、Software Delivery のリポジトリ情報（CI Visibility pipelines 内。Test Optimization のテストは非対応）、Workload Protection Agent Events、Agent Observability 関連 |
 | 申請により Preview | Database Monitoring、Hosts、Processes、Containers、Security findings、Serverless |
 | Dataset あたりのプリンシパル | 最大 50（ロールまたは Team） |
 | Dataset あたりの key:value | 最大 10 |
@@ -699,7 +699,9 @@ Agent は `additional_endpoints` 系の設定で、同じデータを複数の o
 | APM（traces） | `apm_config.additional_endpoints` | 6.7.0 | `DD_APM_ADDITIONAL_ENDPOINTS`（6.19 / 7.19） |
 | Continuous Profiler | `apm_config.profiling_additional_endpoints` | 6.7.0 | `DD_APM_PROFILING_ADDITIONAL_ENDPOINTS`（6.19 / 7.19） |
 | Live Processes | `process_config.additional_endpoints` | 6.4.0 | `DD_PROCESS_ADDITIONAL_ENDPOINTS`（6.20 / 7.20） |
-| Orchestrator | `orchestrator_explorer.orchestrator_additional_endpoints`（Helm） | 公開情報では確認できず | `DD_ORCHESTRATOR_EXPLORER_ORCHESTRATOR_ADDITIONAL_ENDPOINTS` |
+| Cluster Agent metrics | Helm の `clusterAgent.env` で `DD_ADDITIONAL_ENDPOINTS` を設定 | 公開情報では確認できず | `DD_ADDITIONAL_ENDPOINTS` |
+| Cluster Agent metrics provider | `external_metrics_provider.endpoints`（`cluster-agent-deployment.yaml` に `api_key`・`app_key`・`url` を指定） | 公開情報では確認できず | 公開情報では確認できず |
+| Orchestrator | `process_config.additional_endpoints` と `orchestrator_explorer.orchestrator_additional_endpoints`（Helm の `values.yaml`） | 公開情報では確認できず | `DD_ORCHESTRATOR_EXPLORER_ORCHESTRATOR_ADDITIONAL_ENDPOINTS` |
 | CI Visibility | `evp_proxy_config.additional_endpoints` | 6.38 / 7.38 | `DD_EVP_PROXY_CONFIG_ADDITIONAL_ENDPOINTS` |
 | Logs | `logs_config.force_use_http` ＋ `logs_config.additional_endpoints` | TCP 6.6、HTTPS 6.13 | `DD_LOGS_CONFIG_ADDITIONAL_ENDPOINTS`（6.18 / 7.18） |
 | Database Monitoring | `database_monitoring.samples` / `.activity` / `.metrics` | 6.29 / 7.29 | `DD_DATABASE_MONITORING_*_ADDITIONAL_ENDPOINTS` |

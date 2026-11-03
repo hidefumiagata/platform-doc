@@ -24,6 +24,8 @@ sources:
   - https://www.elastic.co/pricing/faq/licensing
   - https://www.elastic.co/docs/deploy-manage/deploy/elastic-cloud/regions
   - https://www.splunk.com/en_us/products/pricing/observability.html
+  - https://www.splunk.com/en_us/download/observability-cloud-free-edition.html
+  - https://www.peerspot.com/products/comparisons/datadog_vs_dynatrace_vs_new-relic
   - https://aws.amazon.com/cloudwatch/pricing/
   - https://azure.microsoft.com/en-us/pricing/details/monitor/
   - https://prices.azure.com/api/retail/prices
@@ -166,7 +168,7 @@ PoC では、各製品を**同じ環境・同じ障害シナリオ**で評価す
 | SIEM | ✓（Cloud SIEM） | — | — | — | ✓（Elastic Security、別ソリューション） | △（Splunk Enterprise Security、別製品） | — | △（Microsoft Sentinel、別製品） | △（Google Security Operations、別製品） | ✓（Cloud SIEM） |
 | CSPM・ワークロード保護 | ✓ | — | ✓（Security Posture Management） | — | ✓（Elastic Security） | — | — | — | — | — |
 | アプリ脆弱性・RASP | ✓（App and API Protection / Code Security） | — | ✓（Runtime Vulnerability Analytics / Runtime Application Protection） | — | — | △（Secure Application、アドオン） | — | — | — | — |
-| インシデント管理・オンコール | ✓（Incident Management / On-Call） | — | — | ✓（IRM） | — | — | — | — | — | — |
+| インシデント管理・オンコール | ✓（Incident Management / On-Call） | — | — | ✓（IRM） | — | △（Splunk On-Call、別製品） | — | — | — | — |
 | 負荷試験 | — | — | — | ✓（k6） | — | — | — | — | — | — |
 | セルフホスト版 | △（BYOC Logs のみ） | — | △（Dynatrace Managed は本調査対象外） | ✓（OSS / Enterprise） | ✓（Self-managed） | — | — | — | — | — |
 
@@ -187,7 +189,7 @@ PoC では、各製品を**同じ環境・同じ障害シナリオ**で評価す
 | AWS CloudWatch | Metrics Insights（SQL 風）、Logs Insights クエリ言語 | ロググループ・名前空間単位 |
 | Azure Monitor | KQL（Kusto Query Language） | Log Analytics ワークスペースのテーブル |
 | Google Cloud Obs. | PromQL、Logging クエリ言語、Log Analytics（SQL） | プロジェクト・ログバケット単位 |
-| Sumo Logic | Sumo Logic 検索言語 | ログ中心。Flex ライセンスでは取り込みではなくスキャン量で課金 [出典](https://www.sumologic.com/pricing) |
+| Sumo Logic | Sumo Logic 検索言語 | ログ中心。Flex ライセンス（Enterprise Suite）では取り込みではなくスキャン量で課金 [出典](https://www.sumologic.com/pricing) |
 
 ---
 
@@ -201,14 +203,14 @@ PoC では、各製品を**同じ環境・同じ障害シナリオ**で評価す
 |---|---|---|---|---|
 | **Datadog** | 製品（SKU）ごと：インフラホスト/月、APM ホスト/月、ログ取り込み GB + インデックス 100 万イベント、RUM 1,000 セッション、Synthetic 実行回数、カスタムメトリクス数 など | ホスト数、ログのインデックス件数、カスタムメトリクスのカーディナリティ、有効化する製品数 | Free tier：Basic ホスト 5 台・メトリクス保持 1 日。トライアル 14 日 | コミット超過分はオンデマンド料金で課金（ログはコミット超過分が年契約価格 +50%）[出典](pricing-by-product.md) |
 | **New Relic** | データ取り込み GB + ユーザー（Core / Full platform）。オプションでコンピュート（CCU）課金 | 取り込み GB、Full platform ユーザー数 | 毎月 100 GB 取り込み、Basic ユーザー無制限、Full platform ユーザー 1 名、Synthetic チェック 500 回 | Free は 100 GB 超過で**取り込み停止・プラットフォーム利用不可**（翌月またはアップグレードまで）[出典](https://newrelic.com/pricing) |
-| **Dynatrace** | DPS（Dynatrace Platform Subscription）：年間最低利用額コミット + レートカードによる消費。ホスト（メモリ GiB 時間 / ホスト時間）、Pod 時間、GiB 取り込み・保持・スキャン、セッション | ホストのメモリ量（Full-Stack は 8 GiB 単位）、ログの取り込み・保持日数・クエリ量 | 公開情報では恒久無料枠は確認できず（トライアルあり） | コミット超過分は前払い消費と同じ単価で月次オンデマンド課金（ペナルティ型の超過料金なし）[出典](https://www.dynatrace.com/pricing/) |
+| **Dynatrace** | DPS（Dynatrace Platform Subscription）：年間最低利用額コミット + レートカードによる消費。ホスト（メモリ GiB 時間 / ホスト時間）、Pod 時間、GiB 取り込み・保持・スキャン、セッション | ホストのメモリ量（Full-Stack は 8 GiB 単位）、ログの取り込み・保持日数・クエリ量 | 公開情報では恒久無料枠は確認できず（15 日間の無料トライアルあり） | コミット超過分は前払い消費と同じ単価で月次オンデマンド課金（ペナルティ型の超過料金なし）[出典](https://www.dynatrace.com/pricing/) |
 | **Grafana Cloud** | アクティブシリーズ数（メトリクス）、GB（ログ・トレース・プロファイル：処理 + 書き込み + 保持）、ホスト時間、セッション、アクティブユーザー | メトリクスのアクティブシリーズ（カーディナリティ）、ログ GB | Free：メトリクス 1 万シリーズ、ログ・トレース・プロファイル各 50 GB、保持 14 日、ユーザー 3 名 等 | Pro は $19/月の基本料金 + 従量課金。Enterprise は年 $25,000 以上のコミット [出典](https://grafana.com/pricing/) |
 | **Elastic（Serverless）** | 取り込み GB + 保持 GB/月 + 転送量（Egress） | 取り込み GB、保持期間 | 公開情報ではトライアルの期間・条件は確認できず | 従量課金 [出典](https://www.elastic.co/pricing/serverless-observability) |
-| **Splunk Obs. Cloud** | ホスト/月（エディション別：Infrastructure / App & Infra / End-to-End）、年額請求 | ホスト数、上位エディション | 公開情報では確認できず | 公開情報では確認できず [出典](https://www.splunk.com/en_us/products/pricing/observability.html) |
+| **Splunk Obs. Cloud** | ホスト/月（エディション別：Infrastructure / App & Infra / End-to-End）、年額請求 | ホスト数、上位エディション | Free edition：最大 15 ホスト、期間制限なし、クレジットカード不要（Agent Observability を含む）[出典](https://www.splunk.com/en_us/download/observability-cloud-free-edition.html) | 公開情報では確認できず [出典](https://www.splunk.com/en_us/products/pricing/observability.html) |
 | **AWS CloudWatch** | メトリクス数/月、API リクエスト、アラーム数、ログ取り込み GB・保存 GB・スキャン GB、RUM イベント、canary 実行、Application Signals シグナル数 | ログ取り込み GB、カスタムメトリクス数、Logs Insights のスキャン量 | ログ 5 GB、カスタム／詳細メトリクス 10 個、アラーム 10 個、ダッシュボード 3 個 等 | 従量課金 [出典](https://aws.amazon.com/cloudwatch/pricing/) |
 | **Azure Monitor** | Log Analytics 取り込み GB（Analytics / Basic / Auxiliary）、保持 GB/月、クエリ GB、メトリクスサンプル数、アラートルール数、Web テスト実行 | Analytics Logs の取り込み GB | Analytics Logs は請求アカウントあたり毎月 5 GB 無料、保持 31 日無料（Sentinel 有効時 90 日）| 従量課金またはコミットメントティア（100〜50,000 GB/日）[出典](https://azure.microsoft.com/en-us/pricing/details/monitor/) |
 | **Google Cloud Obs.** | Logging 取り込み GiB、保持 GiB/月、Monitoring 取り込み MiB / サンプル数、Trace スパン数、Uptime check 実行、アラート条件 | ログ取り込み GiB、メトリクス取り込み量 | Logging：毎月 50 GiB/プロジェクト、Trace：250 万スパン/請求アカウント 等 | 従量課金 [出典](https://cloud.google.com/stackdriver/pricing) |
-| **Sumo Logic** | Flex ライセンス：取り込みは $0（無制限）、分析（スキャン）量に応じたクレジット消費 + 保存の名目的な料金 | スキャン量（クエリ・ダッシュボード・アラートの実行量） | 無料トライアル（トライアル中にクレジットカードで最大 $25,000 分のクレジット購入可） | クレジット消費。超過・ピークのペナルティなしと記載 [出典](https://www.sumologic.com/pricing) |
+| **Sumo Logic** | Enterprise Suite で選べる Flex ライセンス：取り込みは $0（無制限）、分析（スキャン）量に応じたクレジット消費 + 保存の名目的な料金。Essentials は Continuous ティアの取り込み課金 | スキャン量（クエリ・ダッシュボード・アラートの実行量） | 無料トライアル（トライアル中にクレジットカードで最大 $25,000 分のクレジット購入可） | クレジット消費。超過・ピークのペナルティなしと記載 [出典](https://www.sumologic.com/pricing) |
 
 ### 4.2 Datadog の主要定価（再掲・正本は pricing-by-product.md）
 
@@ -260,7 +262,7 @@ PoC では、各製品を**同じ環境・同じ障害シナリオ**で評価す
 | Foundation & Discovery | $7/ホスト | $0.01/ホスト時間 |
 | Infrastructure Monitoring | $29/ホスト | $0.04/ホスト時間 |
 | Full-Stack Monitoring | $58/8 GiB ホスト | $0.01/メモリ GiB 時間 |
-| Kubernetes Platform Monitoring | $1.40/Pod | $0.002/Pod 時間 |
+| Kubernetes Platform Monitoring | $1.40/Pod（Full-Stack Monitoring のホストでは追加料金なしで含まれる） | $0.002/Pod 時間 |
 | Code Monitoring | $3.60/コンテナ | $0.005/コンテナ時間 |
 | Runtime Vulnerability Analytics | $13/8 GiB ホスト | $0.00225/メモリ GiB 時間 |
 | Runtime Application Protection | $13/8 GiB ホスト | $0.00225/メモリ GiB 時間 |
@@ -388,7 +390,8 @@ PoC では、各製品を**同じ環境・同じ障害シナリオ**で評価す
 
 | 項目 | 内容 |
 |---|---|
-| ライセンス | **Flex**：取り込み $0（無制限）、ユーザー無制限。分析（スキャン）量に応じてクレジットを消費 |
+| ライセンス | **Flex**（Enterprise Suite のみ選択可）：取り込み $0（無制限）、ユーザー無制限。分析（スキャン）量に応じてクレジットを消費。Essentials のログ取り込みは Continuous ティアのみ（Sumo Credit のティア課金）。Enterprise Suite は Continuous / Frequent / Infrequent / Flex から選択 |
+| 表示価格（MSRP）の前提 | 年間の Enterprise Flex コミット、指定した取り込み・保持・分析プロファイル、新規顧客向けプロモーション（New Logo Onboarding Acceleration）の適用、US デプロイメントリージョンの選択を前提とする（価格ページの注記） |
 | 分析量の目安区分 | Low：取り込み 1 GB あたり 500〜750 スキャン／Mid：750〜1,500／High：1,500〜2,000 |
 | 単価 | 価格ページ上では非掲載（見積り） |
 | エディション | Essentials（メトリクス 5 万/日・トレース 5 GB/日上限、リアルタイムアラート ログ 300・メトリクス 500、保持最大 365 日、8×5 サポート）／Enterprise Suite（SIEM 向け、メトリクス・トレース無制限、ログアラート 1,000、保持は顧客定義、P1 24/7 サポート） |
@@ -453,7 +456,7 @@ PoC では、各製品を**同じ環境・同じ障害シナリオ**で評価す
 | 観点 | 内容 |
 |---|---|
 | 価格モデル | DPS（年間最低利用額コミット + レートカード消費）。Full-Stack $58/8 GiB ホスト/月（$0.01/メモリ GiB 時間）、Infrastructure $29/ホスト/月、ログは取り込み $0.20/GiB + 保持 + クエリ [出典](https://www.dynatrace.com/pricing/) |
-| 日本リージョン | 2024-03 に AWS 東京リージョンでの SaaS 提供を発表（顧客データを東京に保存）[出典](https://www.dynatrace.com/news/press-release/dynatrace-platform-availability-on-aws-in-japan/)（2024-03-04 公開） |
+| 日本リージョン | 2024-03 に AWS 東京リージョンでの SaaS 提供を発表（発表文は国内規制への準拠に言及。データ保存場所の明示はない）[出典](https://www.dynatrace.com/news/press-release/dynatrace-platform-availability-on-aws-in-japan/)（2024-03-04 公開） |
 | アナリスト評価 | 2026 Gartner MQ for Observability Platforms で Leader（16 回目、同社発表）|
 
 | Datadog と比べた Dynatrace の強み | Datadog と比べた Dynatrace の弱み |
@@ -518,6 +521,7 @@ PoC では、各製品を**同じ環境・同じ障害シナリオ**で評価す
 | Splunk Platform（SIEM の Splunk Enterprise Security を含む）を既に持つ組織では、ログ・セキュリティ資産を活かしつつオブザーバビリティを追加できる | ログはオブザーバビリティ製品単体ではなく Splunk Platform 側の契約・運用が前提となり、構成と契約が 2 系統になる |
 | エディション価格がシンプル（3 段階、ホスト単位）で、APM + RUM 込みの End-to-End が $75/ホスト | Infrastructure + APM + RUM を個別に組み合わせる柔軟性は Datadog の方が高い（Datadog は SKU 単位で購入）|
 | OpenTelemetry ネイティブの収集 | 公開価格ページでは Database Monitoring、Secure Application の価格が非公開 |
+| Free edition（最大 15 ホスト、期間制限なし、クレジットカード不要。Agent Observability を含む。含まれる機能の全範囲はページ上に明記なし）があり、小規模な検証を始めやすい [出典](https://www.splunk.com/en_us/download/observability-cloud-free-edition.html) | — |
 
 **判断ポイント:** 「Splunk を SIEM・ログ基盤として既に全社導入している」場合は Splunk Observability Cloud の追加が自然な選択肢になる。逆に「ログ・メトリクス・APM・セキュリティを 1 つの SaaS にまとめたい」場合は Datadog が有利。両者の併用（Splunk を SIEM、Datadog をオブザーバビリティ）も実務では多い【経験則】。
 
@@ -577,16 +581,16 @@ PoC では、各製品を**同じ環境・同じ障害シナリオ**で評価す
 
 ### 5.9 Sumo Logic
 
-**概要:** Sumo Logic はクラウドネイティブのログ分析・SIEM を起点とする SaaS で、メトリクス・トレースにも対応する。2026 年時点の Flex ライセンスでは**取り込みを無料（無制限）**とし、分析（スキャン）量で課金する独自モデルを取る [出典](https://www.sumologic.com/pricing)。
+**概要:** Sumo Logic はクラウドネイティブのログ分析・SIEM を起点とする SaaS で、メトリクス・トレースにも対応する。2026 年時点の Flex ライセンス（Enterprise Suite で選択可）では**取り込みを無料（無制限）**とし、分析（スキャン）量で課金する独自モデルを取る [出典](https://www.sumologic.com/pricing)。
 
 | 観点 | 内容 |
 |---|---|
-| 価格モデル | Flex：取り込み $0、分析スキャン量でクレジット消費、保存は名目的料金。エディションは Essentials / Enterprise Suite（見積り）|
+| 価格モデル | エディションは Essentials / Enterprise Suite（見積り）。Flex（取り込み $0・分析スキャン量でクレジット消費・保存は名目的料金）は Enterprise Suite で選べるライセンスで、Essentials は Continuous ティアの取り込み課金 [出典](https://www.sumologic.com/pricing) |
 | 日本リージョン | JP デプロイメント（Asia Pacific (Tokyo)、AWS ap-northeast-1、`api.jp.sumologic.com`）あり [出典](https://help.sumologic.com/docs/api/aws-region-by-sumo-deployment/) |
 
 | Datadog と比べた Sumo Logic の強み | Datadog と比べた Sumo Logic の弱み |
 |---|---|
-| 取り込み無料のため「とりあえず全部のログを入れておき、必要なときに検索する」使い方と相性が良い | 単価が非公開でスキャン量の見積りが必要。クエリ・ダッシュボード・アラートを多用するとクレジット消費が増える【推定】 |
+| Flex（Enterprise Suite）では取り込み無料のため「とりあえず全部のログを入れておき、必要なときに検索する」使い方と相性が良い | 単価が非公開でスキャン量の見積りが必要。クエリ・ダッシュボード・アラートを多用するとクレジット消費が増える【推定】 |
 | ログ分析と Cloud SIEM・SOAR を同一基盤で提供（Enterprise Suite）| APM・RUM・Synthetic・プロファイラ・DB 監視など、アプリケーション側のオブザーバビリティ機能の幅は Datadog が大きく上回る |
 | ユーザー数無制限 | Essentials はメトリクス 5 万/日・トレース 5 GB/日の上限あり |
 
@@ -598,14 +602,14 @@ PoC では、各製品を**同じ環境・同じ障害シナリオ**で評価す
 |---|---|---|---|---|---|
 | **Datadog** | 統合 SaaS | 製品別ホスト課金 + 量課金 | 製品の幅、1,000+ インテグレーション、シグナル横断の UX、セキュリティ・On-Call まで一体 | （比較基準）| AP1 |
 | New Relic | 統合 SaaS | データ GB + ユーザー | 大きな無料枠、課金の単純さ | Full ユーザー費用、JP リージョンの機能制限 | JP（日本法人経由）|
-| Dynatrace | 統合 SaaS | DPS（コミット + 消費） | 自動計装、因果 AI、エンタープライズ実績 | 恒久無料枠なし、多次元の課金 | AWS 東京 |
-| Grafana Cloud | OSS ベース | シリーズ数 + GB | OSS・オープン性、低価格、セルフホスト可 | 構成要素が多い、セキュリティ製品なし | AWS 東京 |
+| Dynatrace | 統合 SaaS | DPS（コミット + 消費） | 自動計装、因果 AI、エンタープライズ実績 | 恒久無料枠は公開情報で確認できず（15 日トライアルあり）、多次元の課金 | AWS 東京 |
+| Grafana Cloud | OSS ベース | シリーズ数 + GB | OSS・オープン性、低価格、セルフホスト可 | 構成要素が多い、セキュリティ製品は価格ページで確認できず | AWS 東京 |
 | Elastic | OSS ベース | 取り込み GB + 保持 GB | 全文検索、SIEM 統合、セルフホスト可 | APM/RUM の幅、セルフ運用負荷 | AWS / GCP 東京（Serverless）|
 | Splunk Obs. Cloud | 統合 SaaS | ホスト単位エディション | Splunk Platform との統合、OTel ネイティブ | ログは別契約、構成が 2 系統 | jp0 |
 | AWS CloudWatch | クラウドネイティブ | 細粒度従量 | AWS 統合、導入不要 | マルチクラウド・相関・UX | 東京・大阪 |
 | Azure Monitor | クラウドネイティブ | 取り込み GB 中心 | KQL、Sentinel 統合 | Analytics Logs 単価、Azure 外 | 東日本・西日本 |
 | Google Cloud Obs. | クラウドネイティブ | 取り込み GiB・サンプル | GCP・GKE 統合、大きな無料枠 | マルチクラウド、周辺機能 | 東京・大阪 |
-| Sumo Logic | ログ／セキュリティ起点 | スキャン量（取り込み無料） | 全量取り込み、SIEM | APM・RUM 等の幅、単価非公開 | JP（東京）|
+| Sumo Logic | ログ／セキュリティ起点 | スキャン量（Enterprise Suite の Flex は取り込み無料） | 全量取り込み、SIEM | APM・RUM 等の幅、単価非公開 | JP（東京）|
 
 ---
 
@@ -629,13 +633,13 @@ PoC では、各製品を**同じ環境・同じ障害シナリオ**で評価す
 
 | # | 弱み・注意点 | 内容と緩和策 |
 |---|---|---|
-| 1 | **課金体系の複雑さ** | 製品ごとに課金単位（ホスト・GB・イベント・セッション・実行回数・カスタムメトリクス数等）が異なり、全体像の把握に学習が必要。第三者のレビューでも価格の分かりにくさ・予測しにくさが指摘される【第三者情報】。緩和策：[課金計算の仕組み](billing-mechanics.md)、[コスト見積り手法](cost-estimation.md) |
+| 1 | **課金体系の複雑さ** | 製品ごとに課金単位（ホスト・GB・イベント・セッション・実行回数・カスタムメトリクス数等）が異なり、全体像の把握に学習が必要。第三者のレビューでも価格の分かりにくさ・予測しにくさが指摘される【第三者情報】[出典](https://www.peerspot.com/products/comparisons/datadog_vs_dynatrace_vs_new-relic)（PeerSpot のレビュー集約、ページ表示の更新は 2026-10、取得日 2026-11-04）。緩和策：[課金計算の仕組み](billing-mechanics.md)、[コスト見積り手法](cost-estimation.md) |
 | 2 | **カスタムメトリクスのカーディナリティ課金** | タグの組み合わせ数がそのままカスタムメトリクス数になり、高カーディナリティなタグで請求が急増する。緩和策：[Custom Metrics と DogStatsD](../02_リファレンス/platform/custom-metrics-and-dogstatsd.md)、[タグ戦略の実践](../04_応用編/tagging-strategy.md) |
 | 3 | **ログの全件インデックスは高価** | 取り込み $0.10/GB に加えインデックス $1.70/100 万イベント（15 日、US 年契約）。全件インデックスするとクラウドネイティブ製品より高くなりやすい。緩和策：インデックス対象の絞り込み、Flex Logs、アーカイブ |
 | 4 | **製品追加に伴うコスト増** | 有効化しやすい反面、製品を増やすほど SKU が増える。オンデマンド利用は年契約より高い（例：Infrastructure Pro $15 → $18）|
 | 5 | **セルフホスト版がない（ログ除く）** | Datadog は SaaS が基本で、メトリクス・APM 等のオンプレ版はない。ログのみ自社クラウドアカウントにデータを置く **BYOC Logs**（ドキュメント URL は `/cloudprem/`）が提供されている（US1-FED / US2-FED サイトは非対応）[出典](https://docs.datadoghq.com/cloudprem/)。完全閉域網（インターネット接続不可）での利用には向かない |
 | 6 | **AP1 の価格は US より高い** | AP1 の定価は US サイトより高い（例：Infrastructure Pro 年契約 $15 → $18.75）[出典](pricing-by-product.md) |
-| 7 | **恒久無料枠が小さい** | Free tier は Basic ホスト 5 台・メトリクス保持 1 日のみで、New Relic（100 GB/月）や Grafana Cloud Free と比べ小さい |
+| 7 | **恒久無料枠が小さい** | Free tier は Basic ホスト 5 台・メトリクス保持 1 日のみで、New Relic（100 GB/月）、Grafana Cloud Free、Splunk Observability Cloud の Free edition（最大 15 ホスト）と比べ小さい |
 | 8 | **独自 Agent への依存** | 一部機能は Datadog Agent が前提。OTel での収集も可能だが、機能差がある場合がある。緩和策：[OpenTelemetry 活用戦略](../04_応用編/opentelemetry-strategy.md) |
 
 ---
@@ -664,7 +668,7 @@ PoC では、各製品を**同じ環境・同じ障害シナリオ**で評価す
 | インターネット接続のない完全閉域網・エアギャップ環境 | SaaS 前提のため Datadog へのデータ送信が必要（プロキシ・PrivateLink 等は利用可）| Elastic / Grafana のセルフホスト。接続要件は [ネットワーク・接続要件](network-and-connectivity.md) |
 | 単一クラウドで小規模・クラウド標準機能で十分 | クラウドネイティブ製品の方が安価で導入不要 | CloudWatch / Azure Monitor / Google Cloud Observability |
 | 予算が極めて限られ、OSS を運用する人材がいる | OSS（Prometheus + Grafana 等）のセルフホストはライセンス費用がかからない（運用人件費は別）| Grafana OSS / LGTM |
-| 大量ログを長期・全件で検索可能にしたいが、検索頻度は低い | 全件 Standard Indexing は高価 | Datadog 内では Flex Logs・アーカイブ／Rehydration・Archive Search。他社では Sumo Logic（取り込み無料）、Elastic、Grafana Loki |
+| 大量ログを長期・全件で検索可能にしたいが、検索頻度は低い | 全件 Standard Indexing は高価 | Datadog 内では Flex Logs・アーカイブ／Rehydration・Archive Search。他社では Sumo Logic（Enterprise Suite の Flex は取り込み無料）、Elastic、Grafana Loki |
 | 高カーディナリティのカスタムメトリクスを大量に送る設計（例：ユーザー ID をタグにする）| カスタムメトリクス課金が急増 | 設計の見直し（高カーディナリティ属性はログ・トレース・RUM 側へ）。[よくある失敗とアンチパターン](../04_応用編/common-pitfalls.md) |
 | 監視の目的がセキュリティログ分析（SIEM）のみ | Datadog Cloud SIEM でも可能だが、既存 SIEM 資産（Splunk ES、Sentinel 等）がある場合は移行コストが大きい | 既存 SIEM を継続し、Datadog はオブザーバビリティに限定する併用 |
 | ベンダーロックインを極力避けたい | Datadog Agent・Datadog 固有の機能に依存しやすい | OpenTelemetry で計装し、送信先を切替可能にする（[OpenTelemetry 活用戦略](../04_応用編/opentelemetry-strategy.md)）|
@@ -739,7 +743,7 @@ A. 一概には言えない。Datadog はホスト課金と量課金の組み合
 A. New Relic Free は毎月 100 GB の取り込みと Full platform ユーザー 1 名が無料 [出典](https://newrelic.com/pricing)。Datadog Free tier は Basic ホスト 5 台・メトリクス保持 1 日のみ [出典](https://www.datadoghq.com/pricing/?product=infrastructure)。無料枠の大きさは New Relic の方が大きい。Datadog は 14 日間の全機能トライアルがある。
 
 **Q3. 日本国内にデータを保存できる製品はどれか？**
-A. Datadog（AP1）、New Relic（JP リージョン、日本法人経由・一部機能制限あり）、Dynatrace（AWS 東京）、Grafana Cloud（AWS 東京）、Elastic Cloud Serverless（AWS / GCP 東京）、Splunk Observability Cloud（jp0）、Sumo Logic（JP デプロイメント）、各クラウドネイティブ製品（各社の日本リージョン）が該当する。各出典は本文 §5 を参照。データ保存場所の詳細要件は [セキュリティとコンプライアンス](security-and-compliance.md) で確認する。
+A. Datadog（AP1）、New Relic（JP リージョン、日本法人経由・一部機能制限あり）、Dynatrace（AWS 東京で SaaS 提供。発表文にデータ保存場所の明示はないため要確認）、Grafana Cloud（AWS 東京）、Elastic Cloud Serverless（AWS / GCP 東京）、Splunk Observability Cloud（jp0）、Sumo Logic（JP デプロイメント）、各クラウドネイティブ製品（各社の日本リージョン）が該当する。各出典は本文 §5 を参照。データ保存場所の詳細要件は [セキュリティとコンプライアンス](security-and-compliance.md) で確認する。
 
 **Q4. Datadog をオンプレミスにインストールできるか？**
 A. Datadog 本体（SaaS バックエンド）のオンプレ版はない。Agent はオンプレのサーバーに導入でき、データを Datadog SaaS に送る。ログについては自社クラウドアカウント（AWS / GCP / Azure）にデータを保持する BYOC Logs がある [出典](https://docs.datadoghq.com/cloudprem/)。
@@ -820,6 +824,8 @@ Datadog（公式）
 - Elastic Licensing FAQ: https://www.elastic.co/pricing/faq/licensing
 - Elastic Cloud Serverless Regions: https://www.elastic.co/docs/deploy-manage/deploy/elastic-cloud/regions
 - Splunk Observability Cloud Pricing: https://www.splunk.com/en_us/products/pricing/observability.html （取得日 2026-11-02）
+- Splunk Observability Cloud Free Edition: https://www.splunk.com/en_us/download/observability-cloud-free-edition.html （取得日 2026-11-04）
+- Splunk On-Call（Free trial）: https://www.splunk.com/en_us/download/on-call.html
 - Amazon CloudWatch Pricing: https://aws.amazon.com/cloudwatch/pricing/ （取得日 2026-11-03）
 - AWS Price List API（AmazonCloudWatch, us-east-1 / ap-northeast-1）: https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonCloudWatch/current/us-east-1/index.json （取得日 2026-11-03）
 - Azure Monitor Pricing: https://azure.microsoft.com/en-us/pricing/details/monitor/
@@ -832,4 +838,4 @@ Datadog（公式）
 
 - Grafana Labs Blog「From Datadog to Grafana Cloud: why companies migrate」（2025-02-10 公開、ベンダー自身の主張）: https://grafana.com/blog/2025/02/10/from-datadog-to-grafana-cloud-why-companies-migrate-and-how-it-changes-business-for-the-better/
 - クラウド Watch（Impress）Splunk Observability Cloud 日本提供の報道（2022 公開）: https://cloud.watch.impress.co.jp/docs/news/1427639.html
-- PeerSpot - Datadog vs Dynatrace vs New Relic（レビュー集約、随時更新）: https://www.peerspot.com/products/comparisons/datadog_vs_dynatrace_vs_new-relic
+- PeerSpot - Datadog vs Dynatrace vs New Relic（レビュー集約、ページ表示の更新 2026-10、取得日 2026-11-04）: https://www.peerspot.com/products/comparisons/datadog_vs_dynatrace_vs_new-relic

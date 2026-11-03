@@ -412,7 +412,7 @@ Reusable Modules は、コンポーネントとクエリのまとまりをテン
 
 App Builder のクエリは、Datadog API や対応する連携先からデータを取得・操作するアクションである。他のクエリや UI コンポーネントから入力を受け取り、出力を返す。Data タブで「+」→ **Actions** を選び、Action Catalog からアクションを検索して追加する。Bits AI でクエリを追加・設定・実行することもできる。クエリは Connections で認証する。[出典](https://docs.datadoghq.com/actions/app_builder/queries/)
 
-Action Catalog のアクション数は、価格ページで「1,750+」と説明されている（2026-11-02 取得）。2024-06 の GA 時のプレスリリースでは「550+」だった。[出典](https://www.datadoghq.com/pricing/?product=app-builder)、[プレスリリース](https://www.datadoghq.com/about/latest-news/press-releases/datadog-launches-new-app-builder-for-devsecops-teams/)
+Action Catalog のアクション数は、出典によって数値が異なる。公式ドキュメント（Workflow Automation）では「2,000 以上（over 2000+ actions）」、価格ページでは「1,750+」、App Builder 概要ページでは「hundreds of actions」と書かれている（いずれも 2026-11-02 取得）。2024-06 の GA 時のプレスリリースでは「550+」だった。Action Catalog の詳細は [Workflow Automation](./workflow-automation.md) を参照。[出典](https://docs.datadoghq.com/actions/workflows/)、[出典](https://www.datadoghq.com/pricing/?product=app-builder)、[出典](https://docs.datadoghq.com/actions/app_builder/)、[プレスリリース](https://www.datadoghq.com/about/latest-news/press-releases/datadog-launches-new-app-builder-for-devsecops-teams/)
 
 ### Run Settings（実行設定）
 
@@ -765,7 +765,9 @@ App Builder に関係するロール権限は次のとおり。「表示名」�
 | Forms Read | `apps_form_read` | フォームを表示・回答する | Read Only、Standard、Admin |
 | Forms Manage | `apps_form_manage` | フォームを作成・更新・管理する | Standard、Admin |
 
-[出典](https://docs.datadoghq.com/actions/app_builder/access_and_auth/)、[出典](https://docs.datadoghq.com/account_management/rbac/permissions/)
+上表の権限名・内容・既定ロールは RBAC 権限ページによる。[出典](https://docs.datadoghq.com/account_management/rbac/permissions/)
+
+> **補足:** Access and Auth ページには Apps View、Apps Write、Connections Read の3つだけが載っており、Apps Write の説明は「Create and edit new and existing apps」（作成・編集）で、公開・削除は書かれていない。RBAC 権限ページでは `apps_write` は「Create, edit, publish, and delete Apps in App Builder」とされている。[出典](https://docs.datadoghq.com/actions/app_builder/access_and_auth/)
 
 > **補足:** RBAC 権限ページでは既定ロールが1つだけ書かれている（例：`apps_run` は Standard）。Datadog の既定ロールは Read Only ⊂ Standard ⊂ Admin の包含関係なので、上表では上位ロールも併記した。詳細は [組織・ユーザー・権限管理](../platform/account-and-access-management.md) を参照。
 
@@ -927,7 +929,7 @@ Datadog Apps `【Preview】` は、React と TypeScript（または JavaScript�
 | 外部連携 | Action Catalog のアクション、HTTP、JavaScript | `@datadog/action-catalog` の型付きクライアント、バックエンド関数 |
 | UI 編集 | GUI | コード（GUI でのドラッグ＆ドロップ編集、UI 管理の変数・イベント・式は使えない） |
 | 権限モデル | App Builder の権限 | App Builder と同じ |
-| 埋め込み先 | ダッシュボード、ノートブック（入力パラメーター利用時）、Self-Service Actions | ダッシュボード、ノートブック、IDP ホーム、Catalog のサイドパネル |
+| 埋め込み先 | ダッシュボード、ノートブック、Self-Service Actions（Self-Service Actions では入力パラメーターを選べない） | ダッシュボード、ノートブック、IDP ホーム、Catalog のサイドパネル |
 | 提供状況 | GA | Preview（申請制） |
 
 [出典](https://docs.datadoghq.com/actions/datadog_apps/)、[出典](https://docs.datadoghq.com/actions/datadog_apps/embed_apps/)
@@ -1069,6 +1071,8 @@ App Builder Overview ダッシュボードは、組織の Datadog アプリの�
 
 > **サイト差異:** Datadog Apps `【Preview】` で US1 以外を使う場合は `vite.config.ts` の `auth.site` の設定が必要（us3、us5、eu、ap1、ap2、uk1）。[出典](https://docs.datadoghq.com/actions/datadog_apps/)
 
+> **サイト差異:** 価格はサイトによって異なる。AP1 の価格は年契約 $43.75 / 月契約 $52.50 / オンデマンド $63.75（公開済みアプリ 1 つ / 月、2026-11-02 時点）で、US/EU1 の $35 / $42 / $51 とは異なる。詳細は [課金への影響](#課金への影響) を参照。正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。[出典](https://www.datadoghq.com/pricing/list/)
+
 AP1（日本）での App Builder の機能差異は、公開情報では確認できず。サイトの一般的な情報は [Datadog Sites](../platform/datadog-sites.md) を参照。
 
 ## 制限値・クォータ・デフォルト値
@@ -1127,9 +1131,12 @@ App Builder 固有の制限値は公式ドキュメントにほとんど書か�
 
 App Builder の課金単位は **公開済み（published）アプリ 1 つあたりの月額** である。公式料金ページの定価（2026-11-02 時点）は次のとおり。[出典](https://www.datadoghq.com/pricing/list/)、[出典](https://www.datadoghq.com/pricing/?product=app-builder)
 
-| 製品 | 課金単位 | 年契約 | 月契約 | オンデマンド |
-|---|---|---|---|---|
-| App Builder | 公開済みアプリ 1 つ / 月 | $35 | $42 | $51 |
+| 製品 | 課金単位 | サイト | 年契約 | 月契約 | オンデマンド |
+|---|---|---|---|---|---|
+| App Builder | 公開済みアプリ 1 つ / 月 | US/EU1 | $35 | $42 | $51 |
+| App Builder | 公開済みアプリ 1 つ / 月 | AP1（日本） | $43.75 | $52.50 | $63.75 |
+
+> **サイト差異:** 価格はサイトによって異なる。AP1 の価格は US/EU1 と同じではない（上表、2026-11-02 時点）。その他のサイトの価格と、料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。[出典](https://www.datadoghq.com/pricing/list/)
 
 価格ページの FAQ に書かれている課金の扱いは次のとおり。[出典](https://www.datadoghq.com/pricing/?product=app-builder)
 
@@ -1184,7 +1191,7 @@ A. App Builder は人が画面で操作するアプリ（UI）を作る。Workfl
 A. App Builder はブラウザの GUI でローコードに作る。Datadog Apps `【Preview】` は React と TypeScript / JavaScript でローカル開発し、ソース管理と CI/CD を使う。両者は同じ権限モデルを使う。[出典](https://docs.datadoghq.com/actions/datadog_apps/)
 
 **Q3. アプリを作るだけで料金はかかるか。**
-A. かからない。保存しても未公開のままで、公開したアプリだけが課金対象（公開済みアプリ 1 つあたり月額、年契約 $35、2026-11-02 時点）。[出典](https://www.datadoghq.com/pricing/?product=app-builder)
+A. かからない。保存しても未公開のままで、公開したアプリだけが課金対象（公開済みアプリ 1 つあたり月額、US/EU1 の年契約 $35、AP1 の年契約 $43.75、2026-11-02 時点）。[出典](https://www.datadoghq.com/pricing/?product=app-builder)
 
 **Q4. アプリの利用者は、アプリが使う AWS 接続の権限を持っている必要があるか。**
 A. 既定では不要。公開済みアプリは作成者（またはサービスアカウント）の ID で動く。そのため、アプリ単位の権限で実行できる人を制限する必要がある。[出典](https://docs.datadoghq.com/actions/app_builder/access_and_auth/)
@@ -1254,6 +1261,7 @@ A. 編集画面の Debug Console で、Action Executions（入出力）、Errors
 - Datastores Access and Authentication: https://docs.datadoghq.com/actions/datastores/auth/
 - Use Datastores with Apps and Workflows: https://docs.datadoghq.com/actions/datastores/use/
 - Forms: https://docs.datadoghq.com/actions/forms/
+- Workflow Automation: https://docs.datadoghq.com/actions/workflows/
 - Workflow Automation Limits: https://docs.datadoghq.com/actions/workflows/limits/
 - RBAC Permissions: https://docs.datadoghq.com/account_management/rbac/permissions/
 - Granular Access: https://docs.datadoghq.com/account_management/rbac/granular_access/

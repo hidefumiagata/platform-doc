@@ -42,6 +42,7 @@ sources:
   - https://docs.datadoghq.com/api/latest/metrics/query-timeseries-points/
   - https://docs.datadoghq.com/api/latest/rate-limits/
   - https://docs.datadoghq.com/account_management/billing/custom_metrics/
+  - https://docs.datadoghq.com/metrics/metrics-without-limits/
 ---
 
 # メトリクスクエリと関数
@@ -184,17 +185,15 @@ avg:system.cpu.user{env:prod AND location NOT IN (atlanta,seattle,las-vegas)}
 
 ### 時間集約の概要
 
-Datadog の時間集約（rollup）は、グラフが画素数以上の点を描かずに済むよう、データ点を時間バケットにまとめる処理である。表示する時間範囲が長いほど粒度は粗くなる（例: 4 時間の表示では 2 分バケット）。[出典](https://docs.datadoghq.com/metrics/)
+Datadog の時間集約（rollup）は、グラフが画素数以上の点を描かずに済むよう、データ点を時間バケットにまとめる処理である。表示する時間範囲が長いほど粒度は粗くなる（例: 4 時間の表示では 2 分バケット。ただし Rollup ページの既定間隔表との食い違いは後述の注記を参照）。[出典](https://docs.datadoghq.com/metrics/)
 
-| 項目 | 値 |
-|---|---|
-| 集約子（aggregator） | `avg`、`sum`、`min`、`max`、`count` |
-| 既定の集約子 | `avg` |
-| 間隔の単位 | 秒（例: `.rollup(avg, 60)`、`.rollup(sum, 120)`、`.rollup(avg, 86400)`） |
-| Agent の一般的な収集間隔 | 15〜20 秒（1 日で約 4,320 点） |
-| 保存粒度 | 1 秒（バックエンドの保存粒度） |
-
-[出典](https://docs.datadoghq.com/dashboards/functions/rollup/)、[出典](https://docs.datadoghq.com/dashboards/querying/)、[出典](https://docs.datadoghq.com/dashboards/guide/query-to-the-graph/)
+| 項目 | 値 | 出典 |
+|---|---|---|
+| 集約子（aggregator） | `avg`、`sum`、`min`、`max`、`count` | [Rollup](https://docs.datadoghq.com/dashboards/functions/rollup/) |
+| 既定の集約子 | `avg` | [Rollup](https://docs.datadoghq.com/dashboards/functions/rollup/) |
+| 間隔の単位 | 秒（例: `.rollup(avg, 60)`、`.rollup(sum, 120)`、`.rollup(avg, 86400)`） | [Rollup](https://docs.datadoghq.com/dashboards/functions/rollup/) |
+| Agent の一般的な収集間隔 | 15〜20 秒（1 日で約 4,320 点。20 秒間隔で計算した場合。15 秒間隔なら 5,760 点） | [Querying](https://docs.datadoghq.com/dashboards/querying/) |
+| 保存粒度 | 1 秒（バックエンドの保存粒度） | [Query to the graph](https://docs.datadoghq.com/dashboards/guide/query-to-the-graph/) |
 
 ### rollup 関数の構文
 
@@ -221,11 +220,21 @@ Datadog は、1 系列の点数が上限を超える場合に `avg` で自動 ro
 
 | 時間範囲 | Line Graph | Bar Graph | API |
 |---|---|---|---|
+| Past minute（過去 1 分） | 1 秒 | 1 秒 | 1 秒 |
+| Past 5 minutes（過去 5 分） | 2 秒 | 5 秒 | 2 秒 |
+| Past 15 minutes（過去 15 分） | 5 秒 | 10 秒 | 5 秒 |
+| Past 30 minutes（過去 30 分） | 10 秒 | 30 秒 | 10 秒 |
 | Past hour（過去 1 時間） | 20 秒 | 1 分 | 20 秒 |
+| Past four hours（過去 4 時間） | 1 分 | 2 分 | 1 分 |
 | Past day（過去 1 日） | 5 分 | 20 分 | 5 分 |
+| Past two days（過去 2 日） | 10 分 | 30 分 | 10 分 |
 | Past week（過去 1 週間） | 1 時間 | 2 時間 | 1 時間 |
 | Past month（過去 1 か月） | 4 時間 | 12 時間 | 4 時間 |
+| Past 3 months（過去 3 か月） | 12 時間 | 1 日 | 12 時間 |
+| Past 6 months（過去 6 か月） | 1 日 | 1 日 | 1 日 |
 | Past year（過去 1 年） | 1 日 | 1 週間 | 1 日 |
+
+> **注記（記述の食い違い）:** Metrics ページ（/metrics/）は「4 時間の表示ではデータ点が 2 分バケットにまとめられる」と説明しているが、Rollup ページの上表では過去 4 時間の既定間隔は Line Graph 1 分・Bar Graph 2 分・API 1 分である（2026-11-04 時点）。2 分は Bar Graph の値と一致するが、Line Graph では 1 分になる。[出典](https://docs.datadoghq.com/metrics/)、[出典](https://docs.datadoghq.com/dashboards/functions/rollup/)
 
 | 表示点数に関する記述 | 値 | 出典 |
 |---|---|---|
@@ -406,7 +415,7 @@ Datadog のグラフエディタは、ウィジェットの鉛筆アイコンか
 | 機能 | 内容 |
 |---|---|
 | Event overlays | Timeseries のみ。ログ検索構文でイベントを重ねる（全データソース対応）。例: RUM エラー率にデプロイイベントを重ねる |
-| Split graph【Beta】 | タグでメトリクス可視化を分割表示。sort-by メトリクスと表示グラフ数の limit を設定可能。既定の limit 値は公開情報では確認できず |
+| Split graph | タグでメトリクス可視化を分割表示。sort-by メトリクスと表示グラフ数の limit を設定可能。既定の limit 値は公開情報では確認できず |
 
 [出典](https://docs.datadoghq.com/dashboards/querying/)
 
@@ -851,7 +860,7 @@ Datadog の Metrics Explorer は、メトリクスを調べるための基本的
 | Natural Language Queries（NLQ） | 検索欄の Ask で自然言語からメトリクスクエリに変換。`org_management` 権限を持つユーザーが無効化可能 |
 | Sessions | 調査履歴を保持。作成・切替・ピン留め・名前変更・複製・リンク共有・削除 |
 
-> **サイト差異:** Metrics Explorer の Natural Language Queries は `app.ddog-gov.com`（US1-FED）および `us2.ddog-gov.com` では利用できない。[出典](https://docs.datadoghq.com/metrics/explorer/)
+> **サイト差異:** Metrics Explorer の Natural Language Queries は `app.ddog-gov.com`（US1-FED）および `us2.ddog-gov.com`（US2-FED）では利用できない。US2-FED は本ナレッジ規約のサイト一覧にないが、公式のサイト一覧には掲載されている（[Datadog Sites](datadog-sites.md) を参照）。[出典](https://docs.datadoghq.com/metrics/explorer/)
 
 ---
 
@@ -926,8 +935,8 @@ Datadog のメトリクスモニターはダッシュボードと同じクエリ
 | Line / Bar グラフの最大点数 | 1 系列あたり 1,500 点 | [Rollup](https://docs.datadoghq.com/dashboards/functions/rollup/) |
 | Query Value の目標点数 | 150 点 | [Rollup](https://docs.datadoghq.com/dashboards/functions/rollup/) |
 | 自動 rollup 時の目安点数 | 約 300 点 | [Query to the graph](https://docs.datadoghq.com/dashboards/guide/query-to-the-graph/) |
-| 自動 rollup 間隔（Line） | 1 時間: 20 秒 / 1 日: 5 分 / 1 週: 1 時間 / 1 か月: 4 時間 / 1 年: 1 日 | [Rollup](https://docs.datadoghq.com/dashboards/functions/rollup/) |
-| 自動 rollup 間隔（Bar） | 1 時間: 1 分 / 1 日: 20 分 / 1 週: 2 時間 / 1 か月: 12 時間 / 1 年: 1 週 | [Rollup](https://docs.datadoghq.com/dashboards/functions/rollup/) |
+| 自動 rollup 間隔（Line / API） | 1 分: 1 秒 / 5 分: 2 秒 / 15 分: 5 秒 / 30 分: 10 秒 / 1 時間: 20 秒 / 4 時間: 1 分 / 1 日: 5 分 / 2 日: 10 分 / 1 週: 1 時間 / 1 か月: 4 時間 / 3 か月: 12 時間 / 6 か月: 1 日 / 1 年: 1 日（/metrics/ の「4 時間表示 = 2 分バケット」との食い違いは時間集約節の注記を参照） | [Rollup](https://docs.datadoghq.com/dashboards/functions/rollup/) |
+| 自動 rollup 間隔（Bar） | 1 分: 1 秒 / 5 分: 5 秒 / 15 分: 10 秒 / 30 分: 30 秒 / 1 時間: 1 分 / 4 時間: 2 分 / 1 日: 20 分 / 2 日: 30 分 / 1 週: 2 時間 / 1 か月: 12 時間 / 3 か月: 1 日 / 6 か月: 1 日 / 1 年: 1 週 | [Rollup](https://docs.datadoghq.com/dashboards/functions/rollup/) |
 | カレンダー rollup の既定タイムゾーン | UTC | [Rollup](https://docs.datadoghq.com/dashboards/functions/rollup/) |
 | カレンダー rollup（weekly）の既定開始曜日 | `sunday` | [Rollup](https://docs.datadoghq.com/dashboards/functions/rollup/) |
 | 既定の補間 | 線形、実サンプルから最大 5 分 | [Interpolation guide](https://docs.datadoghq.com/metrics/guide/interpolation-the-fill-modifier-explained/) |
