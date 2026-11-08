@@ -24,17 +24,22 @@ sources:
   - https://www.servicenow.com/docs/r/application-development/app-engine-studio/aes-custom-vs-config.html
   - https://www.servicenow.com/docs/r/zurich/it-business-management/agile-development/components-installed-with-agile-2.0.html
   - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/Y6mrH259_KW4wgrD4Tzkkw
+  - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/HTgroNE2TlT21KubCsXdqw
   - https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/25qrl_cqlBpZ4BR44nhlkw
   - https://www.servicenow.com/docs/r/it-service-management/configuring-ai-native-itsm.html
   - https://www.servicenow.com/docs/r/platform-administration/ia-setup-now-assist.html
   - https://www.servicenow.com/docs/r/impact/impact-packages1.html
   - https://www.servicenow.com/community/servicenow-impact-articles/getting-started-with-impact-technical-accelerators-what-is-it/ta-p/3479343
+  - https://www.servicenow.com/community/admin-experience-articles/getting-started-with-guided-setup/ta-p/2652794
   - https://www.globalknowledge.com/en-gb/courses/servicenow/service_management/snpi/co
   - https://sii.pl/blog/en/understanding-the-now-create-framework-structure-advantages-and-common-pitfalls/
   - https://www.aegissofttech.com/insights/servicenow-implementation-timeline/
   - https://it.impress.co.jp/articles/-/26474
   - https://ascii.jp/elem/000/004/263/4263391/
   - https://cloud.watch.impress.co.jp/docs/news/1597903.html
+  - https://pulserevops.com/knowledge/q19195
+  - https://www.peerspot.com/questions/what-is-the-cost-of-implementation-and-maintenance-of-servicenow
+  - https://www.businesswire.com/news/home/20250506888980/en/
 ---
 
 # 導入方法論（Implementation Methodology）
@@ -83,7 +88,7 @@ ServiceNow の公式 ebook（日本語サイト掲載）では、Now Create の�
 | 時期 | 名称 | 概要 |
 |---|---|---|
 | 2012 頃 | **StartNow**（STrategic Alignment and Rapid Transformation） | ServiceNow Professional Services の方法論。Project（ウォーターフォール型計画・スコープ・変更管理）、Scrum（タイムボックス型スプリント）、Risk の 3 要素で構成。[出典](https://www.servicenow.com/community/in-other-news/servicenow-implementation-methodology-startnow/ba-p/2277431) |
-| 〜2025-12-05 | **Now Create** | Now Learning（現 Now University）配下のポータル `learning.servicenow.com/nowcreate` で提供。[出典](https://www.servicenow.com/community/manufacturing-articles/implementation-assets-on-nowcreate/ta-p/3277266) |
+| 〜2025-12-05 | **Now Create** | Now Learning（2025-05 の Knowledge 2025 で ServiceNow University へ改称）配下のポータル `learning.servicenow.com/nowcreate` で提供。[出典](https://www.servicenow.com/community/manufacturing-articles/implementation-assets-on-nowcreate/ta-p/3277266) [出典](https://www.businesswire.com/news/home/20250506888980/en/) |
 | 2025-12-05〜 | **Best Practices（My Now）** | `mynow.servicenow.com/now/best-practices/home`。導入だけでなくオンボーディング、セキュリティ、サポートまでカスタマージャーニー全体のベストプラクティスを統合。[出典](https://www.servicenow.com/community/in-other-news/now-create-retirement-faqs-and-introduction-to-the-best/ba-p/3425556) |
 
 なお、ServiceNow 社員のコミュニティ記事では、戦略・ロードマップ策定段階を指して「**Now-Value** 方法論の **Envision** フェーズ」という表現も使われている。Now-Value の全体構成は公開情報では確認できず。[出典](https://www.servicenow.com/community/in-other-news/how-to-think-about-planning-your-servicenow-digital/ba-p/3059144)
@@ -146,7 +151,7 @@ ITSM では「**ITSM modernization success pack**」が Best Practices ポータ
 
 ### 2.1 フェーズ一覧
 
-Now Create のフェーズは、資料により「5 フェーズ（Initiate / Plan / Execute / Deliver / Close）」と「6 フェーズ（先頭に Get Started を加える）」の 2 通りで説明される。公式 ebook と公式トレーニング SNPI は 5 フェーズ、Now Create ポータルの実画面と UX アクティビティ追加の公式コミュニティ記事は Get Started を含む 6 フェーズで表示している。実務上は「Get Started は Initiate 前の準備フェーズ」と理解すればよい。[出典](https://www.servicenow.com/jp/standard/data-sheet/now-create-ebook.html) [出典](https://www.globalknowledge.com/en-gb/courses/servicenow/service_management/snpi/co) [出典](https://www.servicenow.com/community/user-experience-sig/create-exceptional-business-outcomes-and-user-experiences-with/ba-p/2753409)
+Now Create のフェーズは、資料により「5 フェーズ（Initiate / Plan / Execute / Deliver / Close）」と「6 フェーズ（先頭に Get Started を加える）」の 2 通りで説明される。公式トレーニング SNPI は 5 フェーズ（公式 ebook のフェーズ数は本文未取得のため公開情報では確認できず）、Now Create ポータルの実画面と UX アクティビティ追加の公式コミュニティ記事は Get Started を含む 6 フェーズで表示している。実務上は「Get Started は Initiate 前の準備フェーズ」と理解すればよい。[出典](https://www.globalknowledge.com/en-gb/courses/servicenow/service_management/snpi/co) [出典](https://www.servicenow.com/community/user-experience-sig/create-exceptional-business-outcomes-and-user-experiences-with/ba-p/2753409)
 
 各フェーズの終わりには **Exit Gate（フェーズ終了判定）** があり、「正しい判断を正しいタイミングで」行ったことを確認してから次フェーズに進む。例えば、計画や要件が明確に定義されていない状態で Plan から Execute へ移行することはできない。【第三者情報】[出典](https://sii.pl/blog/en/understanding-the-now-create-framework-structure-advantages-and-common-pitfalls/)
 
@@ -275,7 +280,7 @@ flowchart TB
 | 5. テスト | ストーリー単位のテスト、統合テスト、UAT、ストレス／ボリュームテストに時間とリソースを計画。カスタマイズには ATF テストを作成しアップグレード時に再利用 | [出典](https://www.servicenow.com/community/in-other-news/how-to-think-about-planning-your-servicenow-digital/ba-p/3059144) |
 | 6. Go-Live | Deliver で一括リリース。段階的 Go-Live（早期に価値を出せるが変更管理が難しい）か、ビッグバン Go-Live（切替は 1 回だがリスクが高い）かを判断 | [出典](https://www.servicenow.com/community/in-other-news/how-to-think-about-planning-your-servicenow-digital/ba-p/3059144) |
 
-第三者の利用者報告では、通常 10〜13 週の案件がアジャイルの適用で限定スコープなら 5〜6 週に短縮できた例もある。【第三者情報】
+利用者のレビューサイト投稿（PeerSpot、2019-07-19、ソフトウェア企業の PM）では、「通常のタイムラインは 10〜13 週だが、アジャイルアプローチにより機能を限定した小規模ソリューションなら 5〜6 週で導入できる」とされている。古い個人投稿であり参考値にとどまる。【第三者情報】[出典](https://www.peerspot.com/questions/what-is-the-cost-of-implementation-and-maintenance-of-servicenow)
 
 ### 4.3 ServiceNow 上での導入プロジェクト管理（Agile Development 2.0 / CWM）
 
@@ -283,7 +288,7 @@ ServiceNow の導入プロジェクト自体を ServiceNow インスタンス上
 
 #### Agile Development 2.0
 
-**Agile Development 2.0** は SPM（旧 ITBM）に含まれるスクラム管理アプリケーションである。主要テーブルとロールは次のとおり。[出典](https://www.servicenow.com/docs/r/zurich/it-business-management/agile-development/components-installed-with-agile-2.0.html)
+**Agile Development 2.0** は SPM（旧 ITBM）に含まれるスクラム管理アプリケーションである。主要テーブルとロールは次のとおり。公式には 20 テーブル、10 ロールがインストールされる。下表は主要なものだけを抜き出しており、ロールはほかに `scrum_release_planner`、`scrum_sprint_planner`、`scrum_story_creator`、`scrum_story_editor`、`rm_scrum_task_admin` がある。[出典](https://www.servicenow.com/docs/r/zurich/it-business-management/agile-development/components-installed-with-agile-2.0.html)
 
 | テーブル（日本語訳） | テーブル名 | 用途 |
 |---|---|---|
@@ -315,13 +320,16 @@ ServiceNow の導入プロジェクト自体を ServiceNow インスタンス上
 
 #### Collaborative Work Management（CWM）への移行
 
-ServiceNow 公式コミュニティの移行ガイド（2026-03-15 公開）では、チームレベルのアジャイル管理を Agile Development 2.0 から **Collaborative Work Management（CWM）** へ移行する手順が示されている。Agile 2.0 は「legacy」と表現され、移行後は履歴参照用に read-only で残すことが推奨されている。正式な廃止日は公開情報では確認できず。CWM の利用には CWM ライセンスまたは SPM ライセンスが必要。[出典](https://www.servicenow.com/community/cwm-articles/migration-guide-for-team-level-agile-from-agile-development-2-0/ta-p/3508312)
+ServiceNow 公式コミュニティの移行ガイド（2026-03-15 公開）では、チームレベルのアジャイル管理を Agile Development 2.0 から **Collaborative Work Management（CWM）** へ移行する手順が示されている。移行ガイドでは Agile 2.0 全体ではなく一部テーブル（`rm_epic` 等）が「Agile 2.0 (legacy)」と表記され、移行後は Agile 2.0 を履歴参照用に read-only で残すことが推奨されている。正式な廃止日は公開情報では確認できず。CWM の利用には CWM ライセンスまたは SPM ライセンスが必要。[出典](https://www.servicenow.com/community/cwm-articles/migration-guide-for-team-level-agile-from-agile-development-2-0/ta-p/3508312)
 
 | Agile 2.0 | CWM |
 |---|---|
 | Sprint planning board | Board の Sprint Planning ビュー |
 | Backlog | Sprint Planning の Backlog セクション |
-| Story / Scrum task | Connected work として取り込み（他の task 系レコードも可） |
+| Story（`rm_story`）/ Scrum task（`rm_scrum_task`） | 同一テーブルを CWM と共有（移行・取り込み不要） |
+| Unified Backlog | CWM Board 上の Connected Work |
+| Enhancement（`rm_enhancement`）/ Defect（`rm_defect`） | Connected Work として表示（Enhancement は CWM の Add Item から作成不可。Defect のネイティブ UI はロードマップ上） |
+| Epic（`rm_epic`、legacy） | ストーリーの Epic フィールドは引き続き `rm_epic` を参照。Connected Work として CWM に取り込み |
 | Sprint tracking board | Kanban ビュー |
 | Epic backlog | CWM の List（ネイティブ Epic 表示は 2026 H2 予定とされる） |
 | Sprint 履歴 | CWM の新しいスプリントテーブル（構造非互換のため履歴移行より新規スプリント開始を推奨） |
@@ -394,27 +402,29 @@ Now Create の Plan フェーズの「Conduct Process Workshops」「Conduct Pla
 
 「Quick start」は ServiceNow 公式の単一の方法論名ではなく、文脈により以下のいずれかを指す。
 
-| 種別 | 名称 | 提供者 | 概要 |
-|---|---|---|---|
-| 製品機能 | Simplified IT Service Management | ServiceNow | 既定構成の自動適用とガイド付き／会話型セットアップ（Australia で新規） |
-| 製品機能 | ServiceNow Otto for Setup | ServiceNow | Admin Home からの AI ガイド付きセットアップ（Brazil 文書で確認） |
-| 製品機能 | Guided Setup（ガイド付きセットアップ） | ServiceNow | ITSM 等の設定タスクを順序立てて提示 |
-| 公式ガイド | QuickStart guides | ServiceNow | 自社導入向けの製品別ガイド（Performance Analytics、Predictive Intelligence、Virtual Agent 等） |
-| サービス | Impact Accelerators | ServiceNow（Impact） | 定義済みスコープのワークショップ型支援（Jumpstart 系など） |
-| サービス | パートナーの短期導入パッケージ | パートナー各社 | 対象機能を絞ったテンプレート導入 |
+| 種別 | 名称 | 提供者 | 概要 | 出典 |
+|---|---|---|---|---|
+| 製品機能 | Simplified IT Service Management | ServiceNow | 既定構成の自動適用とガイド付き／会話型セットアップ（Australia で新規） | [出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/25qrl_cqlBpZ4BR44nhlkw)（6.1） |
+| 製品機能 | ServiceNow Otto for Setup | ServiceNow | Admin Home からの AI ガイド付きセットアップ（Brazil 文書で確認） | [出典](https://www.servicenow.com/docs/r/platform-administration/ia-setup-now-assist.html)（6.2） |
+| 製品機能 | Guided Setup（ガイド付きセットアップ） | ServiceNow | 製品・アプリの設定手順を順序立てて提示し、進捗を管理（下記） | [出典](https://www.servicenow.com/community/admin-experience-articles/getting-started-with-guided-setup/ta-p/2652794) |
+| 公式ガイド | QuickStart guides | ServiceNow | 自社導入向けの製品別ガイド（Performance Analytics、Predictive Intelligence、Virtual Agent 等） | [出典](https://www.servicenow.com/community/itsm-articles/itsm-pro-onboarding-guide/ta-p/2296018)（6.3） |
+| サービス | Impact Accelerators | ServiceNow（Impact） | 定義済みスコープのワークショップ型支援（Jumpstart 系など） | [出典](https://www.servicenow.com/docs/r/impact/impact-packages1.html) [出典](https://www.servicenow.com/community/servicenow-impact-articles/getting-started-with-impact-technical-accelerators-what-is-it/ta-p/3479343)（6.4） |
+| サービス | パートナーの短期導入パッケージ | パートナー各社 | 対象機能を絞ったテンプレート導入 | 6.5 の表を参照【第三者情報】 |
+
+**Guided Setup（ガイド付きセットアップ）** は、Guided Setup モジュールを持つ製品やアプリケーションの設定を、管理者が手順に沿って進められる機能である。計画時のガイダンス、事前準備の手順、ヘルプへのリンクがあり、進捗も追跡できる。メニュー位置は All menu > Adoption Services > Guided Setup。Guided Setup には 2 つの版がある。ServiceNow Store 版は Next Experience UI Framework 上に作られており、管理者が独自のガイド付きセットアップを作成できる。旧版（Legacy）は AngularJS ベースで、San Diego より前のリリースに同梱されていた。Knowledge Management の Guided Setup のように、旧版でも引き続き推奨されるものがある。[出典](https://www.servicenow.com/community/admin-experience-articles/getting-started-with-guided-setup/ta-p/2652794)（ServiceNow Community、2023-08-24 公開、2025-02-06 更新）
 
 ### 6.1 Simplified IT Service Management（Australia で新規）
 
-**Simplified IT Service Management**（Simplified ITSM、文書 URL 上は AI-native ITSM）は、「簡素化・自動化された導入と、複数 ITSM アプリにまたがる統一ユーザー体験のための AI ネイティブソリューション」で、Australia リリースノートで新規アプリケーションとして記載されている。管理者、従業員、フルフィラーを対象とする。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/Y6mrH259_KW4wgrD4Tzkkw)
+**Simplified IT Service Management**（Simplified ITSM、文書 URL 上は AI-native ITSM）は、「簡素化・自動化された導入と、複数 ITSM アプリにまたがる統一ユーザー体験のための AI ネイティブソリューション」で、Australia リリースノートで新規アプリケーションとして記載されている。管理者、従業員、フルフィラーを対象とする。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/Y6mrH259_KW4wgrD4Tzkkw) Simplified ITSM は ServiceNow Store アプリとして提供される。利用するには、Store で IT Service Management のエンタイトルメントを申請してからインストールする必要がある（Australia リリースノート）。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/25qrl_cqlBpZ4BR44nhlkw)
 
 Australia リリースノートに記載のバージョン別の主な機能は次のとおり。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/25qrl_cqlBpZ4BR44nhlkw)
 
 | バージョン | 内容 |
 |---|---|
-| 2.0.1 | インストールした製品・モジュールに **既定の構成設定を自動適用**し、管理者がレビュー・変更できる。ITSM ワークフローのガイド付き構成。1 つの管理ページから自然言語で AI エージェントにワークフローを構成させられる |
+| 2.0.1 | 管理者向け：インストールした製品・モジュールに **既定の構成設定を自動適用**し、管理者がレビュー・変更できる。Incident・Request Management はガイド付きで構成できる。1 つの管理ページから、自然言語で AI エージェントにワークフローを構成させられる。従業員向け：簡素化された Employee Center ポータル（会話型でチャット・カタログ・ナレッジを利用）、よくある IT の問題・依頼に対応する作成済みカタログアイテム、依頼者サーベイを提供する。窓口は Employee Center、メール、Microsoft Teams、Slack に対応する。フルフィラー向け：解決手順・ナレッジ記事の AI 推奨、インシデントとチャットの要約、解決メモやメール返信の生成、推奨アクション、ロール別のマネージャーダッシュボードを提供する |
 | 3.0.2 | Employee Slate、構成アイテム、Change Management 稼働に必要なコア設定のガイド付き体験。Problem Management、Major Incident Management など高度なワークフローは Service Operations Workspace Admin Center で構成 |
 | 3.1.1 | 受信メール設定のガイド付き体験 |
-| 3.2.3 | Incident Management と Request Management を専用の管理ロールで構成。Change のフォーム・リストは Configuration Console で構成 |
+| 3.2.3 | Incident Management は `sn_incident_admin` ロール、Request Management は `sn_request_admin` ロールで構成する。Change のフォーム・リストは Configuration Console で構成 |
 
 Simplified ITSM では、Incident のフォーム・リスト・SLA（および関連 Flow）、Requested Item・Catalog Task のフォーム・リストが事前構成済みで提供される。リストレイアウトは業務要件に応じて見直すよう案内されている。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/HTgroNE2TlT21KubCsXdqw)
 
@@ -424,7 +434,7 @@ Simplified ITSM はまさに「標準構成を受け入れてから必要箇所�
 
 ### 6.2 ServiceNow Otto for Setup
 
-> **Brazil での変更:** Brazil の文書では、**ServiceNow Otto for Setup**（アプリ `sn_ia`）が ServiceNow Otto を設定するためのアプリケーションとして記載されている。[出典](https://www.servicenow.com/docs/r/platform-administration/ia-setup-now-assist.html)
+> **Brazil での変更:** Brazil の文書では、**ServiceNow Otto for Setup**（アプリのスコープ名は公開情報では確認できず）が ServiceNow Otto を設定するためのアプリケーションとして記載されている。[出典](https://www.servicenow.com/docs/r/platform-administration/ia-setup-now-assist.html)
 >
 > | 項目 | 内容 |
 > |---|---|
@@ -434,7 +444,7 @@ Simplified ITSM はまさに「標準構成を受け入れてから必要箇所�
 > | メニュー位置 | **Admin Home** の「Manage your products」セクション（既定では折りたたみ）にある ServiceNow Otto カード → Product Hub → Not installed タブのアプリバンドル → App manager で Install |
 > | インストール後 | Product Hub で「Go to ServiceNow Otto Admin」を選択。以降の設定は AI Admin Hub ドキュメントを参照 |
 >
-> Otto for Setup には、データインポート（データソース・インポートセット・Transform Map の作成）、SSO（SAML／OIDC）、SLA 定義、Update Set などを支援する AI エージェントがあるとされる。ServiceNow Store の掲載では「セットアップ時間を 60〜80% 削減」とうたっているが、ベンダーの主張値である。【第三者情報】（検索結果の要約に基づき、個々のエージェント名・提供範囲は未検証）
+> Otto for Setup には、データインポート（データソース・インポートセット・Transform Map の作成）、SSO（SAML／OIDC）、SLA 定義、Update Set などを支援する AI エージェントがあるとされる。【第三者情報】（検索結果の要約に基づき、個々のエージェント名・提供範囲は未検証）Otto for Setup による削減効果の定量値は公開情報では確認できず。
 
 Now Assist／AI エージェントの詳細は [../02_リファレンス/platform/now-assist-ai-agents.md](../02_リファレンス/platform/now-assist-ai-agents.md) を参照。
 
@@ -505,7 +515,7 @@ ServiceNow 社員のコミュニティ記事では、プログラム計画とし
 
 その他の公開値（いずれも【第三者情報】）：
 
-- 中規模組織の焦点を絞った ITSM（Incident、Request、小規模カタログ、SSO、連携 1〜2 本）で初回本番まで 8〜14 週。プロセスをゼロから定義する場合は +4〜8 週、初回リリースに Change Management を含める場合はさらに +6〜12 週とする目安もある。
+- Pulse（Kory White「How do you start a ServiceNow implementation in 2027?」、2026-09-01）は、中規模組織の焦点を絞った ITSM（Incident、Request、小規模カタログ、SSO、連携 1〜2 本。スポンサーの関与と既存のプロセス定義が前提）で初回本番まで 8〜14 週とし、プロセスをゼロから定義する場合は +4〜8 週、初回リリースに実際の CAB を伴う Change Management を含める場合はさらに +6〜12 週としている（「保証ではなく計画上のレンジ」と明記）。Aegis Softtech の数値とは別出典である。[出典](https://pulserevops.com/knowledge/q19195)（取得日：2026-11-04）
 - 国内パートナーの発表では「通常の ITSM 導入は約 3 カ月」とされる。[出典](https://it.impress.co.jp/articles/-/26474)
 
 ### 7.3 フェーズ別の期間配分目安
@@ -521,17 +531,19 @@ ServiceNow 社員のコミュニティ記事では、プログラム計画とし
 | Deployment and Go-Live | Deliver（後半） | 1〜2 週 | 本番切替とユーザートレーニング |
 | Hypercare and Stabilization | Close | 継続 | 初期課題対応、ワークフロー微修正 |
 
+> **注意（期間の整合性）:** 上表の各段階の期間を合計すると、Hypercare を除いて約 22〜41 週（約 5〜10 カ月）になる。これは 7.2 のエンタープライズ ITSM（16〜22 週）〜ITSM＋ITOM・複数モジュール（18〜40 週以上）に相当する規模を前提とした値と読むべきで、同じ Aegis 記事の Basic ITSM（6〜8 週）・中規模 ITSM（10〜14 週）とは整合しない（出典記事自体の不整合）。本ファイル 7.4 で小規模の目安とした期間（1〜3 カ月、執筆者の推定）とも合わない。小・中規模案件の見積りに上表の週数をそのまま使わないこと。小・中規模では、上表の各段階の中央値（5／8.5／12／4.5／1.5 週、計 31.5 週）から求めた比率、すなわち Initiate/Discovery 約 16%、Design/Architecture 約 27%、Build/Configuration 約 38%、Testing 約 14%、Go-Live 約 5% 程度を総期間に掛けて配分するのが目安となる。【推定】
+
 ### 7.4 工数（体制規模）の目安
 
 工数（人月）の公式・第三者の公開値は、本調査ではまとまった形では確認できなかった（公開情報では確認できず）。以下は一般的な見積りの考え方である。
 
 | 規模感 | 想定スコープ | 体制例 | 期間 | 工数の概算 |
 |---|---|---|---|---|
-| 小規模（Quick start） | Incident／Request＋小規模カタログ、OOTB 中心、連携 0〜1 本 | PM 0.5、コンサル／BA 1、開発 1〜2 | 1〜3 カ月 | 5〜15 人月 【推定】 |
-| 中規模 | ITSM コア 4〜5 プロセス、カタログ 20〜50 件、SSO、連携 2〜3 本、基本 CMDB | PM 1、コンサル／BA 1〜2、アーキテクト 0.5、開発 2〜4、テスト 1 | 3〜6 カ月 | 20〜50 人月 【推定】 |
+| 小規模（Quick start） | Incident／Request＋小規模カタログ、OOTB 中心、連携 0〜1 本 | PM 0.5、コンサル／BA 1、開発 1〜2 | 1〜3 カ月 | 3〜10 人月 【推定】 |
+| 中規模 | ITSM コア 4〜5 プロセス、カタログ 20〜50 件、SSO、連携 2〜3 本、基本 CMDB | PM 1、コンサル／BA 1〜2、アーキテクト 0.5、開発 2〜4、テスト 1 | 3〜6 カ月 | 15〜50 人月 【推定】 |
 | 大規模 | ITSM＋ITOM（Discovery／Service Mapping）、グローバル、多数連携、データ移行 | PM／PMO 2、アーキテクト 1〜2、コンサル 2〜4、開発 5〜10、テスト 2〜3、OCM 1 | 6〜12 カ月以上 | 80 人月以上 【推定】 |
 
-上表の工数は 7.2 の期間目安と一般的なチーム構成から算出した概算値であり、顧客側の要員（プロセスオーナー、SME、プラットフォームオーナー）は含まない。【推定】体制の詳細は [05-project-organization.md](05-project-organization.md)、費用の考え方は [02-pricing.md](02-pricing.md) を参照。
+上表の工数は、7.2 の期間目安を参考に執筆者が設定した期間と、一般的なチーム構成から算出した概算値である。計算式は「体制人数の合計 × 期間（月）」で、小規模は 2.5〜3.5 人 × 1〜3 カ月 ≒ 2.5〜10.5 人月、中規模は 5.5〜8.5 人 × 3〜6 カ月 ≒ 16.5〜51 人月、大規模は 15〜22 人 × 6〜12 カ月 ≒ 90〜264 人月となる。表ではこれを丸めて示している。工数には顧客側の要員（プロセスオーナー、SME、プラットフォームオーナー）は含まない。【推定】体制の詳細は [05-project-organization.md](05-project-organization.md)、費用の考え方は [02-pricing.md](02-pricing.md) を参照。
 
 ### 7.5 期間を左右する主な要因
 
@@ -569,7 +581,7 @@ ServiceNow 社員のコミュニティ記事では、プログラム計画とし
 - Now-Value 方法論の全体構成。
 - 「Fit to Standard」という名称の ServiceNow 公式方法論（存在を確認できず）。
 - 導入工数（人月）の公式・第三者の標準値。
-- Otto for Setup の AI エージェント個別名称と提供範囲、Simplified ITSM のブラウンフィールド適用時の制約。
+- Otto for Setup の AI エージェント個別名称と提供範囲、アプリのスコープ名、削減効果の定量値（検索で見つかった「セットアップ時間 60〜80% 削減」は Setup Hub の Store 掲載文であり Otto for Setup の値としては確認できず）、Simplified ITSM のブラウンフィールド適用時の制約。
 - Agile Development 2.0 の正式な廃止日。
 
 ## 参照元
@@ -597,9 +609,13 @@ ServiceNow 社員のコミュニティ記事では、プログラム計画とし
 - Set up ServiceNow Otto（ServiceNow Docs, Brazil）: https://www.servicenow.com/docs/r/platform-administration/ia-setup-now-assist.html
 - Impact Packages（ServiceNow Docs, Brazil）: https://www.servicenow.com/docs/r/impact/impact-packages1.html
 - Getting started with Impact Technical Accelerators（ServiceNow Community）: https://www.servicenow.com/community/servicenow-impact-articles/getting-started-with-impact-technical-accelerators-what-is-it/ta-p/3479343
+- Getting Started with Guided Setup（ServiceNow Community, 2023-08-24, 2025-02-06 更新）: https://www.servicenow.com/community/admin-experience-articles/getting-started-with-guided-setup/ta-p/2652794
 - SNPI ServiceNow Platform Implementation course outline（Global Knowledge）: https://www.globalknowledge.com/en-gb/courses/servicenow/service_management/snpi/co
 - Understanding the Now Create framework（Sii Poland, 2025-07-18）: https://sii.pl/blog/en/understanding-the-now-create-framework-structure-advantages-and-common-pitfalls/
 - ServiceNow Implementation Timeline for Enterprise Success（Aegis Softtech, 2026-10-23）: https://www.aegissofttech.com/insights/servicenow-implementation-timeline/
 - TDCソフト Snap ITSM（IT Leaders, 2024-06-18）: https://it.impress.co.jp/articles/-/26474
 - アオラナウ／シイエヌエス ServiceNow ITSM クイックスターターパッケージ（ASCII.jp, 2025-04-15）: https://ascii.jp/elem/000/004/263/4263391/
 - TIS ITSMクイックスタートパッケージ（クラウド Watch, 2024-06-07）: https://cloud.watch.impress.co.jp/docs/news/1597903.html
+- How do you start a ServiceNow implementation in 2027?（Pulse, Kory White, 2026-09-01）: https://pulserevops.com/knowledge/q19195
+- What is the cost of implementation and maintenance of ServiceNow?（PeerSpot, 2019-07-19 投稿）: https://www.peerspot.com/questions/what-is-the-cost-of-implementation-and-maintenance-of-servicenow
+- ServiceNow Introduces ServiceNow University（Business Wire, 2025-05-06）: https://www.businesswire.com/news/home/20250506888980/en/

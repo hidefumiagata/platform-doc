@@ -39,13 +39,25 @@ sources:
   - https://www.servicenow.com/docs/r/xanadu/impact/impact-tech-kpis.html
   - https://www.servicenow.com/docs/r/zurich/impact/scan-engine-platform-owner-dashboard.html
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/8S4QcFvEX3qC749Q8ZqTGg
+  - https://www.servicenow.com/community/developer-blog/defining-roles-and-responsibilities-in-a-multi-vendor-operating/ba-p/3400171
+  - https://www.servicenow.com/docs/r/it-service-management/configure-schedules-for-simplified-change-management.html
+  - https://www.servicenow.com/community/itsm-forum/configure-maintenance-and-black-out-schedule/td-p/445391/page/2
+  - https://www.servicenow.com/community/itsm-articles/restrict-change-submission-when-planned-dates-fall-in-freeze/ta-p/3554883
+  - https://www.servicenow.com/docs/r/vAF6lp8vm2~kKTU5ernM8g/k5vaBaodbpKC8rLXMCwxQA
+  - https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/i42vj1k9qpchwM3~wbgV~w
+  - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/B0mqJSRYCtUEahQQJwwbWA
+  - https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/~4drrT5QcRXGcxf_AebBxg
+  - https://www.servicenow.com/community/spm-forum/how-are-demand-assessment-scores-calculated/td-p/986668
+  - https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/pEDGZVkEsoN3DzPnUsCKMg
+  - https://www.servicenow.com/docs/r/australia/release-notes/available-versions.html
+  - https://www.servicenow.com/docs/r/brazil/release-notes/available-versions.html
 ---
 
 # 運用とガバナンス（Operations and Governance）
 
 ## 概要
 
-ServiceNow の「運用とガバナンス」は、本番稼働（Go-Live）後にプラットフォームを**誰が・どの会議体で・どのルールで**育て続けるかを決める領域である。ServiceNow は SaaS であり、インフラの監視・バックアップ・パッチ適用の実作業は ServiceNow 社が担う。顧客側に残る運用の中心は、次の 6 つである。
+ServiceNow の「運用とガバナンス」は、本番稼働（Go-Live）後にプラットフォームを**誰が・どの会議体で・どのルールで**育て続けるかを決める領域である。ServiceNow は SaaS であり、インフラの監視・バックアップ・パッチ適用の実作業は ServiceNow 社が担う。顧客側に残る運用の中心は、次の 7 つである。
 
 | 運用領域 | 何を決めるか | ServiceNow 上の主な仕組み | 本ファイルの章 |
 |---|---|---|---|
@@ -107,7 +119,7 @@ Platform team（プラットフォームチーム）は、本番稼働後にプ�
 | Business Analyst（ビジネスアナリスト） | 要件整理、ストーリー作成、Demand のエンリッチ | `it_demand_user` など | |
 | Process Owner（プロセスオーナー） | Incident / Change など各プロセスの設計と KPI 責任 | `itil_admin` 等 | 業務部門側に置くことが多い |
 | QA / Tester | ATF の保守、回帰テスト、アップグレード検証 | `atf_test_designer` 等 | |
-| Integration / Platform Engineer | 連携、MID Server、インスタンスの性能・監視 | `admin`、`mid_server` 管理 | |
+| Integration / Platform Engineer | 連携、MID Server、インスタンスの性能・監視 | `admin`、`agent_admin`（MID Server 関連の管理。公式 Base system roles） | `mid_server` ロールは MID Server のサービスアカウント（インスタンス接続ユーザー）に付けるロールで、人の管理用ではない [出典](https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/pEDGZVkEsoN3DzPnUsCKMg) |
 | Release Manager | リリース計画、凍結日、移送判定 | ReleaseOps の Release manager | 5 章 |
 
 ServiceNow 社の Customer Success Center は **Platform Team Estimator** を提供しており、インスタンスの規模・利用状況・オペレーティングモデルに関する 11 の質問に答えると、推奨 FTE 範囲と必要ロールを提示する。[出典](https://www.servicenow.com/community/in-other-news/build-the-team-you-need-to-succeed-with-your-servicenow/ba-p/2285583)（ツール URL: https://www.servicenow.com/success/platform-team-estimator.html 。2021 年の告知記事であり、2026-11 時点でツールが同じ形で提供されているかは公開情報では確認できず）
@@ -161,11 +173,11 @@ CoE の主要ロールは Platform owner、Platform architect、Process owners�
 
 ServiceNow のガバナンスワークショップ（Impact）は、次の 3 つのガバナンスボードの立ち上げを支援対象としている。[出典](https://www.servicenow.com/docs/r/VD5jAD3VgRc~i0AwgqwfEQ/Nvj8oOhwhdW2rvC43pyEqA)
 
-| ボード | ガバナンス領域 | ServiceNow が顧客に求めるインプット資料 |
+| ボード | ガバナンス領域 | ServiceNow が顧客に求めるインプット資料（公式の全項目） |
 |---|---|---|
-| Executive steering board（エグゼクティブ・ステアリングボード） | Strategy（戦略） | ステアリングボード憲章、参加者リストと役割、アジェンダ |
-| Demand board（デマンドボード） | Portfolio（ポートフォリオ） | Demand board 憲章、参加者、アジェンダ、デマンドのスコアリング・重み付け基準、受付・評価資料 |
-| Technical governance board（技術ガバナンスボード） | Technical（技術） | 既存の技術ガバナンスボード、技術ガバナンス憲章・アジェンダ、アーキテクチャブループリント、プロジェクトバックログ |
+| Executive steering board（エグゼクティブ・ステアリングボード） | Strategy（戦略） | プラットフォームの利用側・提供側の組織図、ServiceNow のビジョンと戦略、戦略ロードマップと技術ロードマップ、OKR・テーマ・エピック、プラットフォームに整合したビジネス成果、ビジネスケース（またはそのテンプレート）、IT ガバナンス文書、ステアリングボード文書（憲章、参加者リストと役割、アジェンダ） |
+| Demand board（デマンドボード） | Portfolio（ポートフォリオ） | 全社レベルのデマンド会議体の詳細、既存の ServiceNow デマンドプロセス・会議体（プロセス、受付フォーム、アセスメントのスコアカード等）、既存 Demand board 文書（憲章、参加者リスト、アジェンダ）、進行中・予定のデマンド（プロジェクト計画とスケジュール含む）、デマンドの発生元が分かる組織図、CoE 憲章（あれば）、EA プロセスワークブック、開発方法論とプロセス（アジャイル／ウォーターフォール）、デマンドのスコアリング・重み付け基準 |
+| Technical governance board（技術ガバナンスボード） | Technical（技術） | 技術ガバナンス文書（憲章、アジェンダ）、整合が必要な全社レベルの技術ガバナンス、順守すべき全社の技術アーキテクチャ標準、既存のプラットフォーム技術ガバナンスボード、アーキテクチャブループリント、プロジェクトバックログ、IT 戦略計画、ペインポイント・ビジネスドライバー・目指すビジネス成果 |
 
 公式ドキュメントはボードのメンバー構成・開催頻度を規定していない。以下は ServiceNow Community 記事に基づく実務上の標準である。
 
@@ -273,8 +285,8 @@ stateDiagram-v2
   Draft --> Submitted: 要求者が提出
   Submitted --> Screening: Demand manager が評価開始<br/>（ステークホルダーへアセスメント送付）
   Screening --> Qualified: 必須アセスメント完了で自動<br/>または Demand manager が手動
-  Qualified --> Approved: ステークホルダー承認
-  Qualified --> Deferred: 見送り
+  Qualified --> Approved: Demand manager が承認
+  Qualified --> Deferred: Demand manager が見送り
   Approved --> Completed: 変換先エンティティ完了で自動<br/>（Close Demand 設定）
   Completed --> [*]
 ```
@@ -286,7 +298,7 @@ stateDiagram-v2
 | Screening | 評価中。ステークホルダーにスコアリング用アセスメントが送付される | Demand manager、Stakeholder |
 | Qualified | 評価完了。必須アセスメント提出で自動遷移、または Demand manager が手動で設定（アセスメント遅延・不要時） | Demand manager |
 | Approved | 承認済み。Demand manager が Category と Type に応じて変換先エンティティを作成 | Demand approver、Demand manager |
-| Deferred | 見送り | Stakeholder |
+| Deferred | 見送り | Demand manager（ステークホルダーの評価結果を踏まえて判断） |
 | Completed | 完了。変換先が完了すると Close Demand フィールドに基づき自動、または Demand manager がどの状態からでも手動で完了可 | Demand manager |
 
 #### 変換先エンティティ
@@ -330,7 +342,7 @@ Platform Owner は、すべての要望を Demand board に上げるのではな
 | 工数（逆スコア） | 10% | 1〜5 |
 | 技術リスク・技術的負債（逆スコア） | 10% | 1〜5 |
 
-Demand Management は Value、Cost、Risk、Size、Strategic alignment 等のスコアフィールドとアセスメントによる自動スコアリングを持つため、スコアリング基準をアセスメント設問として実装するのが標準的である。`【第三者情報】`
+Demand Management は既定で 5 つのアセスメントメトリックカテゴリ（Size、Strategic Alignment、Risk、ROI、Cost）を持ち、All > Project Administration > Settings > Assessments Metric Categories で参照・設定できる。[出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/~4drrT5QcRXGcxf_AebBxg) Screening 状態でステークホルダーがスコアリング用アセスメントを実施する。[出典](https://www.servicenow.com/docs/r/it-business-management/strategic-planning/demand-process-flow.html) このため、上記のようなスコアリング基準はアセスメントの設問・メトリックとして実装するのが自然である。`【経験則】` なお、デマンドの Score の算出式（どのメトリックをどの重みで使うか）は公式ページでは確認できず、Community では「Risk・Value・Size の 3 つから算出」との回答がある。`【第三者情報】` [出典](https://www.servicenow.com/community/spm-forum/how-are-demand-assessment-scores-calculated/td-p/986668)
 
 ---
 
@@ -365,10 +377,10 @@ ReleaseOps は ServiceNow AI Platform 上の変更・カスタマイズ・カス
 
 | 項目 | 内容 |
 |---|---|
-| 導入 | ServiceNow Store から入手。バージョン履歴・累積リリースノートは Store に記載 [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-releaseops-release-notes.html) |
+| 導入 | ServiceNow Store から入手し、Application Manager で参加する全インスタンスにインストールする [出典（Install ReleaseOps、Australia）](https://www.servicenow.com/docs/r/vAF6lp8vm2~kKTU5ernM8g/k5vaBaodbpKC8rLXMCwxQA) [出典（Deployment management options、Australia）](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/i42vj1k9qpchwM3~wbgV~w)。バージョン履歴・累積リリースノートは Store に記載 [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-releaseops-release-notes.html) |
 | 制約 | 規制環境（regulated environments）とオンプレミスでは非サポート。利用可否はエンタイトルメントに依存。AI 機能はライセンス階層に依存 |
-| 費用 | Community 記事は「無償で利用可能」と記載 `【第三者情報】`（公式の価格記載は確認できず） |
-| 前提 | Community 記事によると `sn_releaseops` アプリと Workflow Studio を DEV/TEST/PROD に導入し、インスタンス間信頼（MIM trust）と PROD・TEST の Update Source を設定 `【第三者情報】` [出典](https://www.servicenow.com/community/upgrades-and-patching-forum/revolutionizing-servicenow-deployments-the-complete-guide-to/m-p/3484003) |
+| 費用 | 公式の「Deployment management options」（Australia）は「ReleaseOps と System Update Sets は ServiceNow プラットフォームライセンスに含まれる」と記載し、AEMC の Pipelines and Deployments には追加の App Engine ライセンスが必要としている [出典](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/i42vj1k9qpchwM3~wbgV~w) |
+| 前提 | 公式の「Install ReleaseOps」（Australia）は前提として `admin` ロールのみを挙げ、ReleaseOps エコシステムの各インスタンス（DEV・TEST・PROD 等）でインストール手順を実施するよう求めている。AEMC のインストールは前提として記載されていない（AEMC 28.2.1 以降は Release management タブで ReleaseOps の Release を参照できる統合がある）[出典](https://www.servicenow.com/docs/r/vAF6lp8vm2~kKTU5ernM8g/k5vaBaodbpKC8rLXMCwxQA)。Community 記事によると `sn_releaseops` アプリと Workflow Studio を DEV/TEST/PROD に導入し、インスタンス間信頼（MIM trust）と PROD・TEST の Update Source を設定 `【第三者情報】` [出典](https://www.servicenow.com/community/upgrades-and-patching-forum/revolutionizing-servicenow-deployments-the-complete-guide-to/m-p/3484003) |
 
 #### ReleaseOps のロール
 
@@ -452,7 +464,7 @@ Pipelines and Deployments は App Engine Management Center（AEMC）の機能で
 
 1. **本番に直接変更しない**：本番インスタンスでの設定変更は、Update Set に記録されないデータ（ユーザー、グループ、一部のスケジュール等）を除き原則禁止。本番 `admin` 保持者を最小化する。
 2. **変更は必ず Change request で管理**：ServiceNow 自身の構成変更も ITSM の Change Management で管理する（「自分たちのドッグフード」）。CI としてインスタンスまたはアプリ（例：`cmdb_ci_service` / アプリケーション CI）を登録し、Blackout schedule の対象にする。
-3. **移送順序の管理**：Update Set の依存関係（親子・バッチ）を Release 単位でまとめる。ReleaseOps は最後のインスタンスでのデプロイ順で TEST から PROD へ移す。
+3. **移送順序の管理**：Update Set の依存関係（親子・バッチ）を Release 単位でまとめる。ReleaseOps は Release が Preparing 状態のときに Deployment request のリリース順序（release order）を生成し、その順序でターゲットインスタンスへデプロイする。[出典](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/hk~gAQRZEr_4xeIE21DNVg)
 4. **リリースノート**：利用者向け（何が変わるか）と運用者向け（設定内容・ロールバック手順）を分ける。ReleaseOps の AI 生成リリースノートを下書きに使える（Australia）。
 5. **ロールバック**：Update Set は Back out が可能だが、データ変更は戻らない。ロールバック手順を Change request に記載する。
 
@@ -678,7 +690,7 @@ Subscription Management（サブスクリプション管理）は、契約した
 
 ### 8.2 ServiceNow Benchmarks の KPI（プロセス・ビジネス価値）
 
-ServiceNow Benchmarks は、匿名化・集計された他社データと自社 KPI を比較する機能である。オプトインが必要で、毎月 3 日に自動アップロードし、11 日までにグローバルスコアがダウンロードされる。ロールは `sn_bm_client.benchmark_admin`、`sn_bm_client.benchmark_data_viewer`。Performance Analytics と連携して日次収集・ドリルダウンが可能。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/p1ZvOh5VvbtHQQQZHy1nyg)
+ServiceNow Benchmarks は、匿名化・集計された他社データと自社 KPI を比較する機能である。オプトインが必要で、スコアは毎月自動でアップロードされ、その後グローバルスコアが自動ダウンロードされる。日付は公式ページ内で記載が混在しており、本文では「アップロード 3 日／ダウンロード 11 日」、スケジュールジョブの説明では「アップロード 1 日／ダウンロード 9 日」となっている（どちらが正しいかは公開情報では確認できず。インスタンスの Scheduled Jobs で確認すること）。ロールは `sn_bm_client.benchmark_admin`、`sn_bm_client.benchmark_data_viewer`。Performance Analytics と連携して日次収集・ドリルダウンが可能。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/p1ZvOh5VvbtHQQQZHy1nyg)
 
 主な ITSM KPI（Australia、2026-03-12 更新の公式ページ）：
 
@@ -714,7 +726,7 @@ Change Management ダッシュボード（Australia）は Performance Analytics 
 | Change Request KPIs | Number of open changes、Number of new emergency changes、Number of new changes、Average age of open changes、Number of closed changes、Mean time to close a change、Incidents caused by change、% Unauthorized changes、Outages due to Change |
 | Change Success Score KPIs | Change success scores、% Successful changes with issue、% Successful changes、% unsuccessful changes |
 
-Change success score は ITSM Professional 以上のサブスクリプションで利用可能とされる。詳細は [ITSM Pro/Enterprise 固有機能](../02_リファレンス/itsm/itsm-pro-features.md) を参照。
+Change success score は「Change Management - change success score」プラグインで提供され、公式ドキュメント（Australia）は同プラグインを「ITSM Professional subscription only」で提供と明記している。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/B0mqJSRYCtUEahQQJwwbWA)詳細は [ITSM Pro/Enterprise 固有機能](../02_リファレンス/itsm/itsm-pro-features.md) を参照。
 
 ### 8.4 プラットフォーム健全性の KPI（Instance Scan / Impact）
 
@@ -758,16 +770,27 @@ KPI の可視化には Platform Analytics（Performance Analytics）を使う。
 
 ## 9. 年間運用カレンダー（例、`【経験則】`）
 
-ServiceNow のファミリーリリースは年 2 回（概ね 3 月前後と 9 月前後に GA）であり、運用カレンダーはこれに合わせて組む。アップグレードの詳細は [アップグレード管理](13-upgrade-management.md) を参照。
+ServiceNow のファミリーリリースは年 2 回である。GA 時期はリリースにより前後し、2024〜2025 年は概ね 3 月・9 月だったが、2026 年は Australia が 2026-05-05 GA、Brazil が 2026-09-24 EA・2026-11-05 GA とみられる（Brazil Patch 2 の公開日。公式表に GA の明記はなく【推定】）と後ろ倒しになっている。詳細は [リリースサイクルとバージョン](../01_入門編/07-release-cycle.md)、公式の Available patches and hotfixes（[Australia](https://www.servicenow.com/docs/r/australia/release-notes/available-versions.html)、[Brazil](https://www.servicenow.com/docs/r/brazil/release-notes/available-versions.html)）を参照。このため運用カレンダーは固定の月ではなく、**各ファミリーの EA／GA からの相対時期**で組み、毎年の公式スケジュール公表時に実日付へ落とし込む。アップグレードの詳細は [アップグレード管理](13-upgrade-management.md) を参照。
+
+### 9.1 ファミリーリリースに連動する活動（GA 基準の相対時期）
+
+| 時期（GA 基準） | ガバナンス | リリース | 凍結 |
+|---|---|---|---|
+| EA 〜 GA（GA の約 45〜60 日前から） | Technical board（新機能・廃止機能の影響評価の計画） | PDI / サブプロダクションで新ファミリーの評価開始 | — |
+| GA 後 1〜2 か月 | Demand board（新機能の採否）、Technical board（アップグレード影響評価） | サブプロダクションのアップグレード、Skipped 対応、ATF 回帰テスト | 開発の Chill（アップグレード検証との競合回避） |
+| GA 後 3〜6 か月 | ステアリングへの報告 | 本番アップグレード | 本番適用の前後 1 週間 Freeze |
+
+### 9.2 2026〜2027 年の当てはめ例
 
 | 時期 | ガバナンス | リリース | 凍結 | ライセンス |
 |---|---|---|---|---|
-| 1 月 | ステアリング（年間計画承認） | 定例リリース再開 | 年始凍結解除 | — |
-| 2〜3 月 | Demand board | 定例 ＋ 春のファミリーリリース評価（PDI / サブプロダクション） | 年度末 Chill | 年度予算の反映 |
-| 4〜6 月 | Demand board、Technical board（アップグレード影響評価） | アップグレード（サブプロダクション → 本番） | アップグレード前後の Freeze | 四半期棚卸し |
-| 7 月 | ステアリング（半期レビュー） | 定例 | — | — |
-| 8〜9 月 | Demand board | 定例 ＋ 秋のファミリーリリース評価 | お盆 Chill | 四半期棚卸し |
-| 10〜12 月 | Demand board、Technical board | アップグレード | 年末年始 Freeze（ServiceNow 社のホリデー凍結期間も確認） | 更新交渉（契約更新月に合わせる） |
+| 2026-03〜05（Australia EA 3/12 → GA 5/5） | Demand board | 定例 ＋ Australia 評価 | 年度末 Chill | 年度予算の反映 |
+| 2026-06〜10 | Demand board、Technical board（Australia 影響評価） | Australia へのアップグレード（サブプロダクション → 本番） | アップグレード前後の Freeze、お盆 Chill | 四半期棚卸し |
+| 2026-09〜11（Brazil EA 9/24 → GA 見込み 11 月） | Demand board | 定例 ＋ Brazil 評価 | — | 四半期棚卸し |
+| 2026-12〜2027-01 | ステアリング（年間計画承認） | 年末は定例リリース停止、1 月に再開 | 年末年始 Freeze（ServiceNow 社のホリデー凍結期間も確認） | 更新交渉（契約更新月に合わせる） |
+| 2027-01〜04 | Demand board、Technical board（Brazil 影響評価） | Brazil へのアップグレード。Brazil の GA が年末に近いため、本番適用は年末年始 Freeze と重ならないよう年明け以降に計画 | アップグレード前後の Freeze、年度末 Chill | 四半期棚卸し |
+
+固定の通年行事（年末年始 Freeze、年度末 Chill、お盆 Chill、ライセンスの四半期棚卸し）は 6.2 節・7.3 節を参照。
 
 ---
 
@@ -782,7 +805,7 @@ ServiceNow のファミリーリリースは年 2 回（概ね 3 月前後と 9 
 | ライセンス超過 | 「とりあえず `itil`」でロールを付与 | ロールはグループ経由、ライセンス付与は承認制（7 章） |
 | カスタマイズの肥大化 | Technical board がなく、各要望が独自実装される | Instance Scan を定例リリースの品質ゲートに組み込む（ReleaseOps / Pipelines） |
 
-失敗パターンの詳細は [導入失敗パターンと対策](../04_応用編/01-implementation-failure-patterns.md)、[カスタマイズと技術的負債](../04_応用編/02-customization-technical-debt.md)、[定着化と組織変革](../04_応用編/13-adoption-change-management.md) を参照。
+失敗パターン・実践知の詳細は [ガバナンスとCoEの実践](../04_応用編/09-governance-coe-practice.md)、[アップグレードの知見](../04_応用編/04-upgrade-lessons.md)、[定着化と組織変革](../04_応用編/13-adoption-change-management.md) を参照。
 
 ---
 
@@ -791,7 +814,9 @@ ServiceNow のファミリーリリースは年 2 回（概ね 3 月前後と 9 
 - Platform team の規模に関する ServiceNow 公式の FTE 比率（Platform Team Estimator の算定ロジック、および 2026 年時点でのツール提供状況）。
 - ServiceNow 公式ガバナンスドキュメント（Impact）の Australia 版での改訂有無。ボードのメンバー・開催頻度の公式規定。
 - `dmn_demand` テーブルと `it_demand_*` ロールの Australia 版公式ドキュメント上の完全な一覧（本ファイルは公式の Planning ページと Community に依拠）。
-- ReleaseOps の技術ロール名・プラグイン ID の公式記載（Community は `sn_releaseops` と記載）、および正式な価格・エンタイトルメント条件。
+- ReleaseOps の技術ロール名・プラグイン ID の公式記載（Community は `sn_releaseops` と記載）、およびエンタイトルメント条件の詳細（プラットフォームライセンスに含まれる旨は公式記載あり）。
+- Benchmarks のアップロード／ダウンロード日（公式ページ内で 3 日／11 日と 1 日／9 日が混在）。
+- Demand のスコア算出式（メトリックと重み）の公式記載。
 - Conflict properties の Australia 版における既定値の全量。
 - ServiceNow 社のホリデー変更凍結の 2025/2026 年度の期間（KB「ServiceNow Holiday Change Freezes」は要ログイン）。
 - Subscription Management の Brazil での変更点。
@@ -806,6 +831,8 @@ ServiceNow のファミリーリリースは年 2 回（概ね 3 月前後と 9 
 - Demand workflow（Brazil）: https://www.servicenow.com/docs/r/it-business-management/strategic-planning/demand-process-flow.html
 - Use Demand Management（Brazil）: https://www.servicenow.com/docs/r/it-business-management/demand-management/r_UsingDemandManagement.html
 - Planning for Demand Management: https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/NRArlQoBT6R3E6QIzu93xg
+- Install ReleaseOps（Australia）: https://www.servicenow.com/docs/r/vAF6lp8vm2~kKTU5ernM8g/k5vaBaodbpKC8rLXMCwxQA
+- Deployment management options（Australia）: https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/i42vj1k9qpchwM3~wbgV~w
 - Exploring ReleaseOps（Australia）: https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/vxsfciX32c_lTl7bVVR4Hg
 - Release states（ReleaseOps、Australia）: https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/hk~gAQRZEr_4xeIE21DNVg
 - ReleaseOps release notes（Zurich → Brazil）: https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-releaseops-release-notes.html
@@ -818,6 +845,11 @@ ServiceNow のファミリーリリースは年 2 回（概ね 3 月前後と 9 
 - Allocate subscriptions in Subscription Management（Australia）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/fw_i3~4WeK7xGPpQkbv0~g
 - Combined Subscription Management release notes（Zurich → Australia）: https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/yyrCVKh_P76Mr0AuQAiBgg
 - Change Management dashboard（Australia）: https://www.servicenow.com/docs/r/australia/it-service-management/change.html
+- Change success score（Australia）: https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/B0mqJSRYCtUEahQQJwwbWA
+- View an assessment metric category（Demand Management、Australia）: https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/~4drrT5QcRXGcxf_AebBxg
+- Base system roles（`agent_admin`、`mid_server`）: https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/pEDGZVkEsoN3DzPnUsCKMg
+- Available patches and hotfixes（Australia）: https://www.servicenow.com/docs/r/australia/release-notes/available-versions.html
+- Available patches and hotfixes（Brazil）: https://www.servicenow.com/docs/r/brazil/release-notes/available-versions.html
 - Benchmark KPIs（Australia）: https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/p1ZvOh5VvbtHQQQZHy1nyg
 - Platform Health / Tech KPIs（Impact、Xanadu）: https://www.servicenow.com/docs/r/xanadu/impact/impact-tech-kpis.html
 - Scan Engine Platform Owner dashboard（Impact、Zurich）: https://www.servicenow.com/docs/r/zurich/impact/scan-engine-platform-owner-dashboard.html
@@ -831,6 +863,7 @@ ServiceNow のファミリーリリースは年 2 回（概ね 3 月前後と 9 
 - Demand governance for large enterprises（2025-02）: https://www.servicenow.com/community/developer-blog/demand-governance-for-large-enterprises/ba-p/3168245
 - The 4 steps to manage platform demand for ServiceNow（2018、ServiceNow Best Practices CoE）: https://www.servicenow.com/community/in-other-news/the-4-steps-to-manage-platform-demand-for-servicenow/ba-p/2272517
 - Build the team you need to succeed with your ServiceNow（Platform Team Estimator、2021）: https://www.servicenow.com/community/in-other-news/build-the-team-you-need-to-succeed-with-your-servicenow/ba-p/2285583
+- How are Demand Assessment scores calculated?（Community フォーラム）: https://www.servicenow.com/community/spm-forum/how-are-demand-assessment-scores-calculated/td-p/986668
 - Demand management roles（Community フォーラム）: https://www.servicenow.com/community/spm-forum/demand-management-roles/td-p/994728/page/2
 - Revolutionizing ServiceNow Deployments: The Complete Guide to ReleaseOps（2026-02）: https://www.servicenow.com/community/upgrades-and-patching-forum/revolutionizing-servicenow-deployments-the-complete-guide-to/m-p/3484003
 - Blackout & Maintenance Schedules in a nutshell（2016、ServiceNow 社員）: https://www.servicenow.com/community/itsm-blog/blackout-maintenance-schedules-in-a-nutshell/ba-p/2269223

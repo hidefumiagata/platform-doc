@@ -33,6 +33,20 @@ sources:
   - https://www.servicenow.com/community/developer-articles/allow-if-vs-deny-unless-in-servicenow-acls-are-they-really-the/ta-p/3470835
   - https://www.servicenow.com/community/servicenow-ai-platform-articles/datatype-acls/ta-p/3344409
   - https://www.servicenow.com/community/upgrades-and-patching-forum/security-data-filters-in-servicenow/td-p/3252097
+  - https://www.servicenow.com/docs/r/xanadu/platform-security/access-control/acl-denial-behavior.html
+  - https://www.servicenow.com/docs/r/yokohama/platform-security/access-control/exploring-access-control-list.html
+  - https://www.servicenow.com/docs/r/xanadu/platform-security/access-control/configure-field-query-restrictions.html
+  - https://www.servicenow.com/docs/r/xanadu/platform-security/instance-security-hardening-settings/sc-enabling-ajaxgliderecord-acl-checking.html
+  - https://www.servicenow.com/docs/bundle/xanadu-platform-security/page/administer/security/reference/r_ApplyACLsToAJAXGlideRecord.html
+  - https://www.servicenow.com/docs/r/platform-security/identity/explore-identity-audit.html
+  - https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-changemanagement-release-notes.html
+  - https://www.servicenow.com/docs/r/zurich/intelligent-experiences/enable-ai-experiences/aia-acl-configuration.html
+  - https://www.servicenow.com/docs/r/yokohama/delta-washingtondc-yokohama/yokohama-washingtondc-identity-release-notes.html
+  - https://developer.servicenow.com/blog.do?p=%2Fpost%2Fgliderecord-vs-gliderecordsecure%2F
+  - https://www.servicenow.com/community/now-platform-articles/need-to-know-principle-implementation/ta-p/3135746
+  - https://www.servicenow.com/community/developer-forum/query-range-amp-query-match-acl-s/m-p/3288540
+  - https://www.servicenow.com/community/developer-articles/servicenow-yokohama-patch-query-range-acl-update-issue-summary/ta-p/3272999
+  - https://www.servicenow.com/community/developer-forum/enabled-high-security-plugin-in-getting-security-constraint/m-p/1652739
 ---
 
 # アクセス制御（Access Control List / ACL）
@@ -48,7 +62,7 @@ ACL 1 件は次の要素で構成される。[出典](https://www.servicenow.com
 - **Name（保護対象オブジェクト）**: 例 `incident`、`incident.short_description`、`*`
 - **条件**: Requires role（必要ロール）、Security Attribute（セキュリティ属性）、Data condition（データ条件）、Script（スクリプト）
 
-Xanadu 以降、ServiceNow は ACL を中心に、**Deny-Unless ACL**、**Query ACL**（`query_match` / `query_range`）、**Security Data Filters（セキュリティデータフィルター）** などを加えた多層のアクセス制御モデルを提供している。Zurich では **Datatype ACL** と Scripting Governance Tool、Australia では **プリセットの Query ACL** と **Access Findings（EA）** が追加された。本ファイルはこれらを横断して整理する。
+ServiceNow は ACL を中心に、**Deny-Unless ACL**（Xanadu で導入）、**Security Data Filters（セキュリティデータフィルター）** と **Related record access（関連レコードアクセス）**（いずれも Yokohama で導入）、**Query ACL**（`query_match` / `query_range`。導入リリースは公式には確認できず、7.1 節）などを加えた多層のアクセス制御モデルを提供している。Zurich では **Datatype ACL** と Scripting Governance Tool、Australia では **プリセットの Query ACL** と **Access Findings（EA）** が追加された。本ファイルはこれらを横断して整理する。[出典](https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-accessmanagement-release-notes.html)、[出典](https://www.servicenow.com/docs/r/australia/release-notes/access-management-rn.html)
 
 関連ファイル:
 
@@ -68,15 +82,15 @@ ServiceNow のレコードアクセスは、ACL 単体ではなく複数のレ�
 | レイヤー | 英語名 | 役割 | 主な格納先・設定場所 | 導入リリース |
 |---|---|---|---|---|
 | Before Query Business Rule | Before query business rule | クエリ実行前に `addQuery()` で条件を付加し、取得レコードを絞る（スクリプトによる行フィルタ） | `sys_script`（When = before, Query = true） | 旧来から |
-| Security Data Filters | Security data filters | ロール/Security Attribute に基づき、クエリに条件を付加してデータベースから出る前に行を絞る | System Security > Security Data Filters | Xanadu〜Yokohama 期に提供開始（後述） |
+| Security Data Filters | Security data filters | ロール/Security Attribute に基づき、クエリに条件を付加してデータベースから出る前に行を絞る | System Security > Security Data Filters | Yokohama [出典](https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-accessmanagement-release-notes.html) |
 | Data filtration | Data filtration | サブジェクト属性（ロール/グループ/IP 等）に基づく読み取り時の拒否ベースのフィルタ | `sys_df_data_filtration` 等 | Zurich ドキュメントに記載 |
 | iAccessHandler | IAccessHandler | プラットフォーム内部のチェック。変更不可。ACL 評価前に許可/拒否を決めることがある | （内部） | Istanbul から |
 | Deny-Unless ACL | Deny-Unless ACL | 条件を満たさない限り拒否。Allow-If より先に評価 | `sys_security_acl`（Decision type = Deny Unless） | Xanadu |
 | Allow-If ACL | Allow-If ACL | 条件を満たせば許可（従来型 ACL） | `sys_security_acl`（Decision type = Allow If） | 旧来から |
-| Query ACL | Query ACL | 列に対する検索演算子（一致/範囲）・ソートの可否を制御 | `sys_security_acl`（Operation = `query_match` / `query_range`） | Yokohama 期（後述） |
+| Query ACL | Query ACL | 列に対する検索演算子（一致/範囲）・ソートの可否を制御 | `sys_security_acl`（Operation = `query_match` / `query_range`） | Xanadu（公式リリースノートで query match / query range 演算子の導入を記載。7.1 節）。【第三者情報】Yokohama パッチ（2025-05）で既定 ACL が大量追加 |
 | Domain separation | Domain separation | ドメイン単位のデータ分離 | `sys_domain` 等 | → [ドメインセパレーション](domain-separation.md) |
 
-出典: [Access Analyzer Debug logs](https://www.servicenow.com/docs/r/zurich/platform-security/access-control/access-analyzer-logs.html)、[ACL debugging tools](https://www.servicenow.com/docs/r/zurich/platform-security/access-control/c_AccessControlRulesDebug.html)、[Security data filters](https://www.servicenow.com/docs/r/platform-security/security-data-filters.html)、[Explore Data filtration](https://www.servicenow.com/docs/r/zurich/platform-security/data-filtration.html)、[New Access Control Features（Community 公式記事）](https://www.servicenow.com/community/platform-privacy-security/better-security-out-of-the-box-with-new-access-control-features/ta-p/3206245)
+出典: [Access Analyzer Debug logs](https://www.servicenow.com/docs/r/zurich/platform-security/access-control/access-analyzer-logs.html)、[ACL debugging tools](https://www.servicenow.com/docs/r/zurich/platform-security/access-control/c_AccessControlRulesDebug.html)、[Security data filters](https://www.servicenow.com/docs/r/platform-security/security-data-filters.html)、[Explore Data filtration](https://www.servicenow.com/docs/r/zurich/platform-security/data-filtration.html)、[New Access Control Features（Community 記事）](https://www.servicenow.com/community/platform-privacy-security/better-security-out-of-the-box-with-new-access-control-features/ta-p/3206245)【第三者情報】、[Access Management release notes（Yokohama → Brazil delta）](https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-accessmanagement-release-notes.html)
 
 ### 1.1 レイヤー間の評価順序（情報源による差異あり）
 
@@ -87,8 +101,8 @@ ServiceNow のレコードアクセスは、ACL 単体ではなく複数のレ�
 | Access Analyzer Debug logs（公式ドキュメント、Zurich） | ① Business rules → ② Access handler → ③ Data filtration → ④ ACLs。Data filtration で拒否されたレコードは ACL で評価されない |
 | Explore Data filtration（公式ドキュメント、Zurich） | Data filtration ルールは読み取りのデータベースクエリ後、ACL の前に実行される |
 | Security data filters（公式ドキュメント、Brazil 版） | フィルターはクエリ内で適用され、「テーブルレベル（absolute）ACL と行 ACL の後」に適用される。フィルターはクエリ実行前に適用されるため、制限データはデータベースから出ない |
-| Troubleshooting Access Control（Community 公式ブログ、2025-12） | ① Business Rules → ② ACLs → ③ Security Data Filters。あるレイヤーで拒否されると後続はショートサーキット |
-| Need-to-know principle Part 3（Community 記事） | ① Security Data Filters（SQL クエリに条件付加）→ ② Deny-Unless ACL → ③ Allow-If ACL |
+| Troubleshooting Access Control（ServiceNow 社員執筆の Community ブログ、2025-12）【第三者情報】 | ① Business Rules → ② ACLs → ③ Security Data Filters。あるレイヤーで拒否されると後続はショートサーキット |
+| Need-to-know principle Part 3（Community 記事）【第三者情報】 | ① Security Data Filters（SQL クエリに条件付加）→ ② Deny-Unless ACL → ③ Allow-If ACL |
 
 【推定】Security Data Filters は「SQL クエリへの条件付加」として実装されるため物理的にはレコード取得前に効き、ACL（行 ACL）は取得後のレコードごとに評価される。ただしテーブルレベルの ACL（テーブル自体に読み取り権限があるか）はクエリ前に判定される。上記の記述差はこの「テーブル判定 → クエリ（フィルター付加）→ 行判定」のどこを切り取って説明したかの違いと考えられる。厳密な順序は実インスタンスの Access Analyzer Debug logs で確認すること。
 
@@ -141,10 +155,10 @@ ACL 作成手順は「`security_admin` に昇格 → **System Security > Access 
 | Applies To | 適用対象 | Name で指定したテーブルに対するフィルター条件。ACL を特定レコードに限定する。`*` で始まる Name では使用不可。空なら全レコードに適用。大文字小文字を区別 |
 | Active | 有効 | チェック時に ACL を適用 |
 | Advanced | 詳細 | チェックすると Advanced 条件（Script 等）の入力欄を表示 |
-| Requires role | 必要ロール | 列挙したロールの**いずれか 1 つ**を持てば条件を満たす。インスタンスに存在しないロールのみの場合は拒否。admin は常に通過 |
+| Requires role | 必要ロール | 列挙したロールの**いずれか 1 つ**を持てば条件を満たす。インスタンスに存在しないロールのみを参照する場合の扱いは 2.5 節を参照（リリース・インスタンスの経緯により異なる）。admin は常に通過 |
 | Security Attribute Condition | セキュリティ属性条件 | ユーザー・環境属性に基づく条件（大文字小文字を区別） |
 | Data Condition | データ条件 | 条件ビルダーで指定するフィールド値の条件（大文字小文字を区別） |
-| Controlled by References | 参照による制御 | 関連レコードに対して ACL を強制する（Advanced） |
+| Controlled by References | 参照による制御 | 関連レコードに対して ACL を強制する（Advanced）。Yokohama で導入された Related record access に関連する項目と考えられる【推定】（5.8 節） |
 | Script | スクリプト | `current`、`previous` などのグローバル変数とシステムプロパティを使い true/false を返すロジック。条件とスクリプトの**両方**が true のとき通過 |
 
 ![ACL フォーム（Access Control）の上部](../../assets/images/access-control-acl/acl-form-change-mode.png)
@@ -161,7 +175,7 @@ ACL の条件には 4 種類あり、ACL を通過するには**その ACL に�
 
 | 条件 | 評価方法 | 備考 |
 |---|---|---|
-| Requires role | 列挙ロールのいずれかを保持していれば true | 存在しないロールのみ参照する ACL は無効扱い（拒否） |
+| Requires role | 列挙ロールのいずれかを保持していれば true | 存在しないロールのみ参照する ACL の扱いは 2.5 節を参照（厳格拒否が確実に効くのは Brazil 以降） |
 | Security Attribute | 事前定義された述語（例: ユーザーが偽装中か、認証済みか）が true か | ローカル（その ACL 専用）または既存属性の参照 |
 | Data condition | 条件ビルダーの条件が対象レコードで true か | `Applies To` とは異なり、ACL が適用された後に評価される |
 | Script | スクリプトが true を返す、または `answer` 変数に true を設定 | クロススコープ ACL ではスクリプト不可 |
@@ -183,13 +197,13 @@ Security Attribute は、ロールや条件を再利用可能な「述語」と�
 | 状態 | 扱い |
 |---|---|
 | 空の ACL（ロール、Security Attribute、データ条件、スクリプトのいずれもない） | 拒否 |
-| 存在しないロールを参照する ACL | 無効 → 拒否 |
+| 存在しないロールを参照する ACL | Australia ドキュメントの Deny by default の説明では無効（拒否）として列挙されている。ただし、参照ロールがすべて存在しない場合の厳格拒否が確実に動作するのは **Brazil 以降**（新規インスタンスは既定で有効、アップグレードしたインスタンスは `glide.security.acl_with_invalid_roles_strict_deny` の設定が必要。下記「Brazil での変更」）。Australia のアップグレード済みインスタンスで実際にどう動作するかは公開情報では確認できず、実インスタンスで確認すること |
 | データベースに行のない Security Attribute を参照する ACL | 無効 → 拒否 |
 | スクリプトが `answer=true` や `true` だけの ACL | 無効 → 拒否 |
 
 出典: [Exploring Access Control Lists（Australia）](https://www.servicenow.com/docs/r/australia/platform-security/access-control/exploring-access-control-list.html)
 
-関連プロパティ `glide.security.empty_acl.popup_window.enabled`（既定 `true`、推奨 `true`）は、`sys_security_acl` のフォーム編集で空・無効な ACL の作成/更新/保存をブロックし、ロールまたは Security Attribute を設定するためのクライアント側ダイアログを表示する。値は大文字小文字を区別（`True` は false と評価）。High Security プラグイン（`com.glide.high_security`）が有効な場合のみ動作する。Security Center 2.0 で追加（Zurich 期）。[出典](https://www.servicenow.com/docs/r/oJu9n0q6rU~F9UHAnNCt5w/EYGK~hpgeXFNo0zp94Xx9w)
+関連プロパティ `glide.security.empty_acl.popup_window.enabled`（既定 `true`、推奨 `true`）は、`sys_security_acl` のフォーム編集で空・無効な ACL の作成/更新/保存をブロックし、ロールまたは Security Attribute を設定するためのクライアント側ダイアログを表示する。値は大文字小文字を区別（`True` は false と評価）。High Security プラグイン（`com.glide.high_security`）が有効な場合のみ動作する。Security Center 2.0 で追加（出典ページのタイトル「Prevent Empty ACL Creation [New in Security Center 2.0]」による。リリースファミリーとの対応は【推定】Zurich 期）。[出典](https://www.servicenow.com/docs/r/oJu9n0q6rU~F9UHAnNCt5w/EYGK~hpgeXFNo0zp94Xx9w)
 
 > **Brazil での変更:** ACL が参照するロールが**すべて**インスタンス上に存在しない場合にアクセスを拒否する「strict denial for invalid roles」が導入された（有効なロールと無効なロールが混在する ACL は対象外）。新規インスタンスでは既定で有効、アップグレードしたインスタンスではプロパティ `glide.security.acl_with_invalid_roles_strict_deny` を設定する必要がある。影響を受ける ACL は **Access Management > Access Findings** の Access Checks 一覧で確認できる。[出典](https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-accessmanagement-release-notes.html)
 
@@ -241,11 +255,11 @@ Processor、UI page、client-callable script include の ACL は、より具体�
 | `personalize_choices` | 選択肢のパーソナライズ | テーブル/フィールドの構成（選択肢の設定） | — |
 | `data_fabric` | Data Fabric | Data Fabric テーブルからローカルテーブルへの参照を許可 | → [Workflow Data Fabric](workflow-data-fabric.md) |
 
-拒否時の挙動の出典: [Exploring Access Control Lists](https://www.servicenow.com/docs/r/australia/platform-security/access-control/exploring-access-control-list.html)、`report_view` のメッセージ: [How ServiceNow evaluates ACLs（Community 公式記事）](https://www.servicenow.com/community/platform-privacy-security/how-servicenow-evaluates-acls-why-access-doesn-t-always-match/ta-p/3571331)
+拒否時の挙動の出典: [Exploring Access Control Lists](https://www.servicenow.com/docs/r/australia/platform-security/access-control/exploring-access-control-list.html)、`report_view` のメッセージ: 【第三者情報】[How ServiceNow evaluates ACLs（Community 記事）](https://www.servicenow.com/community/platform-privacy-security/how-servicenow-evaluates-acls-why-access-doesn-t-always-match/ta-p/3571331)
 
 注意点:
 
-- `report_view` ACL はレポート実行時のみ評価され、テーブルの read ACL とは別のゲートである。集計値・フィルタ結果は個々のレコードが見えなくても情報を漏らしうるため、このゲートが存在する。[出典](https://www.servicenow.com/community/platform-privacy-security/how-servicenow-evaluates-acls-why-access-doesn-t-always-match/ta-p/3571331)
+- 【第三者情報】`report_view` ACL はレポート実行時のみ評価され、テーブルの read ACL とは別のゲートである。集計値・フィルタ結果は個々のレコードが見えなくても情報を漏らしうるため、このゲートが存在する。[出典](https://www.servicenow.com/community/platform-privacy-security/how-servicenow-evaluates-acls-why-access-doesn-t-always-match/ta-p/3571331)
 - `conditional_table_query_range` については、Community で「`SAB_*` 系の Security Attribute を通じて `record/<table>/conditional_table_query_range` の ACL が評価される」といった投稿があるが、投稿者自身も不確かとしており、本ナレッジでは公開情報では確認できずとする。
 
 ---
@@ -266,7 +280,7 @@ Processor、UI page、client-callable script include の ACL は、より具体�
 - テーブル ACL を通過しフィールド ACL に失敗した場合は、**そのフィールドのみ**がブロックされる。
 - ベースシステムには STAR（`*`）テーブル ACL があるため、ユーザーは常に少なくとも 1 つのテーブル ACL を通過する必要がある。
 
-> 情報源の差異: Access Analyzer Debug logs ページ（Zurich）には「Field-level ACLs run before table-level ACLs」との記述があるが、ACL rule types ページ（Australia）および Community 公式記事（2026-08）はいずれも「テーブル ACL が先、失敗時はフィールド ACL を評価しない」としている。本ナレッジは ACL rule types の記述を正とする。[出典](https://www.servicenow.com/docs/r/zurich/platform-security/access-control/access-analyzer-logs.html)、[出典](https://www.servicenow.com/community/platform-privacy-security/how-servicenow-evaluates-acls-why-access-doesn-t-always-match/ta-p/3571331)
+> 情報源の差異: Access Analyzer Debug logs ページ（Zurich）には「Field-level ACLs run before table-level ACLs」との記述があるが、ACL rule types ページ（Australia）および Community 記事（2026-08）【第三者情報】はいずれも「テーブル ACL が先、失敗時はフィールド ACL を評価しない」としている。本ナレッジは ACL rule types の記述を正とする。[出典](https://www.servicenow.com/docs/r/zurich/platform-security/access-control/access-analyzer-logs.html)、[出典](https://www.servicenow.com/community/platform-privacy-security/how-servicenow-evaluates-acls-why-access-doesn-t-always-match/ta-p/3571331)
 
 ### 5.2 マッチング順序（具体的 → 汎用的）
 
@@ -309,17 +323,17 @@ flowchart TD
 
 出典: [Exploring Access Control Lists](https://www.servicenow.com/docs/r/australia/platform-security/access-control/exploring-access-control-list.html)、[ACL rule types](https://www.servicenow.com/docs/r/australia/platform-security/access-control/acl-rule-types.html)、[Access Analyzer Debug logs](https://www.servicenow.com/docs/r/zurich/platform-security/access-control/access-analyzer-logs.html)
 
-【経験則】より具体的な階層（例 `incident.number`）に ACL が 1 件でも存在すると、汎用階層（`task.number`、`*.number` 等）の ACL はそのフィールドに対して評価されない。親テーブルの ACL で制御しているつもりでも、子テーブルに具体的な ACL を追加すると親の ACL が「マスク」される点に注意する（Community 公式ブログでは、ACL 編集時の **ACL Configuration Watcher** が added / masked / overridden / downstream-impacted ACL を表示すると紹介されている。[出典](https://www.servicenow.com/community/platform-privacy-security-blog/troubleshooting-access-control/ba-p/3446022)）。
+【経験則】より具体的な階層（例 `incident.number`）に ACL が 1 件でも存在すると、汎用階層（`task.number`、`*.number` 等）の ACL はそのフィールドに対して評価されない。親テーブルの ACL で制御しているつもりでも、子テーブルに具体的な ACL を追加すると親の ACL が「マスク」される点に注意する（【第三者情報】ServiceNow 社員執筆の Community ブログでは、ACL 編集時の **ACL Configuration Watcher** が added / masked / overridden / downstream-impacted ACL を表示すると紹介されている。[出典](https://www.servicenow.com/community/platform-privacy-security-blog/troubleshooting-access-control/ba-p/3446022)）。
 
 ### 5.4 ACL がマッチしない場合とワイルドカード ACL
 
-- マッチする ACL が 1 件もない場合はアクセスが許可されるが、レコード操作には既定の ACL があるため、この状況はまれである。[出典](https://www.servicenow.com/docs/r/australia/platform-security/access-control/exploring-access-control-list.html)
+- マッチする ACL が 1 件もない場合はアクセスが許可されるが、レコード操作には既定の ACL があるため、この状況はまれである。[出典](https://www.servicenow.com/docs/r/australia/platform-security/access-control/exploring-access-control-list.html) ただし `glide.sm.default_mode = deny`（推奨値）の場合は、ACL がまったく定義されていないリソースへのアクセスも拒否される（10.3 節）。[出典](https://www.servicenow.com/docs/r/hX5GtoLUEU58KgyL7CW5Ag/YaSAeTv6kOt01Eqq7u4HpQ)
 - 既定のワイルドカード**テーブル** ACL（`*`）が create / read / write / delete に対して存在する。
 - 既定のワイルドカード**フィールド** ACL（`*.*`）が personalize_choices / create / save_as_template に対して存在する。
 - ワイルドカードテーブル ACL のみがマッチする場合に許可するかどうかは `glide.sm.default_mode` プロパティで決まる（10.3 節）。
 - ワイルドカードテーブル ACL はグローバルスコープでのみ作成できる。
 
-【第三者情報】Community 公式ブログでは、カスタムテーブルにテーブル ACL を作成しないと、既定のワイルドカード ACL（admin のみ）が適用されて一般ユーザーがアクセスできない、という典型的な問題が紹介されている。[出典](https://www.servicenow.com/community/platform-privacy-security-blog/troubleshooting-access-control/ba-p/3446022)
+【第三者情報】ServiceNow 社員執筆の Community ブログでは、カスタムテーブルにテーブル ACL を作成しないと、既定のワイルドカード ACL（admin のみ）が適用されて一般ユーザーがアクセスできない、という典型的な問題が紹介されている。[出典](https://www.servicenow.com/community/platform-privacy-security-blog/troubleshooting-access-control/ba-p/3446022)
 
 ### 5.5 Pre-query チェックと Post-query チェック
 
@@ -334,7 +348,7 @@ ACL 評価には 2 段階がある。[出典](https://www.servicenow.com/docs/r/
 
 ### 5.6 admin ロールと Admin overrides
 
-- `admin` ロールは通常、ロール継承によりロールベースの ACL を通過する。**Admin overrides** フラグは、admin が ACL 評価そのものをスキップするかどうかを制御する。[出典](https://www.servicenow.com/community/platform-privacy-security/how-servicenow-evaluates-acls-why-access-doesn-t-always-match/ta-p/3571331)
+- 【第三者情報】`admin` ロールは通常、ロール継承によりロールベースの ACL を通過する。**Admin overrides** フラグは、admin が ACL 評価そのものをスキップするかどうかを制御する。[出典](https://www.servicenow.com/community/platform-privacy-security/how-servicenow-evaluates-acls-why-access-doesn-t-always-match/ta-p/3571331)
 - Admin overrides が true でも、`nobody` ロールが指定された ACL は admin もブロックする。[出典](https://www.servicenow.com/docs/r/a3E8xg0zsiQLBPKbKO15Mg/vBa9OO1XsfEZEj~XyGpBAw)
 - Fluent API での `adminOverrides` の既定値は `true`。
 
@@ -345,6 +359,12 @@ ACL 評価には 2 段階がある。[出典](https://www.servicenow.com/docs/r/
 - ワイルドカードテーブル ACL はグローバルスコープでのみ作成可能。
 
 出典: [Exploring Access Control Lists](https://www.servicenow.com/docs/r/australia/platform-security/access-control/exploring-access-control-list.html)。アプリ開発全般は [アプリケーション開発](app-development.md) を参照。
+
+### 5.8 Related record access（関連レコードアクセス、Yokohama で導入）
+
+**Related record access** は、**Yokohama で導入**された、ACL フレームワークに統合された関連レコードのアクセス制御機能である。管理者は関連テーブルに ACL を強制でき、ユーザーは親レコード（例: プロジェクト、ケース）に対する権限が許す場合にのみ、子・関連レコード（例: コスト、タスク）にアクセスできる。つまり、関連テーブル側のアクセスを親レコードの権限に連動させる仕組みである。[出典](https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-accessmanagement-release-notes.html)
+
+- ACL フォームの **Controlled by References**（2.3 節）や、Debug Security Rules の内訳に表示される「Controlled By Reference」（9.1 節）との具体的な対応関係（設定手順・格納先）は、公開情報では確認できず。【推定】Controlled by References が本機能の設定項目と考えられる。
 
 ---
 
@@ -444,9 +464,9 @@ ACL 評価には 2 段階がある。[出典](https://www.servicenow.com/docs/r/
 - **給与テーブル**: ユーザーは自分の給与行しか見られないが、`salary` 列に `query_range` ACL を設定しないと、範囲クエリの境界を動かして他人の給与を推測できてしまう。
 - **HR プロファイル**: 全 `hr_profile` は見えるが SSN は自分のものしか見えないユーザーに対し、他人の SSN でのクエリを禁止する。
 
-拒否時の UI: 【第三者情報】Community 公式記事によると、範囲クエリが拒否された場合はレコード単位の拒否ではなく、クエリの一部が無視された旨の注記とともに部分的または空の結果が返る。Community 投稿では「Query range for the fields does not match the criteria to access it」というメッセージが報告されている。[出典](https://www.servicenow.com/community/platform-privacy-security/how-servicenow-evaluates-acls-why-access-doesn-t-always-match/ta-p/3571331)、[出典](https://www.servicenow.com/community/developer-forum/query-range-amp-query-match-acl-s/m-p/3288540)
+拒否時の UI: 【第三者情報】Community 記事によると、範囲クエリが拒否された場合はレコード単位の拒否ではなく、クエリの一部が無視された旨の注記とともに部分的または空の結果が返る。Community 投稿では「Query range for the fields does not match the criteria to access it」というメッセージが報告されている。[出典](https://www.servicenow.com/community/platform-privacy-security/how-servicenow-evaluates-acls-why-access-doesn-t-always-match/ta-p/3571331)、[出典](https://www.servicenow.com/community/developer-forum/query-range-amp-query-match-acl-s/m-p/3288540)
 
-導入時期: 【第三者情報】Community の公式記事は、Query ACL を Security Data Filters・Deny-Unless ACL と並ぶ Xanadu〜Yokohama の新機能としている。Yokohama のリリースノートでは Access Analyzer が Query match / Query range を Evaluate access、Compare user access、Simulate access でサポートした。[出典](https://www.servicenow.com/community/platform-privacy-security/better-security-out-of-the-box-with-new-access-control-features/ta-p/3206245)
+導入時期: Xanadu の Access Management リリースノートは「ACL Query Behavior」として、Query ACL を調整する新しい演算子 query match と query range の導入を記載しており、Query ACL は **Xanadu で導入**された（同リリースノートのハイライトは「Fine-tune your access control with the new Deny-Unless ACL and query operators」）。[出典](https://www.servicenow.com/docs/r/xanadu/release-notes/authorization-rn.html) 【第三者情報】Community では、Yokohama のパッチ（2025-05、KB2046494「May 2025 Maintenance Information」）で `query_range` を使う既定 ACL が大量に追加され、範囲クエリが既定でブロックされるようになったとされる。また Community 記事は Query ACL を Security Data Filters・Deny-Unless ACL と並ぶ新しいアクセス制御機能として紹介している。なお Yokohama では Access Analyzer が Query match / Query range を Evaluate access、Compare user access、Simulate access でサポートした。[出典](https://www.servicenow.com/community/developer-articles/servicenow-yokohama-patch-query-range-acl-update-issue-summary/ta-p/3272999)、[出典](https://www.servicenow.com/community/platform-privacy-security/better-security-out-of-the-box-with-new-access-control-features/ta-p/3206245)、[出典](https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-accessmanagement-release-notes.html)
 
 #### Australia での Query ACL の変更
 
@@ -503,7 +523,7 @@ current.addQuery("caller_id", u)
 
 - メニュー: **System Security > Security Data Filters** 【第三者情報】[出典](https://www.servicenow.com/community/upgrades-and-patching-forum/security-data-filters-in-servicenow/td-p/3252097)
 - ServiceNow は SDF を通常ベースシステムでは出荷しない（既定では存在しない）。【第三者情報】[出典](https://www.servicenow.com/community/servicenow-ai-platform-articles/need-to-know-principle-implementation-part-3-how-data-security/ta-p/3459815)
-- 公式のリリースノート上の導入リリースは公開情報では確認できず。Community 公式記事は Xanadu〜Yokohama で導入された新機能の 1 つとしている。
+- **Yokohama で導入**された（Access Management リリースノートの Yokohama の New features に「Security data Filters enable you to control who can access sensitive data by restricting access to authorized users」として掲載）。[出典](https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-accessmanagement-release-notes.html)
 
 ### 8.2 フォーム項目
 
@@ -537,7 +557,7 @@ current.addQuery("caller_id", u)
 
 ### 8.4 複数フィルターの結合とテーブル階層
 
-- 複数のフィルターは互いに、またクエリ自体の条件とも **AND** で結合される。公式の例: `task` テーブルに `active=true`、`priority=1`、`state=open` のフィルターがある場合、`state != closed AND active = true AND priority = 1` という元のクエリに `state = open` が追加される。
+- 複数のフィルターは互いに、またクエリ自体の条件とも **AND** で結合される。公式の例: `task` テーブルに `active=true`、`priority=1`、`state=open` の 3 つのフィルターがある場合、元のクエリ `state != closed` は `SELECT * FROM task WHERE state != closed AND active = true AND priority = 1 AND state = open` になる。
 - **子テーブルのフィルターは、親テーブルをクエリしたときには適用されない。** 例えば `incident` にフィルターを設定しても、`/task_list.do?sysparm_query=sys_class_name=incident` のように親テーブル `task` 経由でアクセスされると迂回される（Community の例）。親子両方にフィルターを設定する、または親テーブルに子レコードを完全に隠すフィルターを設定するのが一般的な対策。
 - スコープはテーブルのスコープに基づき、ScopeMaster や `sys_scope` のルールには従わない。
 
@@ -610,7 +630,7 @@ current.addQuery("caller_id", u)
 | 青のチェック/X/丸 | キャッシュされた前回チェックの結果（意味は同じ） |
 
 - 出力上部のチェックボックス「Security rules」（ACL チェック結果の表示/非表示）、「Others」（その他の警告・メッセージ）でフィルタできる。ACL 名をクリックするとその ACL レコードが開く。
-- Community 公式ブログでは、内訳に Security Attributes、Data Conditions、Controlled By Reference も表示されるとしている。[出典](https://www.servicenow.com/community/platform-privacy-security-blog/troubleshooting-access-control/ba-p/3446022)
+- 【第三者情報】ServiceNow 社員執筆の Community ブログでは、内訳に Security Attributes、Data Conditions、Controlled By Reference も表示されるとしている。[出典](https://www.servicenow.com/community/platform-privacy-security-blog/troubleshooting-access-control/ba-p/3446022)
 
 ### 9.2 偽装（Impersonation）によるテスト
 
@@ -649,7 +669,7 @@ current.addQuery("caller_id", u)
 
 - スクリプトを含む ACL には、ステータスに関わらず **Alert アイコン**が付く（スクリプト ACL は通過しても要レビュー）。
 - 1 つの ACL が通過すると、残りの ACL は Skipped になる。
-- Community 公式ブログでは、操作ステータスとして Passed / Blocked / Skipped / Undefined が挙げられている。[出典](https://www.servicenow.com/community/platform-privacy-security-blog/troubleshooting-access-control/ba-p/3446022)
+- 【第三者情報】ServiceNow 社員執筆の Community ブログでは、操作ステータスとして Passed / Blocked / Skipped / Undefined が挙げられている。[出典](https://www.servicenow.com/community/platform-privacy-security-blog/troubleshooting-access-control/ba-p/3446022)
 
 > **Australia での変更（EA）:** **ServiceNow Access Analyzer v6.1** で、AI 管理者・作成者がエージェント型資産（agentic workflows、AI agents）のアクセス制御を検証できるようになった。また **Access Findings**（Access Management Console の検出・修復レイヤー）が、8 種類のベースシステムのアクセスチェックを毎日実行し、優先度付きの検出事項と AI ガイダンス付きの修復ワークフローを提供する。[出典](https://www.servicenow.com/docs/r/australia/release-notes/access-management-rn.html)
 
@@ -657,7 +677,7 @@ current.addQuery("caller_id", u)
 
 ### 9.4 推奨トラブルシューティング手順
 
-Community 公式ブログ（ServiceNow 社員執筆）が示す手順。【第三者情報】[出典](https://www.servicenow.com/community/platform-privacy-security-blog/troubleshooting-access-control/ba-p/3446022)
+ServiceNow 社員執筆の Community ブログが示す手順。【第三者情報】[出典](https://www.servicenow.com/community/platform-privacy-security-blog/troubleshooting-access-control/ba-p/3446022)
 
 1. 影響ユーザーを偽装して事象を再現する。
 2. Access Analyzer の Evaluate Access で、ブロックしているレイヤーを特定する。
@@ -751,7 +771,7 @@ High Security Settings が有効な場合、`sys_properties` テーブルに 2 �
 | `glide.ui.attachment.download_mime_types` | インライン表示せずダウンロードさせる MIME タイプ | `text/html, image/svg, image/svg+xml` |
 | `glide.security.groupby_acl_check` | グループ名に対する GroupBy 操作で実データに基づく ACL チェック | Yes |
 | `glide.security.diag_txns_acl` | Yes の場合、`stats.do`、`threads.do`、`replication.do` を admin または許可 IP のみに制限 | No |
-| `glide.ui.security.codetag.allow_script` | `[code]` タグで作成した埋め込み HTML に JavaScript を許可。**Vancouver 以降 false 固定** | No |
+| `glide.ui.security.codetag.allow_script` | `[code]` タグで作成した埋め込み HTML に JavaScript を許可。**情報源の差異:** 公式ページの表では既定値 No とされる一方、同ページの注記には「Vancouver 以降は既定で true に設定され、管理者は変更できない（変更が必要な場合はサポートに連絡）」とあり、ページ内で矛盾している。実インスタンスで確認すること | No（表の記載） |
 | `glide.script.allow.ajaxevaluate` | 任意のサーバースクリプトをクライアントから実行できる AJAXEvaluate プロセッサを有効化 | No |
 
 `sys_properties` のみで設定（High Security ページに非表示）:
@@ -775,20 +795,20 @@ High Security Settings が有効な場合、`sys_properties` テーブルに 2 �
 | `glide.security.empty_acl.popup_window.enabled` | 空/無効 ACL の保存をブロック | 推奨・既定 `true` | [公式](https://www.servicenow.com/docs/r/oJu9n0q6rU~F9UHAnNCt5w/EYGK~hpgeXFNo0zp94Xx9w) |
 | `glide.security.allow_unauth_roleless_acl` | ロールを持たないスクリプト ACL が未認証ユーザーにアクセスを許可できるか。true だと匿名/ゲストがログインを迂回できる（CVSS High、7.5） | 推奨・既定 `false` | [公式（Brazil）](https://www.servicenow.com/docs/r/platform-security/instance-security-hardening-settings/sc-prevent-unauthenticated-roleless-acl-in-scripted-acls.html) |
 | `glide.security.access_acl_as_impersonator` | 偽装中の ACL テーブル読み取り | 既定 `true` | [公式](https://www.servicenow.com/docs/r/zurich/platform-security/access-control/c_AccessControlRulesDebug.html) |
-| `glide.script.secure.ajaxgliderecord` | クライアントからの AJAXGlideRecord（GlideAjax 経由のサーバー側レコードアクセス）に ACL 検証を適用。safe harbor（変更後は戻せない） | 推奨 `true` | [公式](https://www.servicenow.com/docs/r/1nuU0tTksWZZbL8T4WKSDg/FDmpCLqJOhMWTHvUffHmuw) |
+| `glide.script.secure.ajaxgliderecord` | クライアントからの AJAXGlideRecord（GlideAjax 経由のサーバー側レコードアクセス）に ACL 検証を適用。safe harbor（変更後は戻せない） | 推奨 `true` | [公式（Xanadu 版）](https://www.servicenow.com/docs/r/xanadu/platform-security/instance-security-hardening-settings/sc-enabling-ajaxgliderecord-acl-checking.html) |
 | `glide.security.acl_with_invalid_roles_strict_deny` | 参照ロールがすべて存在しない ACL を厳格に拒否（Brazil） | 新規インスタンスで既定有効 | [公式](https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-accessmanagement-release-notes.html) |
 | `glide.security.groupby_acl_check` | GroupBy 操作での ACL チェック | Yes | [公式](https://www.servicenow.com/docs/r/hX5GtoLUEU58KgyL7CW5Ag/j2ACdTRLByyyHwKuAw7J2Q) |
 
 ### 10.6 スクリプトと ACL（GlideRecord と GlideRecordSecure）
 
-- サーバーサイドの **`GlideRecord`** はシステムコンテキストで動作し、ACL を自動的には評価しない【経験則】。ACL を強制したい場合は **`GlideRecordSecure`**（GlideRecord と同じ機能を持ち、加えて ACL を強制する）を使うか、`canRead()`、`canWrite()`、`canCreate()`、`canDelete()` で明示的に確認する。公式ドキュメントは GlideRecordSecure を機密データを扱う際のより安全な選択肢としている。[出典](https://www.servicenow.com/docs/r/1nuU0tTksWZZbL8T4WKSDg/FDmpCLqJOhMWTHvUffHmuw)
-- ACL チェックでは `sys_class_name`、`sys_id`、`sys_domain` は無視される。[出典](https://www.servicenow.com/docs/r/1nuU0tTksWZZbL8T4WKSDg/FDmpCLqJOhMWTHvUffHmuw)
+- サーバーサイドの **`GlideRecord`** はシステムコンテキストで動作し、ACL を自動的には評価しない【経験則】。ACL を強制したい場合は **`GlideRecordSecure`**（GlideRecord と同じ機能を持ち、加えて ACL を強制する）を使うか、`canRead()`、`canWrite()`、`canCreate()`、`canDelete()` で明示的に確認する。ServiceNow Developer ブログは、スクリプトで ACL を強制したい場合は GlideRecordSecure を使い、ACL を迂回する必要がある場合のみ GlideRecord を使う（迷ったら GlideRecordSecure）としている。[出典](https://developer.servicenow.com/blog.do?p=%2Fpost%2Fgliderecord-vs-gliderecordsecure%2F) 公式ドキュメント（AJAXGlideRecord のハードニング設定）も、最高水準のセキュリティのためにデータのクエリには GlideRecordSecure を使うよう推奨している。[出典](https://www.servicenow.com/docs/r/xanadu/platform-security/instance-security-hardening-settings/sc-enabling-ajaxgliderecord-acl-checking.html)
+- AJAXGlideRecord（クライアント側 Glide レコード）呼び出しに対する ACL チェックでは、`sys_class_name`、`sys_id`、`sys_domain` は無視される（公式ドキュメントの Warning）。サーバー側 GlideRecordSecure 全般での扱いは公開情報では確認できず。[出典](https://www.servicenow.com/docs/bundle/xanadu-platform-security/page/administer/security/reference/r_ApplyACLsToAJAXGlideRecord.html)
 - Security Data Filters は `GlideRecordSecure` 等では既定で適用されるが、`canRead()` では評価されない（8.3 節）。
 - 詳細は [サーバーサイドスクリプト](scripting-server-side.md)、[スクリプトのベストプラクティス](../../04_応用編/07-scripting-best-practices.md) を参照。
 
 ### 10.7 Security Center での新しいセキュリティコントロールの有効化
 
-Yokohama 以降、ServiceNow は製品ごとに新しいセキュリティコントロール（Security Data Filters、Deny-Unless ACL、Query ACL を利用）をリリースしている。**Yokohama より前のリリースからアップグレードした顧客では、一部の新コントロールが既定で無効**になっている。無効なコントロールは **Security Center** の **Security Controls Activation Suite** で確認・有効化できる。本番で有効化する前にサブ本番環境でテストすることが推奨される。[出典](https://www.servicenow.com/community/platform-privacy-security/better-security-out-of-the-box-with-new-access-control-features/ta-p/3206245)
+Yokohama 以降、ServiceNow は製品ごとに新しいセキュリティコントロール（Security Data Filters、Deny-Unless ACL、Query ACL を利用）をリリースしている。**Yokohama より前のリリースからアップグレードした顧客では、一部の新コントロールが既定で無効**になっている。無効なコントロールは **Security Center** の **Security Controls Activation Suite** で確認・有効化できる。本番で有効化する前にサブ本番環境でテストすることが推奨される。【第三者情報】（Community 掲載記事。公式ドキュメントでの明記は確認できず）[出典](https://www.servicenow.com/community/platform-privacy-security/better-security-out-of-the-box-with-new-access-control-features/ta-p/3206245)
 
 - Brazil の Change Management・Incident Management のリリースノートでも、アップグレード後の新しいセキュリティコントロールに備え、ACL の影響をサブ本番でテストし、必要に応じて ServiceNow Support に ACL 変更の差し戻しを依頼できると記載されている。[出典](https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-changemanagement-release-notes.html)
 - アップグレード時の注意は [アップグレード管理](../../03_導入編/13-upgrade-management.md) を参照。
@@ -800,9 +820,10 @@ Yokohama 以降、ServiceNow は製品ごとに新しいセキュリティコン
 | リリース | 変更・追加 | 出典 |
 |---|---|---|
 | Istanbul | iAccessHandler（内部アクセスチェック）がデバッグ出力に登場 | [公式](https://www.servicenow.com/docs/r/zurich/platform-security/access-control/c_AccessControlRulesDebug.html) |
-| Vancouver | `glide.ui.escape_text`、`glide.security.strict.updates` が true 固定、`glide.ui.security.codetag.allow_script` が false 固定 | [公式](https://www.servicenow.com/docs/r/hX5GtoLUEU58KgyL7CW5Ag/j2ACdTRLByyyHwKuAw7J2Q) |
-| Xanadu | Deny-Unless ACL 導入。空 ACL が拒否扱いに変更 | [公式](https://www.servicenow.com/docs/r/oJu9n0q6rU~F9UHAnNCt5w/EYGK~hpgeXFNo0zp94Xx9w) |
-| Xanadu〜Yokohama | Security Data Filters、Query ACL 提供。Yokohama 以降、製品ごとの新セキュリティコントロール | 【第三者情報】[Community](https://www.servicenow.com/community/platform-privacy-security/better-security-out-of-the-box-with-new-access-control-features/ta-p/3206245) |
+| Vancouver | `glide.ui.escape_text`、`glide.security.strict.updates` が true 固定。`glide.ui.security.codetag.allow_script` も管理者による変更不可となった（固定値は公式ページ内で「既定 No」と「true に設定」の記述が矛盾。10.4 節） | [公式](https://www.servicenow.com/docs/r/hX5GtoLUEU58KgyL7CW5Ag/j2ACdTRLByyyHwKuAw7J2Q) |
+| Xanadu | Deny-Unless ACL 導入。Query ACL の演算子（query match / query range）導入。空 ACL が拒否扱いに変更 | [公式](https://www.servicenow.com/docs/r/oJu9n0q6rU~F9UHAnNCt5w/EYGK~hpgeXFNo0zp94Xx9w)、[公式（Xanadu リリースノート）](https://www.servicenow.com/docs/r/xanadu/release-notes/authorization-rn.html) |
+| Yokohama（パッチ） | Yokohama パッチ（2025-05）で既定の `query_range` ACL が大量追加されたとされる（Query ACL 自体は Xanadu で導入）。Yokohama 以降、製品ごとの新セキュリティコントロール | 【第三者情報】[Community](https://www.servicenow.com/community/developer-articles/servicenow-yokohama-patch-query-range-acl-update-issue-summary/ta-p/3272999)、[Community](https://www.servicenow.com/community/platform-privacy-security/better-security-out-of-the-box-with-new-access-control-features/ta-p/3206245) |
+| Yokohama | Security Data Filters、Related record access（関連テーブルのアクセスを親レコードの権限に連動） | [公式](https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-accessmanagement-release-notes.html) |
 | Yokohama | Access Analyzer に `access_analyzer_admin` ロール、Query match/range 対応 | [公式](https://www.servicenow.com/docs/r/yokohama/delta-washingtondc-yokohama/yokohama-washingtondc-identity-release-notes.html) |
 | Zurich | Datatype ACL、Machine Identity Access Controls（REST/SOAP 経由で統合がアクセスできるデータを制御）、Scripting Governance Tool。Security Center 2.0 で空 ACL 作成防止 | [公式](https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-accessmanagement-release-notes.html) |
 | **Australia（基準）** | プリセット Query ACL（既存カスタム Query ACL は inactive でロード）、コアのフィールド ACL・Datatype ACL をより包括的なルールに置き換え、Access Analyzer v6.1（EA）、Access Findings（EA） | [公式](https://www.servicenow.com/docs/r/australia/release-notes/access-management-rn.html) |
@@ -819,7 +840,7 @@ Yokohama 以降、ServiceNow は製品ごとに新しいセキュリティコン
 | アクセス付与は Allow-If、前提条件の強制は Deny-Unless で行い、ベースの Allow-If ACL の改変を避ける | Deny-Unless の評価仕様 [公式](https://www.servicenow.com/docs/r/platform-security/access-control/acl-denial-behavior.html)。改変を減らしアップグレードリスクを下げる【第三者情報】[Community](https://www.servicenow.com/community/servicenow-ai-platform-articles/need-to-know-principle-implementation-part-3-how-data-security/ta-p/3459815) |
 | 行の絞り込みは、可能なら Security Data Filters（または Before Query BR）でクエリ前に行い、行 ACL を補完として併用する | [公式](https://www.servicenow.com/docs/r/platform-security/security-data-filters.html) |
 | 機密列（給与、SSN 等）には `query_range` / `query_match` ACL を設定する | [公式](https://www.servicenow.com/docs/r/platform-security/access-control/query-acl-rule.html) |
-| カスタムテーブルには必ずテーブル ACL（create/read/write/delete）を作成する | 【第三者情報】[Community 公式ブログ](https://www.servicenow.com/community/platform-privacy-security-blog/troubleshooting-access-control/ba-p/3446022) |
+| カスタムテーブルには必ずテーブル ACL（create/read/write/delete）を作成する | 【第三者情報】[Community ブログ（ServiceNow 社員執筆）](https://www.servicenow.com/community/platform-privacy-security-blog/troubleshooting-access-control/ba-p/3446022) |
 | スクリプト ACL は最小限にし、ロール・Security Attribute・データ条件で表現する（スクリプト ACL は Access Analyzer で Alert 対象） | [公式](https://www.servicenow.com/docs/r/zurich/platform-security/access-control/access-analyzer-logs.html) |
 | ロールなしのスクリプト ACL で未認証アクセスを開けない（`glide.security.allow_unauth_roleless_acl = false`） | [公式](https://www.servicenow.com/docs/r/platform-security/instance-security-hardening-settings/sc-prevent-unauthenticated-roleless-acl-in-scripted-acls.html) |
 | ユーザー向けのサーバー処理（Scripted REST、Script Include 等）では `GlideRecordSecure` を使う | [公式](https://www.servicenow.com/docs/r/platform-security/security-data-filters.html) |
@@ -836,7 +857,7 @@ Yokohama 以降、ServiceNow は製品ごとに新しいセキュリティコン
 - Security Data Filters と Data filtration（`sys_df_*`）の関係（同一機能か別機能か）。
 - `conditional_table_query_range` 操作の公式の詳細仕様。
 - Australia で「より包括的なルール」に置き換えられたコアのフィールド ACL・Datatype ACL の具体的な名称・構成。
-- Security Data Filters の導入リリース（公式リリースノートでの明記）。
+- Related record access の具体的な設定手順・格納先と、ACL フォームの Controlled by References との対応関係。
 - `sys_security_acl_role` など関連テーブルのフィールド構成（公式ドキュメントでの明示）。
 - Access Analyzer の Australia 時点のメニュー位置と必要ロールの全体像（Store アプリのバージョンにより異なる）。
 - Brazil の GA 日付と、Brazil で追加されたその他の ACL 関連機能。
@@ -849,9 +870,11 @@ Yokohama 以降、ServiceNow は製品ごとに新しいセキュリティコン
 
 - Exploring Access Control Lists（Australia）: https://www.servicenow.com/docs/r/australia/platform-security/access-control/exploring-access-control-list.html
 - Exploring Access Control Lists（Yokohama）: https://www.servicenow.com/docs/r/yokohama/platform-security/access-control/exploring-access-control-list.html
+- Access Management release notes（Xanadu）: https://www.servicenow.com/docs/r/xanadu/release-notes/authorization-rn.html
 - ACL rule types（Australia）: https://www.servicenow.com/docs/r/australia/platform-security/access-control/acl-rule-types.html
 - Configure an ACL rule: https://www.servicenow.com/docs/r/platform-security/access-control/t_CreateAnACLRule.html
 - Deny-Unless ACL: https://www.servicenow.com/docs/r/platform-security/access-control/acl-denial-behavior.html
+- Deny-Unless ACL（Xanadu）: https://www.servicenow.com/docs/r/xanadu/platform-security/access-control/acl-denial-behavior.html
 - Query ACLs: https://www.servicenow.com/docs/r/platform-security/access-control/query-acl-rule.html
 - Configure Field Query Restrictions（Xanadu）: https://www.servicenow.com/docs/r/xanadu/platform-security/access-control/configure-field-query-restrictions.html
 - Security data filters: https://www.servicenow.com/docs/r/platform-security/security-data-filters.html
@@ -864,7 +887,8 @@ Yokohama 以降、ServiceNow は製品ごとに新しいセキュリティコン
 - Deny by default with empty ACLs（Australia）: https://www.servicenow.com/docs/r/hX5GtoLUEU58KgyL7CW5Ag/YaSAeTv6kOt01Eqq7u4HpQ
 - Prevent Empty ACL Creation: https://www.servicenow.com/docs/r/oJu9n0q6rU~F9UHAnNCt5w/EYGK~hpgeXFNo0zp94Xx9w
 - Prevent unauthenticated roleless ACL in scripted ACLs（Brazil）: https://www.servicenow.com/docs/r/platform-security/instance-security-hardening-settings/sc-prevent-unauthenticated-roleless-acl-in-scripted-acls.html
-- Require AJAXGlideRecord ACL checking: https://www.servicenow.com/docs/r/1nuU0tTksWZZbL8T4WKSDg/FDmpCLqJOhMWTHvUffHmuw
+- Require AJAXGlideRecord ACL checking（Xanadu、版付き URL）: https://www.servicenow.com/docs/r/xanadu/platform-security/instance-security-hardening-settings/sc-enabling-ajaxgliderecord-acl-checking.html
+- Apply ACLs to AJAXGlideRecord（Xanadu）: https://www.servicenow.com/docs/bundle/xanadu-platform-security/page/administer/security/reference/r_ApplyACLsToAJAXGlideRecord.html
 - Access Management release notes（Australia）: https://www.servicenow.com/docs/r/australia/release-notes/access-management-rn.html
 - Access Management release notes（Yokohama → Brazil delta）: https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-accessmanagement-release-notes.html
 - Change Management release notes（Yokohama → Brazil delta）: https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-changemanagement-release-notes.html
@@ -874,7 +898,11 @@ Yokohama 以降、ServiceNow は製品ごとに新しいセキュリティコン
 - Restricting record access（Zurich）: https://www.servicenow.com/docs/r/zurich/api-reference/scripts/c_ExScptDftBfrQryBsnRu.html
 - Deny-by-default ACL configuration（AI Agents、Zurich）: https://www.servicenow.com/docs/r/zurich/intelligent-experiences/enable-ai-experiences/aia-acl-configuration.html
 
-ServiceNow Community（公式記事・社員ブログ・投稿）:
+ServiceNow Developer:
+
+- GlideRecord vs GlideRecordSecure（Developer ブログ）: https://developer.servicenow.com/blog.do?p=%2Fpost%2Fgliderecord-vs-gliderecordsecure%2F
+
+ServiceNow Community（記事・社員ブログ・投稿。本文では【第三者情報】扱い）:
 
 - New Access Control Features（Better security out of the box）: https://www.servicenow.com/community/platform-privacy-security/better-security-out-of-the-box-with-new-access-control-features/ta-p/3206245
 - Troubleshooting Access Control in ServiceNow: https://www.servicenow.com/community/platform-privacy-security-blog/troubleshooting-access-control/ba-p/3446022
@@ -885,4 +913,5 @@ ServiceNow Community（公式記事・社員ブログ・投稿）:
 - Datatype ACLs: https://www.servicenow.com/community/servicenow-ai-platform-articles/datatype-acls/ta-p/3344409
 - Security Data Filters in ServiceNow: https://www.servicenow.com/community/upgrades-and-patching-forum/security-data-filters-in-servicenow/td-p/3252097
 - Query range & query match ACLs: https://www.servicenow.com/community/developer-forum/query-range-amp-query-match-acl-s/m-p/3288540
+- ServiceNow Yokohama Patch: Query Range ACL Update Issue Summary: https://www.servicenow.com/community/developer-articles/servicenow-yokohama-patch-query-range-acl-update-issue-summary/ta-p/3272999
 - Enabled High security plugin, getting security constraint error: https://www.servicenow.com/community/developer-forum/enabled-high-security-plugin-in-getting-security-constraint/m-p/1652739

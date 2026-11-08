@@ -11,7 +11,7 @@ sources:
   - https://www.servicenow.com/docs/csh?topicname=client-scripts.html
   - https://www.servicenow.com/docs/r/australia/api-reference/c_GlideFormAPI.html
   - https://www.servicenow.com/docs/r/api-reference/c_GlideUserAPI.html
-  - https://www.servicenow.com/docs/r/de-DE/api-reference/c_GlideList2API.html
+  - https://www.servicenow.com/docs/r/api-reference/c_GlideList2API.html
   - https://www.servicenow.com/docs/r/australia/api-reference/c_GlideAjaxAPI.html
   - https://www.servicenow.com/docs/r/australia/platform-administration/t_CreateAUIPolicy.html
   - https://www.servicenow.com/docs/r/SbrhqYG7UKQCk7uYwvgVBA/DmTJ3fUFHNvE121K4_gaHA
@@ -24,6 +24,14 @@ sources:
   - https://www.servicenow.com/docs/csh?topicname=c_BusinessRules.html
   - https://www.servicenow.com/community/itsm-articles/ui-and-data-policies/ta-p/3451833
   - https://www.servicenow.com/community/developer-blog/six-ways-to-improve-the-performance-of-client-scripts/ba-p/2288154
+  - https://www.servicenow.com/docs/r/api-reference/GUIScriptsAPI.html
+  - https://www.servicenow.com/community/developer-articles/glideajax-return-values-json-and-xml-example-sentences/ta-p/2322049
+  - https://www.servicenow.com/community/developer-forum/g-scratchpad-functionality-and-its-use/m-p/1772883
+  - https://www.servicenow.com/community/developer-forum/%EF%B8%8F-demystifying-ui-actions-in-servicenow-everything-you-need-to/m-p/3321040
+  - https://www.servicenow.com/community/developer-forum/gsft-submit-not-working/td-p/1842918
+  - https://www.servicenow.com/community/developer-articles/calling-server-script-from-client-sided-ui-action-without-using/ta-p/3122036
+  - https://www.servicenow.com/community/developer-forum/cancel-comment-mandatory-on-service-portal/td-p/2671383
+  - https://www.servicenow.com/community/developer-articles/client-side-utility-using-script-ui-script/ta-p/2320241
 ---
 
 # クライアントサイドスクリプト（Client-side Scripting）
@@ -78,12 +86,12 @@ sequenceDiagram
 ```
 
 - クライアントスクリプトは **Order（順序）** フィールドの小さい番号から順に実行される [出典](https://www.servicenow.com/docs/bundle/yokohama-application-development/page/script/client-scripts/concept/client-script-best-practices.html)。
-- UI ポリシーも Order の昇順で処理され、競合時は番号の大きい方が最終的に勝つ。子テーブルから継承されたポリシーは、Order に関わらず基底テーブルのポリシーより先に実行される [出典](https://www.servicenow.com/docs/r/australia/platform-administration/t_CreateAUIPolicy.html)。
+- UI ポリシーも Order の昇順で処理され、競合時は番号の大きい方が最終的に勝つ。継承がある場合は、拡張（子）テーブル上で定義された UI ポリシーが、親（基底）テーブルから継承したポリシーより Order に関わらず常に先に実行され、その後に基底テーブルのポリシーが実行される（いずれも Order の昇順）。そのため競合時は、後から実行される親側の設定が最終的に残り得る [出典](https://www.servicenow.com/docs/r/australia/platform-administration/t_CreateAUIPolicy.html)。
 - UI ポリシーはクライアントスクリプトの後に実行されるため、同一フィールドを両者で操作すると UI ポリシー側の設定が残る [出典](https://www.servicenow.com/docs/bundle/yokohama-application-development/page/script/client-scripts/concept/client-script-best-practices.html)。
 
 ### 1.2 フォーム専用であることの意味
 
-Client Script と UI Policy は、`onCellEdit` を除き**フォーム（と検索ページ）にのみ適用**され、リストには適用されない。リスト編集で同じフィールドを制御したい場合は、リスト編集の無効化、Business Rule、ACL、Data Policy、または別途 `onCellEdit` スクリプトで対処する [出典](https://www.servicenow.com/docs/bundle/yokohama-application-development/page/script/client-scripts/concept/client-script-best-practices.html)。
+Client Script は、`onCellEdit` を除き**フォームと検索ページにのみ適用**され、リストには適用されない [出典](https://www.servicenow.com/docs/r/api-reference/scripts/client-scripts.html)。UI Policy は**フォームのみ**に適用され、検索画面ではサポートされない [出典](https://www.servicenow.com/docs/r/australia/platform-administration/t_CreateAUIPolicy.html)。公式ベストプラクティスも「UI policies and client scripts apply to forms only」としており、リスト編集で同じフィールドを制御したい場合は、リスト編集の無効化、Business Rule、ACL、Data Policy、または別途 `onCellEdit` スクリプトで対処する [出典](https://www.servicenow.com/docs/bundle/yokohama-application-development/page/script/client-scripts/concept/client-script-best-practices.html)。
 
 また、UI ポリシーは Web サービス呼び出し、スクリプトからの更新、リスト編集には適用されず、技術力のあるユーザーはブラウザ側で回避し得る。サーバー側で値を強制するには Data Policy（`sys_data_policy2`）を使う【第三者情報】（ServiceNow Community 記事）[出典](https://www.servicenow.com/community/itsm-articles/ui-and-data-policies/ta-p/3451833)。
 
@@ -290,8 +298,8 @@ g_form.setValue('assigned_to', userSysId, userDisplayName);
 | `setMandatory(fieldName, mandatory)` | 必須/任意 |
 | `setReadOnly(fieldName, readOnly)` | 読み取り専用/編集可 |
 | `setDisabled(fieldName, disable)` | 有効/無効 |
-| `setDisplay(fieldName, display)` | 表示/非表示（非表示時、空きスペースは詰められる） |
-| `setVisible(fieldName, display)` | 表示/非表示 |
+| `setDisplay(fieldName, display)` | 表示/非表示（非表示時、空いたスペースは他の項目の表示に使われる） |
+| `setVisible(fieldName, display)` | 表示/非表示（デスクトップ UI では非表示時にスペースが空白のまま残る。Mobile / Service Portal では他フィールドが埋める） |
 | `isMandatory(fieldName)` / `isVisible(fieldName)` | 状態の確認 |
 | `setLabelOf(fieldName, label)` / `getLabelOf(fieldName)` | ラベルの設定/取得 |
 | `addDecoration(fieldName, icon, title[, color])` / `removeDecoration(...)` | ラベル横にアイコンを付与/削除 |
@@ -302,7 +310,7 @@ g_form.setValue('assigned_to', userSysId, userDisplayName);
 
 - 必須フィールドを読み取り専用にするには、先に `setMandatory(field, false)` で必須を外す必要がある。
 - `setReadOnly()` と `setMandatory()` は、可能であれば UI Policy で実現することが推奨されている。
-- `setDisplay()` と `setVisible()` の違いについて【経験則】：`setDisplay(false)` は要素を消して空きを詰め、`setVisible(false)` は領域を残したまま非表示にするとされる。公式ページではモバイルでの `setVisible()` は空きを他フィールドが埋めると記載されている。
+- `setDisplay()` と `setVisible()` の違い：公式ページによれば、`setDisplay(false)` は非表示にしたフィールドのスペースを他の項目の表示に使う（"the space is used to display other items"）。`setVisible(false)` はデスクトップ UI ではスペースを空白のまま残し（"On desktop UI, the space is left blank when hidden"）、Mobile / Service Portal UI では他フィールドがそのスペースを埋める。
 
 [出典](https://www.servicenow.com/docs/r/australia/api-reference/c_GlideFormAPI.html)
 
@@ -322,7 +330,7 @@ g_form.setValue('assigned_to', userSysId, userDisplayName);
 
 [出典](https://www.servicenow.com/docs/r/australia/api-reference/c_GlideFormAPI.html)
 
-> 公式ページでは、フォーム上部のメッセージ（`addErrorMessage()`、`addInfoMessage()` 等）は約 4 秒後に消え、このタイムアウトは変更できないと記載されている（GlideForm ページの記載。表示する UI により挙動が異なる可能性は公開情報では確認できず）[出典](https://www.servicenow.com/docs/r/australia/api-reference/c_GlideFormAPI.html)。
+> 公式ページでは、`addErrorMessage()`、`addHighMessage()`、`addInfoMessage()`、`addLowMessage()`、`addModerateMessage()`、`addSuccessMessage()` の 6 メソッドについて、メッセージは約 4 秒表示された後に消え、このタイムアウトは現時点で変更できないと記載されている。`addFormMessage()` にはこの記載がない（GlideForm ページの記載。表示する UI により挙動が異なる可能性は公開情報では確認できず）[出典](https://www.servicenow.com/docs/r/australia/api-reference/c_GlideFormAPI.html)。
 
 ### 3.5 選択肢（Choice list）の操作
 
@@ -409,7 +417,7 @@ GlideUser クライアント API はグローバルオブジェクト `g_user` �
 
 ## 5. GlideList2（`g_list`）
 
-GlideList2 クライアント API はリスト（Core UI のリストビュー）を操作する。UI コンテキストメニューや UI Action から使う。`g_list` 変数はリストの UI Action（List link 等）では使えるが、**関連リスト（related list）のフォームリンク UI Action では使えない**。その場合は `GlideList2.get(listId)` でリストオブジェクトを取得する [出典](https://www.servicenow.com/docs/r/de-DE/api-reference/c_GlideList2API.html)。
+GlideList2 クライアント API はリスト（Core UI のリストビュー）を操作する。UI コンテキストメニューや UI Action から使う。`g_list` 変数はリストの UI Action（List link 等）では使えるが、**関連リスト（related list）のフォームリンク UI Action では使えない**。その場合は `GlideList2.get(listId)` でリストオブジェクトを取得する [出典](https://www.servicenow.com/docs/r/api-reference/c_GlideList2API.html)。
 
 | メソッド | 説明 |
 |---|---|
@@ -429,7 +437,7 @@ GlideList2 クライアント API はリスト（Core UI のリストビュー�
 | `showHideList` / `toggleList` / `toggleListNoPref` / `showHideGroups` | 表示切替（Pref 付きはユーザー設定に保存） |
 | `isUserList()` | ユーザーがリストレイアウトを変更していれば `true` |
 
-[出典](https://www.servicenow.com/docs/r/de-DE/api-reference/c_GlideList2API.html)
+[出典](https://www.servicenow.com/docs/r/api-reference/c_GlideList2API.html)
 
 ```javascript
 // List choice / List banner button のクライアント UI Action 例（Onclick = bulkAction()）
@@ -579,7 +587,7 @@ UI Policy（UI ポリシー）は、条件に応じてフォーム上のフィ�
 ![UI Policies のリスト画面（UI16）](../../assets/images/scripting-client-side/ui-policies-list.jpg)
 
 **図：UI Policies のリスト画面（UI16、2017 年時点の画面）**
-画面説明：左側のアプリケーションナビゲーターでフィルターに「UI policies」と入力し、System UI > UI Policies を開いた状態。右側に UI Policy レコードのリストが表示され、列は Short description（短い説明）、Table（テーブル、例：Workflow Version [wf_workflow_version]）、Conditions（エンコードクエリ形式の条件）、Reverse if false、On load、Updated（更新日時）。リスト上部に New ボタンと検索ボックスがある。現行の Next Experience UI では外観（ヘッダー、ナビゲーター）が異なるが、リストの列と項目は同様である。
+画面説明：左側のアプリケーションナビゲーターでフィルターに「UI policies」と入力し、System UI > UI Policies を開いた状態。右側に UI Policy レコードのリストが表示され、列は Short description（簡単な説明）、Table（テーブル、例：Workflow Version [wf_workflow_version]）、Conditions（エンコードクエリ形式の条件）、Reverse if false、On load、Updated（更新日時）。リスト上部に New ボタンと検索ボックスがある。現行の Next Experience UI では外観（ヘッダー、ナビゲーター）が異なるが、リストの列と項目は同様である。
 出典：ServiceNow Community「Six ways to improve the performance of client scripts」（Dawn Jurek, ServiceNow 社員, 2017-06-21）https://www.servicenow.com/community/developer-blog/six-ways-to-improve-the-performance-of-client-scripts/ba-p/2288154 （取得日：2026-11-03）
 
 ### 7.2 UI Policy フォームのフィールド
@@ -589,7 +597,7 @@ UI Policy（UI ポリシー）は、条件に応じてフォーム上のフィ�
 | Table | テーブル | 対象フォームのテーブル |
 | Active | アクティブ | 有効なポリシーのみ適用 |
 | Short description | 短い説明 | ポリシーの概要 |
-| Order | 順序 | 昇順で処理。競合時は大きい番号が勝つ。子テーブルの（継承）ポリシーは Order に関わらず基底テーブルより先に実行 |
+| Order | 順序 | 昇順で処理。競合時は大きい番号が勝つ。継承時は、拡張（子）テーブル上で定義されたポリシーが、親（基底）テーブルから継承したポリシーより Order に関わらず先に実行され、その後に基底テーブルのポリシーが実行される（いずれも昇順） |
 | Conditions | 条件 | 条件ビルダーで設定。**ユーザーが手動でフィールドを変更したときにのみ再評価** |
 | Global | グローバル | 全ビューに適用。オフにすると View を指定 |
 | View | ビュー | 適用ビュー（Global オフ時のみ表示。空欄は Default ビュー） |
@@ -685,7 +693,7 @@ UI Action（UI アクション）は、フォームやリストにボタン・�
 | Format for Configurable Workspace | 構成可能なワークスペース用の形式 | オンで Configurable Workspace に適用。オフだと Legacy Workspace に適用 |
 | Workspace Client Script | ワークスペースクライアントスクリプト | Workspace で実行するクライアントスクリプト |
 | Onclick | — | 実行する JavaScript 関数名（Script フィールド内で定義）。Client オン時に表示 |
-| Condition | 条件 | 表示条件の JavaScript 式。**常にサーバー側で評価**。条件が空のフィールドを参照すると既定で true |
+| Condition | 条件 | UI Action を表示する条件を制限する JavaScript 条件式。**常にサーバー側で評価**（"Conditions always run on the server"）。Condition が空の場合の扱いは公開情報では確認できず（実務上は表示条件なしとして他の設定に従い表示される【経験則】） |
 | Script | スクリプト | 実行コード。関数名は一意にする |
 | Hint | ヒント | マウスオーバー時のツールチップ |
 | Comments | コメント | 説明メモ |
@@ -710,9 +718,20 @@ UI Action（UI アクション）は、フォームやリストにボタン・�
 // UI Action: Client = true, Onclick = resolveIncident(), Action name = resolve_incident_custom
 function resolveIncident() {
     // クライアント側：入力チェック
+    // ベースシステムの incident では解決時に close_code（Resolution code）と
+    // close_notes（Resolution notes）が必須。実環境のポリシーに合わせること【経験則】
+    var ok = true;
+    if (g_form.getValue('close_code') == '') {
+        g_form.setMandatory('close_code', true);
+        g_form.showFieldMsg('close_code', 'Resolution code is required', 'error');
+        ok = false;
+    }
     if (g_form.getValue('close_notes') == '') {
         g_form.setMandatory('close_notes', true);
         g_form.showFieldMsg('close_notes', 'Resolution notes are required', 'error');
+        ok = false;
+    }
+    if (!ok) {
         return false;
     }
     // 同じ UI Action をサーバー側で再実行させる
@@ -735,7 +754,7 @@ function serverResolve() {
 - `gsftSubmit` を使わないとクライアント型 UI Action のサーバースクリプトは実行されない【第三者情報】[出典](https://www.servicenow.com/community/developer-forum/%EF%B8%8F-demystifying-ui-actions-in-servicenow-everything-you-need-to/m-p/3321040)。
 - `gsftSubmit` は DOM（`g_form.getFormElement()`）に依存するため、代替として GlideAjax でサーバー処理を呼ぶ方法も提案されている【第三者情報】[出典](https://www.servicenow.com/community/developer-articles/calling-server-script-from-client-sided-ui-action-without-using/ta-p/3122036)。
 - `g_form.submit(actionName)` は表示中のフォームボタンに対応する UI Action を実行する公式 API である [出典](https://www.servicenow.com/docs/r/australia/api-reference/c_GlideFormAPI.html)。
-- 公式 API リファレンスにも「UI Action でクライアントとサーバーのコードを使う」例（onclick 関数内で `gsftSubmit` を呼び、ブラウザがない場合のみサーバー関数を実行）が掲載されている（本調査では英語版ページ本文を取得できず、仏語版タイトルの検索結果で確認）。
+- 公式 API リファレンスには「UI Action でクライアントとサーバーのコードを使う（Using client and server code in a UI action）」ページがある。クライアント関数で入力を検証してから、Action name を指定して `gsftSubmit` を呼び、サーバー側関数で状態を更新するインシデント解決の例が載っている。また、`gsftSubmit` に渡すアクション名は UI Actions テーブル（`sys_ui_action`）のレコードと一致させる必要がある、と記載されている [出典](https://www.servicenow.com/docs/r/fr-FR/washingtondc/api-reference/scripts/using-client-server-code-ui-action.html)。ただし、本調査で確認できたのは Washington DC リリース仏語版の検索結果の要約だけである。ページ本文は直接取得できず（404）、英語版・Australia 版の URL も確認できていない（16章参照）。
 
 ### 8.4 UI ごとの注意
 
@@ -784,12 +803,43 @@ UI Script（UI スクリプト）は、再利用可能なクライアント側 J
 | Global UI Script | Global にチェックすると、任意の Client Script や UI Policy から関数を直接呼べる（例：`helloWorld()`） |
 | フォーム（フォーマッター経由） | フォーマッターを作成してフォームビューに追加し、UI マクロ内で `<g:requires name="<UI SCRIPT NAME>.jsdbx"/>` を記述 |
 | HTML（UI Page 等） | `<script language="javascript" src="<API名>.jsdbx" />` |
-| クライアントスクリプト | `g_ui_scripts` グローバルオブジェクト（GlideUIScripts API） |
+| クライアントスクリプト（Workspace / Service Portal） | `g_ui_scripts` グローバルオブジェクト（GlideUIScripts API）。下記参照 |
 
 [出典](https://www.servicenow.com/docs/r/zurich/api-reference/scripts/c_UIScripts.html)
 
-- `ScriptLoader.getScripts(['<name>.jsdbx'], callback)` で onLoad クライアントスクリプトから読み込む方法が広く使われている【第三者情報】[出典](https://www.servicenow.com/community/developer-articles/client-side-utility-using-script-ui-script/ta-p/2320241)。
-- `g_ui_scripts` API について、ServiceNow サポートが「Mobile / Service Portal の UI Type 向けであり、ドキュメント記載が誤っている」と回答したとするユーザー報告がある。また ScriptLoader はモバイル非対応とされる【第三者情報】（2020 年のコメント。現行仕様は公開情報では確認できず）[出典](https://www.servicenow.com/community/developer-articles/client-side-utility-using-script-ui-script/ta-p/2320241)。
+- **Global UI Script と Isolate script の関係【経験則】：** Isolate script が有効（新規スクリプトの既定、2.2 節）なクライアントスクリプトは strict mode で `window` にアクセスできないため、Global UI Script で定義したグローバル関数を参照できずエラーになる事例が報告されている。その場合は対象スクリプトの Isolate script をオフにするか、Core UI では ScriptLoader、Workspace / Service Portal では `g_ui_scripts`（ただし Global = true の UI スクリプトは対象外）を使う。
+- `ScriptLoader.getScripts(['<name>.jsdbx'], callback)` で onLoad クライアントスクリプトから読み込む方法が広く使われている【第三者情報】[出典](https://www.servicenow.com/community/developer-articles/client-side-utility-using-script-ui-script/ta-p/2320241)。ScriptLoader はモバイル非対応とされる【第三者情報】（2020 年のコメント）[出典](https://www.servicenow.com/community/developer-articles/client-side-utility-using-script-ui-script/ta-p/2320241)。
+
+#### GlideUIScripts（`g_ui_scripts`）
+
+GlideUIScripts API はクライアント側コードから UI スクリプトにアクセスするメソッドを提供し、グローバルオブジェクト `g_ui_scripts` として使う（コンストラクタなし）。公式ページの記載は以下のとおり [出典](https://www.servicenow.com/docs/r/api-reference/GUIScriptsAPI.html)。
+
+- **Workspaces と Service Portal でのみサポート**され、Core UI（UI16）ではサポートされない。
+- クライアントスクリプトと UI スクリプトの**両方**で UI Type を `Mobile / Service Portal` または `All` にする必要がある（`Desktop` 不可）。
+- Global = true の UI スクリプトはサポートしない。
+- `getUIScript(scriptName)`：`scriptName` は UI スクリプトの API 名。Promise を返す。
+
+```javascript
+// Client script（UI Type = Mobile / Service Portal または All）
+function onLoad() {
+    g_ui_scripts.getUIScript('myUIScript').then(function(script) {
+        script.myUIScriptMethod();
+    }, function() {
+        console.log('The script did not load');
+    });
+}
+
+// UI script - myUIScript（UI Type = Mobile / Service Portal または All、Global = false）
+(function() {
+    return {
+        myUIScriptMethod: function() {
+            alert("This is an alert.");
+        }
+    };
+})();
+```
+
+[出典](https://www.servicenow.com/docs/r/api-reference/GUIScriptsAPI.html)
 
 ```javascript
 // onLoad Client Script（Order を小さくして先に読み込む）
@@ -955,11 +1005,11 @@ function openDialog() {
 | Client Script | UI Type `Desktop` または `All` | UI Type `Mobile / Service Portal` または `All`（API 制限あり） | UI Type `Mobile / Service Portal` または `All` | サポートされない |
 | UI Policy | 対応 | 対応（スクリプトは Run scripts in UI type で指定） | 対応【経験則】 | 公開情報では確認できず |
 | UI Action（クライアント） | 対応 | 表示されない【第三者情報】 | Workspace 用オプションで対応 | 公開情報では確認できず |
-| UI Script | 対応 | `g_ui_scripts` 経由【第三者情報】 | 公開情報では確認できず | サポートされない |
+| UI Script | UI16 は対応（ScriptLoader / Global UI Script 等。`g_ui_scripts` は UI16 非サポート）。Next Experience は公式には非サポート（9.3 参照） | `g_ui_scripts` 経由で対応（UI Type 要件あり、Global UI Script 不可） | `g_ui_scripts` 経由で対応（同上） | サポートされない |
 | `g_form` DOM 系メソッド | 対応 | 利用不可 | 利用不可【推定】 | 利用不可 |
 | `onChange` の `control` 引数 | 対応 | 利用不可 | 公開情報では確認できず | 利用不可 |
 
-[出典](https://www.servicenow.com/docs/r/api-reference/scripts/client-scripts.html)、[出典](https://www.servicenow.com/docs/r/australia/api-reference/c_GlideFormAPI.html)、[出典](https://www.servicenow.com/docs/r/australia/platform-administration/t_CreateAUIPolicy.html)、[出典](https://www.servicenow.com/docs/r/zurich/api-reference/scripts/c_UIScripts.html)
+[出典](https://www.servicenow.com/docs/r/api-reference/scripts/client-scripts.html)、[出典](https://www.servicenow.com/docs/r/australia/api-reference/c_GlideFormAPI.html)、[出典](https://www.servicenow.com/docs/r/australia/platform-administration/t_CreateAUIPolicy.html)、[出典](https://www.servicenow.com/docs/r/zurich/api-reference/scripts/c_UIScripts.html)、[出典](https://www.servicenow.com/docs/r/api-reference/GUIScriptsAPI.html)
 
 ---
 
@@ -1038,9 +1088,11 @@ ServiceNow 社員による Community ブログでも、UI Policy の利用、サ
 - Australia / Brazil リリースでクライアントサイドスクリプトに関する新機能・廃止の有無（リリースノート本文を確認できず）。
 - `sys_script_client`、`catalog_script_client`、`sys_ui_policy_action`、`sys_ui_script`、`sys_ui_page` のテーブル名を明記した公式ページ（本調査で取得できた範囲では記載なし）。
 - Catalog Client Script のフォームフィールド（Applies on Requested Items / Catalog Tasks 等）の公式記述。
-- UI Script の UI Type フィールドと `g_ui_scripts`（GlideUIScripts）API の現行仕様。
+- UI Script フォームの UI Type フィールドの公式説明（GlideUIScripts API ページで UI Type の設定要件には言及あり）。
+- UI Action の Condition フィールドが空の場合の公式な扱い。
 - UI Policy Action の「Clear the field value」の公式説明。
 - UI Scripts の「Next Experience ではサポートされない」の具体的範囲。
+- 公式ページ「Using client and server code in a UI action」の英語版・Australia 版の URL と本文（本調査では Washington DC 仏語版の検索結果要約のみ確認。直接取得は 404）。
 
 ---
 
@@ -1051,7 +1103,8 @@ ServiceNow 社員による Community ブログでも、UI Policy の利用、サ
 - Client scripts（CSH）: https://www.servicenow.com/docs/csh?topicname=client-scripts.html
 - GlideForm - Client（Australia）: https://www.servicenow.com/docs/r/australia/api-reference/c_GlideFormAPI.html
 - GlideUser - Client: https://www.servicenow.com/docs/r/api-reference/c_GlideUserAPI.html
-- GlideList2 (g_list) - Client: https://www.servicenow.com/docs/r/de-DE/api-reference/c_GlideList2API.html
+- GlideList2 (g_list) - Client: https://www.servicenow.com/docs/r/api-reference/c_GlideList2API.html
+- GlideUIScripts - Client: https://www.servicenow.com/docs/r/api-reference/GUIScriptsAPI.html
 - GlideAjax - Client（Australia）: https://www.servicenow.com/docs/r/australia/api-reference/c_GlideAjaxAPI.html
 - Create a UI policy（Australia）: https://www.servicenow.com/docs/r/australia/platform-administration/t_CreateAUIPolicy.html
 - Create a UI action（Xanadu）: https://www.servicenow.com/docs/r/SbrhqYG7UKQCk7uYwvgVBA/DmTJ3fUFHNvE121K4_gaHA
@@ -1062,11 +1115,11 @@ ServiceNow 社員による Community ブログでも、UI Policy の利用、サ
 - GlideModal - Client（Brazil）: https://www.servicenow.com/docs/csh?topicname=c_GlideModalV3API.html
 - Client script best practices（Yokohama）: https://www.servicenow.com/docs/bundle/yokohama-application-development/page/script/client-scripts/concept/client-script-best-practices.html
 - Business rules（Brazil）: https://www.servicenow.com/docs/csh?topicname=c_BusinessRules.html
+- Utilisation de codes client et serveur dans une action d'interface utilisateur（Using client and server code in a UI action、Washington DC・仏語版）: https://www.servicenow.com/docs/r/fr-FR/washingtondc/api-reference/scripts/using-client-server-code-ui-action.html
 
 **ServiceNow Community（第三者情報を含む）**
 - UI and Data Policies: https://www.servicenow.com/community/itsm-articles/ui-and-data-policies/ta-p/3451833
 - Six ways to improve the performance of client scripts（ServiceNow 社員ブログ）: https://www.servicenow.com/community/developer-blog/six-ways-to-improve-the-performance-of-client-scripts/ba-p/2288154
-- World of Client-side Scripts #2: https://www.servicenow.com/community/developer-blog/world-of-client-side-scripts-2/ba-p/2773618
 - GlideAjax return values, JSON and XML example sentences: https://www.servicenow.com/community/developer-articles/glideajax-return-values-json-and-xml-example-sentences/ta-p/2322049
 - g_scratchpad functionality and its use: https://www.servicenow.com/community/developer-forum/g-scratchpad-functionality-and-its-use/m-p/1772883
 - Demystifying UI Actions in ServiceNow: https://www.servicenow.com/community/developer-forum/%EF%B8%8F-demystifying-ui-actions-in-servicenow-everything-you-need-to/m-p/3321040

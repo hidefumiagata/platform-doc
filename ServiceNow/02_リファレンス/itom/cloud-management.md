@@ -20,6 +20,10 @@ sources:
   - https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-configuration-governance/set-capacity-limits-cloud-mgt.html
   - https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-configuration-governance/create-cloud-catalog-item.html
   - https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-configuration-governance/blueprints.html
+  - https://www.servicenow.com/docs/r/LAcVv8BoMltwvLWYyn6_cQ/8VK6KtL~sl2OedAnEPOUcQ
+  - https://www.servicenow.com/docs/r/LAcVv8BoMltwvLWYyn6_cQ/6JLw197nRiHlQadvEnV24A
+  - https://www.servicenow.com/docs/r/Tm19yM2Ui3~uN9XFBacppg/kFotTZHmT2hwZmZmDkDQew
+  - https://www.servicenow.com/docs/r/LZHoJyH9VPKmhdIph_6gSw/mT~0yegQBuRTwkMyS0vsEQ
   - https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-configuration-governance/resource-blocks.html
   - https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-configuration-governance/cloud-resource-profiles.html
   - https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-configuration-governance/cloud-governance.html
@@ -43,6 +47,10 @@ sources:
   - https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-services-catalog/cloud-services-catalog-and-terraform-connector.html
   - https://www.servicenow.com/docs/r/store-release-notes/store-rn-cloud-mgmt-terraform.html
   - https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-account-management/cam-landing.html
+  - https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-account-management/exploring-cam.html
+  - https://www.servicenow.com/docs/r/yokohama/delta-xanadu-yokohama/yokohama-xanadu-itomcloudaccelerate-release-notes.html
+  - https://www.servicenow.com/docs/r/guxhDnVk8OUAJKLm7WZsYA/aZxWYH_Qzo_R7IaMxVI5CQ
+  - https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/sAkyB7dlJudSuwefmZQI_A
   - https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-account-management/about-policies-in-cam.html
   - https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-account-management/about-provision-modes.html
   - https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-account-management/components-installed-with-cam.html
@@ -52,6 +60,7 @@ sources:
   - https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/cloud-insights-landing-page.html
   - https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/install-ci.html
   - https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/cloud-insights-roles.html
+  - https://www.servicenow.com/docs/r/EdiPWhlSAqBiE0AMK4k9bQ/FcxF1Ic2L9tqHDiIhm~k2A
   - https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/installed-with-ci.html
   - https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/sys-pro-ci.html
   - https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/ci-workspace.html
@@ -59,6 +68,8 @@ sources:
   - https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/install-ccm-infra.html
   - https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/aws-cloud-insights-setup-guide.html
   - https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/azure-cloud-insights-setup-guide.html
+  - https://www.servicenow.com/docs/r/xanadu/it-asset-management/cloud-cost-management/azure-cloud-insights-setup-guide.html
+  - https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/gcp-cloud-insights-setup-guide.html
   - https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/aws-discovery-cloudin.html
   - https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/um-cloudin.html
   - https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/rs-cloudin.html
@@ -74,10 +85,12 @@ sources:
   - https://www.servicenow.com/docs/r/7GoNY9eeDRD0FzxldbEmXw/qQ9PzSf3QwU9blzLsoWMUA
   - https://www.servicenow.com/docs/r/release-notes/cloud-cost-management-rn.html
   - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-cloudcostmanagement-release-notes.html
+  - https://www.servicenow.com/docs/r/store-release-notes/store-rn-cloud-insights.html
   - https://www.servicenow.com/docs/r/pyt4lF0aAin_R6wVyV414Q/s9BqYPuSYcf9vxhPoKCQyg
   - https://www.servicenow.com/community/itom-forum/cmp-vs-cpg/m-p/3084874
   - https://www.servicenow.com/community/itom-blog/cloud-policies-at-time-of-provisioning-considering-cost-with/ba-p/3136141
   - https://www.servicenow.com/community/servicenow-ai-platform-forum/what-s-the-purpose-of-the-table-sn-cmp-stack-item-in-cpg/m-p/2848469
+  - https://www.servicenow.com/community/cloud-cost-management-forum/what-role-is-appropriate-for-an-executive-that-wants-to-see-ccm/m-p/3121703
 ---
 
 # Cloud Management（クラウド管理）
@@ -165,7 +178,18 @@ ITOM Cloud Accelerate は、クラウド導入の Day 0 / Day 1 / Day 2 を自�
 | Cloud Configuration Governance | クラウドリソース構成をポリシーと照合し違反を検出、修復ワークフローで是正 |
 | Cloud Action Library | クラウドリソース操作用の既製アクション / サブフロー（Cloud Configuration Governance 等が利用） |
 
-**ライセンス：** ITOM Cloud Accelerate ライセンスは、Cloud Migration Assessment、Cloud Configuration Governance、Cloud Action Library が管理・監視する CI の数（CI count）を提供する。複数機能が同じ CI を報告した場合は重複を除いてカウントされる。価格・パッケージは契約依存で、製品ドキュメントには記載されない。CAM のエンタイトルメントは ITOM Cloud Accelerate ライセンスで提供され、Cloud Workspace の前提として Cloud Governance Suite（CGS）ライセンスが必要とされる。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-cloud-accelerate/itom-cloud-accelerate-landing-page.html) [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-account-management/cam-landing.html)
+**ライセンス：** ITOM Cloud Accelerate ライセンスは、Cloud Migration Assessment、Cloud Configuration Governance、Cloud Action Library が管理・監視する CI の数（CI count）を提供する。複数機能が同じ CI を報告した場合は重複を除いてカウントされる。価格・パッケージは契約依存で、製品ドキュメントには記載されない。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-cloud-accelerate/itom-cloud-accelerate-landing-page.html)
+
+**CAM / Cloud Workspace のライセンス：** CAM を使うには、次の**2つの権利が段階的に必要**になる。Australia 版「Exploring Cloud Account Management」には、原文で "The Cloud Governance Suite (CGS) license is a prerequisite to have Cloud Workspace." と "Cloud Account Management entitlement becomes available with the ITOM Cloud Accelerate license." と書かれている。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-account-management/exploring-cam.html)
+
+| ライセンス / エンタイトルメント | 使える機能（公式記載） |
+|---|---|
+| Cloud Governance Suite（CGS）のみ | Cloud Workspace の Home、Asset explorer（クラウド資産の概要と詳細） |
+| CGS ＋ CAM エンタイトルメント（"CGS + CAM"） | 上記に加え、アカウントの概要と詳細、アカウント要求の提出・参照・承認、アカウントの認証（Certify）、コンプライアンスダッシュボード、CAM の構成と構成内容の参照、アカウント作成・停止を自動化する Request policy の作成 |
+
+[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-account-management/exploring-cam.html)
+
+- CGS ライセンスと ITOM Cloud Accelerate ライセンスの包含関係（どちらかがもう一方を含むのか、別 SKU なのか、旧称関係なのか）は、公開情報では確認できず。Xanadu の ITOM Cloud Accelerate リリースノートには、有効化に "requires a Cloud Governance subscription" とある。Yokohama 以降は、Store で提供し、エンタイトルメントは営業担当経由で調達すると案内されている。[出典](https://www.servicenow.com/docs/r/yokohama/delta-xanadu-yokohama/yokohama-xanadu-itomcloudaccelerate-release-notes.html)
 
 > 価格情報は [価格情報](../../03_導入編/02-pricing.md)、ITOM のパッケージは [ITOM 概要とパッケージ](./itom-overview.md) を参照。
 
@@ -217,7 +241,7 @@ CPG は Amazon Web Services、Microsoft Azure、Google Cloud Platform、VMware �
 
 - **キャプション:** 公式ドキュメント「Resource blocks in Cloud Provisioning and Governance」の図「How resource block components work together」。
 - **画面（図）の説明:** 右端に「Cloud Catalog」の「Stack」があり、その中の「Provision operation」から左の「Blueprint」（縦に並んだ3つの「Resource block」）へ赤矢印が向かう。Blueprint 内の1つの Resource block を拡大した図が中央にあり、「Guest interface + Provision operation」の下に「Step 1 / Step 2 / Step n…」のステップが並ぶ。Step 1 から左端の「CAPI」枠内の「Provider」「Interface」「API」へ赤矢印が伸びている。つまり、カタログでスタックの Provision 操作が要求されると、Blueprint を構成する各 Resource block のインターフェース操作がステップ単位で CAPI（プロバイダー / インターフェース / API）を呼び出してクラウドに対し実行される、という流れを示す。
-- **出典:** https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-configuration-governance/resource-blocks.html （取得日: 2026-11-03）
+- **出典:** https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-configuration-governance/resource-blocks.html （取得日: 2026-11-02）
 
 Day 2 操作は従来 CAPI と直接やり取りする必要があり、新しい操作には新 API の作成が必要だったが、現在は Workflow Studio のサブフローで Day 2 操作をマッピングし、クラウドプロバイダーを呼ぶ REST エンドポイントを作成できる。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-configuration-governance/day-2-ops-using-workflows.html)
 
@@ -234,7 +258,7 @@ Day 2 操作は従来 CAPI と直接やり取りする必要があり、新し�
 | Root administrator | `sn_cmp.cmp_root_admin` | アプリケーションの最上位権限 | すべて |
 | Cloud administrator（クラウド管理者） | `sn_cmp.cloud_admin` | アプリケーションの構成とクラウドインフラのセットアップ | Service account / Cloud account、ネットワークと IPAM、CMDB 自動更新設定（AWS Config、Azure Alert、Google Cloud Logging、IBM Cloud Update、VMware Events） |
 | Governor（ガバナー） | `sn_cmp.cloud_governor` | クラウド利用の監視、ルール・クォータ・ポリシーの遵守強制、タグとオブジェクト権限の管理 | Policies、Pools、Quotas、Permissions |
-| Service Designer（サービスデザイナー） | `sn.cmp.cloud_service_designer`（ドキュメント表記。他ロールと異なりドット区切り） | Blueprint、テンプレート、カタログアイテムの作成 | Cloud templates、Blueprints、Blueprint catalog items、Resource blocks |
+| Service Designer（サービスデザイナー） | `sn_cmp.cloud_service_designer`（公式ドキュメントの一部では `sn.cmp.cloud_service_designer` と表記） | Blueprint、テンプレート、カタログアイテムの作成 | Cloud templates、Blueprints、Blueprint catalog items、Resource blocks |
 | Cloud user（クラウドユーザー） | `sn_cmp.cloud_service_user` | スタックとリソースの要求・管理 | Cloud User Portal。グループに付与した場合、メンバーはクォータ上限と一部リソースの所有権を共有する |
 | Cloud operator（クラウドオペレーター） | `sn_cmp.cloud_operator` | アプリケーションの監視とトラブルシュート | Cloud Operations Dashboard、Cloud Root Cause Analysis、Cloud Orchestration Trail、Cloud API Trail |
 | Cloud Event Integration | `sn_cmp.cloud_event_integration` | 外部サービスがクラウドイベント REST エンドポイント経由で CMDB を自動更新するためのロール | AWS Config、Azure Alert、Google Cloud Logging、VMware Events の設定（IBM Cloud Connector は非対応） |
@@ -243,7 +267,7 @@ Day 2 操作は従来 CAPI と直接やり取りする必要があり、新し�
 
 [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-configuration-governance/aws-assign-roles-cloud-mgt.html) [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-configuration-governance/cloud-admin-portal.html)
 
-- Service Designer のロール名は公式ドキュメント上 `sn.cmp.cloud_service_designer` と記載されているが、他のロールは `sn_cmp.` で始まる。実インスタンスでのロール名は導入時に確認すること。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-configuration-governance/aws-assign-roles-cloud-mgt.html)
+- Service Designer のロール名は、ロール割り当てページで `sn.cmp.cloud_service_designer`（ドット区切り）と書かれている。一方、他のロールは `sn_cmp.` で始まる。本ファイルでは名前空間に合わせて `sn_cmp.cloud_service_designer` に統一して表記する。実インスタンスでのロール名は導入時に確認すること。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-configuration-governance/aws-assign-roles-cloud-mgt.html)
 - 管理ガイドの利用には `cloud_admin` ロールが前提とされている。[出典](https://www.servicenow.com/docs/r/LAcVv8BoMltwvLWYyn6_cQ/8VK6KtL~sl2OedAnEPOUcQ)
 
 ### 3.2 Cloud Services Catalog のインストールに必要なロール
@@ -305,7 +329,7 @@ CSC ではカタログ要求の入口が **Employee Center ポータル**に移�
 
 - **キャプション:** Cloud Services Catalog の My Stacks におけるスタック詳細画面の Actions ドロップダウン（公式ドキュメント「Actions on stacks」の図）。
 - **画面の説明:** 画面右上に「Track Operations」「View Activities」「View Dependency」（選択中）のボタンと「Actions ▼」ボタンが並ぶ。Actions を開くと「Stop」「Start」「Deprovision」「ModifyLease」「ModifySchedule」の5つの操作が表示される。左側には CI 検索ボックスと、依存関係ビューのレイアウト切替（Vertical / Horizontal / Radial / Force / Group）が見える。
-- **出典:** https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-services-catalog/performing-actions-on-stacks.html （取得日: 2026-11-03）
+- **出典:** https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-services-catalog/performing-actions-on-stacks.html （取得日: 2026-11-02）
 
 ---
 
@@ -319,7 +343,7 @@ Cloud account は CPG における、管理対象クラウドインフラの全�
 
 - **キャプション:** 公式ドキュメント「Set up a cloud account and service account for AWS」の Figure 1「Structure of a cloud account on Day 1」。
 - **画面（図）の説明:** 最外枠が Cloud account「MyFirst-CloudAccount」、その中に Service account「ProviderA-ServiceAccount-1」があり、さらにその中に2つの Datacenter「DatacenterWest-3」「DatacenterEast-1」が並び、各 Datacenter の中に「Resources」がある入れ子構造。Cloud account ⊃ Service account ⊃ Logical datacenter ⊃ Resources という包含関係を示す。
-- **出典:** https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-configuration-governance/aws-first-cld-and-srvc-accts.html （取得日: 2026-11-03）
+- **出典:** https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-configuration-governance/aws-first-cld-and-srvc-accts.html （取得日: 2026-11-02）
 
 | ルール | 内容 |
 |---|---|
@@ -385,7 +409,7 @@ Capacity limit は、Cloud account 内の **LDC ごと**にリソース属性（
 
 - **キャプション:** Cloud account の Datacenter「AWS Datacenter - us-west-1」の Capacity Limits タブ（公式ドキュメント「Set capacity limits on user requests for resources」の図）。
 - **画面の説明:** 上部にデータセンター名「AWS Datacenter - us-west-1」と「Discover Now」ボタン。タブは「Resources」「Capacity Limits」（選択中）「Discovery Log」。右上に「Update」ボタン。表の列は Name / Discovered / Provisioned / Capacity Limit / Unit で、行は Network Count（11 / 1 / 100 / Single）、Storage Size（57 / 0 / 3000 / GB）、VM Count（4 / 2 / 1000 / Single）、vCPUs Count（4 / 2 / 2000 / Single）。Capacity Limit 列のみ入力欄になっている。
-- **出典:** https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-configuration-governance/set-capacity-limits-cloud-mgt.html （取得日: 2026-11-03）
+- **出典:** https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-configuration-governance/set-capacity-limits-cloud-mgt.html （取得日: 2026-11-02）
 
 > ユーザー単位・グループ単位の上限は Capacity limit ではなく Quota（第7.2節）で設定する。
 
@@ -411,7 +435,7 @@ CPG 管理ガイドでは、クラウドサービスカタログへのアイテ�
 
 ### 6.2 Cloud catalog item の作成
 
-- ロール：`sn_cmp.cloud_service_designer`
+- ロール：`sn_cmp.cloud_service_designer`（公式ドキュメントの一部では `sn.cmp.` と表記。第3.1節参照）
 - メニュー：Cloud Admin Portal の **Design > Cloud Catalog items** → **New**（作成済みアイテムはカード表示）
 
 | フィールド | 説明 |
@@ -654,7 +678,7 @@ Resource pool はテーブルをフィルターするクエリまたはスクリ
 | 推奨グループ / ロール | 推奨権限 | 注意点 |
 |---|---|---|
 | カタログ利用者グループ / `sn_cmp.cloud_service_user` | Access または Execute | **公開済みカタログアイテムでも、所属グループに読み取り権限を付与するまで Cloud User Portal に表示されない**。Blueprint Catalog Item テーブルと Cloud Account テーブルに Access と Execute を付与 |
-| Blueprint デザイナー / `sn.cmp.cloud_service_designer` | Manage | 他者の Blueprint・カタログアイテムを再利用するには Manage が必要 |
+| Blueprint デザイナー / `sn_cmp.cloud_service_designer` | Manage | 他者の Blueprint・カタログアイテムを再利用するには Manage が必要 |
 | クラウド管理者 / `sn_cmp.cloud_admin` | Manage | テンプレートと Resource profile の対応付け・共同作業 |
 
 [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-configuration-governance/cloud-permissions.html)
@@ -750,24 +774,33 @@ Cloud operator 向けに Cloud Operations Dashboard、Cloud Root Cause Analysis�
 
 ### 10.1 概要
 
-Cloud Account Management は **Cloud Workspace** 内のアプリケーションで、Cloud Governance Suite の一部として AWS アカウントと Azure サブスクリプションの作成・プロビジョニングを自動化し、事前定義ポリシーで停止（suspend）、再開（reactivate）、認証（certification）を行う。要求・承認・セットアップの自動化によりプロビジョニング時間を「数週間から数分に」短縮しうるとされる。CAM は Yokohama で新規アプリケーションとして導入された。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-account-management/cam-landing.html)
+Cloud Account Management は **Cloud Workspace** 内のアプリケーションで、AWS アカウントと Azure サブスクリプションの作成・プロビジョニングを自動化し、事前定義ポリシーで停止（suspend）、再開（reactivate）、認証（certification）を行う。公式ページでは、Cloud Account Management は ServiceNow のクラウドソリューションを "as part of the Cloud Governance Suite" の統合体験として提供するものと説明されている。要求・承認・セットアップの自動化によりプロビジョニング時間を「数週間から数分に」短縮しうるとされる。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-account-management/cam-landing.html)
+
+- **導入リリース：** CAM は **Yokohama で導入**された。Xanadu→Yokohama の ITOM Cloud Accelerate 統合リリースノートでは、Yokohama の項に "a new feature called Cloud Account Management" と、新しい Cloud Workspace アプリケーションの一部であることが記載されている。Xanadu の項に CAM の記載はない。[出典](https://www.servicenow.com/docs/r/yokohama/delta-xanadu-yokohama/yokohama-xanadu-itomcloudaccelerate-release-notes.html)
+- **ライセンス：** CGS ライセンスと ITOM Cloud Accelerate ライセンス（CAM エンタイトルメント）の両方が必要である。詳細は第1.2節を参照。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-account-management/exploring-cam.html)
 
 ![Cloud Account Management のワークフロー](../../assets/images/cloud-management/cam-workflow.png)
 
 - **キャプション:** 公式ドキュメント「Cloud Account Management」の Figure 1「Cloud Account Management workflow」。
 - **画面（図）の説明:** 左から右へ4つの矢羽型ステージが並ぶ。①**Create**：1 Request → 2 Approve → 3 Provision → 4 Account created、②**Visualize**：1 View resources → 2 View usage、③**Monitor**：1 Attestation → 2 Cost → 3 Vulnerability → 4 Compliance、④**Manage**：1 Suspend Account → 2 Reactivate Account。アカウントの作成から可視化、監視（証明・コスト・脆弱性・コンプライアンス）、停止・再開までのライフサイクルを示す。
-- **出典:** https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-account-management/cam-landing.html （取得日: 2026-11-03）
+- **出典:** https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-account-management/cam-landing.html （取得日: 2026-11-02）
 
 ### 10.2 プロビジョニングモード
 
 | モード | 説明 |
 |---|---|
-| Terraform（Cloud / Enterprise） | HCL で書かれた Terraform テンプレートを使用。CAM は Git リポジトリから Terraform 資格情報とテンプレートを動的に取得する |
+| Terraform（Cloud / Enterprise） | HCL で書かれた Terraform テンプレートを使用。CAM は Git リポジトリから Terraform 資格情報とテンプレートを動的に取得する。リリースノートでは AWS で対応と注記されている（第10.4節） |
 | Cloud native interface | AWS / Azure 管理者が所定権限の IAM ユーザー（等）を作成し、CAM 管理者がその資格情報をインスタンスに登録する |
 
 [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-account-management/about-provision-modes.html)
 
-プロバイダーごとの用語：Azure は subscription、AWS は management account / member account、GCP は project。【第三者情報】（検索結果に表示された公式ページ抜粋） [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-account-management/cam-landing.html)
+CAM が「cloud account」と呼ぶものに相当するプロバイダーごとの用語は次のとおり。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-account-management/exploring-cam.html)
+
+| プロバイダー | アカウントに相当する単位 | プログラムアクセス用の主体 |
+|---|---|---|
+| Microsoft Azure | subscription | service principal |
+| AWS | management account / member account | IAM user |
+| Google Cloud Platform | project | service account |
 
 ### 10.3 ロールとグループ
 
@@ -795,7 +828,7 @@ Cloud Account Management は **Cloud Workspace** 内のアプリケーション�
 - **カスタムカタログ：** 要求に使うカタログ ID はシステムプロパティ `sn_itom_cam.cam_catalog_id` で変更可能（`cw_admin` が必要、既定は CAM のベースシステムカタログ）（Zurich で導入）。[出典](https://www.servicenow.com/docs/r/u1slaAtcFiiXFQcd9RcR_A/SqyZO8QYOnS~NNdZ4oZChg)
 - **ダッシュボード（Zurich で強化）：** Cloud Asset Explorer の Monitor and Track タブに、AWS / Azure / GCP / OCI のコンプライアンスダッシュボード、プロバイダー・カテゴリー別資産数の Overview、所有者不在アカウントの検出等ができる Cloud assets ダッシュボード。Home にはプロバイダー別の時系列成長グラフ、Cloud Discovery Workspace と Cloud Cost Management への直接リンク、プロバイダー / 事業部フィルター。[出典](https://www.servicenow.com/docs/r/u1slaAtcFiiXFQcd9RcR_A/SqyZO8QYOnS~NNdZ4oZChg)
 - **Cloud Asset Collection テーブル（Australia 版、2026-10 更新）：** 各プロバイダーから収集したクラウド資産（VM、ストレージバケット、DB 等）のメタデータを保持する。構成フィールドは Active、Category（Compute / Storage / Networking / Database / Security 等）、Subcategory、CI Class Name（例：`cmdb_ci_vm_instance`）、Provider、Last Processed Time、Comments。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-account-management/cloud-asset-collection-table.html)
-- Australia では Terraform Cloud / Terraform Enterprise と Cloud native interface の両方のアカウントをプロビジョニングできる旨が Xanadu→Australia の統合リリースノートで示されている。【第三者情報】（検索結果の要約に基づく） [出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/sAkyB7dlJudSuwefmZQI_A)
+- Xanadu→Australia の CAM 統合リリースノートでは、Yokohama の項に "Provision both Terraform Cloud/Terraform Enterprise and cloud native interface accounts." と記載されている。Provision Modes の説明では、Terraform Cloud / Terraform Enterprise は "(supported in AWS)" と注記されている。つまり、この2つのモードは CAM の初版（Yokohama）から提供されている。[出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/sAkyB7dlJudSuwefmZQI_A)
 
 > CAM が Brazil で CPG / CSC と同様に非推奨化の対象になるかは、公開情報では確認できず。
 
@@ -846,11 +879,19 @@ ITAM との連携：
 - 請求ファイルを ServiceNow データセンター内（CCM の Glide 外）の **コスト意識型 Kubernetes クラスター**で並列処理し、大容量ファイルの処理を高速化、高トランザクション量に対応する。
 - プロバイダー別の資格情報エイリアス `ccm_aws_alias`、`ccm_azure_alias`、`ccm_google_alias` が既定でインストールされ、Billing Download ジョブの資格情報を対応エイリアスにマッピングする必要がある（10.0 へのアップグレード時は有効なジョブのみ自動マッピング、新規ジョブは手動）。
 - AssumeRole 認証の AWS 請求ジョブでは添付ファイルを一時保存するため、Glide データベースに十分な容量が必要。
-- テーブル・スケジュールジョブ・システムプロパティは CCM 本体側でインストールされる。
+- インストールページの原文は "The tables, scheduled jobs, and system properties aren't installed with the Cloud Cost Management Infra Stack application." である。Infra Stack 固有のテーブル、スケジュールジョブ、システムプロパティは、CCM アプリケーション側でインストールされる（第11.8節の「Infra Stack 導入時のみ」のジョブを参照）。
+- **依存関係（Australia 時点）：** Infra Stack は "an optional plugin that can be installed alongside Cloud Cost Management version 8.1 and later" と説明されている。つまり Australia 時点では、Infra Stack は CCM 本体に追加するプラグインであり、**CCM 本体は引き続き必要**である。
 
 [出典](https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/ccm-infra-stack.html) [出典](https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/install-ccm-infra.html)
 
-> **Brazil での変更:** Brazil 向けリリースノート（Version 11.0.0）では、**Cloud Cost Management（`sn_clin`）が非推奨予定**とされ、代わりに Cloud Cost Management Infra Stack アプリケーション（と未インストールの関連 Store アプリ / プラグイン）を使うよう案内されている。[出典](https://www.servicenow.com/docs/r/release-notes/cloud-cost-management-rn.html)
+> **Brazil での変更:** CCM 11.0.0（Brazil）のリリースノートには「Plugins planned for deprecation」という節がある。そこに "Cloud Cost Management (sn_clin): Planned for deprecation in a future release." と書かれ、代替として "Use the Cloud Cost Management Infra Stack application that includes related ServiceNow® Store applications and plugins if they aren't already installed." と案内されている。[出典](https://www.servicenow.com/docs/r/release-notes/cloud-cost-management-rn.html)
+>
+> **解釈上の注意：** Australia 版ドキュメントでは、Infra Stack は「CCM 8.1 以降に追加するオプションのプラグイン」で、テーブル等は CCM 側でインストールされると説明されている。これに対し Brazil のリリースノートは、Infra Stack を「関連 Store アプリとプラグインを含むアプリケーション」と表現している。このことから、今後は Infra Stack が CCM の機能一式を同梱する主アプリケーションとなり、従来の `sn_clin` パッケージ（Glide 内で請求処理を行う旧構成を含む）が置き換えられるものと読める【推定】。ただし、次の点は公開情報では確認できず：
+> - 非推奨の対象が `sn_clin` というアプリ ID そのものなのか、旧処理アーキテクチャなのか
+> - 移行時にデータやテーブルを引き継げるか
+> - 移行手順
+>
+> 移行の前に ServiceNow へ確認すること。
 
 ### 11.3 セットアップの流れ（プロバイダー共通）
 
@@ -865,9 +906,29 @@ flowchart TD
   G --> H["Billing Download 成功ごとに<br/>Budget Forecast / Business Hours / Commitments /<br/>Rightsizing / Unused resources ジョブが自動実行"]
 ```
 
-- Home 画面のセットアップカード：**Set up and Run Discovery**（Discover Schedules フォーム）、**Set up Billing Download**（Billing Download Jobs フォーム）、**Set up Price Sheet Download**（Price Sheets Download Jobs フォーム）。Configure and Run Discovery カードは Discovery アプリ利用時のみ表示される。[出典](https://www.servicenow.com/docs/r/xanadu/it-asset-management/cloud-cost-management/azure-cloud-insights-setup-guide.html)
+- **Configure and Run Discovery** カードは、Discovery アプリでクラウドリソースを検出する場合にのみ表示される（Australia 版の Azure / GCP セットアップガイド）。[出典](https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/azure-cloud-insights-setup-guide.html)
+- Xanadu 版の Azure セットアップガイドには、Home 画面のセットアップカードとして次の3つが記載されている。Australia 版のセットアップガイド本文にはカード名の記載がない。
+  - **Set up and Run Discovery**（Discover Schedules フォーム）
+  - **Set up Billing Download**（Billing Download Jobs フォーム）
+  - **Set up Price Sheet Download**（Price Sheets Download Jobs フォーム）
+
+  上記カード3種は Xanadu 版の記述である。[出典](https://www.servicenow.com/docs/r/xanadu/it-asset-management/cloud-cost-management/azure-cloud-insights-setup-guide.html)
+- Australia 版（GCP セットアップガイド）では、セットアップの入口が **Workspaces > Cloud Cost Management Workspace > Admin** と案内されている。[出典](https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/gcp-cloud-insights-setup-guide.html)
 - Discovery 以外（例：[Service Graph Connectors](./service-graph-connectors.md)）でクラウドリソースを取り込む場合は Discovery の設定を省略できる。Cloud Discovery プラグインには Cloud Discovery の実行に必要な CPG のコンポーネントが含まれる。[出典](https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/aws-discovery-cloudin.html)
-- AWS 側の作業には AWS 管理者権限、Azure 側には Azure コンソールの管理者権限が必要。Azure の請求データアクセス方法は契約形態（EA / MCA / MPA 等）に依存する。[出典](https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/aws-cloud-insights-setup-guide.html) [出典](https://www.servicenow.com/docs/r/xanadu/it-asset-management/cloud-cost-management/azure-cloud-insights-setup-guide.html)
+- AWS 側の作業には AWS 管理者権限、Azure 側には Microsoft Azure コンソールの管理者権限（"Microsoft Azure console administrator permissions"）が必要である。Azure の請求・利用データへのアクセスは "depending on your agreement type"（契約形態に依存）で設定する。[出典](https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/aws-cloud-insights-setup-guide.html) [出典](https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/azure-cloud-insights-setup-guide.html)
+  - 契約形態の具体例（EA / MCA / MPA）は、Australia 版セットアップガイドの本文には記載がない。CCM 10.0 のリリースノートで、FOCUS 対応の対象として EA / MCA / MPA が挙げられている（第11.11節）。[出典](https://www.servicenow.com/docs/r/7GoNY9eeDRD0FzxldbEmXw/qQ9PzSf3QwU9blzLsoWMUA)
+  - **Azure Export 方式（Zurich で導入）：** Zurich で Azure Billing Download Job フォームに **Use Exports** オプション（Exports オプション）が追加され、既定で選択される。この方式は Azure Export method（Azure Cost Management の Exports によるコスト・利用データの取り込み）で使われる。Use Exports を選択すると、**Billing Account Id Type**、**Actual Cost Export Name**、**Amortized Cost Export Name** の3フィールドが表示される。あわせて、従来の Azure 請求ダウンロード方式（"The current mechanism for the Azure billing download"）は将来の非推奨予定（planned for deprecation）とされ、Export オプションが既定方式として残る（Zurich で告知）。基準の Australia でもこの変更は有効である。新規構築では Exports 方式を採用すること。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-cloudcostmanagement-release-notes.html)
+
+**Google Cloud Platform のセットアップ（Australia 版）：** Google Cloud Platform のセットアップは次の順に進める。[出典](https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/gcp-cloud-insights-setup-guide.html)
+
+| 項目 | 内容 |
+|---|---|
+| 前提ロール / 権限 | インスタンス側は sysadmin（アプリの取得・有効化）、Google Cloud Console 側は Google Cloud 管理者権限 |
+| 前提プラグイン | Store ページに記載された関連プラグイン。一部は ServiceNow 担当者への申請が必要 |
+| 手順 | ① Store から CCM を取得 → ② 関連プラグインを有効化 → ③ **Workspaces > Cloud Cost Management Workspace > Admin** でプロバイダーと設定を構成 → ④ ロールを割り当て（プロバイダー設定後に `insights_owner` を付与すると、追加のセットアップ項目が表示される） → ⑤ Google Cloud Console で資格情報を作成し、インスタンスの Service account に保存 → ⑥ MID Server を構成 → ⑦ Discovery をスケジュール（Discovery 利用時のみ） → ⑧ Google Cloud 請求データの Billing Download ジョブをスケジュール → ⑨ Price Sheet Download ジョブをスケジュール（Rightsizing / Unused が使用） → ⑩ Rightsizing、Unused Machines、Business Hours、Unassigned Resources を必要に応じて構成 |
+| 請求データの取り込み | Billing Download ジョブが支払いアカウント（payer account）の請求データをダウンロード・整理・保存する |
+
+- GCP 側の請求エクスポート方式（BigQuery エクスポートの要否、データセットの指定）、資格情報に必要な IAM ロールの具体値、Price Sheet の取得元は、Australia 版セットアップガイドの本文からは確認できず（リンク先の個別手順ページに記載がある可能性がある）。
 - レポート値は通貨換算や丸めによりプロバイダーの請求値とわずかに異なる場合がある。[出典](https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/aws-cloud-insights-setup-guide.html)
 - 変更要求の作成者ユーザー（change creator user）の設定手順が別途用意されている（Australia 版目次「Configure a change creator user for Cloud Cost Management」）。
 - AWS CUR（Cost and Usage Report）/ Data Exports の具体的な設定値（形式・粒度・S3 バケットポリシー）は、本調査で取得した CCM ドキュメントからは確認できず。
@@ -953,17 +1014,17 @@ Change group が未割り当てのリソースを特定し、ポリシーで自�
 | Insights Admin | `sn_clin_core.insights_admin` | Cloud Cost Management Core | 通常は財務責任者に付与。Service account（と関連 CI）の所有権を insights_owner に割り当て、Business hours / Unassigned resources ポリシー定義、予算プランの定義・参照、節約レポート参照、レポート拡張の追加 | insights_owner、spend_admin、insights_user、cloud_integrations_admin、budget_viewer、spend_owner、spend_user、[itil] |
 | Insights Owner | `sn_clin_core.insights_owner` | 同上 | ジョブとポリシーの定義、所有 Service account のデータ参照 | insights_user |
 | Insights User | `sn_clin_core.insights_user` | 同上 | Cloud Cost Management Workspace のホームページ参照 | なし |
-| Spend Admin | ドキュメント表記 `sn_clin_core.spend_owner`（Yokohama 版では `sn_cld_spend_core.spend_admin`） | 同上 | 所有 Service account の支出データにアクセス | cloud_integrations_admin |
+| Spend Admin | `sn_cld_spend_core.spend_admin`（Yokohama 版の表記）。Australia 版ロールページでは `sn_clin_core.spend_owner` と記載されているが、Spend Owner 行と同じ名前になっており誤記の可能性がある（要確認：公式表記揺れ） | ドキュメント表記は Cloud Cost Management Core。名前空間 `sn_cld_spend_core` からは Cloud Spend Reports Core と考えられる【推定】 | 所有 Service account の支出データにアクセス | cloud_integrations_admin |
 | Cloud Integrations Admin | `sn_cld_intg_core.cloud_integrations_admin` | Cloud Integrations Core | Billing Download / Price Sheet Download ジョブの構成 | （Yokohama 版：[api_integrator]、[discovery_admin]、[flow_operator]） |
-| Spend Owner | `sn_clin_core.spend_owner` | Cloud Integrations Core（ドキュメント表記） | 所有 Service account の全支出データにアクセス | — |
+| Spend Owner | `sn_clin_core.spend_owner` | ドキュメント表記は Cloud Integrations Core。名前空間 `sn_clin_core` からは Cloud Cost Management Core と考えられる【推定】（要確認：公式表記揺れ） | 所有 Service account の全支出データにアクセス | — |
 | Budget Viewer | `sn_clin_core.budget_viewer` | Cloud Cost Management Core | Budget Forecast レポートとポリシーの参照 | なし |
-| Spend User | `sn_cld_spend_core.spend_user` | Cloud Cost Management Core | Spend ダッシュボードとテーブルへのアクセス | — |
+| Spend User | `sn_cld_spend_core.spend_user` | ドキュメント表記は Cloud Cost Management Core。名前空間 `sn_cld_spend_core` からは Cloud Spend Reports Core と考えられる【推定】 | Spend ダッシュボードとテーブルへのアクセス | — |
 | API Integrator | `sn_cld_intg_core.api_integrator` | Cloud Integrations Core | MID Server が Cloud Integrations / AWS / Azure アプリの REST エンドポイントにアクセス | [clotho_rest_put] |
 | Clotho Put | `clotho_rest_put` | — | MID Server が請求データをインスタンスへ送り MetricBase（Clotho）に保存 | — |
 
 [出典](https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/cloud-insights-roles.html) [出典](https://www.servicenow.com/docs/r/EdiPWhlSAqBiE0AMK4k9bQ/FcxF1Ic2L9tqHDiIhm~k2A)
 
-- Australia 版ロールページでは「Spend Admin」の行に `sn_clin_core.spend_owner` と記載され、Spend Owner と同名になっているなど表記揺れがある。実インスタンスでのロール名確認を推奨する。
+- Australia 版ロールページには表記揺れがある。「Spend Admin」と「Spend Owner」の両方に `sn_clin_core.spend_owner` と記載されている。また Spend 系ロールでは、プラグイン欄がロール名の名前空間と一致していない。実インスタンスでのロール名確認を推奨する（2026-11 に Australia 版ページで確認）。[出典](https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/cloud-insights-roles.html)
 - Australia（CCM 10.0）で **粒度の細かい instance operator ロール**が追加され、admin ロールなしで日常運用タスクを実行できるようになった。[出典](https://www.servicenow.com/docs/r/7GoNY9eeDRD0FzxldbEmXw/qQ9PzSf3QwU9blzLsoWMUA)
 - Community では、Washington DC 環境で Cloud Insights User＋`itil` でもワークスペースが表示されなかったというユーザー報告がある（旧リリース、未確認情報）。【第三者情報】 [出典](https://www.servicenow.com/community/cloud-cost-management-forum/what-role-is-appropriate-for-an-executive-that-wants-to-see-ccm/m-p/3121703)
 
@@ -980,7 +1041,8 @@ Change group が未割り当てのリソースを特定し、ポリシーで自�
 | `sn_cld_intg_azure_ea_sa_mapping` | Azure EA と Service account の対応 |
 | `sn_cld_intg_core_tag_category` / `sn_cld_intg_core_tag_name` / `sn_cld_intg_core_cost_tags` | タグカテゴリー、タグ名、コストタグ |
 | `sn_cld_intg_core_alias` / `sn_cld_intg_core_alias_mapping` | 資格情報エイリアスとマッピング |
-| `sn_cld_spend_core_daily_cost` / `sn_cld_spend_core_monthly_cost` | 日次 / 月次の支出レポート（Infra Stack 導入時、月次テーブルは CCM 8.1 以降は投入されない） |
+| `sn_cld_spend_core_daily_cost` | 日次支出レポート |
+| `sn_cld_spend_core_monthly_cost` | 月次支出レポート。CCM 8.1 以降で Infra Stack を導入している場合、このテーブルには投入されない |
 | `sn_cld_spend_core_daily_aggregated_cost` / `sn_cld_spend_core_monthly_aggregated_cost` | 集計済み支出 |
 | `sn_cld_spend_core_multi_currency_setup` | Multi-currency の通貨オプション |
 | `sn_clin_core_budget_policy` | Budget（予算ポリシー） |
@@ -1030,13 +1092,15 @@ ITAM License Report で、Server、End User Computing Device、Database 等の M
 
 | 版 | 時期 / ファミリー | 主な内容 |
 |---|---|---|
-| 6.0.0 | 2024-02 | コンテナー支出管理（EKS / AKS / GKE）、共有コスト配賦【第三者情報：検索結果要約】 |
-| 8.0.0 | 2024-08 | AWS / Azure / GCP の AI サービス支出内訳【第三者情報：検索結果要約】 |
-| 8.1.0 | 2024-11 | 新アーキテクチャ（Infra Stack 対応）【第三者情報：検索結果要約】 |
+| 6.0.0 | 2024-02 | Container Spend Management（Amazon EKS / Azure AKS / Google GKE）。直接コストと共有コスト（Shared Costs）をプロバイダー・Service account・リージョン別に比較（実コスト / 償却コスト） |
+| 8.0.0 | 2024-08 | AWS / Azure / GCP の AI サービス支出内訳（Spend breakdown for AI Services） |
+| 8.1.0 | 2024-11 | "New architecture with improved performance and scalability"。Infra Stack が CCM 8.1 以降向けのオプションであること（第11.2節）と時期が一致する |
+| 8.2.0 / 8.2.1 | 2025-02 / 2025-04 | セキュリティ対応と不具合修正 |
+| （版番号は確認できず） | Zurich | Azure Billing Download Job フォームに **Use Exports** オプション（既定で選択）と Azure Export method を追加。従来の Azure 請求ダウンロード方式を非推奨予定と告知（第11.3節）。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-cloudcostmanagement-release-notes.html) |
 | 10.0 | Australia | Azure 請求データの **FOCUS（FinOps Open Cost and Usage Specification）** 対応（EA / MCA / MPA）、**マルチ通貨表示**（AWS / Azure / GCP）、MSP 配下の Azure **MPA** アカウント支出の一元可視化、Workspace Operations ビューに Multi-currency setup / Currency preference 操作、instance operator ロール |
 | 11.0.0 | **Brazil**（2026-09-10 更新） | 下記 Brazil 変更点 |
 
-[出典](https://www.servicenow.com/docs/r/7GoNY9eeDRD0FzxldbEmXw/qQ9PzSf3QwU9blzLsoWMUA) [出典](https://docs.servicenow.com/bundle/store-release-notes/page/release-notes/store/it-asset-management/store-rn-cloud-insights.html)
+[出典](https://www.servicenow.com/docs/r/7GoNY9eeDRD0FzxldbEmXw/qQ9PzSf3QwU9blzLsoWMUA) [出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-cloud-insights.html)
 
 > **Brazil での変更（CCM 11.0.0）:**
 > - **AI による支出サマリー**：Summarize ボタンで支出傾向、主要コスト要因、予算整合、前月比、コミットメントのカバー率、上位5件のコスト削減推奨を生成（Cloud cost summarizer 生成 AI スキル）。新プラグイン **ServiceNow Otto for Cloud Cost Management（`com.sn_now_assist_ccm`）** が生成 AI スキルを提供する。
@@ -1044,7 +1108,7 @@ ITAM License Report で、Server、End User Computing Device、Database 等の M
 > - **Tag category source selection**：プロバイダーごとの手動タグ付けに代えて、既存 CMDB リレーションからビジネスコンテキストを導出。
 > - **保存・共有・再利用可能な Spend analytics ビュー**（既定ビュー、お気に入り）。
 > - **Workspace の再編**：ホームのウィジェットから詳細分析へドリルダウン。Recommendations が Operations ビューから新しい **Optimization ビュー**（Unused resources、Rightsizing、Business hours、Commitments）へ移動。
-> - ロール変更（第11.7節）、`sn_clin` の非推奨予定と Infra Stack への移行（第11.2節）。
+> - ロール変更（第11.7節）、`sn_clin` の非推奨予定（Planned for deprecation in a future release）と Infra Stack アプリケーションの利用案内（第11.2節。依存関係との整合は同節の注意を参照）。
 > - アクセシビリティ改善（見出し構造、ドラッグ＆ドロップのキーボード / スクリーンリーダー対応）。
 >
 > [出典](https://www.servicenow.com/docs/r/release-notes/cloud-cost-management-rn.html) [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-cloudcostmanagement-release-notes.html)
@@ -1061,7 +1125,7 @@ ITAM License Report で、Server、End User Computing Device、Database 等の M
 | 新規でセルフサービス払い出しを構築したい | CPG / CSC は Brazil で新規インスタンス非インストールとなるため、採用前に契約・ロードマップを ServiceNow に確認する必要がある。代替手段（Service Catalog＋[IntegrationHub](../platform/integrationhub.md) のスポーク / Terraform 連携等）の検討余地あり【推定】 |
 | 既存 CPG 利用者 | レガシーワークフローの Workflow Studio 移行状況（カスタマイズ有無）、Blueprint / Resource profile の利用有無（Australia でサポート外）を棚卸しする |
 | クラウドアカウント（サブスクリプション）払い出し | CAM（Cloud Workspace）。Terraform か Cloud native interface かを選択 |
-| コスト管理 | CCM（ITAM、Store アプリ）。請求データ取得・Discovery（または SGC）・MID Server が前提。Brazil 以降は Infra Stack への移行が案内されている |
+| コスト管理 | CCM（ITAM、Store アプリ）。請求データ取得・Discovery（または SGC）・MID Server が前提。Brazil（CCM 11.0.0）のリリースノートでは `sn_clin` が「Planned for deprecation in a future release」とされ、Infra Stack アプリケーション（関連 Store アプリ / プラグインを含む）の利用が案内されている。Australia 時点では Infra Stack は CCM 本体への追加プラグインのため、移行の範囲と手順は ServiceNow に確認が必要（第11.2節） |
 | CMDB との整合 | CPG / CCM ともクラウド CI を CMDB に作成・利用する。Discovery / Service Graph Connector との役割分担を設計する（[Discovery](./discovery.md)、[Service Graph Connectors](./service-graph-connectors.md)、[CMDB と CSDM](../platform/cmdb-csdm.md)） |
 | 変更管理との連携 | CPG の Day 2 操作、CCM の最適化操作はいずれも Change request を生成する。Standard Change テンプレートの整備が必要（[Change Management](../itsm/change-management.md)） |
 | ドメイン分離 | CPG / CSC / CCM それぞれにドメイン分離の説明ページがある（サービスプロバイダー向け考慮事項を含む）。詳細は [ドメインセパレーション](../platform/domain-separation.md) |
@@ -1074,6 +1138,10 @@ ITAM License Report で、Server、End User Computing Device、Database 等の M
 - Cloud User Portal の URL パス、`sn_cmp_stack` の状態（state）フィールドの選択肢一覧、CPG の全テーブル一覧。
 - CAM が Brazil で非推奨化の対象となるか。
 - CCM の AWS 側設定（CUR / Data Exports の形式・粒度、S3 バケット・IAM ポリシーの具体値）。
+- CCM の Azure Export 方式に対応する Store アプリの版番号、従来の Azure 請求ダウンロード方式が実際に廃止されるリリース、Azure 側 Exports の具体的な設定値（エクスポート種別・スコープ・保存先）。
+- CCM の GCP セットアップの具体値（請求エクスポート / BigQuery 連携の方式、資格情報に必要な IAM ロール、Price Sheet の取得元）。
+- Cloud Governance Suite（CGS）ライセンスと ITOM Cloud Accelerate ライセンスの包含関係（両方が必要なことは公式記載あり）。
+- CCM 11.0.0 で非推奨予定とされた `sn_clin` の非推奨範囲（アプリ ID そのものか、旧処理アーキテクチャか）、Infra Stack への移行手順、データの引き継ぎ可否。
 - CCM・ITOM Cloud Accelerate・Subscription Unit 比率の価格情報。
 - Brazil の GA 日付と、Brazil における CPG / CSC 以外のクラウド管理関連の変更点（CCM 以外の Brazil 差分リリースノートは確認できず）。
 
@@ -1126,6 +1194,8 @@ ITAM License Report で、Server、End User Computing Device、Database 等の M
 
 **Cloud Account Management**
 - https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-account-management/cam-landing.html
+- https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-account-management/exploring-cam.html （Exploring Cloud Account Management：ライセンス、プロバイダー別用語）
+- https://www.servicenow.com/docs/r/yokohama/delta-xanadu-yokohama/yokohama-xanadu-itomcloudaccelerate-release-notes.html （ITOM Cloud Accelerate combined release notes Xanadu→Yokohama）
 - https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-account-management/about-policies-in-cam.html
 - https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-account-management/about-provision-modes.html
 - https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-account-management/components-installed-with-cam.html
@@ -1147,7 +1217,8 @@ ITAM License Report で、Server、End User Computing Device、Database 等の M
 - https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/install-ccm-infra.html
 - https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/aws-cloud-insights-setup-guide.html
 - https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/azure-cloud-insights-setup-guide.html
-- https://www.servicenow.com/docs/r/xanadu/it-asset-management/cloud-cost-management/azure-cloud-insights-setup-guide.html
+- https://www.servicenow.com/docs/r/xanadu/it-asset-management/cloud-cost-management/azure-cloud-insights-setup-guide.html （Xanadu 版、Home セットアップカード名）
+- https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/gcp-cloud-insights-setup-guide.html
 - https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/aws-discovery-cloudin.html
 - https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/um-cloudin.html
 - https://www.servicenow.com/docs/r/australia/it-asset-management/cloud-cost-management/rs-cloudin.html
@@ -1164,7 +1235,7 @@ ITAM License Report で、Server、End User Computing Device、Database 等の M
 - https://www.servicenow.com/docs/r/7GoNY9eeDRD0FzxldbEmXw/qQ9PzSf3QwU9blzLsoWMUA （CCM 10.0 release notes、Australia）
 - https://www.servicenow.com/docs/r/release-notes/cloud-cost-management-rn.html （CCM 11.0.0 release notes、Brazil）
 - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-cloudcostmanagement-release-notes.html
-- https://docs.servicenow.com/bundle/store-release-notes/page/release-notes/store/it-asset-management/store-rn-cloud-insights.html
+- https://www.servicenow.com/docs/r/store-release-notes/store-rn-cloud-insights.html （CCM Store release notes）
 
 **ServiceNow Community（第三者情報・参考）**
 - https://www.servicenow.com/community/itom-forum/cmp-vs-cpg/m-p/3084874

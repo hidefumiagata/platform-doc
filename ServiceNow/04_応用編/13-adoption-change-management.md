@@ -5,9 +5,14 @@ domain: general
 release: Australia
 last_verified: 2026-11-02
 summary: ServiceNow の導入効果を「使われる」状態に変えるための実務知見をまとめる。OCM（組織変革管理）の体制・計画・チャンピオン、トレーニング（役割別・タスク型、Adoption Services の Guided Tours / Embedded Help / Help Center / Dynamic Guidance）、ポータル利用促進（Employee Center、Campaign、Content Analytics、Usage Insights）、シフトレフト（ナレッジ・Virtual Agent・自動化によるデフレクション計測）、KPI による効果測定（ITSM Success Dashboard の Self-solved % / Call deflection の公式計算式、Assistant analytics の Deflection Rate）を出典付きで整理する。
-keywords: [定着化, adoption, user adoption, OCM, organizational change management, 組織変革, チェンジマネジメント, change enablement, ADKAR, Prosci, Kotter, チャンピオン, change champion, スポンサー, ステークホルダー, コミュニケーション計画, ハイパーケア, hypercare, トレーニング, ServiceNow University, Now Learning, Adoption Services, Guided Tours, Guided Tour Designer, com.glide.guided_tours, com.glide.sn_tourbuilder, com.snc.guided_tours.standard_ui.enable, com.snc.guided_tours.sp.enable, com.snc.guided_tours.custom_ui.enable, Embedded Help, sys_embedded_help_content, sys_embedded_help_role, Help Center, Dynamic Guidance, sn_dyn_guidance_user, sn_dyn_guidance_admin, External Content Connector, Guided Setup, Employee Center, Employee Center Pro, Content Publishing, Campaign, Content Analytics, sn_cda, sn_cda.analytics_admin, sn_cda.analytics_reader, Usage Insights, portal_analytics_admin, Guided Self-Service, シフトレフト, shift left, self-service, セルフサービス, 自己解決, deflection, デフレクション, call deflection, self-solved, Issue Auto Resolution, deflection pattern, ssa_deflection_metric, Self-Service Analytics, ITSM Success Dashboard, sn_sd.success_dashboard_admin, sn_sd.success_dashboard_read, sn_sd.success_dashboard_details_read, Assistant analytics, Self-Solve Performance, KPI, 効果測定, contact_type, チャネルシフト, ServiceNow Impact, Accelerator, OCM Preparing for Change, TuneUp Your Employee Center, Now on Now]
+keywords: [定着化, adoption, user adoption, OCM, organizational change management, 組織変革, チェンジマネジメント, change enablement, ADKAR, Prosci, Kotter, チャンピオン, change champion, スポンサー, ステークホルダー, コミュニケーション計画, ハイパーケア, hypercare, トレーニング, ServiceNow University, Now Learning, Adoption Services, Guided Tours, Guided Tour Designer, com.glide.guided_tours, com.glide.sn_tourbuilder, com.snc.guided_tours.standard_ui.enable, com.snc.guided_tours.sp.enable, com.snc.guided_tours.custom_ui.enable, Embedded Help, sys_embedded_help_content, sys_embedded_help_role, Help Center, Dynamic Guidance, sn_dyn_guidance_user, sn_dyn_guidance_admin, External Content Connector, Guided Setup, Employee Center, Employee Center Pro, Content Publishing, Campaign, Content Analytics, sn_cda, sn_cda.analytics_admin, sn_cda.analytics_reader, Usage Insights, portal_analytics_admin, Guided Self-Service, シフトレフト, shift left, self-service, セルフサービス, 自己解決, deflection, デフレクション, call deflection, self-solved, Issue Auto Resolution, deflection pattern, ssa_deflection_metric, Self-Service Analytics, ITSM Success Dashboard, sn_sd.success_dashboard_admin, sn_sd.success_dashboard_read, sn_sd.success_dashboard_details_read, Assistant analytics, Self-Solve Performance, KPI, 効果測定, contact_type, チャネルシフト, ServiceNow Impact, Accelerator, OCM Preparing for Change, Change Readiness Playbook, OCM Managing Change, OCM Reinforcing and Sustaining Change, Prepare Diagnose Prescribe Execute Track, TuneUp Your Employee Center, Now on Now]
 sources:
   - https://www.servicenow.com/docs/r/tJa9Em2DAbijpCjxYUU3Pw/t74Rj80jzDULmyZDVTrnZA
+  - https://www.servicenow.com/docs/r/GhZz9BVbXzoY5nvjZCe6Ww/~JqRArQL9CIkcIWV9SBLwQ
+  - https://www.servicenow.com/docs/r/NYweeRocREicYwhLVBs7lg/k2NWYNkgT40Ljxmm4TAkNw
+  - https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/laq40ut6M73wEY9po7aXkA
+  - https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/Dp0RIDVDPReMJDsnxZ4JoA
+  - https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/F8iNlER03DL7R6zqaH_JPg
   - https://www.servicenow.com/docs/r/xanadu/impact/accelerator-and-initiative-list/tuneup-employee-center.html
   - https://www.servicenow.com/docs/r/australia/platform-user-interface/adoption-services/exploring-guided-tours.html
   - https://www.servicenow.com/docs/r/australia/platform-user-interface/adoption-services/activate-guidedtours-service-portal.html
@@ -16,6 +21,7 @@ sources:
   - https://www.servicenow.com/docs/r/australia/platform-user-interface/adoption-services/exploring-embedded-help.html
   - https://www.servicenow.com/docs/r/australia/platform-user-interface/adoption-services/embedded-help-roles.html
   - https://www.servicenow.com/docs/r/australia/platform-user-interface/adoption-services/exploring-help-center.html
+  - https://www.servicenow.com/docs/r/australia/platform-user-interface/adoption-services/help-center-content-feedback.html
   - https://www.servicenow.com/docs/r/australia/platform-user-interface/adoption-services/dynamic-guidance.html
   - https://www.servicenow.com/docs/r/australia/platform-user-interface/adoption-services/external-content-connector-in-dynamic-guidance.html
   - https://www.servicenow.com/docs/r/zurich/platform-user-interface/adoption-services/using-dynamic-guidance.html
@@ -27,6 +33,9 @@ sources:
   - https://www.servicenow.com/docs/r/australia/employee-service-management/employee-experience-foundation/ecpro-content-automation-content-pack.html
   - https://www.servicenow.com/docs/r/australia/employee-service-management/employee-experience-foundation/user-analytics-guided-help-gss.html
   - https://www.servicenow.com/docs/r/zurich/now-intelligence/usage-insights/enable-user-experience-analytics.html
+  - https://www.servicenow.com/docs/r/australia/platform-user-interface/service-portal/create-sp-analytics-settings.html
+  - https://www.servicenow.com/docs/r/platform-user-interface/service-portal/sp-analytics.html
+  - https://www.servicenow.com/docs/r/australia/now-intelligence/usage-insights/user-exp-analytics-user-set.html
   - https://www.servicenow.com/docs/r/australia/it-service-management/itsm-success-dashboard-indicators/performance-overview-ref.html
   - https://www.servicenow.com/docs/r/australia/it-service-management/itsm-success-dashboard-indicators/success-roles.html
   - https://www.servicenow.com/docs/r/australia/it-service-management/itsm-success-dashboard-indicators/customize-cost-savings.html
@@ -56,6 +65,11 @@ sources:
   - https://www.sbbit.jp/document/sp/18392
   - https://www.servicenow.com/community/developer-forum/contact-type-on-incident-and-requests-not-showing-all-values/m-p/1650110
   - https://www.nice.com/glossary/containment-rate
+  - https://www.servicenow.com/docs/r/impact/impact-squad.html
+  - https://www.servicenow.com/docs/r/xGHm5nN1KlkEq58WJHJoPw/18sK5E8sjIM4olQCBoeItQ
+  - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/_RtDJAxOPgzf_S6HFeyLWA
+  - https://www.servicenow.com/docs/r/Recj91eIo1YnsOabQjgskg/cttp1UZfUZsD9VXxOBwO7Q
+  - https://www.servicenow.com/community/employee-center-articles/content-experiences-and-publishing/ta-p/2638647
 ---
 
 # 定着化と組織変革（Adoption and Organizational Change Management）
@@ -94,22 +108,24 @@ Prosci の ServiceNow 向けガイドは、ベンチマーク調査で「プロ�
 
 ### 1.2 定着化のライフサイクル（ServiceNow Impact の 5 フェーズ）
 
-ServiceNow のカスタマーサクセス製品 ServiceNow Impact の Accelerator「OCM: Preparing for Change」は、変革準備を次の 5 フェーズで進める（[出典](https://www.servicenow.com/docs/r/tJa9Em2DAbijpCjxYUU3Pw/t74Rj80jzDULmyZDVTrnZA)）。本ファイルはこの 5 フェーズを定着化の骨格として用いる。
+ServiceNow のカスタマーサクセス製品 ServiceNow Impact の Accelerator「OCM: Preparing for Change」は、変革準備を次の 5 フェーズで進める。フェーズ名の英語原文は Prepare / Diagnose / Prescribe / Execute / Track で、日本語版ドキュメントでは「準備／診断／処方／実行／追跡」と訳されている（[出典（日本語版）](https://www.servicenow.com/docs/r/GhZz9BVbXzoY5nvjZCe6Ww/~JqRArQL9CIkcIWV9SBLwQ)、[出典（ポルトガル語版：Preparar／Diagnosticar／PRESCRIBE／Executar／Rastrear）](https://www.servicenow.com/docs/r/NYweeRocREicYwhLVBs7lg/k2NWYNkgT40Ljxmm4TAkNw)、[出典（ドイツ語版）](https://www.servicenow.com/docs/r/tJa9Em2DAbijpCjxYUU3Pw/t74Rj80jzDULmyZDVTrnZA)）。なお、2026-11 時点で取得した英語版ページは 5 フェーズの見出しではなく、Kickoff Session から Accelerator Close & Handoff までのセッション単位（Organizational Readiness Assessment & Success Criteria、Stakeholder Mapping & Analysis、Communication & Engagement Planning、Champion Network Design & Launch Readiness 等）で構成されており、版・言語によって記載形式が異なる（[出典（英語版）](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/laq40ut6M73wEY9po7aXkA)）。本ファイルはこの 5 フェーズを定着化の骨格として用いる。
 
-| フェーズ | 公式の目的（要約） | 主な成果物 |
+| フェーズ | 公式の目的（要約） | 主な成果物（本ファイルでの整理） |
 |---|---|---|
-| Preparation（準備） | リーダーシップの合意、準備度、測定可能な成功基準を定める | 成功基準、スポンサー合意 |
-| Diagnosis（診断） | 主要ステークホルダーを特定し、従業員の準備度のベースラインを取る | ステークホルダーマップ、準備度評価 |
-| Prescription（処方） | 的を絞ったコミュニケーションとチャンピオンネットワークを設計する | コミュニケーション計画、チャンピオン網 |
-| Execution（実行） | コミュニケーションを開始し、チャンピオンを稼働させる | 周知・トレーニング実施 |
-| Follow-through（定着） | 定着の進捗を測定し、教訓を記録し、継続的な強化へ移行する | KPI レポート、教訓、強化計画 |
+| Prepare（準備） | リーダーシップの合意、準備度、測定可能な成功基準を定める | 成功基準、スポンサー合意 |
+| Diagnose（診断） | 主要ステークホルダーを特定し、従業員の準備度のベースラインを取る | ステークホルダーマップ、準備度評価 |
+| Prescribe（処方） | 的を絞ったコミュニケーションとチャンピオンネットワークを設計する | コミュニケーション計画、チャンピオン網 |
+| Execute（実行） | コミュニケーションを開始し、チャンピオンを稼働させる | 周知・トレーニング実施 |
+| Track（追跡） | 定着の進捗を測定し、教訓を記録し、継続的な強化へ移行する | KPI レポート、教訓、強化計画 |
+
+英語版ページによれば、Preparing for Change の主な成果物は **Change Readiness Playbook**（変革準備プレイブック）である。準備度評価の結果、成功基準付きの変革ビジョン、ステークホルダーマップ、スポンサー活性化計画、8 週間のコミュニケーション計画、チャンピオンネットワーク設計、キックオフイベント計画、エンゲージメント追跡結果、準備度ベースラインを含む（[出典](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/laq40ut6M73wEY9po7aXkA)）。Preparing for Change は 3 本構成の OCM Accelerator シリーズの 1 本目で、後続に OCM: Managing Change と OCM: Reinforcing & Sustaining Change がある（[2.5](#25-servicenow-が提供する-ocm-支援メニュー) 参照）。
 
 ```mermaid
 flowchart LR
-  P[Preparation<br/>成功基準・スポンサー合意] --> D[Diagnosis<br/>ステークホルダー・準備度ベースライン]
-  D --> R[Prescription<br/>コミュニケーション計画・チャンピオン]
-  R --> E[Execution<br/>周知・研修・ハイパーケア]
-  E --> F[Follow-through<br/>KPI 測定・強化]
+  P[Prepare<br/>成功基準・スポンサー合意] --> D[Diagnose<br/>ステークホルダー・準備度ベースライン]
+  D --> R[Prescribe<br/>コミュニケーション計画・チャンピオン]
+  R --> E[Execute<br/>周知・研修・ハイパーケア]
+  E --> F[Track<br/>KPI 測定・強化]
   F -->|次のリリース／機能追加| P
 ```
 
@@ -122,7 +138,7 @@ ServiceNow 社員による Community 記事（Agentic AI の OCM）は、Prosci 
 | Awareness | 変更の理由と影響を知る | Employee Center Pro の Campaign／News、Microsoft Teams への配信、ポータルのバナー | [4.4](#44-campaign-と-employee-communications-employee-center-pro) |
 | Desire | 使いたいと思う | 上長からのメッセージ、早期アクセス（Early access）、成功事例の共有 | [2.3](#23-チャンピオンネットワークとピープルマネージャー)・[4.2](#42-employee-center-立ち上げの実践知) |
 | Knowledge | 使い方を知る | 役割別研修、Guided Tours、Embedded Help、Help Center | [3](#3-トレーニング) |
-| Ability | 実務でできる | QA 環境でのタスク型演習、ハイパーケア、Dynamic Guidance | [2.6](#26-ハイパーケアは行動の強化として設計する)・[3.7](#37-dynamic-guidanceaustralia-で追加) |
+| Ability | 実務でできる | QA 環境でのタスク型演習、ハイパーケア、Dynamic Guidance | [2.6](#26-ハイパーケアは行動の強化として設計する)・[3.7](#37-dynamic-guidance) |
 | Reinforcement | 元に戻らない | チャネル閉鎖、KPI の定例レビュー、Guided Tours dashboard／Content Analytics による継続改善 | [5](#5-シフトレフト)・[6](#6-kpi-による効果測定) |
 
 ---
@@ -203,9 +219,19 @@ AI 展開の OCM 記事は、1 ページのナラティブ、デモ、5〜7 分�
 
 ### 2.5 ServiceNow が提供する OCM 支援メニュー
 
+ServiceNow Impact の OCM Accelerator は、OCM: Preparing for Change → OCM: Managing Change → OCM: Reinforcing & Sustaining Change の 3 本構成のシリーズとして公式ドキュメントに掲載されている。3 本とも顧客側の必須役割は Platform Owner、System administrator(s)、Executive Sponsor、Communication Lead(s)、Change Lead(s)（Trusted Service Partners は推奨）で共通である（[出典](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/Dp0RIDVDPReMJDsnxZ4JoA)、[出典](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/F8iNlER03DL7R6zqaH_JPg)）。定着化（Reinforcement）の段階で ServiceNow の支援を受けたい場合は、3 本目の Reinforcing & Sustaining Change が該当する。
+
+```mermaid
+flowchart LR
+  A[OCM: Preparing for Change<br/>Awareness・Desire<br/>Change Readiness Playbook] --> B[OCM: Managing Change<br/>Knowledge・Ability<br/>Enablement & Adoption Playbook]
+  B --> C[OCM: Reinforcing & Sustaining Change<br/>Reinforcement<br/>Sustainment & Adoption Playbook]
+```
+
 | メニュー | 内容 | 前提・注意 | 出典 |
 |---|---|---|---|
-| OCM: Preparing for Change（Impact Accelerator） | 5 フェーズのコーチングセッション。任意フォローでは抵抗管理、CSE 主導ワークショップ（ビジョン整合、準備度評価、ステークホルダーマッピング、コミュニケーション計画）等 | Impact Guided+（strategic value add-on）、Advanced、Total パッケージで利用可。作業の主体は顧客で、CSE（Customer Success Executive）はフレームワークとファシリテーションを提供 | [出典](https://www.servicenow.com/docs/r/tJa9Em2DAbijpCjxYUU3Pw/t74Rj80jzDULmyZDVTrnZA) |
+| OCM: Preparing for Change（Impact Accelerator） | 5 フェーズのコーチングセッション。任意フォローでは抵抗管理、CSE 主導ワークショップ（ビジョン整合、準備度評価、ステークホルダーマッピング、コミュニケーション計画）等 | Impact Guided+（strategic value add-on）、Advanced、Total パッケージで利用可。作業の主体は顧客で、CSE（Customer Success Executive）はフレームワークとファシリテーションを提供。主な成果物は Change Readiness Playbook。OCM Accelerator シリーズの 1 本目（OCM Readiness フレームワークの Awareness／Desire に対応） | [出典](https://www.servicenow.com/docs/r/tJa9Em2DAbijpCjxYUU3Pw/t74Rj80jzDULmyZDVTrnZA)、[出典（英語版）](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/laq40ut6M73wEY9po7aXkA) |
+| OCM: Managing Change（Impact Accelerator） | ユーザーイネーブルメントのコーチング（各最大 1.5 時間）。Kickoff Session、Training Needs Analysis、Enablement Plan、Skill Gap & Barrier Assessment、Enablement Session Design、Champion Network & Peer Support Activation、Process Integration Checklist、Training Completion & Proficiency Dashboard、Accelerator Close & Hand-off。成果物は Enablement & Adoption Playbook（研修ニーズ分析、オンボーディングジャーニーマップ付きの研修計画、チャンピオンネットワーク活性化ガイド、研修習熟度ダッシュボード等） | Impact Guided+（strategic value add-on）、Advanced、Total。シリーズの 2 本目で OCM Readiness フレームワークの Knowledge／Ability に対応。Preparing for Change の事前完了を強く推奨（必須ではなく、スポンサー・ステークホルダーマップ・チャンピオン網が既にあれば省略可）。結果は Reinforcing & Sustaining Change に引き継ぐ | [出典](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/Dp0RIDVDPReMJDsnxZ4JoA) |
+| OCM: Reinforcing & Sustaining Change（Impact Accelerator） | 稼働後の定着維持のコーチング。Executive Sponsor Re-Engagement Session、Success Metrics & KPI Framework、End-User Feedback & Gap Analysis、Corrective Action Plan、Recognition & Sustainment Plan、Business Review Session、Adoption Sustainability Scorecard & Accelerator Close。成果物は Sustainment & Adoption Playbook（KPI フレームワーク、定着ダッシュボード設定ガイド、利用者サーベイ結果、是正計画、表彰計画、チャンピオン役割の進化を含む維持計画、継続的改善フレームワーク等） | Impact Guided+（strategic value add-on）、Advanced、Total。シリーズの 3 本目で OCM Readiness フレームワークの Reinforcement に対応。前提は初回稼働の完了と Platform Owner または OCM Lead の任命。Managing Change または同等の基盤（イネーブルメント戦略、稼働中のチャンピオン網、定着のベースラインデータ）を推奨。推奨設定のインスタンスへの実装は含まない | [出典](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/F8iNlER03DL7R6zqaH_JPg) |
 | TuneUp Your Employee Center（Impact Accelerator） | 一時インスタンスで HealthScan を実行し、最大 90 分のコーチング（+任意 60 分 Q&A）。未活用機能の特定と利用促進の推奨 | Impact Advanced／Total のみ。推奨事項の実装は顧客責任。一時インスタンスへのアクセスは 30 日間 | [出典](https://www.servicenow.com/docs/r/xanadu/impact/accelerator-and-initiative-list/tuneup-employee-center.html)（Xanadu 版） |
 | User Adoption Packages | 導入モジュール別の既製の定着化パック、カスタマイズ版の講師主導デモ研修・録画デモ動画、ジョブエイド／クイックリファレンス、定着化コーチング、コミュニケーション計画、統合変革計画 | 価格・詳細は Now Support の KB0012660 またはアカウントチームに確認（記事執筆者も価格は不明としている） | [出典](https://www.servicenow.com/community/now-platform-blog/organizational-change-management-yes-but-how/ba-p/3079107)【第三者情報】 |
 | NowCreate の OCM アセット | 製品非依存の OCM 資料（テンプレート等） | 顧客・パートナー向けポータル。アクセス権が必要 | [出典](https://www.servicenow.com/community/in-other-news/5-organizational-change-management-tips-for-successful/ba-p/3207468)【第三者情報】 |
@@ -258,15 +284,17 @@ ITSM での対象別カリキュラム例【経験則】：
 
 ### 3.3 製品内学習支援：Adoption Services の全体像
 
-ServiceNow は製品内ガイダンス機能群を **Adoption Services** として提供している。Adoption Services は Xanadu〜Australia を通じて ServiceNow AI Platform のプラグインに統合され、既定で有効（明示的なアクティベート不要）である（[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-adoptionservices-release-notes.html)）。
+ServiceNow は製品内ガイダンス機能群を **Adoption Services** として提供している。Zurich ではプラグインとともに既定で有効（明示的なアクティベートは不要）とされ、Australia では ServiceNow AI Platform の機能として既定で有効と記載されている（[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-adoptionservices-release-notes.html)）。
 
 | 機能 | 何をするか | 主な対象 UI | 定着化での用途 | 詳細 |
 |---|---|---|---|---|
 | Guided Tours | 画面上の吹き出し（コールアウト）で手順を順番に案内する対話型ウォークスルー | Standard UI（Core UI）、Workspace、Service Portal、Custom UI | 稼働直後のオンボーディング、新機能の紹介 | [3.4](#34-guided-tours) |
 | Embedded Help | UI ページごと・ロールごとのヘルプ記事をサイドパネルに表示 | Core UI | 自社手順・自社用語の補足 | [3.5](#35-embedded-help) |
 | Help Center | Configurable Workspace の右サイドバーにヘルプトピックを表示。Guided Tours や Dynamic Guidance の起動口 | Configurable Workspace | フルフィラー向けの画面内 FAQ | [3.6](#36-help-center) |
-| Dynamic Guidance | 画面共有と音声で、その場の画面に即した回答を返す AI アシスタント（Australia） | Core UI、Configurable Workspace | 管理者・パワーユーザーの自習支援 | [3.7](#37-dynamic-guidanceaustralia-で追加) |
+| Dynamic Guidance | 画面共有と音声で、その場の画面に即した回答を返す AI アシスタント（リリースノート上は Australia の新機能。Zurich Patch 8 以降でも提供） | Core UI、Configurable Workspace | 管理者・パワーユーザーの自習支援 | [3.7](#37-dynamic-guidance) |
 | Guided Setup | 製品の初期設定を案内する管理者向け機能 | Core UI | （管理者向け） | Australia で将来の廃止準備に入った（[3.8](#38-guided-setup-の扱い)） |
+
+> **Brazil での変更:** Zurich→Brazil の比較リリースノートでは、Adoption Services の Brazil 欄の新機能・変更・廃止はいずれも「No updates for this release」とされている。ただし同ページの要約部分は AI 生成で正確性を保証しないと注記されているため、正式なリリース表で確認すること（[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-adoptionservices-release-notes.html)）。
 
 ServiceNow 社員の Community 記事は、Guided Tours と Dynamic Guidance の関係を「Guided Tours は学ばせる（learn）、Dynamic Guidance は日々の成功を助ける（succeed）」と整理し、新規ユーザー・直線的な手順・稼働直後や大きな変更後のオンボーディングには Guided Tours、ベストプラクティスの定着・ミスや手戻りの削減・日常業務の支援には Dynamic Guidance を使うとしている（[出典](https://www.servicenow.com/community/servicenow-ai-platform-blog/guided-tours-and-dynamic-guidance/ba-p/3527057)、2026-04-16 投稿）。
 
@@ -347,7 +375,7 @@ Embedded Help は、UI ページごとにロールに応じたヘルプコンテ
 
 ### 3.6 Help Center
 
-Help Center は、Configurable Workspace 利用中に必要な情報を右サイドバーに表示する機能で、ヘルプアイコンを選ぶと表示される。現在の UI ページにコンテンツがあるとアイコンにインジケーターが付き、同じページに複数トピックを置ける。Australia では、パネルのヘッダーへの着脱、切り離し時のドラッグ・リサイズ、キーボードによる操作（アクセシビリティ）が追加された。コンテンツがない場合は、その旨と製品ドキュメントへのリンクが表示され、add new content リンクから管理者がコンテンツを追加できる（[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/adoption-services/exploring-help-center.html)）。Help Center のコンテンツには「役に立った／役に立たなかった」の評価（thumbs up/down）フィードバック機能がある（同ドキュメント群のトピック「Help Center content thumbs up and down feedback」）。
+Help Center は、Configurable Workspace 利用中に必要な情報を右サイドバーに表示する機能で、ヘルプアイコンを選ぶと表示される。現在の UI ページにコンテンツがあるとアイコンにインジケーターが付き、同じページに複数トピックを置ける。Australia では、パネルのヘッダーへの着脱、切り離し時のドラッグ・リサイズ、キーボードによる操作（アクセシビリティ）が追加された。コンテンツがない場合は、その旨と製品ドキュメントへのリンクが表示され、add new content リンクから管理者がコンテンツを追加できる（[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/adoption-services/exploring-help-center.html)）。Help Center の各記事には「役に立った／役に立たなかった」の評価（thumbs up/down）フィードバック機能があり、利用者は記事を選ぶと評価できる。結果は User Experience Analytics（Usage Insights）のダッシュボードで確認する。**All > User Experience Analytics > Dashboard** を開き、左ナビゲーションの **Analytics > Events** で Thumbs up 等のイベントを選ぶと、発生件数、ページ名、パス名、バージョンなどの詳細が表示される（[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/adoption-services/help-center-content-feedback.html)）。
 
 ![Service Operations Workspace の List 画面で、右上のヘルプアイコンから開いた Help パネルに「Create a record from a list」「Review skills to add to your profile」「Create a filtered list」「Edit records from a list overview」「Filter records from a list overview」「Export a list」のヘルプトピックが並んでいる](../assets/images/13-adoption-change-management/help-center-panel-workspace.png)
 
@@ -355,9 +383,11 @@ Help Center は、Configurable Workspace 利用中に必要な情報を右サイ
 - **画面の説明：** 画面上部のヘッダーに「Service Operations Workspace」、右上に検索・言語・ヘルプ（?）・通知アイコンが並ぶ。左はリストのナビゲーション（Interactions、Requests、Catalog Tasks、Incidents の各リスト）、中央にインシデント一覧（Number、Short description、Caller、Priority）。ヘルプアイコンを選ぶと右側に「Help」パネルが開き、このページで使えるヘルプトピック（リストからレコードを作成、フィルタ付きリストの作成、リストからの一括編集、リストのエクスポートなど）が説明文付きで縦に並ぶ。自社のトピックを追加すれば、フルフィラーは画面を離れずに手順を確認できる。
 - **出典：** https://www.servicenow.com/docs/r/australia/platform-user-interface/adoption-services/exploring-help-center.html （取得日：2026-11-04）
 
-### 3.7 Dynamic Guidance（Australia で追加）
+### 3.7 Dynamic Guidance
 
-Dynamic Guidance は、Help Center と ServiceNow Otto パネル（Australia 版ドキュメントの表記）から呼び出す、音声およびテキストでリアルタイムの手順ガイダンスを生成する AI アシスタントである。リアルタイムの画面共有に Google のサービスを使う（[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/adoption-services/dynamic-guidance.html)）。リリースノート上は Australia の新機能として記載されている（[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-adoptionservices-release-notes.html)）。
+Dynamic Guidance は、Help Center と ServiceNow Otto パネル（Australia 版ドキュメントの表記）から呼び出す、音声およびテキストでリアルタイムの手順ガイダンスを生成する AI アシスタントである。リアルタイムの画面共有に Google のサービスを使う（[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/adoption-services/dynamic-guidance.html)）。Dynamic Guidance は、ファミリーリリースのリリースノート上は Australia の新機能として記載されている（[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-adoptionservices-release-notes.html)）一方、最小バージョンは Zurich Patch 8 および Australia Patch 1 とされ（[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/adoption-services/dynamic-guidance.html)）、Zurich 版ドキュメントにも利用手順とロール（`sn_dyn_guidance_user`）が掲載されている（[出典](https://www.servicenow.com/docs/r/zurich/platform-user-interface/adoption-services/using-dynamic-guidance.html)）。つまり「ファミリーとしては Australia で新機能扱いだが、Zurich にもパッチで提供されている」と理解するのが正確である。Zurich 環境で利用する場合は Patch 8 以上であることを確認する。
+
+> **Brazil での変更:** Brazil 版ドキュメントで、Dynamic Guidance の英語のみ・米国／欧州リージョンのみという制約が解除されたことは公開情報では確認できず。Zurich→Brazil の比較リリースノートの Brazil 欄は「No updates for this release」である（[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-adoptionservices-release-notes.html)）。
 
 | 項目 | 内容 | 出典 |
 |---|---|---|
@@ -389,7 +419,7 @@ Australia で、Guided Setup は将来の廃止に向けた準備段階（being 
 | 習熟度（正確さ） | 研修後の演習結果、稼働後の差し戻し率・再分類率 | Risk 導入の教訓は「出席ではなく自信と正確さ」を推奨（[出典](https://www.servicenow.com/community/grc-blog/organizational-change-management-lessons-from-the-field-real/ba-p/3396453)） |
 | Time-to-proficiency（習熟までの期間） | 新任者が独力で処理できるまでの日数 | AI 展開の OCM 記事が定着指標として挙げる（[出典](https://www.servicenow.com/community/now-assist-blog/strategic-adoption-amp-organizational-change-management-for/ba-p/3356821)） |
 | ツアーの完了・離脱 | Guided Tours Overview の Tour Completions／Dismissals／Disengaged Users | [3.4](#34-guided-tours) |
-| ヘルプの有用性 | Help Center の thumbs up/down、ナレッジのフィードバック | |
+| ヘルプの有用性 | Help Center の thumbs up/down（User Experience Analytics の Analytics > Events で集計）、ナレッジのフィードバック | [出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/adoption-services/help-center-content-feedback.html) |
 | 回避策の発生 | ハイパーケアでのスチュワード報告、メール・電話での依頼の残存 | 回避策の再発は定着失敗の先行指標 |
 
 ---
@@ -443,7 +473,7 @@ Employee Center Pro は、従業員向けコミュニケーションを多様な
 - Audiences で部門・拠点・入社時期を絞り、新入社員向けのオンボーディング Campaign を常設する。
 - Campaign の効果は次節の Content Analytics で、インプレッションからクリックスルー・To-do 完了までを計測する。
 
-Content Experiences（Campaign 等の配信ウィジェット）は Employee Center Pro のライセンスが必要とされる【第三者情報】（[出典](https://www.servicenow.com/community/employee-center-articles/content-experiences-and-publishing/ta-p/2638647)）。エディション差は [エディション比較](../03_導入編/03-edition-comparison.md) を参照。
+Content Experiences（Campaign 等の配信ウィジェット）は Employee Center Pro でのみ利用可能とされ、HRSD Pro／Enterprise ライセンスに含まれるか、Employee Center Pro を別途ライセンスする必要がある（ServiceNow 社員による Community 記事、[出典](https://www.servicenow.com/community/employee-center-articles/content-experiences-and-publishing/ta-p/2638647)）。エディション差は [エディション比較](../03_導入編/03-edition-comparison.md) を参照。
 
 ### 4.5 Content Analytics でポータルと Campaign を計測する
 
@@ -475,20 +505,22 @@ Content Analytics は、Web ポータルのトラフィック分析と Content E
 |---|---|---|
 | Content Analytics | Adoption（日次の新規・リピートのユニークユーザー）、Average Session Duration、Average Time per Page、Engagement Metrics、Visits by Browser／Device、Unique Users | 新規ユーザーの伸びが止まったら周知の届いていない層がある。リピート率は「頼れる場所」になったかの指標 |
 | Content Analytics - Basics | All Visits in Last 365 Days、Average Page Views Per Session、This Week's／Yesterday's Top Pages、Page Views Per Day、Visits Per Day | 上位ページから「探されているもの」を把握し、Taxonomy やクイックリンクを調整する |
-| Campaign overview | Open Campaign Tasks、Campaign Task Closures This Week、Event Activity Over Time、Events Over Time by Content／Action、Action Activity、Top Content | Campaign の To-do 完了状況の追跡 |
-| Campaign analytics | インプレッション、クリックスルー、To-do 完了など | 公開後 24 時間以上待ってからデータを見ることが推奨されている |
+| Campaign overview | Open Campaign Tasks、Campaign Task Closures This Week、Event Activity Over Time、Events Over Time by Content、Events Over Time by Action、Action Activity、Top Content、Top Notifications | Campaign の To-do 完了状況の追跡 |
+| Campaign analytics | 3 タブ構成：Campaign Engagement（Campaign info、Days running、Total engagement、Event activity over time、Events over time by content／action、Action activity、Top content、Top notifications）／To-dos（All campaign to-dos）／Campaign impact | 公開後 24 時間以上待ってからデータを見ることが推奨されている |
 
 Content Analytics は Campaign で、バナー・カレンダー・イベント・画像リンク・リンク・リッチコンテンツ・To-do・動画などのインプレッションとクリックスルー（または完了・再生）を追跡する。セッションは「ページを開いてから 30 分」または「タブを閉じるまで」として扱われる（同上）。Xanadu 版ドキュメントには、Content Analytics は Platform Analytics／Performance Analytics を利用し、Google Analytics はサポートされなくなったこと、カスタムページ・ウィジェットはテーマヘッダーへのトラッキングプロファイル追加とウィジェットへの `cdaAnalytics` サービス追加が必要なことが記載されている（[出典](https://www.servicenow.com/docs/r/xGHm5nN1KlkEq58WJHJoPw/18sK5E8sjIM4olQCBoeItQ)）。
 
 ### 4.6 Usage Insights（ポータル・UI の利用分析）
 
-Usage Insights（旧称 User Experience Analytics）は、ポータルやアプリケーションの利用状況を分析する機能である（[出典](https://www.servicenow.com/docs/r/zurich/now-intelligence/usage-insights/enable-user-experience-analytics.html)）。
+Usage Insights は、ポータルやアプリケーションの利用状況を分析する機能である（ドキュメントの URL パスや一部の画面・メニュー名には旧名 User Experience Analytics が残っている）（[出典](https://www.servicenow.com/docs/r/platform-user-interface/service-portal/sp-analytics.html)）。
 
-- Service Portal のポータルは既定で Usage Insights のトラッキングが有効。一部のポータルだけ有効化していた場合にのみ個別の有効化が必要。
-- `portal_analytics_admin` と `portal_analytics_viewer` ロールは Service Portal Analytics プラグイン（`com.glide.service-portal.analytics`）とともにインストールされる。
-- ポータルごとの設定は **All > Service Portal > Portals** でポータルを開き **Create Analytics Settings**（設定済みなら View Analytics Settings）から行う。認証済みユーザーのみを追跡するか、未認証ユーザーも追跡するかを選ぶ。未認証ユーザーを追跡する場合は法令上の通知義務が生じ得る。
-- Core UI・Next Experience・モバイルアプリは **All > Platform Analytics Administration > UX Analytics Settings > Settings** で設定する。
-- 利用者は Service Portal のユーザーメニュー > Profile > User Preferences > Enable Analytics で詳細トラッキングへの同意を切り替えられる。
+- `portal_analytics_admin` と `portal_analytics_viewer` ロールは Service Portal Analytics プラグイン（`com.glide.service-portal.analytics`）とともにインストールされる（[出典](https://www.servicenow.com/docs/r/platform-user-interface/service-portal/sp-analytics.html)、Usage Insights for Service Portal）。
+- ポータルの既定のトラッキング状態は、版・言語によってドキュメントの記載が食い違っている。Usage Insights for Service Portal（Brazil 版英語ページ、2026-09-10 更新）は「すべてのポータルで既定で有効。以前の版で一部のポータルだけ有効化していた場合にのみ個別の有効化が必要」と記載する（[出典](https://www.servicenow.com/docs/r/platform-user-interface/service-portal/sp-analytics.html)）一方、Track Usage Insights in Service Portal（Australia 版）は「既定ではポータルのトラッキングは有効でない」と記載する（[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/service-portal/create-sp-analytics-settings.html)）。**自社インスタンスで各ポータルの Analytics Settings を確認すること。**
+- ポータルごとの設定は `portal_analytics_admin` ロールで **Service Portal > Portals** からポータルを開き **Create Analytics Settings**（設定済みなら View Analytics Settings）から行う。Enable Unauthenticated User Tracking チェックボックスで、認証済みユーザーのみを追跡するか、未認証ユーザーも追跡するかを選ぶ。未認証ユーザーを追跡する場合は分析されていることを通知する法的義務が生じ得るため、既定で非アクティブの Privacy Notice アナウンスを有効化して通知する（[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/service-portal/create-sp-analytics-settings.html)）。
+- Core UI・Next Experience・モバイルアプリは **All > Platform Analytics Administration > UX Analytics Settings > Settings** でアプリケーション単位に有効・無効を設定する（ポータルはこの手順の対象外）。全アプリケーション一括の有効・無効は UX Analytics Settings > Properties の Usage Insights チェックボックスで行い、既定は有効（[出典](https://www.servicenow.com/docs/r/zurich/now-intelligence/usage-insights/enable-user-experience-analytics.html)、Zurich 版）。
+- 利用者は Service Portal のユーザーメニュー > Profile > User Preferences > Enable Analytics で、Usage Insights の詳細トラッキングへの同意を切り替えられる（[出典](https://www.servicenow.com/docs/r/australia/now-intelligence/usage-insights/user-exp-analytics-user-set.html)、How users consent to tracking in Usage Insights、Australia 版）。
+
+> **Brazil での変更:** Brazil 版の Usage Insights for Service Portal（2026-09-10 更新）は「すべてのポータルで既定で有効」と記載している。Australia 版の Track Usage Insights in Service Portal の「既定で無効」との差が仕様変更か記載の揺れかは公開情報では確認できず（[出典](https://www.servicenow.com/docs/r/platform-user-interface/service-portal/sp-analytics.html)）。
 
 日本企業での注意【経験則】：従業員の操作ログ取得は就業規則・個人情報保護方針・労使協議の対象になり得る。Usage Insights の有効化範囲（認証済みのみ／匿名化の扱い）は情報セキュリティ部門・人事と事前に合意しておく。セキュリティ・コンプライアンスの全体は [セキュリティとコンプライアンス](../03_導入編/10-security-compliance.md) を参照。
 
@@ -597,6 +629,8 @@ ServiceNow 社員の AI OCM 記事は、測定可能な成果を 3〜5 個に絞
 ### 6.2 ITSM Success Dashboard
 
 ITSM Success Dashboard は、リーダーとプロセスオーナーが ITSM 導入の成果を KPI で評価するためのダッシュボードである。Performance overview、Service Quality、Operational Success の 3 カテゴリで KPI を提供する（[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/_RtDJAxOPgzf_S6HFeyLWA)）。ITSM Success Dashboard indicators は ServiceNow Store アプリとして頻繁に更新されており、9.1.5（2026 年 9 月）までのリリースノートが公開されている（[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/a8SixPp~rWbPVNBbiK_lWA)）。
+
+> **Brazil での変更:** ITSM Success Dashboard indicators は Store アプリとしてファミリーリリース（Brazil）とは別に更新される（9.1.5 が 2026 年 9 月）。Brazil 固有の KPI 変更は公開情報では確認できず（[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/a8SixPp~rWbPVNBbiK_lWA)）。
 
 **ロール**（ITSM と HR で共通）（[出典](https://www.servicenow.com/docs/r/australia/it-service-management/itsm-success-dashboard-indicators/success-roles.html)）
 
@@ -758,6 +792,8 @@ KPI の運用を CoE がどう担うかは [ガバナンスとCoEの実践](09-g
 
 ## 9. Brazil での変更
 
+本章は、本文中の「> **Brazil での変更:**」（[3.3](#33-製品内学習支援adoption-services-の全体像)、[3.7](#37-dynamic-guidance)、[4.6](#46-usage-insightsポータルui-の利用分析)、[6.2](#62-itsm-success-dashboard)）の要約である。
+
 - **Adoption Services：** Zurich→Brazil の比較リリースノートでは、Brazil 欄の新機能・変更・廃止はいずれも「No updates for this release」とされている（Australia 以前の変更として Guided Tours の Help Center 表示、Dynamic Guidance、Coral テーマ、Guided Setup の廃止準備が記載）。ただし同ページの要約部分は AI 生成で正確性を保証しないと注記されているため、正式なリリース表で確認すること（[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-adoptionservices-release-notes.html)）。
 - **Dynamic Guidance：** Brazil 版ドキュメント（Brazil の Guided Tours 概要ページを含む）で、英語のみ・米国／欧州リージョンのみという制約が解除されたことは公開情報では確認できず。
 - **ITSM Success Dashboard：** Store アプリとしてファミリーリリースとは別に更新される（9.1.5 が 2026 年 9 月）。Brazil 固有の KPI 変更は公開情報では確認できず（[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/a8SixPp~rWbPVNBbiK_lWA)）。
@@ -768,6 +804,8 @@ KPI の運用を CoE がどう担うかは [ガバナンスとCoEの実践](09-g
 
 - ServiceNow User Adoption Packages の価格、提供範囲、日本語対応（KB0012660 は Now Support 認証が必要で未確認）。
 - Impact Accelerator「Adoption Accelerator」（チャンピオンネットワーク構築、コミュニケーション計画開始等のコーチング）の Australia 版詳細（検索結果では存在を確認したが、ページ本文は取得できず）。
+- OCM Accelerator シリーズ（Preparing for Change／Managing Change／Reinforcing & Sustaining Change）の日本語での提供可否、および英語版 Preparing for Change が 5 フェーズ表記からセッション単位の表記に変わった時期（言語版により記載形式が異なる）。
+- Service Portal の Usage Insights トラッキングの既定値（Australia 版の Track Usage Insights in Service Portal は既定無効、Brazil 版の Usage Insights for Service Portal は既定有効と記載）がどちらの仕様に統一されるか。
 - Dynamic Guidance の日本リージョン・日本語対応予定、および Now Assist ライセンス要否の公式記載。
 - Employee Center 専用の「定着化ダッシュボード」の有無（Content Analytics と Usage Insights 以外の専用ダッシュボードは確認できず）。
 - `incident.contact_type` のベースシステムの選択肢一覧と既定値の公式ドキュメント上の記載。
@@ -797,7 +835,12 @@ KPI の運用を CoE がどう担うかは [ガバナンスとCoEの実践](09-g
 
 **ServiceNow 公式ドキュメント**
 
-- OCM: Preparing for Change（Impact Accelerator）: https://www.servicenow.com/docs/r/tJa9Em2DAbijpCjxYUU3Pw/t74Rj80jzDULmyZDVTrnZA
+- OCM: Preparing for Change（Impact Accelerator、ドイツ語版）: https://www.servicenow.com/docs/r/tJa9Em2DAbijpCjxYUU3Pw/t74Rj80jzDULmyZDVTrnZA
+- OCM: Preparing for Change（日本語版、5 フェーズ名）: https://www.servicenow.com/docs/r/GhZz9BVbXzoY5nvjZCe6Ww/~JqRArQL9CIkcIWV9SBLwQ
+- OCM: Preparing for Change（ポルトガル語版、5 フェーズ名）: https://www.servicenow.com/docs/r/NYweeRocREicYwhLVBs7lg/k2NWYNkgT40Ljxmm4TAkNw
+- OCM: Preparing for Change（英語版、Change Readiness Playbook）: https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/laq40ut6M73wEY9po7aXkA
+- OCM: Managing Change（Impact Accelerator）: https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/Dp0RIDVDPReMJDsnxZ4JoA
+- OCM: Reinforcing & Sustaining Change（Impact Accelerator）: https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/F8iNlER03DL7R6zqaH_JPg
 - TuneUp Your Employee Center（Impact Accelerator、Xanadu）: https://www.servicenow.com/docs/r/xanadu/impact/accelerator-and-initiative-list/tuneup-employee-center.html
 - Impact Squad: https://www.servicenow.com/docs/r/impact/impact-squad.html
 - Exploring Guided Tours（Australia）: https://www.servicenow.com/docs/r/australia/platform-user-interface/adoption-services/exploring-guided-tours.html
@@ -807,6 +850,7 @@ KPI の運用を CoE がどう担うかは [ガバナンスとCoEの実践](09-g
 - Exploring Embedded Help（Australia）: https://www.servicenow.com/docs/r/australia/platform-user-interface/adoption-services/exploring-embedded-help.html
 - Embedded Help roles（Australia）: https://www.servicenow.com/docs/r/australia/platform-user-interface/adoption-services/embedded-help-roles.html
 - Exploring Help Center（Australia）: https://www.servicenow.com/docs/r/australia/platform-user-interface/adoption-services/exploring-help-center.html
+- Help Center content thumbs up and down feedback（Australia）: https://www.servicenow.com/docs/r/australia/platform-user-interface/adoption-services/help-center-content-feedback.html
 - Dynamic Guidance（Australia）: https://www.servicenow.com/docs/r/australia/platform-user-interface/adoption-services/dynamic-guidance.html
 - External content connector in Dynamic Guidance（Australia）: https://www.servicenow.com/docs/r/australia/platform-user-interface/adoption-services/external-content-connector-in-dynamic-guidance.html
 - Using Dynamic Guidance（Zurich）: https://www.servicenow.com/docs/r/zurich/platform-user-interface/adoption-services/using-dynamic-guidance.html
@@ -819,6 +863,9 @@ KPI の運用を CoE がどう担うかは [ガバナンスとCoEの実践](09-g
 - Content Analytics（Xanadu）: https://www.servicenow.com/docs/r/xGHm5nN1KlkEq58WJHJoPw/18sK5E8sjIM4olQCBoeItQ
 - Guided Self-Service Usage Insights（Australia）: https://www.servicenow.com/docs/r/australia/employee-service-management/employee-experience-foundation/user-analytics-guided-help-gss.html
 - Enable Usage Insights（Zurich）: https://www.servicenow.com/docs/r/zurich/now-intelligence/usage-insights/enable-user-experience-analytics.html
+- Track Usage Insights in Service Portal（Australia）: https://www.servicenow.com/docs/r/australia/platform-user-interface/service-portal/create-sp-analytics-settings.html
+- Usage Insights for Service Portal（Brazil、2026-09-10 更新）: https://www.servicenow.com/docs/r/platform-user-interface/service-portal/sp-analytics.html
+- How users consent to tracking in Usage Insights（Australia）: https://www.servicenow.com/docs/r/australia/now-intelligence/usage-insights/user-exp-analytics-user-set.html
 - ITSM Success Dashboard indicators KPI definitions and formulas（Australia）: https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/_RtDJAxOPgzf_S6HFeyLWA
 - Performance overview（Australia）: https://www.servicenow.com/docs/r/australia/it-service-management/itsm-success-dashboard-indicators/performance-overview-ref.html
 - Success Dashboard indicators user roles and responsibilities（Australia）: https://www.servicenow.com/docs/r/australia/it-service-management/itsm-success-dashboard-indicators/success-roles.html

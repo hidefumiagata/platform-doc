@@ -50,6 +50,20 @@ sources:
   - https://www.servicenow.com/docs/r/delta-zurich-australia/australia-zurich-virtualagent-release-notes.html
   - https://www.servicenow.com/docs/r/release-notes/virtual-agent-rn.html
   - https://www.servicenow.com/community/developer-advocate-blog/otto-vs-now-assist-what-actually-changed/ba-p/3594171
+  - https://www.servicenow.com/docs/r/australia/conversational-interfaces/now-assist-in-virtual-agent/using-now-assist-in-va.html
+  - https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/manage-topics-task.html
+  - https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/prebuilt-topics-ITSM.html
+  - https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/va-integration-messaging-apps.html
+  - https://www.servicenow.com/docs/r/BfFhnVBqpVWNfzvxxnpNzw/eYn0beX_CQLOgHdD3uqHuA
+  - https://www.servicenow.com/docs/r/BfFhnVBqpVWNfzvxxnpNzw/6DoDpVpMURCTP1YiJ7lI0A
+  - https://www.servicenow.com/docs/r/Xh633tLbz1TiB0XwDksy6A/1C6~K57XLxHCIHxZNiYHaA
+  - https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/qLjVpz4YhkTz49WHiXY6uA
+  - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-virtualagent-release-notes.html
+  - https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-Otto-creates-the-unified-AI-experience-for-the-enterprise/default.aspx
+  - https://www.servicenow.com/community/virtual-agent-nlu-articles/virtual-agent-faqs/ta-p/2349558
+  - https://www.servicenow.com/community/virtual-agent-nlu-forum/bot-interconnect-does-not-send-context-variables-when-the/m-p/3412467
+  - https://www.servicenow.com/community/hrsd-forum/always-displays-no-chat-agents-currently-available-in-the-chat/m-p/1322369/page/3
+  - https://forwork.meta.com/meta-workplace/
 ---
 
 # Virtual Agent と会話型AI（Conversational Interfaces）
@@ -69,7 +83,7 @@ sources:
 | Conversational Integration（Teams / Slack ほか） | 外部メッセージングアプリとの連携（ServiceNow Store アプリ） | 「チャネルと外部メッセージング連携」 |
 | Live Agent 引き継ぎ・Agent Chat | 有人対応への転送と、エージェント側のチャット機能（AWA と連動） | 「Live Agent と Agent Chat」 |
 
-> **名称に関する重要な注意（Australia 時点）:** 2026 年に ServiceNow は AI 体験のブランドを **ServiceNow Otto** に統合した（Knowledge 2026 で発表。Now Assist、Moveworks、AI Experience を1つのアシスタントに統合したもの）。このため、Australia 版の公式ドキュメントは 2026 年中に更新され、従来の **Now Assist in Virtual Agent** は **ServiceNow Otto for Virtual Agent**（ページにより「ServiceNow Otto in Virtual Agent」とも表記）、**Now Assist panel** は **ServiceNow Otto panel**、Virtual Agent Designer の一覧画面は **Assistant Designer Asset library** と表記されている。プラグイン ID やプロパティ名（例：`sn_nowassist_va.*`）は旧名のまま残っている。本ファイルでは公式ドキュメントの現行表記を主とし、旧名を併記する。[出典](https://www.servicenow.com/community/developer-advocate-blog/otto-vs-now-assist-what-actually-changed/ba-p/3594171)（ServiceNow Community Developer Advocate Blog、2026-09-04）／[出典](https://www.servicenow.com/docs/r/australia/conversational-interfaces/now-assist-in-virtual-agent/assistant-designer.html)
+> **名称に関する重要な注意（Australia 時点）:** 2026 年に ServiceNow は AI 体験のブランドを **ServiceNow Otto** に統合した（2026-05-05、Knowledge 2026 で発表。Now Assist、Moveworks、AI Experience を1つのアシスタントに統合したもの）。[出典](https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-Otto-creates-the-unified-AI-experience-for-the-enterprise/default.aspx)（ServiceNow プレスリリース、2026-05-05）製品への展開は、2026 年 8 月以降の月次 AI リリースで順次行われ、Brazil で全面提供される。このため、Australia 版の公式ドキュメントは 2026 年中に更新され、従来の **Now Assist in Virtual Agent** は **ServiceNow Otto for Virtual Agent**（ページにより「ServiceNow Otto in Virtual Agent」とも表記）、**Now Assist panel** は **ServiceNow Otto panel**、Virtual Agent Designer の一覧画面は **Assistant Designer Asset library** と表記されている。プラグイン ID やプロパティ名は旧名のまま残っており、Australia 版の公式ページでも `sn_nowassist_va.*` プロパティが使われている。本ファイルでは公式ドキュメントの現行表記を主とし、旧名を併記する。[出典](https://www.servicenow.com/community/developer-advocate-blog/otto-vs-now-assist-what-actually-changed/ba-p/3594171)（ServiceNow Community Developer Advocate Blog、2026-09-04）／[出典](https://www.servicenow.com/docs/r/australia/conversational-interfaces/now-assist-in-virtual-agent/assistant-designer.html)／[出典](https://www.servicenow.com/docs/r/australia/conversational-interfaces/now-assist-in-virtual-agent/using-now-assist-in-va.html)／[出典](https://www.servicenow.com/docs/r/australia/conversational-interfaces/now-assist-in-virtual-agent/nava-integrated-chat.html)
 
 生成AI 機能全般（Now Assist スキル、AI Agents、AI Agent Studio、Now LLM Service 等）は [Now Assist と AI Agents](./now-assist-ai-agents.md)、AI Search は [Predictive Intelligence と AI Search](./predictive-intelligence-ai-search.md) を参照。
 
@@ -129,7 +143,7 @@ Virtual Agent は **Glide Virtual Agent** プラグイン（`com.glide.cs.chatbo
 - Topic の条件指定、Live Agent 変数の指定、`Available for Agent Autopilot` トグルの有効化ができない。
 - NLU（Natural Language Understanding）は非対応で Keyword ベースのみ。Topic switching や多言語 NLU も不可。
 - Languages タブと翻訳は読み取り専用。
-- カスタムチャネルでは動作しない（Slack、Microsoft Teams、Workplace by Facebook、Facebook Messenger の標準連携は可）。
+- カスタムチャネルでは動作しない（Slack、Microsoft Teams、Workplace by Facebook、Facebook Messenger の標準連携は可。ただし Workplace は Meta が 2026-06 に提供終了【第三者情報】、[出典](https://forwork.meta.com/meta-workplace/)）。
 - 通知は単純通知のみ（Actionable notification 不可）。Virtual Agent Analytics Dashboard は利用不可。
 
 > **Brazil での変更:** Virtual Agent for NLU と Virtual Agent Lite は「将来の非推奨化に向けた準備中（prepared for future deprecation）」とされ、いずれ新規インスタンスでは非表示・非アクティブになる（既存利用はサポート継続）。Glide Virtual Agent Lite の後継として Requestor Agents - Foundation、EmployeeWorks - User、EmployeeWorks for GovCloud - User が挙げられている。[出典](https://www.servicenow.com/docs/r/release-notes/virtual-agent-rn.html)
@@ -137,9 +151,9 @@ Virtual Agent は **Glide Virtual Agent** プラグイン（`com.glide.cs.chatbo
 ### ライセンスの位置づけ
 
 - Virtual Agent プラグインの有効化には Virtual Agent のサブスクリプションが必要である。[出典](https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/activate-virtual-agent.html)
-- Virtual Agent API と Virtual Agent Bot Interconnect は「Virtual Agent と同様の Pro/Enterprise ライセンス」が必要と明記されている。[出典](https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/virtual-agent-api-supported-versions-licensing.html)／[出典](https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/using-sn-va-primary-bot-api.html)
-- 一般には、フル機能の Virtual Agent は ITSM Pro 等の Pro/Enterprise パッケージに、Now Assist in Virtual Agent（現 ServiceNow Otto for Virtual Agent）は Pro Plus / Enterprise Plus（Now Assist for ITSM/HRSD/CSM 等）に含まれると説明されている。【第三者情報】[出典](https://www.servicenow.com/community/virtual-agent-nlu-articles/virtual-agent-faqs/ta-p/2349558)
-- Australia の Virtual Agent リリースノートには、AI のライセンス階層として **Foundation、Advanced、Prime** が記載されている。階層ごとの機能差は公開情報では Virtual Agent 単位では確認できず。[出典](https://www.servicenow.com/docs/r/delta-zurich-australia/australia-zurich-virtualagent-release-notes.html)
+- Virtual Agent API は「Virtual Agent と同様の Pro/Enterprise ライセンス」、Virtual Agent Bot Interconnect は「Virtual Agent と同様の Pro ライセンス」が必要と、それぞれの公式ページに明記されている。[出典](https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/virtual-agent-api-supported-versions-licensing.html)／[出典](https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/using-sn-va-primary-bot-api.html)
+- 一般には、フル機能の Virtual Agent は ITSM Pro 等の Pro/Enterprise パッケージに、Now Assist in Virtual Agent（現 ServiceNow Otto for Virtual Agent）は Pro Plus / Enterprise Plus（Now Assist for ITSM/HRSD/CSM 等）、または AI SKU（Foundation / Advanced / Prime）でも利用可能と説明されている。【第三者情報】[出典](https://www.servicenow.com/community/virtual-agent-nlu-articles/virtual-agent-faqs/ta-p/2349558)
+- Australia の Virtual Agent リリースノートには、AI のライセンス階層として **Foundation、Advanced、Prime** が記載されている。階層ごとの機能差は公開情報では Virtual Agent 単位では確認できず。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/qLjVpz4YhkTz49WHiXY6uA)
 - Microsoft Teams 連携で使用する Microsoft Teams Graph spoke は **IntegrationHub トランザクションを消費**する（後述）。
 
 詳細は [ライセンスモデル](../../03_導入編/01-licensing-model.md)、[エディション比較](../../03_導入編/03-edition-comparison.md)、[プラットフォームのパッケージ構成](./platform-licensing-packaging.md) を参照。
@@ -187,7 +201,7 @@ Virtual Agent は **Glide Virtual Agent** プラグイン（`com.glide.cs.chatbo
 |---|---|
 | Assistants | アシスタントの作成・管理・テスト（音声アシスタントは Assistant Designer 内でテスト不可） |
 | Asset library | Virtual Agent Designer のホーム。NLU/Keyword Topic と LLM アセットを作成 |
-| Testing | 会話アシスタントの品質・性能評価（自動評価） |
+| Testing | 会話アシスタントの品質・性能評価（手動テストまたは自動評価） |
 | Analytics | チャット・音声アシスタントのパフォーマンス監視 |
 | Conversations | 完了した音声対話のログ |
 
@@ -219,7 +233,7 @@ Asset library の各領域の機能は次のとおり。[出典](https://www.ser
 
 | 領域 | 主な機能 |
 |---|---|
-| 1. Navigation header bar | Assistants / Asset library / Analytics タブ。開いている Topic のタブ（ホバーで種類とスコープ表示、未保存変更は赤い点）。User preferences で「Group tabs by app scope」を切替 |
+| 1. Navigation header bar | Assistants / Asset library / Testing / Analytics（/ Conversations）タブ（出典の Topics ページは Assistants / Asset library / Analytics のみを挙げているが、Assistant Designer 全体の説明と画面では Testing 等もある）。開いている Topic のタブ（ホバーで種類とスコープ表示、未保存変更は赤い点）。User preferences で「Group tabs by app scope」を切替 |
 | 2. Topic list controls | **LLM / NLU/keyword 切替**。LLM 側：Select assistant、Test assistant（Standard / Enhanced / Premium chat でテスト）、Create asset、種類別ボタン。NLU/Keyword 側：Test active topics、Create topic |
 | 3. Topic records list | 既定列：Name、Type、Status（Draft / Published / Modified）、Active、Last modified、Description、Promoted in。行メニュー：Visibility（Promoted / Discoverable / Visible / Active）、Conversational Settings、Remove from assistant、Delete |
 | 4. Side panel | Pick up where you left off（直近3件）、Latest updates（直近5ユーザー）、Resources（ローカライズ分析、ドキュメント、**Migrate topics to LLM** 等） |
@@ -345,9 +359,11 @@ Workflow Studio 側の仕様は [Workflow Studio / Flow Designer](./flow-designe
 | AI Search fallback | AI Search Fallback | 一致 Topic がない／多すぎるときに AI Search 結果を返す |
 | Error | Error Handling Topic | 回復不能エラー時。エラーメッセージ表示後に Live Agent へ転送 |
 | Live agent | Live Agent Support | ユーザーが Live Agent を要求したとき |
-| Anything else | Anything Else Topic | タスク完了後に「他に何か」と尋ねる（新規インスタンスでは既定で無効） |
-| Survey | Virtual Agent Feedback | 会話の最後に満足度を取得。既定で会話の33%に表示（`com.glide.cs.survey.probability`、例 `0.50` で50%）。新規インスタンスでは既定で無効 |
+| Anything else | Anything Else Topic | タスク完了後に「他に何か」と尋ねる |
+| Survey | Virtual Agent Feedback | 会話の最後に満足度を取得。既定で会話の33%に表示（`com.glide.cs.survey.probability`、例 `0.50` で50%） |
 | Closing | Closing Conversation | 会話を終了するメッセージ |
+
+> Anything else と Survey が新規インスタンスで既定で有効か無効かは、公開情報では確認できず。なお、どの Setup topic もチャット体験（chat experience）に含めた場合にだけ利用できる。
 
 > チャット開始直後に Live Agent へ直接つなぎたい場合、Live Agent Support topic を Greeting に設定せず、システムメソッド（`vaSystem.connectToAgent()`）で転送することが推奨されている。[出典](https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/working-setup-topics.html)
 
@@ -559,11 +575,11 @@ LLM で可能になること（公式記載）：
 | 音声入力 | Premium chat で利用可（管理者がインスタンス単位で有効化、ユーザーも個別にオン/オフ）。Australia でプロフィール既定言語での文字起こし（非英語含む）に対応 |
 | AI Guardian | 有効時、不適切表現を含む依頼には再入力を促す |
 
-Australia で追加・変更されたその他の主な機能：プロンプトライブラリ（Premium chat 用プロンプトの作成・編集・削除、omnibar から利用）、Premium chat 利用可否のレディネスチェック、Branding でのパーソナライズ（トーン・応答長・ペルソナ）、Now Assist Panel - Platform アシスタントの既定を Premium chat に変更、MCP サーバーのアシスタントへの割当て、Portable chat widget（サードパーティサイトへの埋め込み）、Search sources に Include AI Responses 列（AI Search Admin console で編集）、Agentic support ページの非推奨化（既存アシスタントはすべて既定でエージェンティックモード）、「Prioritize AI agents during skills discovery」オプション（スキルが重なる場合に AI エージェントを KB や Q&A より優先）。[出典](https://www.servicenow.com/docs/r/delta-zurich-australia/australia-zurich-virtualagent-release-notes.html)
+Australia で追加・変更されたその他の主な機能：プロンプトライブラリ（Premium chat 用プロンプトの作成・編集・削除、omnibar から利用）、Premium chat 利用可否のレディネスチェック、Branding でのパーソナライズ（トーン・応答長・ペルソナ）、Now Assist Panel - Platform アシスタントの既定を Premium chat に変更、MCP サーバーのアシスタントへの割当て、Portable chat widget（サードパーティサイトへの埋め込み）、Search sources に Include AI Responses 列（AI Search Admin console で編集）、Agentic support ページの非推奨化（既存アシスタントはすべて既定でエージェンティックモード）、「Prioritize AI agents during skills discovery」オプション（スキルが重なる場合に AI エージェントを KB や Q&A より優先）。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/qLjVpz4YhkTz49WHiXY6uA)（Zurich→Australia 統合 Virtual Agent リリースノート）／[出典](https://www.servicenow.com/docs/r/delta-zurich-australia/australia-zurich-virtualagent-release-notes.html)
 
-> **注記:** 上記の一部（Live Agent 要求の取り消し、音声設定、Prioritize AI agents など）は Brazil の Virtual Agent リリースノートにも 2026 年 9〜10 月の項目として記載されている。ServiceNow Otto for Virtual Agent は ServiceNow Store の月次 AI リリースで更新されるため、同じ機能が Australia の累積リリースノートと Brazil のリリースノートの双方に現れていると考えられる。【推定】実際に利用できるかどうかは、インスタンスに導入済みの Store アプリのバージョンによる。
+> **注記:** 上記の一部（Live Agent 要求の取り消し、音声設定、Prioritize AI agents、Now LLM Service への Gemma 4 追加と旧モデルの新規開発での利用停止（KB3066214）など）は Brazil の Virtual Agent リリースノートにも 2026 年 9〜10 月の項目として記載されている。ServiceNow Otto for Virtual Agent は ServiceNow Store の月次 AI リリースで更新されるため、同じ機能が Australia の累積リリースノートと Brazil のリリースノートの双方に現れていると考えられる。【推定】実際に利用できるかどうかは、インスタンスに導入済みの Store アプリのバージョンによる。
 
-> **Brazil での変更:** 対象となる新規顧客では **Premium chat が既定かつ唯一のチャット体験** になる（アシスタントが Now LLM プロバイダーを使う場合は Premium chat を利用不可）。`sn_nowassist_va.assistant_personalization` プロパティは管理画面から削除され、ペルソナ・トーン・応答長のオプションは常に表示される。Now LLM Service に Gemma 4 が追加され、旧モデルは既存のスキル・エージェント・ワークフローでは引き続き使えるが、新規開発では使えなくなる（KB3066214）。Conversational Analytics プラグインは Assistant Analytics に置き換えられる予定。[出典](https://www.servicenow.com/docs/r/release-notes/virtual-agent-rn.html)
+> **Brazil での変更:** 対象となる新規顧客では **Premium chat が既定かつ唯一のチャット体験** になる（アシスタントが Now LLM プロバイダーを使う場合は Premium chat を利用不可）。`sn_nowassist_va.assistant_personalization` プロパティは管理画面から削除され、ペルソナ・トーン・応答長のオプションは常に表示される。Conversational Analytics プラグインは Assistant Analytics に置き換えられる予定。[出典](https://www.servicenow.com/docs/r/release-notes/virtual-agent-rn.html)
 
 Now Assist / AI Agents 全体、Now LLM Service、AI Control Tower 等は [Now Assist と AI Agents](./now-assist-ai-agents.md)、導入時の知見は [Now Assist / AI Agents 導入の知見](../../04_応用編/10-ai-adoption-lessons.md) を参照。
 
@@ -575,8 +591,10 @@ Conversational Interfaces は、ユーザーとエージェントがやり取り
 
 | 種類 | 主なチャネル |
 |---|---|
-| Chat channels（同期） | Service Portal（mweb）チャットウィジェット、Mobile web（mweb）クライアント、Microsoft Teams、Slack、Workplace from Facebook、Alexa、WhatsApp（Twilio）、LINE、Facebook Messenger |
+| Chat channels（同期） | Service Portal（mweb）チャットウィジェット、Mobile web（mweb）クライアント、Microsoft Teams、Slack、Google Chat（Google Workspace、Zurich で追加）、Workplace by Facebook（※）、Alexa、WhatsApp（Twilio）、LINE、Facebook Messenger |
 | Messaging channels（非同期） | Mobile web（mweb）クライアント（iOS/Android/デスクトップ）、ServiceNow Otto panel、SMS（Twilio） |
+
+※ Workplace by Facebook（Workplace from Meta）は、Meta が 2025-09-01 から読み取り専用とし、2026-06-01 にサービスを終了した。ServiceNow のドキュメントには連携が残っているが、本ナレッジ基準日（2026-11）時点では実際には利用できない。【第三者情報】（Meta の公式告知）[出典](https://forwork.meta.com/meta-workplace/)
 
 - Live Agent サポートはチャネルごとに既定で有効。Bot-to-Bot や音声チャネルなどで無効にするには、チャネルの Channel Properties 関連リストに `disable_live_agent` プロパティを追加する。
 - チャネル共通機能：未読メッセージ表示（最大50件まで閲覧）、入力中インジケーター、システムメッセージ、機密データのマスキング、アイドル会話の自動クローズ。
@@ -593,7 +611,8 @@ Conversational Interfaces は、ユーザーとエージェントがやり取り
 | SMS / Twilio | ○ | × |
 | IVR with Amazon Connect | ○ | × |
 | AWS End User Messaging（`sn_sms_aws_adapter`） | ○ | × |
-| Workplace by Facebook | × | × |
+| Google Chat（Google Workspace、Zurich で追加） | 公開情報では確認できず | 公開情報では確認できず |
+| Workplace by Facebook（Meta が 2026-06 に提供終了【第三者情報】） | × | × |
 | Facebook Messenger | × | × |
 | Apple Messages for Business | × | × |
 | LINE | × | × |
@@ -621,10 +640,10 @@ Conversational Interfaces は、ユーザーとエージェントがやり取り
 | インストール | `admin` ロールで Store から `sn_va_teams` をインストール。インストール後に Add Integrations メニューが表示される |
 | 連携手順 | `All > Conversational Interfaces > Settings` → General Settings の Channels and integrations で View All → Microsoft Teams タイル → Add Integrations → **Integrate with ServiceNow Virtual Agent** → Teams アカウントでログイン → アプリ権限を承諾 → バックグラウンドインストール完了後「Go to Microsoft Teams」 |
 | 必要ロール | `virtual_agent_admin` または `admin`。アプリ権限の一括承諾（管理者同意）には Microsoft 側の Application Administrator または Global Administrator |
-| 制約 | **1つの Teams テナントは同時に1つのインスタンスにしか関連付けられない**。別インスタンスに付け替える場合は旧インスタンスでアンインストールが必要（Tokyo 以降は管理者への連絡が必要） |
+| 制約 | **1つの Teams テナントは同時に1つのインスタンスにしか関連付けられない**。既に別インスタンスに関連付け済みの Teams テナントを付け替える場合、（Tokyo 以降は）管理者に依頼して旧インスタンスからアンインストールしてもらう必要がある |
 | ボットの種類 | ServiceNow 提供の **Now Virtual Agent** production bot（自動更新）と **Self-configured bot**（自社でボットを作成。変更時はマニフェストを再アップロード） |
 | IntegrationHub | **Microsoft Teams Graph spoke は IntegrationHub トランザクションを消費**するため、Teams での Virtual Agent 利用は IntegrationHub トランザクションにカウントされる。Microsoft 側の Teams API 利用も Microsoft 365 サブスクリプション側で課金対象になり得る |
-| 特殊環境 | GCC 環境は self-configured bot、Australia SPP（ServiceNow Protected Platform）環境は専用手順（GCC-H / DoD 向けのボット作成・制約ページあり） |
+| 特殊環境 | SPP（ServiceNow Protected Platform）環境：Tokyo 以降、商用／SPP のボット種別はインストール時に自動判定される。GCC 環境は self-configured bot を使う（GCC-H / DoD 向けのボット作成・制約ページあり） |
 | 非対応機能 | Connect Support、Geo-location topic block |
 
 [出典](https://www.servicenow.com/docs/r/BfFhnVBqpVWNfzvxxnpNzw/6DoDpVpMURCTP1YiJ7lI0A)（Australia 版「Integrate ServiceNow Virtual Agent with Microsoft Teams」）／[出典](https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/limited-features-msteams.html)
@@ -633,7 +652,7 @@ Teams 連携の構成項目（Australia 版ドキュメントの目次より）�
 
 **Microsoft Copilot 連携**：Zurich で、従来の Microsoft Bot Framework に代わり **Custom Engine Agent（CEA）** による Copilot 連携が導入された。手順は、Copilot 用の self-configured bot を作成 → `All > Conversational Interfaces > Assistant Designer` の Assistants タブで ServiceNow Otto for Virtual Agent (default) を Edit → Review display experiences → Channels タブでボットを選択 → `Channels and Integrations` の Microsoft Teams > Manage でボットの Edit configuration から **Copilot** を選択 → マニフェスト zip をダウンロードして Teams にアップロード（これにより Copilot の CEA が有効化）。ロールは `admin` または `virtual_agent_admin`。[出典](https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/activate-na-va-msteams.html)／[出典](https://www.servicenow.com/docs/r/delta-zurich-australia/australia-zurich-virtualagent-release-notes.html)
 
-> Premium chat を Teams で使う場合はテキストベースの応答が表示され、Standard chat ではアダプティブカード（文脈に応じたカード）が使われる。Premium chat の Teams では引用がクリック可能で、出典が下部に表示される。[出典](https://www.servicenow.com/docs/r/australia/conversational-interfaces/now-assist-in-virtual-agent/nava-integrated-chat.html)
+> Microsoft Teams の Premium chat では、ServiceNow Otto for Virtual Agent の合成応答（synthesized response）の引用がクリック可能で、記事・レコード・カタログアイテムに直接リンクし、出典はメッセージ下部に引用と並べて表示される。Standard chat では引用はクリックできず、メッセージ下部の出典一覧を参照する形になる。[出典](https://www.servicenow.com/docs/r/australia/conversational-interfaces/now-assist-in-virtual-agent/nava-integrated-chat.html)
 
 なお、Teams / Slack と ServiceNow のレコード単位のコラボレーション（エージェント同士の会話）は **Sidebar** 機能で扱われ、Virtual Agent とは別機能である。
 
@@ -659,7 +678,7 @@ Slack 連携の構成項目：Virtual Agent settings for Slack（通知、ユー
 
 ### Virtual Agent Bot Interconnect
 
-**Virtual Agent Bot Interconnect** は、ServiceNow Virtual Agent を **Primary bot（主ボット）** として、Google Dialogflow、Microsoft Power Virtual Agents、他インスタンスの ServiceNow Virtual Agent などを **Secondary bot（副ボット）** にまとめ、統一されたチャット体験を提供する Store アプリである（Pro ライセンスが必要）。[出典](https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/using-sn-va-primary-bot-api.html)
+**Virtual Agent Bot Interconnect** は、ServiceNow Virtual Agent を **Primary bot（主ボット）** として、Google Dialogflow、Microsoft Power Virtual Agents、他インスタンスの ServiceNow Virtual Agent などを **Secondary bot（副ボット）** にまとめ、統一されたチャット体験を提供する Store アプリである（Virtual Agent と同様の Pro ライセンスが必要）。[出典](https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/using-sn-va-primary-bot-api.html)
 
 - 認証とアカウント連携、Primary/Secondary を横断した Intent discovery、LLM Topic 会話に対応。会話は一度に1つのボットとのみ行う。
 - 応答は翻訳されない（ユーザー言語を Secondary bot に渡し、その言語で返すことを期待する）。
@@ -792,7 +811,6 @@ Workspace 側の仕様は [Workspace と UI Builder](./workspaces-ui-builder.md)
 | チャネル別設定 | `sys_cs_channel`（Messaging Channels）の **Conversation Idle Timeout** フィールドで全体設定を上書き |
 | ジョブの変更 | `All > System Definition > Scheduled Jobs` で Time Out Abandoned VA Conversations を編集 |
 | 終了発話 | NLU/Keyword では End Conversations インテント（「Bye」「Exit」等）で Closing topic。LLM でも同様 |
-| Live Agent のアイドル | Live Agent 会話で要求者が応答しない場合、既定で6分でクローズ |
 
 ### Interaction レコードと会話データ
 
@@ -801,7 +819,7 @@ Virtual Agent の会話ごとに **`interaction`**（Interactions）テーブル
 | 主要フィールド | 説明 |
 |---|---|
 | Type | Virtual Agent の会話は `Chat` |
-| State | `In Progress`、`Closed Complete`、`Closed Abandoned`（ほかに `Faulted`） |
+| State | `In Progress`、`Closed Complete`、`Closed Abandoned` |
 | State Reason | Left Before Engagement、No Activity、User Ended、Auto Closed、No User Response、Topic Complete、Left for search、Agent Ended、Error |
 | Virtual agent / Agent chat | Virtual Agent の会話か／Agent Chat に転送されたか（true/false） |
 | Assigned to | 対応者（Live Agent 名または Virtual Agent） |
@@ -810,7 +828,7 @@ Virtual Agent の会話ごとに **`interaction`**（Interactions）テーブル
 | Transcript | 会話ログ。ライブチャットで4000文字を超える場合は添付ファイルとして保存 |
 | Agent average response time | エージェントの平均応答時間 |
 
-- 会話中に作成・更新されたケース・インシデント・リクエストは Related Tasks に自動で関連付けられる（関連付けには Record Action 等のユーティリティや `vaSystem.attachRecordToConversation` を使う）。
+- 会話中に作成・更新したケース・インシデント・リクエストを Related Tasks（関連タスク）に関連付けるには、Topic 側でそのように設計する必要がある。方法は、レコードの作成・更新に **Action utility** を使う、参照に **Lookup utility** を使う、または `vaSystem.attachRecordToConversation(tableName, sysId)` を呼び出す、のいずれかである。**Script Action utility** で作成・更新したレコードは Related Tasks として記録されない。[出典](https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/va-interactions.html)
 - Interaction Logs タブには、会話中に実行されたすべての Topic（Setup topic を含む）が実行順に表示される。
 
 Virtual Agent の主なテーブル：[出典](https://www.servicenow.com/docs/r/conversational-interfaces/virtual-agent/va-components.html)
@@ -855,12 +873,14 @@ Virtual Agent の主なテーブル：[出典](https://www.servicenow.com/docs/r
 | リリース | 主な変更 |
 |---|---|
 | Zurich | Assistant Designer の導入（Assistants / Asset library / Analytics）。アシスタント会話の自動評価。Google Workspace（Google Chat）連携。AI Connector utility で AI エージェントを選択可能。Microsoft Copilot 連携を Custom Engine Agent（CEA）に移行。Coral テーマを新規ポータル・Web・モバイルの既定に（ダークテーマあり）。Table bot response に「Show links for each record」。Sensitive Data Handler / Sensitive Data Masking は将来の非推奨化準備（Data Privacy へ移行）。Microsoft LUIS はサポート対象外 |
-| Australia | Premium chat の拡充（プロンプトライブラリ、ドキュメント表示、ファイルアップロード 10ファイル/50MB、音声入力、組織図 UI 刷新、レディネスチェック）。Live Agent 要求の取り消し、推定待ち時間、エージェント参加・退出表示。Portable chat widget。MCP サーバーのアシスタントへの割当て。Employee Slate 既定アシスタント。Personalization（トーン・応答長・ペルソナ）。Agentic support ページの非推奨化（全アシスタントが既定でエージェンティック）。Now LLM Service への Gemma 4 追加と旧モデルの新規開発での利用停止（2026年9月リリース以降、KB3066214） |
+| Australia | Premium chat の拡充（プロンプトライブラリ、ドキュメント表示、ファイルアップロード 10ファイル/50MB、音声入力、組織図 UI 刷新、レディネスチェック）。Live Agent 要求の取り消し、推定待ち時間、エージェント参加・退出表示。Portable chat widget。MCP サーバーのアシスタントへの割当て。Employee Slate 既定アシスタント。Personalization（トーン・応答長・ペルソナ）。Agentic support ページの非推奨化（全アシスタントが既定でエージェンティック）。Now LLM Service への Gemma 4 追加と旧モデルの新規開発での利用停止（2026年9月の月次 AI リリース以降、KB3066214。Brazil のリリースノートにも同じ項目あり） |
 | Brazil（2026-09 EA） | 対象の新規顧客で Premium chat が既定かつ唯一の体験。Virtual Agent for NLU / Virtual Agent Lite、Alexa / Amazon Connect IVR / IBM Watson 連携の非推奨化準備。Conversational Analytics → Assistant Analytics。NLU 機能の LLM への移行 |
 
-[出典](https://www.servicenow.com/docs/r/delta-zurich-australia/australia-zurich-virtualagent-release-notes.html)／[出典](https://www.servicenow.com/docs/r/release-notes/virtual-agent-rn.html)
+[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/qLjVpz4YhkTz49WHiXY6uA)（Zurich→Australia 統合 Virtual Agent リリースノート。Australia 行の内容を裏付ける）／[出典](https://www.servicenow.com/docs/r/delta-zurich-australia/australia-zurich-virtualagent-release-notes.html)／[出典](https://www.servicenow.com/docs/r/release-notes/virtual-agent-rn.html)
 
-> **出典間の不一致:** Zurich→Brazil の差分リリースノート（delta-zurich-brazil）は、取得時点で Virtual Agent について「No updates for this release」と表示した。一方、Brazil 版の Virtual Agent リリースノートには上記の非推奨化や新機能が記載されている。本ファイルでは、内容が具体的な Brazil 版 Virtual Agent リリースノートを採用した。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-virtualagent-release-notes.html)
+> **出典間の不一致:** delta-zurich-australia 版の Virtual Agent リリースノートは、Australia の多くの項目について「No updates for this release」と表示する。Australia 行の記述は、内容が具体的な統合リリースノート（m4LmCVvkm6_8u3nlIuep5Q/qLjVpz4YhkTz49WHiXY6uA）に基づく。
+
+> **出典間の不一致（Brazil）:** Zurich→Brazil の差分リリースノート（delta-zurich-brazil）は、取得時点で Virtual Agent について「No updates for this release」と表示した。一方、Brazil 版の Virtual Agent リリースノートには上記の非推奨化や新機能が記載されている。本ファイルでは、内容が具体的な Brazil 版 Virtual Agent リリースノートを採用した。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-virtualagent-release-notes.html)
 
 ## 設計・運用上の留意点
 
@@ -881,7 +901,7 @@ Virtual Agent の主なテーブル：[出典](https://www.servicenow.com/docs/r
 
 - Australia 版の Agent Chat 設定ページ（Setting up Agent Chat）の内容（Zurich 版で代替）。
 - Virtual Agent API の Australia 対応バージョン番号。
-- ライセンス階層 Foundation / Advanced / Prime ごとの Virtual Agent・ServiceNow Otto for Virtual Agent の機能差。
+- AI SKU の階層 Foundation / Advanced / Prime ごとの、ServiceNow Otto for Virtual Agent の機能差（どの階層でも利用可能とする第三者情報はある）。
 - Promoted topics の Web / モバイル以外（Teams / Slack）での表示数上限（Teams / Slack には個別の Promoted topics 設定ページがある）。
 - Brazil の正式 GA 日付と、Brazil で Virtual Agent / Assistant Designer の UI 名称がさらに変わるかどうか。
 
@@ -911,7 +931,7 @@ Virtual Agent の主なテーブル：[出典](https://www.servicenow.com/docs/r
 - Virtual Agent Lite（Australia）: https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/va-lite.html
 - Exploring Conversational Interfaces Console（Australia）: https://www.servicenow.com/docs/r/australia/conversational-interfaces/exploring-ci.html
 - Channels in Conversational Interfaces（Australia）: https://www.servicenow.com/docs/r/australia/conversational-interfaces/ci-channels-overview.html
-- Integrating Virtual Agent with messaging apps（Australia）: https://www.servicenow.com/docs/r/BfFhnVBqpVWNfzvxxnpNzw/eYn0beX_CQLOgHdD3uqHuA
+- Integrating Virtual Agent with messaging apps（Australia）: https://www.servicenow.com/docs/r/BfFhnVBqpVWNfzvxxnpNzw/eYn0beX_CQLOgHdD3uqHuA , https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/va-integration-messaging-apps.html
 - Conversational Integration with Microsoft Teams（Australia）: https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/teams-conv-integration.html
 - Integrate ServiceNow Virtual Agent with Microsoft Teams（Australia）: https://www.servicenow.com/docs/r/BfFhnVBqpVWNfzvxxnpNzw/6DoDpVpMURCTP1YiJ7lI0A
 - Activate ServiceNow Otto for Virtual Agent for Microsoft Teams（Australia）: https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/activate-na-va-msteams.html
@@ -931,9 +951,12 @@ Virtual Agent の主なテーブル：[出典](https://www.servicenow.com/docs/r
 - Supported versions and licensing requirements in Virtual Agent API（Australia）: https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/virtual-agent-api-supported-versions-licensing.html
 - Domain separation and Virtual Agent（Australia）: https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/domain-separation-virtual-agent.html
 - Combined Virtual Agent release notes for upgrades from Zurich to Australia: https://www.servicenow.com/docs/r/delta-zurich-australia/australia-zurich-virtualagent-release-notes.html
+- Combined Virtual Agent release notes, Zurich to Australia（統合版、Australia 行の主な根拠）: https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/qLjVpz4YhkTz49WHiXY6uA
 - Virtual Agent release notes（Brazil）: https://www.servicenow.com/docs/r/release-notes/virtual-agent-rn.html
 - Brazil–Zurich Virtual Agent delta release notes: https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-virtualagent-release-notes.html
 - ServiceNow Community, "Otto vs Now Assist: what actually changed"（2026-09-04）: https://www.servicenow.com/community/developer-advocate-blog/otto-vs-now-assist-what-actually-changed/ba-p/3594171
+- ServiceNow Press Release, "ServiceNow Otto creates the unified AI experience for the enterprise"（2026-05-05）: https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-Otto-creates-the-unified-AI-experience-for-the-enterprise/default.aspx
+- Meta, Workplace の提供終了告知【第三者情報】: https://forwork.meta.com/meta-workplace/
 - ServiceNow Community, Virtual Agent FAQs【第三者情報】: https://www.servicenow.com/community/virtual-agent-nlu-articles/virtual-agent-faqs/ta-p/2349558
 - ServiceNow Community フォーラム（Bot Interconnect のコンテキスト変数）【第三者情報】: https://www.servicenow.com/community/virtual-agent-nlu-forum/bot-interconnect-does-not-send-context-variables-when-the/m-p/3412467
 - ServiceNow Community フォーラム（Agent Chat に必要なロール）【第三者情報】: https://www.servicenow.com/community/hrsd-forum/always-displays-no-chat-agents-currently-available-in-the-chat/m-p/1322369/page/3

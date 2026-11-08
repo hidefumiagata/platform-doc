@@ -8,6 +8,8 @@ summary: ServiceNow のサーバーサイドスクリプト実行ポイント（
 keywords: [server-side scripting, サーバーサイドスクリプト, business rule, ビジネスルール, sys_script, script include, スクリプトインクルード, sys_script_include, GlideAjax, AbstractAjaxProcessor, scheduled job, スケジュールジョブ, sysauto_script, fix script, フィックススクリプト, sys_script_fix, background script, バックグラウンドスクリプト, GlideRecord, GlideRecordSecure, GlideAggregate, GlideSystem, gs, GlideElement, GlideDateTime, GlideQuery, scoped API, スコープ, cross-scope privilege, restricted caller access, ES12, ECMAScript 2021, g_scratchpad, current, previous, rollback]
 sources:
   - https://www.servicenow.com/docs/r/api-reference/business-rules-classic/c_BusinessRules.html
+  - https://www.servicenow.com/docs/r/australia/api-reference/scripts/r_ExecutionOrderScriptsAndEngines.html
+  - https://www.servicenow.com/docs/r/api-reference/scripts/c_ScriptsBackground.html
   - https://www.servicenow.com/docs/r/glNBsgieVJ9MunSJGk6joA/rM6z15ZSd8bt5MmChE9KHQ?section=c_UsingPredefinedGlobalVariables
   - https://www.servicenow.com/docs/r/application-development/business-rules-and-script-includes.html
   - https://www.servicenow.com/docs/r/api-reference/scripts/c_ScriptIncludes.html
@@ -83,7 +85,7 @@ Business Rule（ビジネスルール）は、**サーバー側の条件が満�
 - メニュー：**All > System Definition > Business Rules**、新規作成は **New**。[出典](https://www.servicenow.com/docs/r/glNBsgieVJ9MunSJGk6joA/rM6z15ZSd8bt5MmChE9KHQ?section=c_UsingPredefinedGlobalVariables)
 - Business Rule は **GlideRecord API 経由の操作に対してのみ**実行される。`setWorkflow(false)` を指定した操作では Business Rule は実行されない。[出典](https://www.servicenow.com/docs/r/api-reference/business-rules-classic/c_BusinessRules.html)
 - Business Rule は**明示的に構成しない限り ACL を強制しない**（KB0656366 参照）。[出典](https://www.servicenow.com/docs/r/api-reference/business-rules-classic/c_BusinessRules.html)
-- Business Rule は ServiceNow SDK（ServiceNow Fluent）の `BusinessRule` API でもコードとして定義できる（`when` の既定値は `before`、`order` の既定値は `100`）。[出典](https://www.servicenow.com/docs/r/zurich/application-development/servicenow-sdk/business-rule-api-now-ts.html)
+- Business Rule は ServiceNow SDK（ServiceNow Fluent）の `BusinessRule` API でもコードとして定義できる（`when` の既定値は `before`、`order` の既定値は `100`）。[出典](https://www.servicenow.com/docs/r/australia/application-development/servicenow-sdk/business-rule-api-now-ts.html)
 
 ### When（実行タイミング）の4種類
 
@@ -167,7 +169,7 @@ sequenceDiagram
 | ヘッダー | Active（有効） | 有効/無効 |
 | ヘッダー | Advanced（詳細） | 詳細フォームビューの表示 |
 | When to run タブ | When | before / after / async / display |
-| When to run タブ | Order（順序） | 同一操作に複数ルールがある場合、**小さい順**に実行（既定 100） |
+| When to run タブ | Order（順序） | 同一操作に複数ルールがある場合、**小さい順**に実行。既定値 100（ServiceNow Fluent の `BusinessRule` API の既定値。Classic Business rules のページには既定値の明記なし。フォームの初期値も通常 100【経験則】）。1000 を境にエンジンとの前後関係が変わる（後述） |
 | When to run タブ | Insert / Update / Delete / Query | 対象操作（Delete と Query は Advanced 項目） |
 | When to run タブ | Filter Conditions（フィルター条件） | 条件ビルダーでフィールド値の条件を指定。**文字列比較は大文字小文字を区別** |
 | When to run タブ | Role conditions（ロール条件） | ルール実行に必要なユーザーのロール |
@@ -180,7 +182,7 @@ sequenceDiagram
 
 [出典](https://www.servicenow.com/docs/r/glNBsgieVJ9MunSJGk6joA/rM6z15ZSd8bt5MmChE9KHQ?section=c_UsingPredefinedGlobalVariables)
 
-- **Order と エンジンの関係**：Order が 1000 未満のルールはワークフロー等のエンジンより前、1000 以上のルールはエンジンより後に実行されると説明されることが多い。【第三者情報】[出典](https://www.jitendrazaa.com/blog/servicenow/servicenow-business-rules-complete-developer-guide-2025/)
+- **Order と エンジンの関係**：Order が **1000 未満**の before/after ルールは各エンジン（Assignment rules、Approval engine、Data policy 等）より**前**に、**1000 以上**のルールはエンジンより**後**に実行される。ServiceNow 公式の「Execution order of scripts and engines」がこの順序を定めている（下記「スクリプトとエンジンの実行順序」を参照）。[出典](https://www.servicenow.com/docs/r/australia/api-reference/scripts/r_ExecutionOrderScriptsAndEngines.html)
 - **Filter Conditions と Advanced Condition の評価順**：コミュニティでは「Filter Conditions が先に評価される」とする記事と、逆の回答が混在しており、公式ドキュメントでは明記を確認できなかった。【第三者情報】[出典](https://www.servicenow.com/community/developer-blog/business-rules-filter-conditions-amp-advanced-conditions/ba-p/3386285)
 - ServiceNow SDK のガイドは、スクリプト内のガード節よりも Filter Conditions（`filterCondition`）で発火条件を絞ることを推奨している（スクリプトのロード前に評価されるため）。[出典](https://servicenow.github.io/sdk/guides/business-rule-guide)
 
@@ -203,6 +205,39 @@ sequenceDiagram
 **図3：Business Rule フォーム ― Advanced タブ**
 画面説明：Advanced タブを開いた状態。Condition（1行テキスト）と Script（コードエディタ、ツールバー付き）の2項目がある。Script には既定テンプレート `(function executeRule(current, previous /*null when async*/) { ... })(current, previous);` が表示され、本文に `current.short_description="Test";` が書かれている。
 出典：https://www.jitendrazaa.com/blog/servicenow/servicenow-business-rules-complete-developer-guide-2025/ （取得日：2026-11-03）【第三者情報】
+
+### スクリプトとエンジンの実行順序（Execution order of scripts and engines）
+
+ServiceNow 公式ドキュメント「Execution order of scripts and engines」（Australia 版、2026-03-12 更新）は、レコードの insert / update / delete 時のスクリプトとエンジンの実行順序を次のように定めている。Brazil 版（2026-09-10 更新）も同じ順序である。[出典](https://www.servicenow.com/docs/r/australia/api-reference/scripts/r_ExecutionOrderScriptsAndEngines.html) / [出典](https://www.servicenow.com/docs/r/api-reference/scripts/r_ExecutionOrderScriptsAndEngines.html)
+
+| 順 | 処理 | 内容 |
+|---|---|---|
+| 0 | Client-side code（Client Script / UI Policy） | ブラウザ上でフォーム送信の**前**に実行 |
+| 1 | before Business Rules（Order **< 1000**） | DB 操作前に実行するルール |
+| 2 | before engines（順序不定） | Approval engine、Assignment rules engine、Escalation engine、Data policy engine、Field normalization engine、Role engine（`sys_user_has_role` との同期）、Execution plan engine、Update version engine、Data lookup engine、Workflow engine（default workflows） |
+| 3 | before Business Rules（Order **>= 1000**） | DB 操作前に実行するルール |
+| 4 | Database operation | insert / update / delete の実行 |
+| 5 | after Business Rules（Order **< 1000**） | DB 操作後に実行するルール |
+| 6 | after engines（順序不定） | Label engine、Listener engine、Table notifications engine、Role engine、Text indexing engine、Update sync engine、Workflow engine（deferred workflows）、Trigger engine（すべての Workflow Studio フロー） |
+| 7 | Email notifications（notification weight 順） | insert/update/delete 契機の通知、イベント契機の通知 |
+| 8 | after Business Rules（Order **>= 1000**、active records only） | DB 操作後に実行するルール |
+| — | async Business Rules | フォーム送信後、スケジューラーが該当ジョブを実行したとき |
+
+```mermaid
+flowchart TD
+    C[Client Script / UI Policy<br>ブラウザで送信前] --> B1[before BR<br>Order &lt; 1000]
+    B1 --> E1[before engines<br>Approval / Assignment / Data policy ほか]
+    E1 --> B2[before BR<br>Order &gt;= 1000]
+    B2 --> DB[(Database operation)]
+    DB --> A1[after BR<br>Order &lt; 1000]
+    A1 --> E2[after engines<br>Text indexing / Workflow / Flow trigger ほか]
+    E2 --> N[Email notifications]
+    N --> A2[after BR<br>Order &gt;= 1000]
+    DB -.-> AS[async BR<br>スケジューラー実行]
+```
+
+- 実務上の含意：Assignment rules で設定された `assignment_group` を before ルールで参照・上書きしたい場合は Order を 1000 以上にする必要がある、といった判断にこの順序を使う。【経験則】
+- Flow（Workflow Studio）のトリガーは after engines 内の Trigger engine で評価されるため、after ルール（Order < 1000）より後になる。[出典](https://www.servicenow.com/docs/r/australia/api-reference/scripts/r_ExecutionOrderScriptsAndEngines.html)
 
 ### Business Rule で使えるグローバル変数
 
@@ -243,8 +278,8 @@ sequenceDiagram
 
 - すべての Business Rule は、プライベートアプリケーションスコープまたはグローバルスコープのいずれかに属する。
 - **他スコープのテーブル**に対する Business Rule には制限がある。
-  - before ルール：**Actions のみ**使用可能。スクリプトを含めることも、トランザクションを中止することもできない。
-  - async ルール：Actions とスクリプトを使用可能。
+  - before ルール：**Actions のみ**使用可能。スクリプトを含めることも、トランザクションを中止することもできない。データベース操作は Insert / Update / Delete のみ（Query は選択不可）。
+  - async ルール：Actions とスクリプトを使用可能。データベース操作は Insert / Update / Delete のみ（Query は選択不可）。
   - それ以外のタイプ（after、display 等）は他スコープのテーブルには作成できない。
 - **Global Business Rule**（特定テーブルに紐づかないルール）は Accessible from（This application scope only / All application scopes）で呼び出し可能スコープを制御する。Global Business Rule は**ドメインセパレーションをサポートしない**。
 - Global Business Rule はシステム内の**全ページで読み込まれる**ため、再利用ロジックには必要時のみ読み込まれる Script Include を使うことが推奨される。
@@ -295,7 +330,7 @@ Script Include（スクリプトインクルード）は、**再利用可能な�
 
 [出典](https://www.servicenow.com/docs/r/api-reference/scripts/c_ScriptIncludes.html)
 
-- ServiceNow Fluent（SDK）では `accessibleFrom` プロパティが対応し、`public`（全スコープ）/ `package_private`（同一スコープのみ、**既定値**）を取る。`clientCallable` の既定値は `false`。[出典](https://www.servicenow.com/docs/r/zurich/application-development/servicenow-sdk/fluent-script-include-api.html)
+- ServiceNow Fluent（SDK）では `accessibleFrom` プロパティが対応し、`public`（全スコープ）/ `package_private`（同一スコープのみ、**既定値**）を取る。`clientCallable` の既定値は `false`。[出典](https://www.servicenow.com/docs/r/australia/application-development/servicenow-sdk/fluent-script-include-api.html)
 - Discovery 関連の Script Include（GlideRecordUtil、DiscoveryException、AutomationException）の書き込みには `discovery_admin` ロールが必要。[出典](https://www.servicenow.com/docs/r/api-reference/scripts/c_ScriptIncludes.html)
 
 ### Script Include の種類
@@ -388,7 +423,7 @@ UserInfoAjax.prototype = Object.extendsObject(AbstractAjaxProcessor, {
 
 Scheduled Script Execution（スケジュールされたスクリプト実行、通称 Scheduled Job）は、**指定時刻または定期的にサーバーサイドスクリプトを実行する**レコードである。格納テーブルは `sysauto_script`。[出典](https://www.servicenow.com/docs/r/pt-BR/application-development/servicenow-sdk/fluent-scheduled-script-api.html)
 
-- メニュー：一般に **All > System Definition > Scheduled Jobs** から一覧し、New で「Automatically run a script of your choosing」を選んで作成する。【経験則】（作成手順は旧リリース文書 [出典](https://docs.servicenow.com/bundle/madrid-platform-administration/page/administer/reference-pages/task/t_ScheduleAScriptExecution.html)）
+- メニュー：**All > System Definition > Scheduled Jobs** を開き、**New** →「**Automatically run a script of your choosing**」を選んでフォームを入力する。保存は Update、即時実行は **Execute Now**。Domain Separation 導入インスタンスではドメイン関連フィールドも表示される。[出典](https://www.servicenow.com/docs/r/platform-administration/time-configuration/t_ScheduleAScriptExecution.html)（Brazil 版 2026-09-10 更新で確認。Australia でも同じ手順）
 - 実行時のジョブはスケジューラーのトリガー（`sys_trigger`）として登録される。【経験則】
 
 ### Scheduled Script Execution フォームのフィールド
@@ -405,7 +440,7 @@ Scheduled Script Execution（スケジュールされたスクリプト実行、
 | Offset Type / Offset | Past（期間前）/ Future（期間後）/ None と、日時分秒のオフセット |
 | Time | 実行時刻（24時間制）。Daily / Weekly / Monthly |
 | Starting | 初回実行日時。Periodically |
-| Priority | 数値。**100 未満は essential、100 超は nonessential** |
+| Priority | 数値。公式は「essential なジョブは 100 未満、nonessential なジョブは 100 超に設定する」としている。**値がちょうど 100（既定値）の場合の扱いは公式に明記がなく、公開情報では確認できず** |
 | Run as | ジョブを作成・実行するユーザー。システム所有にしたい場合はシステム用（ダミー）ユーザーを指定 |
 | Conditional | 条件付き実行を有効化 |
 | Condition | Conditional オン時に表示。**最後の式が true/false に評価されるスクリプト** |
@@ -419,7 +454,7 @@ Scheduled Script Execution（スケジュールされたスクリプト実行、
 | Monthly | 毎月指定日・時刻 |
 | Periodically | Starting から Repeat Interval ごと |
 | Once | 1回のみ |
-| On Demand | 要求時に即時実行（`gs.executeNow()` 等。フォームの Execute Now ボタン【経験則】） |
+| On Demand | 要求時に即時実行（`gs.executeNow()` 等。フォームの Execute Now ボタンでも即時実行可能 [出典](https://www.servicenow.com/docs/r/platform-administration/time-configuration/t_ScheduleAScriptExecution.html)） |
 | Business Calendar: Entry Start | Business Calendar エントリの開始日 |
 | Business Calendar: Entry End | Business Calendar エントリの終了日 |
 
@@ -447,7 +482,7 @@ ga.query();
 ga.next() && parseInt(ga.getAggregate('COUNT'), 10) > 0; // 最後の式が Boolean
 ```
 
-（Condition の「30日以上前のアクティブインシデントがある場合のみ実行」という例は公式文書の例に基づく。[出典](https://docs.servicenow.com/bundle/madrid-platform-administration/page/administer/reference-pages/task/t_ScheduleAScriptExecution.html)）
+（Condition の「30日以上前のアクティブインシデントがある場合のみ実行」という例は、旧リリース（Madrid）の公式文書にあった例に基づく補足。[出典](https://docs.servicenow.com/bundle/madrid-platform-administration/page/administer/reference-pages/task/t_ScheduleAScriptExecution.html)）
 
 ---
 
@@ -491,10 +526,18 @@ Fix Script（フィックススクリプト）は、**アプリケーション�
 
 ### Scripts - Background の定義
 
-Scripts - Background（バックグラウンドスクリプト）は、**管理者が任意のサーバーサイドスクリプトをその場で実行するためのモジュール**である。定義レコードは残らず、アップデートセットにも記録されない。
+Scripts - Background（バックグラウンドスクリプト）は、**管理者が任意のサーバーサイド JavaScript をその場で実行するためのモジュール**である。公式は「自由形式の JavaScript の実行はシステム障害やデータ損失を招きうるため、本番インスタンスでは実行しないこと」と警告している。[出典](https://www.servicenow.com/docs/r/api-reference/scripts/c_ScriptsBackground.html)
 
-- メニュー：**All > System Definition > Scripts - Background**【経験則】
-- 実行時に実行スコープ（in scope）の選択と **Record for Rollback?** チェックボックスがある。Record for Rollback? をオンにして実行するとロールバックコンテキストが作成され、そのスクリプトの DB 操作をロールバックできる。[出典](https://www.servicenow.com/docs/r/platform-administration/table-administration-and-data-management/rollback-delete-recovery.html)
+- **アップデートセットとの関係**：スクリプト本文はレコードとして保存されず、アップデートセットにも入らない（実行履歴のみ Script Execution History に残る）。**ただし、スクリプトが更新トラッキング対象（update-tracked）のレコード**（Business Rule、システムプロパティ、選択肢、Dictionary などの設定系レコード）**を変更した場合、その変更は通常の操作と同様に Customer Update（`sys_update_xml`）として現在のアップデートセットに記録される**。更新トラッキングはテーブル単位で決まり、変更の経路（フォームかスクリプトか）では区別されない。「Background Script で変更すればアップデートセットは汚れない」わけではない点に注意する。【経験則】（更新トラッキングの仕組みは公式「System update sets」[出典](https://www.servicenow.com/docs/r/SmYvGPN0OygSQs53fsexIQ/ZQ_8X~7qlkF6pxE1QX5AvA)（Yokohama 版）、詳細は [アップデートセットとクローン](./update-sets-cloning.md)）
+- メニュー：**All > System Definition > Scripts - Background**。公式の Scripts - Background ページ（Australia 版 2026-03-12 更新 / Brazil 版 2026-09-10 更新）はモジュール名を「Scripts - Background module」と記載しているが、メニューパス自体は明記していない。System Definition 配下という位置は第三者文献とも一致する。【第三者情報】[出典](https://www.servicenow.com/docs/r/api-reference/scripts/c_ScriptsBackground.html)
+- 実行オプション（公式）：
+  - 実行スコープ（in scope）の選択
+  - **Record for rollback?**（既定オン）：ロールバックコンテキストを作成し、Script Execution History フォームからそのスクリプトの DB 操作をロールバックできる
+  - **Execute in sandbox?**：オンにするとデータの insert / update / delete ができない
+  - **Execute as scriptlet?**：グローバルスコープとサーバーサイドの関数・オブジェクトへのアクセスを与える
+  - **Cancel after 4 hours**（既定オン）：4時間を超えて実行が続くとキャンセルする
+
+  [出典](https://www.servicenow.com/docs/r/api-reference/scripts/c_ScriptsBackground.html) / [出典](https://www.servicenow.com/docs/r/platform-administration/table-administration-and-data-management/rollback-delete-recovery.html)
 - 実行履歴：**Rollback & Recovery > Script Execution History**（Scripts - Background で実行したスクリプトのみ、**7日分**を保持）。[出典](https://www.servicenow.com/docs/r/platform-administration/table-administration-and-data-management/rollback-delete-recovery.html)
 - アクセス：`admin` ロールが必要。セキュリティ強化（High Security）設定のインスタンスでは `security_admin` への昇格（Elevate Role）が必要になる場合がある。【第三者情報】[出典](https://www.servicenow.com/community/itsm-forum/background-scripts/td-p/2461364)
 - 出力：`gs.print()` / `gs.info()` の出力が実行結果画面に表示される。`gs.print()` はグローバル API で、デバッグ有効時以外は `syslog` テーブルに保存されない。[出典](https://www.servicenow.com/docs/r/api-reference/server-api-reference/c_GlideSystemAPI.html)
@@ -518,7 +561,7 @@ Scripts - Background（バックグラウンドスクリプト）は、**管理�
 | 観点 | Fix Script | Background Script |
 |---|---|---|
 | 定義の永続化 | レコード（`sys_script_fix`）として残る | 残らない（履歴のみ7日） |
-| 環境間移送 | Unloadable でアップデートセットに含められる | アップデートセットに保存不可 |
+| 環境間移送 | Fix Script レコード自体はアップデートセット/アプリケーションで移送可能。Unloadable をオンにすると実行時の変更が Customer Update（`sys_update_xml`）として記録される | スクリプト自体はアップデートセットに保存不可。ただしスクリプトで更新トラッキング対象（設定系）レコードを変更すると、その変更は現在のアップデートセットに記録される【経験則】 |
 | ロールバック | Record for rollback（隠し機能扱いとの記述あり、KB0761248） | Record for Rollback? で可能 |
 | 実行結果の確認 | 限定的 | 変更レコードのサマリー・ログ出力を確認可能 |
 | 典型用途 | アプリ導入時・リリース時のデータ補正、繰り返し使う補正 | 一時的な調査・単発の修正 |
@@ -762,12 +805,14 @@ GlideSystem は、サーバーサイドスクリプトで**グローバル変数
 |---|---|
 | `gs.getUser()` | 現在ユーザーの GlideUser（スコープ版） |
 | `gs.getUserID()` / `gs.getUserName()` / `gs.getUserDisplayName()` | sys_id / ユーザー名 / 表示名 |
-| `gs.hasRole(role)` | ロール保有チェック（`admin` は常に true になる点に注意【経験則】） |
+| `gs.hasRole(role)` | ロール保有チェック。**`admin` ロールのユーザーには常に true を返す**（公式の Returns 記述：Scoped「Returns true for users with the administrator role」、Global「Also returns true if the user has the administrator role」。Global 版はカンマ区切りで複数ロールを指定でき、いずれか1つを持てば true） |
 | `gs.isLoggedIn()` / `gs.isInteractive()` / `gs.isMobile()` | ログイン状態 / 対話セッションか / モバイルか |
 | `gs.getSession()` / `gs.getSessionID()` | GlideSession / セッション ID |
 | `gs.getSessionToken()` | **利用不可**（`gs.getSession().getSessionToken()` を使う） |
 
-[出典](https://www.servicenow.com/docs/r/api-reference/server-api-reference/c_GlideSystemScopedAPI.html)
+[出典](https://www.servicenow.com/docs/r/api-reference/server-api-reference/c_GlideSystemScopedAPI.html) / [出典](https://www.servicenow.com/docs/r/australia/api-reference/server-api-reference/c_GlideSystemAPI.html)
+
+- **admin を除外してロールを判定したい場合**：`hasRoleExactly()` は**クライアント側 GlideUser（`g_user.hasRoleExactly()`）のメソッド**であり、サーバー側の GlideUser - Scoped（`gs.getUser()`）の公式メソッド一覧（`getRoles()`、`getUserRoles()`、`hasRole()`、`isMemberOf()` 等）には存在しない。サーバー側で admin を除外して判定するには、`gs.getUser().getUserRoles()`（ユーザーに明示付与されたロールのみ。継承ロール・グループ経由ロールは含まない）や `gs.getUser().getRoles()` の結果を自前で検査する、または `sys_user_has_role` を GlideRecord で照会するといった代替手段をとる。[出典](https://www.servicenow.com/docs/r/api-reference/server-api-reference/c_GlideUserScopedAPI.html) / [出典](https://www.servicenow.com/docs/r/api-reference/c_GlideUserAPI.html)
 
 ### プロパティ・イベント・ユーティリティ
 
@@ -894,7 +939,7 @@ ServiceNow のサーバー API には「Global」版と「Scoped」版がある�
 | 他スコープの Script Include | 直接呼び出し可 | `scope.ClassName` で、相手の Accessible from が All application scopes の場合のみ |
 | 他スコープのテーブル | 制限なし（ACL 除く） | テーブルの Application Access 設定と Cross-scope privilege の範囲内 |
 | `setWorkflow()` | 可 | クロススコープのテーブルには設定不可 |
-| Business Rule（他スコープのテーブル） | — | before は Actions のみ、async は Actions + Script、他タイプ不可 |
+| Business Rule（他スコープのテーブル） | — | before は Actions のみ、async は Actions + Script（いずれも Query 操作は選択不可）、他タイプ不可 |
 | GlideAjax 同期呼び出し | `getXMLWait()` 可 | `getXMLWait()` 不可 |
 | GlideQuery | `GlideQuery` | `global.GlideQuery` |
 | JavaScript モード既定 | ES5 Standards | ECMAScript 2021（ES12） |
@@ -1064,9 +1109,17 @@ flowchart TD
 - Classic Business rules（Australia：グローバル変数・display・スコープ・作成手順）: https://www.servicenow.com/docs/r/glNBsgieVJ9MunSJGk6joA/rM6z15ZSd8bt5MmChE9KHQ?section=c_UsingPredefinedGlobalVariables
 - Business rules（Yokohama）: https://www.servicenow.com/docs/bundle/yokohama-application-development/page/script/business-rules/concept/c%5FBusinessRules.html
 - Business rules and script includes（ベストプラクティス、Australia）: https://www.servicenow.com/docs/r/application-development/business-rules-and-script-includes.html
-- Business Rule API - ServiceNow Fluent: https://www.servicenow.com/docs/r/zurich/application-development/servicenow-sdk/business-rule-api-now-ts.html
+- Execution order of scripts and engines（Australia）: https://www.servicenow.com/docs/r/australia/api-reference/scripts/r_ExecutionOrderScriptsAndEngines.html
+- Execution order of scripts and engines（Brazil）: https://www.servicenow.com/docs/r/api-reference/scripts/r_ExecutionOrderScriptsAndEngines.html
+- Business Rule API - ServiceNow Fluent（Australia）: https://www.servicenow.com/docs/r/australia/application-development/servicenow-sdk/business-rule-api-now-ts.html
 - Script includes: https://www.servicenow.com/docs/r/api-reference/scripts/c_ScriptIncludes.html
-- Script Include API - ServiceNow Fluent: https://www.servicenow.com/docs/r/zurich/application-development/servicenow-sdk/fluent-script-include-api.html
+- Script Include API - ServiceNow Fluent（Australia）: https://www.servicenow.com/docs/r/australia/application-development/servicenow-sdk/fluent-script-include-api.html
+- Scripts - Background module: https://www.servicenow.com/docs/r/api-reference/scripts/c_ScriptsBackground.html
+- System update sets（Yokohama）: https://www.servicenow.com/docs/r/SmYvGPN0OygSQs53fsexIQ/ZQ_8X~7qlkF6pxE1QX5AvA
+- GlideUser - Scoped: https://www.servicenow.com/docs/r/api-reference/server-api-reference/c_GlideUserScopedAPI.html
+- GlideUser - Client: https://www.servicenow.com/docs/r/api-reference/c_GlideUserAPI.html
+- GlideSystem - Global（Australia）: https://www.servicenow.com/docs/r/australia/api-reference/server-api-reference/c_GlideSystemAPI.html
+- Automatically run a script of your choosing（Scheduled Job 作成手順）: https://www.servicenow.com/docs/r/platform-administration/time-configuration/t_ScheduleAScriptExecution.html
 - GlideAjax（AJAX）: https://www.servicenow.com/docs/r/api-reference/scripts/p_AJAX.html
 - GlideRecord - Scoped: https://www.servicenow.com/docs/r/api-reference/server-api-reference/c_GlideRecordScopedAPI.html
 - GlideAggregate - Scoped: https://www.servicenow.com/docs/r/api-reference/server-api-reference/c_GlideAggregateScopedAPI.html
@@ -1085,7 +1138,7 @@ flowchart TD
 - Roll back and delete recovery: https://www.servicenow.com/docs/r/platform-administration/table-administration-and-data-management/rollback-delete-recovery.html
 - Scheduled Script Execution Form（Australia）: https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/rux8gyO2kfRTI1DI6J6u1w
 - Scheduled Script API - ServiceNow Fluent: https://www.servicenow.com/docs/r/pt-BR/application-development/servicenow-sdk/fluent-scheduled-script-api.html
-- Automatically run a script of your choosing（Madrid）: https://docs.servicenow.com/bundle/madrid-platform-administration/page/administer/reference-pages/task/t_ScheduleAScriptExecution.html
+- Automatically run a script of your choosing（Madrid、Condition 例の補足のみ）: https://docs.servicenow.com/bundle/madrid-platform-administration/page/administer/reference-pages/task/t_ScheduleAScriptExecution.html
 - API release notes（Australia→Brazil）: https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-api-release-notes.html
 - API release notes（Zurich→Brazil）: https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-api-release-notes.html
 - API release notes（Washington DC、ポルトガル語）: https://www.servicenow.com/docs/r/pt-BR/washingtondc/release-notes/api-rn.html

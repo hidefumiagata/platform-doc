@@ -78,7 +78,7 @@ Datadog の設定（Monitor、Dashboard、SLO、Synthetic テスト、ログ設�
 | 主要リソースの一覧と注意点、v4 の破壊的変更 | ○ | — |
 | Import / Export（既存設定のコード化） | ○ | — |
 | Pulumi、CloudFormation、Datadog Operator CRD | ○ | — |
-| 運用上の注意（ドリフト、State の機密情報、レート制限） | ○（仕様面） | 実践は [Monitoring as Code](../../04_応用編/monitoring-as-code.md) |
+| 運用上の注意（ドリフト、State の機密情報、レート制限） | ○（仕様面） | 実践は [Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) |
 | Monitor の仕様（タイプ・評価設定） | 要点のみ | [Monitors（モニター）](./monitors.md) |
 | Dashboard の仕様（ウィジェット・テンプレート変数） | 要点のみ | [Dashboards（ダッシュボード）](./dashboards.md) |
 | SLO の仕様 | 要点のみ | [Service Level Objectives（SLO）](./slo.md) |
@@ -86,8 +86,8 @@ Datadog の設定（Monitor、Dashboard、SLO、Synthetic テスト、ログ設�
 | Restriction Policy・ロール・権限 | 要点のみ | [組織・ユーザー・権限管理](./account-and-access-management.md) |
 | AWS 連携の IAM ロール・サイト別アカウント ID | 要点のみ | [AWS Integration](./aws-integration.md) |
 | サイト一覧とエンドポイント | 要点のみ | [Datadog Sites（サイト）](./datadog-sites.md) |
-| Agent のデプロイ自体（Helm、Operator の DatadogAgent） | — | [コンテナ/Kubernetes向けAgent](./kubernetes-and-containers-agent.md)、[Agent 展開設計](../../03_導入編/agent-rollout-design.md) |
-| 大規模・マルチ org での IaC 運用 | — | [大規模・マルチorg運用](../../04_応用編/large-scale-and-multi-org.md) |
+| Agent のデプロイ自体（Helm、Operator の DatadogAgent） | — | [コンテナ/Kubernetes向けAgent](./kubernetes-and-containers-agent.md)、[Agent 展開設計](../../03_導入編/10-agent-rollout-design.md) |
+| 大規模・マルチ org での IaC 運用 | — | [大規模・マルチorg運用](../../04_応用編/15-large-scale-and-multi-org.md) |
 
 ---
 
@@ -999,7 +999,7 @@ spec:
 
 ### 10.2 実務上の知見
 
-以下は公式仕様ではなく、実務で一般に語られる知見である。体系的な実践は [Monitoring as Code](../../04_応用編/monitoring-as-code.md) を参照。
+以下は公式仕様ではなく、実務で一般に語られる知見である。体系的な実践は [Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) を参照。
 
 - **ドリフトの扱い**：UI で手動変更すると次回 `terraform plan` に差分として現れる。Terraform 管理対象には識別用タグ（例：`managed-by:terraform`）を付け、運用者が UI で調整するタグは `ignore_tag_keys` で除外する運用が紹介されている。【第三者情報】[出典](https://www.issoh.co.jp/tech/details/10105/)（2025-12-03 公開、2026-09-28 更新）
 - **バージョン固定**：Provider は月に数回リリースされるため、`version = "~> 4.xx"` のように固定し `.terraform.lock.hcl` をコミットする。【第三者情報】同上
@@ -1007,7 +1007,7 @@ spec:
 - **既存 Monitor の見直し**：UI で過去に作られた Monitor を IaC 化する際は、クエリの単位・係数やタグ付けを見直す好機になる。Monitor の `tags` は Manage Monitors 画面での分類用で、メトリクスのタグとは別物である点に注意。【第三者情報】[出典](https://zenn.dev/port_inc/articles/terraform_datadog)（2023-07-27 公開。2 年以上前の情報であり、Provider v4 系の仕様と食い違う可能性がある）
 - **認証情報をコードに書かない**：API / アプリケーションキーは環境変数・シークレットマネージャー経由で渡し、可能なら SAT や WIF に寄せる。【経験則】（公式も環境変数での受け渡しを推奨：[出典](https://docs.datadoghq.com/integrations/terraform/)）
 - **UI 編集の制限**：Terraform 管理の Dashboard / Monitor は Restriction Policy で編集者をサービスアカウントや限定ロールに絞ると、ドリフトを抑止できる。【経験則】
-- **リポジトリ分割**：org・サイト・チーム単位で state を分け、Provider の `alias` で複数 org を扱う構成が多い。【経験則】詳細は [大規模・マルチorg運用](../../04_応用編/large-scale-and-multi-org.md) を参照。
+- **リポジトリ分割**：org・サイト・チーム単位で state を分け、Provider の `alias` で複数 org を扱う構成が多い。【経験則】詳細は [大規模・マルチorg運用](../../04_応用編/15-large-scale-and-multi-org.md) を参照。
 
 ---
 
@@ -1057,7 +1057,7 @@ spec:
   - `datadog_logs_metric`、`datadog_spans_metric`、`datadog_rum_metric`、`datadog_metric_tag_configuration` … カスタムメトリクス数・インデックス化されるタグ構成に影響
   - `datadog_apm_retention_filter`、`datadog_rum_retention_filter` … 保持されるスパン・セッション量に影響
   - `datadog_integration_aws_account` などのクラウド連携 … 監視対象ホスト・リソースに応じた課金
-  - 各製品の課金単位と単価は [製品別料金表](../../03_導入編/pricing-by-product.md)（料金の正本）、課金計算の仕組みは [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+  - 各製品の課金単位と単価は [製品別料金表](../../03_導入編/02-pricing-by-product.md)（料金の正本）、課金計算の仕組みは [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 - 誤った IaC 適用（例：Index の日次上限の解除、保持期間の延長、Synthetic テストの頻度増加）が一括で反映されると、コストが急増しうる。plan のレビューで課金に関わる属性の変更を確認することが望ましい【経験則】。
 - **AWS 側の課金（CloudFormation）**：`Datadog::*` はサードパーティのリソースタイプのため、AWS CloudFormation の「サードパーティ拡張のハンドラー操作」として AWS から課金される。2026-11-02 時点の AWS 公式料金ページでは、ハンドラー操作 1 回あたり USD 0.0009、ハンドラー操作 1,000 回の無料枠、操作ごとに最初の 30 秒は無料で超過分は 1 秒あたり USD 0.00008 と例示されている（AWS の料金であり Datadog の料金ではない）。[出典](https://aws.amazon.com/cloudformation/pricing/)
 - **Pulumi Cloud・HCP Terraform の料金**は各ベンダーの料金体系に従う（本ナレッジの対象外）。

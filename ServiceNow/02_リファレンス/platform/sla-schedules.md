@@ -33,6 +33,14 @@ sources:
   - https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/GehmFUtP9LWkO1PoVd5VRw
   - https://www.servicenow.com/docs/r/platform-administration/time-configuration/c_Holidays.html
   - https://www.servicenow.com/docs/r/api-reference/server-api-reference/c_GlideScheduleScopedAPI.html
+  - https://www.servicenow.com/docs/r/Sx3eYflWQ2rS18vmPDBm0Q/eJIpxt~c480cMnqwbCYjbA
+  - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/NemGqZgl4xtUeJyUsVjFKA
+  - https://www.servicenow.com/docs/r/MlbQAgTiiiMOLOw9T36wJg/ljGiOpTY1tuenwCbHC0WSw
+  - https://www.servicenow.com/docs/r/UMl~97STJe3fa_KTmzD1Gg/JWQFRaYs9NT1cDh7NoHU2w
+  - https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/YtxbvqtSofMcS~HIBZj_cg
+  - https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/VOlvGX93SmjLHN0HmLIKKg
+  - https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/gV1ukuoP21TBxQwpDYgH7w
+  - https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-itomaiops-release-notes.html
   - https://www.servicenow.com/community/itsm-blog/sla-engine-a-developer-s-perspective-of-the-logic/ba-p/3146418
   - https://www.servicenow.com/community/in-other-news/troubleshooting-slas/ba-p/2293703
   - https://www.servicenow.com/community/itsm-blog/service-level-agreements-business-hours-schedules-time-zones/ba-p/2267063
@@ -114,7 +122,9 @@ OLA と UC は SLA と同じ `contract_sla` / `task_sla` の仕組みで計測�
 | Service Level Management - Contract Management Integration（SLA Contract Add-on） | `com.snc.sla.contract2` | Service Contract（サービス契約）に SLA を関連付ける |
 | Service Portfolio Management - SLA Commitments | 公開情報では ID 確認できず | Service Offering（サービスオファリング）単位の SLA コミットメント |
 
-出典：[SLM concepts（Australia）](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/4GMbHHrBsZIm70KchH2V2Q)、[Installed with SLA breakdown definitions（Australia）](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/Qk6l5m~EPKs2n7o0u54pXg)、[Define a service contract](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/NemGqZgl4xtUeJyUsVjFKA)
+出典：プラグイン名と連携プラグインの一覧は [SLM concepts（Australia）](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/4GMbHHrBsZIm70KchH2V2Q)（このページには ID の記載はない）。各 ID の根拠は次のとおり。`com.snc.sla` は [Activate Service Level Management（Australia、ローカライズ版）](https://www.servicenow.com/docs/r/Sx3eYflWQ2rS18vmPDBm0Q/eJIpxt~c480cMnqwbCYjbA)（必要ロール：admin）、`com.snc.sla.breakdowns` は [Installed with SLA breakdown definitions（Australia）](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/Qk6l5m~EPKs2n7o0u54pXg)、`com.snc.sla.contract2` は [Define a service contract（Australia）](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/NemGqZgl4xtUeJyUsVjFKA)（「activate the Service Level Management - Contract Management Integration [com.snc.sla.contract2] plugin」と記載）。いずれも公式ドキュメントで確認済み。
+
+> `【第三者情報】` Community の回答では、`com.snc.sla.contract2` は非推奨（deprecated）で、`com.snc.sla.contract.tables` は旧来の挙動を維持するためのもので新規顧客には提供されないとされ、KB1214794 が参照されている（KB 本文は未確認）。[出典（Community）](https://www.servicenow.com/community/csm-forum/sla-from-contracts/td-p/2471627/page/2)
 
 > Contract 連携を使うテーブルでは、選択した契約に関連付いた SLA Definition だけが評価される。対象テーブルはプロパティ `com.snc.sla.contract.tables` で制御する（zboot 顧客ではこのプロパティは提供されず、全テーブルで契約が処理される）。`【第三者情報】` 契約プラグインを使うテーブルでは「契約に紐付ける以外に SLA を定義する方法がない」とするパートナー解説もある。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/NemGqZgl4xtUeJyUsVjFKA) / [出典（第三者）](https://guidevision.eu/insights/service-level-management-part-2-2)
 
@@ -131,6 +141,7 @@ OLA と UC は SLA と同じ `contract_sla` / `task_sla` の仕組みで計測�
 - `sla_admin` / `sla_manager` は既存の Workflow / Schedule を SLA Definition に**割り当てる**ことはできるが、Workflow や Schedule を**新規作成**するには追加ロールの明示付与が必要である。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/4GMbHHrBsZIm70KchH2V2Q)
 - 公式ドキュメントの一部ページではロール名がアンダースコアなし（`slaadmin`）で表記されているが、インストール内容の表（Installed with Service Level Management）では `sla_admin` / `sla_manager` である。[出典](https://www.servicenow.com/docs/r/MlbQAgTiiiMOLOw9T36wJg/4iKEl6sdtEq2pbZakNOL7Q)
 - `schedule_admin` はスケジュールの作成・編集はできるが、Child schedule（子スケジュール）の関連付けには `admin` が必要と、ServiceNow 社員の Community ブログで説明されている。[出典](https://www.servicenow.com/community/itsm-blog/blackout-maintenance-schedules-in-a-nutshell/ba-p/2269223)
+- **SLM プロパティ設定の必要ロールに関する記述の不一致：** SLM concepts ページは `sla_admin` が SLM プロパティを設定できると記載している一方、「Configure SLA properties」手順ページの必要ロールは `admin` と記載されており、公式ドキュメント間で一致していない。実インスタンス（Service Level Management > Properties 画面や各 `sys_properties` レコードの Read/Write roles）で確認すること。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/4GMbHHrBsZIm70KchH2V2Q) / [出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/WpiXe7LbGyuq936ucHgWEA)
 - 「Define a schedule」手順の必要ロールは `schedule_admin` または `admin`。[出典](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/AXWtrO09AHcBjXKcioGzsQ)
 
 ロール全般は [ユーザー・グループ・ロール](./users-groups-roles.md) を参照。
@@ -150,7 +161,7 @@ OLA と UC は SLA と同じ `contract_sla` / `task_sla` の仕組みで計測�
 | `sla_async_queue` | SLA Async Queue | 非同期モード時のタスク更新キュー（Community ブログ記載） |
 | `sla_offline_update` | SLA Offline Update | `offline_timestamp_field` 属性を持つテーブル用の更新記録（Community ブログ記載） |
 | `service_offering_sla` | Service Offering SLA | サービスオファリング SLA（App Engine Studio テンプレートにも含まれる） |
-| `sla_breakdown_definition` ほか | SLA Breakdown 関連 | 「11. SLA Breakdowns」参照 |
+| `sla_breakdown_definition` ほか | SLA Breakdown 関連 | 「14. SLA Breakdowns」参照 |
 | `cmn_schedule` | Schedule | スケジュール本体 |
 | `cmn_schedule_span` | Schedule Entry（Schedule Span） | スケジュールの時間帯エントリ |
 | `cmn_other_schedule` | （子スケジュール関係） | Child schedule の関連（Community 記事記載） |
@@ -162,14 +173,16 @@ OLA と UC は SLA と同じ `contract_sla` / `task_sla` の仕組みで計測�
 | メニュー | 用途 |
 |---|---|
 | All > Service Level Management > SLA > SLA Definitions | SLA Definition の一覧・作成 |
-| All > Service Level Management > Properties（SLA Engine / SLA Logging / SLA Repair） | SLM プロパティ（`admin`） |
+| All > Service Level Management > Properties（SLA Engine / SLA Logging / SLA Repair） | SLM プロパティ（手順ページの必要ロールは `admin`。`sla_admin` との関係は「2.2 ロール」の注記参照） |
 | All > Service Level Management > Administration > SLA Condition Rules | SLA 条件ルール |
 | All > Service Level Management > Administration > SLA Timer Configuration | SLA タイマー設定 |
 | All > System Scheduler > Schedules > Schedules | スケジュールの一覧・作成 |
 
 出典：[Create an SLA definition](https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/tNst0i0VqJTCN_WBMuSkEA)、[Configure SLA properties](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/WpiXe7LbGyuq936ucHgWEA)、[SLA condition rules](https://www.servicenow.com/docs/r/MlbQAgTiiiMOLOw9T36wJg/66UKW0cVMjJRaP75XNGYlg)、[Configure the SLA timer](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/CWQ2pomYuGLss_pay8pbbA)、[Define a schedule](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/AXWtrO09AHcBjXKcioGzsQ)
 
-> 公式ドキュメントでは、カレンダー／スケジュールの定義には Business Calendar メニューの利用が推奨され、従来の System Scheduler メニューも引き続きサポートされる旨の記述がある。[出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/VOlvGX93SmjLHN0HmLIKKg)
+> **Business Calendar（ビジネスカレンダー）との関係：** 公式「Creating business calendars」（Australia）は、カレンダーやスケジュールの定義には Business Calendar メニューを使うよう推奨している。従来の機能（legacy）も引き続きサポートされる。ただし、このページの文脈は会計カレンダーなどのビジネスカレンダーである。SPM の会計カレンダーは専用の機能で定義するという例外も示されている。SLA への言及はない。また、Business Calendar のエントリは従来の Schedule Entry と違って、繰り返し（repeat）や除外（exclude）の時間帯を持たない。期間ごとに個別のエントリを作る必要がある。[出典](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/gV1ukuoP21TBxQwpDYgH7w)
+>
+> SLA Definition の `Schedule` は `cmn_schedule`（All > System Scheduler > Schedules）を参照する。[出典](https://www.servicenow.com/docs/r/application-development/servicenow-sdk/fluent-sla-api.html) そのため、SLA で繰り返しの稼働時間や祝日の除外を表すには、従来の Schedule（「15. Schedules」参照）を使う。SLA Definition から Business Calendar を直接参照できるかどうかは、公開情報では確認できず。
 
 ---
 
@@ -216,7 +229,7 @@ OLA と UC は SLA と同じ `contract_sla` / `task_sla` の仕組みで計測�
 
 条件セクション（Start / Pause / Stop / Reset / Cancel）は「5. SLA conditions」で詳述する。出典：[Create an SLA definition（Yokohama）](https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/tNst0i0VqJTCN_WBMuSkEA)
 
-> **Flow / Workflow と違反済み SLA：** 付与時点ですでに違反（breached）している Task SLA に対しては、既定では Flow / Workflow は実行されない。実行させたい場合は `com.snc.sla.flow.run_for_breached`（Flow 用、手動作成が必要）または `com.snc.sla.workflow.run_for_breached`（Workflow 用）を `true` にする（「8. プロパティ」参照）。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/WpiXe7LbGyuq936ucHgWEA)
+> **Flow / Workflow と違反済み SLA：** 付与時点ですでに違反（breached）している Task SLA に対しては、既定では Flow / Workflow は実行されない。実行させたい場合は `com.snc.sla.flow.run_for_breached`（Flow 用、手動作成が必要）または `com.snc.sla.workflow.run_for_breached`（Workflow 用）を `true` にする（「9. SLA プロパティ」参照）。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/WpiXe7LbGyuq936ucHgWEA)
 
 ### 3.3 条件にドットウォークを使う場合の注意
 
@@ -328,9 +341,13 @@ stateDiagram-v2
     Paused --> Cancelled: Start不一致 or Cancel一致
     InProgress --> Completed: Reset一致 (Reset action=Complete)<br/>→新しいTask SLAを付与
     InProgress --> Cancelled: Reset一致 (Reset action=Cancel)<br/>→新しいTask SLAを付与
+    Paused --> Completed: Reset一致 (Reset action=Complete)<br/>→新しいTask SLAを付与
+    Paused --> Cancelled: Reset一致 (Reset action=Cancel)<br/>→新しいTask SLAを付与
     Completed --> [*]
     Cancelled --> [*]
 ```
+
+Reset 条件の評価（Reset 条件と Start 条件の両方に一致すれば Reattach）は既存の Task SLA の処理として行われるため、In progress だけでなく Paused 中の Task SLA も評価対象になる（「5.5」の評価ルール）。新しい Task SLA が付与されるのは Start 条件にも一致する場合に限られる。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/WYN6nXXIBmOElVN~7E1oiQ)
 
 違反（breach）はステージではなく、`Has breached`（`has_breached`）フラグで表現される（2011 エンジン）。違反後も Stop 条件に一致するまでは In progress のまま計測が続き、Stop 条件一致で Completed になる。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/DkrtAbz5bi4lTcYZODfaIQ) / [出典](https://www.servicenow.com/docs/r/it-service-management/service-level-management/t_SLAProcessExample.html)
 
@@ -382,7 +399,7 @@ stateDiagram-v2
 
 - 付与時点で既に Duration を超えている場合、その Task SLA は付与と同時に違反状態になる。この場合、既定では Flow / Workflow は実行されない（`*.run_for_breached` プロパティで変更可能）。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/WpiXe7LbGyuq936ucHgWEA)
 - `【第三者情報】` `Set start to` に、タスク更新のたびに変わるフィールド（例：`Updated`）を指定すると遡及開始の意味がなくなる。[出典（ServiceNow 社員 Community ブログ）](https://www.servicenow.com/community/in-other-news/troubleshooting-slas/ba-p/2293703)
-- SLA timeline では遡及した期間がバーの淡色（lighter shade）で表示される（「9. SLA timeline」参照）。
+- SLA timeline では遡及した期間がバーの淡色（lighter shade）で表示される（「11. SLA timeline」参照）。
 
 ---
 
@@ -418,13 +435,13 @@ stateDiagram-v2
 | Business Elapsed Time | `business_duration` | スケジュール内の経過時間（一時停止時間を除く） |
 | Business Elapsed Percentage | `business_percentage` | スケジュール内経過時間の割合 |
 | Business Time Left | `business_time_left` | スケジュール内の違反までの残り時間 |
-| Pause duration / Business pause duration | `pause_duration` / `business_pause_duration` | 一時停止時間（実時間／業務時間） |
-| Pause time | `pause_time` | 一時停止を開始した時刻 |
-| Has breached | `has_breached` | 違反したかどうかのフラグ |
-| Schedule / Timezone | `schedule` / `timezone` | 付与時に決定したスケジュールとタイムゾーン |
-| SLA definition / Task | `sla` / `task` | 参照元の SLA Definition と対象タスク |
+| Pause duration / Business pause duration | `pause_duration` / `business_pause_duration` | 一時停止時間（実時間／業務時間）。Pause duration は SLA が一時停止から抜けた後に更新される（[SLA process example](https://www.servicenow.com/docs/r/it-service-management/service-level-management/t_SLAProcessExample.html)）。ラベルは `【第三者情報】` CData スキーマによる |
+| Pause time | `pause_time` | `【第三者情報】` 一時停止を開始した時刻（CData スキーマによる。公式ページでは確認できず） |
+| Has breached | `has_breached` | 違反したかどうかのフラグ。目標時間内に解決されないと `true` になる（[SLA process example](https://www.servicenow.com/docs/r/it-service-management/service-level-management/t_SLAProcessExample.html)） |
+| Schedule / Timezone | `schedule` / `timezone` | `【第三者情報】` 付与時に決定したスケジュールとタイムゾーン（公式「Task SLA table」ページには記載なし。「15.6」参照） |
+| SLA definition / Task | `sla` / `task` | `【第三者情報】` 参照元の SLA Definition と対象タスク（CData スキーマによる） |
 
-ラベルと説明は公式「Task SLA table」（Australia 版）による。列名は公式ページに記載がなく、`【第三者情報】` サードパーティのコネクタ仕様（CData）のスキーマ一覧で確認したもの。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/DkrtAbz5bi4lTcYZODfaIQ) / [出典（第三者）](https://cdn.cdata.com/help/BNK/py/pg_table-releasetasksla.htm)
+Start time から Original breach time までの行（Start time、Stop time、Breach time、Actual 系 3 項目、Business 系 3 項目、Original breach time）のラベルと説明は、公式「Task SLA table」（Australia 版）による。Pause duration / Business pause duration、Pause time、Has breached、Schedule / Timezone、SLA definition / Task の各行は同ページに記載がなく、出典は各行に付けた。列名はどの行も公式ページに記載がなく、`【第三者情報】` サードパーティのコネクタ仕様（CData）のスキーマ一覧で確認したもの。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/DkrtAbz5bi4lTcYZODfaIQ) / [出典（第三者）](https://cdn.cdata.com/help/BNK/py/pg_table-releasetasksla.htm)
 
 - **Actual と Business の違い：** Actual 系は常に計算される（24 時間カレンダーでの経過）。Business 系はスケジュールとタイムゾーンを使って計算される。スケジュールなしの Task SLA で Business 系フィールドを埋めるかどうかは `com.snc.sla.always_populate_business_fields` で制御する（新規インスタンス既定 `true`、アップグレードインスタンス既定 `false`）。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/WpiXe7LbGyuq936ucHgWEA) / [出典（ServiceNow 社員ブログ）](https://www.servicenow.com/community/itsm-blog/service-level-agreements-business-hours-schedules-time-zones/ba-p/2267063)
 - **値が「古く」見える理由：** Task SLA の経過時間・割合は、タスク更新時と「SLA update」スケジュールジョブ（「8.4」参照）のタイミングで再計算される。フォーム表示時に再計算させたい場合は `glide.sla.calculate_on_display = true`（フォーム表示が遅くなる可能性あり、既定 `false`）。`【第三者情報】` この再計算はタスクフォーム表示時に働き、`task_sla` レコードを直接開いた場合には働かない。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/WpiXe7LbGyuq936ucHgWEA) / [出典（Community）](https://www.servicenow.com/community/in-other-news/troubleshooting-slas/ba-p/2293703)
@@ -492,7 +509,7 @@ Fluent API の `advancedConditionType` には `none`（既定）/ `advanced` / `
 
 ## 9. SLA プロパティ（System properties）
 
-All > Service Level Management > Properties の各セクションで設定する（`admin`）。以下は Australia 版。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/WpiXe7LbGyuq936ucHgWEA)
+All > Service Level Management > Properties の各セクションで設定する。「Configure SLA properties」手順ページの必要ロールは `admin` だが、SLM concepts ページは `sla_admin` もプロパティを設定できると記載しており、公式ドキュメント間で一致していない（「2.2 ロール」参照。実インスタンスで確認すること）。以下は Australia 版。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/WpiXe7LbGyuq936ucHgWEA)
 
 ### 9.1 SLA Engine
 
@@ -668,7 +685,7 @@ SLA repair は、タイミングや期間の値が不正確になった Task SLA
 | Target | None / Response / Resolution（`sys_choice` でカスタマイズ可） |
 
 - Task to SLA mapping の関連リストでは、Order・Table（Incident / Problem / Change）・SLA definition を指定する。同一テーブルで Order や SLA definition の重複は許可されない。
-- 設定の sys_id を API（slm-timer-config-api）に渡さない場合の既定は「First to breach、Show cancel = true、Show complete = true」。既定と同じ挙動でも独自の設定レコードを作ることが推奨されている。
+- 設定の sys_id を sla-timer-configuration API（アプリケーション名 slm-timer-config-api）に渡さない場合の既定は、公式ページの表記をそのまま引くと「`SLA Timer source: First to Breach`、`Show cancel: true`、`Show complete: true`」である。これは上表のフォームフィールド `Show cancelled` / `Show completed` がいずれも true の状態に相当する。既定と同じ挙動でも独自の設定レコードを作ることが推奨されている。
 - 条件を定義した First to breach では、条件を満たす Task SLA のうち違反時刻が最も早いものが表示され、すべて違反済みなら最初に違反したものが表示される。
 
 [出典（Australia）](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/CWQ2pomYuGLss_pay8pbbA)
@@ -701,7 +718,7 @@ SLA Breakdowns（`com.snc.sla.breakdowns`）は、Task SLA ごとに Assignment 
 
 ### 15.1 概要
 
-**Schedule（スケジュール）** は時間を「含める（include）／除外する（exclude）」ルールの集合であり、SLA や Inactivity monitor（非活動監視）がいつ有効か、On-call ローテーションがいつ有効かを決める。スケジュールは 1 つのタイムゾーンとタイプを持ち、1 つ以上のスケジュールエントリで構成される。[出典](https://www.servicenow.com/docs/r/platform-administration/time-configuration/c_Holidays.html) / [出典（Australia）](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/AXWtrO09AHcBjXKcioGzsQ)
+**Schedule（スケジュール）** は時間を「含める（include）／除外する（exclude）」ルールの集合であり、SLA や Inactivity monitor（非活動監視）がいつ有効か、On-call ローテーションがいつ有効かを決める。スケジュールは 1 つのタイムゾーンとタイプを持ち、1 つ以上のスケジュールエントリで構成される。スケジュールの作成と検証は System Scheduler > Schedules で行う。[出典](https://www.servicenow.com/docs/r/platform-administration/time-configuration/c_Holidays.html) / [出典（Schedules、Zurich）](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/VOlvGX93SmjLHN0HmLIKKg) / [出典（Australia）](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/AXWtrO09AHcBjXKcioGzsQ)
 
 | テーブル | 内容 |
 |---|---|
@@ -796,7 +813,7 @@ SLA Breakdowns（`com.snc.sla.breakdowns`）は、Task SLA ごとに Assignment 
 
 - SLA Definition の `Schedule source` で決まる。**No schedule** は 24x7 での計算、**SLA definition** は定義の `Schedule` を使用、**Task field** はタスクのフィールド（例：CI のスケジュール）から取得する。[出典](https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/tNst0i0VqJTCN_WBMuSkEA)
 - Fluent API では `scheduleSource` = `sla_definition`（既定）/ `task_field` / `no_schedule`、`task_field` の場合は `scheduleSourceField` が必須。[出典](https://www.servicenow.com/docs/r/application-development/servicenow-sdk/fluent-sla-api.html)
-- スケジュールとタイムゾーンは Task SLA の**作成時に解決されて Task SLA に保存され**、以降の更新では再利用される。`【第三者情報】` そのため `task_sla` の before insert/update ビジネスルールでスケジュールやタイムゾーンを上書きすることはできない（初回計算がビジネスルールより前に行われるため）。[出典](https://www.servicenow.com/community/itsm-blog/service-level-agreements-business-hours-schedules-time-zones/ba-p/2267063)
+- `【第三者情報】` スケジュールとタイムゾーンは Task SLA の**作成時に解決されて Task SLA に保存され**、以降の更新では再利用される（2015 年の ServiceNow 社員ブログの説明。公式「Task SLA table」ページには Schedule / Timezone フィールドの説明がなく、公式ドキュメントでは確認できず）。そのため `task_sla` の before insert/update ビジネスルールでスケジュールやタイムゾーンを上書きすることはできない（初回計算がビジネスルールより前に行われるため）。[出典](https://www.servicenow.com/community/itsm-blog/service-level-agreements-business-hours-schedules-time-zones/ba-p/2267063)
 - `【第三者情報】` 24x7 の SLA にわざわざ 24x7 スケジュールを設定すると、Business 値は Actual 値と同じになり計算が無駄になる。24 時間計測ならスケジュールなしを選ぶ方がよい（ServiceNow 社員ブログ）。[出典](https://www.servicenow.com/community/itsm-blog/service-level-agreements-business-hours-schedules-time-zones/ba-p/2267063)
 - 実行中の Task SLA があるときにスケジュールを変更しても、既存の Task SLA は自動では再計算されないため、必要に応じて SLA repair を実行する（「12」参照）。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/V91VP6Z6Zu9FQAG5ir1LMQ)
 
@@ -894,7 +911,12 @@ SLA Definition の `Timezone source` は、Task SLA の業務時間計算でス�
 
 ## 18. Fluent API（ServiceNow SDK）による SLA Definition 定義
 
-ServiceNow SDK（Fluent）では、SLA Definition をコードとして定義できる。`$id` と `name` が必須で、`duration` または `durationType` のいずれかが必要。[出典](https://www.servicenow.com/docs/r/application-development/servicenow-sdk/fluent-sla-api.html)
+ServiceNow SDK（Fluent）では、SLA Definition をコードとして定義できる。`$id` と `name` が必須である。`durationType` が空の場合は `duration` も必須になる。このほか、以下の条件付き必須がある。[出典](https://www.servicenow.com/docs/r/application-development/servicenow-sdk/fluent-sla-api.html)
+
+- `schedule`：`scheduleSource` が `sla_definition`（既定）の場合に必須。既定のままでは `schedule` を省略できない。
+- `scheduleSourceField`：`scheduleSource` が `task_field` の場合に必須。
+- `retroactive.setStartTo`：`retroactive.start` が `true` の場合に必須。
+- `timezone`：`timezoneSource` が `sla.timezone` の場合に必須。
 
 | プロパティ | 内容・既定値 |
 |---|---|
@@ -903,11 +925,11 @@ ServiceNow SDK（Fluent）では、SLA Definition をコードとして定義で
 | `target` | `response` / `resolution` |
 | `duration` | `Duration({ days, hours, minutes, seconds })` |
 | `durationType` / `relativeDurationWorksOn` | `cmn_relative_duration` 参照／`Task record`（既定）・`SLA record` |
-| `schedule` / `scheduleSource` / `scheduleSourceField` | `scheduleSource` 既定 `sla_definition` |
-| `timezoneSource` / `timezone` | 既定 `task.caller_id.time_zone` |
+| `schedule` / `scheduleSource` / `scheduleSourceField` | `schedule` は `cmn_schedule` の sys_id。`scheduleSource` の既定は `sla_definition` で、この場合は `schedule` が必須。`task_field` の場合は `scheduleSourceField` が必須 |
+| `timezoneSource` / `timezone` | `timezoneSource` の既定は `task.caller_id.time_zone`。`sla.timezone` の場合は `timezone`（例 `US/Pacific`）が必須 |
 | `conditions` | `start` / `stop` / `pause` / `resume` / `reset` / `cancel`（エンコード済みクエリ） |
 | `whenTo` | `resume`: `on_condition`（既定）/ `no_match`、`cancel`: `on_condition`（既定）/ `no_match` / `never` |
-| `retroactive` | `start`（既定 false）、`setStartTo`、`pause`（既定 true） |
+| `retroactive` | `start`（既定 false）、`setStartTo`（`start` が true の場合は必須）、`pause`（既定 true） |
 | `resetAction` | `cancel`（既定）/ `complete` |
 | `advancedConditionType` / `conditionType` | 「8.5」参照 |
 | `flow` / `workflow` | 既定 Default SLA flow |
@@ -933,7 +955,7 @@ ServiceNow SDK（Fluent）では、SLA Definition をコードとして定義で
 | デバッグ | 定義単位の `Enable logging`、SLA Logging プロパティ、SLA timeline（Validate SLA Definition）を使い分ける | 公式 |
 | カスタマイズ | `TaskSLAController` 等の SLA Script Include を直接改変すると、アップグレード時にスキップされ修正が取り込まれない。条件ロジックの変更は SLA Condition Rule（`SLAConditionBase` の拡張）で行う | 公式（条件ルール）＋第三者（アップグレード） |
 
-スクリプトやカスタマイズの技術的負債については [カスタマイズと技術的負債](../../04_応用編/02-customization-technical-debt.md)、ITSM プロセス設計の実践は [ITSMプロセス設計の実践知](../../04_応用編/11-itsm-process-design-tips.md) を参照。
+スクリプトやカスタマイズの実践は [スクリプティングのベストプラクティス](../../04_応用編/07-scripting-best-practices.md)、アップグレード時の注意は [アップグレードの教訓](../../04_応用編/04-upgrade-lessons.md)、ITSM プロセス設計の実践は [ITSMプロセス設計の実践知](../../04_応用編/11-itsm-process-design-tips.md) を参照。
 
 ---
 
@@ -972,6 +994,7 @@ SLO（Service Level Objective）Management は ITOM 側の機能であり、[Eve
 
 ### ServiceNow 公式ドキュメント
 - Service Level Management concepts（Australia）: https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/4GMbHHrBsZIm70KchH2V2Q
+- Activate Service Level Management（Australia、ローカライズ版）: https://www.servicenow.com/docs/r/Sx3eYflWQ2rS18vmPDBm0Q/eJIpxt~c480cMnqwbCYjbA
 - SLA conditions（Australia）: https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/WYN6nXXIBmOElVN~7E1oiQ
 - SLA conditions（Yokohama）: https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/G_mVso6Vk9nk4W7RfIKwkw
 - Create an SLA definition（Yokohama）: https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/tNst0i0VqJTCN_WBMuSkEA
@@ -1001,7 +1024,8 @@ SLO（Service Level Objective）Management は ITOM 側の機能であり、[Eve
 - Schedule fields（Zurich）: https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/4AKZc_OEHCOuoNUi3we7Rg
 - Parent and child schedules（Zurich）: https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/GehmFUtP9LWkO1PoVd5VRw
 - Holidays: https://www.servicenow.com/docs/r/platform-administration/time-configuration/c_Holidays.html
-- Using schedules / Business Calendar（版未確認）: https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/VOlvGX93SmjLHN0HmLIKKg
+- Schedules（Zurich）: https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/VOlvGX93SmjLHN0HmLIKKg
+- Creating business calendars（Australia、ローカライズ版で確認）: https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/gV1ukuoP21TBxQwpDYgH7w
 - GlideSchedule - Scoped API: https://www.servicenow.com/docs/r/api-reference/server-api-reference/c_GlideScheduleScopedAPI.html
 
 ### ServiceNow Community（ServiceNow 社員記事を含む）
@@ -1014,6 +1038,7 @@ SLO（Service Level Objective）Management は ITOM 側の機能であり、[Eve
 - Creating new schedules by script: https://www.servicenow.com/community/developer-articles/creating-new-schedules-by-script/ta-p/2329890
 - Trigger SLA breach for 50 and 75%（フォーラム）: https://www.servicenow.com/community/hrsd-forum/trigger-sla-breach-for-50-and-75/td-p/3552240
 - List action "Repair all filtered SLAs" not available（フォーラム）: https://www.servicenow.com/community/itsm-forum/list-action-quot-repair-all-filtered-slas-quot-not-available-in/m-p/447980
+- SLA from contracts（フォーラム）: https://www.servicenow.com/community/csm-forum/sla-from-contracts/td-p/2471627/page/2
 - SLA and OLA（フォーラム）: https://www.servicenow.com/community/itsm-forum/sla-and-ola/m-p/825899
 - Timezone field on cmn_schedule（フォーラム）: https://www.servicenow.com/community/itsm-forum/timezone-field-on-cmn-spam-schedule/m-p/3241674
 - SLA configurations（フォーラム）: https://www.servicenow.com/community/itsm-forum/sla-configurations/m-p/3129361

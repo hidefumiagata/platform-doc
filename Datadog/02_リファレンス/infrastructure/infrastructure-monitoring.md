@@ -59,7 +59,7 @@ Datadog **Infrastructure Monitoring（インフラストラクチャ監視）** 
 | Host Map | クエリエディタ・Fill / Size / Group / Filter | 本ファイル |
 | Live Processes | 有効化・設定キー・スクラビング・保持・タグ | 本ファイル |
 | Resource Catalog | 画面・設定・Resource Changes・Policies | 本ファイル（セキュリティ機能の詳細は [Cloud Security](../security/cloud-security.md)） |
-| ホストの定義 | 課金上の定義、ホスト名の決め方、エイリアス | 本ファイル（計算方法の詳細は [課金計算の仕組み](../../03_導入編/billing-mechanics.md)） |
+| ホストの定義 | 課金上の定義、ホスト名の決め方、エイリアス | 本ファイル（計算方法の詳細は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)） |
 | Agent の Infrastructure モード / Infrastructure Basic | Full / Basic / End User Device / None | 本ファイル（Agent 全般は [Datadog Agent](../platform/agent.md)） |
 | システムメトリクス | System / Disk / Network / NTP チェック | 本ファイル（メトリクスの型・保持は [Metrics](../platform/metrics.md)） |
 | Agent なしの監視（Agentless） | クラウドインテグレーションのみで見えるホスト、Agentless Scanning との違い | 本ファイル（各クラウドの設定は [AWS](../platform/aws-integration.md) / [Azure](../platform/azure-integration.md) / [Google Cloud](../platform/gcp-integration.md)） |
@@ -1056,7 +1056,7 @@ API キーとアプリケーションキーの扱いは [API とキー管理](..
 
 ## 課金への影響
 
-Infrastructure Monitoring の課金単位を簡潔にまとめる。料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、計算の詳細は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+Infrastructure Monitoring の課金単位を簡潔にまとめる。料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、計算の詳細は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 
 ### 課金単位と計測方法
 
@@ -1091,7 +1091,7 @@ Infrastructure Monitoring の課金単位を簡潔にまとめる。料金の正
 - アカウントで選べるカバレッジは Pro、Enterprise、DevSecOps Pro、DevSecOps Enterprise のいずれか 1 つで、Basic ホストは Pro または Enterprise と同じアカウントで混在できる。DevSecOps バンドルは単体の Infrastructure・コンテナ・Cloud Security 製品と組み合わせられない。[出典](https://www.datadoghq.com/pricing/)
 - 500 ホスト / 月以上では複数年・ボリューム割引がある（料金ページの記載）。割引率は非公開。[出典](https://www.datadoghq.com/pricing/)
 
-> **サイト差異:** 定価はサイトによって異なる（例：AP1 の Infrastructure Pro は年契約 $18.75）。サイト別の価格は [Datadog Sites](../platform/datadog-sites.md) と [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
+> **サイト差異:** 定価はサイトによって異なる（例：AP1 の Infrastructure Pro は年契約 $18.75）。サイト別の価格は [Datadog Sites](../platform/datadog-sites.md) と [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照。
 
 ### 機能と課金の関係
 
@@ -1108,7 +1108,7 @@ Infrastructure Monitoring の課金単位を簡潔にまとめる。料金の正
 | `infrastructure_mode: none` | インフラ系メトリクスを集めないモード。ホスト課金にどう影響するかは公開情報では確認できず（公式は「モードは契約を変えない」とのみ記載） |
 | Agentless Scanning | Cloud Security の課金。スキャナーのクラウド費用は顧客負担 |
 
-コスト削減の実践（不要ホストの除外、コンテナ数の管理、カスタムメトリクスのカーディナリティ管理）は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+コスト削減の実践（不要ホストの除外、コンテナ数の管理、カスタムメトリクスのカーディナリティ管理）は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ---
 
@@ -1122,8 +1122,8 @@ Infrastructure Monitoring の課金単位を簡潔にまとめる。料金の正
 - [Cloud Network Monitoring](cloud-network-monitoring.md) / [Network Device Monitoring](network-device-monitoring.md) / [Cloud Cost Management](cloud-cost-management.md)
 - [Cloud Security](../security/cloud-security.md) / [Workload Protection](../security/workload-protection.md)
 - [OpenTelemetry サポート](../platform/opentelemetry.md) / [Datadog Sites](../platform/datadog-sites.md)
-- [製品別料金表](../../03_導入編/pricing-by-product.md) / [課金計算の仕組み](../../03_導入編/billing-mechanics.md) / [エディション・プラン](../../03_導入編/editions-and-plans.md)
-- [Agent 展開設計](../../03_導入編/agent-rollout-design.md) / [コスト最適化](../../04_応用編/cost-optimization.md) / [タグ戦略の実践](../../04_応用編/tagging-strategy.md)
+- [製品別料金表](../../03_導入編/02-pricing-by-product.md) / [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) / [エディション・プラン](../../03_導入編/04-editions-and-plans.md)
+- [Agent 展開設計](../../03_導入編/10-agent-rollout-design.md) / [コスト最適化](../../04_応用編/01-cost-optimization.md) / [タグ戦略の実践](../../04_応用編/02-tagging-strategy.md)
 
 ## 参照元
 

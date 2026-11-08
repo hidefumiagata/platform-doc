@@ -23,6 +23,8 @@ sources:
   - https://www.servicenow.com/docs/r/australia/api-reference/rest-apis/c_ImportSetAPI.html
   - https://www.servicenow.com/docs/r/australia/api-reference/rest-apis/batch-api.html
   - https://www.servicenow.com/docs/r/integrate-applications/integration-hub-remote-process-sync/correlation.html
+  - https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/s9CDNTtEoDP2uMmp5z1qIg
+  - https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/4DbcmUQcwjD1QtZyVOtzuQ
   - https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/ecc-queue-mid-server.html
   - https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/t_ConfigureAMIDServerCluster.html
   - https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/c_UpgradeAndTestMIDServer.html
@@ -30,7 +32,7 @@ sources:
   - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/LPRZSfEX7v4OqkbmL7BHSQ
   - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/ejTfxzvOIDtjC2Ab2yscHQ
   - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/Tb6_fGCzYETm59CjiDKSjw
-  - https://www.servicenow.com/docs/r/4AA65edJ2a~o5pASflQppQ/kMlRTrw8YrM2Rzs1AY7Zhg
+  - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/rQ94jbTp6df1BEl7ZOPsZA
   - https://www.servicenow.com/docs/r/oJu9n0q6rU~F9UHAnNCt5w/qQUh4MVGNz6JoBxaVsn8gA
   - https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/KBfrZLtUMgzP6Feu7CAFmA
   - https://www.servicenow.com/docs/r/platform-security/instance-security-hardening-settings/sc-disable-resource-owner-password-credentials-ropc-in-oauth-2-token-grants.html?contentId=2L4VIN97FW70_LPVKH~4Kw
@@ -223,7 +225,7 @@ ServiceNow からのアウトバウンド HTTP(S) 接続は接続プールで管
 
 | プロパティ | 既定値 | 意味 |
 |---|---|---|
-| `glide.http.connection_mgr.max_connections` | 20 | インスタンス（ノード）から許可されるアウトバウンド接続の総数 |
+| `glide.http.connection_mgr.max_connections` | 20 | インスタンス全体（instance-wide）で許可されるアウトバウンド HTTP(S) 接続の総数 |
 | `glide.http.connection_mgr.max_connections_per_host` | 4 | 上記のうち、同一ホストと並行して通信できる数。上限に達するとスクリプトは接続待ちになる |
 | `glide.http.use_connection_mgr` | true | 接続プールの有効化。false は非推奨 |
 
@@ -289,7 +291,7 @@ Retry policy は、ネットワーク障害やレート制限で失敗した HTT
 | メニュー | All > Integration Hub > Retry Policy > Create New |
 | 必要ロール | `connection_admin` または `credential_admin` |
 | 対象 step | **JDBC、REST、SOAP のみ** |
-| 主なフィールド | Name、Connection Type（HTTP）、Condition（is / is not / contains / contains not）、Retry Strategy、Interval (seconds)、Count、Max Elapsed Time (seconds) |
+| 主なフィールド | Name、Connection Type（HTTP）、Condition（is / is not / contains / contains not）、Retry Strategy。戦略ごとに表示されるフィールドが異なる：Interval (seconds)／Count は **Exponential Backoff と Fixed Interval のみ**、Max Elapsed Time (seconds) は **Honor "Retry-After" Header 選択時のみ** 表示 |
 | Retry Strategy | **Exponential Backoff**（待機時間を毎回 2 倍）、**Fixed Interval**（一定間隔）、**Honor "Retry-After" Header**（応答の `Retry-After` に従う。REST／SOAP step のみ） |
 | 既定ポリシー | 既定の Retry policy が提供される。Connection & Credential alias に既定ポリシーを割り当てると、その alias を使う全 HTTP 接続に適用 |
 | システムプロパティ | `glide.fdih.retry.max_count`（Count 未入力時の再試行回数、**既定 0**）、`glide.fdih.retry.max_time_in_seconds`（最大再試行時間、既定 86400 秒、最大 604800 秒。設定時は Max Elapsed Time を上書き） |
@@ -309,7 +311,7 @@ Retry policy は、ネットワーク障害やレート制限で失敗した HTT
 
 **落とし穴 4-C：Data Stream action で Exponential Backoff を使おうとする。** Data Stream action は **Fixed Interval のみ** をサポートし、間隔の最大は 30 秒である。Exponential Backoff と Honor "Retry-After" Header は使えない。相手のレート制限が厳しい大量取得では、ページサイズや実行時間帯で流量を調整する必要がある。[出典](https://www.servicenow.com/docs/r/australia/integrate-applications/integration-hub/data-stream-actions.html)
 
-**落とし穴 4-D：再試行の総時間が長すぎて、後続処理が古いデータで動く。** `glide.fdih.retry.max_time_in_seconds` の既定は 86400 秒（24 時間）である。再試行が 1 日続くと、その間に業務側で状態が変わり、再試行が成功した時点で古い値を上書きする事故になりうる。再試行の総時間は業務上許容できる遅延に合わせて短く設定する。[出典](https://www.servicenow.com/docs/r/ja-JP/build-workflows/workflow-studio/retry-policy.html) `【経験則】`
+**落とし穴 4-D：再試行の総時間が長すぎて、後続処理が古いデータで動く。** `glide.fdih.retry.max_time_in_seconds` の既定は 86400 秒（24 時間）である。再試行が 1 日続くと、その間に業務側で状態が変わり、再試行が成功した時点で古い値を上書きする事故になりうる。再試行の総時間は業務上許容できる遅延に合わせて短く設定する。設定箇所は戦略によって異なる。Exponential Backoff／Fixed Interval では Interval (seconds) と Count の組み合わせで総時間が決まる（例：Exponential Backoff で Interval 10・Count 3 なら待機は 10＋20＋40 秒）。Honor "Retry-After" Header では Max Elapsed Time (seconds)、またはグローバルプロパティ `glide.fdih.retry.max_time_in_seconds`（両方設定時はプロパティが Max Elapsed Time を上書き）で上限を決める。[出典](https://www.servicenow.com/docs/r/australia/build-workflows/workflow-studio/retry-policy.html) [出典](https://www.servicenow.com/docs/r/ja-JP/build-workflows/workflow-studio/retry-policy.html) `【経験則】`
 
 **落とし穴 4-E：4xx（400／401／403／404）を再試行する。** 入力不正・認証失敗・権限不足は再試行しても成功しない。再試行対象は接続タイムアウト、408、429、5xx の一部に限り、4xx の多くは即座にエラー処理（人手対応）に回す。`【経験則】`
 
@@ -328,7 +330,7 @@ Retry policy は、ネットワーク障害やレート制限で失敗した HTT
 
 **落とし穴 4-F：エラーをメール通知だけで済ませる。** 連携エラーのメールは、件数が増えるとフィルタで振り分けられて読まれなくなる。失敗時は Flow のエラーハンドリングやサブフローで **連携エラー用のレコード（またはタスク）を作成し、担当グループに割り当てる** 方式にして、件数・滞留時間を可視化する。`【経験則】`（同趣旨の推奨は [連携設計](../03_導入編/09-integration-design.md) にもある）
 
-**落とし穴 4-G：部分失敗を「全体成功」と扱う。** Import Set API や Batch API は 1 要求の中で行単位・要求単位の結果を返す。HTTP ステータスが 200／201 でも、個々の行が error や ignored になっている場合がある。Import Set API は取り込んだ各レコードの結果を一覧で返すので、クライアントは行単位の結果を確認する必要がある。[出典](https://www.servicenow.com/docs/r/australia/api-reference/rest-apis/c_ImportSetAPI.html) [出典](https://www.servicenow.com/docs/r/australia/api-reference/rest-apis/batch-api.html) `【経験則】`
+**落とし穴 4-G：部分失敗を「全体成功」と扱う。** Import Set API や Batch API は 1 要求の中で行単位・要求単位の結果を返す。HTTP ステータスが 200／201 でも、個々の行が error や ignored になっている場合がある。Import Set API の単一レコードの `POST /now/import/{stagingTableName}` は同期で変換され、応答の `result` に行ごとの結果（`status`、`sys_id` など）が含まれるので、クライアントはそれを確認する。一方 `POST /now/import/{stagingTableName}/insertMultiple` は既定で **非同期** に変換され（Rest Insert Multiples［`sys_rest_insert_multiple`］レコードで同期に変更可能）、応答は `import_set_id` と `multi_import_set_id` のみである。このため行ごとの結果は Import Set Row や Transform History を別途照会して確認する必要がある。[出典](https://www.servicenow.com/docs/r/australia/api-reference/rest-apis/c_ImportSetAPI.html) [出典](https://www.servicenow.com/docs/r/australia/api-reference/rest-apis/batch-api.html) `【経験則】`
 
 **落とし穴 4-H：「再処理手順」がない。** 失敗した連携を再送する手順（どの画面から、誰が、何を再実行するか）が運用設計書にないと、障害時に開発者がバックグラウンドスクリプトで手作業修正することになる。Concurrent imports には Concurrent Import Set レコードから import set を再開（resume）・再処理（reprocess）する機能があるなど、製品側の再処理機能を把握して手順化する。[出典](https://www.servicenow.com/docs/r/australia/integrate-applications/system-import-sets/concurrent-imports.html) `【経験則】`
 
@@ -354,7 +356,7 @@ Retry policy は、ネットワーク障害やレート制限で失敗した HTT
 
 | 方式 | 仕組み | 注意点 |
 |---|---|---|
-| Import Set API ＋ Transform Map の coalesce | ステージングテーブルに入れ、coalesce フィールドで既存レコードを探して更新、なければ挿入 | coalesce フィールドにインデックスを付ける（§5.3）。Import Set API の変換は同期で行われ、60 秒のクォータ対象（§2.4） [出典](https://www.servicenow.com/docs/r/australia/api-reference/rest-apis/c_ImportSetAPI.html) [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/I1J3ifzWRL7k5C8oZuGVMw) |
+| Import Set API ＋ Transform Map の coalesce | ステージングテーブルに入れ、coalesce フィールドで既存レコードを探して更新、なければ挿入 | coalesce フィールドにインデックスを付ける（§5.3）。単一レコードの POST は同期変換で応答に行ごとの結果が含まれ、60 秒のクォータ対象（§2.4）。`insertMultiple` は既定で非同期（Rest Insert Multiples レコードで同期に変更可能）で、応答は `import_set_id`／`multi_import_set_id` のみ（§4.4） [出典](https://www.servicenow.com/docs/r/australia/api-reference/rest-apis/c_ImportSetAPI.html) |
 | Scripted REST API で upsert | 外部 ID で検索し、あれば更新・なければ作成するロジックを API 側に実装 | 並列で同じ外部 ID が来た場合の競合を考慮 |
 | `correlation_id` で事前検索 | Task／CI 系テーブルの Correlation ID に外部 ID を保存し、作成前に検索 | 検索と作成の間に競合の余地がある |
 
@@ -374,10 +376,11 @@ Import Set の coalesce は、Field map の Coalesce が選択されている場
 
 Task（`task` 拡張テーブル）や Configuration Item には、外部システムのレコード ID を保持するための **Correlation ID**（`correlation_id`）と **Correlation display**（`correlation_display`）フィールドがある。
 
-- Integration Hub Remote Process Sync のドキュメントは、従来型の Correlation ID フィールドが既定では Configuration Item、Service、Task レコードでのみ使え、1 対 1 の照合を想定していることを説明している。Remote Process Sync の correlation レコードは一意の sys_id を別名として持ち、ローカルレコードの変更で対応関係が壊れないようにしている。[出典](https://www.servicenow.com/docs/r/integrate-applications/integration-hub-remote-process-sync/correlation.html)
+- Integration Hub Remote Process Sync のドキュメントは、従来型の Correlation ID フィールドが既定では Configuration Item、Service、Task レコードでのみ使え、1 対 1 の照合を想定していることを説明している。Remote Process Sync の correlation レコードは一意の sys_id を別名として持ち、ローカルレコードの変更で対応関係が壊れないようにしている（このページは Brazil 版）。[出典（Brazil）](https://www.servicenow.com/docs/r/integrate-applications/integration-hub-remote-process-sync/correlation.html)
+- Integration Hub Remote Process Sync（RPS）は Quebec で導入された（ServiceNow Community の IntegrationHub 新機能ブログ）。[出典](https://www.servicenow.com/community/now-platform-blog/what-s-new-in-quebec-for-integrationhub/ba-p/2286106) Australia でも提供されており、Zurich→Australia の Integration Hub 統合リリースノートには、RPS Dashboard、RPS Error Subflow Template、RPS action での添付ファイル設定、RPS action 用の新しい Retry policy が Australia の新機能として載っている。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/4DbcmUQcwjD1QtZyVOtzuQ) RPS を使うには各インスタンスに Integration Hub Enterprise パッケージが必要である。[出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/s9CDNTtEoDP2uMmp5z1qIg) Australia 版の Correlation ページの記述が Brazil 版と同じかどうかは公開情報では確認できず。
 - Community では、Correlation ID に相手システムのレコード ID を、Correlation display に相手システム名などの説明ラベルを入れる使い方が一般的とされ、Correlation ID は重複防止に使うべきとされている。`【第三者情報】`[出典](https://www.servicenow.com/community/developer-forum/correlation-id-and-correlation-display/m-p/1854163)
 
-**落とし穴 5-F：複数の外部システムが同じ `correlation_id` を使う。** 1 つのレコードに 1 つの Correlation ID しか持てないため、2 つの外部システムと連携するテーブルで両方が `correlation_id` に書き込むと、後勝ちで上書きされて照合が壊れる。外部システムが複数ある場合は、システムごとにカスタムフィールドを用意するか、Remote Process Sync の correlation のような対応表方式を採る。[出典](https://www.servicenow.com/docs/r/integrate-applications/integration-hub-remote-process-sync/correlation.html) `【経験則】`
+**落とし穴 5-F：複数の外部システムが同じ `correlation_id` を使う。** 1 つのレコードに 1 つの Correlation ID しか持てないため、2 つの外部システムと連携するテーブルで両方が `correlation_id` に書き込むと、後勝ちで上書きされて照合が壊れる。外部システムが複数ある場合は、システムごとにカスタムフィールドを用意するか、Remote Process Sync の correlation のような対応表方式を採る（RPS は Australia で利用可能。Integration Hub Enterprise パッケージが必要。§5.4）。[出典（Brazil）](https://www.servicenow.com/docs/r/integrate-applications/integration-hub-remote-process-sync/correlation.html) `【経験則】`
 
 ### 5.5 落とし穴：双方向連携のエコーループ
 
@@ -414,7 +417,7 @@ ECC Queue（External Communication Channel、`ecc_queue`）はインスタンス
 | 定期ポーリング | AMB 接続が切れた場合に備え、`mid.poll.time`（既定 40 秒）の間隔で必ずポーリング。MID が忙しく、Interactive 以外の優先度の通知を受けた場合は `mid.poll.time.standard`（既定 5 秒） |
 | AMB の無効化 | 環境によって AMB クライアントが動かず性能問題を起こす場合は `mid.disable_amb` を true にできる（その場合は通知なしでポーリングのみ） |
 | 主なフィールド | Agent（`mid.server.<名前>`）、Topic、Name、Source、Response to、Queue（input / output）、State、Processed、Created、Error string、Payload |
-| メニュー | ECC > Queue ほか |
+| メニュー | All > ECC Queue（Discovery > Output and Artifacts > ECC Queue からも可） |
 
 出典: [出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/ecc-queue-mid-server.html)
 
@@ -431,12 +434,12 @@ ECC Queue（External Communication Channel、`ecc_queue`）はインスタンス
 | Load Balance | リアルタイムの性能・メトリクスに基づき、負荷の低い速い MID Server により多くの仕事を割り当てる | メンバー間で Supported Applications、IP Ranges、Capabilities を揃える |
 | Failover | Order の順に待機し、障害時は「MID Server Cluster Management」Business rule が最上位の稼働中 MID Server に引き継ぐ | 代替がない場合は `mid_server.cluster.down` イベントが発生（通知に利用可） |
 
-出典: [出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/t_ConfigureAMIDServerCluster.html)（ページ内の要約は第三者ツールによる要約を含むため、詳細は原文で確認）
+出典: [出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/t_ConfigureAMIDServerCluster.html)
 
 **落とし穴 6-D：クラスターにすれば何でも冗長化できると考える。** 公式ドキュメントは次の制約を挙げている。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/t_ConfigureAMIDServerCluster.html)
 
 - **LDAP、Export sets、JDBC データソース** は性能と信頼性の理由からクラスターで使うべきではなく、専用（dedicated）の MID Server で動かす。
-- フェイルオーバー時に **データが重複する可能性** がある（冪等性の設計が必要、§5）。
+- JDBC 処理中にフェイルオーバーが起きると、代替 MID Server が ECC Queue のタスクを **最初から再実行** するため、JDBC データソースから大半の情報を取得済みでも **データが重複しうる**（冪等性の設計が必要、§5）。公式ドキュメントは重複防止のため、LDAP、Export set、JDBC データソースには非クラスターの専用 MID Server を使うよう推奨している。
 - MID Server クラスターは ECC Queue の topic **Command** と **SystemCommand** をサポートしない。
 - 1 台の MID Server を複数の同種クラスターに所属させない（Load Balance と Failover の両方への所属は可）。
 
@@ -457,7 +460,7 @@ Australia の MID Server システム要件と、ServiceNow 社員による Comm
 
 **落とし穴 6-E：Discovery 用 MID Server に連携処理を相乗りさせる。** Discovery は CPU を 90〜100% 使うのが想定内の動作であり、同じ MID Server で JDBC インポートや REST 連携を動かすと、Discovery のスケジュール時間帯に連携が遅延・タイムアウトする。GTSPerformance 記事も、MID のスレッドが詰まると Discovery など他の MID 機能に影響すると指摘している。用途（Discovery／連携／Event 収集）ごとに MID Server を分け、データソースや REST Message で使用する MID Server を明示指定する。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/LPRZSfEX7v4OqkbmL7BHSQ) `【第三者情報】`[出典](https://www.servicenow.com/community/developer-articles/outbound-integrations-using-soap-rest-performance-best-practices/ta-p/2301503) `【経験則】`
 
-**落とし穴 6-F：リソース閾値アラートが既定で無効。** MID Server は 10 分ごとに CPU・メモリの使用状況をインスタンスへ送るが、CPU とメモリの閾値アラートは既定で無効である。大量データ連携を MID 経由で行う場合は有効化を検討する。`OutOfMemoryError` は `agent0.log.0`、`wrapper.txt` で確認する。[出典](https://www.servicenow.com/docs/r/4AA65edJ2a~o5pASflQppQ/kMlRTrw8YrM2Rzs1AY7Zhg) [出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/r_MIDServerTroubleshooting.html)
+**落とし穴 6-F：リソース閾値アラートが既定で無効。** MID Server は 10 分ごとに CPU・メモリの使用状況をインスタンスへ送るが、CPU とメモリの閾値アラートは既定で無効である。大量データ連携を MID 経由で行う場合は、System Property（`sys_properties`）に `mid.threshold.resource.breach.enable.cpu.alerts` と `mid.threshold.resource.breach.enable.memory.alerts` を追加して `true` にし、有効化を検討する。`OutOfMemoryError` は `agent0.log.0`、`wrapper.txt` で確認する。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/rQ94jbTp6df1BEl7ZOPsZA) [出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/r_MIDServerTroubleshooting.html)
 
 ### 6.4 落とし穴：自動アップグレードとバージョン固定
 
@@ -607,7 +610,7 @@ Table API の GET の `sysparm_limit` は既定 10000 であり、`sysparm_offse
 
 **落とし穴 8-B：`sysparm_offset` のページングで欠落・重複する。** Community では、ページング取得中に並行して新規レコードが作られると重複した sys_id が返った事例が報告され、回答者は `sysparm_offset` を使わず、`sys_id` で並べ替えて `sys_id>{最後に取得した sys_id}` の条件を追加する方法（キーセットページング）を推奨している。また、一意でない列での `ORDERBY` は欠落・重複を招くという報告もある。`【第三者情報】`[出典](https://www.servicenow.com/community/developer-forum/we-are-receiving-duplicate-values-while-retrieving-records-by/m-p/1395829) [出典](https://www.servicenow.com/community/developer-forum/servicenow-table-api-when-it-s-safe-to-use-the-orderby-clause/m-p/3070841)
 
-**落とし穴 8-C：「返却件数がページサイズ未満なら最後のページ」と判定する。** `sysparm_limit` は ACL 評価の前に適用されるため、閲覧できないレコードが含まれるページは指定件数より少なく返る。短いページを終端と誤判定すると、後続のデータを取りこぼす。終端は「0 件が返ったとき」または応答ヘッダーの総件数で判定する。`【第三者情報】`[出典](https://www.servicenow.com/community/developer-forum/servicenow-table-api-when-it-s-safe-to-use-the-orderby-clause/m-p/3070841) （ACL 評価前の適用は [Web Services / REST API](../02_リファレンス/platform/web-services-api.md) 参照）
+**落とし穴 8-C：「返却件数がページサイズ未満なら最後のページ」と判定する。** 公式ドキュメントは、`sysparm_limit` が **ACL 評価の前に適用される** と明記しており、閲覧できないレコードが含まれるページは指定件数より少なく返る。公式ドキュメントは、閲覧可能なレコードがあるのに 1 件も返らない場合はレコードの並び順を変えるよう案内しており、**途中のページが 0 件で返ることもある**。したがって「短いページ」も「0 件のページ」も終端とは限らない。終端は、応答ヘッダー `X-Total-Count`（クエリに該当する総件数）に対して `sysparm_offset` が到達したかで判定する（`Link` ヘッダーの `next` の有無も参考になる）。キーセット方式（8-B）の場合も、0 件の応答だけで終了とせず、総件数と取得済み件数を照合する。[出典](https://www.servicenow.com/docs/r/australia/api-reference/rest-apis/c_TableAPI.html)（詳細は [Web Services / REST API](../02_リファレンス/platform/web-services-api.md)）。短いページを終端と誤判定して後続を取りこぼす事例は Community でも報告されている。`【第三者情報】`[出典](https://www.servicenow.com/community/developer-forum/servicenow-table-api-when-it-s-safe-to-use-the-orderby-clause/m-p/3070841)
 
 **落とし穴 8-D：毎回全件を取得する。** 定期連携で毎回全件を取得すると、件数の増加に比例して処理時間とインスタンス負荷が増え続ける。`sys_updated_on` による差分取得を基本とし、取りこぼし対策として前回取得時刻から少し重ねて取得し、冪等に取り込む（§5）。`【経験則】`
 
@@ -615,7 +618,7 @@ Table API の GET の `sysparm_limit` は既定 10000 であり、`sysparm_offse
 
 | 制限 | 内容 | 出典 |
 |---|---|---|
-| インバウンド REST の応答サイズ | Community では、ServiceNow が返す REST 応答の既定上限は 5 MB、`glide.pf.rest.response_payload_max_size` で最大 10 MB まで拡張できると説明されている。アウトバウンド要求には適用されない | `【第三者情報】`[出典](https://www.servicenow.com/community/itsm-forum/maximum-size-limit-for-outbound-rest-payload-also-size-limit-for/td-p/502269) |
+| Flow Designer REST step の応答サイズ | 公式ドキュメント（Flow Designer の REST step）では、添付として保存しない応答は既定 5 MB に制限され、超過するとエラーになる。大きな応答は添付として保存するか、`glide.pf.rest.response_payload_max_size` で上限を引き上げる（最大 10240 KB ≒ 10 MB）。SOAP step は `glide.pf.soap.response_payload_max_size`。なお Community には同プロパティを「ServiceNow が返すインバウンド REST 応答の上限」とする説明もあるが、公式ドキュメントの記載は REST step が受け取る応答についてである | [IntegrationHub](../02_リファレンス/platform/integrationhub.md)、[出典](https://www.servicenow.com/docs/bundle/yokohama-build-workflows/page/administer/flow-designer/reference/rest-request-action-designer.html)（Yokohama 版）、Community の説明は `【第三者情報】`[出典](https://www.servicenow.com/community/itsm-forum/maximum-size-limit-for-outbound-rest-payload-also-size-limit-for/td-p/502269) |
 | Batch API | 要求項目は既定 5 MB（最大 10 MB）、応答項目は既定 10 MB、30 秒超で打ち切り | [Web Services / REST API](../02_リファレンス/platform/web-services-api.md)、[出典](https://www.servicenow.com/docs/r/australia/api-reference/rest-apis/batch-api.html) |
 | IntegrationHub の大きな応答 | 10 MB を超える応答やページングされた結果は Data Stream action を使う | [出典](https://www.servicenow.com/docs/r/australia/integrate-applications/integration-hub/data-stream-actions.html) |
 
@@ -663,7 +666,7 @@ Concurrent imports は、受け取ったデータを複数の import set に分�
 
 #### 8.4.2 Import Set テーブルの肥大化
 
-**落とし穴 8-M：Import Set Deleter を止めてしまう。** OOB のスケジュールジョブ（Scheduled Cleanup）は毎日深夜に実行され、**7 日より古い import set と関連する import set 行を削除** する。メニューは All > System Import Sets > Import Set Tables > Scheduled Cleanup である。調査のためにクリーンアップを止めたまま忘れると import set テーブルが無制限に増え続ける。公式ドキュメントは、クリーンアップが無効だった場合、有効化の前に import set テーブルの合計が **500 万件を超えていないか** を確認し、超えている場合は先に手動削除し、カスタマーサポートに連絡するよう求めている。[出典](https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/KPZbRs1X0k6ajuAO8TsxqA) [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/I1J3ifzWRL7k5C8oZuGVMw) `【第三者情報】`[出典](https://www.servicenow.com/community/servicenow-ai-platform-articles/import-transform-learning-path/ta-p/2306952)
+**落とし穴 8-M：Import Set Deleter を止めてしまう。** OOB のスケジュールジョブ Import Set Deleter は毎日深夜に実行され、既定で **7 日より古い import set と関連する import set 行を削除** する。[出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/I1J3ifzWRL7k5C8oZuGVMw) メニューは All > System Import Sets > Import Set Tables > Scheduled Cleanup である（Zurich 版で確認）。[出典](https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/KPZbRs1X0k6ajuAO8TsxqA) 調査のためにクリーンアップを止めたまま忘れると import set テーブルが無制限に増え続ける。公式ドキュメントは、クリーンアップを有効化する前に import set テーブルの合計が **500 万件を超えていないか** を確認し、超えている場合は先に手動削除し、カスタマーサポートに連絡するよう求めている。[出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/I1J3ifzWRL7k5C8oZuGVMw) `【第三者情報】`[出典](https://www.servicenow.com/community/servicenow-ai-platform-articles/import-transform-learning-path/ta-p/2306952)
 
 - 公式ドキュメントは、import set テーブルに手動で列を追加すると、スケジュールされたクリーンアップが不完全になり孤立レコードが残る可能性があると警告している。[出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/I1J3ifzWRL7k5C8oZuGVMw)
 - 7 日の保持期間は障害調査に使える期間でもある。「連携エラーの調査に 2 週間前のデータが必要」といった要件があるなら、保持期間を延ばすより、エラー行を別の連携エラーレコードに記録する設計にする。`【経験則】`
@@ -721,12 +724,12 @@ Concurrent imports は、受け取ったデータを複数の import set に分�
 - Australia 版の「Default quota rules」ページ（本ファイルは Zurich 版の値を引用）。Australia で REST 系クォータの 60 秒が変更されたかどうか。
 - インバウンド REST API 用セマフォ（`API_INT`）の既定のセマフォ数・キュー深さの公式値（本ファイルの数値は Community 記事の例示）。インスタンス規模による違い。
 - アウトバウンドの接続・要求タイムアウト（`glide.http.connection_timeout` 10 秒、`glide.http.timeout` 175 秒）の Australia 版公式ドキュメント上の既定値（本ファイルは ServiceNow サポートチームの Community 記事に依拠）。
-- `glide.pf.rest.response_payload_max_size` の公式ドキュメント上の既定値・上限値（本ファイルは Community の記述に依拠）。
+- `glide.pf.rest.response_payload_max_size` の Australia 版公式ドキュメント上の既定値・上限値（本ファイルは Yokohama 版 Flow Designer REST step のページに依拠）。
 - Rate Limit Rules がどの認証方式（OAuth、API Key、Basic 等）でも同様に適用されるかの明示的な記述。Rate Limit Counts／Violations の格納テーブル名。
 - クローン時に除外・保持すべき連携関連テーブル（Connection、Credential、`oauth_credential` 等）の公式な一覧と、OOB のクローン設定でどこまで保持されるか。
 - Import Set API の SOAP `insertMultiple` の件数上限の最新値（Washington DC 版で 200 件と記載）と、REST `insertMultiple` の件数上限。
-- MID Server Failover 時に重複データが生じる具体的な条件。
 - OAuth リフレッシュトークン期限切れ時に、インスタンスが自動で通知・アラートを出す仕組みの有無。
+- Integration Hub Remote Process Sync - Correlation ページの Australia 版の内容（本ファイルは Brazil 版を引用）。Australia で RPS 自体が提供されていることはリリースノートで確認済み。
 
 ---
 
@@ -743,6 +746,7 @@ Concurrent imports は、受け取ったデータを複数の import set に分�
 - Table API（Australia）: https://www.servicenow.com/docs/r/australia/api-reference/rest-apis/c_TableAPI.html
 - Import Set API（Australia）: https://www.servicenow.com/docs/r/australia/api-reference/rest-apis/c_ImportSetAPI.html
 - Batch API（Australia）: https://www.servicenow.com/docs/r/australia/api-reference/rest-apis/batch-api.html
+- REST step（Flow Designer, Yokohama）: https://www.servicenow.com/docs/bundle/yokohama-build-workflows/page/administer/flow-designer/reference/rest-request-action-designer.html
 
 **ServiceNow 公式ドキュメント（エラーハンドリング・冪等性・大量データ）**
 
@@ -751,8 +755,11 @@ Concurrent imports は、受け取ったデータを複数の import set に分�
 - Data Stream actions and pagination（Australia）: https://www.servicenow.com/docs/r/australia/integrate-applications/integration-hub/data-stream-actions.html
 - Concurrent imports（Australia）: https://www.servicenow.com/docs/r/australia/integrate-applications/system-import-sets/concurrent-imports.html
 - Import sets key concepts（Australia）: https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/I1J3ifzWRL7k5C8oZuGVMw
-- Delete import sets（Scheduled Cleanup）: https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/KPZbRs1X0k6ajuAO8TsxqA
-- Integration Hub Remote Process Sync - Correlation: https://www.servicenow.com/docs/r/integrate-applications/integration-hub-remote-process-sync/correlation.html
+- Delete import sets（Scheduled Cleanup, Zurich）: https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/KPZbRs1X0k6ajuAO8TsxqA
+- Integration Hub Remote Process Sync - Correlation（Brazil）: https://www.servicenow.com/docs/r/integrate-applications/integration-hub-remote-process-sync/correlation.html
+- Build your first Remote Process Sync integration（Australia）: https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/s9CDNTtEoDP2uMmp5z1qIg
+- Combined Integration Hub release notes for upgrades from Zurich to Australia: https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/4DbcmUQcwjD1QtZyVOtzuQ
+- What's new in Quebec for IntegrationHub（ServiceNow Community ブログ）: https://www.servicenow.com/community/now-platform-blog/what-s-new-in-quebec-for-integrationhub/ba-p/2286106
 
 **ServiceNow 公式ドキュメント（MID Server）**
 
@@ -763,7 +770,7 @@ Concurrent imports は、受け取ったデータを複数の import set に分�
 - MID Server system requirements（Australia）: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/LPRZSfEX7v4OqkbmL7BHSQ
 - Pinning a MID Server to a specific version（Australia）: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/ejTfxzvOIDtjC2Ab2yscHQ
 - Active MID Server post-cloning credential issues（Australia）: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/Tb6_fGCzYETm59CjiDKSjw
-- MID Server resource threshold alerts: https://www.servicenow.com/docs/r/4AA65edJ2a~o5pASflQppQ/kMlRTrw8YrM2Rzs1AY7Zhg
+- MID Server resource threshold alerts（Australia）: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/rQ94jbTp6df1BEl7ZOPsZA
 
 **ServiceNow 公式ドキュメント（認証情報）**
 

@@ -14,6 +14,8 @@ sources:
   - https://www.servicenow.com/docs/r/now-intelligence/reporting/t_ScheduleAReport.html
   - https://www.servicenow.com/docs/r/now-intelligence/reporting/report-view-access-control.html
   - https://www.servicenow.com/docs/r/now-intelligence/read-access-control.html
+  - https://www.servicenow.com/docs/r/sUlZwnOeHovHFHxvv37~kA/oNjbhiY_M1J9DnRoHeu6Hg
+  - https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/K018kyY4QIOeWgnSU2KWFg
   - https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/0aTnujDGMcPgleU6vjmzLA
   - https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/SLxGLqJ6AavsPuo6loDabw
   - https://www.servicenow.com/docs/r/release-notes/platform-analytics-experience-rn.html
@@ -23,11 +25,14 @@ sources:
   - https://www.servicenow.com/docs/r/J7UfGStUvhlVOcoqiM3zlQ/38E8blwLmOcpiEoM0ZGxuQ
   - https://www.servicenow.com/docs/r/J7UfGStUvhlVOcoqiM3zlQ/~ip2Uquj~ouNQK84VYanLg
   - https://www.servicenow.com/docs/r/now-intelligence/create-db-in-ac.html
+  - https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/yu2HOJTos~VDkDDcabeYjA
   - https://www.servicenow.com/docs/r/3dUp4IlSpaXzwDcoDj_v6g/6PD6PIK~BXYXDLADgdfaTQ
   - https://www.servicenow.com/docs/r/now-intelligence/data-visualization-type-overview.html
   - https://www.servicenow.com/docs/r/J7UfGStUvhlVOcoqiM3zlQ/ROjbmbd_8cN~PqA1TpV5UA
   - https://www.servicenow.com/docs/r/3dUp4IlSpaXzwDcoDj_v6g/sGAO~T7YcGB0GNkh~BwhTA
   - https://www.servicenow.com/docs/r/J7UfGStUvhlVOcoqiM3zlQ/COYw7o0AvSMw26kN_AjbrA
+  - https://www.servicenow.com/docs/r/now-intelligence/data-mig-unmigrated-content.html
+  - https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/EzJAa4NjyPFa~vTohFt1HA
   - https://www.servicenow.com/docs/r/J7UfGStUvhlVOcoqiM3zlQ/Re2PWi1DgtByLKDIdshadA
   - https://www.servicenow.com/docs/r/J7UfGStUvhlVOcoqiM3zlQ/0BmHD84G7z5nj9ylwlJX_g
   - https://www.servicenow.com/docs/r/3dUp4IlSpaXzwDcoDj_v6g/k6B0R7P4naMO5CED5_rCPA
@@ -36,25 +41,38 @@ sources:
   - https://www.servicenow.com/docs/r/J7UfGStUvhlVOcoqiM3zlQ/BdN79heH95gUlFVziw5jUg
   - https://www.servicenow.com/docs/r/J7UfGStUvhlVOcoqiM3zlQ/yGLoHKyPvuULmrl2tpSqiw
   - https://www.servicenow.com/docs/r/pVA_t2FBRJGAybmbtWqZ2A/pFqBik96AHRZQT0DKBlCoA
+  - https://www.servicenow.com/docs/r/J7UfGStUvhlVOcoqiM3zlQ/vx0XnBAZ3FVvy_yLDGDMHw
   - https://www.servicenow.com/docs/r/now-intelligence/performance-analytics/pa-scores-migration.html
   - https://www.servicenow.com/docs/r/now-intelligence/performance-analytics/pa-external-data.html
   - https://www.servicenow.com/docs/r/J7UfGStUvhlVOcoqiM3zlQ/KAYC1kUtV44_QRcZWIqHdw
+  - https://www.servicenow.com/docs/r/J7UfGStUvhlVOcoqiM3zlQ/2eP10~mR_Dd5j8yfao_Snw
+  - https://www.servicenow.com/docs/r/now-intelligence/PAFormulaUtils.html
   - https://www.servicenow.com/docs/r/bB1Dk50bqXxOZKZ5dD_4fw/4oe5Kdbjek5N6ppOTwHh2w
   - https://www.servicenow.com/docs/r/J7UfGStUvhlVOcoqiM3zlQ/PlL0lWqRKQDpLKOs6bvXqA
   - https://www.servicenow.com/docs/r/J7UfGStUvhlVOcoqiM3zlQ/K7xRrQNCr5LTEN7rXGls8g
+  - https://www.servicenow.com/docs/r/now-intelligence/ds-jobs-tables.html
   - https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/RgPNZBDyRlR9voqhTd1i6w
   - https://www.servicenow.com/docs/r/release-notes/performance-analytics-rn.html
   - https://www.servicenow.com/docs/r/J7UfGStUvhlVOcoqiM3zlQ/mX0Tfg3kcRs96YXiA6o3Og
   - https://www.servicenow.com/docs/r/bB1Dk50bqXxOZKZ5dD_4fw/_swh85NVoZwhSLngpxtprg
   - https://www.servicenow.com/docs/r/now-intelligence/performance-analytics/r_AvailableContentPacks.html
-  - https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/EzJAa4NjyPFa~vTohFt1HA
   - https://www.servicenow.com/community/performance-analytics-blog/platform-analytics-adoption-guidance-amp-known-issues-reference/ba-p/3480021
   - https://www.servicenow.com/community/performance-analytics-blog/moving-from-classic-core-ui-reporting-to-platform-analytics/ba-p/3209041
   - https://www.servicenow.com/community/in-other-news/the-nudge-you-needed-to-move-to-platform-analytics/ba-p/3404168
   - https://www.servicenow.com/community/developer-forum/australia-release-key-milstone-for-platform-analytics/m-p/3515396
   - https://www.servicenow.com/community/itsm-blog/benefits-value-of-itsm-pro-predictive-intelligence-pa/ba-p/2294776
   - https://www.servicenow.com/community/platform-analytics-forum/limitations-of-default-free-pa-plugin-com-snc-pa-v-s-features-of/td-p/1244316/page/2
+  - https://www.servicenow.com/community/platform-analytics-forum/how-to-revert-the-platform-analytics-migration-how-to-only/m-p/3032901
+  - https://www.servicenow.com/community/itsm-forum/table-name-shared-reports/m-p/3329739
+  - https://www.servicenow.com/community/developer-forum/data-source-in-reports/m-p/2741839
+  - https://www.servicenow.com/community/platform-analytics-forum/data-flow-and-process-for-pa/m-p/2970678
+  - https://www.servicenow.com/community/platform-analytics-forum/how-to-create-breakdowns-on-catalog-variables-in-performance/m-p/1240193/page/2
+  - https://www.servicenow.com/community/developer-forum/performance-analytics/td-p/2567449
+  - https://www.servicenow.com/community/developer-forum/performance-analytics-formula-indicator-doesn-t-support-round-or/m-p/3521014
+  - https://www.servicenow.com/community/spm-forum/performance-analytics-premium-for-plugins/td-p/3562926
+  - https://www.servicenow.com/community/next-experience-events/next-experience-academy-session-4-new-in-tokyo-in-line-editor/ec-p/2348219
   - https://www.spoc.eu/releases-news/servicenow-australia-your-reports-after-the-upgrade-lets-make-sure-they-work/
+  - https://royalcyber.com/blogs/servicenow/servicenow-reporting-guide
 ---
 
 # レポートとアナリティクス（Reporting / Platform Analytics / Performance Analytics）
@@ -168,7 +186,7 @@ Australia の Platform Analytics experience リリースノートに記載され
 | ナビゲーション | Self-Service > Dashboards は Platform Analytics > Library > Dashboards へ、Reports > View/Run は Platform Analytics > Library > Data Visualizations へリダイレクト |
 | Analytics Center | **Analytics Overview** に改称 |
 
-Core UI のレポート作成可否は、System Property `com.snc.par.coreui.report_create.enabled`（既定値 `true`）で制御される。Australia の Reporting properties ページでは、このプロパティは「Australia へのアップグレード後に、runner ユーザーが Core UI（main UI）のレポートを作成できるようにし、Data visualization library に Create New ボタンを追加する」と説明されている。[出典](https://www.servicenow.com/docs/r/sUlZwnOeHovHFHxvv37~kA/IFmAtsHILSqfGCdUHziumg)
+Core UI のレポート作成可否は、System Property `com.snc.par.coreui.report_create.enabled`（既定値 `true`）で制御される。Australia の Reporting properties ページでは、このプロパティは「Australia へのアップグレード後に、runner ユーザーが Core UI（main UI）のレポートを作成できるようにし、Data visualization library に Create New ボタンを追加する」と説明されている。[出典](https://www.servicenow.com/docs/r/sUlZwnOeHovHFHxvv37~kA/IFmAtsHILSqfGCdUHziumg) 一方、Core UI ダッシュボードの作成は System Property `com.snc.par.coreui.dashboard_create.enabled` で制御される。Australia 版の Create or configure a responsive dashboard ページでは、このプロパティが `true` であることが作成の前提条件として記載されている（同ページに既定値の記載はない）。[出典](https://www.servicenow.com/docs/r/sUlZwnOeHovHFHxvv37~kA/oNjbhiY_M1J9DnRoHeu6Hg)
 
 > **注意（情報源間の差異）：** ServiceNow Community の一般ユーザー投稿（2026-03）では「Australia 以降、レガシーダッシュボードはメニューからアクセスできなくなり、Core UI モジュールは重大なセキュリティ修正のみとなる」と説明されている【第三者情報】。一方、公式リリースノートは「メニューのリダイレクト」と「Core UI での作成・編集の継続」を記載しており、「アクセス不可」とまでは書いていない。メニューが Platform Analytics 側に向くことは両者で一致している。[出典](https://www.servicenow.com/community/developer-forum/australia-release-key-milstone-for-platform-analytics/m-p/3515396)
 
@@ -183,7 +201,7 @@ ServiceNow Community の Platform Analytics チームの投稿（公式ドキュ
 
 パートナー（SPOC）は「Australia 以降 Core UI のレポート・ダッシュボードは修正・更新を受けなくなり、初日に壊れることはないが静かに劣化する」と表現している【第三者情報】。[出典](https://www.spoc.eu/releases-news/servicenow-australia-your-reports-after-the-upgrade-lets-make-sure-they-work/)
 
-> **Brazil での変更:** Brazil の Platform Analytics experience リリースノートでは、新規作成フローが更新され Next Experience が推奨経路として示される（`com.snc.par.coreui.dashboard_create.enabled` と `com.snc.par.coreui.report_create.enabled` が `true` のとき適用。情報モーダルが表示され、Core UI ダッシュボードは `pa_dashboard` レコードフォーム、Core UI レポートは Report Designer で開く）。また Brazil 版の Platform Analytics experience ページでは「Brazil へのアップグレードで Platform Analytics は既定で有効、Core UI のダッシュボードとレポートは Core UI のツールから引き続き表示できる」と記載されている。[出典](https://www.servicenow.com/docs/r/release-notes/platform-analytics-experience-rn.html) [出典](https://www.servicenow.com/docs/r/now-intelligence/par-workspace.html)
+> **Brazil での変更:** Brazil の Platform Analytics experience リリースノートでは、新規作成フローが更新され Next Experience が推奨経路として示される（`com.snc.par.coreui.dashboard_create.enabled` と `com.snc.par.coreui.report_create.enabled` が `true` のとき適用。情報モーダルが表示され、Core UI ダッシュボードは `pa_dashboard` レコードフォーム（リリースノート原文の表記。テーブルは `pa_dashboards`、3.1 節）、Core UI レポートは Report Designer で開く）。また Brazil 版の Platform Analytics experience ページでは「Brazil へのアップグレードで Platform Analytics は既定で有効、Core UI のダッシュボードとレポートは Core UI のツールから引き続き表示できる」と記載されている。[出典](https://www.servicenow.com/docs/r/release-notes/platform-analytics-experience-rn.html) [出典](https://www.servicenow.com/docs/r/now-intelligence/par-workspace.html)
 
 ---
 
@@ -368,7 +386,7 @@ Report source の格納テーブルは、ServiceNow Community で `sys_report_so
 
 ServiceNow の Core UI の **Responsive dashboard（レスポンシブダッシュボード）** は、レポートや PA widgets、Interactive filters を配置する Core UI のダッシュボードで、Dashboards [`pa_dashboards`] テーブルに格納される（ServiceNow Community 管理者のブログで、`pa_dashboards` は Core UI（レガシー）ダッシュボード、`par_dashboard` は移行後およびネイティブの Platform Analytics ダッシュボードと説明されている）。[出典](https://www.servicenow.com/community/performance-analytics-blog/moving-from-classic-core-ui-reporting-to-platform-analytics/ba-p/3209041)
 
-- Core UI の Responsive dashboard の作成・編集には `dashboard_admin` ロールが必要とされている。[出典](https://www.servicenow.com/docs/r/sUlZwnOeHovHFHxvv37~kA/oNjbhiY_M1J9DnRoHeu6Hg)
+- Core UI の Responsive dashboard は、内部ロールを持つ任意のユーザーが作成できる（System Property `com.snc.par.coreui.dashboard_create.enabled` が `true` であることが前提）。他人のダッシュボードを含む任意のダッシュボードの編集・共有・削除には `dashboard_admin` が必要（4.5 節）。[出典](https://www.servicenow.com/docs/r/sUlZwnOeHovHFHxvv37~kA/oNjbhiY_M1J9DnRoHeu6Hg)
 - Xanadu 以降、新規顧客には提供されず、アップグレード顧客で利用中の場合のみ継続利用できる（1.1 節）。
 - **Homepages（ホームページ）** はさらに古い世代の Core UI ダッシュボードであり、Migration Center の「Do not migrate in bulk」対象テーブルとして `sys_ui_hp_publisher` が挙げられている。[出典](https://www.servicenow.com/community/performance-analytics-blog/moving-from-classic-core-ui-reporting-to-platform-analytics/ba-p/3209041)
 
@@ -564,7 +582,7 @@ ServiceNow の Platform Analytics のロールは次のとおり（Australia 版
 | ロール | 説明 | 含むロール |
 |---|---|---|
 | `admin` | ダッシュボード・ビジュアライゼーションの作成と、あらゆるものの編集・共有・削除。フィルター管理、Usage Insights 管理者権限 | 表中の他の全ロール |
-| `platform_analytics_admin` | Performance Analytics と Usage Insights を含む Platform Analytics の管理。**セキュリティ上 `admin` と同等** | `analytics_admin`、`analytics_categories_admin`、`analytics_filter_admin`、`dashboard_admin`、`pa_admin`、`par_scheduler`、`viz_admin` |
+| `platform_analytics_admin` | Performance Analytics と Usage Insights を含む Platform Analytics の管理。**セキュリティ上 `admin` と同等**。ただし Core UI レポートに対する `report_admin` の権限は含まない | `analytics_admin`、`analytics_categories_admin`、`analytics_filter_admin`、`dashboard_admin`、`pa_admin`、`par_scheduler`、`viz_admin` |
 | `analytics_admin` | Usage Insights の管理者権限 | Usage Insights の他の管理・閲覧ロール |
 | `analytics_categories_admin` | ダッシュボードのカテゴリタグの作成・編集・削除 | なし |
 | `analytics_filter_admin` | 任意の Platform Analytics フィルターの編集・削除、フィルターライブラリへの追加 | なし |
@@ -645,7 +663,7 @@ ServiceNow の Australia 版「Performance Analytics terms」に基づく主要�
 | Bucket group | バケットグループ | 適切なフィールドがない連続データを離散グループに分類（例：時間差を 1 時間ごとに区分） |
 | Data collector / Data collection job | データ収集ジョブ | 1 つ以上のインジケーターソースからデータを集めてスコアを生成するスケジュールジョブ |
 | Snapshot | スナップショット | スコア収集と同時に取得したレコードの sys_id 一覧 |
-| Data snapshots | データスナップショット | 変更データキャプチャ（CDC）でテーブル変更を記録する代替アーキテクチャ。ブレークダウンマトリクスが不要で、無制限のブレークダウンが可能 |
+| Data snapshots | データスナップショット | 変更データキャプチャ（CDC）でテーブル変更を記録する代替アーキテクチャ。ブレークダウンマトリクスが不要で、2 レベルを超える多重ブレークダウンが可能。用語集では「unlimited breakdowns」と表現されるが、制限ページではインジケーターあたり最大 250 のブレークダウン・集計フィールドが上限とされる（5.8.2 節） |
 | Target | 目標 | 目標とする将来のスコア。グローバルまたはユーザー個人 |
 | Threshold | しきい値 | インジケーターの正常範囲の上限・下限。超過時のアラートを設定可 |
 | Forecast | 予測 | 過去の挙動に基づく将来スコアの予測。時系列ビジュアライゼーション、widgets、KPI Details に表示 |
@@ -1066,7 +1084,7 @@ ServiceNow の PA サブスクリプションの有効化は次のとおり（Au
 
 | 機能 | ライセンス |
 |---|---|
-| Core UI Reports、Responsive dashboards | プラットフォームに含まれる（ロールで制御） |
+| Core UI Reports、Responsive dashboards | プラットフォームに含まれる（ロールで制御）【推定】。Xanadu のリリースノートで追加サブスクリプションが必要になりうるとされるのは indicators などの一部データソースに限られ、テーブルデータのレポートは対象外と読める [出典](https://www.servicenow.com/docs/r/3ongaT2PAVB3Cqoicgnoxg/AoML36K1hsEy~3zu9tjCXQ) |
 | Platform Analytics experience（Dashboards、テーブルデータの Data visualizations） | ServiceNow AI Platform の機能として既定で有効。Visualization Designer に追加ライセンスは不要と Community で説明されている【第三者情報】 |
 | Indicator データソースの Data visualizations、KPI Details | PA サブスクリプションが必要な場合がある（「indicators などの一部データソースはサブスクリプションが必要な場合がある」）[出典](https://www.servicenow.com/docs/r/3ongaT2PAVB3Cqoicgnoxg/AoML36K1hsEy~3zu9tjCXQ) |
 | PA インジケーター・ブレークダウンの作成 | PA サブスクリプション（Pro 以上のパッケージ等）。Complimentary 版では不可 |

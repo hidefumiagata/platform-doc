@@ -7,7 +7,7 @@ last_verified: 2026-11-02
 summary: ServiceNow のアジャイル開発系アプリ（Agile Development 2.0 / Scrum Programs / SAFe / Enterprise Agile Planning / Collaborative Work Management）、Enterprise Architecture（旧 Application Portfolio Management、EA Workspace）、Digital Product Release / Digital Portfolio Management の仕様（テーブル、ロール、プラグイン、プロパティ、状態値、画面、廃止予定）を Australia 基準でまとめたリファレンス。
 keywords: [Agile Development 2.0, アジャイル, Scrum, スクラム, SAFe, Enterprise Agile Planning, EAP, Collaborative Work Management, CWM, rm_story, rm_epic, rm_sprint, Scrum Programs, Unified Backlog, Application Portfolio Management, APM, Enterprise Architecture, EA Workspace, エンタープライズアーキテクチャ, cmdb_ci_business_app, Business Application, ビジネスアプリケーション, Application Rationalization, アプリケーション合理化, TIME, indicator, scoring profile, TRM, Technology Reference Model, TLM, TPM, 技術的負債, business capability, ビジネスケイパビリティ, information object, Enterprise Modeling and Visualization, ArchiMate, ADR, Digital Product Release, DPR, Digital Portfolio Management, DPM, sn_apm, sn_apw_advanced, SPM]
 sources:
-  - https://www.servicenow.com/docs/r/zurich/it-business-management/agile-development/components-installed-with-agile-2.0.html
+  - https://www.servicenow.com/docs/r/australia/it-business-management/agile-development/components-installed-with-agile-2.0.html
   - https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/2nYLcprr4nDTyFBaSnvtKw
   - https://www.servicenow.com/docs/r/4Pll~Vzr5Rr79UNYLnUdJw/BLGHMNHQo_S9lrh4aCO6xA
   - https://www.servicenow.com/docs/r/australia/it-business-management/agile-development/create-a-story.html
@@ -30,6 +30,29 @@ sources:
   - https://www.servicenow.com/docs/r/97F4kxpjkdv178Iq1OQ9sQ/kCgEdrb3TZrXI34tCytjhg
   - https://www.servicenow.com/docs/r/australia/it-service-management/digital-product-release/dpr-workspace.html
   - https://www.servicenow.com/docs/r/australia/it-service-management/digital-portfolio-management/dpm-landing.html
+  - https://www.servicenow.com/docs/r/australia/it-service-management/digital-portfolio-management/dpm-related-products.html
+  - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/_uNCTiuPKwHTiLMhRWO1gQ
+  - https://www.servicenow.com/docs/r/97F4kxpjkdv178Iq1OQ9sQ/VBpV0JStRGKGU1fkQZaUuA
+  - https://www.servicenow.com/docs/r/97F4kxpjkdv178Iq1OQ9sQ/~5mKYbhL77VirnIzYi2Mvw
+  - https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/zwPAPpmXvX2YQ49g2VkksA
+  - https://www.servicenow.com/docs/r/97F4kxpjkdv178Iq1OQ9sQ/7wgVtukTP2CDVt94ciGlrQ
+  - https://www.servicenow.com/docs/r/australia/application-portfolio-management/eaw-access-roles.html
+  - https://www.servicenow.com/docs/r/australia/application-portfolio-management/eaw-gran-admin-role-changes.html
+  - https://www.servicenow.com/docs/r/australia/application-portfolio-management/eaw-business-architecture.html
+  - https://www.servicenow.com/docs/r/australia/application-portfolio-management/eaw-business-capabilities.html
+  - https://www.servicenow.com/docs/r/australia/application-portfolio-management/eaw-information-portfolio.html
+  - https://www.servicenow.com/docs/r/australia/application-portfolio-management/eaw-digital-integration.html
+  - https://www.servicenow.com/docs/r/australia/application-portfolio-management/eaw-manage-application-tco.html
+  - https://www.servicenow.com/docs/r/australia/application-portfolio-management/ea-qna-overview.html
+  - https://www.servicenow.com/community/spm-articles/strategic-portfolio-management-welcome-guide/ta-p/2368193
+  - https://www.servicenow.com/docs/r/6k4g_5wX4~40dsUynycZuQ/5mE9JJXOEQMwWjC5Rf6PEA
+  - https://www.servicenow.com/docs/r/U2CVwXuy001wBq~XyYjcSg/T0JnK3mPx5XcMYgOLCtvSw
+  - https://www.servicenow.com/docs/r/6k4g_5wX4~40dsUynycZuQ/YVLusktthAeIk6nIiJBpVQ
+  - https://www.servicenow.com/docs/r/7j6XJu~hiM8er80NoATFxQ/ejF81H1aLzf8zrxtjTmjrA
+  - https://www.servicenow.com/docs/r/australia/it-business-management/agile-development/customize-story-states-of-your-agile-dashboard-reports.html
+  - https://www.servicenow.com/community/apm-articles/measure-your-application-inventory-with-the-indicator-and/ta-p/2958231
+  - https://www.servicenow.com/docs/r/ko-KR/api-reference/rest-apis/digital-product-release-api.html
+  - https://www.servicenow.com/community/digital-product-release-forum/dpr-mapping-personas-and-roles/m-p/3201819
 ---
 
 # Agile Development・APM・EAM（アジャイル開発・アプリケーションポートフォリオ管理・エンタープライズアーキテクチャ）
@@ -40,18 +63,18 @@ sources:
 
 | 区分 | アプリケーション（英語正式名称） | 位置付け（Australia 時点） |
 |---|---|---|
-| チーム単位アジャイル（従来） | Agile Development 2.0（アジャイル開発 2.0） | **Australia から廃止予定（planned for deprecation）**。2026-04 に新規販売終了。完全な廃止は 2030-08 予定 |
+| チーム単位アジャイル（従来） | Agile Development 2.0（アジャイル開発 2.0） | **Australia から廃止予定（planned for deprecation）**。2026-04 に新規販売終了。リリースノート上の廃止時期は 2030-08（コミュニティ記事では End of Support を「2030 以降・日付未定」としている。1.3 参照） |
 | チーム単位アジャイル（後継） | Collaborative Work Management（CWM、協調作業管理） | ServiceNow Store アプリ。Agile 2.0 の公式後継 |
 | 複数チーム（プログラム） | Scrum Programs（スクラムプログラム） | C リリースで廃止予定。代替なし |
 | スケールドアジャイル（従来） | Essential SAFe / Portfolio SAFe 等 | Xanadu で廃止（新規有効化不可） |
-| スケールドアジャイル（後継） | Enterprise Agile Planning（EAP、エンタープライズアジャイル計画） | Strategic Planning（Store アプリ）の一機能。SPM Pro 以上 |
+| スケールドアジャイル（後継） | Enterprise Agile Planning（EAP、エンタープライズアジャイル計画） | Strategic Planning（Store アプリ）の一機能。SPM Pro（旧ティア）／Prime（新ティア）が必要【第三者情報】 |
 | アプリポートフォリオ／EA | Enterprise Architecture（EA、旧 Application Portfolio Management／APM）＋ Enterprise Architecture Workspace | `com.snc.apm` プラグイン＋ Store アプリ `sn_apm_ws`。別途サブスクリプション |
 | デジタルプロダクトのリリース | Digital Product Release（DPR、デジタルプロダクトリリース） | Store アプリ（ITSM 系ドキュメントに掲載） |
 | サービス／アプリのポートフォリオ俯瞰 | Digital Portfolio Management（DPM、デジタルポートフォリオ管理） | DPM Workspace（ITSM 系ドキュメントに掲載） |
 
 > **用語の注意:** 本ファイルのタイトルにある「EAM」は **Enterprise Architecture Management（エンタープライズアーキテクチャ管理）** の意味で使っている。ServiceNow には別製品として **Enterprise Asset Management（EAM、エンタープライズ資産管理）** が存在するため混同しないこと（資産管理は [ITAM 概要](../itam/itam-overview.md) を参照）。
 
-> **製品名の注意:** ServiceNow 公式ドキュメント（Australia 後期パッチ以降の EA リリースノート）では、生成 AI 機能のブランド名 **Now Assist が「ServiceNow Otto」に改称**されたと記載されている（例：「Now Assist for Enterprise Architecture」→「ServiceNow Otto for Enterprise Architecture (EA)」）。本ファイルでは原文に合わせて両方の名称を用いる。[出典](https://www.servicenow.com/docs/r/australia/delta-xanadu-australia/australia-xanadu-enterprisearchitecture-release-notes.html)
+> **製品名の注意:** ServiceNow 公式ドキュメント（Australia 後期パッチ以降の EA リリースノート）では、生成 AI 機能のブランド名が **Now Assist から「ServiceNow Otto」に改称**されたと記載されている。EA リリースノートの原文は「ServiceNow Otto for Enterprise Architecture (EA) is rebranded to ServiceNow Otto.」（ServiceNow Otto for Enterprise Architecture (EA) は ServiceNow Otto にブランド変更された）であり、旧称「Now Assist for Enterprise Architecture」からの対応関係は原文に明記されていない。本ファイルでは原文に合わせて両方の名称を用いる。[出典](https://www.servicenow.com/docs/r/australia/delta-xanadu-australia/australia-xanadu-enterprisearchitecture-release-notes.html)
 
 ---
 
@@ -101,18 +124,20 @@ Australia リリースノートの Agile Development 2.0 ページ（2026-03-12 
 
 ### 1.3 廃止スケジュールと既存顧客への影響（コミュニティ公式記事）
 
-ServiceNow 社員による CWM コミュニティの記事「Start Here: Agile 2.0 Deprecation and Collaborative Work Management」（2026-04-28 投稿）は、次のタイムラインを示している。【第三者情報】（ServiceNow Community 上の社員投稿。製品ドキュメントではない）[出典](https://www.servicenow.com/community/cwm-articles/start-here-agile-2-0-deprecation-and-collaborative-work/ta-p/3533752)
+ServiceNow 社員による CWM コミュニティの記事「Start Here: Agile 2.0 Deprecation and Collaborative Work Management」（2026-04-28 投稿。投稿後に更新されており、以下は 2026-11-08 取得時点の記載）は、次のタイムラインを示している。【第三者情報】（ServiceNow Community 上の社員投稿。製品ドキュメントではない）[出典](https://www.servicenow.com/community/cwm-articles/start-here-agile-2-0-deprecation-and-collaborative-work/ta-p/3533752)
 
 | 時期 | イベント | 内容 |
 |---|---|---|
 | 2026-04 | End of Sale（新規販売終了） | 新規顧客は Agile Development 2.0 の購入・プラグイン導入が不可。SPM の SKU から Agile Development が除外 |
-| 2027-01（予定） | Agile Teams SKU の End of Renewal | 既存顧客は継続利用可能で、コンプライアンス違反にはならない |
+| 2027-05（Canada リリース、予定） | Agile Teams SKU の End of Renewal | 既存顧客は継続利用可能で、コンプライアンス違反にはならない |
 | 2030 以降（日付未定） | End of Support | 全ての有効な Agile Development 契約の満了後。サポートケースを受け付けず、アプリは「カスタマイズ扱い」となる。アプリ自体は無効化されない |
+
+> **廃止時期の記載の相違:** Australia リリースノート（1.2）は `com.snc.sdlc.agile.2.0` の廃止時期を「August 2030（2030-08）」としている。一方、ServiceNow Community 記事（2026-04）は End of Support を「2030+ (Exact Date TBD)」（2030 以降・日付未定、全ての有効な契約の満了後）としている。両者は一致していないため、自社に適用される実際の時期はアカウント担当に確認すること。
 
 - 同記事は「強制的な切替日（forced cutover date）はない」と明記している。
 - Agile 2.0 と CWM は同一インスタンスでも別インスタンスでも併用可能（記事コメントでの回答）。
 - **Sprint 履歴は移行されない**。`rm_sprint` と CWM の `sn_cwm_sprint` は構造的に互換性がないため、履歴参照用に Agile 2.0 を読み取り専用で残すことが推奨されている。
-- 移行パス：Path A「CWM のみ」（個々のチームが自チームのスプリントとストーリーを管理）、Path B「CWM ＋ EAP」（ART、SAFe、Scrum of Scrums などの複数チーム調整。SPM Pro または Prime が必要）。
+- 移行パス：Path A「CWM のみ」（個々のチームが自チームのスプリントとストーリーを管理）、Path B「CWM ＋ EAP」（ART、SAFe、Scrum of Scrums などの複数チーム調整。SPM Pro（旧ティア）または Prime（2026-04 以降の新ティア）が必要）。
 - EAP は SPM Pro / Prime ライセンスが必要だが、EAP にアクセスするユーザーのみが対象で、CWM のみを使うチームメンバーは CWM ライセンスで足りる、とされる。
 
 **移行手順（同記事より要約）**【第三者情報】
@@ -128,12 +153,16 @@ ServiceNow 社員による CWM コミュニティの記事「Start Here: Agile 2
 
 | 区分 | テーブル |
 |---|---|
-| Agile 2.0 / CWM / EAP で共有 | `rm_story`、`rm_scrum_task`、`sn_align_core_scrum_epic` |
-| レガシー | `rm_epic`（Agile 2.0）、`sn_safe_epic`（サポート終了）、`rm_theme`、`rm_enhancement`、`rm_defect` |
-| Feature 系 | `rm_feature`（Agile 2.0 の可視化のみ）、`sn_align_core_feature`（EAP）、`sn_dpr_feature`（DPR） |
-| EAP のみ | `sn_align_core_capability`、`sn_apw_adv_iteration`（Planning Interval） |
+| 共有（移行不要） | `rm_story`、`rm_scrum_task`、`sn_align_core_scrum_epic`（EAP と CWM で共有。新規エピックはこちらを推奨）、`sn_align_core_feature`（EAP で管理。CWM では Lists で扱う）、`rm_defect`（共有だが CWM のネイティブ UI はロードマップ。当面は Connected Work で扱う） |
+| Connected Work で参照できるレガシー | `rm_epic`（Agile 2.0）、`rm_feature`（Agile 2.0。Connected Work 経由の参照のみ）、`rm_enhancement`（Connected Work で参照可能、CWM の Add Item からは作成不可） |
+| その他のレガシー | `sn_safe_epic`（サポート終了。新規連携を作らない）、`rm_theme`（Story フォーム上は有効だが CWM Board でのグルーピング不可） |
+| DPR | `sn_dpr_feature`（Digital Product Release と結び付く戦略的なプロダクト可視化用） |
+| EAP のみ（Path B） | `sn_align_core_capability`、`sn_apw_adv_iteration`（Planning Interval） |
+| Sprint | `rm_sprint`（Agile 2.0。履歴は移行されない）、`sn_cwm_sprint`（CWM。切替時に新規開始） |
 
 > 注：同記事の表では Agile 2.0 のテーマを `rm_theme` と記載しているが、製品ドキュメントのテーブル一覧では Theme は `scrum_theme` である（「2.2 テーブル」参照）。
+>
+> 注：同様に、公式のコンポーネント一覧では EAP のイテレーションは `sn_apw_advanced_eap_iteration`（「5.4 EAP のテーブル」参照）、DPR のフィーチャーは `sn_dpr_model_product_feature`（「7.1」参照）である。同記事の `sn_apw_adv_iteration`、`sn_dpr_feature` という表記は公式ドキュメントでは確認できていない。
 
 **CWM 移行時の既知のギャップ（同記事より）**【第三者情報】
 
@@ -142,6 +171,8 @@ ServiceNow 社員による CWM コミュニティの記事「Start Here: Agile 2
 - Sprint Goal（スプリントゴール）は標準では未提供。
 - Theme 単位のグルーピング表示はない。
 - CWM と Project Workspace の双方向同期、Board と Demand／Project の紐付けは標準では未提供（ロードマップ）。
+- DPR（Digital Product Release）と CWM の連携は標準では未提供（ロードマップ）。
+- Agile 2.0 の過去の Sprint データの移行は未提供。
 - Sprint のベロシティ、バーンダウン、バーンアップは CWM Advanced 2.2.1（2026-09）で対応済み。
 
 > **Brazil での変更:** CWM 11.0.1（Brazil リリースノート掲載）で、全ての Board に List／Gantt／Kanban／Sprint planning に並ぶ **Dashboard タブ**が追加され、「Team progress」（ウォーターフォール用）と「Team sprint tracker」（アジャイル用）の 2 つの共有ダッシュボードが自動追加された。Sprint バーンアップ／バーンダウンのウィジェットには **CWM Daily Sprint Data Collection** スケジュールジョブの有効化が必要。EAP から CWM への Sprint 同期（名前・状態・キャパシティ・日付）は、カレンダーベースに加え非カレンダーベースのイテレーションを使うチームにも拡張された。CWM は Store アプリ `sn_cwm` として導入する（admin ロール必須）。[出典](https://www.servicenow.com/docs/r/97F4kxpjkdv178Iq1OQ9sQ/7wgVtukTP2CDVt94ciGlrQ)
@@ -184,7 +215,7 @@ flowchart TD
 
 ### 2.2 テーブル
 
-Agile Development 2.0 のインストールで追加される主なテーブルは次のとおり（Zurich ドキュメント「Components installed with Agile Development 2.0」）。[出典](https://www.servicenow.com/docs/r/zurich/it-business-management/agile-development/components-installed-with-agile-2.0.html)
+Agile Development 2.0 のインストールで追加される主なテーブルは次のとおり（Australia ドキュメント「Components installed with Agile Development 2.0」、2026-03-12 更新）。[出典](https://www.servicenow.com/docs/r/australia/it-business-management/agile-development/components-installed-with-agile-2.0.html)
 
 | ラベル | テーブル名 | 用途 |
 |---|---|---|
@@ -213,11 +244,11 @@ Scrum Programs を有効化すると、さらに `epic_backlog_definition`（エ
 
 ### 2.3 ロール
 
-Agile Development 2.0 のロールは次のとおり。`scrum_user` が全ロールの基底（読み取り専用）である。[出典](https://www.servicenow.com/docs/r/zurich/it-business-management/agile-development/components-installed-with-agile-2.0.html)
+Agile Development 2.0 のロールは次のとおり。`scrum_user` が全ロールの基底（読み取り専用）である。[出典](https://www.servicenow.com/docs/r/australia/it-business-management/agile-development/components-installed-with-agile-2.0.html)
 
 | ロール名（Title） | ロール | 説明 | 包含ロール |
 |---|---|---|---|
-| Scrum admin（スクラム管理者） | `scrum_admin` | Agile Development 2.0 の完全な制御 | `scrum_user`、`rm_product_admin`、`rm_task_admin`、`rm_test_admin`、`rm_doc_admin`、`rm_story_admin`、`rm_epic_admin`、`rm_sprint_admin`、リリース管理系 admin |
+| Scrum admin（スクラム管理者） | `scrum_admin` | Agile Development 2.0 の完全な制御 | `scrum_user`、`rm_product_admin`、`rm_task_admin`、`rm_test_admin`、`rm_doc_admin`、`rm_story_admin`、`rm_epic_admin`、`rm_releasescrum_admin`、`rm_sprint_admin` |
 | Scrum master（スクラムマスター） | `scrum_master` | スプリント進行のガイド、リリースバックログとスプリント間のストーリー移動、エピック・ストーリー・スプリント・チームメンバー管理 | `scrum_sprint_planner`、`scrum_story_creator`、`scrum_user` |
 | Scrum product owner（プロダクトオーナー） | `scrum_product_owner` | プロダクトのビジネス価値とバックログの所有、バックログとリリース間の移動、テーマ・エピック・ストーリー・プロダクト・リリース・チーム管理 | `scrum_release_planner`、`scrum_story_creator`、`scrum_user` |
 | Scrum release planner | `scrum_release_planner` | リリース計画、テーマ・プロダクト・リリース管理 | `scrum_user`、`scrum_story_creator` |
@@ -303,7 +334,7 @@ stateDiagram-v2
 | `com.snc.sdlc.scrum.pp.task_uses_actual_hours` | Scrum Task フォームの Actual hours フィールドを有効化し、進捗ボードに実績時間を表示 | true/false | true |
 | `com.snc.sdlc.scrum.pp.default_sprint_length` | スプリント長を計算できない場合の既定日数 | 整数 | 14 |
 
-[出典](https://www.servicenow.com/docs/r/zurich/it-business-management/agile-development/components-installed-with-agile-2.0.html)
+[出典](https://www.servicenow.com/docs/r/australia/it-business-management/agile-development/components-installed-with-agile-2.0.html)
 
 ### 2.6 Agile board（アジャイルボード）
 
@@ -412,7 +443,11 @@ ServiceNow は代替として **Strategic Planning の Enterprise Agile Planning
 
 ### 5.1 概要と提供形態
 
-Enterprise Agile Planning（EAP）は、Strategic Planning アプリケーション（ServiceNow Store）の一機能で、SAFe などのスケールドアジャイルを組織全体に展開するためのチーム構造・作業構造・計画カレンダーを提供する。EAP は **SPM Pro ライセンスで Strategic Planning をインストールすると利用可能**になる。画面は **Strategic Planning Workspace** 上で提供される。[出典](https://www.servicenow.com/docs/r/4Pll~Vzr5Rr79UNYLnUdJw/jNcobQL9lEJDilQxDV7A9g)
+Enterprise Agile Planning（EAP）は、Strategic Planning アプリケーション（ServiceNow Store）の一機能で、SAFe などのスケールドアジャイルを組織全体に展開するためのチーム構造・作業構造・計画カレンダーを提供する。[出典](https://www.servicenow.com/docs/r/4Pll~Vzr5Rr79UNYLnUdJw/jNcobQL9lEJDilQxDV7A9g)
+
+- ライセンス：ServiceNow Community の社員記事は「EAP requires SPM Pro/SPM Prime」としている（EAP にアクセスするユーザーのみが対象）。【第三者情報】[出典](https://www.servicenow.com/community/cwm-articles/start-here-agile-2-0-deprecation-and-collaborative-work/ta-p/3533752)
+- 画面：Strategic Planning の Store リリースノート（4.0.2、2024-02）は、SPM Pro ライセンスの機能は Strategic Planning Workspace でのみ利用でき、Portfolio Planning Workspace で使っていた場合は Strategic Planning のインストールが必要と説明している。同じく Strategic Planning は `com.snc.sdlc.agile.2.0` ファミリーのプラグインに依存するとされる。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/zwPAPpmXvX2YQ49g2VkksA)
+- EAP 固有のライセンス・インストール要件を明記した公式ページは公開情報では確認できず。
 
 ### 5.2 既定の構成（Agile configurations）
 
@@ -425,7 +460,8 @@ EAP の構成（Configuration）は、チームレベル構造・作業項目タ
 | Large Solution Configuration | Solution Train を含む大規模ソリューション |
 | Portfolio Configuration | ポートフォリオレベル中心 |
 | Kanban Configuration | カンバン運用 |
-| Scrum Configuration（Strategic Planning 4.18.0 で追加） | Planning Interval を持たず Sprint のみで運用する単一 Agile Team レベル。Epic と Story を許可し、Story は「Scrum Sprint」計画カレンダーに対応。既定では非アクティブ |
+
+> 上表は Yokohama 版ドキュメントに基づく（Australia 版の同ページは確認できず）。Brazil 期の Strategic Planning 4.18.0 では **Scrum Configuration** が追加されている（5.5 の「Brazil での変更」参照）。
 
 - **既定のチーム階層**：Portfolio > Solution Train > Agile Release Train（ART）> Agile Team
 - **既定の作業項目階層**：Epic > Capability > Feature > Story
@@ -476,11 +512,11 @@ Strategic Planning Workspace の EAP 構成画面の一部。左の「Team level
 
 ### 5.5 EAP と CWM／Agile 2.0 の連携
 
-- EAP チームを CWM に接続すると（「Connect an EAP team with CWM」）、EAP 側の Backlog と Hierarchy ページは CWM 接続チームでも表示される（Strategic Planning 4.16.0、2026-07）。[出典](https://www.servicenow.com/docs/r/4Pll~Vzr5Rr79UNYLnUdJw/jNcobQL9lEJDilQxDV7A9g)
+- EAP チームを CWM に接続すると（「Connect an EAP team with CWM」）、EAP 側の Backlog と Hierarchy ページは CWM 接続チームでも表示される（Strategic Planning 4.16.0、2026-07）。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/zwPAPpmXvX2YQ49g2VkksA)
 - 計画カレンダーに従わない Sprint は、イテレーションの開始日・終了日を使って Agile Development 2.0 に同期され、日付変更は Agile 2.0 側の Sprint に反映される（Strategic Planning 4.18.0）。[出典](https://www.servicenow.com/docs/r/97F4kxpjkdv178Iq1OQ9sQ/~5mKYbhL77VirnIzYi2Mvw)
 
 > **Brazil での変更（Strategic Planning 4.18.0〜4.19.0、Brazil リリースノート掲載）:**
-> - **Scrum Configuration** の追加（5.2 参照）と、計画カレンダー種別「Scrum Sprint」の既定提供。
+> - **Scrum Configuration** の追加：Planning Interval を持たず Sprint のみで運用する単一 Agile Team レベルの構成。Epic と Story を許可し、Story は計画カレンダー種別「Scrum Sprint」（既定提供）に対応。既定では非アクティブ。
 > - **Allow unique cadence for each team**：構成ごとに、チームごとの独自イテレーション日程を許可できる。`sn_apw_advanced_eap_iteration` の Enterprise agile calendar entry フィールドは必須でなくなった。
 > - イテレーションに **Spillover** と **New scope** フィールドを追加（スプリント中のスコープ変動を把握）。
 > - **Kanban チームを ART 内で Scrum チームと併存**可能（4.19.0）。チームの Planning methodology フィールドで Scrum／Kanban を選択。Kanban に切り替えると未完了のスプリント（現在のスプリントを含む）はキャンセルされる。CWM 接続チームは、アクティブ／計画済みのスプリントがある間は Kanban に切り替えられない。アップグレード時、既存チームは業務カレンダーがあれば Scrum、なければ Kanban が自動設定されるため、スプリント運用のチームは確認が必要。
@@ -514,23 +550,29 @@ ServiceNow の **Enterprise Architecture（EA、エンタープライズアー�
 
 ### 6.3 ロール
 
-Enterprise Architecture Workspace のアクセスロールは次の 4 階層である。
+Enterprise Architecture Workspace のアクセスロールは次の 4 階層である。Australia では `sn_apm.apm_read` < `sn_apm.apm_user` < `sn_apm.apm_admin` < `sn_apm.apm_analyst` の順に権限が広がり、**`sn_apm.apm_analyst` が最上位**である（下表は下位から順に記載）。
 
-| ロール | 名称 | 主な権限 | 想定ユーザー |
-|---|---|---|---|
-| `sn_apm.apm_read` | EA Read User | ワークスペースの全ページ・レコードを読み取り専用で閲覧。EA dashboard、Application 360、Application Assessments ダッシュボードの閲覧（Yokohama で業務ステークホルダーロールにワークスペース読み取りが追加） | 業務ステークホルダー、経営層、監査 |
-| `sn_apm.apm_user` | EA User | ビジネスアーキテクチャ、情報、テクノロジー、モデリング、データ認証のポートフォリオデータ作成・更新。ビジネスアプリ詳細・アプリケーションサービス・プロダクトケイパビリティの更新、デマンド作成、図の承認申請、割当済み認証タスクの完了。TRM 製品・ライフサイクルの**申請**（承認は不可） | アプリオーナー、業務アナリスト、ポートフォリオマネージャー |
-| `sn_apm.apm_analyst` | EA Analyst | ビジネスアプリ、デジタルインテグレーション、デジタルインターフェースの追加。TRM 製品ライフサイクルの作成。Application Assessments／Application 360 ダッシュボード閲覧。**Enterprise Architect グループのメンバーである場合に限り**、TRM 製品要求・TRM ライフサイクル要求・モデリング図要求の承認／却下 | エンタープライズ／ソリューションアーキテクト |
-| `sn_apm.apm_admin` | EA Admin | Setup ページの構成（アプリケーションカテゴリ、Indicator、スコアリングプロファイル、TRM フェーズ・カテゴリ、データドメイン、成果物カテゴリ、デマンドアクション、モデリング設定）。Publishing Center（追加で `knowledge_admin`、EA グループメンバーは `sp_admin` も必要）。レガシー CMDB 認証ポリシー（追加で `certification_admin`） | EA 管理者 |
+| ロール | 名称 | 主な権限 | 包含ロール（EA 関連） | 想定ユーザー |
+|---|---|---|---|---|
+| `sn_apm.apm_read` | EA Read User | ワークスペースの全ページ・レコードを読み取り専用で閲覧。EA dashboard、Application 360、Application Assessments ダッシュボードの閲覧（Yokohama で業務ステークホルダーロールにワークスペース読み取りが追加） | なし | 業務ステークホルダー、経営層、監査 |
+| `sn_apm.apm_user` | EA User | ビジネスアーキテクチャ、情報、テクノロジー、モデリング、データ認証のポートフォリオデータ作成・更新。ビジネスアプリ詳細・アプリケーションサービス・プロダクトケイパビリティの更新、デマンド作成、図の承認申請、割当済み認証タスクの完了。TRM 製品・ライフサイクルの**申請**（承認は不可） | `pa_viewer`、`canvas_user`、`certification`、`report_user` など | アプリオーナー、業務アナリスト、ポートフォリオマネージャー |
+| `sn_apm.apm_admin` | EA Admin | `sn_apm.apm_user` の全権限を含む。Setup ページの構成（アプリケーションカテゴリ、Indicator、スコアリングプロファイル、TRM フェーズ・カテゴリ、データドメイン、成果物カテゴリ、デマンドアクション、モデリング設定）。Publishing Center（追加で `knowledge_admin`、`sp_admin` と EA グループメンバーであることも必要）。レガシー CMDB 認証ポリシー（追加で `certification_admin`） | `sn_apm.apm_user`、`certification_admin`、`assessment_admin` など | EA 管理者 |
+| `sn_apm.apm_analyst` | EA Analyst | **`sn_apm.apm_admin` の全権限を含む**。ビジネスアプリ、デジタルインテグレーション、デジタルインターフェースの追加。Application Assessments／Application 360 ダッシュボード閲覧。**Enterprise Architect グループのメンバーである場合に限り**、TRM 製品要求・TRM ライフサイクル要求・モデリング図要求の承認／却下、TRM 製品ライフサイクルの作成、保留中 TRM 要求の閲覧・更新 | `sn_apm.apm_admin`、`data_manager_admin`、`treemap_user` | エンタープライズ／ソリューションアーキテクト |
 
 - **プラットフォームの `admin` ロール**は、EA Workspace・TLM・TRM・TPM・App TCO・読み取り専用ロール等のプラグイン有効化、TCO ソースとコストタイプの構成、認証ポリシーの公開・実行などに必要。
-- **Enterprise Architect グループ**はロールではなくガバナンス用グループ。`sn_apm.apm_analyst` を付与するだけでは承認権限は得られない。
+- **Enterprise Architect グループ**はロールではなくガバナンス用グループ。`sn_apm.apm_analyst` を付与するだけでは承認権限は得られない（原文「Assigning the role alone is not sufficient for these actions.」）。
+- Australia 版で Enterprise Architect グループのメンバーであることが必要とされる操作（ロール不問のものを含む）：
+  - アーキテクチャ成果物のバージョン承認要求の承認／却下、Application／Technology／Business／Data Architecture の各ドキュメントタイプのオーナー権限
+  - ビジネスアプリの Retire（廃止）
+  - Architecture Review Board（ARB）のアーキテクチャレビューの申請
+  - TRM 標準フェーズ、製品ライフサイクル、技術的負債テーブルの読み取り
+  - Services Approval Group モジュールでの EA ワークフローグループの管理、APM Guided Setup の「Configure Enterprise Architecture Group」ステップ
 
-[出典（Yokohama 版アクセスロール）](https://www.servicenow.com/docs/r/6k4g_5wX4~40dsUynycZuQ/5mE9JJXOEQMwWjC5Rf6PEA) [出典（Australia 版）](https://www.servicenow.com/docs/r/application-portfolio-management/enterprise-architecture/eaw-access-roles.html)
+[出典（Australia 版アクセスロール）](https://www.servicenow.com/docs/r/australia/application-portfolio-management/eaw-access-roles.html) [出典（Components installed with EA Workspace）](https://www.servicenow.com/docs/r/7j6XJu~hiM8er80NoATFxQ/WKg9d_g1~ocqbaLB_8Kdeg)
 
-> **ロール継承に関する記載の不一致:** アクセスロールのページは「`sn_apm.apm_admin` → `sn_apm.apm_analyst` → `sn_apm.apm_user` → `sn_apm.apm_read`（上位は下位の全権限を含む）」と説明している。一方、Australia の「Components installed with Enterprise Architecture Workspace」では、EA Analyst の包含ロールに `sn_apm.apm_admin` が、EA Admin の包含ロールに `sn_apm.apm_user` が記載されている。実インスタンスの `sys_user_role_contains` で確認すること。[出典](https://www.servicenow.com/docs/r/7j6XJu~hiM8er80NoATFxQ/WKg9d_g1~ocqbaLB_8Kdeg)
+> **注:** Australia では、アクセスロールのページと「Components installed with Enterprise Architecture Workspace」はいずれも「`sn_apm.apm_analyst` が `sn_apm.apm_admin` を、`sn_apm.apm_admin` が `sn_apm.apm_user` を含む」と記載しており、両者は一致している。Yokohama 版のアクセスロールのページでは順序の説明が異なる（admin を最上位とする説明）ため、旧リリースの資料を参照する際は注意すること。[出典（Yokohama 版アクセスロール）](https://www.servicenow.com/docs/r/6k4g_5wX4~40dsUynycZuQ/5mE9JJXOEQMwWjC5Rf6PEA)
 
-**Granular admin role（細分化された管理者ロール）**：Australia では、EA 機能の管理に全体 `admin` ではなく `sn_apm.apm_admin` を使う「最小権限」の方針が示されている。Zurich では 4 つのシステムプロパティ（デジタルインターフェース／インテグレーションの活動フィールド、TPM 製品タイプ、ソフトウェアインストールの CI）に、Australia では EA として TRM technical debt トグル、TRM 要求の活動フィールド、ページングや TLM タイムライン範囲などのプロパティに（Early Availability として）`sn_apm.apm_admin` が適用された。プラグイン有効化には引き続き全体 `admin` が必要。[出典](https://www.servicenow.com/docs/r/application-portfolio-management/enterprise-architecture/eaw-gran-admin-role-changes.html) [出典](https://www.servicenow.com/docs/r/australia/delta-xanadu-australia/australia-xanadu-enterprisearchitecture-release-notes.html)
+**Granular admin role（細分化された管理者ロール）**：Australia では、EA 機能の管理に全体 `admin` ではなく `sn_apm.apm_admin` を使う「最小権限」の方針が示されている。Zurich では 4 つのシステムプロパティ（デジタルインターフェース／インテグレーションの活動フィールド、TPM 製品タイプ、ソフトウェアインストールの CI）に、Australia では EA として TRM technical debt トグル、TRM 要求の活動フィールド、ページングや TLM タイムライン範囲などのプロパティに（Early Availability として）`sn_apm.apm_admin` が適用された。プラグイン有効化には引き続き全体 `admin` が必要。[出典](https://www.servicenow.com/docs/r/australia/application-portfolio-management/eaw-gran-admin-role-changes.html) [出典](https://www.servicenow.com/docs/r/australia/delta-xanadu-australia/australia-xanadu-enterprisearchitecture-release-notes.html)
 
 ### 6.4 EA Workspace の構成（ホーム画面とナビゲーション）
 
@@ -659,7 +701,9 @@ EA Workspace は、Indicator（指標）から得た値を正規化・重み付�
 
 ### 6.8 Application Rationalization（アプリケーション合理化）
 
-Application Rationalization ページは、ビジネスアプリをスコアに基づいて評価し、Invest／Sustain／Migrate／Retire（Gartner の TIME モデル：Tolerate／Invest／Migrate／Eliminate に相当する考え方）を判断するための画面で、**List ビュー**（Zurich 以降の既定ランディング）と **Bubble chart ビュー**を持つ。[出典](https://www.servicenow.com/docs/r/australia/application-portfolio-management/eaw-bubble-chart-view.html)
+Application Rationalization ページは、ビジネスアプリをスコアに基づいて評価し、Invest／Sustain／Migrate／Retire を判断するための画面で、**List ビュー**（Zurich 以降の既定ランディング）と **Bubble chart ビュー**を持つ。[出典](https://www.servicenow.com/docs/r/australia/application-portfolio-management/eaw-bubble-chart-view.html)
+
+> **筆者による補足（公式ドキュメントの記載ではない）:** この 4 区分は、アプリケーション合理化で一般に用いられる Gartner の TIME モデル（Tolerate／Invest／Migrate／Eliminate）とおおむね対応する考え方として説明されることが多い。【経験則】
 
 **Bubble chart の仕様（Australia）**
 
@@ -691,12 +735,12 @@ Application Rationalization ページは、ビジネスアプリをスコアに�
 | `sn_apm_ws.appRationalizationMaximumBubbles` | バブルチャートの最大表示数（既定 500） |
 | `sn_apm_ws.app_indicator_scoring_profile` | バブルチャートで使用するスコアリングプロファイル |
 | `sn_apm_ws.app_rationalization_default_filter` | 合理化ページの既定フィルター |
-| `sn_apm_ws.business_application_default_filter` | Retired／End of Life 除外など、ビジネスアプリの既定フィルター |
+| `sn_apm_ws.business_application_default_filter` | Retired／End of Life 除外など、ビジネスアプリの既定フィルター（このプロパティのみバブルチャートのページに記載 [出典](https://www.servicenow.com/docs/r/australia/application-portfolio-management/eaw-bubble-chart-view.html)） |
 | `sn_apm_ws.batch_size_ba_lifecycle_gantt` | ビジネスアプリライフサイクル Gantt のバッチサイズ |
 | `sn_apm_ws.certificationPolicyTables` | 認証ポリシー対象テーブル |
 | `sn_apm_ws.record_mention_config` | レコードメンション設定 |
 
-既定値は公開情報では確認できず。[出典](https://www.servicenow.com/docs/r/7j6XJu~hiM8er80NoATFxQ/WKg9d_g1~ocqbaLB_8Kdeg)
+既定値は公開情報では確認できず。`business_application_default_filter` 以外の 6 プロパティの出典：[Components installed with EA Workspace](https://www.servicenow.com/docs/r/7j6XJu~hiM8er80NoATFxQ/WKg9d_g1~ocqbaLB_8Kdeg)
 
 ### 6.9 ビジネスケイパビリティとケイパビリティマップ
 
@@ -821,7 +865,7 @@ ServiceNow で「デジタルプロダクト」を扱うアプリケーション
 
 ### 7.1 Digital Product Release（DPR）
 
-Digital Product Release は、リリースマネージャー・プロダクトマネージャー・プログラムマネージャーが、デジタルプロダクトとサービスの計画から提供までのリリースプロセスを管理するためのリリース管理ソリューションである。ServiceNow Store から入手する（アプリ ID `sn_dpr`）。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/digital-product-release/dpr-workspace.html)
+Digital Product Release は、リリースマネージャー・プロダクトマネージャー・プログラムマネージャーが、デジタルプロダクトとサービスの計画から提供までのリリースプロセスを管理するためのリリース管理ソリューションである。ServiceNow Store から入手する（アプリ ID は公開情報では確認できず。コンポーネントは `sn_dpr_model`／`sn_dpr_workspace` スコープ）。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/digital-product-release/dpr-workspace.html)
 
 **Digital Product Release Workspace**（**Workspaces > Digital Product Release Workspace**）のユーザー：
 
@@ -835,14 +879,18 @@ Digital Product Release は、リリースマネージャー・プロダクト�
 - ランディングページには、自分がリリースオーナーまたはリリースチームメンバーであるリリースについて、アクティブリリース、未完了の承認タスク、ポリシー準拠状況が表示される。キャンセル／置換されたフェーズの項目は集計に含まれない。
 - **Release template Playbook** でリリーステンプレートを作成する。
 
-**ロールとテーブル**（「Components installed with Digital Product Release」より。ペルソナとロールの対応はドキュメントに明記されていない）[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/_uNCTiuPKwHTiLMhRWO1gQ)
+**ロールとテーブル**（Australia「Components installed with Digital Product Release」（2026-03-12 更新）より抜粋。同ページにはこのほか Release Task、Release Calendar、Key Date など計 23 テーブルが記載されている。ペルソナとロールの対応はドキュメントに明記されていない）[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/_uNCTiuPKwHTiLMhRWO1gQ)
 
 | 区分 | 名前 | 説明 |
 |---|---|---|
 | ロール | `sn_dpr_model.product_manager` | デジタルプロダクトの管理（プロダクトフィーチャーの作成・削除・読み取りロール等を包含） |
 | ロール | `sn_dpr_model.release_admin` | リリースプロセスの定義とリリースの監視 |
 | ロール | `sn_dpr_model.release_coordinator` | プロダクトチームの責務を支援 |
-| ロール | `sn_dpr_model.release_user` | 読み取り専用（コミュニティ回答による）【第三者情報】 |
+| ロール | `sn_dpr_model.release_user` | Digital Product Release User。リリース詳細の閲覧とリリースタスクの更新・承認（リリースの作成・変更は不可）。`sn_dpr_workspace.workspace_user`、`sn_dpr_model.product_feature_read` 等を包含。product_manager／release_admin／release_coordinator はいずれもこのロールを包含する（コミュニティ回答では「読み取り専用」と説明されている【第三者情報】） |
+| ロール | `sn_dpr_model.release_calendar_admin` | Digital Product Release Calendar Admin。リリースカレンダーの管理（他の DPR ロールと組み合わせて付与）。`release_admin` が包含 |
+| ロール | `sn_dpr_model.release_template_admin` | Digital Product Release Template Admin。リリーステンプレートの管理。`release_admin` が包含 |
+| ロール | `sn_dpr_workspace.workspace_user` | Digital Product Release Workspace User。DPR Workspace へのアクセス（`cmdb_read` を包含） |
+| ロール | `sn_dpr_model.product_feature_create`／`_write`／`_delete`／`_read`、`sn_dpr_model.product_enhancement_read` | プロダクトフィーチャーの作成／更新／削除／閲覧、プロダクト Enhancement の閲覧 |
 | テーブル | `sn_dpr_model_release` | Release |
 | テーブル | `sn_dpr_model_release_bundle` | Release Bundle（まとめて追跡するリリース群） |
 | テーブル | `sn_dpr_model_release_phase` | Release Phase |
@@ -869,10 +917,18 @@ Digital Portfolio Management は、自分が所有・関心を持つ**ソリュ�
 
 | タブ | 内容 | 必要な関連アプリ（任意） |
 |---|---|---|
-| Plan | ロードマップ、改善イニシアチブ、デマンド | Strategic Planning（`com.sn_align_ws`）、Continual Improvement Management（`com.sn_cim`）、Demand Management |
-| Build | プロジェクト、変更、改善 | Strategic Planning、Project Portfolio Management、Continual Improvement Management |
-| Run | KPI、パフォーマンス、可用性、インシデント、顧客満足度 | Performance Analytics |
+| Needs attention（＋コンテキストサイドパネル） | 要対応事項 | サービス：追加インストール不要。ビジネスアプリ：Audit Management（`sn_audit`。監査）、Technology Lifecycle Management（`sn_apm_tpm`。技術リスク。依存：`com.snc.apm`、`com.snc.sams`） |
+| Plan | ロードマップ、改善イニシアチブ、デマンド | Strategic Planning（`com.sn_align_ws`）、Continual Improvement Management（`com.sn_cim`）、Demand Management（`idea_core`、`dmn_demand`、`pm_project`） |
+| Build | プロジェクト、変更、改善 | Strategic Planning、Project Portfolio Management（`com.snc.financial_planning_pmo`）、Continual Improvement Management。ビジネスアプリでは加えて Agile Development（アジャイルデータ。出典上のプラグイン ID は `com.snc.sdlc.agile.2`）、DevOps for DPM（フロー／Accelerate 指標） |
+| Run（サービス／サービスオファリング） | KPI、パフォーマンス、可用性、インシデント、顧客満足度 | KPI group（`sn_team_perf_kpi_group`、自動インストール）＋ Performance Analytics |
+| Run（ビジネスアプリ） | KPI 等 | Application Portfolio Management（`com.snc.apm`）、DevOps for DPM（Accelerate 指標） |
+| Risk（ビジネスアプリのみ） | リスク・コンプライアンス | GRC／Risk Management 系プラグイン（`com.sn_risk`、`com.snc.governance`、`sn.grc.common`、`com.snc.risk_asmt`、`com.snc.grc_risk_dep`、`com.snc.grc.common`、`com.snc.grc_policy_dep`）、Audit Management（`sn_audit`） |
 | Info | サービス／ビジネスアプリの一般情報 | 追加インストール不要 |
+| Needs attention（サービスインスタンス） | 要対応事項 | Alerts：`com.glide.platform_ml`。技術リスク：`sn_apm_tpm`（依存：`com.snc.apm`、`com.snc.sams`） |
+| Run（サービスインスタンス） | 信頼性指標、アラート | Reliability indicators：`sn_srm`。Alerts：`com.glide.platform_ml` |
+| Info（サービスインスタンス） | 一般情報 | 追加インストール不要 |
+
+各タブの閲覧には `sn_dpm.dpm_manager`、Run タブでの KPI 作成には `sn_dpm.dpm_admin` が必要。Plan／Build タブのロードマップ閲覧には Strategic Planning のロール（`sn_align_core.apw_user`、`sn_align_core.apw_admin`。出典には `sn.align_ws` も併記されているが表記揺れの可能性がある）が、ロードマップの編集にはさらに `sn_roadmap_plng.roadmap_editor` が必要。表示されるデータは各ソースアプリのライセンスレベル（Standard／Pro）に従う。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/digital-portfolio-management/dpm-related-products.html)
 
 - ビジネスアプリについては、監査、技術リスク、**アジャイル開発**（Agile Development 2.0 と連携）、**DevOps 指標**（DevOps value stream metrics）を表示できる。ビジネスアプリのデータには Enterprise Architecture（`com.snc.apm`）や TPM（`sn_apm_tpm`）が関連する。
 - ロール：`sn_dpm.dpm_manager`（DPM Manager）、`sn_dpm.dpm_admin`（DPM Admin）。エンタープライズポートフォリオ（Utah 以降）には `sn_ep.enterprise_portfolio_admin`／`sn_ep.enterprise_portfolio_viewer`。Plan タブのロードマップ編集には `sn_roadmap_plng.roadmap_editor` が関係する。
@@ -887,23 +943,24 @@ Digital Portfolio Management は、自分が所有・関心を持つ**ソリュ�
 |---|---|---|
 | 単一チームのスクラム／カンバン | Collaborative Work Management（CWM） | 新規顧客は Agile 2.0 を購入できない（2026-04 End of Sale）【第三者情報】 |
 | 既存 Agile 2.0 の継続利用 | 継続利用可（2030 以降まで） | 新機能は提供されない。移行は CWM へ |
-| 複数チーム・SAFe・ART | Enterprise Agile Planning（Strategic Planning） | SPM Pro 以上。CWM と接続可能 |
+| 複数チーム・SAFe・ART | Enterprise Agile Planning（Strategic Planning） | SPM Pro（旧ティア）／Prime（新ティア）。CWM と接続可能 |
 | プロジェクト内のアジャイルフェーズ | Agile 2.0 × PPM 連携（従来）／CWM | CWM と Project Workspace の双方向同期は標準未提供（ロードマップ）【第三者情報】 |
 | アプリ棚卸し・合理化・ケイパビリティマップ | Enterprise Architecture＋EA Workspace | 別途サブスクリプション |
 | 技術標準・EOL 管理 | EA の TRM／TLM ＋ SAM | SAM Foundation／Professional が前提 |
 | デジタルプロダクトのリリースゲート | Digital Product Release | Store アプリ |
 | サービス／アプリの Plan-Build-Run 俯瞰 | Digital Portfolio Management | CSDM の成熟度に依存 |
 
-ライセンス面について、ServiceNow Community の SPM ガイドは、SPM を Standard／Professional（Pro）／Pro Plus のティアで説明し、Strategic Planning（EAP を含む）は Pro に含まれ、**Enterprise Architecture は別ライセンス**としている。【第三者情報】[出典](https://www.servicenow.com/community/spm-articles/strategic-portfolio-management-welcome-guide/ta-p/2368193) ライセンスの詳細は [ライセンスモデル](../../03_導入編/01-licensing-model.md) と [エディション比較](../../03_導入編/03-edition-comparison.md) を参照。
+ライセンス面について、ServiceNow Community の SPM ガイドは、SPM を Standard／Professional（Pro）／Pro Plus のティアで説明し、Strategic Planning（EAP を含む）は Pro に含まれ、**Enterprise Architecture は別ライセンス**としている。【第三者情報】[出典](https://www.servicenow.com/community/spm-articles/strategic-portfolio-management-welcome-guide/ta-p/2368193) なお、このガイドは 2026 年 4 月のパッケージ刷新より前のティア名を用いている。刷新後のティアは Foundation／Advanced／Prime であり（[ライセンスモデル](../../03_導入編/01-licensing-model.md) 参照）、本ファイル中の「Pro」は旧ティア、「Prime」は新ティアの名称である。新旧ティアの正式な対応関係は公開情報では確認できず。ライセンスの詳細は [ライセンスモデル](../../03_導入編/01-licensing-model.md) と [エディション比較](../../03_導入編/03-edition-comparison.md) を参照。
 
 ---
 
 ## 9. 確認できなかった事項
 
 - Story の Cancelled 状態の内部値、および Story 状態の遷移制約。
-- Application TCO、ServiceNow Otto for EA、Enterprise Modeling and Visualization の各プラグイン／アプリ ID。
+- Application TCO、ServiceNow Otto for EA、Enterprise Modeling and Visualization、Digital Product Release の各プラグイン／アプリ ID。
+- Agile Development 2.0 の End of Support の確定日（リリースノートは 2030-08、コミュニティ記事は「2030 以降・日付未定」で不一致。1.3 参照）。
+- EAP 既定構成（5.2）の Australia 版ドキュメント。
 - `sn_apm_ws.*` システムプロパティの既定値。
-- EA ロール継承の正確な包含関係（ドキュメント間で記載が不一致。6.3 参照）。
 - 従来 SAFe プラグインのテーブル一覧の全体（`sn_safe_epic` のみコミュニティ記事で確認）。
 - Brazil の Agile Development 2.0 リリースノート（Brazil 版リリースノートの目次に Agile Development 2.0 の項目が見当たらなかった）。
 - EAP・CWM・EA の SKU ごとの正式な包含関係と価格（公式の定価・パッケージ表は公開情報では確認できず）。
@@ -913,7 +970,7 @@ Digital Portfolio Management は、自分が所有・関心を持つ**ソリュ�
 ## 参照元
 
 **Agile Development 2.0 / Scrum Programs / Unified Backlog**
-- Components installed with Agile Development 2.0（Zurich）: https://www.servicenow.com/docs/r/zurich/it-business-management/agile-development/components-installed-with-agile-2.0.html
+- Components installed with Agile Development 2.0（Australia）: https://www.servicenow.com/docs/r/australia/it-business-management/agile-development/components-installed-with-agile-2.0.html
 - Agile Development process flow（Australia）: https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/2nYLcprr4nDTyFBaSnvtKw
 - Agile board in Agile Development 2.0（Yokohama）: https://www.servicenow.com/docs/r/4Pll~Vzr5Rr79UNYLnUdJw/BLGHMNHQo_S9lrh4aCO6xA
 - Create a story in Agile Development 2.0（Australia）: https://www.servicenow.com/docs/r/australia/it-business-management/agile-development/create-a-story.html
@@ -931,6 +988,7 @@ Digital Portfolio Management は、自分が所有・関心を持つ**ソリュ�
 - Components installed with Enterprise Agile Planning（Australia）: https://www.servicenow.com/docs/r/australia/it-business-management/enterprise-agile-planning/components-installed-with-enterprise-agile-planning.html
 - Agile configurations in EAP: https://www.servicenow.com/docs/r/4Pll~Vzr5Rr79UNYLnUdJw/jNcobQL9lEJDilQxDV7A9g
 - Strategic Planning release notes（Brazil）: https://www.servicenow.com/docs/r/97F4kxpjkdv178Iq1OQ9sQ/~5mKYbhL77VirnIzYi2Mvw
+- Strategic Planning release notes（Store バージョン履歴。4.0.2、4.16.0 等）: https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/zwPAPpmXvX2YQ49g2VkksA
 
 **Enterprise Architecture（APM）**
 - Combined Enterprise Architecture release notes, Xanadu to Australia: https://www.servicenow.com/docs/r/australia/delta-xanadu-australia/australia-xanadu-enterprisearchitecture-release-notes.html
@@ -938,8 +996,8 @@ Digital Portfolio Management は、自分が所有・関心を持つ**ソリュ�
 - Components installed with Enterprise Architecture Workspace（Australia）: https://www.servicenow.com/docs/r/7j6XJu~hiM8er80NoATFxQ/WKg9d_g1~ocqbaLB_8Kdeg
 - Install Enterprise Architecture Workspace（Australia）: https://www.servicenow.com/docs/r/7j6XJu~hiM8er80NoATFxQ/X3cbzHCDhxKO9mBCEx5T2A
 - Enterprise Architecture Workspace access roles（Yokohama）: https://www.servicenow.com/docs/r/6k4g_5wX4~40dsUynycZuQ/5mE9JJXOEQMwWjC5Rf6PEA
-- Enterprise Architecture Workspace access roles: https://www.servicenow.com/docs/r/application-portfolio-management/enterprise-architecture/eaw-access-roles.html
-- Granular admin role changes in Enterprise Architecture: https://www.servicenow.com/docs/r/application-portfolio-management/enterprise-architecture/eaw-gran-admin-role-changes.html
+- Enterprise Architecture Workspace access roles（Australia、2026-06-09 更新）: https://www.servicenow.com/docs/r/australia/application-portfolio-management/eaw-access-roles.html
+- Granular admin role changes in Enterprise Architecture（Australia、2026-03-12 更新）: https://www.servicenow.com/docs/r/australia/application-portfolio-management/eaw-gran-admin-role-changes.html
 - Business application form（Australia）: https://www.servicenow.com/docs/r/7j6XJu~hiM8er80NoATFxQ/4rLKLPENngsI7fTJcDCWjQ
 - Enterprise Architecture Workspace Overview（Australia）: https://www.servicenow.com/docs/r/australia/application-portfolio-management/eaw-overview.html
 - Bubble chart view of application rationalization（Australia）: https://www.servicenow.com/docs/r/australia/application-portfolio-management/eaw-bubble-chart-view.html
@@ -957,7 +1015,7 @@ Digital Portfolio Management は、自分が所有・関心を持つ**ソリュ�
 
 **Digital Product Release / Digital Portfolio Management**
 - Digital Product Release Workspace（Australia）: https://www.servicenow.com/docs/r/australia/it-service-management/digital-product-release/dpr-workspace.html
-- Components installed with Digital Product Release: https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/_uNCTiuPKwHTiLMhRWO1gQ
+- Components installed with Digital Product Release（Australia）: https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/_uNCTiuPKwHTiLMhRWO1gQ
 - Digital Product Release release notes（Brazil）: https://www.servicenow.com/docs/r/97F4kxpjkdv178Iq1OQ9sQ/VBpV0JStRGKGU1fkQZaUuA
 - Digital Product Release API: https://www.servicenow.com/docs/r/ko-KR/api-reference/rest-apis/digital-product-release-api.html
 - DPR - Mapping personas and roles（ServiceNow Community）: https://www.servicenow.com/community/digital-product-release-forum/dpr-mapping-personas-and-roles/m-p/3201819

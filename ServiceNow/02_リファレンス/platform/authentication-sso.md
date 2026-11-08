@@ -4,8 +4,8 @@ category: reference
 domain: platform
 release: Australia
 last_verified: 2026-11-02
-summary: ServiceNow インスタンスへのログイン認証（ローカル認証・パスワードポリシー・アカウントロックアウト）、Multi-Provider SSO（SAML 2.0 / OIDC）、Account Recovery、MFA（強制適用・MFA Context・Factor Policy・例外）、Adaptive Authentication（ポリシーコンテキスト・Filter criteria）、セッション管理、IP Address Access Control、API 認証（OAuth / Machine Identity Console、Basic 認証と Basic Auth Restriction、API Key、mTLS）の仕様・テーブル・ロール・プロパティを網羅的に解説する。
-keywords: [authentication, 認証, SSO, シングルサインオン, Multi-Provider SSO, MultiSSO v2, SAML 2.0, OIDC, OpenID Connect, sso_properties, saml2_update1_properties, sso_config_admin, Account Recovery, ACR, glide.sso.acr.enabled, glide.authenticate.multisso.enabled, MFA, 多要素認証, glide.authenticate.multifactor, MFA Context, Step-Up MFA Policy, FIDO2, passkey, TOTP, multi_factor_criteria, Adaptive Authentication, adaptive_auth_admin, Pre-authentication, Post-authentication, Session Validation, Filter criteria, Zero Trust Access, password policy, glide.user.max_unlock_attempts, glide.ui.session_timeout, Remember me, glide.ui.forgetme, IP Address Access Control, ip_access, com.snc.ipauthenticator, OAuth, Machine Identity Console, oauth_admin, mi_admin, client credentials, JWT bearer, Basic Auth Restriction, snc_basic_auth_api_access, Web service access only, API Key, x-sn-apikey, mutual authentication, mTLS, com.glide.auth.mutual, PIV/CAC]
+summary: ServiceNow インスタンスへのログイン認証（ローカル認証・パスワードポリシー・アカウントロックアウト）、Multi-Provider SSO（SAML 2.0 / OIDC）とユーザープロビジョニング（JIT / SCIM）、Account Recovery、MFA（強制適用・MFA Context・Factor Policy・例外）、Adaptive Authentication（ポリシーコンテキスト・Filter criteria）、セッション管理、IP Address Access Control、API 認証（OAuth / Machine Identity Console、Basic 認証と Basic Auth Restriction、API Key、mTLS）の仕様・テーブル・ロール・プロパティを網羅的に解説する。
+keywords: [authentication, 認証, SSO, シングルサインオン, Multi-Provider SSO, MultiSSO v2, SAML 2.0, OIDC, OpenID Connect, sso_properties, saml2_update1_properties, sso_config_admin, Account Recovery, ACR, glide.sso.acr.enabled, glide.authenticate.multisso.enabled, MFA, 多要素認証, glide.authenticate.multifactor, MFA Context, Step-Up MFA Policy, FIDO2, passkey, TOTP, multi_factor_criteria, Adaptive Authentication, adaptive_auth_admin, Pre-authentication, Post-authentication, Session Validation, Filter criteria, Zero Trust Access, password policy, glide.user.max_unlock_attempts, glide.ui.session_timeout, Remember me, glide.ui.forgetme, IP Address Access Control, ip_access, com.snc.ipauthenticator, OAuth, Machine Identity Console, oauth_admin, mi_admin, client credentials, JWT bearer, Basic Auth Restriction, snc_basic_auth_api_access, Web service access only, API Key, x-sn-apikey, mutual authentication, mTLS, com.glide.auth.mutual, PIV/CAC, SCIM, com.snc.integration.scim2, scim_admin, scim_config_admin, scim_client_config_admin, glide.authenticate.only.allow.active.user.login, glide.ui.active.session.life_span, glide.ip.authenticate.strict, oauth_token.do]
 sources:
   - https://www.servicenow.com/docs/r/australia/platform-security/authentication/auth-policy-contexts.html
   - https://www.servicenow.com/docs/r/australia/platform-security/authentication/adaptive-authentication.html
@@ -44,6 +44,18 @@ sources:
   - https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/gt7XYbSWdyx4X5f~MmaNWA
   - https://www.servicenow.com/docs/r/australia/platform-security/authentication/configure-api-key.html
   - https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/LpN3YC7Bbv50us1ixz0ArA
+  - https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/EWBiQsA2GkIjk2Dg2uDKzQ
+  - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/NbwlS_GTMJoRuyjHK6OW5g
+  - https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/Dvd9uVtWoKxFCGL4oLroCg
+  - https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/yet2lq6DSLTAPblgeAs55A
+  - https://www.servicenow.com/docs/r/platform-security/instance-security-hardening-settings/sc-limit-basic-auth-restriction-allowed-users.html
+  - https://www.servicenow.com/docs/r/q0JUS4fl39QNjim0ATT18w/pjxfYuz0jfIzXJ~LdsBmtg
+  - https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/4g2XUcwwnfQ03SQ6bdDn5A
+  - https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/C35BKJsJfHJRP5GcBtJVNw
+  - https://www.servicenow.com/docs/r/hX5GtoLUEU58KgyL7CW5Ag/IaQdEjMeTIRH51IBeqdXnA
+  - https://www.servicenow.com/docs/r/australia/api-reference/rest-apis/scim-api.html
+  - https://www.servicenow.com/docs/r/zurich/platform-security/identity/scim-client-properties.html
+  - https://www.servicenow.com/docs/r/zurich/platform-security/authentication/r_InstalledWithMultiProviderSSO.html
   - https://www.servicenow.com/community/platform-privacy-security-blog/stronger-authentication-control-with-mfa-factor-policies-in-the/ba-p/3396169
   - https://www.servicenow.com/community/platform-privacy-security-blog/understanding-adaptive-authentication-policy-contexts-a-guide-to/ba-p/3510045
   - https://www.servicenow.com/community/platform-privacy-security-blog/everything-you-need-to-know-about-password-policies-in/ba-p/3538368
@@ -167,7 +179,7 @@ Password Policy 関連のシステムプロパティ（同ブログより `【�
 | `glide.password_policy.use_excluded_special_char` | Excluded Special Characters フィールドを表示 |
 | `glide.validate.sys_user.password.field` | `sys_user` レコード編集時にパスワードを検証 |
 
-- パスワード履歴（再利用禁止世代数）とローカル認証のパスワード有効期限については、公式情報では確認できず。コミュニティでは「ローカル資格情報ストアはパスワード有効期限・期限通知をネイティブにはサポートしない」との回答がある `【第三者情報】`（フォーラム投稿）。
+- パスワード履歴（再利用禁止世代数）とローカル認証のパスワード有効期限については、公式情報では確認できず。コミュニティでは「ローカル資格情報ストアはパスワード有効期限・期限通知をネイティブにはサポートしない」との回答がある `【第三者情報】`（フォーラム投稿、2025-10-24）[出典](https://www.servicenow.com/community/community-central-forum/regarding-the-password-expiration-reminder-feature/m-p/3411992)。
 - Australia で `glide.login.no_blank_password` プロパティは非推奨となり、値を変更してもログイン動作に影響しない [出典](https://www.servicenow.com/docs/r/australia/release-notes/authentication-rn.html)。
 
 ### 2.3 アカウントロックアウト（Failed login lockout）
@@ -187,7 +199,15 @@ Password Policy 関連のシステムプロパティ（同ブログより `【�
 
 ### 2.4 非アクティブユーザーのログイン拒否
 
-`sys_user` の **Active** チェックを外すとユーザーはロックアウトされる。この動作は `glide.authenticate.only.allow.active.user.login` プロパティ（アクティブユーザーのみログインを許可）で制御されると Australia のドキュメントに記載されている（検索結果のスニペットによる確認）。ユーザーレコードの **Locked out** フィールドとの違いを含め、詳細は [ユーザー・グループ・ロール](users-groups-roles.md) を参照。
+`sys_user` の **Active** チェックを外すとユーザーは既定でロックアウトされる。この動作は `glide.authenticate.only.allow.active.user.login` プロパティ（アクティブユーザーのみログインを許可）で制御される [出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/NbwlS_GTMJoRuyjHK6OW5g)。Australia の Security Center ハードニング設定の記載は次のとおり [出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/EWBiQsA2GkIjk2Dg2uDKzQ)。
+
+| 項目 | 内容 |
+|---|---|
+| プロパティ | `glide.authenticate.only.allow.active.user.login`（Boolean） |
+| 既定値 / 推奨値 | true / true |
+| リスク | true でない場合、`sys_user` で非アクティブにしたユーザー（退職者等）がログインでき、以前アクセスできたデータに到達できる。Severity 7.5（CVSS High） |
+
+ユーザーレコードの **Locked out** フィールドとの違いを含め、詳細は [ユーザー・グループ・ロール](users-groups-roles.md) を参照。
 
 ---
 
@@ -236,7 +256,7 @@ Australia ドキュメント（「Multi-Provider SSO properties, tables, and scr
 | `glide.sso.acr.enabled` | 新規インスタンスで true | Account Recovery の有効/無効（§6） | [出典](https://www.servicenow.com/docs/r/platform-security/authentication/sso-acct-recovery.html) |
 | `glide.authenticate.mfa.with.multisso.enabled` | — | SSO ログインに対して MFA を適用する場合 true にする（§7.8） | [出典](https://www.servicenow.com/docs/r/platform-security/authentication/mfa-auth-context.html) |
 
-- 既定値の不一致：Australia の独語版ページでは `glide.authenticate.multisso.enabled` と `glide.authenticate.multisso.debug` の既定値を true と記載しているが、Zurich の英語版検索結果では `glide.authenticate.multisso.enabled` の既定値を false としている。プラグイン有効化後の実値はインスタンスで確認すること。
+- 既定値の不一致：Australia の独語版ページでは `glide.authenticate.multisso.enabled` と `glide.authenticate.multisso.debug` の既定値を true と記載しているが、Zurich の英語版ページでは両プロパティの既定値を false としている [出典](https://www.servicenow.com/docs/r/zurich/platform-security/authentication/r_InstalledWithMultiProviderSSO.html)。プラグイン有効化後の実値はインスタンスで確認すること。
 - 不一致：`glide.authenticate.show.max.sso.login.option` は同じページ内に既定値 5（SSO 選択肢の最大数、最大 10）と既定値 10（IdP の最大数）の 2 行が併記されている。
 
 ### 3.4 Multi-Provider SSO のスクリプト
@@ -347,7 +367,32 @@ Jakarta 以降、**Test Connection（接続テスト）に成功しないと IdP
 
 [出典](https://www.servicenow.com/docs/r/hX5GtoLUEU58KgyL7CW5Ag/~h6~oew8QuXfIxSfwUV3Vw)
 
-Zurich で、SAML / OIDC の自動プロビジョニング時にユーザーをグループへ割り当てる機能が追加された [出典](https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-authentication-release-notes.html)。大量ユーザーのライフサイクル管理には SCIM（`scim_admin` 等のロールで構成）を併用する選択肢もある（[ユーザー・グループ・ロール](users-groups-roles.md) 参照）。
+Zurich で、SAML / OIDC の自動プロビジョニング時にユーザーをグループへ割り当てる機能が追加された [出典](https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-authentication-release-notes.html)。SAML / OIDC の自動プロビジョニングはログイン時（ジャストインタイム）にユーザーを作成・更新する方式であり、ログイン前の事前作成や退職者の無効化は行わない。IdP 側からユーザーのライフサイクル全体を同期する場合は、次の SCIM（§4.4.1）を併用する `【経験則】`。
+
+#### 4.4.1 SCIM によるプロビジョニング（SCIM Provider / SCIM Client）
+
+SCIM（System for Cross-domain Identity Management）は、IdP（Entra ID、Okta 等）から ServiceNow のユーザー・グループを作成・更新・削除するための標準 API である。SSO（認証）とは別の仕組みで、SSO と組み合わせて「IdP で作成・無効化したアカウントを ServiceNow に反映する」用途で使われる。
+
+| 項目 | 内容 |
+|---|---|
+| プラグイン | SCIM v2 - ServiceNow Cross-domain Identity Management（`com.snc.integration.scim2`）。有効化しないと SCIM API を利用できない |
+| エンドポイント | `/api/now/scim/`（バージョン指定時は `/api/now/{api_version}/scim/`） |
+| スキーマ | SCIM 2.0 のスキーマ URN（`urn:ietf:params:scim:schemas:core:2.0:User` 等）、RFC 7643 / 7644 に準拠 |
+| 対応リソース | User（core / extension）→ `sys_user`、Group（core / extension）→ `sys_user_group`、Company、CostCenter、Department、Location |
+| API アクセスに必要なロール | `scim_admin`（SCIM 固有テーブルと非公開 SCIM エンドポイントへのアクセス） |
+
+[出典](https://www.servicenow.com/docs/r/australia/api-reference/rest-apis/scim-api.html)
+
+Australia の Granular admin roles では、SCIM 関連の構成ロールが次のとおり定義されている [出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/_~GcECd9qHzwiQKn3LFT4w)。
+
+| 製品 / 機能 | ロール | 内容 |
+|---|---|---|
+| SCIM / SCIM Provider | `scim_admin` | SCIM プロビジョニングの構成・管理（カスタマイズプロパティ、サポート対象スキーマ・拡張スキーマ、ユーザー/グループデータの ETL 定義を含む）。SCIM Provider の構成 |
+| SCIM custom schema | `scim_config_admin` | SCIM カスタムスキーマとシステムプロパティの構成 |
+| SCIM Client | `scim_client_config_admin` | SCIM Client（ServiceNow から外部の SCIM プロバイダーへプロビジョニングする側）の構成 |
+
+- SCIM Provider は ServiceNow が SCIM サーバーとして IdP からの要求を受ける方向、SCIM Client は ServiceNow から外部の SCIM プロバイダーへ送る方向である。SCIM Client のプラグインは `com.snc.integration.scim2.client` [出典](https://www.servicenow.com/docs/r/zurich/platform-security/identity/scim-client-properties.html)（Zurich 版。Australia 版ページは本調査では未確認）。
+- IdP から SCIM で接続する際の認証は OAuth（§11.3）を使うのが一般的である `【経験則】`。IdP ごとの具体的な設定手順（Entra ID のプロビジョニング設定等）は本ファイルの範囲外とする。ユーザー・グループのデータモデルは [ユーザー・グループ・ロール](users-groups-roles.md) を参照。
 
 ### 4.5 Advanced タブ
 
@@ -502,20 +547,20 @@ MFA 強制適用は段階的に行われる（Zurich の FAQ に基づく）[出
 | Relaxation（緩和期間） | アップグレード後 既定 90 日（最大 270 日） | 新規の内部ユーザーにも自己登録猶予が付与される |
 | Enforcement（即時強制） | 緩和期間終了後 | 新規の内部ユーザーは非 SSO ログイン時に即座に MFA が必要 |
 
-MFA 強制適用のプロパティ（Australia 版ページ）[出典](https://www.servicenow.com/docs/r/hX5GtoLUEU58KgyL7CW5Ag/qtBBHCvQ8lQui7ohsUK6CA)：
+MFA 強制適用のプロパティ。上位 6 件は Australia 版プロパティページ [出典](https://www.servicenow.com/docs/r/hX5GtoLUEU58KgyL7CW5Ag/qtBBHCvQ8lQui7ohsUK6CA)、下位 2 件は Australia 版 MFA enforcement timeline ページ [出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/4g2XUcwwnfQ03SQ6bdDn5A) に基づく。
 
-| プロパティ | 上限 | 内容 |
-|---|---|---|
-| `glide.authenticate.multifactor.setup.bypass.count` | 3 | MFA 設定をスキップできる回数 |
-| `glide.authenticate.multifactor.self_enrolment_period` | 90 日 | 自己登録できる日数。0 で即時登録を要求 |
-| `glide.authenticate.multifactor.enforcement.max_relaxation_period` | 270 日 | 新規ユーザーが自己登録できる最大日数（緩和期間） |
-| `glide.authenticate.multifactor.enforcement.debug` | — | MFA 強制適用のデバッグログ（既定では存在せず、作成して有効化） |
-| `glide.authenticate.hybrid_user_tracking.enabled` | — | Web service access only でないアカウントがユーザー名/パスワードで API 等にログインした場合に、ユーザー資格情報テーブルに記録（既定では存在せず） |
-| `glide.authenticate.hybrid_user_tracking.debug` | — | 上記追跡のデバッグログ |
-| `glide.authenticate.multifactor.enforcement.acknowledged` | — | true にすると管理者向けメッセージを消す |
-| `glide.authenticate.multifactor.enforcement.show_user_info_message` | — | false でエンドユーザー向けメッセージを非表示 |
+| プロパティ | 上限 | 内容 | 出典 |
+|---|---|---|---|
+| `glide.authenticate.multifactor.setup.bypass.count` | 3 | MFA 設定をスキップできる回数 | プロパティページ |
+| `glide.authenticate.multifactor.self_enrolment_period` | 90 日 | 自己登録できる日数。0 で即時登録を要求 | プロパティページ |
+| `glide.authenticate.multifactor.enforcement.max_relaxation_period` | 270 日 | 新規ユーザーが自己登録できる最大日数（緩和期間） | プロパティページ |
+| `glide.authenticate.multifactor.enforcement.debug` | — | MFA 強制適用のデバッグログ（既定では存在せず、作成して有効化） | プロパティページ |
+| `glide.authenticate.hybrid_user_tracking.enabled` | — | Web service access only でないアカウントがユーザー名/パスワードで API 等にログインした場合に、ユーザー資格情報テーブルに記録（既定では存在せず） | プロパティページ |
+| `glide.authenticate.hybrid_user_tracking.debug` | — | 上記追跡のデバッグログ | プロパティページ |
+| `glide.authenticate.multifactor.enforcement.acknowledged` | — | 管理者にはログイン後に専用メッセージが表示され、いずれかの管理者が true にすると表示されなくなる | [timeline ページ](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/4g2XUcwwnfQ03SQ6bdDn5A) |
+| `glide.authenticate.multifactor.enforcement.show_user_info_message` | — | false でエンドユーザー向けのログイン後 MFA 登録案内メッセージを非表示 | [timeline ページ](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/4g2XUcwwnfQ03SQ6bdDn5A) |
 
-- 不一致：自己登録期間のプロパティ名は、ページによって `selfenrolmentperiod` と `self_enrolment_period` の表記揺れがある。メッセージ表示のプロパティも `showuserinfomessage` と `show_user_info_message` の揺れがある。`sys_properties.list` で実名を確認すること。
+- 表記：Australia 版の timeline ページ本文では `glide.authenticate.multifactor.self_enrolment_period`、`glide.authenticate.multifactor.enforcement.show_user_info_message` とアンダースコア付きで表記されている [出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/4g2XUcwwnfQ03SQ6bdDn5A)。ServiceNow ドキュメントでは AI 生成サマリー部分でアンダースコアが欠落した表記になる例がある（§11.2 参照）ため、表記が異なる資料を見た場合は `sys_properties.list` で実名を確認すること。
 
 ### 7.4 MFA の適用基準（Criteria）
 
@@ -712,14 +757,18 @@ Zero Trust Access（ZTA）は「デフォルトでユーザーもデバイスも
 | `glide.authenticate.limit.concurrent.sessions.across.all.nodes` | Boolean | 既定なし / フォールバック true | true | Limit Concurrent Sessions プラグイン（`com.glide.limit.concurrent.sessions`）使用時に、同時セッション数を全ノード横断で数える | [出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/bJqwWtKZ2z_gevdUj3ojLg) |
 
 - Remember me にチェックしてログインした場合、無操作でセッションが切れても再ログインは不要になる。自動更新されるゲージを含むページはセッションを維持し続けるためタイムアウトしない場合がある（Zurich 版ページの記載）。
-- 操作の有無にかかわらずセッションの最大時間を設定する `glide.ui.active.session.life_span` が Zurich のドキュメントに記載されている（検索結果のスニペットによる確認。Australia での既定値は公開情報では確認できず）。
-- Remember me を無効化しても Service Portal のログインウィジェットではチェックボックスが表示され続けるという報告がある（キャッシュクリアで解消するとの回答）`【第三者情報】`（コミュニティフォーラム）。
+- 操作の有無にかかわらず認証済み UI セッションの最大時間を設定するのが `glide.ui.active.session.life_span` である。Australia の Security Center ハードニング設定の記載は、型 = 整数（分）、既定値 = なし、フォールバック = 0（0 はアクティブセッションのタイムアウト無効）、推奨値 = 1〜720、`glide.ui.session_timeout` より大きい値にすること、未設定時のリスク = Medium（Severity 4.2。盗まれたセッションを攻撃者が長く使える）である。UI セッションにのみ適用される [出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/Dvd9uVtWoKxFCGL4oLroCg)。
+- ゲストユーザー向けには `glide.guest.session_timeout`（無操作タイムアウト、既定 30 分）と `glide.guest.active.session.life_span`（最大時間）がある。セッション延長の確認を表示する `glide.ui.session_timeleft`（既定 2 分、0 で無効）も同じページに記載されている [出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/NbwlS_GTMJoRuyjHK6OW5g)。
+- `glide.ui.forgetme` を有効にしても Service Portal のログインウィジェットでは「Remember me」チェックボックスが表示され続けたという報告がある。承認済み回答は、ログインウィジェットが `glide.ui.forgetme` と `glide.ui.remember.me.default` を読むことを説明し、ブラウザとインスタンスのキャッシュクリアを勧めている（2018 年の投稿で、現行リリースでの再現性は不明）`【第三者情報】`（コミュニティフォーラム）[出典](https://www.servicenow.com/community/secops-forum/how-to-disable-quot-remember-me-quot-on-service-portal-login/m-p/1295096)。
 
 ### 9.2 ログイン中ユーザーとセッションの強制終了
 
-- メニュー：All > User Administration > Logged in users（Zurich 版の記載）。
-- **Lock Out Session**（セッションのロックアウト）はそのセッションを終了し、次の操作時にログイン画面へ誘導するが、ユーザー自体はロックされない。**ユーザーのロックアウト**（`sys_user` の Locked out）はログインやメール経由の操作を禁止し、既存セッションも終了する（Yokohama 版の記載）。
-- 上記は検索結果のスニペットで確認した内容で、Australia 版ページ本文は取得できなかった。
+Australia の「Managing user sessions」ページの記載は次のとおり [出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/NbwlS_GTMJoRuyjHK6OW5g)。
+
+- メニュー：All > User Administration > Logged in users。自分と同じアプリケーションノードにログインしているユーザーのみ表示される。
+- **Lock Out Session**（セッションのロックアウト）は選択したセッションを終了し、次の操作時にログイン画面へ誘導するが、ユーザー自体はロックされず再ログインできる。1 ユーザーが複数セッションを持つ場合、対象は選択したセッションのみ。モバイルのセッションはこの方法では終了できない。
+- **ユーザーのロックアウト**（`sys_user` の **Locked out** チェックボックス）はログインやメール経由の操作を禁止し、既存セッションも終了する。
+- 必要ロール：セッション終了は `admin`、ユーザーのロックアウトは `user_admin` または `admin`、ユーザーの非アクティブ化とセッションプロパティの構成は `admin`。
 
 ### 9.3 Session Validation
 
@@ -767,8 +816,16 @@ IP Address Access Control は、インスタンスへのアクセスを IP ア�
 
 [出典](https://www.servicenow.com/docs/r/8yND1KuvF7tjP~F577YThQ/aP1JXk_nOWfqgO7iW4Vzuw)
 
-- 関連プロパティとして `glide.ip.authenticate.strict`（IP 許可リストの適用範囲を絞る）、`glide.custom.ip.authenticate.allow`、`glide.custom.ip.outbound.authenticate.allow` が Security Center 系ドキュメントに記載されている（検索結果のスニペットで確認。詳細仕様は [プラットフォームセキュリティと暗号化](platform-security-encryption.md) を参照）。
-- 設定ミスでのロックアウトを避けるため、全拒否の Deny より先に自社の Allow 範囲を登録する `【第三者情報】`（コミュニティフォーラム）。
+- ServiceNow 内部 IP の許可リストに関するプロパティは次のとおり（Australia の Security Center ハードニング設定「Reduce the Scope of the IP Allow List for an Instance」）[出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/yet2lq6DSLTAPblgeAs55A)。詳細は [プラットフォームセキュリティと暗号化](platform-security-encryption.md) も参照。
+
+| プロパティ | 型 / 既定 / 推奨 | 内容 |
+|---|---|---|
+| `glide.ip.authenticate.strict` | Boolean / false / true | true で、既定の inbound / outbound 許可リストを、より限定した ServiceNow の IP 範囲に置き換える。自己ホストでは `glide.ip.authenticate.allow.secured.self_hosted_list` を使う。no-DB-override プロパティで、顧客は変更できない |
+| `glide.custom.ip.authenticate.allow` | String / 記載なし | 顧客定義の inbound IP アドレス・範囲を許可リストに追加。strict の設定や自己ホストかどうかに関係なく適用 |
+| `glide.custom.ip.outbound.authenticate.allow` | String / 記載なし | 顧客定義の outbound IP アドレス・範囲を許可リストに追加。適用条件は同上 |
+
+- 上記 2 つの custom プロパティはカンマ区切りで、ハイフン区切りの範囲、CIDR 表記、単一アドレス（IPv4 / IPv6）を指定できる [出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/yet2lq6DSLTAPblgeAs55A)。
+- 全拒否の Deny で運用する場合は、先に自社の Allow ルールを登録してから最後に 0.0.0.0〜255.255.255.255 の Deny を追加し、自社の IP 範囲をブロックしないよう細心の注意を払う、という回答が ServiceNow 社員から示されている `【第三者情報】`（コミュニティフォーラム、2023-12-19）[出典](https://www.servicenow.com/community/secops-forum/how-to-allowed-certain-ip-ranges-and-block-all-others/m-p/2767975)。
 
 ---
 
@@ -822,11 +879,11 @@ Basic Auth Restriction は、Basic 認証を使用できるアカウントを制
 - メニュー：All > Basic Auth Restriction > Properties。ページは既定で読み取り専用で、変更には `security_admin` が必要。
 - 強制開始日はスケジュールジョブ（enforcement schedule job）で確認する。
 - 公式ページの AI 生成サマリー部分ではロール名・プロパティ名が本文と異なる表記になっている箇所がある（例：`securityadmin`）。インスタンスで実名を確認すること。
-- Feature toggle のプロパティ名 `glide.authenticate.basic_auth.restriction.active` は公式ページ本文では名称が明記されておらず、コミュニティ記事に基づく `【第三者情報】`。
+- Feature toggle のプロパティ名 `glide.authenticate.basic_auth.restriction.active` は Australia 版の Basic Auth Restriction ページ本文では明記されていないが、Brazil 版の Security Center ハードニング設定ページ（`allowed_users`）に前提条件として記載されている [出典](https://www.servicenow.com/docs/r/platform-security/instance-security-hardening-settings/sc-limit-basic-auth-restriction-allowed-users.html)。
 - 強制適用後に条件を満たさないユーザーは HTTP 401 を受け取る。推奨移行先は、連携は OAuth、サービスアカウントは WSAO、人の API 利用は OAuth + MFA、MID Server は既存の MID 認証 `【第三者情報】`（ServiceNow Community、2026-05-06 投稿）[出典](https://www.servicenow.com/community/platform-privacy-security-forum/understanding-servicenow-s-new-basic-authentication-restrictions/m-p/3554746)。
 - Basic Auth Restriction が導入されたリリースは公式ページに記載がなく、公開情報では確認できず。
 
-> **Brazil での変更:** リリースノートに「Basic Auth Restriction page：Basic 認証を許可リストに制限し、強制前に追跡期間を設ける」が Brazil の新機能として記載されている [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-authentication-release-notes.html)。Australia 版ドキュメント（2026-06-18 更新）にも同機能のページがあるため、Australia のパッチで先行提供された可能性がある `【推定】`。Brazil 版の Security Center 系ページでは、許可ユーザーの sys_id を列挙する `glide.authenticate.basic_auth.allowed_users`（同ページ内に `glide.authenticate.basicauth.allowedusers` の表記揺れあり）が記載されている（検索結果のスニペットで確認）。
+> **Brazil での変更:** リリースノートに「Basic Auth Restriction page：Basic 認証を許可リストに制限し、強制前に追跡期間を設ける」が Brazil の新機能として記載されている [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-authentication-release-notes.html)。Australia 版ドキュメント（2026-06-18 更新）にも同機能のページがあるため、Australia のパッチで先行提供された可能性がある `【推定】`。Brazil 版の Security Center ハードニング設定には `glide.authenticate.basic_auth.allowed_users` のページがある。このプロパティは、Basic Auth Restriction が有効な間も MFA / TOTP なしで Basic 認証を許可するユーザーの sys_id をカンマ区切りで列挙する。OOB の値は空で、推奨は空、または個別にレビューした専用サービスアカウントのみ。一致したユーザーは追跡対象の例外として記録されない。リストから外してもアクセスは即座に拒否されず、`allowed_roles` のチェックと追跡モードのレビューに回る。前提は `com.snc.integration.multifactor.authentication` プラグインが Active で、`glide.authenticate.basic_auth.restriction.active` が true であること。同ページの AI 生成サマリーでは `glide.authenticate.basicauth.allowedusers` とアンダースコアが欠落した表記になっている [出典](https://www.servicenow.com/docs/r/platform-security/instance-security-hardening-settings/sc-limit-basic-auth-restriction-allowed-users.html)。
 
 ### 11.3 OAuth 2.0（Inbound）と Machine Identity Console
 
@@ -863,8 +920,8 @@ OAuth 2.0 で外部アプリケーションが ServiceNow の API にアクセ�
 | Access token lifespan | 既定 1800 秒 |
 
 - JWKS は `api/now/oauth/jwks` で公開され、ローテーション済み（非アクティブ）鍵は既定 105 日後に JWKS 応答から削除される。
-- トークンエンドポイントは `https://<instance>.service-now.com/oauth_token.do` `【第三者情報】`（コミュニティ投稿）。
-- Application Registry（`oauth_entity`）で作成する従来型 OAuth クライアントの既定値は Access Token Lifespan 1800 秒、Refresh Token Lifespan 8,640,000 秒（100 日）とされる `【第三者情報】`（コミュニティ投稿）。
+- OAuth エンドポイントは、認可エンドポイントが `https://<instance>.service-now.com/oauth_auth.do`（GET。Authorization code grant の開始）、トークンエンドポイントが `https://<instance>.service-now.com/oauth_token.do`（POST。認可コードとトークンの交換、PKCE によるパブリッククライアントの交換、Refresh token grant によるプライベートクライアントのトークン更新）である [出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/C35BKJsJfHJRP5GcBtJVNw)。
+- Application Registry（`oauth_entity`）で「Create an OAuth API endpoint for external clients」から作成する従来型 OAuth クライアントの既定値は、Access Token Lifespan 1800 秒（30 分）、Refresh Token Lifespan 8,640,000 秒（100 日）。必要ロールは `oauth_admin`（Australia 版ページ）[出典](https://www.servicenow.com/docs/r/hX5GtoLUEU58KgyL7CW5Ag/IaQdEjMeTIRH51IBeqdXnA)。
 
 OAuth 関連のリリース差分 [出典](https://www.servicenow.com/docs/r/australia/release-notes/authentication-rn.html)、[出典](https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-authentication-release-notes.html)：
 
@@ -914,7 +971,8 @@ Certificate-based authentication（証明書ベース認証）は、PIV / CAC �
 | Enable auto-redirect for certificate based login | false | 証明書選択と PIN 入力後に自動ログイン |
 
 - ドメインセパレーションと Delegated admin が有効な場合、プラグインを有効化する管理者は global ドメインにいる必要がある。
-- Security Center のハードニング項目では、`glide.authenticate.mutual.enabled` を true にすることが求められている（検索結果のスニペットで確認）。mTLS 接続時のホスト名・ポートは公開情報では確認できず。
+- Australia の Security Center ハードニング設定「Certificate based authentication not enforced」では、`glide.authenticate.mutual.enabled`（Boolean）の既定値・推奨値はいずれも true で、インバウンドの REST / SOAP API 接続に対する証明書ベース認証を有効にする。信頼された CA 証明書を追加すると ADC（ロードバランサー）がクライアント証明書を「任意（optional）」で要求する mTLS 構成になるため、証明書を提示しないクライアントでも既存の認証方式は引き続き使える [出典](https://www.servicenow.com/docs/r/q0JUS4fl39QNjim0ATT18w/pjxfYuz0jfIzXJ~LdsBmtg)。
+- mTLS 接続時のホスト名・ポートは公開情報では確認できず。
 
 ---
 
@@ -933,8 +991,14 @@ Australia の Granular admin roles（グラニュラー管理ロール）のう�
 | Password policy | `password_policy_admin` | パスワードポリシー構成 |
 | Authentication Factors | `auth_factors_admin` | AI 音声エージェントの発信者認証構成 |
 | Identity Center | `user_login_history_viewer` | ログイン履歴（日時、ブラウザ、IP、成否）の参照 |
+| Identity Center | `privileged_role_config_admin` | Identity Center のロール構成（`sys_icenter_role_config` テーブル）の作成・削除・参照・レポート等の完全な管理 |
+| Identity Center | `role_viewer` | `sys_icenter_role_config` テーブルのレコード参照のみ |
+| SCIM / SCIM Provider | `scim_admin` | SCIM プロビジョニングと SCIM Provider の構成・管理（§4.4.1） |
+| SCIM custom schema | `scim_config_admin` | SCIM カスタムスキーマとシステムプロパティの構成 |
+| SCIM Client | `scim_client_config_admin` | SCIM Client の構成 |
+| Self-Register to ServiceNow instance | `external_user_self_registration_admin` | 大量の外部ユーザーをインスタンスにオンボーディング（自己登録）する構成 |
 | Custom URL | `custom_url_admin` | カスタム URL 構成、ポータル・SSO レコード選択 |
-| Encryption 等 | `security_admin` | エレベーテッドロール。Basic Auth Restriction や `glide.ui.forgetme` の変更に必要 |
+| Encryption 等 | `security_admin` | 昇格ロール。Basic Auth Restriction や `glide.ui.forgetme` の変更に必要 |
 
 - MFA 専用の管理ロール（例：`mfa_admin`）は Granular admin roles の一覧になく、公開情報では確認できず。
 - 例外ロール：`snc_basic_auth_api_access`（Basic 認証 API アクセスの例外）[出典](https://www.servicenow.com/docs/r/australia/platform-security/authentication/basic-auth-restriction.html)。
@@ -948,8 +1012,8 @@ Australia の Granular admin roles（グラニュラー管理ロール）のう�
 |---|---|---|
 | San Diego | SSO ログインへの MFA 適用（MFA with SSO）が可能に | [出典](https://www.servicenow.com/docs/r/platform-security/authentication/mfa-sso.html) |
 | Xanadu | FIDO2 / Passkey / 生体認証 / ハードウェアキーを MFA 要素に追加。MultiSSO v1、SAML 1.1、OpenID SSO プラグインを非推奨化 | [出典](https://www.servicenow.com/docs/r/xanadu/release-notes/authentication-rn.html) |
-| Yokohama | 非 SSO ログインへの MFA 既定強制、MFA 例外（MFA Exempted User Group 等）、Continuous Authentication、MID Server 向け OAuth grant 拡張 | [出典](https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-authentication-release-notes.html) |
-| Zurich | Machine Identity Console、MFA Dashboard、MFA Guided Setup、FIDO Factor Policy、OIDC 属性の Filter criteria、SSO ログイン/ログアウト体験の改善、OAuth 強化（JWKS、ES256 等） | 同上 |
+| Yokohama | 非 SSO ログインへの MFA 既定強制、MFA 例外（MFA Exempted User Group 等）、Continuous Authentication、MID Server 向け OAuth grant 拡張 | MFA 既定強制：[出典](https://www.servicenow.com/docs/r/platform-security/authentication/mfa-enforcement.html)、MFA 例外：[出典](https://www.servicenow.com/docs/r/platform-security/authentication/faq-mfa-exception.html)、その他：[出典](https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-authentication-release-notes.html) |
+| Zurich | Machine Identity Console、MFA Dashboard、MFA Guided Setup、FIDO Factor Policy、OIDC 属性の Filter criteria、SSO ログイン/ログアウト体験の改善、OAuth 強化（JWKS、ES256 等） | [出典](https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-authentication-release-notes.html) |
 | Australia | Granular admin roles、Web Embeddables の認証、AI 音声エージェント向け認証要素（パッチで Email OTP、KBA、Step-up 等）、Inbound OAuth の Opaque / JWT 選択とスコープ限定、Application Registry inbound 構成の非推奨化、`glide.login.no_blank_password` の非推奨化 | [出典](https://www.servicenow.com/docs/r/australia/release-notes/authentication-rn.html) |
 | Brazil | Identifier-first login（Authentication Console）、SAML 証明書期限バナー、Workload Identity Federation、Domain-Level Certificate Validation Exclusion、OpenID Provider の RS256 署名、Basic Auth Restriction page、MCP クライアントの外部認可サーバー認証、`max_age` の扱い改善 | [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-authentication-release-notes.html) |
 
@@ -978,8 +1042,8 @@ Australia の Granular admin roles（グラニュラー管理ロール）のう�
 - OIDC 用 IdP テーブルの正確なシステム名（翻訳ページの表記のみ）。
 - `glide.authenticate.multisso.enabled` / `.debug` の既定値（資料間で true / false が不一致）。
 - ローカル認証のパスワード履歴・有効期限のネイティブ機能、`glide.user.unlock_timeout_in_mins` の Australia での既定値。
-- Session Validation が評価する属性、`glide.ui.active.session.life_span` の Australia での既定値。
-- Basic Auth Restriction の導入リリースと、Feature toggle プロパティの公式名称。
+- Session Validation が評価する属性。
+- Basic Auth Restriction の導入リリースと、Australia 版ドキュメントにおける Feature toggle プロパティの名称（Brazil 版では `glide.authenticate.basic_auth.restriction.active`）。
 - mTLS 接続時のホスト名・ポート、HMAC 認証の設定手順。
 - Zero Trust 系プラグインのライセンス条件の詳細。
 
@@ -1026,6 +1090,18 @@ ServiceNow 公式ドキュメント（取得日：2026-11-02）
 - Set the OAuth property（Australia）: https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/gt7XYbSWdyx4X5f~MmaNWA
 - Configure API key（Australia）: https://www.servicenow.com/docs/r/australia/platform-security/authentication/configure-api-key.html
 - Set up Certificate-based authentication（Australia）: https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/LpN3YC7Bbv50us1ixz0ArA
+- Multi-Provider SSO properties, tables, and scripts（Zurich）: https://www.servicenow.com/docs/r/zurich/platform-security/authentication/r_InstalledWithMultiProviderSSO.html
+- Prevent inactive users from logging in（Australia）: https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/EWBiQsA2GkIjk2Dg2uDKzQ
+- Managing user sessions（Australia）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/NbwlS_GTMJoRuyjHK6OW5g
+- Limit UI active session life span（Australia）: https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/Dvd9uVtWoKxFCGL4oLroCg
+- Reduce the Scope of the IP Allow List for an Instance（Australia）: https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/yet2lq6DSLTAPblgeAs55A
+- Limit basic auth restriction allowed users（Brazil）: https://www.servicenow.com/docs/r/platform-security/instance-security-hardening-settings/sc-limit-basic-auth-restriction-allowed-users.html
+- Certificate based authentication not enforced（Australia）: https://www.servicenow.com/docs/r/q0JUS4fl39QNjim0ATT18w/pjxfYuz0jfIzXJ~LdsBmtg
+- MFA enforcement timeline（Australia）: https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/4g2XUcwwnfQ03SQ6bdDn5A
+- Authorization code grant workflow（Australia）: https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/C35BKJsJfHJRP5GcBtJVNw
+- Create an endpoint for clients to access the instance（Australia）: https://www.servicenow.com/docs/r/hX5GtoLUEU58KgyL7CW5Ag/IaQdEjMeTIRH51IBeqdXnA
+- System for Cross-domain Identity Management (SCIM) API（Australia）: https://www.servicenow.com/docs/r/australia/api-reference/rest-apis/scim-api.html
+- SCIM Client properties, tables, scriptable APIs, and logs（Zurich）: https://www.servicenow.com/docs/r/zurich/platform-security/identity/scim-client-properties.html
 
 ServiceNow Community（公式社員投稿を含む。取得日：2026-11-02）
 
@@ -1033,3 +1109,6 @@ ServiceNow Community（公式社員投稿を含む。取得日：2026-11-02）
 - Understanding Adaptive Authentication Policy Contexts（2026-03-25）: https://www.servicenow.com/community/platform-privacy-security-blog/understanding-adaptive-authentication-policy-contexts-a-guide-to/ba-p/3510045
 - Everything You Need to Know About Password Policies in ServiceNow（2026-05-06）: https://www.servicenow.com/community/platform-privacy-security-blog/everything-you-need-to-know-about-password-policies-in/ba-p/3538368
 - Understanding ServiceNow's New Basic Authentication Restrictions（2026-05-06）: https://www.servicenow.com/community/platform-privacy-security-forum/understanding-servicenow-s-new-basic-authentication-restrictions/m-p/3554746
+- Regarding the Password Expiration Reminder Feature（フォーラム、2025-10-24）: https://www.servicenow.com/community/community-central-forum/regarding-the-password-expiration-reminder-feature/m-p/3411992
+- How to disable "Remember me" on Service Portal login（フォーラム、2018-06-27）: https://www.servicenow.com/community/secops-forum/how-to-disable-quot-remember-me-quot-on-service-portal-login/m-p/1295096
+- How to allowed certain IP ranges and block all others（フォーラム、2023-12-19）: https://www.servicenow.com/community/secops-forum/how-to-allowed-certain-ip-ranges-and-block-all-others/m-p/2767975

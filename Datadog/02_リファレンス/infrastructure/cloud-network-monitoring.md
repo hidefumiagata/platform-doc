@@ -648,7 +648,7 @@ CNM には既定で `client_` / `server_` を付けたタグが用意されて�
 
 **server 側だけにあるタグ**：`server_domain`、`server_dns_server`、`server_cacheclusterid`、`server_cluster`、`server_s3_bucket`、`server_rds_instance_id`、`server_cloud_endpoint_detection`、`server_gateway_id`。[出典](https://docs.datadoghq.com/network_monitoring/cloud_network_monitoring/tags_reference/)
 
-- これらに加え、インテグレーションや Agent で付けた任意のカスタムタグも使える。ファセットパネルに出すには Custom facets として追加する。タグ設計の考え方は [Tagging](../platform/tagging.md) と [タグ戦略の実践](../../04_応用編/tagging-strategy.md) を参照。
+- これらに加え、インテグレーションや Agent で付けた任意のカスタムタグも使える。ファセットパネルに出すには Custom facets として追加する。タグ設計の考え方は [Tagging](../platform/tagging.md) と [タグ戦略の実践](../../04_応用編/02-tagging-strategy.md) を参照。
 
 ### Neutral tags（フロー全体に付くタグ）
 
@@ -846,7 +846,7 @@ Network Path は、インターネット向けの経路を正しく描くため�
 | `https://api.ipify.org` | ipify |
 | `https://whatismyip.akamai.com` | Akamai |
 
-外向き通信の要件全般は [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md) を参照。
+外向き通信の要件全般は [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md) を参照。
 
 ### traceroute の方式（バリアント）
 
@@ -980,7 +980,7 @@ Network Path モニターは、Network Path のメトリクスがしきい値を
 | E2E Probe Packet Loss | `e2e_probe.packet_loss_percentage` | 応答がなかったパケットの割合 |
 | E2E Probe Jitter | `e2e_probe.jitter` | 連続するパケットの RTT の変動 |
 
-代表的なモニターは RTT、Packet loss、Jitter の 3 つ（いずれも Test Runs を Source Display Name と Destination Hostname でグループ化する例）。モニター全般とアラート設計は [Monitors](../platform/monitors.md) と [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md) を参照。
+代表的なモニターは RTT、Packet loss、Jitter の 3 つ（いずれも Test Runs を Source Display Name と Destination Hostname でグループ化する例）。モニター全般とアラート設計は [Monitors](../platform/monitors.md) と [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md) を参照。
 
 ## 活用パターン
 
@@ -999,7 +999,7 @@ Network Path モニターは、Network Path のメトリクスがしきい値を
 
 - **Datadog 自身の事例**：Datadog は Kubernetes への移行で、ステートレスサービスを先に移したため、1 つの AZ にあるステートフルサービス（Kafka など）と、他の AZ に分散したステートレスサービスの間でテラバイト規模の AZ 間通信が新たに発生し、クラウド料金が想定外に増えた。CNM で原因を特定し、ステートフルサービスのシャーディングで通信コストを大きく減らした。[出典](https://docs.datadoghq.com/network_monitoring/cloud_network_monitoring/guide/manage_traffic_costs_with_cnm/)
 - Network Map は、EU と US の AZ が通信していないこと（GDPR 対応の確認）の検証にも使える。[出典](https://docs.datadoghq.com/network_monitoring/cloud_network_monitoring/guide/manage_traffic_costs_with_cnm/)
-- クラウド料金そのものとの突き合わせは [Cloud Cost Management](cloud-cost-management.md)、実践は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+- クラウド料金そのものとの突き合わせは [Cloud Cost Management](cloud-cost-management.md)、実践は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ### 障害の切り分け（ネットワーク起因か、アプリ起因か）
 
@@ -1016,7 +1016,7 @@ Network Path モニターは、Network Path のメトリクスがしきい値を
 - Network Map で、同じクラスター内の Pod 同士がイングレスコントローラー経由で通信している（直接通信していない）ような設定ミスを見つけられる。[出典](https://docs.datadoghq.com/network_monitoring/cloud_network_monitoring/guide/detecting_application_availability/)
 - 経路上のどこ（自社か ISP か）に問題があるかは Network Path と AS View で確認する。
 
-APM との相関は [APM 画面と分析機能](../apm/apm-ui-and-analysis.md)、Kubernetes 環境での実践は [Kubernetes 監視の実践](../../04_応用編/kubernetes-monitoring-practices.md) を参照。
+APM との相関は [APM 画面と分析機能](../apm/apm-ui-and-analysis.md)、Kubernetes 環境での実践は [Kubernetes 監視の実践](../../04_応用編/07-kubernetes-monitoring-practices.md) を参照。
 
 ### セキュリティの観点
 
@@ -1075,7 +1075,7 @@ APM との相関は [APM 画面と分析機能](../apm/apm-ui-and-analysis.md)�
 
 ## 課金への影響
 
-CNM と Network Path の課金単位を簡潔にまとめる。料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、計算の詳細は [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、全体像は [料金体系の全体像](../../03_導入編/pricing-overview.md) を参照。
+CNM と Network Path の課金単位を簡潔にまとめる。料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、計算の詳細は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、全体像は [料金体系の全体像](../../03_導入編/01-pricing-overview.md) を参照。
 
 ### 課金単位と計測方法
 
@@ -1100,7 +1100,7 @@ CNM と Network Path の課金単位を簡潔にまとめる。料金の正本�
 
 [出典](https://www.datadoghq.com/pricing/list/)、[出典](https://www.datadoghq.com/pricing/?product=network-monitoring)
 
-> **サイト差異:** 公式料金ページはリージョン（データサイト）を選ぶと価格が変わる。2026-11-02 時点のページのデータでは、CNM と Network Path の年契約 / 月契約 / オンデマンドの価格は、US と EU が $5 / $6 / $7.20、UK と AP2 が $6 / $7.20 / $8.64、**AP1（日本）と US-Fed が $6.25 / $7.50 / $9** である。数値は [製品別料金表](../../03_導入編/pricing-by-product.md) と一致させること。[出典](https://www.datadoghq.com/pricing/?product=network-monitoring)
+> **サイト差異:** 公式料金ページはリージョン（データサイト）を選ぶと価格が変わる。2026-11-02 時点のページのデータでは、CNM と Network Path の年契約 / 月契約 / オンデマンドの価格は、US と EU が $5 / $6 / $7.20、UK と AP2 が $6 / $7.20 / $8.64、**AP1（日本）と US-Fed が $6.25 / $7.50 / $9** である。数値は [製品別料金表](../../03_導入編/02-pricing-by-product.md) と一致させること。[出典](https://www.datadoghq.com/pricing/?product=network-monitoring)
 
 参考として、同じ Network Monitoring 区分の関連製品の定価（US、年契約）は、Network Device Monitoring がデバイスあたり $7 / 月、NetFlow Monitoring（30 日保持）が 100 万レコードあたり $0.65 / 月。詳細は [Network Device Monitoring](network-device-monitoring.md) を参照。[出典](https://www.datadoghq.com/pricing/list/)
 
@@ -1126,8 +1126,8 @@ Network Path は 1,000 テスト単位で課金されるため、実行間隔と
 - [Infrastructure Monitoring](infrastructure-monitoring.md) / [コンテナ・Kubernetes 監視](container-and-kubernetes-monitoring.md) / [Network Device Monitoring](network-device-monitoring.md) / [Cloud Cost Management](cloud-cost-management.md)
 - [Universal Service Monitoring](../apm/universal-service-monitoring.md) / [APM 画面と分析機能](../apm/apm-ui-and-analysis.md) / [Synthetic Monitoring](../dem/synthetic-monitoring.md)
 - [Workload Protection](../security/workload-protection.md) / [Cloud Security](../security/cloud-security.md) / [Bits AI と AI 機能](../ai/bits-ai.md)
-- [製品別料金表](../../03_導入編/pricing-by-product.md) / [課金計算の仕組み](../../03_導入編/billing-mechanics.md) / [Agent 展開設計](../../03_導入編/agent-rollout-design.md) / [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md)
-- [コスト最適化](../../04_応用編/cost-optimization.md) / [Kubernetes 監視の実践](../../04_応用編/kubernetes-monitoring-practices.md)
+- [製品別料金表](../../03_導入編/02-pricing-by-product.md) / [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) / [Agent 展開設計](../../03_導入編/10-agent-rollout-design.md) / [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md)
+- [コスト最適化](../../04_応用編/01-cost-optimization.md) / [Kubernetes 監視の実践](../../04_応用編/07-kubernetes-monitoring-practices.md)
 
 ## 参照元
 

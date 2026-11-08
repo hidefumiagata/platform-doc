@@ -38,13 +38,13 @@ Datadog の Tag（タグ）は、メトリクス・トレース・ログ・イ�
 
 | 本ファイルで扱う範囲 | 扱わない範囲（参照先） |
 |---|---|
-| タグの構文・文字制約・長さ制約・正規化 | タグ設計の方針・命名規約の実践 → [タグ戦略の実践](../../04_応用編/tagging-strategy.md) |
+| タグの構文・文字制約・長さ制約・正規化 | タグ設計の方針・命名規約の実践 → [タグ戦略の実践](../../04_応用編/02-tagging-strategy.md) |
 | 予約タグ（`host` / `device` / `source` / `service` / `env` / `version` / `team`） | Agent 全般の設定 → [Agent 設定リファレンス](agent-configuration.md) |
 | 付与方法（Agent 設定ファイル、環境変数、コンテナ／Kubernetes、インテグレーション、UI、API、DogStatsD、トレーサー、サーバーレス） | Kubernetes 向け Agent の導入詳細 → [コンテナ/Kubernetes向けAgent](kubernetes-and-containers-agent.md) |
 | Unified Service Tagging（`env` / `service` / `version`） | カスタムメトリクスの課金計算 → [Custom Metrics と DogStatsD](custom-metrics-and-dogstatsd.md) |
 | タグ継承と優先順位（precedence）の考え方 | タグを使ったクエリ構文の詳細 → [メトリクスクエリと関数](metrics-query-and-functions.md) |
 | Monitor の Tag Policies、Teams と `team` タグ | Cloud Cost Management 全体 → [Cloud Cost Management](../infrastructure/cloud-cost-management.md) |
-| Cloud Cost Management の Tag Pipelines | 料金の数値 → [製品別料金表](../../03_導入編/pricing-by-product.md) |
+| Cloud Cost Management の Tag Pipelines | 料金の数値 → [製品別料金表](../../03_導入編/02-pricing-by-product.md) |
 
 Datadog のタグ全体像を図示すると以下のようになる。
 
@@ -327,7 +327,7 @@ Datadog Agent は Kubernetes 環境で以下のタグを自動付与する。カ
 | `ecs_collect_resource_tags_ec2` | `false` | EC2 起動タイプの ECS タスクのリソースタグを収集 |
 | `ecs_resource_tags_replace_colon` | `false` | ECS リソースタグキー中の `:` を `_` に置換 |
 
-Kubernetes / コンテナ向け Agent の導入方法は [コンテナ/Kubernetes向けAgent](kubernetes-and-containers-agent.md)、監視の実務は [Kubernetes 監視の実践](../../04_応用編/kubernetes-monitoring-practices.md) を参照。
+Kubernetes / コンテナ向け Agent の導入方法は [コンテナ/Kubernetes向けAgent](kubernetes-and-containers-agent.md)、監視の実務は [Kubernetes 監視の実践](../../04_応用編/07-kubernetes-monitoring-practices.md) を参照。
 
 #### 新規ホスト／ノードのログにホストタグが付かない問題
 
@@ -815,7 +815,7 @@ Cloud Cost Management のコストデータのタグは、請求データの列�
 
 [出典](https://docs.datadoghq.com/cloud_cost_management/tags/)
 
-CCM の全体像・料金は [Cloud Cost Management](../infrastructure/cloud-cost-management.md)、コスト配賦の実務は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+CCM の全体像・料金は [Cloud Cost Management](../infrastructure/cloud-cost-management.md)、コスト配賦の実務は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ## Usage Attribution とタグ
 
@@ -883,7 +883,7 @@ Datadog の Usage Attribution（使用量の配賦）は、タグキーごとに
 
 ## 課金への影響
 
-Datadog のタグ付け自体に課金はないが、タグの付け方は以下の課金に直接影響する。料金の数値は [製品別料金表](../../03_導入編/pricing-by-product.md) を正本とし、本ファイルでは扱わない。
+Datadog のタグ付け自体に課金はないが、タグの付け方は以下の課金に直接影響する。料金の数値は [製品別料金表](../../03_導入編/02-pricing-by-product.md) を正本とし、本ファイルでは扱わない。
 
 | 影響する課金 | 仕組み | 出典 |
 |---|---|---|
@@ -893,11 +893,11 @@ Datadog のタグ付け自体に課金はないが、タグの付け方は以下
 | Distribution Metrics | 許可リストのタグの組み合わせごとに時系列が作られる | [出典](https://docs.datadoghq.com/getting_started/tagging/assigning_tags/) |
 | 配賦・チャージバック | Usage Attribution（最大 3 タグキー）と Cloud Cost Management の Tag Pipelines により、タグ単位で使用量・クラウドコストを配賦できる。Usage Attribution・CCM 自体の課金条件は各料金ファイルを参照 | [出典](https://docs.datadoghq.com/account_management/billing/usage_attribution/)、[出典](https://docs.datadoghq.com/cloud_cost_management/tags/tag_pipelines/) |
 
-カスタムメトリクスのタグ数を取り込み後に絞る Metrics without Limits™ については [Metrics](metrics.md) と [Custom Metrics と DogStatsD](custom-metrics-and-dogstatsd.md)、課金計算の詳細は [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、削減策は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+カスタムメトリクスのタグ数を取り込み後に絞る Metrics without Limits™ については [Metrics](metrics.md) と [Custom Metrics と DogStatsD](custom-metrics-and-dogstatsd.md)、課金計算の詳細は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、削減策は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ## 公式ベストプラクティス（要約）
 
-Datadog 公式ドキュメントが示すタグ付けのベストプラクティスは以下のとおり [出典](https://docs.datadoghq.com/getting_started/tagging/)。組織での命名規約・必須タグ設計・ガバナンスの実践は [タグ戦略の実践](../../04_応用編/tagging-strategy.md)、よくある失敗は [よくある失敗とアンチパターン](../../04_応用編/common-pitfalls.md) を参照。
+Datadog 公式ドキュメントが示すタグ付けのベストプラクティスは以下のとおり [出典](https://docs.datadoghq.com/getting_started/tagging/)。組織での命名規約・必須タグ設計・ガバナンスの実践は [タグ戦略の実践](../../04_応用編/02-tagging-strategy.md)、よくある失敗は [よくある失敗とアンチパターン](../../04_応用編/12-common-pitfalls.md) を参照。
 
 | # | ベストプラクティス |
 |---|---|
@@ -912,7 +912,7 @@ Datadog 公式ドキュメントが示すタグ付けのベストプラクティ
 
 ## 関連ファイル
 
-- [必須概念](../../01_入門編/core-concepts.md) — タグを含む Datadog の基本概念
+- [必須概念](../../01_入門編/05-core-concepts.md) — タグを含む Datadog の基本概念
 - [Datadog Agent](agent.md) / [Agent 設定リファレンス](agent-configuration.md)
 - [コンテナ/Kubernetes向けAgent](kubernetes-and-containers-agent.md)
 - [Integrations](integrations.md) / [AWS Integration](aws-integration.md) / [Azure Integration](azure-integration.md) / [Google Cloud Integration](gcp-integration.md)
@@ -923,7 +923,7 @@ Datadog 公式ドキュメントが示すタグ付けのベストプラクティ
 - [組織・ユーザー・権限管理](account-and-access-management.md)
 - [Usage・Usage Attribution・Cost Visibility](usage-and-cost-attribution.md)
 - [Cloud Cost Management](../infrastructure/cloud-cost-management.md)
-- [タグ戦略の実践](../../04_応用編/tagging-strategy.md)
+- [タグ戦略の実践](../../04_応用編/02-tagging-strategy.md)
 
 ## 参照元
 

@@ -720,7 +720,7 @@ avg(<query_window>):anomalies(<metric_query>, '<algorithm>', <deviations>, direc
 | `threshold` | 0 より大きく 1 以下。`alert_window` 内で異常であるべき点の割合 |
 
 - クエリに `.rollup()` を明示すると、モニターの rollup 間隔オプションは無視される。[出典](https://docs.datadoghq.com/monitors/guide/anomaly-monitor/)
-- モニター設定の詳細は [Monitors](monitors.md)、ノイズ低減の実践は [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md) を参照。
+- モニター設定の詳細は [Monitors](monitors.md)、ノイズ低減の実践は [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md) を参照。
 
 ### outliers()（外れ値検知）
 
@@ -971,7 +971,7 @@ Datadog のメトリクスモニターはダッシュボードと同じクエリ
 - **クエリ・関数の実行自体は課金されない。** カスタムメトリクスの課金対象使用量は「データ点の送信頻度やメトリクスに対して実行するクエリ数の影響を受けない」と明記されている。[出典](https://docs.datadoghq.com/account_management/billing/custom_metrics/)
 - **Distribution のパーセンタイル有効化はカスタムメトリクス数を増やす。** Distribution メトリクスは既定でタグ値の組み合わせごとに 5 カスタムメトリクス（count、sum、min、max、avg）を生成し、パーセンタイル（p50/p75/p90/p95/p99）を有効化すると、さらに 5 × 組み合わせ数が加わる（合計 `2 × 5 × タグ値の組み合わせ数`）。例: 4 組み合わせなら 20 → 40 カスタムメトリクス。[出典](https://docs.datadoghq.com/account_management/billing/custom_metrics/)
 - **Metrics without Limits™ のタグ設定** でクエリ可能なタグを絞ると、除外タグはクエリできなくなる一方で、インデックスされるカスタムメトリクス数を抑えられる。GAUGE では有効化した集約の数によってインデックス数は増えない。[出典](https://docs.datadoghq.com/account_management/billing/custom_metrics/)、[出典](https://docs.datadoghq.com/metrics/metrics-without-limits/)
-- 単価・課金計算は [製品別料金表](../../03_導入編/pricing-by-product.md)、[課金計算の仕組み](../../03_導入編/billing-mechanics.md)、削減策は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+- 単価・課金計算は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、[課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、削減策は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ---
 
@@ -990,7 +990,7 @@ Datadog のメトリクスモニターはダッシュボードと同じクエリ
 | `day_before()` / `week_before()` を使い続けてよい | 非推奨。`calendar_shift()` へ移行 | [Timeshift](https://docs.datadoghq.com/dashboards/functions/timeshift/) |
 | 日次集計は日本時間で区切られる | カレンダー rollup・`calendar_shift` の既定は UTC。`'Asia/Tokyo'` を指定する | [Rollup](https://docs.datadoghq.com/dashboards/functions/rollup/) |
 
-ダッシュボード設計の実践は [ダッシュボード設計の実践](../../04_応用編/dashboard-design-practices.md)、失敗例の総覧は [よくある失敗とアンチパターン](../../04_応用編/common-pitfalls.md) を参照。
+ダッシュボード設計の実践は [ダッシュボード設計の実践](../../04_応用編/04-dashboard-design-practices.md)、失敗例の総覧は [よくある失敗とアンチパターン](../../04_応用編/12-common-pitfalls.md) を参照。
 
 ---
 

@@ -445,7 +445,7 @@ Bits Security Analyst は、Cloud SIEM のシグナルを自律的に調査す�
 
 [出典](https://docs.datadoghq.com/bits_ai/bits_security_analyst/)
 
-Cloud SIEM 自体の仕様は [Cloud SIEM](../security/cloud-siem.md)、運用の実践は [セキュリティ運用の実践](../../04_応用編/security-operations-practices.md) を参照。
+Cloud SIEM 自体の仕様は [Cloud SIEM](../security/cloud-siem.md)、運用の実践は [セキュリティ運用の実践](../../04_応用編/11-security-operations-practices.md) を参照。
 
 ## Bits Detection【Preview】
 
@@ -745,7 +745,7 @@ Preview toolset は `apm`、`investigator`、`live-debugger`、`remote-actions` 
 | 無効化（オプトアウト） | AI Credits 製品は org トグルで一括無効化可。アカウントチーム経由で AI 機能をオプトアウトした顧客には AI Credits が提供されない。MCP Server の Datadog ホストモデル利用ツールはサポート経由で無効化。NLQ は Organization Settings > Preferences で無効化 | 公式 [出典](https://docs.datadoghq.com/account_management/billing/ai_credits/) [出典](https://docs.datadoghq.com/mcp_server/) |
 | プロンプトインジェクション | Bits Code はテレメトリ由来の信頼できない入力が出力に影響しうると明記し、Auto-Push の制限を推奨 | 公式 [出典](https://docs.datadoghq.com/bits_ai/bits_code/setup/) |
 
-コンプライアンス全般（データ所在地、契約、監査）は [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md) を参照。
+コンプライアンス全般（データ所在地、契約、監査）は [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md) を参照。
 
 ## 制限値・クォータ・デフォルト値
 
@@ -795,10 +795,10 @@ AI Credits は Datadog の AI 製品の利用を計量・課金する単位で�
 
 [出典](https://www.datadoghq.com/pricing/?product=ai-credits) [出典](https://www.datadoghq.com/pricing/list/)
 
-> **サイト差異:** 上表は US / EU1 の価格である。AP1（日本）では年契約 $625 / 500 クレジット、月契約 $750 / 500 クレジット、オンデマンド $1.625 / クレジット（500 クレジット換算 $812.50）。FedRAMP サイト（US1-FED / US2-FED）では AI Credits は提供されない。値は [製品別料金表](../../03_導入編/pricing-by-product.md) §14 に合わせている。[出典](https://www.datadoghq.com/pricing/?product=ai-credits)
+> **サイト差異:** 上表は US / EU1 の価格である。AP1（日本）では年契約 $625 / 500 クレジット、月契約 $750 / 500 クレジット、オンデマンド $1.625 / クレジット（500 クレジット換算 $812.50）。FedRAMP サイト（US1-FED / US2-FED）では AI Credits は提供されない。値は [製品別料金表](../../03_導入編/02-pricing-by-product.md) §14 に合わせている。[出典](https://www.datadoghq.com/pricing/?product=ai-credits)
 
 - 3 形態は組み合わせ可能。月次コミットを超えた利用は自動的にオンデマンド料金で課金される（手動チャージ不要）。
-- 料金数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。値に差異がある場合はそちらを優先する。
+- 料金数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)。値に差異がある場合はそちらを優先する。
 
 製品別の平均クレジット消費目安（公式料金ページ、参考値。実際の消費はタスクの複雑さ・処理コンテキスト量で変動）:
 
@@ -844,14 +844,14 @@ AI Credits は Datadog の AI 製品の利用を計量・課金する単位で�
 
 | 製品 | 課金の扱い |
 |---|---|
-| Bits Security Analyst | AI Credits の対象外。Cloud SIEM の契約に、**分析 1 TB あたり月 100 回の Bits Security Analyst 調査の無料枠（最低 月 50 回）**が含まれる（公式 Cloud SIEM 料金ページ、2026-11-04 時点）。[出典](https://www.datadoghq.com/pricing/?product=cloud-siem) なお Cloud SIEM 本体の課金単位は料金比較表では「Per 1M analyzed events」（年 $5 / 月 $6 / オンデマンド $7.50）であり、無料枠の基準（TB analyzed）と単位が異なる。[出典](https://www.datadoghq.com/pricing/list/) 無料枠を超えた調査の価格は公式料金ページに記載がない（2026-11-04 時点）。補足として、2026-07 に無料枠の算定基準が「10 億イベント当たり」から「1 TB 分析当たり」に変わったとする第三者の記録がある `【第三者情報】`（[出典](https://pricingsaas.com/companies/datadog.cloud-siem/diffs/2026W31)、2026-07-27 記録）。Cloud SIEM の料金は [製品別料金表](../../03_導入編/pricing-by-product.md) を正とする |
+| Bits Security Analyst | AI Credits の対象外。Cloud SIEM の契約に、**分析 1 TB あたり月 100 回の Bits Security Analyst 調査の無料枠（最低 月 50 回）**が含まれる（公式 Cloud SIEM 料金ページ、2026-11-04 時点）。[出典](https://www.datadoghq.com/pricing/?product=cloud-siem) なお Cloud SIEM 本体の課金単位は料金比較表では「Per 1M analyzed events」（年 $5 / 月 $6 / オンデマンド $7.50）であり、無料枠の基準（TB analyzed）と単位が異なる。[出典](https://www.datadoghq.com/pricing/list/) 無料枠を超えた調査の価格は公式料金ページに記載がない（2026-11-04 時点）。補足として、2026-07 に無料枠の算定基準が「10 億イベント当たり」から「1 TB 分析当たり」に変わったとする第三者の記録がある `【第三者情報】`（[出典](https://pricingsaas.com/companies/datadog.cloud-siem/diffs/2026W31)、2026-07-27 記録）。Cloud SIEM の料金は [製品別料金表](../../03_導入編/02-pricing-by-product.md) を正とする |
 | Datadog MCP Server | MCP Server 利用自体の料金は公式ドキュメント・料金ページで確認できず。`assistant` toolset で Bits Chat にメッセージを送る場合などは AI Credits が消費されると推定される `【推定】`。参照されるテレメトリの取り込み・保持は各製品の通常課金 |
 | Bits Detection / Bits Remediation / Bits Data Analysis | Preview。課金は公式ドキュメントに記載なし（公開情報では確認できず） |
 | 自然言語クエリ（NLQ） | 課金の記載なし（公開情報では確認できず） |
 | Bits Investigation の無料トライアル | 新規ユーザー向けに 14 日間の無料トライアルあり（2026-03-05 時点のブログ記載） [出典](https://www.datadoghq.com/blog/bits-ai-sre-deeper-reasoning/) |
 | 旧課金（参考） | AI Credits 移行前は Bits AI SRE が調査件数単位（例：$500 / 20 調査のコミット、オンデマンド約 $36 / 件）だったとされる `【第三者情報】`（[出典](https://www.nobs.tech/blog/datadog-bits-ai-pricing-ai-credits-governance)、2026-06-11 公開）。現行は AI Credits |
 
-料金体系全般は [料金体系の全体像](../../03_導入編/pricing-overview.md)、課金の計算方法は [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、利用量の可視化は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md) を参照。
+料金体系全般は [料金体系の全体像](../../03_導入編/01-pricing-overview.md)、課金の計算方法は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、利用量の可視化は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md) を参照。
 
 ## 運用上の注意点（要約）
 
@@ -864,7 +864,7 @@ AI Credits は Datadog の AI 製品の利用を計量・課金する単位で�
 | MCP の最小権限 | 書き込み不要なら MCP Write Access をオフ、サービスアカウントは最小権限のスコープ付きキー、`toolsets` / `omit_tools` で公開ツールを限定 | 公式 [出典](https://docs.datadoghq.com/mcp_server/setup/) |
 | 監査 | Bits Investigation と MCP Server の操作は Audit Trail に記録。MCP は `datadog.mcp.tool.usage` で利用者・クライアント別に可視化 | 公式 [出典](https://docs.datadoghq.com/mcp_server/) |
 
-アラート設計との組み合わせは [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md)、Monitoring as Code は [Monitoring as Code](../../04_応用編/monitoring-as-code.md)、インシデント対応は [Incident Management](../service-management/incident-management.md)・[On-Call](../service-management/on-call.md)、Watchdog（異常検知）は [Watchdog](../platform/watchdog.md) を参照。
+アラート設計との組み合わせは [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md)、Monitoring as Code は [Monitoring as Code](../../04_応用編/09-monitoring-as-code.md)、インシデント対応は [Incident Management](../service-management/incident-management.md)・[On-Call](../service-management/on-call.md)、Watchdog（異常検知）は [Watchdog](../platform/watchdog.md) を参照。
 
 ## 参照元
 

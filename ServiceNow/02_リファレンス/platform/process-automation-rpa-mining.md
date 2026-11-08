@@ -19,22 +19,29 @@ sources:
   - https://www.servicenow.com/docs/r/zurich/build-workflows/workflow-studio/rpa-actions.html
   - https://www.servicenow.com/docs/r/zurich/release-notes/rpa-rn.html
   - https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-rpahub-release-notes.html
-  - https://www.servicenow.com/docs/r/delta-zurich-australia/australia-zurich-rpahub-release-notes.html
+  - https://www.servicenow.com/docs/r/t2jQMKLZFp9AGt3V12O7mQ/TLXwNUCfDZeX7Hx6ateo7g
   - https://www.servicenow.com/docs/r/now-intelligence/process-mining/process-mining.html
   - https://www.servicenow.com/docs/r/now-intelligence/process-mining/key-features.html
   - https://www.servicenow.com/docs/r/now-intelligence/process-mining/key-terms.html
   - https://www.servicenow.com/docs/r/now-intelligence/process-mining/components-installed.html
   - https://www.servicenow.com/docs/r/now-intelligence/process-mining/activate-po-plugin.html
+  - https://www.servicenow.com/docs/r/ko-KR/now-intelligence/process-mining/analyst-workbench-dashboard.html
+  - https://www.servicenow.com/docs/r/now-intelligence/playbook-project.html
   - https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/0~L2ZmExvtH~ID42lL4j6A
   - https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-processmining-release-notes.html
   - https://www.servicenow.com/docs/r/release-notes/process-optimization-rn.html
   - https://www.servicenow.com/docs/r/now-intelligence/task-mining/task-mining.html
   - https://www.servicenow.com/docs/r/pVA_t2FBRJGAybmbtWqZ2A/5OjWihxkNomv8PQ0fCDuqg
   - https://www.servicenow.com/docs/r/pVA_t2FBRJGAybmbtWqZ2A/MWY2PkLGFsj2CmK6TJ2ZLQ
+  - https://www.servicenow.com/docs/r/now-intelligence/install-agent.html
+  - https://www.servicenow.com/docs/r/3dUp4IlSpaXzwDcoDj_v6g/Cxecihk12phMU5JLE2GiPg
   - https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/Uar0GzRo3bwKsCwVCaAxSA
   - https://www.servicenow.com/docs/r/XRgEFx7nPN6ciT_BBIvnbg/v4sX18YsAkHd96GnpFFCKg
   - https://www.servicenow.com/docs/r/XRgEFx7nPN6ciT_BBIvnbg/pmC0Pul_0Q2xcDyHIwhmcQ
   - https://www.servicenow.com/docs/r/x7YYxCVARboMBfN2zKAZsA/mNBM6eyTLgKU67MNs7JAyA
+  - https://www.servicenow.com/docs/r/YZ6y4yvCOMhykXn0xJSiRA/q1rQMAJd9OoS7AfHF~AzGg
+  - https://www.servicenow.com/docs/r/vZW7rgtx~U4cSoEhwzpCFQ/xknfbbua3ENIBW0gcigBfQ
+  - https://www.servicenow.com/docs/r/fr-FR/intelligent-experiences/now-assist-in-document-intelligence/supporting-information-now-assist-document-intelligence.html
   - https://www.servicenow.com/docs/r/aTwoRpFi50t5fAUaQHZ7sw/AI0R7B0yRtzz2aWy_TXtjQ
   - https://www.servicenow.com/docs/r/ux4nxQ4hZ6c~yPICP1zejA/1rAWGJHAxfb3g2QSLcFwLQ
   - https://www.servicenow.com/docs/r/AWjfoG0XNF6COBtQI5zL~A/~lC72SzMCswTjEQ2ukuVAA
@@ -43,11 +50,17 @@ sources:
   - https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/GCzlIXRE4WTWyEpl0hasvA
   - https://www.servicenow.com/docs/r/VM54fVshMHa6Dr9TT6Nepw/9FKw_u6UjUAD3faSAzedMw
   - https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/OKLWvO7XAa1c47KFaWdetg
+  - https://www.servicenow.com/docs/r/3dUp4IlSpaXzwDcoDj_v6g/lE3ckkPgwVqmM3XFIod9ag
+  - https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/SeSIUrAcAqS7zkZT5_s7FA
+  - https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/nbDZLJ2LZckJmx_A_j8~8A
   - https://www.servicenow.com/docs/r/integrate-applications/automation-center/executions-dash.html
   - https://www.servicenow.com/community/process-mining-blog/what-s-new-for-process-and-task-mining-in-the-australia-release/ba-p/3508013
   - https://www.servicenow.com/community/process-mining-article/servicenow-process-mining-formerly-process-optimization-faq/ta-p/2309083
   - https://www.servicenow.com/community/process-mining-blog/if-you-are-afraid-of-capturing-user-data-wait-until-you-build-ai/ba-p/3533574
   - https://www.servicenow.com/community/automation-engine-articles/getting-started-with-automation-center/ta-p/2679017
+  - https://www.servicenow.com/docs/r/8_SIK58xmFJIEc2bL5YTYg/xf8oQpj5Jc4C1WzUciaoLA
+  - https://www.businesswire.com/news/home/20231218270685/en/
+  - https://www.servicenow.com/uk/blogs/2024/servicenow-acquires-ultimatesuite
 ---
 
 # プロセス自動化（RPA・Process Mining・Document Intelligence）
@@ -164,11 +177,11 @@ RPA Hub の公式用語集（Glossary）と機能ページに基づく主要概�
 
 ### 1.4 RPA Hub のロール
 
-RPA Hub のロールは以下の 9 種類である（Zurich 版「Components installed with RPA Hub」に基づく。Australia 版の同ページは取得できなかったが、Australia の RPA Hub リリースノートにロール変更の記載はない）。[出典](https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/YFZsiPDVtsLVQ~1IfgSvNA)／[出典（Australia 差分）](https://www.servicenow.com/docs/r/delta-zurich-australia/australia-zurich-rpahub-release-notes.html)
+RPA Hub のロールは以下の 9 種類である（Zurich 版「Components installed with RPA Hub」に基づく。Australia 版の同ページは取得できなかったが、Australia → Brazil の RPA Hub リリースノートでは Australia の Changes が「No updates」で、ロール変更の記載はない）。[出典](https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/YFZsiPDVtsLVQ~1IfgSvNA)／[出典（Australia 差分）](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-rpahub-release-notes.html)
 
 | ロール名（表示名） | ロール | 説明 | 包含ロール（Contains roles） |
 |---|---|---|---|
-| RPA admin（RPA 管理者） | `sn_rpa_fdn.rpa_admin` | RPA Hub アプリ構成とシステムプロパティの管理 | `fd_read`, `itil`, `sn_rpa_fdn.rpa_user`, `cmdb_read`, `sn_nowassist_admin.user` |
+| RPA admin（RPA 管理者） | `sn_rpa_fdn.rpa_admin` | RPA Hub アプリ構成とシステムプロパティの管理 | `fd_read`, `itil`, `sn_rpa_fdn.rpa_user`, `cmdb_sread`, `sn_nowassist_admin.user` |
 | RPA developer（RPA 開発者） | `sn_rpa_fdn.rpa_developer` | Design Studio で自動化パッケージを作成・テスト・公開し、例外を処理 | `fd_read`, `sn_rpa_fdn.rpa_user`, `cmdb_read`, `sn_nowassist_admin.user` |
 | RPA release manager（RPA リリースマネージャー） | `sn_rpa_fdn.rpa_release_manager` | データ・スケジュール・構成パラメーターの管理。ボットプロセスとロボットを作成し、開発者を Managed by グループに追加 | `itil`, `sn_rpa_fdn.rpa_user`, `cmdb_read` |
 | RPA support user（RPA サポートユーザー） | `sn_rpa_fdn.rpa_support_user` | ボットプロセスの問題の診断・解決、一次切り分け | `sn_rpa_fdn.rpa_user`, `cmdb_read` |
@@ -179,7 +192,7 @@ RPA Hub のロールは以下の 9 種類である（Zurich 版「Components ins
 | RPA user（RPA ユーザー） | `sn_rpa_fdn.rpa_user` | RPA Hub へのアクセスに必要な修飾ロール（Qualifier role） | `canvas_user`, `sn_change_read`, `fd_read`, `uxframework_user` |
 
 補足：
-- RPA admin の包含ロールはページ内で `cmdb_read` と `cmdb_sread` の表記揺れがある。上表は `cmdb_read` とした（実機で確認推奨）。[出典](https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/YFZsiPDVtsLVQ~1IfgSvNA)
+- RPA admin の包含ロールは公式ページの表記どおり `cmdb_sread` とした（他ロールは `cmdb_read`）。`cmdb_read` の誤記の可能性があるため実機で確認推奨。[出典](https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/YFZsiPDVtsLVQ~1IfgSvNA)
 - RPA ロールは `cmdb_rel_ci` の読み取りアクセスを必要とする。`cmdb_rel_ci` の ACL をカスタマイズしている場合は該当ロールへ読み取り権限を付与する。[出典](https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/YFZsiPDVtsLVQ~1IfgSvNA)
 - FIPS 有効インスタンスでは、Unattended Robot のユーザーに `sn_rpa_fdn.rpa_robot` に加えて `snc_internal` が必要。[出典](https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/t7mZUFctEEv_Bbv~HhaLoQ)
 - RPA bot generation skill は Zurich GA 以降 RPA developer または RPA admin ロールのユーザーのみ利用可能（両ロールが `sn_nowassist_admin.user` を包含）。[出典](https://www.servicenow.com/docs/r/zurich/release-notes/rpa-rn.html)
@@ -298,7 +311,7 @@ Design Studio の ETA 用コンポーネント（ServiceNow カテゴリ > Forms
 | GetRecordContextID | 起動元レコードの `sys_id` を返す（添付ファイル取得等に利用） |
 
 制約・注意点：
-- ETA は Published のボットプロセスでのみ動作する。UI アクションの表示は Classic 環境に限られる。[出典](https://www.servicenow.com/docs/r/rigCt~VuB5q8tR2t1pu_Eg/yfItXj2v8ZW78XHCnMsY3w)
+- ETA は Published のボットプロセスでのみ動作する。UI アクション（ボタン）の表示は Classic 環境に限られる。Workspace・Playbook・Service Portal では UI アクションは表示されないが、対応するアクションを作成して RPAInstanceFormHooks API を呼び出すことでボットプロセスを起動できる。[出典](https://www.servicenow.com/docs/r/rigCt~VuB5q8tR2t1pu_Eg/yfItXj2v8ZW78XHCnMsY3w)
 - システムプロパティ `sn_rpa_fdn.allow_rda_robot_auto_assignment` が false の場合は RPA AU 用の Attended Robot レコードが事前に必要。true の場合はボット起動時に Attended Robot ライセンスを消費してロボットが自動作成される（先着順）。[出典](https://www.servicenow.com/docs/r/rigCt~VuB5q8tR2t1pu_Eg/yfItXj2v8ZW78XHCnMsY3w)／[出典](https://www.servicenow.com/docs/r/integrate-applications/license-rpa-hub.html)
 - 自動化または RPA Hub のバージョンを更新した場合、Attended Robot アプリを閉じて開き直さないと旧バージョンが使われ続ける。
 
@@ -381,12 +394,11 @@ Workflow Studio（Flow Designer）の RPA spoke（RPA スポーク）は 14 ア�
 
 RPA Hub のライセンスは Attended と Unattended の 2 種類で、Robot license distribution レコードで配分を管理する。[出典](https://www.servicenow.com/docs/r/integrate-applications/license-rpa-hub.html)
 
-- `sn_rpa_fdn.rpa_admin` のみがレコードを作成・更新・削除できる（Zurich Patch 4 / 2025-12 で変更）。[出典](https://www.servicenow.com/docs/r/zurich/release-notes/rpa-rn.html)
+- レコードの作成・更新は `sn_rpa_fdn.rpa_admin` のみが行える（Zurich Patch 4 / 2025-12 で変更）。公式ページは rpa_admin が「create, write or delete」できると記載する一方、作成後のレコードは削除できないとしている（ACL 上は Delete も rpa_admin に限定されるが、ドキュメント上は作成後の削除は不可）。[出典](https://www.servicenow.com/docs/r/zurich/release-notes/rpa-rn.html)／[出典](https://www.servicenow.com/docs/r/integrate-applications/license-rpa-hub.html)
 - ドメインセパレーション環境ではドメインごとに 1 レコード、非ドメインセパレーション環境では global ドメインに 1 レコードを作成する。作成後は編集できるが削除できない。
 - Unattended ライセンスは、そのドメインで作成されたロボットのみが利用可能。Unattended Robot は 1 台の Windows/VM にマッピングされる。
 - Attended ライセンスはロボットに関連付けられたドメインで利用可能。Attended Robot は 1 ユーザーにマッピングされる。
 - Attended ユーザーの割り当て解除は、対応する Attended Robot を Retire する。
-- 例：トップドメイン＋子ドメイン 2 つの構成で Unattended 20 / Attended 45 ライセンスを親から子へ配分できる。
 - ドメインセパレーション全般は [ドメインセパレーション](domain-separation.md) を参照。
 
 > 商用ライセンス（SKU）について：ServiceNow Store の RPA Hub 掲載情報として、プラットフォーム互換性・ライセンス要件に「Automation Engine Pro/Enterprise / Workflow Data Fabric（Starter/Standard/Professional）」が記載されている、との検索結果を得た。【第三者情報】（Store ページ本文は取得できず）各パッケージに含まれるロボット数は公開情報では確認できず。価格・パッケージは [プラットフォームのパッケージ構成](platform-licensing-packaging.md)、[ライセンスモデル](../../03_導入編/01-licensing-model.md) を参照。
@@ -398,13 +410,11 @@ Brazil のリリースノートは「Australia の要件が適用される」と
 | コンポーネント | CPU（最小／推奨） | メモリ（最小／推奨） | 空きディスク（最小／推奨） | OS |
 |---|---|---|---|---|
 | Unattended Robot（Standard） | 2 コア Intel 1.8GHz 64bit ／ 4 コア Intel 2.4GHz 64bit | 4GB ／ 8GB | 50GB ／ 100GB | Windows 10、Windows Server 2016 / 2019 / 2022 |
-| Unattended Robot（High density） | 上記 × 同時実行ランタイム数 | 上記 × ランタイム数 | ― | Windows Server 2022 のみ |
+| Unattended Robot（High density） | 上記 × 同時実行ランタイム数（例：3 ユーザー同時実行で最小 6 コア、1.8GHz、64bit） | 上記 × ランタイム数（例：3 ユーザー同時実行で最小 12GB） | ― | Windows Server 2022 のみ |
 | Attended Robot | 1 vCPU ／ 4 vCPU（Intel） | 4GB ／ 8GB | 20GB ／ 50GB | Windows 10、Windows Server 2016 / 2019 |
 | RPA Desktop Design Studio | Intel Core i5 ／ Core i7 | 4GB ／ 8GB | 20GB ／ 50GB | Windows 10、Windows Server 2016 / 2019。1920×1080 以上のモニタが必須 |
 
 共通要件：.NET Framework 4.7.1 以降、DPI スケーリング無効。Unattended Robot の VM は永続的かつ常時起動。各リリース版の最新ロボット MSI をインストールする（旧バージョンは動作しない）。ServiceNow のワークスペースはモバイルデバイス非対応。
-
-> 注：Zurich 版リリースノートの High density の例示（3 ユーザー同時で最小 6 コア / 12GB）にはランタイム当たりの記述に不整合があると読み取れるため、サイジング時は最新版の公式ページで再確認すること。
 
 アップグレード時は RPA Desktop Design Studio、Attended Robot、Unattended Robot、Unattended Robot Login Agent の各 MSI を新リリース版に更新する。[出典](https://www.servicenow.com/docs/r/zurich/release-notes/rpa-rn.html)
 
@@ -413,9 +423,9 @@ Brazil のリリースノートは「Australia の要件が適用される」と
 | リリース | 主な変更 |
 |---|---|
 | Utah | RPA テーブルを Application File（`sys_metadata`）配下へ再構成（アップデートセット移送が可能に）[出典](https://www.servicenow.com/docs/r/integrate-applications/exploring-rpa-hub.html) |
-| Xanadu | Credential Management（資格情報管理）の強化（Xanadu→Australia 統合リリースノートの見出し）[出典](https://www.servicenow.com/docs/r/delta-xanadu-australia/australia-xanadu-rpahub-release-notes.html) |
-| Zurich（2025-09 GA） | Python connector（Scripting plugin が前提。VB.NET / C# / JavaScript コネクタも追加）、Smart Card 認証、RPA bot generation skill で Google Gemini / AWS 上の Anthropic Claude を選択可能、Bot generation skill を RPA developer / admin に限定、アップグレード後に Bot process 定義を Bot process configuration へ再構成。Patch 4：LTS（Long-Term Support）モデル、ライセンス配分レコード権限を `rpa_admin` に限定。Patch 7：Try-Catch コンポーネント強化 [出典](https://www.servicenow.com/docs/r/zurich/release-notes/rpa-rn.html) |
-| **Australia（2026-05 GA）** | Try-Catch ブロックの範囲（内側/外側に置くアクション）を精密に制御、RPA bot generation skill でモデルプロバイダーのバージョン指定に対応、アクセシビリティ改善。変更・削除・非推奨はなし [出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-rpahub-release-notes.html) |
+| Xanadu | Xanadu での RPA Hub の主な変更点は公開情報では確認できず（Xanadu→Australia 統合リリースノートの URL は 2026-11 時点で 404）。Embedded Task Automation は Xanadu 版ドキュメントで記載を確認 [出典](https://www.servicenow.com/docs/r/rigCt~VuB5q8tR2t1pu_Eg/yfItXj2v8ZW78XHCnMsY3w) |
+| Zurich（2025-09 GA） | Python connector（Scripting plugin が前提。VB.NET / C# / JavaScript コネクタも追加）、Smart Card 認証、RPA bot generation skill で Google Gemini / AWS 上の Anthropic Claude を選択可能、Bot generation skill を RPA developer / admin に限定、アップグレード後に Bot process 定義を Bot process configuration へ再構成。Patch 4：LTS（Long-Term Support）モデル、ライセンス配分レコード権限を `sn_rpa_fdn.rpa_admin` に限定。アクセシビリティ改善。Patch 7（2026-03）：Try-Catch で対象アクション（コンポーネント）を選択的に指定可能に、RPA bot generation skill でモデルプロバイダーのバージョン指定に対応 [出典](https://www.servicenow.com/docs/r/zurich/release-notes/rpa-rn.html) |
+| **Australia（2026-05 GA）** | Try-Catch ブロックの範囲（内側/外側に置くアクション）を精密に制御（Zurich Patch 7 / 2026-03 で先行提供済みの機能）。変更・削除・非推奨はなし [出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-rpahub-release-notes.html) |
 
 > **Brazil での変更:** RPA Hub の Brazil リリースノートでは新機能・変更・削除・非推奨はいずれも「No updates」。システム要件も Australia と同じ。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-rpahub-release-notes.html)
 
@@ -473,7 +483,7 @@ Process Mining は、ServiceNow のテーブルの監査ログ（Audit log、`sy
 | リスト/レポートからの分析 | 任意のプラットフォームリストやレポート（SLA 違反、CSAT 等）から直接プロセス分析 |
 | Collaboration（共同作業） | プロジェクト共有、ノート・スクリーンショットの追加 |
 | 外部データ（External data integration） | ServiceNow 外のプロセスの監査/イベントログを取り込み分析（Vancouver 以降）。Process Mining for Salesforce もある |
-| Evaluation projects（評価プロジェクト） | ライセンスなしで自社データを使って試せる事前構成済みプロジェクト（ITSM・CSM・HR、Australia で Security Operations を追加） |
+| Evaluation projects（評価プロジェクト） | ライセンスなしで自社データを使って試せる事前構成済みプロジェクト（ITSM・CSM・HR [出典](https://www.servicenow.com/docs/r/now-intelligence/process-mining/activate-po-plugin.html)。Australia で Security Operations（セキュリティインシデント）を追加 [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/0~L2ZmExvtH~ID42lL4j6A)） |
 | Content packs（コンテンツパック） | プロジェクト・プロセス構成・改善機会のテンプレート集 |
 
 [出典（外部データ）](https://www.servicenow.com/community/process-mining-article/servicenow-process-mining-formerly-process-optimization-faq/ta-p/2309083)／[出典（評価プロジェクト・コンテンツパック）](https://www.servicenow.com/docs/r/now-intelligence/process-mining/activate-po-plugin.html)
@@ -526,7 +536,7 @@ Process Mining（`com.sn_po`）がインストールする主なテーブルは�
 
 ### 2.6 Process Mining のシステムプロパティ
 
-[出典](https://www.servicenow.com/docs/r/now-intelligence/process-mining/components-installed.html)（Brazil 版。Brazil で追加された 3 プロパティを明示）
+[出典](https://www.servicenow.com/docs/r/now-intelligence/process-mining/components-installed.html)（Brazil 版のプロパティ一覧）／[出典（Australia→Brazil リリースノート）](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-processmining-release-notes.html)（下表の 3 プロパティが Brazil で追加されたことの根拠）
 
 | プロパティ | 説明 | 型 | 既定値 |
 |---|---|---|---|
@@ -630,7 +640,7 @@ Task Mining は、プロセスオーナーが従業員のワークステーシ�
 
 - アプリケーションは **Task Mining Core（`sn_tm_core`）**（ServiceNow Store アプリ）。`admin` ロールでインストールし、プラグイン・Store アプリ・ロール・テーブル・スケジュールジョブが導入される。[出典](https://www.servicenow.com/docs/r/pVA_t2FBRJGAybmbtWqZ2A/MWY2PkLGFsj2CmK6TJ2ZLQ)
 - 各 PC に **Task Mining agent（タスクマイニングエージェント）** を導入する。Windows 版に加え macOS 版エージェントが存在する（Task Mining Core 3.1.9 で macOS エージェントのダウンロードリンク更新の記載あり）。Windows 版のポータブル版は PoC 専用で本番利用不可。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/Uar0GzRo3bwKsCwVCaAxSA)／[出典（検索結果要約）](https://www.servicenow.com/docs/r/now-intelligence/install-agent.html)
-- ServiceNow は 2023 年にタスクマイニング企業 UltimateSuite の買収を発表している。【第三者情報】[出典](https://futurumgroup.com/insights/servicenow-to-acquire-task-mining-company-ultimatesuite)
+- ServiceNow は 2023-12-18 に、タスクマイニング企業 UltimateSuite（チェコ・プラハ）の買収を発表した。クローズは 2024 年 Q1 の予定とされていた。[出典（公式プレスリリース）](https://www.businesswire.com/news/home/20231218270685/en/)／[出典（ServiceNow 公式ブログ）](https://www.servicenow.com/uk/blogs/2024/servicenow-acquires-ultimatesuite)
 
 ### 3.2 Task Mining のロールとグループ
 
@@ -638,11 +648,13 @@ Task Mining は、プロセスオーナーが従業員のワークステーシ�
 
 | ロール表示名 | ロール | 説明 | 包含ロール |
 |---|---|---|---|
-| Task Mining admin | `sn_tm_core.admin` | Task Mining の全システム構成・設定にアクセス。全プロジェクトを参照可能（3.1.9 以降、全プロジェクト参照は admin のみ） | `sn_tm_core.power_user` |
-| Task Mining power user | `sn_tm_core.power_user` | 構成・設定（アクティビティ分類ルール等） | `sn_tm_core.analyst` |
-| Task Mining analyst | `sn_tm_core.analyst` | プロジェクト作成・分析、自動化要求の提出 | `canvas_user`, `workspace_user` |
+| Task Mining admin | `sn_tm_core.admin` | Task Mining の全システム構成・設定にアクセス（power user ロールを包含）。全プロジェクトを参照可能（3.1.9 以降、全プロジェクト参照は admin のみ） | `sn_tm_core.power_user` |
+| Task Mining power user | `sn_tm_core.power_user` | Task Mining の全システム構成・設定にアクセス・管理（analyst ロールを包含） | `sn_tm_core.analyst` |
+| Task Mining analyst | `sn_tm_core.analyst` | Task Mining プロジェクトの作成・共有、他ユーザーが共有したプロジェクトへのアクセス、ワークステーション利用者のデータ記録（data logging）有効化の要求 | `canvas_user`, `workspace_user` |
+| Task Mining agent installer | （ロール ID は公開情報では確認できず） | Task Mining エージェントのインストールページへアクセス | なし |
 
-- エージェントのインストール担当者は **Task Mining Agent Install** グループに属する必要がある。このグループは `itil`、`sn_tm_core.service_user`、`agent_client_collector_admin` ロールを持つ。グループが存在しない場合は同名で手動作成する。インストールは対象 PC の管理者権限を持つ IT/セキュリティ担当者が行う。[出典（検索結果要約）](https://www.servicenow.com/docs/r/now-intelligence/install-agent.html)
+- Task Mining のタスクから Automation Center の自動化要求を作成する流れは 3.6 節を参照（ロール一覧の説明には含まれない）。
+- エージェントのインストール担当者は **Task Mining Agent Install** グループに属する必要がある。このグループは `itil`、`sn_tm_core.service_user`、`agent_client_collector_admin` ロールを持つ。グループが存在しない場合は同名で手動作成する。インストールは対象 PC の管理者権限を持つ IT/セキュリティ担当者が行う。このグループと構成ロールの記述は、install-agent ページの検索結果要約による。上記のコンポーネントページにはグループの記載がない。[出典（検索結果要約）](https://www.servicenow.com/docs/r/now-intelligence/install-agent.html)
 - Process Mining から Task Mining プロジェクトを作成するには Task Mining（`sn_tm_core`）がインストール・構成済みであること。
 
 ### 3.3 Task Mining のテーブル
@@ -832,7 +844,7 @@ Now Assist in Document Intelligence のスキルは Now Assist Admin console（A
 | 添付要約 | ファイルサイズ上限 20MB（Yokohama の 10MB から拡大） |
 | 言語 | ユースケースごとに OCR 言語を設定可能（Zurich）。Zurich Patch 1 で簡体字中国語・日本語のテキストを含むファイルに対応 |
 | LLM | 抽出と Q&A のユースケースで別々の LLM を割当可能（Yokohama）。ユースケースごとのモデルプロバイダー選択（Now Assist default は AI Control Tower のインスタンス既定モデルを使用、Zurich）。Google Gemini、AWS 上の Claude を Now LLM Service・Azure OpenAI と並んで選択可能。AI エージェントのファイルアップロード・ユースケースなし抽出では Now LLM Service は利用不可（Zurich） |
-| スキルの既定状態 | 指定スキルは既定でオン。アップグレード時は未構成のスキルがオンになり、一度オンにしてオフにしたスキルはオフのまま |
+| スキルの既定状態 | 指定スキルは既定でオン（Australia Patch 1 の変更）。新規に Now Assist 製品を導入すると指定スキルが自動でオンになる。アップグレード時は未構成のスキルがオンになり、一度オンにしてオフにしたスキルはオフのまま。同じ変更は Zurich・Yokohama のパッチのリリースノートにも記載がある（該当パッチ番号は公開情報では確認できず）。[出典（Australia リリースノート）](https://www.servicenow.com/docs/r/8_SIK58xmFJIEc2bL5YTYg/xf8oQpj5Jc4C1WzUciaoLA) |
 | 使用量計測 | 365 日ルックバックから、契約記念日にリセットされる 365 日バーンダウン方式へ変更（Yokohama Patch 5 / Zurich） |
 | AI エージェントの ACL | エージェントとスキルは Worker（AI ユーザーとして別権限で動作可）と Helper（人間ユーザーの権限のみ）に分類（Zurich） |
 | 関連適用例 | ITSM の添付要約、Virtual Agent での文書チャット、Accounts Payable Operations の請求書抽出、ESG 情報抽出（Operational Sustainability Risk Management）、契約メタデータ抽出（Contract Management）、Knowledge Center の画像キャプション、AI Skill Kit での抽出/Q&A/要約 |
@@ -857,7 +869,7 @@ Document Intelligence は以下と連携できる（Australia 版）。[出典](
 |---|---|---|
 | Yokohama | ― | Documents and visual insights AI agent、抽出/Q&A で別 LLM、Gemini/Claude、Full automation、Accounts Payable 請求書抽出、Virtual Agent 文書チャット、ITSM 添付要約、Document extraction / Document Q&A スキル |
 | Zurich | **将来の非推奨準備**（新規インスタンスで非表示・非有効化、ナビゲーターから削除）、`sn_docintel_admin` は B リリースで非推奨予定 | スキル統合（Extract information from documents）、AI Skill Kit 連携、OCR 言語設定、Image mode、ユースケースごとのモデルプロバイダー、ESG 抽出、DOCX 対応、ページ/サイズ上限、日本語・簡体字中国語対応（Patch 1） |
-| **Australia** | 新機能なし。Zurich の非推奨方針を継続 | **ServiceNow product tiers（Foundation / Advanced / Prime）**：ライセンスにより利用できる機能・生成 AI スキル・エージェント型ワークフロー・AI エージェントが決まる。AI エージェントが複数添付の引用に対応。抽出レビューパネルのバナー表記を「Document Q&A」→「Extracted data」に変更、AI エージェントのツール統合、添付要約 20MB、AI Skill Kit の抽出/Q&A/要約を適切なロールのユーザーに提供 |
+| **Australia** | 新機能なし。Zurich の非推奨方針を継続 | **ServiceNow product tiers（Foundation / Advanced / Prime）**：ライセンスにより利用できる機能・生成 AI スキル・エージェント型ワークフロー・AI エージェントが決まる。AI エージェントが複数添付の引用に対応。抽出レビューパネルのバナー表記を「Document Q&A」→「Extracted data」に変更、AI エージェントのツール統合、添付要約 20MB、AI Skill Kit の抽出/Q&A/要約を適切なロールのユーザーに提供、スキルの既定オン（Patch 1） |
 
 [出典（従来型）](https://www.servicenow.com/docs/r/AWjfoG0XNF6COBtQI5zL~A/~lC72SzMCswTjEQ2ukuVAA)／[出典（Now Assist）](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/M1jqwaHSyUeji61KPoN9jQ)／[出典（Australia→Brazil）](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-nowassistindocumentintelligence-release-notes.html)
 
@@ -988,7 +1000,7 @@ stateDiagram-v2
 
 [出典（Overview）](https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/SeSIUrAcAqS7zkZT5_s7FA)／[出典（Executions）](https://www.servicenow.com/docs/r/integrate-applications/automation-center/executions-dash.html)／[出典（Value）](https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/nbDZLJ2LZckJmx_A_j8~8A)
 
-- 自動化・ロボット・実行のデータは、ServiceNow RPA Hub からはフロー経由、他社ベンダーからは REST 呼び出しで投入される。他社ツール接続は、API からデータを取得して `sn_ac_automation_execution` に投入するフローを Workflow Studio で作る形になる、とする非公式ラボ資料がある。【第三者情報】[出典](https://creatorworkflowsnow.github.io/lab_autoengine/docs/automation_center)
+- 自動化・ロボット・実行のデータは、ServiceNow RPA Hub からはフロー経由、他社ベンダーからは REST 呼び出しで投入される。他社ツール接続は、API からデータを取得して `sn_ac_automation_execution` に投入するフローを Workflow Studio で作る形になる、とする非公式ラボ資料があった。【第三者情報】（出典リンク切れ、2026-11 確認：creatorworkflowsnow.github.io/lab_autoengine/docs/automation_center は 404）
 - ServiceNow Store には UiPath・Blue Prism の自動化を参照/移行するアクセラレーター系アプリの掲載がある。【第三者情報】（Store 掲載情報。Automation Center 公式ドキュメントでのベンダー別対応表は公開情報では確認できず）
 
 ### 5.6 Automation Center のリリース差分
@@ -1050,8 +1062,6 @@ Automation Center の Australia / Brazil における機能差分を記載した
 - View the process jobs of a bot process in RPA Hub: https://www.servicenow.com/docs/r/t2jQMKLZFp9AGt3V12O7mQ/TLXwNUCfDZeX7Hx6ateo7g
 - Robotic Process Automation (RPA) Spoke（Zurich）: https://www.servicenow.com/docs/r/zurich/build-workflows/workflow-studio/rpa-actions.html
 - RPA Hub release notes（Zurich）: https://www.servicenow.com/docs/r/zurich/release-notes/rpa-rn.html
-- Combined RPA Hub release notes Zurich → Australia: https://www.servicenow.com/docs/r/delta-zurich-australia/australia-zurich-rpahub-release-notes.html
-- Combined RPA Hub release notes Xanadu → Australia: https://www.servicenow.com/docs/r/delta-xanadu-australia/australia-xanadu-rpahub-release-notes.html
 - RPA Hub release notes Australia → Brazil: https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-rpahub-release-notes.html
 
 ### Process Mining
@@ -1076,7 +1086,9 @@ Automation Center の Australia / Brazil における機能差分を記載した
 - Install the Task Mining agent for Windows（Yokohama）: https://www.servicenow.com/docs/r/3dUp4IlSpaXzwDcoDj_v6g/Cxecihk12phMU5JLE2GiPg
 - Task Mining Core release notes: https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/Uar0GzRo3bwKsCwVCaAxSA
 - ServiceNow Community「If you are afraid of capturing user data, wait until you build AI」（Tomas Galle, 2026-04-28）: https://www.servicenow.com/community/process-mining-blog/if-you-are-afraid-of-capturing-user-data-wait-until-you-build-ai/ba-p/3533574
-- Futurum Group「ServiceNow to Acquire Task Mining Company UltimateSuite」【第三者情報】: https://futurumgroup.com/insights/servicenow-to-acquire-task-mining-company-ultimatesuite
+- ServiceNow プレスリリース「ServiceNow to Acquire Task Mining Company UltimateSuite to Enhance Process Mining and Intelligent Automation on the Now Platform」（2023-12-18、Business Wire）: https://www.businesswire.com/news/home/20231218270685/en/
+- ServiceNow 公式ブログ「ServiceNow acquires UltimateSuite, furthers investment in EMEA talent」: https://www.servicenow.com/uk/blogs/2024/servicenow-acquires-ultimatesuite
+- Now Assist in Document Intelligence release notes（Australia）: https://www.servicenow.com/docs/r/8_SIK58xmFJIEc2bL5YTYg/xf8oQpj5Jc4C1WzUciaoLA
 
 ### Document Intelligence
 - Install Document Intelligence（Australia）: https://www.servicenow.com/docs/r/XRgEFx7nPN6ciT_BBIvnbg/v4sX18YsAkHd96GnpFFCKg
@@ -1100,4 +1112,4 @@ Automation Center の Australia / Brazil における機能差分を記載した
 - Automation Center Executions dashboard: https://www.servicenow.com/docs/r/integrate-applications/automation-center/executions-dash.html
 - Automation Center Value dashboard: https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/nbDZLJ2LZckJmx_A_j8~8A
 - ServiceNow Community「Getting started with Automation Center」（2023-09-21）: https://www.servicenow.com/community/automation-engine-articles/getting-started-with-automation-center/ta-p/2679017
-- Creator Workflows lab「Automation Center」【第三者情報】: https://creatorworkflowsnow.github.io/lab_autoengine/docs/automation_center
+- Creator Workflows lab「Automation Center」【第三者情報】（リンク切れ、2026-11 確認）: creatorworkflowsnow.github.io/lab_autoengine/docs/automation_center

@@ -76,8 +76,8 @@ Datadog の通知連携は、モニターのメッセージ本文に `@<イン�
 | API キー・アプリケーションキー | [API とキー管理](./api-and-keys.md) |
 | Terraform による構成管理 | [Terraform と IaC](./terraform-and-iac.md) |
 | サイトごとの URL・機能差 | [Datadog Sites（サイト）](./datadog-sites.md) |
-| アラート設計・通知ノイズ削減の実践 | [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md) |
-| 料金の正本 | [製品別料金表](../../03_導入編/pricing-by-product.md) |
+| アラート設計・通知ノイズ削減の実践 | [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md) |
+| 料金の正本 | [製品別料金表](../../03_導入編/02-pricing-by-product.md) |
 
 ---
 
@@ -220,7 +220,7 @@ Datadog から外部（Webhook 先、Jira Data Center 等）へ送られる通�
 [出典](https://docs.datadoghq.com/api/latest/ip-ranges/)
 
 - AP1 の IP レンジ JSON（`version: 11`、`modified: 2026-08-12T00:00:00`、2026-11-02 取得）には `agents`、`api`、`apm`、`global`、`logs`、`orchestrator`、`process`、`remote-configuration`、`synthetics`、`synthetics-private-locations`、`webhooks` のキーがあり、`webhooks` には IPv4 プレフィックス 8 個と IPv6 プレフィックス 1 個が含まれていた。IP は変更されうるため、ファイアウォール設定は固定値の転記ではなく定期的に JSON を参照すること。[出典](https://ip-ranges.ap1.datadoghq.com/)
-- ネットワーク要件の全体像は [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md) を参照。
+- ネットワーク要件の全体像は [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md) を参照。
 
 > **サイト差異:** Datadog の公式サイト一覧には、本ナレッジ規約の 7 サイトに加え **UK1**（`uk1.datadoghq.com`、英国）と **US2-FED**（`us2.ddog-gov.com`、IL5 認可取得手続中）が掲載されている。多くの通知インテグレーションは US2-FED では「組織によっては無効。例外申請は support@ddog-gov.com」と案内されている。[出典](https://docs.datadoghq.com/getting_started/site/)
 
@@ -1109,7 +1109,7 @@ Datadog の Statuspage インテグレーションは 2 つの用途を持つ。
 
 [出典](https://docs.datadoghq.com/incident_response/status_pages/)、[出典](https://www.datadoghq.com/pricing/)
 
-既に Atlassian Statuspage を対外告知の正としている場合は連携を、インシデント対応と告知を Datadog 内で完結させたい場合は Status Pages を選ぶ、という使い分けになる（設計上の判断）。Incident Management のシート課金は [製品別料金](../../03_導入編/pricing-by-product.md)、運用の詳細は [Incident Management](../service-management/incident-management.md) を参照。
+既に Atlassian Statuspage を対外告知の正としている場合は連携を、インシデント対応と告知を Datadog 内で完結させたい場合は Status Pages を選ぶ、という使い分けになる（設計上の判断）。Incident Management のシート課金は [製品別料金](../../03_導入編/02-pricing-by-product.md)、運用の詳細は [Incident Management](../service-management/incident-management.md) を参照。
 
 ### 14.2 Zoom（Incident Management）
 
@@ -1224,7 +1224,7 @@ Datadog Terraform Provider（`DataDog/terraform-provider-datadog`）のリソー
 | `datadog_on_call_*`（escalation policy、schedule、team routing rules、user notification channel / rule） | On-Call |
 
 - ServiceNow テンプレート、Jira Issue template、Google Chat、Linear、OCI の Terraform リソースは、上記リポジトリのリソースドキュメント一覧では確認できなかった（2026-11-02 時点）。
-- IaC の全体像は [Terraform と IaC](./terraform-and-iac.md)、[Monitoring as Code](../../04_応用編/monitoring-as-code.md) を参照。
+- IaC の全体像は [Terraform と IaC](./terraform-and-iac.md)、[Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) を参照。
 
 ---
 
@@ -1402,7 +1402,7 @@ Datadog の Alibaba Cloud インテグレーションは、Alibaba Cloud の各�
 | 製品のライフサイクル | Opsgenie は 2027-04-05 にサポート終了、Teams の Office 365 コネクタは停止済み。新規構成は JSM Ops、Teams の Datadog app / Workflows を選ぶ | [出典](https://docs.datadoghq.com/integrations/opsgenie/) [出典](https://docs.datadoghq.com/integrations/microsoft_teams/) |
 | 編集権限 | 既定で全ユーザーが通知先を編集できるため、本番の通知先は Granular Access Control で Editor を限定する | [出典](https://docs.datadoghq.com/integrations/slack/) |
 | 外部メール | 社外ドメインへの誤送信防止には Domain Allowlist（Enterprise は GA） | [出典](https://docs.datadoghq.com/account_management/org_settings/domain_allowlist/) |
-| 通知ノイズ | 通知量の削減・エスカレーション設計は [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md)、運用ルールは [運用設計](../../03_導入編/operations-design.md) を参照 | — |
+| 通知ノイズ | 通知量の削減・エスカレーション設計は [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md)、運用ルールは [運用設計](../../03_導入編/13-operations-design.md) を参照 | — |
 
 ---
 
@@ -1463,7 +1463,7 @@ Datadog の通知・コラボレーション連携（Slack、Teams、Google Chat
 | 要因 | 課金への影響 | 参照 |
 |---|---|---|
 | 通知の送出（モニター、Webhook 等） | 通知の件数に対する課金の記載は公開情報では確認できず | [出典](https://www.datadoghq.com/pricing/) |
-| Incident Management / On-Call / Work Management | 連携先ではなく各製品側の料金体系（席数等）で課金 | [Incident Management](../service-management/incident-management.md)、[On-Call](../service-management/on-call.md)、[製品別料金表](../../03_導入編/pricing-by-product.md) |
+| Incident Management / On-Call / Work Management | 連携先ではなく各製品側の料金体系（席数等）で課金 | [Incident Management](../service-management/incident-management.md)、[On-Call](../service-management/on-call.md)、[製品別料金表](../../03_導入編/02-pricing-by-product.md) |
 | Workflow Automation 経由の Slack / Teams / Jira アクション | Workflow Automation の課金単位に従う | [Workflow Automation](../service-management/workflow-automation.md) |
 | Slack Enterprise Grid 監査ログ → Cloud SIEM | Cloud SIEM の分析対象ログとして課金 | [Cloud SIEM](../security/cloud-siem.md) |
 | ServiceNow Performance Monitoring・Change request イベント | 取り込むログ・メトリクス・イベント量に応じて Log Management 等の課金対象になりうる | [ログ収集](../logs/log-collection.md) |
@@ -1473,7 +1473,7 @@ Datadog の通知・コラボレーション連携（Slack、Teams、Google Chat
 | OCI 側・Alibaba Cloud 側の費用 | Service Connector Hub、Functions、NAT Gateway、Vault 等（OCI）、SLS 等（Alibaba Cloud）のクラウド側料金が別途発生しうる（Datadog の課金ではない）【経験則】 | — |
 | IBM Cloud（RapDev） | Marketplace アプリとして別途有償（価格はタイルで確認） | [出典](https://docs.datadoghq.com/integrations/rapdev_ibm_cloud/) |
 
-- 料金の数値（USD）の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、課金計算の仕組みは [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+- 料金の数値（USD）の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、課金計算の仕組みは [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 
 ---
 

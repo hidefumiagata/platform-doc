@@ -9,14 +9,22 @@ keywords: [system administration, システム管理, system properties, シス�
 sources:
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/tZG20M4o7c0~GIjUctC8Qg
   - https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/otMgp3UdZkTqNnm5uEsqrQ
+  - https://www.servicenow.com/docs/bundle/yokohama-platform-administration/page/administer/reference-pages/task/t_AddAPropertyUsingSysPropsList.html
   - https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/5pCcrPJ_eE7LtrNWWQzXlg
+  - https://www.servicenow.com/docs/r/de-DE/application-development/servicenow-sdk/property-api-now-ts.html
+  - https://www.servicenow.com/docs/r/australia/platform-security/instance-security-hardening-settings/sc-session-activity-timeout.html
+  - https://www.servicenow.com/docs/r/platform-security/instance-security-hardening-settings/sc-session-activity-timeout.html
   - https://www.servicenow.com/docs/r/zurich/platform-security/instance-security-hardening-settings/sc-session-activity-timeout.html
   - https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/E6lDJm6aBIsbUNlvu84hBA
   - https://www.servicenow.com/docs/r/platform-security/r_SystemLogs.html
+  - https://www.servicenow.com/docs/r/GypxAX2jEErwkCxugICKdg/3fCDYRoPrGilUO7f7_3rdQ
   - https://www.servicenow.com/docs/r/platform-security/system-logs.html
   - https://www.servicenow.com/docs/r/platform-security/r_LogUtilities.html
+  - https://www.servicenow.com/docs/r/gYIDIjNk3lw4nrlmxJtwPg/ceaaa_TkwUluhOxtv3s4AA
   - https://www.servicenow.com/docs/r/EqTdsLocR0Ylm0TDB1E9xw/N7nwQ6GY_TjaC5pWtyKVoQ
   - https://www.servicenow.com/docs/r/platform-administration/time-configuration/t_ScheduleAScriptExecution.html
+  - https://www.servicenow.com/docs/r/cVzHwL~N5hQ70Ca9r7fiZg/dIJ5YXYifg_dZ2dhcmpsPw
+  - https://www.servicenow.com/docs/r/pt-BR/application-development/servicenow-sdk/fluent-scheduled-script-api.html
   - https://www.servicenow.com/docs/r/eh2NFokZCOdK5kPblQPzog/McvY7J8Nu3djteQzKsBaKg
   - https://www.servicenow.com/docs/r/platform-administration/c_TableRotation.html
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/aXBkq7youOkFPAnd2FaQ8w
@@ -24,28 +32,25 @@ sources:
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/vmPH46SN44FEBcUKQwPBOA
   - https://www.servicenow.com/docs/r/washingtondc/platform-administration/c_ArchiveData.html
   - https://www.servicenow.com/docs/r/platform-administration/t_CreateAnArchiveRule.html
+  - https://www.servicenow.com/docs/r/platform-administration/dmc-create-archive-rule.html
   - https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/YxBUI6EDABFZ3lhbr8Hg6A
   - https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/u89VyA9KvX3zGhTsJrqhhw
   - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-datamanagement-release-notes.html
   - https://www.servicenow.com/docs/r/platform-administration/email-retention.html
+  - https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/9QmRnBSk4LAw4rOuuCzknA
   - https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/w~Q2UXlnDQpyIRD9r4xyUg
+  - https://www.servicenow.com/docs/r/1MANB3zGReoLe1eOc~imRg/_1xCaNC2N6PXFMdfQu039Q
   - https://www.servicenow.com/docs/r/impact/impact-roles.html
   - https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/3dFaC~ggBbjdsBTsWbgY6Q
   - https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-impact-release-notes.html
+  - https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-impact-release-notes.html
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/vbsKTCRej6eErVcbzfTwUA
   - https://www.servicenow.com/docs/bundle/zurich-platform-administration/page/administer/platform-performance/task/t%5FUseASlowQueryLog.html
   - https://www.servicenow.com/docs/r/SbrhqYG7UKQCk7uYwvgVBA/A92ghqy6EVGt4qJU5RX4jA
-  - https://www.servicenow.com/docs/r/SbrhqYG7UKQCk7uYwvgVBA/ZYWNMZEuPF0KmWyQY52huQ
+  - https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/cWh9NcULurPk2QWk4eZYKQ
+  - https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/cmdb-data-management.html
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/LlTmdiFsqKY_EekgeG~0aA
   - https://www.servicenow.com/docs/r/eh2NFokZCOdK5kPblQPzog/TXsMuLvCh7ODP0Gdx4mssQ
-  - https://www.servicenow.com/community/now-platform-articles/demystifying-table-rotation-extension-and-table-cleaner/ta-p/2323658
-  - https://www.servicenow.com/community/servicenow-ai-platform-blog/taming-data-growth-inside-the-new-data-management-console-in-the/ba-p/3419353
-  - https://www.servicenow.com/community/raptordb-articles/live-archive-getting-started/ta-p/3563025
-  - https://www.servicenow.com/community/now-platform-blog/13-reasons-why-the-stats-do-page-is-your-best-friend-for/ba-p/2286882
-  - https://www.servicenow.com/community/itsm-articles/plugin-with-new-features-in-vancouver-release/ta-p/2654171
-  - https://www.servicenow.com/community/in-other-news/scheduled-jobs-set-adrift/ba-p/2294301
-  - https://www.servicenow.com/community/now-platform-articles/identifying-slow-integration-queries/ta-p/2306796
-  - https://www.servicenow.com/community/developer-blog/improve-performance-by-creating-database-indexes-via-the-user/ba-p/2289736
 ---
 
 # System Administration（システム管理）
@@ -150,7 +155,7 @@ System Properties（システムプロパティ）は、インスタンス全体
 
 | プロパティ | 既定値 | 説明 |
 |---|---|---|
-| `glide.ui.session_timeout` | 30 | 認証済みセッションの無操作タイムアウト（分） |
+| `glide.ui.session_timeout` | 30（Australia のハードニング設定ドキュメントでは「既定値なし・未定義時のフォールバック 30」。下記参照） | 認証済みセッションの無操作タイムアウト（分） |
 | `glide.ui.session_timeleft` | 2 | 無操作タイムアウト前にセッション延長を促す猶予（分） |
 | `glide.ui.active.session.life_span` | 0 | 操作の有無にかかわらないセッション最大長（分）。0 は無制限 |
 | `glide.ui.auto_req.extend.session` | true | ホームページの自動リフレッシュでセッションを延長できるか。false にするとタイムアウトを強制 |
@@ -160,7 +165,11 @@ System Properties（システムプロパティ）は、インスタンス全体
 | `glide.ui.user_cookie.life_span_in_days` | 15 | Remember me クッキーの有効期間（日、最大 30） |
 | `glide.ui.user_cookie.max_life_span_in_days` | 30 | Remember me クッキー有効期間の上限（日、最大 365） |
 
-`glide.ui.session_timeout` について、セキュリティ強化設定のドキュメントは 30 分を推奨値とし、1 日を超える値に設定しないよう求めている。また Remember me を選択したユーザーにはセッションタイムアウト系プロパティが適用されず、タイムアウトを長くするほど処理中のメモリ使用量が増える。[出典](https://www.servicenow.com/docs/r/zurich/platform-security/instance-security-hardening-settings/sc-session-activity-timeout.html)
+`glide.ui.session_timeout` について、Australia のセキュリティ強化設定（Security Center ハードニング設定）のドキュメントは推奨値を「60 以下」、既定値なし・フォールバック 30 としている。[出典](https://www.servicenow.com/docs/r/australia/platform-security/instance-security-hardening-settings/sc-session-activity-timeout.html)
+
+Zurich 版の同ページは「60 分を推奨、1 日を超える値に設定しない」としたうえで、Remember me を選択したユーザーにはセッションタイムアウト系プロパティが適用されないこと、タイムアウトを長くするほど処理中のメモリ使用量が増えることを記載している（Zurich 版の記載。Australia 版の同ページにはこの 2 点の記述がなく、Australia での扱いは公開情報では確認できず）。[出典（Zurich）](https://www.servicenow.com/docs/r/zurich/platform-security/instance-security-hardening-settings/sc-session-activity-timeout.html)
+
+> **Brazil での変更:** Brazil 版の同ページでは推奨値が「30 以下」、既定値が 30 に変更されている。[出典](https://www.servicenow.com/docs/r/platform-security/instance-security-hardening-settings/sc-session-activity-timeout.html)
 
 #### 1.5.3 UI（Next Experience・フォーム・リスト）
 
@@ -213,7 +222,7 @@ UI 全般の詳細は [next-experience-ui.md](./next-experience-ui.md)、[lists-
 | `glide.script.use.sandbox` | true | クライアント生成スクリプトのサンドボックス実行 |
 | `glide.script_processor.admin` | admin | Scripts - Background（バックグラウンドスクリプト）に必要なロール |
 | `glide.script.log_level` | all | `gs.log` 出力の保存先（データベース、ファイルシステム、無効） |
-| `glide.script.dot_walk.enforce_cross_scope_access_all_tables` | true（新規／Australia で zBoot） | 属性のないテーブルでもドットウォークのクロススコープ検査を強制 |
+| `glide.script.dot_walk.enforce_cross_scope_access_all_tables` | true（Australia の新規インスタンス。アップグレードしたインスタンスでの値は要確認） | 属性のないテーブルでもドットウォークのクロススコープ検査を強制 |
 | `com.glide.attachment.max_size` | 1024 | 添付ファイルの最大サイズ（MB） |
 | `glide.attachment.extensions` | なし | 許可する添付ファイル拡張子 |
 | `glide.attachment.role` | public | 添付ファイルを作成できるロール |
@@ -553,7 +562,7 @@ Table Rotation の利点は次のとおり。[出典](https://www.servicenow.com
 | カスタムテーブル | カスタムテーブルに適用する前に ServiceNow テクニカルサポートに相談する |
 | ドットウォーク | ローテーションされたテーブルへはドットウォークできない |
 | クエリ性能 | ローテーション日付フィールドで絞り込まないクエリは全サブテーブルの UNION になり、サブテーブルが多いと非常に遅くなる。作成日時の範囲を条件に含める |
-| Table Cleaner | ローテーション設定済みテーブルでは Table Cleaner ルールはサポートされない |
+| Table Cleaner | ローテーション設定済みテーブルでは Table Cleaner ルールはサポートされない（Extension／Shard テーブルとの関係は [7.4](#74-table-extension) の注記を参照） |
 
 [出典](https://www.servicenow.com/docs/r/platform-administration/c_TableRotation.html)、[出典（Table Cleaner）](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/aXBkq7youOkFPAnd2FaQ8w)
 
@@ -592,6 +601,8 @@ Table Rotation の利点は次のとおり。[出典](https://www.servicenow.com
 - `sys_email` は Extension 構成であり、メールの保持は Table Cleaner ではなく Email Retention の Archive／Destroy ルールで行う（[11.2](#112-email-retentionメール保持)）。
 
 Auto Flush（Table Cleaner）ルールは、Xanadu Patch 5 以降、Extension テーブルと Shard テーブルでもサポートされる。ただし `GlideTableCleaner` スクリプタブル API は Extension テーブルをサポートしない。[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/aXBkq7youOkFPAnd2FaQ8w)
+
+> 注記：公式の Table Cleaner ページは「Table rotation が構成されたテーブルは非サポート」と「Extension／Shard テーブルは Xanadu Patch 5 以降サポート」を併記しているが、ここでいう Shard テーブルが Table Rotation（Type=Rotation）のシャード（[7.3](#73-設定テーブルとシャード) の `syslog0000` 等）を含むかは明示されていない。Type=Rotation のテーブルには Cleaner ルールを作らず、Extension／Shard テーブルへの適用可否はインスタンスで確認すること。[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/aXBkq7youOkFPAnd2FaQ8w)
 
 ---
 
@@ -633,7 +644,7 @@ Australia 版のドキュメントタイトルは「Deleting older or unwanted r
 | 性能要因 | テーブルサイズ、ルール条件、インデックスに依存。大規模テーブルでインデックスのないカスタム列を条件にすると著しく劣化する |
 | ビジネスロジック | Table Cleaner は `DBDelete.setWorkflow()` を呼ばないため、削除時に Business Rule、Workflow、Flow は**起動しない** |
 | Table Rotation | ローテーション設定済みテーブルではサポートされない |
-| Extension／Shard | Xanadu Patch 5 以降サポート（`GlideTableCleaner` API は Extension 非対応） |
+| Extension／Shard | Xanadu Patch 5 以降サポート（`GlideTableCleaner` API は Extension 非対応）。Rotation 型シャードを含むかは公式に明示なし（[7.4](#74-table-extension) の注記参照） |
 | 無効化 | テーブルの辞書レコードに **Disable Table Cleaner** 属性を追加すると、そのテーブルでクリーンアップルールの作成と Table Cleaner の実行をブロックできる。一部の内部システムテーブルは既定でこの属性を持つ |
 
 [出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/aXBkq7youOkFPAnd2FaQ8w)、[出典（プロパティ）](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/5pCcrPJ_eE7LtrNWWQzXlg)
@@ -729,7 +740,7 @@ Data Management Console 版の作成画面では期間を年・日・時間で�
 | 項目 | 内容 |
 |---|---|
 | プラグイン ID | `com.glide.db.columnar.archive` |
-| 要件 | RaptorDB Professional サブスクリプション、Australia 以降、RaptorDB Professional バージョン 35.1 以降、`admin` ロール |
+| 要件 | オブジェクトストレージへのアーカイブは **RaptorDB Professional V2 のみ**（公式リリースノート [出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/u89VyA9KvX3zGhTsJrqhhw)）、Live Archive の別サブスクリプション、Australia 以降、`admin` ロール。RaptorDB Professional バージョン 35.1 以降という版数要件はコミュニティ記事による【第三者情報】 |
 | 参照 | アーカイブレコードは引き続き `ar_*` テーブルとして照会でき、既存 ACL が適用される |
 | 対象外 | `sys_audit` 系、`sys_attachment`、`sys_journal_field`、内部システムテーブルにはアーカイブルールを作成できない（添付・ジャーナルは親レコードと一緒に移動する） |
 | 表示 | Data Management Console の Object Storage タイルは、アーカイブテーブルが 512 MB または 200 万行を超えると表示される。ストレージ統計は 1 日 1 回更新され、圧縮後サイズを示す |
@@ -826,7 +837,7 @@ ServiceNow には、テーブルごとに異なる保持の仕組みがある。
 | System Log（`syslog`） | Table Rotation | 7 日 × 8 シャード（約 8 週間） | 【第三者情報】 |
 | Transaction Log（`syslog_transaction`） | Table Rotation | Rotation 対象（期間は公開情報で確認できず） | 【第三者情報】 |
 | ノードログファイル | 圧縮アーカイブ | 2 日ごとにアーカイブ、21 日で削除（ノード退役時は即時削除） | 公式 |
-| Email（`sys_email`） | Email Retention（Archive／Destroy） | 1 年で `ar_sys_email` にアーカイブ、さらに 1 年で破棄（合計約 2 年）。新規インスタンスで既定有効、アップグレードでは手動有効化 | 公式 |
+| Email（`sys_email`） | Email Retention（Archive／Destroy） | Archive ルール「Email - Over a year old or Ignored」（Brazil 版ドキュメントでは作成から 365 日超の received-ignored／sent-ignored 型が対象。通常メールへの適用はインスタンスのルール条件で確認）→ `ar_sys_email` へのアーカイブから 365 日で Destroy（[11.2](#112-email-retentionメール保持) の注記参照）。新規インスタンスで既定有効、アップグレードでは手動有効化 | 公式 |
 | Service Portal ログ（`sp_log`） | Table Cleaner | 作成から 90 日 | 【第三者情報】 |
 | スケジュールジョブ実行履歴（`sys_scheduler_job_history`） | — | ダッシュボードで最大 7 日分 | 公式 |
 | Instance Observer のデータ | Impact パッケージ | Guided 45 日、Advanced／Total 6 か月 | 公式 |
@@ -855,9 +866,9 @@ ServiceNow には、テーブルごとに異なる保持の仕組みがある。
 
 ### 11.3 データ保持設計の観点
 
-- 業務データ（インシデント等）の保持期間は、法令・監査・社内規程に基づき決め、恣意的な期間にしない。【経験則】[出典](https://www.perspectium.com/blog/servicenow-archive-rules-explained/)
+- 業務データ（インシデント等）の保持期間は、法令・監査・社内規程に基づき決め、恣意的な期間にしない。【経験則】【第三者情報】[出典](https://www.perspectium.com/blog/servicenow-archive-rules-explained/)
 - アーカイブルールは親子テーブル間で自動的にカスケードしないため、関連テーブルごとにルールを設計する必要がある。【第三者情報】[出典](https://www.servicenow.com/community/developer-forum/implement-data-retention-policies-using-servicenow-system-data/m-p/3503288)
-- CMDB の CI レコードは CMDB Data Manager で、メールは Email Retention で扱う（[cmdb-csdm.md](./cmdb-csdm.md)）。【第三者情報】
+- CMDB の CI レコードのリタイア・アーカイブ・削除は CMDB Data Manager のポリシーで、メールは Email Retention の Archive／Destroy ルール（[11.2](#112-email-retentionメール保持)）で扱う（[cmdb-csdm.md](./cmdb-csdm.md)）。[出典（CMDB Data Manager）](https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/cmdb-data-management.html)、[出典（Email retention）](https://www.servicenow.com/docs/r/platform-administration/email-retention.html)
 - 個人情報の削除・匿名化要件（GDPR 等）は Data Privacy 系機能の領域であり、本ファイルの範囲外とする（[platform-security-encryption.md](./platform-security-encryption.md)）。
 
 ---
@@ -941,7 +952,7 @@ Impact 共通ロールのうち Instance Observer に関係するものは次の
 
 [出典（Zurich・Australia）](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/3dFaC~ggBbjdsBTsWbgY6Q)、[出典（Brazil）](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-impact-release-notes.html)、[出典（Brazil ハイライト）](https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-impact-release-notes.html)
 
-> 補足：Zurich・Australia では Platform Health の **Scan Engine**（ベストプラクティス定義に基づくインスタンス品質スキャン、`sn_se.scan_engine_admin` 等のロール）や **Impact Health Agent** も追加されている。これらは技術的負債管理の機能であり、詳細は [../../04_応用編/02-customization-technical-debt.md](../../04_応用編/02-customization-technical-debt.md) を参照する。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/3dFaC~ggBbjdsBTsWbgY6Q)
+> 補足：Zurich・Australia では Platform Health の **Scan Engine**（ベストプラクティス定義に基づくインスタンス品質スキャン、`sn_se.scan_engine_admin` 等のロール）や **Impact Health Agent** も追加されている。これらは技術的負債管理の機能であり、詳細は [../../04_応用編/02-customization-technical-debt.md](../../04_応用編/02-customization-technical-debt.md)（4 章で Instance Scan・Impact Platform Health（Scan Engine）・Impact Health Agent を扱う）を参照する。ガバナンス面は既存の [../../04_応用編/09-governance-coe-practice.md](../../04_応用編/09-governance-coe-practice.md) も参照。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/3dFaC~ggBbjdsBTsWbgY6Q)
 
 ---
 
@@ -988,9 +999,9 @@ Impact 共通ロールのうち Instance Observer に関係するものは次の
 
 ### 13.4 Index Suggestion Engine（ISE）
 
-**Index Suggestion Engine（インデックス提案エンジン、ISE）** は、遅いクエリに対するインデックスを提案するプラグイン（`com.glide.index_suggestion`）で、新規・アップグレードインスタンスとも既定で有効。Xanadu 版ドキュメントでは **MySQL データベースのみをサポート**と記載されている。[出典](https://www.servicenow.com/docs/r/SbrhqYG7UKQCk7uYwvgVBA/ZYWNMZEuPF0KmWyQY52huQ)
+**Index Suggestion Engine（インデックス提案エンジン、ISE）** は、遅いクエリに対するインデックスを提案するプラグイン（`com.glide.index_suggestion`）で、新規・アップグレードインスタンスとも既定で有効。Australia 版ドキュメントでも ISE は **MySQL データベースのみをサポート**すると記載されている。このため RaptorDB（PostgreSQL ベース）環境はサポート対象として記載されていない。[出典](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/cWh9NcULurPk2QWk4eZYKQ)
 
-> 注記：RaptorDB（PostgreSQL ベース）へ移行済みのインスタンスでの ISE の対応状況は、本ファイル作成時点の公開情報では確認できず。
+> 注記：RaptorDB（PostgreSQL ベース）環境への ISE の将来のサポート予定は、公開情報では確認できず。
 
 ISE の動作は次のとおり。
 
@@ -999,7 +1010,7 @@ ISE の動作は次のとおり。
 3. ISE がデータを集約し、重み付けされた列ランキングアルゴリズムで提案を生成する。
 4. インデックス作成後、ISE は 14 日間、1 時間ごとに効果を評価し、効果がなければ削除（Drop）を推奨する。
 
-[出典](https://www.servicenow.com/docs/r/SbrhqYG7UKQCk7uYwvgVBA/ZYWNMZEuPF0KmWyQY52huQ)
+[出典](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/cWh9NcULurPk2QWk4eZYKQ)
 
 `sys_index_suggestion`（Index Suggestions）テーブルは、次の 3 段階と状態で提案を追跡する。
 
@@ -1009,7 +1020,7 @@ ISE の動作は次のとおり。
 | Index Suggestions > In Progress | Creation Scheduled、Creation in Progress、Creation Failed、Evaluating Effectiveness、Drop Suggested (Unused)、Drop Suggested (Performance Degradation)、Drop Scheduled、Drop in Progress、Drop Failed |
 | Index Suggestions > Done | Created、Ignored、Dropped、Accepted（Drop 推奨にもかかわらず保持）、Superseded（同じテーブル・クエリの新しい提案に置換） |
 
-[出典](https://www.servicenow.com/docs/r/SbrhqYG7UKQCk7uYwvgVBA/ZYWNMZEuPF0KmWyQY52huQ)
+[出典](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/cWh9NcULurPk2QWk4eZYKQ)
 
 ```mermaid
 flowchart TD
@@ -1073,7 +1084,7 @@ flowchart TD
 | REST Attachment API request timeout | 60 秒 | インバウンド REST Attachment API |
 | Reference completer | 5 秒 | 参照フィールドのオートコンプリート |
 | Homepage widgets | 30 秒 | ホームページウィジェット |
-| Corrective script processor | 4 時間 | 修正スクリプトプロセッサー |
+| Fix script processor | 4 時間 | Fix Script（フィックススクリプト）プロセッサーの実行を 4 時間まで許可（Fix Script 自体は [scripting-server-side.md](scripting-server-side.md) 参照） |
 | UA count persistor quota | 1 時間 | UA カウントのスケジュールタスク |
 | PA – Diagnose All | 30 分 | Diagnostics アプリケーション外から起動された診断トランザクション |
 | Presence | — | システム繁忙時にプレゼンス要求を早期に取り消す |
@@ -1119,7 +1130,7 @@ System Properties、プラグイン管理、Index Suggestion Engine、Transactio
 
 - 「Available system properties」ページは約 28 万字と長大で、本ファイルではその一部のみ抜粋した。`glide.ui.per_page` 等のリスト表示系プロパティの既定値は今回の調査範囲では確認できず。
 - `sys_query_pattern` の各フィールド名（Query record form fields）の正式な一覧は公開情報で確認できず。
-- Index Suggestion Engine の RaptorDB（PostgreSQL ベース）環境での対応状況は公開情報で確認できず。
+- Index Suggestion Engine の RaptorDB（PostgreSQL ベース）環境への将来のサポート予定は公開情報では確認できず（Australia 版ドキュメントは MySQL のみサポートと記載）。
 - `syslog_transaction` のローテーション期間・ローテーション数の既定値は公開情報で確認できず。
 - Push Retention の既定保持期間は公開情報で確認できず。
 - Instance Observer の Brazil での個別機能追加は公開情報で確認できず。
@@ -1135,7 +1146,9 @@ System Properties、プラグイン管理、Index Suggestion Engine、Transactio
 - Add a property using sys_properties list（Yokohama）: https://www.servicenow.com/docs/bundle/yokohama-platform-administration/page/administer/reference-pages/task/t_AddAPropertyUsingSysPropsList.html
 - System properties（Data Management, Zurich）: https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/5pCcrPJ_eE7LtrNWWQzXlg
 - Property API - ServiceNow Fluent: https://www.servicenow.com/docs/r/de-DE/application-development/servicenow-sdk/property-api-now-ts.html
-- Minimize session activity timeout duration: https://www.servicenow.com/docs/r/zurich/platform-security/instance-security-hardening-settings/sc-session-activity-timeout.html
+- Minimize session activity timeout duration（Australia）: https://www.servicenow.com/docs/r/australia/platform-security/instance-security-hardening-settings/sc-session-activity-timeout.html
+- Minimize session activity timeout duration（Brazil）: https://www.servicenow.com/docs/r/platform-security/instance-security-hardening-settings/sc-session-activity-timeout.html
+- Minimize session activity timeout duration（Zurich）: https://www.servicenow.com/docs/r/zurich/platform-security/instance-security-hardening-settings/sc-session-activity-timeout.html
 - Activate a plugin: https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/E6lDJm6aBIsbUNlvu84hBA
 - System log（Brazil）: https://www.servicenow.com/docs/r/platform-security/r_SystemLogs.html
 - System log（Yokohama）: https://www.servicenow.com/docs/r/GypxAX2jEErwkCxugICKdg/3fCDYRoPrGilUO7f7_3rdQ
@@ -1168,7 +1181,8 @@ System Properties、プラグイン管理、Index Suggestion Engine、Transactio
 - Stats Tools（Australia）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/vbsKTCRej6eErVcbzfTwUA
 - Use a slow query log（Zurich）: https://www.servicenow.com/docs/bundle/zurich-platform-administration/page/administer/platform-performance/task/t%5FUseASlowQueryLog.html
 - Resolving slow queries: https://www.servicenow.com/docs/r/SbrhqYG7UKQCk7uYwvgVBA/A92ghqy6EVGt4qJU5RX4jA
-- Index suggestions for slow queries（Xanadu）: https://www.servicenow.com/docs/r/SbrhqYG7UKQCk7uYwvgVBA/ZYWNMZEuPF0KmWyQY52huQ
+- Index suggestions for slow queries（Australia）: https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/cWh9NcULurPk2QWk4eZYKQ
+- CMDB Data Manager（Australia）: https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/cmdb-data-management.html
 - Create a table index（Australia）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/LlTmdiFsqKY_EekgeG~0aA
 - Default quota rules（Australia）: https://www.servicenow.com/docs/r/eh2NFokZCOdK5kPblQPzog/TXsMuLvCh7ODP0Gdx4mssQ
 

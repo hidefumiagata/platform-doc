@@ -33,6 +33,20 @@ sources:
   - https://www.hitachi-solutions.co.jp/company/press/news/2026/0121_2.html
   - https://www.nttdata.com/global/ja/news/topics/2025/031300
   - https://cloud.watch.impress.co.jp/docs/news/1589675.html
+  - https://cloud.watch.impress.co.jp/docs/news/2003774.html
+  - https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/IrFOCyMFq5we4zvwW8jJxQ
+  - https://www.servicenow.com/community/in-other-news/now-create-retirement-faqs-and-introduction-to-best-practices/ba-p/3425556
+  - https://www.servicenow.com/blogs/2025/servicenow-partner-awards-leading-ai
+  - https://upperedge.com/servicenow/servicenow-impact-negotiations-key-contract-terms-for-enterprises/
+  - https://blog.livingstone-tech.com/en/knowledge/unveiling-servicenow-impact-a-game-changer-for-your-enterprise-journey
+  - https://www.hitachi-solutions.co.jp/company/press/news/2013/0125.html
+  - https://www.nttdata.com/global/ja/news/information/2022/031801
+  - https://jpn.nec.com/service/servicenow/index.html
+  - https://japan-systems.co.jp/wp-content/uploads/2025/01/JS2025-01.pdf
+  - https://www.servicenow.com/jp/partners/partner-finder/
+  - https://www.servicenow.com/it/partners/partner-finder/scsk-corp.html
+  - https://www.servicenow.com/partners/partner-finder/ntt-docomo-business-inc.html
+  - https://www.servicenow.com/jp/partners/partner-finder/firstqa-systems-kk.html
 ---
 
 # プロジェクト体制とパートナー（Project Organization & Partners）
@@ -96,20 +110,20 @@ flowchart TB
 
 *図: 一般的な ServiceNow 顧客側体制の例。役割名は ServiceNow 公式ドキュメント（Impact、Customer Success Management）および ServiceNow Community の社員投稿を基に構成した。組織規模により兼務する。*
 
-### 役割一覧（公式定義ベース）
+### 役割一覧（公式・準公式情報ベース）
 
-以下は ServiceNow 公式ドキュメントで定義が確認できた顧客側役割である。
+以下は ServiceNow 公式ドキュメントで記述が確認できた役割である。Executive Sponsor・Platform Owner・Team Lead は Impact Accelerator（Staffing and Roles Review）の参加者定義に基づく。Customer Executive / CIO・Process Owner・Platform Architect は、**Customer Success Management アプリ（自社顧客のカスタマーサクセスを管理する製品）の役割定義を援用したもの**であり、ServiceNow 導入顧客の体制として ServiceNow が公式に定義したものではない。
 
 | 役割（英語 / 日本語） | 責任 | 公式出典での位置づけ |
 |---|---|---|
 | Executive Sponsor（エグゼクティブスポンサー） | ServiceNow に関する主たる戦略的窓口。投資判断・優先順位・組織横断の調整を担う | Impact「Staffing and Roles Review」で **Required（必須）** 参加者 [出典](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/9v1H0kdF4CB1Q9GYJWI3oQ) |
-| Customer Executive / CIO（顧客側エグゼクティブ / CIO） | 顧客側の戦略的意思決定者。事業目標と ServiceNow 採用戦略の整合、IT・デジタル戦略との整合に責任を持つ | Customer Success Management の役割定義 [出典](https://www.servicenow.com/docs/r/lUgPb7pdpGK5_sS7oizX7A/IeJHQ29jhCYY83oIDgGI3w) |
+| Customer Executive / CIO（顧客側エグゼクティブ / CIO） | 顧客側の戦略的意思決定者。事業目標と ServiceNow 採用戦略の整合、IT・デジタル戦略との整合に責任を持つ | Customer Success Management アプリ（Zurich）の役割定義を援用（ServiceNow 導入体制としての公式定義ではない）。同ページの表記は「Customer Executive」「Customer Information Officer」 [出典](https://www.servicenow.com/docs/r/lUgPb7pdpGK5_sS7oizX7A/IeJHQ29jhCYY83oIDgGI3w) |
 | Platform Owner（プラットフォームオーナー） | ServiceNow プラットフォーム全体の説明責任（accountability）を負う。System Administrator へのリーダーシップと監督、ビジネス戦略・ServiceNow ロードマップとの整合、プラットフォームガバナンスへの能動的関与 | Staffing and Roles Review で **Required（必須）** [出典](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/9v1H0kdF4CB1Q9GYJWI3oQ) |
 | ServiceNow AI Platform & Development Team Lead（プラットフォーム・開発チームリード） | プラットフォーム運用と開発を管理する | Staffing and Roles Review で **Recommended（推奨）** [出典](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/9v1H0kdF4CB1Q9GYJWI3oQ) |
-| Process Owner（プロセスオーナー） | 特定の業務プロセス（例：Incident、Change）に説明責任を負う。KPI を定義し、改善を推進し、プロセス成熟度を確認する | Customer Success Management の役割定義 [出典](https://www.servicenow.com/docs/r/lUgPb7pdpGK5_sS7oizX7A/IeJHQ29jhCYY83oIDgGI3w) |
-| Platform Architect（プラットフォームアーキテクト） | ターゲットアーキテクチャを設計し、拡張性・セキュリティ・長期的な事業ニーズとの整合を確認する | 同上 [出典](https://www.servicenow.com/docs/r/lUgPb7pdpGK5_sS7oizX7A/IeJHQ29jhCYY83oIDgGI3w) |
+| Process Owner（プロセスオーナー） | 特定の業務プロセス（例：Incident、Change）に説明責任を負う。KPI を定義し、改善を推進し、プロセス成熟度を確認する | Customer Success Management アプリ（Zurich）の役割定義を援用（ServiceNow 導入体制としての公式定義ではない） [出典](https://www.servicenow.com/docs/r/lUgPb7pdpGK5_sS7oizX7A/IeJHQ29jhCYY83oIDgGI3w) |
+| Platform Architect（プラットフォームアーキテクト） | ターゲットアーキテクチャを設計し、拡張性・セキュリティ・長期的な事業ニーズとの整合を確認する | Customer Success Management アプリ（Zurich）の役割定義を援用（ServiceNow 導入体制としての公式定義ではない） [出典](https://www.servicenow.com/docs/r/lUgPb7pdpGK5_sS7oizX7A/IeJHQ29jhCYY83oIDgGI3w) |
 
-> **注記:** Customer Success Management（Zurich 版、2025-07-31 更新）の役割表には Relationship Manager、Escalation Manager、Service Delivery Manager、Implementation Specialist、Product Specialist、Customer Enablement Specialist、Solution Consultant も並ぶが、これらは主に**サービス提供側（ベンダー側）**の役割である。顧客側として明示されるのは Process Owner、Customer Executive、CIO である [出典](https://www.servicenow.com/docs/r/lUgPb7pdpGK5_sS7oizX7A/IeJHQ29jhCYY83oIDgGI3w)。
+> **注記:** Customer Success Management（Zurich 版、2025-07-31 更新）の役割表には Relationship Manager、Escalation Manager、Service Delivery Manager、Implementation Specialist、Product Specialist、Customer Enablement Specialist、Solution Consultant も並ぶが、これらは主に**サービス提供側（ベンダー側）**の役割である。同ページで「customer side（顧客側）」と明記されるのは Customer Executive のみで、Customer Information Officer、Process Owner、Platform Architect には顧客側との記述はない [出典](https://www.servicenow.com/docs/r/lUgPb7pdpGK5_sS7oizX7A/IeJHQ29jhCYY83oIDgGI3w)。
 
 ### プラットフォーム運営の 9 つのステークホルダー役割
 
@@ -139,7 +153,7 @@ ServiceNow 社員による Community 記事（2025-01-24）は、ServiceNow プ�
 | 主な成果物 | プラットフォーム戦略・ロードマップ、ガバナンス規程、予算、体制、ライセンス管理 | プロセス定義、KPI、プロセス成熟度、改善計画 | 要求（ストーリー）バックログ、優先順位、受入判定 |
 | 意思決定 | 最終決定・最上位エスカレーション先 | プロセス設計・ポリシー（例：変更承認基準） | スプリントに入れる要求と順序 |
 | 典型的な出身 | IT 部門のマネージャー | 業務部門の責任者 | 業務分析者 / IT 部門担当 |
-| 公式での扱い | Impact の Staffing and Roles Review で Required。Impact アプリに `Impact Platform Owner` ロールがある | CSM ドキュメントで定義 | ServiceNow 社員の Community 記事で定義（公式ドキュメントでの明示的定義は確認できず） |
+| 公式での扱い | Impact の Staffing and Roles Review で Required。Impact アプリに `Impact Platform Owner` ロールがある | 公式ドキュメントでの導入体制としての明示的定義は確認できず（Customer Success Management アプリの役割定義に類似記述あり） | ServiceNow 社員の Community 記事で定義（公式ドキュメントでの明示的定義は確認できず） |
 
 出典：[Staffing and Roles Review](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/9v1H0kdF4CB1Q9GYJWI3oQ)、[Customer success management responsibilities](https://www.servicenow.com/docs/r/lUgPb7pdpGK5_sS7oizX7A/IeJHQ29jhCYY83oIDgGI3w)、[Governance or no governance](https://www.servicenow.com/community/developer-articles/governance-or-no-governance-that-is-the-question/ta-p/3158504)
 
@@ -190,7 +204,7 @@ ServiceNow は体制規模の見積もり支援として以下を提供してい
 | ツール / サービス | 内容 | 入手方法 |
 |---|---|---|
 | Platform Team Estimator | Customer Success Center のセルフサービス Web アプリ。インスタンスの属性、プラットフォーム利用状況、運営モデルに関する **11 の質問**に答えると、推奨 FTE（フルタイム換算）人数の範囲と必要な役割を提示する（2021-01 公開） | ServiceNow Customer Success Center [出典](https://www.servicenow.com/community/in-other-news/build-the-team-you-need-to-succeed-with-your-servicenow/ba-p/2285583) |
-| Staffing and Roles Review（Impact Accelerator） | ServiceNow の専門家が顧客の役割・責任・スキルギャップを分析し、採用・パートナー活用・アウトソースの判断を支援する。CoEI Design Accelerator と併用が推奨される | Impact（Total、Guided + Strategic Value アドオン等）。セルフ型の「On Demand」版もある [出典](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/9v1H0kdF4CB1Q9GYJWI3oQ) |
+| Staffing and Roles Review（Impact Accelerator） | ServiceNow の専門家が顧客の役割・責任・スキルギャップを分析し、採用・パートナー活用・アウトソースの判断を支援する。CoEI Design Accelerator と併用が推奨される | Impact（Total ページ上の対象は Impact Guided+（Strategic Value アドオン）、Advanced（旧パッケージ）、Total）[出典](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/9v1H0kdF4CB1Q9GYJWI3oQ)。セルフ型の「Staffing and Roles Review – On Demand」（Impact Guided、Guided + Strategic Value、Total が対象）もある [出典](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/IrFOCyMFq5we4zvwW8jJxQ) |
 
 **Staffing and Roles Review – Total（Australia 版、2026-03-12 更新）の進め方:**
 
@@ -203,7 +217,7 @@ ServiceNow は体制規模の見積もり支援として以下を提供してい
 
 事前に求められる情報は、組織図と人員概要（個人名・機微情報・人員削減計画は不要）、ServiceNow 関連のガバナンス憲章、完了済みの Vision & Strategy Accelerator（ビジョン・戦略マップ）、既存 ServiceNow パートナーの状況、役割・責任定義である。**ServiceNow は顧客の人選プロセスには関与しない** [出典](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/9v1H0kdF4CB1Q9GYJWI3oQ)。
 
-> **注記:** On Demand 版では Platform Owner の参加は「Recommended（推奨）」とされ、ServiceNow は提案された構成変更を実装しない（セルフガイド）。Total 版では Platform Owner は「Required（必須）」である。
+> **注記:** Staffing and Roles Review – On Demand（Australia 版、2026-05-06 更新）は、顧客が自分のペースで進めるセルフガイド型で、Platform Owner の参加は「Recommended（推奨）」とされ、ServiceNow は提案された構成変更を実装しない [出典](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/IrFOCyMFq5we4zvwW8jJxQ)。Total 版では Platform Owner は「Required（必須）」である [出典](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/9v1H0kdF4CB1Q9GYJWI3oQ)。
 
 ---
 
@@ -215,8 +229,8 @@ ServiceNow の Onboarding Hub 記事は、導入モデルを次の 4 つに分�
 
 | モデル | 説明 | 向いているケース | 推奨されないケース |
 |---|---|---|---|
-| Self-Implement（自社導入） | 自社リソースで導入する。顧客側に PM、技術リソース、Business Process Owner を置く。ServiceNow からはリーディングプラクティス・製品ドキュメント・Webinar で支援 | 新製品を通常自社で導入している組織、パートナー予算がない組織 | 複数製品、複数地域、大企業の全社展開、新規導入（net-new）、適切なスキルのパートナーが既にいる場合 |
-| Expert Services (ES) led | ServiceNow Expert Services がプロジェクトを端から端まで管理。チームは通常 3〜5 名（Engagement Manager、Technical Consultant、Business Process Consultant 等）。パッケージ型サービスで特定成果を加速できる | ServiceNow 製品知識への直接アクセスが欲しい場合 | 小規模組織の全社導入、適切なパートナーが既にいる場合 |
+| Self-Implement（自社導入） | 自社リソースで導入する。顧客側に PM、技術リソース、Business Process Owner を置く。ServiceNow からはリーディングプラクティス・製品ドキュメント・Webinar で支援 | 新製品を通常自社で導入している組織、パートナー予算がない組織。適合表では既存環境への製品追加、小規模組織の全社展開に適合 | 複数製品、複数地域、大企業の全社展開、新規導入（net-new）、適切なスキルのパートナーが既にいる場合 |
+| Expert Services (ES) led | ServiceNow Expert Services がプロジェクトを端から端まで管理。チームは通常 3〜5 名（Engagement Manager、Technical Consultant、Business Process Consultant 等）。パッケージ型サービスで特定成果を加速できる | ServiceNow 製品知識への直接アクセスが欲しい場合。適合表では複数製品、複数地域、大企業・小規模組織の全社導入、既存環境への製品追加、新規導入（net-new）のいずれにも適合 | 適切なスキルのパートナーが既にいる場合 |
 | Partner led | 認定パートナーと直接契約し端から端まで導入。パートナーは ServiceNow の導入方法論を利用できる。派生形として、パートナー主導で ServiceNow が要所で処方的ガイダンスを提供する **Co-Delivery** がある | 適切なパートナーと既に契約している組織。記事の適合表では全シナリオに適合 | （記事に明示なし） |
 | ES + Partner | 認定パートナーと Expert Services の組み合わせ | パートナーの支援に加え、ServiceNow 製品・導入の専門知識に直接アクセスしたい場合 | 小規模組織の全社導入 |
 
@@ -244,7 +258,7 @@ flowchart TD
 | ルート別ティア | Consulting & Implementation（導入）でのティア。Resale（再販）でのティアと別物 | Partner Finder の各社プロファイル |
 | 製品領域の実績 | 対象製品（ITSM / HRSD / CSM / ITOM / IRM 等）の **Product Line Achievement（PLA）**、**Validated Practice**、**Specialization** の有無 | Partner Finder、各社プレスリリース |
 | 認定資格保有者数 | CSA、CIS-ITSM 等の保有者数、アサイン予定者個人の資格 | 提案書、[学習パスと認定資格](../01_入門編/09-learning-path.md) |
-| 方法論 | ServiceNow の導入方法論（旧 Now Create、現 My Now の Best Practices）の利用、Fit to Standard の進め方 | [導入方法論](04-implementation-methodology.md) |
+| 方法論 | ServiceNow の導入方法論（Now Create（ServiceNow Create）。Now Create ポータルは 2025-12-05 に廃止され、My Now の Best Practices サイトに置き換え）の利用、Fit to Standard の進め方 | [導入方法論](04-implementation-methodology.md)、[Now Create retirement FAQs](https://www.servicenow.com/community/in-other-news/now-create-retirement-faqs-and-introduction-to-best-practices/ba-p/3425556) |
 | 運用移行 | 稼働後の保守（AMS: Application Management Services）、マネージドサービスの提供可否 | 提案書 |
 | 日本語対応 | 日本語での要件定義・ドキュメント・教育、日本の商習慣（稟議、帳票）への理解 | [日本市場における導入](15-japan-market.md) |
 | 顧客満足度 | パートナー評価に使われる CSAT（パートナー提供情報では、完了案件の回答の直近 365 日のローリング平均）`【第三者情報】` | Partner Finder のプロファイル記述 |
@@ -284,7 +298,7 @@ ServiceNow Partner Program は、**ルート・トゥ・マーケット（Route 
 
 **Global Elite（公式）:** 2025-01-21 の ServiceNow 公式発表で、Infosys と Cognizant が Global Elite に昇格し、既存の Accenture、Deloitte、EY、KPMG と合わせて 6 社となった。Global Elite は「最大級のグローバルリーチと専門性を持つパートナー向けの最上位称号」とされる [出典](https://newsroom.servicenow.com/press-releases/details/2025/ServiceNow-enhances-global-partner-program-unlocking-new-revenue-and-market-opportunities-for-AI-solutions-01-21-2025-traffic/default.aspx)。
 
-**Build Program（2026-01 改定、公式）:** 2026-01-20 の公式発表で Build Program が刷新され、ティアは **Registered → Select → Premier → Elite** の 4 段階となり、加えて本加入前の参加者向けに **Access Tier** が新設された。1,000 社超の既存パートナーが 3 月までに新 Build Program へ移行し、全パートナー共通の**単一の年会費**に移行した（金額は非公開）。インセンティブとして MDF（Market Development Fund、一部活動は 100% 償還）、SIF（Strategic Investment Fund）、販売・デプロイ・Specialization インセンティブが整理された [出典](https://investor.servicenow.com/news/news-details/2026/ServiceNow-enhances-global-Partner-Program-to-accelerate-AI-agent-innovation/default.aspx)。
+**Build Program（2026-01 改定、公式）:** 2026-01-20 の公式発表で Build Program が刷新され、ティアは **Registered → Select → Premier → Elite** の 4 段階となり、加えて本加入前の参加者向けに **Access Tier** が新設された。1,000 社超の既存パートナーが 2026 年 3 月までに新 Build Program へ移行する予定と発表された（移行完了の公式確認は公開情報では確認できず）。また、全グローバルパートナーが即時に共通の**単一の年会費**へ移行するとされた（金額は非公開）。インセンティブとして MDF（Market Development Fund、一部活動は 100% 償還）、SIF（Strategic Investment Fund）、販売・デプロイ・Specialization インセンティブが整理された [出典](https://investor.servicenow.com/news/news-details/2026/ServiceNow-enhances-global-Partner-Program-to-accelerate-AI-agent-innovation/default.aspx)。
 
 > **注記:** Build Program の「Select」ティアが C&I 等の他ルートにも適用されるかは、公開情報では確認できず。C&I ルートでは Specialist の名称が 2025 年の受賞区分で使われている。
 
@@ -309,11 +323,13 @@ ServiceNow Partner Program は、**ルート・トゥ・マーケット（Route 
 
 ServiceNow 公式サイトの **Partner Finder**（`https://www.servicenow.com/partners/partner-finder.html`、日本語版は `/jp/partners/partner-finder/`）で、パートナーごとのルート、ティア（Segment）、対応地域、認定（Accreditations）、PLA 等を確認できる。各社プロファイルは `/partners/partner-finder/<会社スラッグ>.html` の形式である（例：`hitachi-solutions-ltd.html`、`nec-corp.html`、`scsk-corp.html`）。
 
-> **画面の文章説明（Partner Finder）:** 検索条件として Partner Type（ルート）、Segment（ティア）、Product Line、Industry、Country/Region を指定でき、結果一覧から各社プロファイルに遷移する。プロファイルには会社概要、ルートごとの Segment、認定数（Accreditations）、Product Line Achievement、拠点が表示される。※本ナレッジ作成時、servicenow.com 本体はボット対策により自動取得できず、スクリーンショットは取得していない。最新の表示項目は実画面で確認すること。
+> **画面の文章説明（Partner Finder）:** 検索条件として Partner Type（ルート）、Segment（ティア）、Product Line、Industry、Country/Region を指定でき、結果一覧から各社プロファイルに遷移する。プロファイルには会社概要、ルートごとの Segment、認定数（Accreditations）、Product Line Achievement、拠点が表示される。※Partner Finder 画面は本ナレッジ作成時に取得・確認できず、スクリーンショットは未掲載。最新の表示項目は実画面で確認すること。
 
 ### パートナーアワード
 
-ServiceNow は毎年 Partner Kickoff（例年 1〜2 月）に合わせて Partner of the Year を発表し、地域（Americas / EMEA / APAC / Japan）別・カテゴリ別に表彰する。2025 年には「GenAI Customer Value Partner of the Year」が新設された [出典](https://newsroom.servicenow.com/press-releases/details/2025/ServiceNow-enhances-global-partner-program-unlocking-new-revenue-and-market-opportunities-for-AI-solutions-01-21-2025-traffic/default.aspx)。日本の受賞企業は [日本の主要パートナー](#日本の主要パートナー) を参照。
+ServiceNow は毎年 Partner of the Year を地域（Americas / EMEA / APAC / Japan）別・カテゴリ別に表彰する。グローバル・APAC 賞は Partner Kickoff 前後（1〜3 月）に発表され（2026 年 APAC 賞の報道は 2026-03-04）、Japan 地域の賞は別途発表される（2026 年は 5 月に受賞企業が発表。例：日立ソリューションズ 2026-05-13）。2025 年には「GenAI Customer Value Partner of the Year」が新設された [出典](https://newsroom.servicenow.com/press-releases/details/2025/ServiceNow-enhances-global-partner-program-unlocking-new-revenue-and-market-opportunities-for-AI-solutions-01-21-2025-traffic/default.aspx)。
+
+> **注記:** 2026 年の APAC 賞では部門体系が変わり、Partner Program 部門（例：Reseller Partner of the Year）、Domain Expertise 部門（例：IT Partner of the Year）、Rising Star（Reseller、Consulting & Implementation、Service Provider、ServiceNow Store）などで構成された。2025 年のような Elite / Premier / Specialist 区分別の C&I 賞の記載は 2026 年の報道では確認できない `【第三者情報】` [出典](https://www.techpartner.news/news/servicenow-honours-2026-apac-partner-awards-winners-623995)。日本の受賞企業は [日本の主要パートナー](#日本の主要パートナー) を参照。
 
 ---
 
@@ -321,7 +337,7 @@ ServiceNow は毎年 Partner Kickoff（例年 1〜2 月）に合わせて Partne
 
 ### 概要
 
-**ServiceNow Expert Services（エキスパートサービス）** は、ServiceNow 社自身のプロフェッショナルサービス部門である。Expert Services は 800 名超の実務者を擁し、ServiceNow 全製品の導入を支援でき、あらゆる業種・地域で 9,000 件超の導入実績があるとされる [出典](https://www.servicenow.com/community/onboarding-hub-articles/chart-your-path-to-implementation-success/ta-p/2735416)。
+**ServiceNow Expert Services（エキスパートサービス）** は、ServiceNow 社自身のプロフェッショナルサービス部門である。Expert Services は 800 名超の実務者を擁し、ServiceNow 全製品の導入を支援でき、あらゆる業種・地域で 9,000 件超の導入実績があるとされる [出典](https://www.servicenow.com/community/onboarding-hub-articles/chart-your-path-to-implementation-success/ta-p/2735416)（Onboarding Hub 記事時点の数値。同じ Onboarding Hub の別記事「Choosing an implementation model」では 8,500 件超とされ、記事により数値が異なる [出典](https://www.servicenow.com/community/onboarding-hub-articles/choosing-an-implementation-model-for-your-servicenow-deployment/ta-p/2751714)）。
 
 ### サービス区分
 
@@ -340,7 +356,7 @@ ServiceNow Community の Expert Services 公式記事（2025-01-15 更新）は�
 | 観点 | Expert Services | パートナー |
 |---|---|---|
 | 製品知識 | 製品開発部門への直接アクセス、最新機能への知見 | パートナーにより差が大きい |
-| 方法論 | 1,100 超のベストプラクティスからなる導入方法論（旧 ServiceNow Create）を使用 [出典](https://www.servicenow.com/community/onboarding-hub-articles/chart-your-path-to-implementation-success/ta-p/2735416) | 同方法論を利用可能＋自社方法論 |
+| 方法論 | 1,100 超のベストプラクティスからなる導入方法論（Now Create（ServiceNow Create）。現在は My Now の Best Practices）を使用 [出典](https://www.servicenow.com/community/onboarding-hub-articles/chart-your-path-to-implementation-success/ta-p/2735416) | 同方法論を利用可能＋自社方法論 |
 | 業務知識・日本対応 | 業務パッケージは標準寄り | 業種知見・日本語・既存システム連携（基幹系）に強いことが多い `【経験則】` |
 | 規模 | 通常 3〜5 名のチーム | 大規模体制・長期保守が可能 |
 | 運用保守 | 原則として導入・助言中心 | AMS / マネージドサービスを提供するパートナーが多い |
@@ -370,7 +386,7 @@ Australia 版の Impact packages ページ（2026-03-12 更新）で確認でき
 
 | パッケージ | 位置づけ | Impact Squad / 専任チーム | Accelerator の同時実行数 |
 |---|---|---|---|
-| Guided | エントリーレベル。プレミアムなデジタル体験、強化された技術サポート、厳選コンテンツ | Customer Success Manager（CSM） | 全サブカタログ合計で 1 件ずつ |
+| Guided | エントリーレベル。プレミアムなデジタル体験、強化された技術サポート、厳選コンテンツ | Customer Success Manager（CSM） | 全サブカタログを通じて同時に 1 件まで（One Accelerator at a time across all sub-catalogs） |
 | Total | 完全版。専任エキスパートチーム、パーソナライズされた推奨、予防ツール | Customer Success Executive、Platform Architect、CSM、Support Account Manager（SAM） | 最大 7 件（Architecture・Strategy・Technical 各 2 件＋Optimization 1 件）。Optimization は最新バージョンのみ対象 |
 | Integrated Success | Total の全特典＋プログラムデリバリー、設計、アーキテクチャ、技術実装の専門家支援 | Total の Squad＋Engineering Manager、Business Process Consultant、Solution Architect | 全 Accelerator 種別。Expert Services による Platform Optimization を含み、Free Form initiative で起票 |
 
@@ -390,7 +406,7 @@ Australia 版の Impact packages ページ（2026-03-12 更新）で確認でき
 | アラート種類 | 6 | 40 |
 | Instance Observer アナリティクス | なし | あり |
 
-> **Brazil での変更:** Brazil 版（2026-09-10 更新）でもパッケージ構成は Guided / Total / Integrated Success で Australia 版と同一である。上表の応答目標・Instance Observer の数値は Brazil 版ページで確認した値であり、Australia 版ページ（WebFetch で取得した範囲）では数値の記載を確認できなかった。
+> **Brazil での変更:** Brazil 版（2026-09-10 更新）でもパッケージ構成は Guided / Total / Integrated Success で Australia 版と同一である。上表の応答目標・Instance Observer の数値は Brazil 版ページで確認した値であり、Australia 版ページでは同数値の記載を確認できず。
 
 > **旧パッケージ:** Zurich 以前のドキュメントには **Advanced** パッケージ（Guided と Total の中間、エンドツーエンドの技術サポート、アドバイザリーセッション、オンデマンド研修）が存在した。Staffing and Roles Review のページには現在も「Guided+（Strategic Value アドオン）、Advanced、Total」の記載が残る。また、第三者記事では全顧客無償の **Base** を含む 4 段階として説明されることがあるが、Australia 版公式ドキュメントでは Base は確認できない `【第三者情報】` [出典](https://upperedge.com/servicenow/servicenow-impact-negotiations-key-contract-terms-for-enterprises/)。
 
@@ -488,9 +504,9 @@ Impact を利用するには、顧客インスタンスに **Impact アプリ（
 
 | パートナー | 確認できた事項 | 出典 |
 |---|---|---|
-| 日立ソリューションズ | 2012 年に販売代理店契約を締結し、日本で初めて ServiceNow を販売した企業（同社サイトでは 2013-01 に日本初のパートナーと記載）。Elite 認定を長期維持。140 社超の導入支援実績。2026-01-21 に CSM・ITSM で国内初の **Validated Practice** 認定を取得。**ServiceNow Partner Awards 2026** で Consulting and Implementation / Reseller / Data & Analytics の 3 部門で Partner of the Year を受賞（2026-05-13 発表） | [2026-05-13 発表](https://www.hitachi-solutions.co.jp/company/press/news/2026/0513.html)、[2026-01-21 発表](https://www.hitachi-solutions.co.jp/company/press/news/2026/0121_2.html) |
+| 日立ソリューションズ | 2012 年に販売代理店契約を締結し、日本で初めて ServiceNow を販売した企業（2013-01-25 の同社発表では、国内初の重要パートナー契約を締結し同日から販売・導入・教育・一次サポートを開始と記載）。最上位の Elite を維持（2026-05-13 時点の同社発表）。140 社超の導入支援実績。2026-01-21 に CSM・ITSM で国内初の **Validated Practice** 認定を取得。**ServiceNow Partner Awards 2026**（国内パートナー対象の賞）で Consulting and Implementation / Reseller / Data & Analytics の 3 部門で Partner of the Year を受賞（2026-05-13 発表） | [2026-05-13 発表](https://www.hitachi-solutions.co.jp/company/press/news/2026/0513.html)、[2013-01-25 発表](https://www.hitachi-solutions.co.jp/company/press/news/2013/0125.html)、[2026-01-21 発表](https://www.hitachi-solutions.co.jp/company/press/news/2026/0121_2.html) |
 | 富士通 | 2024-05-07 に ServiceNow とグローバルな戦略的パートナーシップを発表（Fujitsu Uvance のオファリング、Fujitsu-ServiceNow Innovation Center、最初の対象は製造業の ECM・SCM 統合）。2025 年 APAC パートナー賞で Consulting and Implementation（Elite）、Reseller（Elite）、Employee / Creator / Technology Workflow の各 Partner of the Year、日本市場でも 2 部門を受賞。2026 年 APAC 賞で Reseller Partner of the Year、IT Partner of the Year | [Cloud Watch 2024-05](https://cloud.watch.impress.co.jp/docs/news/1589675.html)、[techpartner.news 2025](https://www.techpartner.news/news/servicenow-honours-apac-partners-in-2025-awards-615505)、[techpartner.news 2026](https://www.techpartner.news/news/servicenow-honours-2026-apac-partner-awards-winners-623995) |
-| NTT データ | 2025 ServiceNow Partner of the Year「Service Provider Partner of the Year - Japan region」受賞（2025-03-13 発表）。FY2020 に専任組織を設置し、約 250 名のコンサルタント・エンジニアを擁する。2022 年に APJ Accelerated Growth Partner of the Year 受賞 | [NTT データ 2025-03-13](https://www.nttdata.com/global/ja/news/topics/2025/031300) |
+| NTT データ | 2025 ServiceNow Partner of the Year「Service Provider Partner of the Year - Japan region」受賞（2025-03-13 発表）。FY2020 に専任組織を設置し、約 250 名のコンサルタント・エンジニアを擁する。2022 年に「2022 ServiceNow APJ Accelerated Growth Partner of the Year」受賞（2022-03-15 の APJ Partner Awards 授賞式、2022-03-18 発表） | [NTT データ 2025-03-13](https://www.nttdata.com/global/ja/news/topics/2025/031300)、[NTT データ 2022-03-18](https://www.nttdata.com/global/ja/news/information/2022/031801) |
 | NEC | 2025 年 Japan の ServiceNow Store Partner of the Year を受賞 `【第三者情報】`（検索結果に表示された ServiceNow 公式ブログの記載に基づく。本文は直接取得できず）。同社サイトでは Reseller の Elite ランク、2026 年 Core Business Partner of the Year 受賞と記載されている旨の検索結果があるが、本文は直接確認できず | [ServiceNow ブログ 2025](https://www.servicenow.com/blogs/2025/servicenow-partner-awards-leading-ai)、[NEC ServiceNow ページ](https://jpn.nec.com/service/servicenow/index.html) |
 | ジャパンシステム / Blueship | 2025-01 付で Reseller ルートの Elite に昇格（国内 Reseller で唯一のアップグレードとされる）、Consulting & Implementation でも Elite に昇格。2025 年 Customer Workflow Partner of the Year（日本地域）受賞 `【第三者情報】`（同社 PDF 発表の検索結果要約に基づく） | [ジャパンシステム 2025-01 発表](https://japan-systems.co.jp/wp-content/uploads/2025/01/JS2025-01.pdf) |
 | SCSK | Partner Finder に Consulting & Implementation / Reseller のプロファイルあり。Reseller で Premier と表示 `【第三者情報】`（検索結果の要約） | [Partner Finder](https://www.servicenow.com/it/partners/partner-finder/scsk-corp.html) |
@@ -554,6 +570,7 @@ ServiceNow Japan は 2024 年の事業方針として「日本発のパートナ
 - Accelerators - new accelerators: https://www.servicenow.com/docs/r/impact/accelerator-and-initiative-list/new-accelerators-australia-release.html
 - Impact initiatives: https://www.servicenow.com/docs/r/impact/accelerator-and-initiative-list/impact-initiatives.html
 - Staffing and Roles Review – Total（Australia）: https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/9v1H0kdF4CB1Q9GYJWI3oQ
+- Staffing and Roles Review – On Demand（Australia、2026-05-06 更新）: https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/IrFOCyMFq5we4zvwW8jJxQ
 - Roles installed with Impact（Zurich）: https://www.servicenow.com/docs/r/zurich/impact/impact-roles.html
 - Customer success management responsibilities（Zurich）: https://www.servicenow.com/docs/r/lUgPb7pdpGK5_sS7oizX7A/IeJHQ29jhCYY83oIDgGI3w
 
@@ -565,6 +582,7 @@ ServiceNow Japan は 2024 年の事業方針として「日本発のパートナ
 - Achieve more value faster with ServiceNow Expert Services: https://www.servicenow.com/community/expert-services-articles/achieve-more-value-faster-with-servicenow-expert-services-nbsp/ta-p/3150202
 - Governance or no governance – that is the question（2025-01-24）: https://www.servicenow.com/community/developer-articles/governance-or-no-governance-that-is-the-question/ta-p/3158504
 - Build the team you need to succeed with your ServiceNow（Platform Team Estimator, 2021-01-14）: https://www.servicenow.com/community/in-other-news/build-the-team-you-need-to-succeed-with-your-servicenow/ba-p/2285583
+- Now Create retirement FAQs and introduction to Best Practices（2025-11-12）: https://www.servicenow.com/community/in-other-news/now-create-retirement-faqs-and-introduction-to-best-practices/ba-p/3425556
 - ServiceNow Partner Awards 2025 blog: https://www.servicenow.com/blogs/2025/servicenow-partner-awards-leading-ai
 
 **ServiceNow Community（ユーザー投稿）**
@@ -579,9 +597,14 @@ ServiceNow Japan は 2024 年の事業方針として「日本発のパートナ
 - Livingstone Knowledge: Unveiling ServiceNow Impact: https://blog.livingstone-tech.com/en/knowledge/unveiling-servicenow-impact-a-game-changer-for-your-enterprise-journey
 - 日立ソリューションズ（2026-05-13）: https://www.hitachi-solutions.co.jp/company/press/news/2026/0513.html
 - 日立ソリューションズ（2026-01-21）: https://www.hitachi-solutions.co.jp/company/press/news/2026/0121_2.html
+- 日立ソリューションズ（2013-01-25）: https://www.hitachi-solutions.co.jp/company/press/news/2013/0125.html
 - NTT データ（2025-03-13）: https://www.nttdata.com/global/ja/news/topics/2025/031300
+- NTT データ（2022-03-18）: https://www.nttdata.com/global/ja/news/information/2022/031801
 - Cloud Watch（富士通との戦略的パートナーシップ、2024-05）: https://cloud.watch.impress.co.jp/docs/news/1589675.html
 - Cloud Watch（ServiceNow Japan 2025 年事業方針、2025-04-03）: https://cloud.watch.impress.co.jp/docs/news/2003774.html
 - ジャパンシステム（2025-01）: https://japan-systems.co.jp/wp-content/uploads/2025/01/JS2025-01.pdf
 - NEC ServiceNow: https://jpn.nec.com/service/servicenow/index.html
 - ServiceNow Partner Finder（各社プロファイル）: https://www.servicenow.com/jp/partners/partner-finder/
+  - SCSK: https://www.servicenow.com/it/partners/partner-finder/scsk-corp.html
+  - NTT ドコモビジネス: https://www.servicenow.com/partners/partner-finder/ntt-docomo-business-inc.html
+  - ファーストキューエー・システムズ: https://www.servicenow.com/jp/partners/partner-finder/firstqa-systems-kk.html

@@ -10,6 +10,7 @@ sources:
   - https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/_Z13Mf2fauK1FAT029a_WA
   - https://www.servicenow.com/docs/r/integrate-applications/integration-hub/subscription-usage.html
   - https://www.servicenow.com/docs/r/integrate-applications/integration-hub/data-stream-actions.html
+  - https://www.servicenow.com/docs/r/hX5GtoLUEU58KgyL7CW5Ag/lCOrTJrPSDa5Yvp7oBVrig
   - https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/explore-mid-server.html
   - https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/c_MIDServerConnectionPrerequisites.html
   - https://www.servicenow.com/docs/r/zurich/platform-security/ldap-integration/r_LDAPIntegrationFAQs.html
@@ -22,7 +23,14 @@ sources:
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/YRcRFOSUJxRtgvq5356UnQ
   - https://www.servicenow.com/docs/r/platform-administration/ms-graph-plugin.html
   - https://www.servicenow.com/docs/r/platform-administration/inbound-action-processing.html
+  - https://www.servicenow.com/docs/r/u7nZu9GEUxWr9UkuDmbe6w/7edm782WwL4~9GS9pftgtQ
   - https://www.servicenow.com/docs/r/LZHoJyH9VPKmhdIph_6gSw/T8t48FKkGrgaobx~Bot8XQ
+  - https://www.servicenow.com/docs/r/t2jQMKLZFp9AGt3V12O7mQ/SaI5XON9w7okFJQteYQNBA
+  - https://www.servicenow.com/docs/r/xanadu/release-notes/authentication-rn.html
+  - https://www.servicenow.com/docs/r/yokohama/delta-washingtondc-yokohama/yokohama-washingtondc-authentication-release-notes.html
+  - https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/1dL2d_G_dUyzIgq7qYUjqQ
+  - https://www.servicenow.com/docs/r/release-notes/notifications-rn.html
+  - https://www.servicenow.com/docs/r/platform-administration/inbound-action-type-criteria.html
   - https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/iLiXUWd9WH27soFTKn4ZvQ
   - https://www.servicenow.com/docs/r/guxhDnVk8OUAJKLm7WZsYA/xz_3EnP5twMrVy9mNuOSIQ
   - https://www.servicenow.com/docs/r/PjeVwAzGnEEzroXtwXYanw/pKmPVba6bU~S_MFjtKATug
@@ -58,7 +66,7 @@ ServiceNow 導入プロジェクトにおける連携設計（Integration Design
 ServiceNow インスタンスは ServiceNow のデータセンター（SaaS）上で稼働するため、連携設計では次の 3 点が他の業務システムより重要になる。
 
 1. **到達性**：インスタンスから社内ネットワークのシステムへは直接届かない。社内システムと連携する場合は MID Server（ミッドサーバー）を置くか、社内システム側を公開するかを決める必要がある [出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/explore-mid-server.html)。
-2. **ライセンス**：IntegrationHub（Integration Hub）はベースシステムに含まれない別サブスクリプションであり、Spoke（スポーク）の利用権とトランザクション（Integration Hub transaction）の課金を意識する必要がある [出典](https://www.servicenow.com/docs/r/integrate-applications/integration-hub/subscription-usage.html)。
+2. **ライセンス**：ServiceNow 製 Spoke（スポーク）の利用には IntegrationHub（Integration Hub）サブスクリプション、または当該 Spoke を含む Subscription Product が必要で、IntegrationHub トランザクション（Integration Hub transaction）は Subscription Product に含まれない。Spoke の利用権とトランザクションの課金を意識する必要がある [出典](https://www.servicenow.com/docs/r/integrate-applications/integration-hub/subscription-usage.html)。
 3. **アップグレード耐性**：年 2 回のファミリーリリースに追随するため、スクリプトによる個別実装より、ServiceNow が保守する Spoke や標準機能を優先するのが原則である【経験則】。
 
 本ファイルは導入編として、以下を実務で使える粒度で扱う。
@@ -96,7 +104,7 @@ ServiceNow インスタンスは ServiceNow のデータセンター（SaaS）�
 | 要件定義 | 連携対象システムの洗い出し、連携の目的・方向・頻度・データ量の把握、ライセンス影響の確認 | 連携一覧 |
 | 基本設計 | 方式選定（Spoke / API / メール / MID Server 等）、認証方式、エラー時の扱い、環境マッピング | 連携方式設計書、ネットワーク構成図 |
 | 詳細設計 | 項目マッピング、コード値変換、状態遷移の対応、再試行・ループ防止ロジック | 連携設計書（インターフェース仕様） |
-| 構築・テスト | Connection & Credential alias の環境別設定、結合テスト、性能テスト | テスト仕様書、運用手順 |
+| 構築・テスト | Connection & Credential alias（接続・資格情報エイリアス）の環境別設定、結合テスト、性能テスト | テスト仕様書、運用手順 |
 | 移行・稼働 | 本番の資格情報投入、クローン後の接続先切り替え手順の確立 | 運用手順書 |
 
 ### 1.2 連携一覧で押さえる項目
@@ -109,11 +117,11 @@ ServiceNow インスタンスは ServiceNow のデータセンター（SaaS）�
 | 方向 | アウトバウンド（ServiceNow → 相手）／インバウンド（相手 → ServiceNow）／双方向 | アウトバウンドは IntegrationHub トランザクション消費の可能性 |
 | トリガー | イベント駆動（レコード更新時）／スケジュール／オンデマンド（ユーザー操作） | フロー、スケジュールジョブ、UI アクション等の起点 |
 | 同期／非同期 | 応答を待つ必要があるか | 同期呼び出しはタイムアウト設計が必要 |
-| データ量・頻度 | 1 回あたり件数、1 日あたり回数、ピーク | トランザクション数、Data Stream の要否、レート制限 |
+| データ量・頻度 | 1 回あたり件数、1 日あたり回数、ピーク | トランザクション数、Data Stream（データストリーム）の要否、レート制限 |
 | データの正（マスター） | どちらが正のデータを持つか | 双方向更新時の競合解決ルール |
 | 認証 | OAuth 2.0、API トークン、Basic、証明書、mTLS | Credential 種別、IdP 側の登録作業 |
 | ネットワーク | 相手が社内網か、IP 制限の有無 | MID Server、IP 許可リスト |
-| 失敗時の扱い | 再送、手動対応、業務影響 | Retry policy、エラーキュー、監視 |
+| 失敗時の扱い | 再送、手動対応、業務影響 | Retry policy（再試行ポリシー）、エラーキュー、監視 |
 | 機密性 | 個人情報・認証情報を含むか | 暗号化、ログに残る内容、ACL |
 
 ### 1.3 ServiceNow 側の連携手段の全体像
@@ -123,12 +131,12 @@ ServiceNow の連携手段は「方向」と「実装形態」で整理できる
 | 方向 | 手段 | 概要 | ライセンス上の注意 | 詳細 |
 |---|---|---|---|---|
 | アウトバウンド | IntegrationHub Spoke（既製） | ServiceNow 製の Spoke（Jira、Microsoft Entra ID、SAP 等）のアクションを Workflow Studio のフローから呼ぶ | IntegrationHub サブスクリプション、または Spoke を同梱する Subscription Product が必要。トランザクションを消費しうる | [IntegrationHub](../02_リファレンス/platform/integrationhub.md) |
-| アウトバウンド | IntegrationHub カスタム Action（REST/SOAP/PowerShell/SSH/JDBC step） | Action Designer で Integration step を使って自作 | Integration step の多くは IntegrationHub サブスクリプションが必要 | 同上 |
+| アウトバウンド | IntegrationHub カスタム Action（REST/SOAP/PowerShell/SSH/JDBC step） | Action Designer（アクションデザイナー）で Integration step（連携ステップ）を使って自作 | Integration step の多くは IntegrationHub サブスクリプションが必要 | 同上 |
 | アウトバウンド | スクリプト（`sn_ws.RESTMessageV2`、`sn_ws.SOAPMessageV2`） | Business rule、Script include、スケジュールジョブ等から HTTP 呼び出し | Flow Designer 外での従来型 Web サービス機能は IntegrationHub トランザクションを消費しないとされる（ServiceNow 社員のコミュニティ記事） | [Web Services / REST API](../02_リファレンス/platform/web-services-api.md) |
 | インバウンド | Table API / Import Set API / Attachment API 等 | 相手から ServiceNow の標準 REST API を呼ぶ | 標準機能。ただし呼び出しユーザーのライセンス・ロールに注意 | 同上 |
 | インバウンド | Scripted REST API | 独自エンドポイントを定義し、受信処理をスクリプトで書く | 標準機能 | 同上 |
-| インバウンド | External trigger（Webhook）/ Spoke の Webhook 受信 | 外部の Webhook でフローを起動 | IntegrationHub の機能 | [IntegrationHub](../02_リファレンス/platform/integrationhub.md) |
-| インバウンド | Inbound email action / Inbound email flow | メール受信をきっかけにレコード作成・更新 | 標準機能 | [通知とメール](../02_リファレンス/platform/notifications-email.md) |
+| インバウンド | External trigger（外部トリガー、Webhook）/ Spoke の Webhook 受信 | 外部の Webhook でフローを起動 | IntegrationHub の機能 | [IntegrationHub](../02_リファレンス/platform/integrationhub.md) |
+| インバウンド | Inbound email action（受信メールアクション）/ Inbound email flow（受信メールフロー） | メール受信をきっかけにレコード作成・更新 | 標準機能 | [通知とメール](../02_リファレンス/platform/notifications-email.md) |
 | インバウンド | Event Management connector | 監視ツールのイベント／アラートを `em_event` に取り込む | ITOM（Event Management）のライセンスが必要 | [Event Management と AIOps](../02_リファレンス/itom/event-management-aiops.md) |
 | データ取り込み | Import Set（JDBC/LDAP/ファイル）、IntegrationHub ETL、Service Graph Connectors | 定期・一括のデータ取り込み | Service Graph Connector は製品により要件が異なる | [データ移行](./08-data-migration.md)、[Service Graph Connectors](../02_リファレンス/itom/service-graph-connectors.md) |
 | 双方向（会話） | Conversational Integration（Teams / Slack） | Virtual Agent をチャットツールに公開 | Virtual Agent の利用権が前提 | [Virtual Agent](../02_リファレンス/platform/virtual-agent.md) |
@@ -170,7 +178,7 @@ flowchart LR
 | 手段 | 実装場所 | 長所 | 短所 |
 |---|---|---|---|
 | ① 既製 Spoke | Store からインストールし、フローで Action を使う | ServiceNow が開発・保守・新リリース対応を行う。認証・ページング・エラー評価が組み込み済み。ローコード | IntegrationHub サブスクリプション（または同梱製品）が必要。OOB Action は直接編集できない（複製して拡張） |
-| ② カスタム Spoke / Action | Action Designer（REST/SOAP/JDBC 等の step）、Spoke Generator | Connection & Credential alias、Retry policy、実行履歴（Execution details）など基盤機能を使える。フローから再利用可能 | Integration step の利用に IntegrationHub サブスクリプションが必要。トランザクションを消費 |
+| ② カスタム Spoke / Action | Action Designer（REST/SOAP/JDBC 等の step）、Spoke Generator（スポークジェネレーター） | Connection & Credential alias、Retry policy、実行履歴（Execution details）など基盤機能を使える。フローから再利用可能 | Integration step の利用に IntegrationHub サブスクリプションが必要。使える step はパッケージ階層に依存しうる【第三者情報】。トランザクションを消費 |
 | ③ スクリプト（`RESTMessageV2` 等） | Business rule、Script include、スケジュールジョブ | 自由度が高い。Flow Designer 外であれば IntegrationHub トランザクションを消費しないとされる | 認証・再試行・ログ・エラー処理を自前で実装。保守性・可視性が低い。アップグレード時の確認範囲が増える |
 | ④ 外部 iPaaS / 連携製品 | MuleSoft、Boomi、Workato、Exalate 等の外部製品 | 全社の連携基盤に統合できる。多対多の連携に強い | 別製品のライセンス・運用が必要。ServiceNow 側は標準 API で受けるだけになる【第三者情報】 |
 
@@ -195,6 +203,8 @@ flowchart TD
   I -- No --> H
 ```
 
+> 分岐 C と I の「IntegrationHub がある」は、「契約しているパッケージ階層で、必要な Spoke・Integration step（REST / PowerShell / SSH / JDBC 等）・Data Stream が使えるか」まで確認すること。階層によって使える step が異なるとする情報があるため（[2.3](#23-integrationhub-のライセンスとトランザクション) 参照）【第三者情報】。
+
 判断時の補足ポイントは以下のとおり。
 
 | 観点 | IntegrationHub（①②）が有利 | スクリプト（③）が有利 |
@@ -203,7 +213,7 @@ flowchart TD
 | 連携本数 | 多い（共通の alias・再試行・監視を使い回せる） | 少数・単純（1〜2 本の通知程度） |
 | 可視性 | フロー実行履歴で入出力を追える | 自前でログテーブル・`gs.info` 等を整備する必要 |
 | 環境差異 | Connection & Credential alias で環境ごとの接続先を切り替えやすい | REST Message レコードやシステムプロパティで自前管理 |
-| 大量データ | Data Stream action でページング・10 MB 超の応答を分割処理できる | 自前でページング処理を書く |
+| 大量データ | Data Stream action（データストリームアクション）でページング・10 MB 超の応答を分割処理できる（契約パッケージで Data Stream が使えることが前提【第三者情報】） | 自前でページング処理を書く |
 | 課金 | トランザクション数が予測可能で上限内 | トランザクション消費を避けたい |
 | インバウンド | External trigger（Webhook）でフロー起動 | Scripted REST API で受信して自由に処理 |
 
@@ -213,7 +223,7 @@ flowchart TD
 
 ### 2.3 IntegrationHub のライセンスとトランザクション
 
-IntegrationHub はベースシステムに含まれず、Starter / Standard / Professional / Enterprise のパッケージで提供される。ライセンス上の主な注意点を、確度別に整理する。
+IntegrationHub のインストーラープラグインは、Starter（`com.glide.hub.integrations`）、Standard（`com.glide.hub.integrations.standard`）、Professional（`com.glide.hub.integrations.professional`）、Enterprise（`com.glide.hub.integrations.enterprise`）の 4 つが公式ドキュメントに載っている。各階層に何が含まれるかは、同ページでも Legal schedules（契約書類）を参照するよう案内されている [出典（Integration Hub plugins, Australia）](https://www.servicenow.com/docs/r/t2jQMKLZFp9AGt3V12O7mQ/SaI5XON9w7okFJQteYQNBA)。Starter がベースシステムや Subscription Product に同梱されるかどうかは公開情報では確認できず、Legal schedules で確認する必要がある（第三者の解説には「Starter は同梱」とするものもある【第三者情報】）。ライセンス上の主な注意点を、確度別に整理する。
 
 | 項目 | 内容 | 確度 |
 |---|---|---|
@@ -223,6 +233,7 @@ IntegrationHub はベースシステムに含まれず、Starter / Standard / Pr
 | カウント対象 | IntegrationHub、Flow Designer、Remote Tables、Orchestration から発生するアウトバウンド呼び出し。Flow Designer 外の `RESTMessageV2` 等は対象外 | ServiceNow 社員のコミュニティ記事 [出典](https://www.servicenow.com/community/automation-engine-blog/integration-hub-spokes-and-how-to-build-them/ba-p/2788254) |
 | パッケージ別の年間上限 | 情報源により数値が一致しない（1M / 3M / 6M 等） | 【第三者情報】 [出典](https://www.servicenow.com/community/servicenow-ai-platform-forum/how-does-servicenow-count-integration-hub-transactions/td-p/1099879) |
 | Spoke Generator（OpenAPI・Postman・AI からの生成） | Zurich で Integration Hub Professional が必要と明記 | 公式（リリースノート）[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-integrationhub-release-notes.html) |
+| Integration step・Data Stream の階層依存 | PowerShell / SSH / JDBC 等の Integration step や Data Stream が使えるかどうかは、パッケージ階層（Professional / Enterprise 等）によって変わるとする情報がある（例：SSH・PowerShell は Professional 以上、Data Stream は Enterprise とする解説）。正式な対応は Legal schedules で確認する | 【第三者情報】 |
 
 正式なトランザクション定義は契約書類（Legal schedules の IntegrationHub overview）に記載される。見積もり段階では、営業担当から最新の定義と各パッケージの上限を書面で入手しておくこと【経験則】。詳細は [IntegrationHub](../02_リファレンス/platform/integrationhub.md) と [ライセンスモデル](./01-licensing-model.md) を参照。
 
@@ -285,7 +296,7 @@ MID Server が必要（または強く推奨）となるのは、次のいずれ
 | Microsoft Entra ID（SCIM / Entra ID spoke） | 不要 | Microsoft Graph / SCIM はインターネット上の HTTPS |
 | SSO（SAML 2.0 / OIDC） | 不要 | ブラウザーのリダイレクトで IdP とやり取りする（AD FS 等のオンプレミス IdP でも、ユーザーのブラウザーから到達できればよい）【経験則】 |
 | Exchange Online / Microsoft Graph メール | 不要 | クラウド間の通信 |
-| オンプレミス Exchange / 社内 SMTP・IMAP | 原則不要だが、インスタンスから到達可能な公開が必要 | Email account は MID Server 経由で動作する方式ではない。公開できない場合は ServiceNow のメール基盤＋転送ルールを検討【推定】 |
+| オンプレミス Exchange / 社内 SMTP・IMAP | 原則不要だが、インスタンスから到達可能な公開が必要 | 公式ドキュメント「Create an email account」の設定項目には、MID Server 経由で接続する指定が見当たらない【推定】（MID Server 非対応を明記した公式出典は公開情報では確認できず）。公開できない場合は ServiceNow のメール基盤＋転送ルールを検討【推定】 |
 | 監視ツール（SaaS、push 型：Datadog、Dynatrace、New Relic 等） | 不要 | インスタンスがイベントを直接受信する |
 | 監視ツール（オンプレミス、pull 型：SCOM、Zabbix、SolarWinds 等）／SNMP trap | 必要 | pull 型コネクタと SNMP trap は MID Server 上で動作する（[4.4](#44-監視ツール連携)） |
 | Jira Cloud | 不要 | Jira Cloud の REST API |
@@ -293,14 +304,14 @@ MID Server が必要（または強く推奨）となるのは、次のいずれ
 | SAP ECC / S/4HANA（オンプレミス、RFC） | 実質的に必要 | 社内網にあり、JCo ライブラリを MID Server に配置する構成が一般的（[4.6](#46-sap-連携)） |
 | SAP S/4HANA Cloud（Public Cloud） | 不要 | OData / REST の HTTPS |
 | Teams / Slack | 不要 | SaaS 間 |
-| 社内 DB（JDBC）、ファイル取り込み | 必要 | JDBC / ファイルは MID Server 経由 |
-| PowerShell / SSH による社内サーバー操作 | 必要 | PowerShell step、SSH step は MID Server 上で実行 |
+| 社内 DB（JDBC）、ファイル取り込み | 必要 | JDBC / ファイルは MID Server 経由。IntegrationHub の JDBC step を使う場合は、契約パッケージで利用できるか確認する【第三者情報】 |
+| PowerShell / SSH による社内サーバー操作 | 必要 | PowerShell step、SSH step は MID Server 上で実行。これらの step はパッケージ階層（Professional 以上等）に依存するとする情報があるため、契約内容を確認する【第三者情報】 |
 
-[出典（Exploring MID Server）](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/explore-mid-server.html)、[出典（Define an LDAP server, Australia）](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/JJdkpBibwnesJEgF8SZRoA)、[出典（Event Management connectors）](https://www.servicenow.com/docs/r/LZHoJyH9VPKmhdIph_6gSw/T8t48FKkGrgaobx~Bot8XQ)、[出典（SAP ECC RFC spoke）](https://www.servicenow.com/docs/r/integrate-applications/integration-hub/sap-ecc-rfc-spoke.html)
+[出典（Exploring MID Server）](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/explore-mid-server.html)、[出典（Define an LDAP server, Australia）](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/JJdkpBibwnesJEgF8SZRoA)、[出典（Event Management connectors, Australia）](https://www.servicenow.com/docs/r/u7nZu9GEUxWr9UkuDmbe6w/7edm782WwL4~9GS9pftgtQ)、[出典（Integration Hub plugins, Australia）](https://www.servicenow.com/docs/r/t2jQMKLZFp9AGt3V12O7mQ/SaI5XON9w7okFJQteYQNBA)、[出典（SAP ECC RFC spoke）](https://www.servicenow.com/docs/r/integrate-applications/integration-hub/sap-ecc-rfc-spoke.html)
 
 ### 3.3 IntegrationHub の Connection で MID Server を使う設定
 
-IntegrationHub の HTTP(s) Connection レコードには **Use MID server** チェックボックスがあり、オンにすると、その接続を使う REST step 等が MID Server 経由で実行される。MID Server の選択方法（Auto-Select、特定 MID、Capabilities、MID Application）は Advanced MID Server Configuration で指定する。環境ごとに Connection を分けられるため、「開発環境は MID 経由、本番は直接」といった切り替えもフローを変えずに行える。
+IntegrationHub の HTTP(s) Connection レコードには **Use MID server** チェックボックスがあり、オンにすると、その接続を使う REST step 等が MID Server 経由で実行される。チェックをオンにすると Advanced MID Server Configuration（MID Server の詳細設定）セクションが表示され、MID Selection（MID の選択方法）で Auto-Select MID Server（既定）、Specific MID Server、Specific MID Cluster のいずれかを選ぶ。Auto-Select の場合は Capabilities（機能）と MID Application（MID アプリケーション）で候補の MID Server を絞り込める [出典（Create an HTTP(s) connection, Australia）](https://www.servicenow.com/docs/r/hX5GtoLUEU58KgyL7CW5Ag/lCOrTJrPSDa5Yvp7oBVrig)。Connection alias（接続エイリアス）の実体である Connection はインスタンスごとに設定できるため、「開発環境は MID 経由、本番は直接」といった切り替えもフローを変えずに行える【経験則】。
 
 ![HTTP(s) Connection フォームの Use MID server 設定](../assets/images/09-integration-design/http-connection-use-mid.png)
 
@@ -334,7 +345,7 @@ IntegrationHub の HTTP(s) Connection レコードには **Use MID server** チ�
 |---|---|---|---|---|
 | LDAP 連携（Import Set + LDAP Listener） | ServiceNow が LDAP を読む（pull） | オンプレミス AD、OpenLDAP 等 | 推奨（または LDAP の外部公開） | 標準機能。読み取り専用。LDAP 認証にも使える |
 | SCIM（Entra ID → ServiceNow） | Entra ID が ServiceNow の SCIM API を呼ぶ（push） | Microsoft Entra ID、Okta 等の IdP | 不要 | `com.snc.integration.scim2` プラグイン。ユーザー・グループの CRUD |
-| SSO 時の Just-in-Time プロビジョニング | ログイン時に作成・更新 | SAML / OIDC の IdP | 不要 | 未登録ユーザーをログイン時に自動作成。休眠ユーザーの無効化はできない |
+| SSO 時の Just-in-Time プロビジョニング | ログイン時に作成・更新 | SAML / OIDC の IdP | 不要 | 未登録ユーザーをログイン時に自動作成・更新。ログイン時にしか動かないため、IdP 側で削除・無効化されたユーザーは ServiceNow 側に反映されない【経験則】 |
 | Microsoft Entra ID spoke（ServiceNow → Entra ID） | ServiceNow が Graph API を呼ぶ（アウトバウンド） | Entra ID | 不要 | ServiceNow 側を起点に Entra ID のアカウント作成・グループ追加・無効化を行う（入社・退職フロー等） |
 
 [出典（LDAP）](https://www.servicenow.com/docs/r/zurich/platform-security/ldap-integration/r_LDAPIntegrationFAQs.html)、[出典（SCIM API）](https://www.servicenow.com/docs/r/zurich/api-reference/rest-apis/scim-api.html)、[出典（Entra ID spoke）](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/_m4XzxyR5S_cY1AN~6hqXA)
@@ -437,13 +448,13 @@ Microsoft Entra ID spoke（旧 Microsoft Azure Active Directory spoke）は、Se
 
 [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/_m4XzxyR5S_cY1AN~6hqXA)
 
-> 権限の最小化：例えば「Disable User」アクションはアプリケーション権限で `User.ReadWrite.All` と `Directory.ReadWrite.All` を要求する [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/_m4XzxyR5S_cY1AN~6hqXA)。使う Action を先に決め、必要な Graph 権限だけを Entra ID 管理者に申請すること【経験則】。
+> 権限の最小化：例えば「Disable User」アクションについて、公式ページではアプリケーション権限として `User.Read.All` / `User.ReadWrite.All` / `Directory.Read.All` / `Directory.ReadWrite.All` が、委任権限（職場または学校アカウント）として `User.ReadWrite` / `User.ReadWrite.All` / `User.ManageIdentities.All` / `Directory.ReadWrite.All` / `Directory.AccessAsUser.All` が列挙されている（Graph 方式の権限一覧で、すべてが必須とは限らない）[出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/_m4XzxyR5S_cY1AN~6hqXA)。実際に必要な最小権限は Microsoft Graph の当該 API リファレンスで確認する。使う Action を先に決め、必要な Graph 権限だけを Entra ID 管理者に申請すること【経験則】。
 
 ### 4.2 SSO（シングルサインオン）
 
 #### 4.2.1 方式
 
-ServiceNow の SSO は **Multi-Provider SSO**（プラグイン：Integration - Multiple Provider Single Sign-On Installer、`com.snc.integration.sso.multi.installer`）で構成し、SAML 2.0、OIDC（OpenID Connect）、Digest Token の IdP を複数登録できる。メニューは **All > Multi-Provider SSO > Identity Providers** [出典](https://www.servicenow.com/docs/r/platform-security/authentication/sso-acct-recovery.html)。Xanadu で MultiSSO v1、SAML 1.1、OpenID SSO の旧プラグインは非推奨になっている（[認証とSSO](../02_リファレンス/platform/authentication-sso.md) 参照）。
+ServiceNow の SSO は **Multi-Provider SSO**（プラグイン：Integration - Multiple Provider Single Sign-On Installer、`com.snc.integration.sso.multi.installer`）で構成し、SAML 2.0、OIDC（OpenID Connect）、Digest Token の IdP を複数登録できる。メニューは **All > Multi-Provider SSO > Identity Providers** [出典](https://www.servicenow.com/docs/r/platform-security/authentication/sso-acct-recovery.html)。Xanadu の Authentication release notes には、MultiSSO v1 プラグイン、SAML 1.1（SAML 1.1 Single Sign-On - Update 1 を含む）プラグイン、OpenID SSO プラグインが非推奨（deprecated）と記載されている [出典（Authentication release notes, Xanadu）](https://www.servicenow.com/docs/r/xanadu/release-notes/authentication-rn.html)。ただし、Washington DC→Yokohama の統合リリースノートでは SAML 1.1 の非推奨が Washington DC の項目に載っており、最初に非推奨になったリリースは情報源により異なる [出典](https://www.servicenow.com/docs/r/yokohama/delta-washingtondc-yokohama/yokohama-washingtondc-authentication-release-notes.html)（詳細は [認証とSSO](../02_リファレンス/platform/authentication-sso.md) 参照）。
 
 Microsoft Entra ID との SAML 連携は、Microsoft 側のチュートリアルでも手順が公開されている。Entra のギャラリーから ServiceNow を追加して SAML を選び、ServiceNow 側で Multi-Provider SSO プラグインを有効化する。Multi-Provider SSO プラグインがあれば自動構成も選べる。ServiceNow は SP-initiated SSO をサポートする [出典](https://learn.microsoft.com/en-us/entra/identity/saas-apps/servicenow-tutorial)【第三者情報】（Microsoft 公式）。
 
@@ -453,7 +464,7 @@ Microsoft Entra ID との SAML 連携は、Microsoft 側のチュートリアル
 |---|---|
 | プロトコル | SAML 2.0（実績が多い）／OIDC。モバイルアプリやエージェント連携の要件も確認 |
 | ユーザー識別子 | NameID（UPN、メールアドレス等）と ServiceNow のどのフィールド（`user_name`、`email`）を照合するか。ユーザー取り込み（LDAP / SCIM）のキーと一致させる |
-| 自動プロビジョニング | Identity Provider フォームの User Provisioning タブ（Automatic user provisioning、Update user record on every login）。Zurich で自動プロビジョニング時のグループ割り当て機能が追加 |
+| 自動プロビジョニング | Identity Provider フォームの User Provisioning タブ（Automatic user provisioning、Update user record on every login）。Zurich で自動プロビジョニング時のグループ選択（SAML / OIDC）が追加された [出典（Multi-Provider SSO）](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/1dL2d_G_dUyzIgq7qYUjqQ) |
 | 対象ユーザー | 社員（SSO）、外部ユーザー・ポータル利用者（ローカル認証または別 IdP）、連携用サービスアカウント（SSO 対象外、API 専用） |
 | 緊急時のログイン | IdP 障害時に管理者がログインできる経路（Account Recovery、ローカルログイン URL）を確保する |
 | MFA | Yokohama 以降、SSO 以外のログイン（ユーザー名/パスワード、LDAP）には MFA が既定で強制適用される（ポリシー名 `Enforce MFA for non-SSO logins`）。SSO ユーザーの MFA は IdP 側（Entra ID の条件付きアクセス等）で担保する設計が一般的 |
@@ -467,7 +478,7 @@ Microsoft Entra ID との SAML 連携は、Microsoft 側のチュートリアル
 
 #### 4.3.1 方式
 
-ServiceNow は既定で ServiceNow 提供のメール基盤を使ってメールを送受信できる。自社ドメインのメールボックスで送受信したい場合は、Email accounts で顧客自身の SMTP / POP3 / IMAP サーバー、または Microsoft Graph（Exchange Online）を設定する（Alternate configuration）。
+ServiceNow は既定で ServiceNow 提供のメール基盤を使ってメールを送受信できる。自社ドメインのメールボックスで送受信したい場合は、Email accounts（メールアカウント）で顧客自身の SMTP / POP3 / IMAP サーバー、または Microsoft Graph（Exchange Online）を設定する（Alternate configuration）。
 
 | 方式 | 送信 | 受信 | 主な用途 |
 |---|---|---|---|
@@ -507,7 +518,7 @@ ServiceNow は既定で ServiceNow 提供のメール基盤を使ってメール
 | 添付ファイル | サイズ上限、許可する拡張子 |
 | システム間メール連携 | 監視ツールなどからのメール通報は、可能であれば API / Event Management コネクタに置き換える（メールは構造化しづらく、取りこぼしの検知も難しい） |
 
-> **Australia での変更:** Thread-Index ヘッダーによる Microsoft / Outlook メールの返信分類、Column Level Encryption 対象テーブルでの受信添付の暗号化、インテントに基づく Inbound email actions での複数インテント識別などが追加された（[通知とメール](../02_リファレンス/platform/notifications-email.md) 参照）。
+> **Australia での変更:** Notifications release notes によると、Thread-Index ヘッダーによる Microsoft / Outlook メールの返信分類（システムプロパティ `glide.inbound.email.classify.by.thread_index` を `true` にして有効化）、受信メールの複数インテントの識別・処理（複数の Reply email action の実行）などが追加された [出典（Notifications release notes）](https://www.servicenow.com/docs/r/release-notes/notifications-rn.html)、[出典（Inbound action type criteria）](https://www.servicenow.com/docs/r/platform-administration/inbound-action-type-criteria.html)。Column Level Encryption 対象テーブルでの受信添付の暗号化については、本ファイルでは外部出典を確認できていない（[通知とメール](../02_リファレンス/platform/notifications-email.md) 参照）。
 
 ### 4.4 監視ツール連携
 
@@ -525,36 +536,40 @@ Event Management の製品仕様は [Event Management と AIOps](../02_リファ
 
 #### 4.4.2 Event Management のコネクタ（push / pull）
 
-Event Management は外部のイベントを pull（ServiceNow 側から取りに行く）または push（監視ツールから送ってくる）で収集するコネクタを提供する。以下は Xanadu の公式ドキュメント（2024-08 更新）に記載された一覧の抜粋であり、対応バージョンやコネクタの種類はリリースにより異なる [出典](https://www.servicenow.com/docs/r/LZHoJyH9VPKmhdIph_6gSw/T8t48FKkGrgaobx~Bot8XQ)。
+Event Management は外部のイベントを pull（ServiceNow 側から取りに行く）または push（監視ツールから送ってくる）で収集するコネクタを提供する。コネクタは ServiceNow Store から提供され、事前に Event Management Connectors プラグインをインスタンスに導入しておく必要がある。以下は Australia の公式ドキュメント（2026-03-12 更新）に記載された一覧の抜粋であり、対応バージョンやコネクタの種類はリリースにより異なる [出典（Configure Event Management connectors, Australia）](https://www.servicenow.com/docs/r/u7nZu9GEUxWr9UkuDmbe6w/7edm782WwL4~9GS9pftgtQ)。
 
 **Pull 型コネクタ（抜粋）**
 
-| コネクタ | 対応バージョン（Xanadu ドキュメント記載） |
+| コネクタ | 対応バージョン（Australia ドキュメント記載） |
 |---|---|
-| SCOM | 2007、2012、2016 |
+| SCOM | 2007（6.1.7221.0）、2012（7.1.10226.0）、2016（7.2.117190） |
 | Zabbix | 5.0.9 |
 | SolarWinds | NPM 12.0、SAM 6.2.4 |
 | NagiosXI | 5.5.2 |
 | IBM Netcool | 8.1.0 |
-| OMi / OBM | 10.01〜11.01 |
+| OBM（OMi v2） | 10.01、10.10、10.11、10.12、10.60、10.61、11.01 |
 | PRTG | 21.3.71 |
 | vCenter | 6.5 |
+| vRealize Operations Manager | 8.10.0 |
 | SAP Solution Manager | 7.2 740 SP16 |
 | Apache Kafka Consumer | 3.0.0、3.2.0 |
-| Azure Monitor、LogicMonitor、Icinga2、Opsview 等 | — |
+| ServiceNow Cloud Observability | 2.1.1 以降 |
+| LogicMonitor / Icinga2 / Opsview / Op5 | 156 / 2.4.1 / 5.4.0 / 7.3.15 |
+| HPOM / Hyperic / NNMi | 08.60.005 / 5.8.4.0 / 10.30.653 |
+| Azure Monitor | 記載なし |
 
 **Push 型コネクタ（抜粋）**
 
 | コネクタ | 収集経路 |
 |---|---|
-| Datadog、Dynatrace、New Relic、Prometheus、Grafana、ThousandEyes | インスタンス |
-| AWS、Azure（OAuth）、Google Cloud Platform、Oracle Cloud | インスタンス |
+| Datadog、Dynatrace、New Relic、Prometheus、Grafana、ThousandEyes、Sentry、Catchpoint、Honeycomb、Instana、Scout APM、Panopta | インスタンス |
+| AWS、Azure（OAuth または標準認証）、Google Cloud Platform、Oracle Cloud、LogicMonitor（Webhook） | インスタンス |
+| Email、Generic JSON URL | インスタンス |
 | Microsoft Azure MID Push Connector、GCP MID Push Connector、LogicMonitor MID Push Connector | MID Server |
 | BMC TrueSight、EIF listener | MID Server |
 | SNMP traps | MID Server |
-| Generic JSON URL | インスタンス |
 
-[出典](https://www.servicenow.com/docs/r/LZHoJyH9VPKmhdIph_6gSw/T8t48FKkGrgaobx~Bot8XQ)
+[出典（Australia）](https://www.servicenow.com/docs/r/u7nZu9GEUxWr9UkuDmbe6w/7edm782WwL4~9GS9pftgtQ)。旧版との比較用に Xanadu 版の一覧も参照できる [出典（Xanadu）](https://www.servicenow.com/docs/r/LZHoJyH9VPKmhdIph_6gSw/T8t48FKkGrgaobx~Bot8XQ)。
 
 Pull 型コネクタの MID Server 要否は一覧ページでは明示されていないが、オンプレミスの監視サーバーに対して ServiceNow 側から接続する方式であるため、MID Server 経由の構成が一般的である【推定】。カスタムの pull コネクタを作るには、スクリプト、Connector definition、Connector instance が必要で、コネクタのスケジュールが収集頻度を決める [出典](https://www.servicenow.com/docs/r/LZHoJyH9VPKmhdIph_6gSw/T8t48FKkGrgaobx~Bot8XQ)。
 
@@ -577,7 +592,7 @@ Pull 型コネクタの MID Server 要否は一覧ページでは明示されて
 
 | 項目 | 設計ポイント |
 |---|---|
-| 粒度 | すべてのアラートを Incident にしない。Event rule と Alert management rule で「Incident を作る条件」を絞る【経験則】 |
+| 粒度 | すべてのアラートを Incident にしない。Event rule（イベントルール）と Alert management rule（アラート管理ルール）で「Incident を作る条件」を絞る【経験則】 |
 | CI の紐付け | イベントのノード名（`node`）が CMDB の CI 名・IP・FQDN と一致する必要がある。CMDB の整備が前提（[CMDB と CSDM](../02_リファレンス/platform/cmdb-csdm.md)） |
 | クローズ連動 | 監視側で復旧したら、アラートをクローズし、Incident を解決するかどうかを決める |
 | 逆方向 | ServiceNow 側でアラートを確認したことを監視ツールに戻す（双方向コネクタ、Spoke）かどうか |
@@ -610,7 +625,7 @@ Jira spoke は ServiceNow 製の Spoke で、Jira の課題・コメント・ス
 | 認証 | Jira アカウントで発行した API トークン。OAuth 2.0 の記載もある |
 | トリガー（15 種） | Board（作成・更新・削除）、Comment（作成・更新・削除）、Issue（作成・更新・割り当て・削除。更新は解決・クローズ・再オープン・移動を含む）、Sprint（作成・開始・クローズ・更新・削除） |
 | Action（約 57） | Issue 管理（作成・更新・削除・割り当て・遷移・コメント・添付・ウォッチャー・検索）、Project、Sprint、Story、Group、User、Audit、Metadata 取得、Webhook 管理、ユーティリティ（添付のレコードへのコピー等） |
-| Webhook | Jira Webhooks アプリの「Webhook registrations」でトークンと API パスを設定してコールバック URL を生成し、Jira 側に登録する。「Routing policies」で ServiceNow に通知する条件と、起動するサブフローを定義する。Webhook は Spoke の Action を使わずに単独でも利用可能 |
+| Webhook | Jira Webhooks アプリの「Webhook registrations（Webhook 登録）」でトークンと API パスを設定してコールバック URL を生成し、Jira 側に登録する。「Routing policies（ルーティングポリシー）」で ServiceNow に通知する条件と、起動するサブフローを定義する。Webhook は Spoke の Action を使わずに単独でも利用可能 |
 | サンプルサブフロー | 「Process Jira Webhooks」（Jira のペイロード全体を入力として受け取る）。複製してからカスタマイズする。既定ではユーザーとして実行され、system 実行に変更可能 |
 | 注意 | 無限ループにならないようサブフローを設計すること |
 
@@ -688,6 +703,8 @@ SAP ECC RFC spoke の追加設定として、システムプロパティ `com.sn
 | 業務連携（Spoke） | フローから Teams のチャット作成、チャネル投稿、チーム作成等を行う（メジャーインシデントの War room 等） | Microsoft Teams Graph spoke（IntegrationHub） |
 | ポータル埋め込み | Employee Center を Teams / Outlook / Microsoft 365 アプリ内で使う | ServiceNow for Microsoft 365 |
 
+[出典（Integrate ServiceNow Virtual Agent with Microsoft Teams）](https://www.servicenow.com/docs/r/Xh633tLbz1TiB0XwDksy6A/jFEoFrHHw5ue6sA2E_bN1Q)、[出典（ServiceNow for Microsoft Teams and Microsoft 365, Xanadu）](https://www.servicenow.com/docs/r/xanadu/employee-service-management/c_ServiceNowForMSTeams.html)、[出典（Microsoft Teams Graph Spoke, Australia）](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/3OuLoCRaUoyklG0h1kEUoQ)、[出典（Install the Conversational Integration with Slack）](https://www.servicenow.com/docs/r/Xh633tLbz1TiB0XwDksy6A/S_4OJJWAydeiJek5tRiFNA)
+
 #### 4.7.2 Microsoft Teams
 
 **Virtual Agent の Teams 連携**
@@ -727,7 +744,9 @@ Xanadu の公式ドキュメントでは、以下の機能とライセンス前�
 
 [出典（Microsoft Teams Graph Spoke, Australia）](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/3OuLoCRaUoyklG0h1kEUoQ)、[出典（Microsoft Teams Spoke）](https://www.servicenow.com/docs/r/integrate-applications/integration-hub/microsoft-teams-spoke.html)
 
-> 個人宛てのメッセージは「Create Chat」→「Post Message to Chat」の組み合わせで実装するのが一般的とされる【第三者情報】（ServiceNow Community）。Graph の権限（例：Post Message to Chat には `ChatMessage.Send`、`Chat.ReadWrite`、`Group.ReadWrite.All`）は Entra ID 管理者の承認が必要になる。
+> 個人宛てのメッセージには Chat Management の「Create Chat」（ユーザー間のチャットを作成）と「Post Message to Chat」を使う。Microsoft Teams Graph spoke には、割り当て先ユーザーにインシデントの最新 Work notes を Teams チャットで送るサンプルフロー「Post ServiceNow Incident Worknotes Updates to Microsoft Teams Chat」が用意されている（使う場合はスコープに複製する）[出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/3OuLoCRaUoyklG0h1kEUoQ)。
+>
+> Australia の公式ページでは、Create Chat に `Chat.Create`、`Chat.ReadWrite`、Post Message to Chat に `ChatMessage.Send`、`Chat.ReadWrite`、`Group.ReadWrite.All` が、いずれも委任（Delegated、職場または学校アカウント）権限として記載されている。これらは Microsoft Teams Spoke の接続（委任権限）で動き、Client Credentials 接続では使えない [出典（Microsoft Teams Graph Spoke, Australia）](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/3OuLoCRaUoyklG0h1kEUoQ)。Graph 権限の付与には Entra ID 管理者の承認が必要になる【経験則】。
 
 #### 4.7.3 Slack
 
@@ -836,7 +855,7 @@ Xanadu の公式ドキュメントでは、以下の機能とライセンス前�
 | 方式 | 方向・トリガー・同期/非同期 | 双方向。ServiceNow → Jira はボタン操作、Jira → ServiceNow は Webhook。非同期 |
 | 方式 | 実装手段 | Jira spoke（Create Issue、Add Comment）、Jira Webhooks（Routing policy） |
 | 方式 | MID Server | 不要 |
-| 方式 | ライセンス | Integration Hub（Professional 以上）、想定トランザクション：年 X 件 |
+| 方式 | ライセンス | Integration Hub サブスクリプション（契約パッケージ名を記入。必要な階層は契約書類で確認）、想定トランザクション：年 X 件 |
 | データ | 項目マッピング表 | short_description → summary、description → description、… |
 | データ | コード値変換 | Priority 1〜5 → Highest〜Lowest、State 対応表 |
 | データ | 相関キー | ServiceNow: `u_jira_key`、Jira: カスタムフィールド「SN Number」 |
@@ -864,7 +883,9 @@ Xanadu の公式ドキュメントでは、以下の機能とライセンス前�
 以下は公開情報では確認できなかった。
 
 - IntegrationHub の各パッケージ（Starter / Standard / Professional / Enterprise）の年間トランザクション上限と、トランザクションの正式な定義（Legal schedules の原文）。インバウンド呼び出しや SSO ログインがカウント対象かどうか。
-- Event Management の pull 型コネクタのうち、どれが MID Server 必須かを一覧で示した公式記述（一覧ページには収集経路が明記されていない）。Australia 版コネクタ一覧の対応バージョン。
+- Event Management の pull 型コネクタのうち、どれが MID Server 必須かを一覧で示した公式記述（一覧ページには収集経路が明記されていない）。
+- IntegrationHub の各パッケージ階層に含まれる Integration step・Data Stream の正式な対応、および Starter がベースシステムや Subscription Product に同梱されるかどうか（Legal schedules を参照する必要がある）。
+- Australia での Column Level Encryption 対象テーブルでの受信添付の暗号化について、リリースノート上の記述。
 - ServiceNow for Microsoft 365 のライセンス前提の Australia 時点での最新内容（本ファイルでは Xanadu ドキュメントの記載を引用）。
 - Microsoft Teams Graph spoke と Slack 連携の各 Australia 版で追加された機能の網羅的な一覧。
 - オンプレミスのメールサーバー（Exchange Server 等）がインターネット非公開の場合の公式推奨構成。
@@ -878,6 +899,7 @@ Xanadu の公式ドキュメントでは、以下の機能とライセンス前�
 - Exploring Integration Hub（Australia）: https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/_Z13Mf2fauK1FAT029a_WA
 - Integration Hub subscription usage: https://www.servicenow.com/docs/r/integrate-applications/integration-hub/subscription-usage.html
 - Data Stream actions: https://www.servicenow.com/docs/r/integrate-applications/integration-hub/data-stream-actions.html
+- Create an HTTP(s) connection（Australia）: https://www.servicenow.com/docs/r/hX5GtoLUEU58KgyL7CW5Ag/lCOrTJrPSDa5Yvp7oBVrig
 - Exploring MID Server（Australia）: https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/explore-mid-server.html
 - MID Server connection prerequisites（Australia）: https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/c_MIDServerConnectionPrerequisites.html
 - Understand LDAP integration（Zurich）: https://www.servicenow.com/docs/r/zurich/platform-security/ldap-integration/r_LDAPIntegrationFAQs.html
@@ -889,7 +911,14 @@ Xanadu の公式ドキュメントでは、以下の機能とライセンス前�
 - Create an email account: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/YRcRFOSUJxRtgvq5356UnQ
 - Microsoft Graph plugin for email: https://www.servicenow.com/docs/r/platform-administration/ms-graph-plugin.html
 - Inbound action processing: https://www.servicenow.com/docs/r/platform-administration/inbound-action-processing.html
+- Configure Event Management connectors（Australia）: https://www.servicenow.com/docs/r/u7nZu9GEUxWr9UkuDmbe6w/7edm782WwL4~9GS9pftgtQ
 - Configure Event Management connectors（Xanadu）: https://www.servicenow.com/docs/r/LZHoJyH9VPKmhdIph_6gSw/T8t48FKkGrgaobx~Bot8XQ
+- Integration Hub plugins（Australia）: https://www.servicenow.com/docs/r/t2jQMKLZFp9AGt3V12O7mQ/SaI5XON9w7okFJQteYQNBA
+- Authentication release notes（Xanadu）: https://www.servicenow.com/docs/r/xanadu/release-notes/authentication-rn.html
+- Combined Authentication release notes（Washington DC→Yokohama）: https://www.servicenow.com/docs/r/yokohama/delta-washingtondc-yokohama/yokohama-washingtondc-authentication-release-notes.html
+- Multi-Provider single sign-on (SSO)（Australia）: https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/1dL2d_G_dUyzIgq7qYUjqQ
+- Notifications release notes: https://www.servicenow.com/docs/r/release-notes/notifications-rn.html
+- Inbound action type criteria: https://www.servicenow.com/docs/r/platform-administration/inbound-action-type-criteria.html
 - Pushing events to the instance using web service API: https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/iLiXUWd9WH27soFTKn4ZvQ
 - Configure the MID WebService Event Collector Context: https://www.servicenow.com/docs/r/guxhDnVk8OUAJKLm7WZsYA/xz_3EnP5twMrVy9mNuOSIQ
 - Jira Spoke（Australia）: https://www.servicenow.com/docs/r/PjeVwAzGnEEzroXtwXYanw/pKmPVba6bU~S_MFjtKATug

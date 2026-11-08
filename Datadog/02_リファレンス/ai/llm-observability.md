@@ -76,7 +76,7 @@ sources:
 - APM との関係・トレーサー（`ddtrace` / `dd-trace`）の基本は [APM インスツルメンテーション](../apm/apm-instrumentation.md)、[APM の概念とインジェスト制御](../apm/apm-concepts-and-ingestion.md)。
 - 機密情報のスキャンは [Sensitive Data Scanner](../security/sensitive-data-scanner.md)。
 - OpenTelemetry 全般は [OpenTelemetry サポート](../platform/opentelemetry.md)。
-- 料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。
+- 料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)。
 
 ## アーキテクチャとデータフロー
 
@@ -717,7 +717,7 @@ AI Gateway は、組織の LLM トラフィックを単一エンドポイント�
 
 Agent Observability は **LLM span（LLM プロバイダーへの 1 回の呼び出し）の月間件数** で課金される。tool span、retrieval span、その他モデル呼び出しを囲む workflow span は課金されない（公式 FAQ の表現）。agent / task / embedding span の扱いは名指しされておらず、公開情報では確認できず。1 つのエージェントワークフローが複数の LLM span を生むことがある。[出典](https://www.datadoghq.com/pricing/?product=llm-observability)
 
-以下は 2026-11-02 時点の公式料金ページ掲載の定価（USD）。数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。
+以下は 2026-11-02 時点の公式料金ページ掲載の定価（USD）。数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)。
 
 | プラン / 項目 | 単位 | 年契約 | 月契約 | オンデマンド |
 |---|---|---|---|---|
@@ -745,7 +745,7 @@ Agent Observability は **LLM span（LLM プロバイダーへの 1 回の呼び
 
 > **旧料金体系（参考）【第三者情報】:** 改称前は「10K monitored LLM requests あたり $8（年契約）/ $12（オンデマンド）、最低 100K リクエスト/月」の単一階層だったと第三者の料金追跡サービスが記録している（[PricingSaaS](https://pricingsaas.com/companies/datadog.llm-observability/diffs/2026Q2)、2026-06 記録）。現行契約の確認は公式料金ページ・契約書を優先すること。
 
-課金計算の仕組みとコスト最適化は [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、[コスト見積り手法](../../03_導入編/cost-estimation.md)、[コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+課金計算の仕組みとコスト最適化は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、[コスト見積り手法](../../03_導入編/05-cost-estimation.md)、[コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ## 導入時の注意点
 

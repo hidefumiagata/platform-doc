@@ -45,6 +45,8 @@ sources:
   - https://www.servicenow.com/docs/r/australia/servicenow-platform/service-graph-connectors/cmdb-integration-azure.html
   - https://www.servicenow.com/docs/r/australia/servicenow-platform/service-graph-connectors/sgcc-configure-azure-integ.html
   - https://www.servicenow.com/docs/r/australia/servicenow-platform/service-graph-connectors/cmdb-azure-classes.html
+  - https://www.servicenow.com/docs/r/australia/servicenow-platform/service-graph-connectors/sgcc-configure-gcp-integ.html
+  - https://www.servicenow.com/docs/r/servicenow-platform/service-graph-connectors/cmdb-sgc-available.html
   - https://www.servicenow.com/docs/r/australia/release-notes/cmdb-rn.html
   - https://www.servicenow.com/docs/r/australia/release-notes/rn-summary-deprecated-info.html
   - https://www.servicenow.com/docs/r/release-notes/cmdb-rn.html
@@ -187,7 +189,7 @@ Import Set 全般は [データインポート/エクスポート](../platform/i
 | IRE data source rules | IRE データソースルール | 特定の Discovery Source があるクラスの CI を **新規作成** することを禁止し、既存 CI の **更新のみ** 許可する |
 | Data refresh rules | データリフレッシュルール | ある Discovery Source のデータを一定期間で stale（古い）とみなし、優先度の低い認可済みソースが更新できるようにする |
 | Identification inclusion rules | 識別包含ルール | 識別対象とする CI を絞り込む |
-| Duplicate CI detection | 重複 CI 検出 | 重複を de-duplication task（重複排除タスク）にまとめる |
+| Detecting duplicate CIs | 重複 CI の検出 | IRE が重複 CI を検出すると、重複 CI の組ごとに de-duplication task（重複排除タスク）にまとめ、レビューと修復の対象にする（CMDB の重複 CI 修復）。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/ire.html) |
 
 ### 3.2 source_name / source_native_key による識別
 
@@ -391,16 +393,16 @@ Community FAQ のベストプラクティスとして、オンボーディング
 
 ### 5.8 SGC Central でプレイブック構成をサポートするコネクタ（Australia）
 
-Australia の公式ドキュメントで「SGC Central で接続の作成・管理をサポートする」と列挙されているコネクタは次のとおり。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/sgcc-managing-connection.html)
+Australia の公式ドキュメントで「SGC Central で接続の作成・管理をサポートする」と列挙されているコネクタは次のとおり（取得日: 2026-11-08）。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/sgcc-managing-connection.html)
 
 | 分類 | コネクタ |
 |---|---|
 | API Service Graph Connectors | Apigee Edge、Apigee X、AWS API Gateway、Azure API Management、Boomi Cloud API Management、Kong Gateway、Kong Konnect、MuleSoft |
 | Public cloud providers | AWS、Microsoft Azure、GCP、Wiz |
-| Endpoint / IT asset management | Microsoft Intune、Jamf、Microsoft SCCM、Tanium、Tanium Endpoints |
-| Monitoring / observability | Observability - AppDynamics、Observability - Dynatrace、Observability - Dynatrace SaaS、Observability - New Relic、SolarWinds |
+| Endpoint / IT asset management | Microsoft Intune、Jamf、Microsoft SCCM、Omnissa Workspace ONE UEM、Tanium、Tanium Atlas、Tanium Atlas Endpoints |
+| Monitoring / observability | AppDynamics、Dynatrace、Dynatrace SaaS、New Relic、SolarWinds（SGC Central 画面上のコネクタタイプ名は「Observability - AppDynamics」等の接頭辞付きで表示される） |
 | Security | Akamai API Security、Microsoft Defender Endpoint |
-| Software / server / network | Infoblox、Trellix |
+| Software / server / network | BlueCat、Confluent、Infoblox、Nautobot、NetBrain、Trellix |
 
 ### 5.9 接続の閲覧（All connections）
 
@@ -470,7 +472,8 @@ SGC Central では、Service Graph Connector diagnosis skill を有効化して�
 - **画面の説明:** 上部タブに Home / My Work / CMDB 360 / Insights / Management / SGC Central（CMDB Workspace）。接続ヘッダーに Connector type（Observability - AppDynamics）、Last run on、Connection state（Success）、Processing state（Error）、Parent import schedule（Active）。タブは Details / Duplicate detection rules / Data sources / Import schedules / Errors。Errors 一覧の列は Data Source（SG-AppDynamics Application Services）、Import Set（ISET 番号）、Category（Datasource）、Error Message（HTTP 401 認証エラー、WebService Access Policy による `sys_data_source` へのアクセス拒否、「Identification Reconciliation Engine(IRE) Processing errors -> INSERT_FAILED」等）、Count、Updated。右上に **Diagnose error** ボタン（青枠で強調）と **Last run** ボタン。
 - **出典:** https://www.servicenow.com/docs/r/australia/servicenow-platform/sgcc-diagnose-proc-errors.html （取得日: 2026-11-02）
 
-- この診断機能は「ServiceNow Otto for CMDB」アプリの **Otto SGC diagnosis skill**（Import Set 処理エラーの要約と修正推奨）として説明されている。Yokohama で Now Assist for SGC の診断スキルとして登場し、Brazil では Now Assist の名称が **ServiceNow Otto** に変更されている。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/cmdb-sgc-intro.html)、[出典（Brazil CMDB RN）](https://www.servicenow.com/docs/r/release-notes/cmdb-rn.html)
+- この診断機能は「ServiceNow Otto for CMDB」アプリの **Otto SGC diagnosis skill**（Import Set 処理エラーの要約と修正推奨）として説明されている。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/cmdb-sgc-intro.html) Brazil では Now Assist の名称が **ServiceNow Otto** に変更されている。[出典（Brazil CMDB RN）](https://www.servicenow.com/docs/r/release-notes/cmdb-rn.html)
+- 導入リリースについては、Yokohama で Now Assist for SGC の診断スキルとして登場したとされる【第三者情報】（公式の Yokohama リリースノートでは未確認。11 節参照）。
 - Now Assist / AI 全般は [Now Assist と AI Agents](../platform/now-assist-ai-agents.md) を参照。
 
 ### 5.12 Settings（コネクタのシステムプロパティ）
@@ -512,15 +515,15 @@ CMDB Integrations Dashboard は、全 SGC と IntegrationHub ETL で作成した
 
 ### 7.1 Service Graph Connectors（ServiceNow 提供、公式ドキュメント掲載分）
 
-Australia の公式ドキュメント「Service Graph Connectors」に掲載されているコネクタは次のとおり（Brazil 版の一覧も同一構成）。Store にはこれ以外にも多数（パートナー製含む）ある。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/service-graph-connectors/cmdb-sgc-available.html)、[出典（Brazil）](https://www.servicenow.com/docs/r/servicenow-platform/service-graph-connectors/cmdb-sgc-available.html)
+Australia の公式ドキュメント「Service Graph Connectors」に掲載されているコネクタは次のとおり（取得日: 2026-11-08。Brazil 版の一覧も同日時点で同一構成）。Store にはこれ以外にも多数（パートナー製含む）ある。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/service-graph-connectors/cmdb-sgc-available.html)、[出典（Brazil）](https://www.servicenow.com/docs/r/servicenow-platform/service-graph-connectors/cmdb-sgc-available.html)
 
 | 分類（英語） | 日本語 | コネクタ |
 |---|---|---|
 | Public cloud providers | パブリッククラウド | AWS、GCP、Microsoft Azure、Wiz |
-| Endpoint or IT asset management applications | エンドポイント／IT 資産管理 | Google Console、Jamf、Microsoft Intune、Microsoft SCCM、Tanium、Tanium Endpoints、VMware Workspace ONE UEM |
+| Endpoint or IT asset management applications | エンドポイント／IT 資産管理 | Google Console、Jamf、Microsoft Intune、Microsoft SCCM、Omnissa Workspace ONE UEM、Tanium、Tanium Atlas、Tanium Atlas Endpoints、VMware Workspace ONE UEM |
 | Monitoring and observability applications | 監視／オブザーバビリティ | AppDynamics、Datadog、Dynatrace、Dynatrace SaaS、OpenTelemetry、New Relic、SolarWinds |
 | Security solutions | セキュリティ | Microsoft Defender for Endpoint、Microsoft Active Directory、Netskope、Qualys、Rapid7、Splunk、Akamai API Security |
-| Software, server, or network applications | ソフトウェア／サーバー／ネットワーク | Infoblox、Trellix |
+| Software, server, or network applications | ソフトウェア／サーバー／ネットワーク | BlueCat、Confluent、Infoblox、Nautobot、NetBrain、Trellix |
 | Operational Technology (OT) applications | OT | Claroty CTD、Microsoft Defender for IoT（On-premises Management Console）、Microsoft Defender for IoT（Azure）、Operational Technology（Excel import） |
 
 **API Service Graph Connectors**：Apigee Edge、Apigee X、AWS API Gateway、Azure API Management、Boomi Cloud API Management、Kong Gateway、Kong Konnect、MuleSoft。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/api-sgc-available.html)
@@ -531,17 +534,18 @@ Australia の公式ドキュメント「Service Graph Connectors」に掲載さ�
 |---|---|---|
 | Service Graph Connector for OpenTelemetry（`com.snc.cmdb.lightstep_integration`） | Australia で「将来リリースで非推奨予定」、後継なし | [出典](https://www.servicenow.com/docs/r/australia/release-notes/cmdb-rn.html) |
 | Service Graph Connector Integration for Claroty CTD | Australia から非推奨化準備（新規インストール不可・非表示、サポートは継続）。Brazil の非推奨情報にも同記載 | [出典](https://www.servicenow.com/docs/r/australia/release-notes/rn-summary-deprecated-info.html)、[Brazil](https://www.servicenow.com/docs/r/release-notes/rn-summary-deprecated-info.html) |
-| Telco SD-WAN 系（Fortinet、VeloCloud、Meraki の SGC） | TSOM で Telco SD-WAN connectors として改称（第三者検索結果経由の公式 RN 情報。本書では詳細未確認） | 公開情報では詳細確認できず |
 
 ### 7.2 主要コネクタの比較サマリ
 
-| コネクタ | 接続方式 / 認証 | MID Server | 主な取り込み対象 | 対応 ServiceNow（Australia 文書） | SGC Central 必要バージョン |
+| コネクタ | 接続方式 / 認証 | MID Server | 主な取り込み対象 | 対応 ServiceNow（Australia 文書、2026-11-08 取得） | SGC Central 必要バージョン |
 |---|---|---|---|---|---|
-| Microsoft SCCM（MECM） | JDBC（SQL Server）。ユーザー名/パスワード、Windows 統合認証、Air gap | 統合認証では必須、JDBC 全般で推奨 | Computer、Disk、Network Adapter、IP、OS、Processor、Software、Software Usage | Yokohama / Zurich / Australia | 3.5.0 以降 |
-| Microsoft Intune | REST（Microsoft Graph API v1.0 / Beta）、OAuth 2.0 client credentials | 直接接続できない場合のみ | Computer、Handheld Computing Device、Network Adapter、IP、Software | Yokohama / Zurich / Australia | 2.5.0 以降 |
-| Jamf | REST（Jamf Pro API / Classic API）、OAuth（API Roles and Clients）または Basic / Bearer | 公開情報では必須記載なし | Computer（macOS）、Handheld（iPhone/iPad）、Disk、Network、Printer、Software、Software Usage | Xanadu / Yokohama / Zurich（文書記載のまま） | 2.13.0 以降 |
-| AWS | REST（AWS Config / Organizations / SSM / STS）、IAM アクセスキー | 任意 | 40 超の CI クラス（VM、ネットワーク、DB、Kubernetes/EKS、Lambda 等）、EC2 のディープディスカバリ（ソフトウェア・プロセス・TCP） | Yokohama / Zurich / Australia | 2.7.0 以降 |
-| Microsoft Azure | REST（Azure Management API、差分は Azure Resource Graph、ソフトウェアは Log Analytics API）、OAuth 2.0 client credentials | 公開情報では必須記載なし | VM、ネットワーク、DB、Kubernetes、Resource Group、Windows/Linux Server、Software 等 | Yokohama / Zurich / Australia | 1.9.0 以降 |
+| Microsoft SCCM（MECM） | JDBC（SQL Server）。ユーザー名/パスワード、Windows 統合認証、Air gap | 統合認証では必須、JDBC 全般で推奨 | Computer、Disk、Network Adapter、IP、OS、Processor、Software、Software Usage | Zurich / Australia / Brazil | 3.5.0 以降 |
+| Microsoft Intune | REST（Microsoft Graph API v1.0 / Beta）、OAuth 2.0 client credentials | 直接接続できない場合のみ | Computer、Handheld Computing Device、Network Adapter、IP、Software | Zurich / Australia / Brazil | 2.5.0 以降 |
+| Jamf | REST（Jamf Pro API / Classic API）、OAuth（API Roles and Clients）または Basic / Bearer | 公開情報では必須記載なし | Computer（macOS）、Handheld（iPhone/iPad）、Disk、Network、Printer、Software、Software Usage | Zurich / Australia / Brazil | 2.13.0 以降 |
+| AWS | REST（AWS Config / Organizations / SSM / STS）、IAM アクセスキー | 任意 | 40 超の CI クラス（VM、ネットワーク、DB、Kubernetes/EKS、Lambda 等）、EC2 のディープディスカバリ（ソフトウェア・プロセス・TCP） | Zurich / Australia / Brazil | 2.7.0 以降 |
+| Microsoft Azure | REST（Azure Management API、差分は Azure Resource Graph、ソフトウェアは Log Analytics API）、OAuth 2.0 client credentials | 公開情報では必須記載なし | VM、ネットワーク、DB、Kubernetes、Resource Group、Windows/Linux Server、Software 等 | Zurich / Australia / Brazil | 1.9.0 以降 |
+
+> **Brazil での変更:** 上記 5 コネクタの公式ドキュメントは、2026-11-08 時点で対応 ServiceNow リリースを「Zurich、Australia、Brazil」と記載している。以前の記載（SCCM / Intune / AWS / Azure は Yokohama / Zurich / Australia、Jamf は Xanadu / Yokohama / Zurich）から Brazil が加わり、Yokohama（Jamf は Xanadu と Yokohama）が外れた。[SCCM](https://www.servicenow.com/docs/r/australia/servicenow-platform/service-graph-connectors/cmdb-integration-sccm.html)、[Intune](https://www.servicenow.com/docs/r/australia/servicenow-platform/service-graph-connectors/cmdb-integration-intune.html)、[Jamf](https://www.servicenow.com/docs/r/australia/servicenow-platform/service-graph-connectors/cmdb-integration-jamf.html)、[AWS](https://www.servicenow.com/docs/r/australia/servicenow-platform/service-graph-connectors/cmdb-integration-aws-sg.html)、[Azure](https://www.servicenow.com/docs/r/australia/servicenow-platform/service-graph-connectors/cmdb-integration-azure.html)
 
 以降の各節の出典は節見出し直下に記載する。
 
@@ -551,7 +555,7 @@ Australia の公式ドキュメント「Service Graph Connectors」に掲載さ�
 
 Service Graph Connector for Microsoft SCCM（SG-SCCM）は、Microsoft System Center Configuration Manager（SCCM）／Microsoft Endpoint Configuration Manager（MECM）のデータを CMDB にインポートする。SCCM データベースへの書き込みは行わない（読み取り専用）。
 
-- **対応バージョン**：SCCM/MECM 2603、2509、2503。ServiceNow Yokohama、Zurich、Australia。
+- **対応バージョン**：SCCM/MECM 2603、2509、2503。ServiceNow Zurich、Australia、Brazil。
 - **ユースケース**：ITOM Visibility（ハードウェア／ソフトウェアインベントリ、差分インポート）、ITSM（検出 CI へのインシデント／問題／変更、デバイス所有者の自動割り当て）、SAM/ITAM（Software Asset Management Professional 連携、ソフトウェア使用状況、削除ソフトウェア検出によるライセンス回収、Software Editions、SCCM Asset Intelligence 対応）。SAM は [Software Asset Management](../itam/software-asset-management.md) を参照。
 
 **データソース**
@@ -593,7 +597,7 @@ Service Graph Connector for Microsoft SCCM（SG-SCCM）は、Microsoft System Ce
 
 Service Graph Connector for Microsoft Intune は、モバイルデバイス・コンピュータ・ソフトウェアのデータを Microsoft Intune から CMDB に取り込む。
 
-- **対応**：Microsoft Intune Graph API v1.0 / Graph API Beta。ServiceNow Yokohama、Zurich、Australia。
+- **対応**：Microsoft Intune Graph API v1.0 / Graph API Beta。ServiceNow Zurich、Australia、Brazil。
 - **ユースケース**：Android / Apple / Windows モバイルデバイスのハードウェア・アプリインベントリ（SAM 有無いずれも可）、BYOD／会社所有デバイスのコンプライアンス追跡、ITSM（インシデント等、デバイス所有者の追跡と割り当て）、Azure Monitor 連携による差分通知。
 - Intune で削除された検出アプリのレコードは CMDB から自動削除される。
 
@@ -639,7 +643,7 @@ Service Graph Connector for Microsoft Intune は、モバイルデバイス・�
 
 Service Graph Connector for Jamf は、Jamf（Jamf Pro）から macOS コンピュータ、iPhone / iPad、ディスク、ネットワーク、ソフトウェアのデータを CMDB に取り込む。
 
-- **対応 ServiceNow**：Australia 版文書でも「Xanadu / Yokohama / Zurich」と記載（Australia 対応の明記は公開情報では確認できず。Store の互換性情報で要確認）。
+- **対応 ServiceNow**：Zurich、Australia、Brazil。
 - **ユースケース**：macOS / iOS / iPadOS のハードウェア・ソフトウェアインベントリ、コンプライアンス追跡、重複データ検出による夜間インポート高速化、SAM（パッケージ・インストール追跡、使用状況、ライセンス回収）、ITSM（トップユーザーに基づく所有者自動割り当て）。
 
 **データソースとステージングテーブル**
@@ -673,7 +677,7 @@ Service Graph Connector for Jamf は、Jamf（Jamf Pro）から macOS コンピ�
 
 Service Graph Connector for AWS は、AWS ネイティブ技術とセキュリティベストプラクティスを用いて AWS データを ServiceNow に取り込む。
 
-- **対応 ServiceNow**：Yokohama、Zurich、Australia。
+- **対応 ServiceNow**：Zurich、Australia、Brazil。
 - **ユースケース**：クラウドリソース・関係・状態の可視化、ITAM/SAM のためのアプリケーションのディープディスカバリ、ガバナンス／コンプライアンス。
 
 **利用する AWS サービス**
@@ -690,7 +694,7 @@ Service Graph Connector for AWS は、AWS ネイティブ技術とセキュリ�
 
 - Prerequisites：Download basic scripts（必須）、Download deep discovery scripts（EC2 ディープディスカバリ時）、Download Amazon EKS scripts（EKS 利用時）。
 - Create and test connection：Connection name（例：`SG_AWS_CredentialAlias_Org`）、Access Key ID、Secret Access Key（IAM ユーザー）、Use MID Server（任意）。
-- Set configuration properties：Organization details、S3 account details（S3 account ID / bucket name / region。EC2 詳細の収集先バケット）、AWS regions（既定は全リージョン。変更時は全 AWS データソースの Last run datetime をクリア）、STS assume role name、SSM SendCommand document（Linux / Windows）、Management account ID / Standalone account ID（スタンドアロン時は組織データが取り込まれない。KB1642159）、AWS config aggregator（account / name / region）、AWS key rotation（キー自動ローテーション）。
+- Set configuration properties：Organization details、S3 account details（S3 account ID / bucket name / region。EC2 詳細の収集先バケット）、AWS regions（既定は全リージョン。変更時は全 AWS データソースの Last run datetime をクリア）、STS assume role name、SSM SendCommand document（Linux / Windows）、Management account ID / Standalone account ID（スタンドアロン時は組織データが取り込まれない。KB1642159）、AWS config aggregator（account / name / region）、AWS key rotation setup（AWS rotate keys で有効化、AWS key rotation date、AWS key rotation period (in days)、読み取り専用の AWS key rotation status、エラー通知先のメールアカウント／メールアカウントグループ）、Gov cloud setup（AWS GovCloud 利用時に **Is gov cloud** チェックボックスを選択）、SSM EKS SendCommand document details（EKS 利用時。EKS cluster names document / EKS shell script document）。入力後 **Save properties** → **Continue**。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/service-graph-connectors/sgcc-configure-aws-integ.html)
 
 **主なデータソースとプロパティ**
 
@@ -708,7 +712,7 @@ Service Graph Connector for AWS は、AWS ネイティブ技術とセキュリ�
 
 **その他の機能**
 
-- **BYOL**：AWS 上の Oracle Database サーバーの Image CI について、ライセンス情報が見つかると `cmdb_key_value` に key `Windows_OS_License_Type_automatic`、value `BYOL` を設定。
+- **BYOL**：AWS 上の Oracle Database サーバーの Image CI について、ライセンス情報が見つかると `cmdb_key_value` に key `Windows_OS_License_Type_automatic`、value `BYOL` を設定（キー名は Windows を含むが、公式ドキュメントの記載のまま）。
 - **Event-based discovery**：AWS から取得したイベントで、コネクタが取り込んだ CI を作成・更新できる。
 - **EKS の退役管理**：EKS 側で削除された Pod / Service / Volume 等は Kubernetes 系クラスと Docker Container で自動的に Retired になる。
 - **Shared VPC / サブネット**：異なる AWS アカウント間の VPC・サブネット・NIC の関係を取り込む。
@@ -722,7 +726,7 @@ Service Graph Connector for AWS は、AWS ネイティブ技術とセキュリ�
 
 Service Graph Connector for Microsoft Azure は Microsoft Azure のデータを CMDB に取り込む。
 
-- **対応 ServiceNow**：Yokohama、Zurich、Australia。SGC Central での構成にはコネクタ 1.9.0 以降が必要。
+- **対応 ServiceNow**：Zurich、Australia、Brazil。SGC Central での構成にはコネクタ 1.9.0 以降が必要。
 - **API**：フル取得は **Azure Management API**、差分（delta）取得は **Azure Resource Graph API**（DNS は Azure Management、パスが Resource Graph）。初回取得後は差分インポートになり、プロパティ `sn_sg_azure_integ.is_delta_sync_enabled` を `false` にするとフル取得に戻せる。
 - **前提（Azure 側）**：OAuth 資格情報（Client ID、Client Secret、Token URL）を取得。ハードウェアデータには Microsoft Graph API の `User.Read` 権限と、サブスクリプションの IAM で **Reader** ロール。ソフトウェアデータには Log Analytics API の `Data.Read` 権限と **Log Analytics workspace** の構成。
 - **プレイブック**：Review setup instructions → Select services（Hardware only が既定、Hardware and software を選ぶとソフトウェア接続が追加。ソフトウェアにはハードウェア接続が必要）→ Create and test hardware connection → Configure hardware import schedule（親スケジュール `<接続名>-SG-Azure Subscriptions`）→ Create and test software connection（Connection URL `https://api.loganalytics.io/v1/workspaces/<workspace_id>`）→ Configure software import schedule（`<接続名>-SG-Azure TCP`）→ Connection setup complete。
@@ -733,8 +737,8 @@ Service Graph Connector for Microsoft Azure は Microsoft Azure のデータを 
 
 | コネクタ | 概要 | 備考 |
 |---|---|---|
-| GCP | Google Cloud のリソースを取り込む。SGC Central 構成はコネクタ 1.8.0 以降 | [出典](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/9XtHFSFGzbpc_FgrHAo1ZQ)（Zurich 版） |
-| Tanium / Tanium Endpoints | Tanium のエンドポイントインベントリ。Tanium Endpoints はサービスアカウント・ペルソナの構成が必要 | 公式一覧に記載 |
+| GCP | Google Cloud のリソースを取り込む。SGC Central 構成はコネクタ 1.8.0 以降 | [出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/service-graph-connectors/sgcc-configure-gcp-integ.html) |
+| Tanium / Tanium Atlas / Tanium Atlas Endpoints | Tanium のエンドポイントインベントリ。Tanium Atlas Endpoints はサービスアカウント・ペルソナの構成が必要 | 公式一覧に記載（名称は 2026-11-08 取得時点の [一覧](https://www.servicenow.com/docs/r/australia/servicenow-platform/service-graph-connectors/cmdb-sgc-available.html) に合わせた） |
 | Microsoft Defender for Endpoint / Active Directory / Qualys / Rapid7 等 | セキュリティ製品のデバイス・資産情報を CMDB へ。Security Posture Control 等の SecOps 系機能のデータ源にもなる | [Security Operations](../secops/security-operations.md) |
 | AppDynamics / Dynatrace / Datadog / New Relic / SolarWinds | 監視製品のアプリ・サービス・ホストを CMDB へ。サービスマップや Event Management の CI 紐づけの基盤 | [Event Management と AIOps](./event-management-aiops.md)、[Service Mapping](./service-mapping.md) |
 | Infoblox | DNS/DHCP/IPAM 情報。単一インスタンスのみ対応で既定接続 `SG_Infoblox_Connection` を使う | [出典（Community）](https://www.servicenow.com/community/cmdb-articles/service-graph-connector-central-sgcc-best-practices-and-faqs/ta-p/3278092) |
@@ -800,10 +804,11 @@ Service Graph Connector for Microsoft Azure は Microsoft Azure のデータを 
 
 ## 11. 確認できなかった事項
 
-- 各コネクタの Store 上の最新バージョン番号、Australia 時点での正確な互換性（特に Jamf の Australia 対応）は公開ドキュメントでは確認できず（Store の各アプリページで要確認）。
+- 各コネクタの Store 上の最新バージョン番号は公開ドキュメントでは確認できず（Store の各アプリページで要確認）。
 - SGC が登録する `discovery_source` の具体的な選択肢値（例：SCCM 用の値）は公開情報では確認できず。
 - SU 換算比率、価格は公開情報では確認できず。
-- Telco SD-WAN 系 SGC の改称の詳細は本調査では一次資料を取得できず。
+- Telco SD-WAN 系 SGC（Fortinet、VeloCloud、Meraki）が TSOM で Telco SD-WAN connectors として改称されたとの情報があるが、公開情報（一次資料）では確認できず。
+- SGC 診断スキル（Now Assist for SGC）の導入リリースが Yokohama であることは、公式の Yokohama リリースノートでは確認できず（第三者情報のみ）。
 
 ---
 
@@ -850,7 +855,7 @@ Service Graph Connector for Microsoft Azure は Microsoft Azure のデータを 
 - Configure Azure using SGC Central: https://www.servicenow.com/docs/r/australia/servicenow-platform/service-graph-connectors/sgcc-configure-azure-integ.html
 - CMDB classes targeted in SGC for Microsoft Azure: https://www.servicenow.com/docs/r/australia/servicenow-platform/service-graph-connectors/cmdb-azure-classes.html
 - ITOM Visibility（Australia）: https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/ZxnlEGNtKwEoUdC_0lEN7g
-- Configure GCP using SGC Central（Zurich）: https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/9XtHFSFGzbpc_FgrHAo1ZQ
+- Configure GCP using SGC Central: https://www.servicenow.com/docs/r/australia/servicenow-platform/service-graph-connectors/sgcc-configure-gcp-integ.html
 
 リリースノート
 

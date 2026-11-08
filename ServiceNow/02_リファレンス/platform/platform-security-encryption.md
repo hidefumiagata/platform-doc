@@ -5,7 +5,7 @@ domain: platform
 release: Australia
 last_verified: 2026-11-02
 summary: ServiceNow AI Platform のインスタンスセキュリティ機能（Security Center / 旧 Instance Security Center、Hardening settings、High Security Settings、security_admin）、暗号化機能（Field Encryption / 旧 Column Level Encryption、Key Management Framework、EKMS、Cloud Encryption、Edge Encryption、Database Encryption、Password2）、データプライバシー（Data Discovery・Data Classification・Data Anonymization）、ServiceNow Vault、監査ログ（sys_audit、Log Export Service）の仕様を、テーブル名・ロール・プロパティ・プラグイン ID・制約まで含めて整理する。
-keywords: [security, セキュリティ, Security Center, SSC, Instance Security Center, ISC, hardening, ハードニング, compliance score, High Security Settings, security_admin, elevated privilege, encryption, 暗号化, Field Encryption, Column Level Encryption, CLE, CLEE, Key Management Framework, KMF, sn_kmf, module access policy, MAP, EKMS, BYOK, HYOK, Cloud Encryption, Platform Encryption, Edge Encryption, Database Encryption, Password2, Data Privacy, Data Anonymization, 匿名化, Data Discovery, Data Classification, Vault, Vault Console, Zero Trust Access, Continuous Authentication, Code Signing, Access Observer, audit, 監査, sys_audit, Log Export Service, LES, Shield]
+keywords: [security, セキュリティ, Security Center, SSC, Instance Security Center, ISC, hardening, ハードニング, compliance score, High Security Settings, security_admin, elevated privilege, encryption, 暗号化, Field Encryption, Column Level Encryption, CLE, CLEE, Key Management Framework, KMF, sn_kmf, module access policy, MAP, EKMS, BYOK, HYOK, Cloud Encryption, Platform Encryption, Edge Encryption, Database Encryption, Password2, Data Privacy, Data Anonymization, 匿名化, Data Discovery, Data Classification, Vault, Vault Console, Zero Trust Access, Continuous Authentication, Code Signing, Access Observer, audit, 監査, sys_audit, Log Export Service, LES, Shield, Salesforce Shield, HashiCorp Vault]
 sources:
   - https://www.servicenow.com/docs/r/platform-security/security-center/sec-center-v2.html
   - https://www.servicenow.com/docs/r/GypxAX2jEErwkCxugICKdg/FLYOmsyOg96KRG8AbJ3l5Q
@@ -18,6 +18,7 @@ sources:
   - https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/N~wb_AWPcaEgEhYuOGuBCg
   - https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/VZ1Ee22N1eUfHMmUuM6EGg
   - https://www.servicenow.com/docs/r/platform-security/instance-security-hardening-settings/sc-session-activity-timeout.html
+  - https://www.servicenow.com/docs/r/australia/platform-security/instance-security-hardening-settings/sc-session-activity-timeout.html
   - https://www.servicenow.com/docs/r/platform-security/exploring-high-security-settings.html
   - https://www.servicenow.com/docs/r/8yND1KuvF7tjP~F577YThQ/VtyHlnPUMLl7Lhh7PPb1HQ
   - https://www.servicenow.com/docs/r/platform-security/exploring-fe.html
@@ -49,14 +50,26 @@ sources:
   - https://www.servicenow.com/community/security-on-now-blog/your-hardening-score-isn-t-just-a-number-here-s-what-it-s/ba-p/3574268
   - https://www.servicenow.com/community/developer-blog/servicenow-vault-data-privacy-yes-this-is-what-i-need/ba-p/3068348
   - https://www.servicenow.com/community/platform-privacy-security-blog/external-key-management-service-keep-your-encryption-keys-keep/ba-p/3551900
+  - https://www.servicenow.com/community/platform-privacy-security-blog/servicenow-vault-where-ai-meets-security/ba-p/3410377
+  - https://www.servicenow.com/community/platform-privacy-security-blog/what-s-new-for-platform-encryption-in-australia/ba-p/3566833
+  - https://www.servicenow.com/docs/r/u1slaAtcFiiXFQcd9RcR_A/Y3DAV2ad4en646OIsMNpjQ
+  - https://www.servicenow.com/docs/r/hX5GtoLUEU58KgyL7CW5Ag/PuFZlfG_gWPad0kLXSCToQ
+  - https://www.servicenow.com/docs/r/yokohama/delta-xanadu-yokohama/yokohama-xanadu-encryptionkeymanagement-release-notes.html
+  - https://www.servicenow.com/docs/r/platform-security/cs-fdih.html
+  - https://www.servicenow.com/docs/r/xanadu/release-notes/data-privacy-rn.html
   - https://www.crowdstrike.com/en-us/platform/falcon-shield/how-falcon-shield-helps-secure-servicenow/
+  - https://www.businesswire.com/news/home/20241106324741/en/CrowdStrike-Acquire-Adaptive-Shield-Deliver-Platform-Unifies
+  - https://itpro.com/business/acquisition/crowdstrike-eyes-saas-security-gains-with-adaptive-shield-acquisition
+  - https://www.adaptive-shield.com/top-app/servicenow/
+  - https://www.salesforce.com/platform/shield/
+  - https://help.salesforce.com/s/articleView?id=sf.salesforce_shield.htm&language=en_US&type=5
 ---
 
 # プラットフォームセキュリティと暗号化（Platform Security and Encryption）
 
 ## 概要
 
-ServiceNow AI Platform（旧 Now Platform）のプラットフォームセキュリティは、大きく次の5領域で構成される。本ファイルは基準リリース **Australia**（2026-05 GA）時点の仕様を中心に、各領域の機能・テーブル・ロール・プロパティ・制約を整理する。
+ServiceNow AI Platform（旧 Now Platform）のプラットフォームセキュリティは、大きく次の6領域で構成される。本ファイルは基準リリース **Australia**（2026-05 GA）時点の仕様を中心に、各領域の機能・テーブル・ロール・プロパティ・制約を整理する。
 
 | 領域 | 主な機能（英語正式名称） | 位置付け | 本ファイルの節 |
 |---|---|---|---|
@@ -64,7 +77,7 @@ ServiceNow AI Platform（旧 Now Platform）のプラットフォームセキュ
 | ハードニング | Hardening settings、High Security Settings、Elevated privilege（`security_admin`） | 標準機能 | 「セキュリティハードニング」 |
 | 暗号化 | Field Encryption（旧 Column Level Encryption）、Key Management Framework（KMF）、EKMS、Cloud Encryption、Edge Encryption、Database Encryption、Password2 | Starter・Password2 は標準、Enterprise・Cloud Encryption は有償（Platform Encryption / Vault） | 「暗号化機能の全体像」以降 |
 | データプライバシー | Data Discovery、Data Classification、Data Privacy（Anonymization） | Store アプリ（Vault 構成要素） | 「データプライバシー」 |
-| Vault 付帯機能 | Vault Console、Zero Trust Access、Code Signing、Access Observer | Vault | 「ServiceNow Vault」 |
+| Vault 付帯機能 | Vault Console、Zero Trust Access、Code Signing（Brazil Patch 1 で Vault Suite から除外）、Access Observer | Vault | 「ServiceNow Vault」 |
 | 監視・監査 | Auditing（`sys_audit`）、Log Export Service（LES） | 監査は標準、LES は Vault | 「監査ログ」 |
 
 これらの有償セキュリティ機能を束ねた製品が **ServiceNow Vault（ヴォールト）** であり、管理画面として **Vault Console** を持つ。認証・SSO・MFA は [authentication-sso.md](./authentication-sso.md)、ACL は [access-control-acl.md](./access-control-acl.md)、ロール設計は [users-groups-roles.md](./users-groups-roles.md)、SecOps 製品（脆弱性対応・SIR）は [../secops/security-operations.md](../secops/security-operations.md) を参照。導入時のセキュリティ要件整理は [../../03_導入編/10-security-compliance.md](../../03_導入編/10-security-compliance.md)、実践知は [../../04_応用編/12-security-hardening-practice.md](../../04_応用編/12-security-hardening-practice.md) を参照。
@@ -82,7 +95,7 @@ flowchart TB
     DP["Data Discovery / Classification /<br/>Data Privacy (Anonymization)"]
     ZTA["Zero Trust Access<br/>(Continuous Authentication)"]
     LES["Log Export Service"]
-    CS["Code Signing"]
+    CS["Code Signing<br/>(Brazil P1 で Vault Suite から除外)"]
     AO["Access Observer"]
   end
   subgraph Base["標準機能"]
@@ -132,7 +145,7 @@ Security Center は次のコンソール・機能で構成される（Brazil 版
 - メトリクス：**Overview > Metrics** または **All Metrics**。
 - セッション監視：**Metrics > Sessions**（Analytics Hub で可視化）。
 - 学習：**Overview > Learning**。
-- 準拠スコアの定期再計算：スケジュールスクリプト **`SC - Calculate Compliance Monthly`** の Run / Day / Time zone / Time で設定。
+- 準拠スコアの定期再計算：スケジュールスクリプト **`SC - Calculate Compliance Monthly`** の Run / Day / Time zone / Time で実行頻度を設定する。名称は「Monthly」だが、Hardening settings（Australia）の公式ページは Security Center が「日次の準拠スコア（daily compliance score）」を計算すると説明しており、Community ブログの画面例（図3）でも Daily で収集されている。スクリプトの出荷時の Run 設定値（日次か月次か）は公開情報では確認できず、実機で確認すること。[出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/ocO0zvJcgJx1osrHp315Gw)
 
 ### Security Center のリリース別変更
 
@@ -143,7 +156,7 @@ Security Center の Zurich・Australia での変更は以下のとおり。[出�
 | Zurich | New | Security Task management、各 Overview ページ刷新（Hardening / Scanner / Metrics / Best Practices）、紹介動画オーバーレイ、Auditor Suite に公開ナレッジベース／公開記事のチェック2種追加（Global スコープで実行）、Granular admin role、Access Controls console、IAM セクション強化 |
 | Zurich | Changed | Coral テーマ適用、ハードニングのベースラインを Instance Security Hardening Settings V6 に、Security Hardening tool を V7 に更新 |
 | Australia | New | **Version-based hardening settings**（インスタンスのファミリーに該当する設定のみ表示）、**Accept risk for hardening settings**（リスク受容。理由入力必須、保存前にスコア影響を表示、状態が Accepted Risk になりスコア計算に反映、Accept Risk Settings フィルタ） |
-| Australia | Changed | Security Hardening tool を Instance Security Hardening Settings V7 に更新 |
+| Australia | Changed | Security Hardening tool は Instance Security Hardening Settings V7（Zurich で導入した版と同じ）を継続 |
 | Australia | ハイライト | Now Assist パネルのチャットボットから任意の Platform Security ページで Security Task を作成可能 |
 
 > **Brazil での変更:** Zurich→Brazil 統合リリースノートでは、Brazil の Security Center は New / Changed / Removed すべて「No updates for this release」。ただし同ページは AI 生成サマリを含み正確性が保証されない旨の注記がある。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-securitycenter-release-notes.html)
@@ -223,7 +236,7 @@ SSO・SCIM・API 認証系の細分化ロール（`sso_config_admin`、`scim_adm
 | 項目 | ISC | SSC |
 |---|---|---|
 | 準拠スコア | Daily Compliance Score タイル | Overview ページ、Hardening > Comparison |
-| スコア更新 | Refresh / 日次 PA ジョブ | Overview から手動更新、`SC - Calculate Compliance Monthly` で定期計算 |
+| スコア更新 | Refresh / 日次 PA ジョブ | Overview から手動更新、`SC - Calculate Compliance Monthly` で定期計算（実行頻度は Run 設定で変更可。公式は日次スコアと説明。前節参照） |
 | 設定編集 | Hardening Compliance Configurations | Overview / Hardening > All Settings / Hardening > Comparison の設定名リンク |
 | メトリクス | User / Export / Authentication / Email / Antivirus | 65 以上の新メトリクス、目標・閾値 |
 | スキャン | Auditor | 手動／スケジュール、カスタムチェック・スイート、結果比較 |
@@ -263,9 +276,9 @@ Hardening settings は次の 14 カテゴリに分類される（Australia）。
 
 ### ハードニング準拠スコアの計算
 
-**Hardening compliance score（ハードニング準拠スコア）** は、各設定のリスクスコアのうち準拠済み設定の合計を全設定の合計で割った百分率で、日次で再計算される。Australia で追加された **Accepted Risk（リスク受容）** の設定は準拠側に加算される。[出典](https://www.servicenow.com/community/security-on-now-blog/your-hardening-score-isn-t-just-a-number-here-s-what-it-s/ba-p/3574268)
+**Hardening compliance score（ハードニング準拠スコア）** は、各設定のリスクスコアのうち準拠済み設定の合計を全設定の合計で割った百分率で、日次で再計算される（公式ドキュメントも「daily compliance score」と説明。再計算スケジュールは `SC - Calculate Compliance Monthly` の Run 設定に従う）。Australia で追加された **Accepted Risk（リスク受容）** の設定は準拠側に加算される。[出典](https://www.servicenow.com/community/security-on-now-blog/your-hardening-score-isn-t-just-a-number-here-s-what-it-s/ba-p/3574268) [出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/ocO0zvJcgJx1osrHp315Gw)
 
-- 公式ドキュメントは「各設定のリスクスコアは 0〜10」と説明する一方、ServiceNow Community の公式ブログ（2026-07）は「各設定のスコア（Score Impact）は 0〜1」で、例として「25.4 / 34.9 ≒ 73%」を示している。画面上の **Score Impact** 列は 0.75 などの小数で表示される（下図）。両者の単位は異なるが、計算方式（準拠＋受容 ÷ 全体 × 100）は一致する。
+- 公式ドキュメントは「各設定のリスクは CVSS により 0.0〜10.0 で個別に採点される」と説明する一方[出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/ocO0zvJcgJx1osrHp315Gw)、ServiceNow Community の公式ブログ（2026-07）は「各設定のスコア（Score Impact）は 0〜1」で、例として「25.4 / 34.9 ≒ 73%」を示している。画面上の **Score Impact** 列は 0.75 などの小数で表示される（下図）。両者の単位は異なるが、計算方式（準拠＋受容 ÷ 全体 × 100）は一致する。
 - 各設定には **Priority（優先度）1〜4**（1 - Critical、3 - Moderate 等）が付く。
 - 最大の改善余地を探すには **Hardening > All settings** で Compliance Status を非準拠でフィルタし、Score Impact で並べ替える。是正後はホームで **Update score** を選択する。
 
@@ -330,10 +343,10 @@ KPI DETAILS として「Compliant & accepted risk score trend」の折れ線グ�
 | 設定 | プロパティ | 推奨値 | 重大度・補足 | 出典 |
 |---|---|---|---|---|
 | Anti-CSRF token | `glide.security.use_csrf_token` | `true` | Security risk: High、Functional impact: Low。関連：`glide.security.csrf_previous.time_limit`、`glide.security.csrf_previous.allow`、`glide.security.csrf.strict.validation.mode` | [出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/VZ1Ee22N1eUfHMmUuM6EGg) |
-| Session activity timeout | `glide.ui.session_timeout`（分） | 30 以下（未定義時のフォールバックは 30） | CVSS 7.5（High）。上限は `glide.ui.max_session_timeout`（最大 1440 分） | [出典](https://www.servicenow.com/docs/r/platform-security/instance-security-hardening-settings/sc-session-activity-timeout.html) |
+| Session activity timeout | `glide.ui.session_timeout`（分） | 60 以下（Australia。既定なし、未定義時のフォールバックは 30）。Brazil では 30 以下 | CVSS 7.5（High）。Brazil 版ドキュメントでは、実効値は静的プロパティ `glide.ui.max_session_timeout` で上限 1440 分に制限されると記載（Australia 版ページには記載なし） | [出典（Australia）](https://www.servicenow.com/docs/r/australia/platform-security/instance-security-hardening-settings/sc-session-activity-timeout.html) [出典（Brazil）](https://www.servicenow.com/docs/r/platform-security/instance-security-hardening-settings/sc-session-activity-timeout.html) |
 | Script sandbox | `glide.script.use.sandbox` | `true` | Priority 1 - Critical（図1） | 図1 |
 
-> **注意（推奨値の版差）:** `glide.ui.session_timeout` の推奨値は、Xanadu 版ドキュメント（Security Center 1.3 時点）では「60 分、1日を超えない」、Brazil 版ドキュメントでは「30 分以下」と記載が異なる。最新の Security Center 表示値に従うこと。[出典](https://www.servicenow.com/docs/r/platform-security/instance-security-hardening-settings/sc-session-activity-timeout.html)
+> **注意（推奨値の版差）:** `glide.ui.session_timeout` の推奨値は、Xanadu〜Zurich 版ドキュメントでは「60 分、1日を超えない」、Australia 版では「60 以下」（2026-03-12 更新）、Brazil 版ドキュメントでは「30 以下」（既定値 30）と記載が異なる。最新の Security Center 表示値に従うこと。[出典（Australia）](https://www.servicenow.com/docs/r/australia/platform-security/instance-security-hardening-settings/sc-session-activity-timeout.html) / [出典（Brazil）](https://www.servicenow.com/docs/r/platform-security/instance-security-hardening-settings/sc-session-activity-timeout.html)
 
 ### High Security Settings（高度セキュリティ設定）
 
@@ -376,9 +389,9 @@ High Security Settings のプロパティは read_roles が `admin`、write_role
 - 昇格の効果はセッション中のみ。セッションタイムアウトまたはログアウトで解除される。
 - 昇格ロールを内包するロールに昇格しても、内包された昇格ロールの権限は得られない（各ロールに個別に昇格する）。
 - `security_admin` を付与できるのは、`admin` を持ち、かつ `security_admin` に昇格済みのユーザーのみ。`security_admin` を持たないユーザーは、`security_admin` を含むグループにユーザーを追加できない。
-- そのほかの昇格ロールの例：`ca_admin` / `ca_policy_admin` / `ca_auditor`（Continuous Authentication）、`data_privacy_admin`（Data Privacy）。
+- プラグイン／Store アプリをインストールすると追加される昇格ロール（ベースシステムの外のロール）の例：`ca_admin` / `ca_policy_admin` / `ca_auditor`（Continuous Authentication）、`data_privacy_admin`（Data Privacy）。
 
-> **Brazil での変更:** Vault の Access Observer と Field Encryption のエージェント型ワークフローは、ロールマスキングのために `security_admin` へ昇格しなくなった（特権昇格の最小化）。[出典](https://www.servicenow.com/docs/r/release-notes/servicenow-vault-rn.html)
+> **Brazil での変更:** `security_admin` は `sn_vault_console.vault_console_admin` に内包されない。Access Observer と Field Encryption のエージェント型ワークフロー（ロールマスキング）を使うには、`vault_console_admin` ユーザーに `security_admin` を別途付与し、`security_admin` に昇格する必要がある（Vault release notes の Brazil EA「Role masking in the Access Observer and Field Encryption workflows」）。[出典](https://www.servicenow.com/docs/r/release-notes/servicenow-vault-rn.html)
 
 ---
 
@@ -391,7 +404,7 @@ ServiceNow の暗号化機能は、保護するレイヤーと鍵管理方式に
 | 機能（英語） | 保護レイヤー | 鍵管理 | ライセンス | Australia 時点の状態 |
 |---|---|---|---|---|
 | **Field Encryption Starter** | アプリケーション層（フィールド単位、最大5フィールド） | ServiceNow 管理（ローテーションは Support 経由） | 標準 | 推奨（旧 CLE Starter の後継） |
-| **Field Encryption Enterprise** | アプリケーション層（フィールド・添付ファイル、無制限） | KMF。BYOK（Customer-supplied key）、HYOK（EKMS） | 有償（Platform Encryption / Vault） | 推奨（旧 CLEE の後継） |
+| **Field Encryption Enterprise** | アプリケーション層（フィールド・添付ファイル、無制限。Zurich 以降は条件による行レベル暗号化も可） | KMF。BYOK（Customer-supplied key）、HYOK（EKMS） | 有償（Platform Encryption / Vault） | 推奨（旧 CLEE の後継） |
 | **External Key Management Service (EKMS)** | Field Encryption の鍵を外部 KMS でラップ | AWS KMS | 有償＋プラグイン | Australia で導入 |
 | **Cloud Encryption with Key Management** | ストレージ層（DB ブロック暗号化） | ServiceNow 管理鍵／顧客管理鍵（BYOK、Withdraw） | 有償（Platform Encryption） | 推奨（DBE の後継） |
 | Column Level Encryption (CLE) / Enterprise (CLEE) | アプリケーション層 | KMF | CLEE は有償 | Zurich 以降、非推奨化準備中（新規インスタンスでは非表示・非有効化、既存はサポート継続） |
@@ -401,7 +414,7 @@ ServiceNow の暗号化機能は、保護するレイヤーと鍵管理方式に
 
 [出典](https://www.servicenow.com/docs/r/platform-security/exploring-fe.html) [出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/i7gVekw7lu5uEl~UefG66w) [出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/Sn~ZSQuEMVyrZq5fH1FKDw) [出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/tEY4SHaVXnH80SiyzIMowQ) [出典](https://www.servicenow.com/docs/r/zurich/platform-security/database-encryption-with-customer-controlled-switch/explore-database-encryption.html)
 
-- CLE/CLEE は Yokohama で Field Encryption Starter / Enterprise に名称変更（リブランド）された旨が Key Management の統合リリースノートに記載されている（同ページは AI 生成サマリを含む）。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-encryption-release-notes.html)
+- CLE/CLEE は Yokohama で Field Encryption Starter / Enterprise に名称変更（リブランド）された。Xanadu→Yokohama の Encryption Key Management 統合リリースノートに「Column Level Encryption has been rebranded to Field Encryption Starter (FES)」、CLEE は Field Encryption Enterprise (FEE) と記載されている。[出典](https://www.servicenow.com/docs/r/yokohama/delta-xanadu-yokohama/yokohama-xanadu-encryptionkeymanagement-release-notes.html)
 - **Platform Encryption** サブスクリプションバンドルには Field Encryption Enterprise と Cloud Encryption が含まれる。[出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/i7gVekw7lu5uEl~UefG66w)
 - データ転送時（in transit）は HTTPS/TLS で保護される。通信関連のハードニングは前節（`glide.outbound.sslv3.disabled`、`com.glide.communications.httpclient.verify_hostname` 等）を参照。データセンターや物理インフラは [instance-architecture.md](./instance-architecture.md) を参照。
 
@@ -430,10 +443,13 @@ flowchart LR
 | 鍵管理 | 鍵ローテーションは ServiceNow Support へ依頼 | インスタンス内で Support を介さず管理 |
 | Customer-supplied keys（BYOK） | 不可 | 可 |
 | External key management（HYOK、EKMS） | 不可 | 可 |
+| Row-level encryption（行レベル暗号化、Row conditions） | 公開情報では確認できず | 可（Zurich で導入） |
 | Field Encryption Modules / Module Access Policies | 制限なし | 制限なし |
 | サブスクリプション | 不要 | 必要 |
 
 [出典](https://www.servicenow.com/docs/r/platform-security/exploring-fe.html)
+
+- **Row-level encryption（行レベル暗号化）**：Zurich で Field Encryption Enterprise に追加された機能で、暗号化ポリシーをカラム全体ではなく個々のレコード単位で適用する。暗号化フィールド構成に **Row conditions（行条件）** を定義し、条件に合うレコードだけを暗号化対象にできる。共有テーブル内の機密レコードだけを保護する用途を想定する。条件に合わないレコードについても、選択した Field Encryption Module で暗号化するかどうかを構成できる（オフの場合は非暗号化のまま）。[出典](https://www.servicenow.com/community/platform-privacy-security-blog/what-s-new-for-platform-encryption-in-australia/ba-p/3566833) [出典](https://www.servicenow.com/docs/r/u1slaAtcFiiXFQcd9RcR_A/Y3DAV2ad4en646OIsMNpjQ) [出典](https://www.servicenow.com/docs/r/hX5GtoLUEU58KgyL7CW5Ag/PuFZlfG_gWPad0kLXSCToQ)
 
 ### Field Encryption の有効化
 
@@ -558,11 +574,11 @@ Field Encryption の管理に必要なロールは `admin`、`security_admin`、
 | 鍵ローテーション | AWS KMS 鍵のローテーションを EKMS が検知し EKEK を再ラップ（EKEK 自体はローテーションされない） |
 | 鍵の無効化・削除 | AWS 側で鍵を無効化・削除すると EKEK をアンラップできず、DEK とフィールドデータが参照不能になる。バックグラウンドジョブが30分ごとに鍵状態を確認し、復号済み DEK キャッシュは4時間ごとにフラッシュ（Community 公式ブログ） |
 | 前提 | AWS KMS 鍵、DescribeKey / Encrypt / Decrypt 権限を持つ IAM ユーザー |
-| 制約 | EKMS 構成は1つのみ。複数の外部鍵の同時使用は不可。ドメインセパレーション非対応、オンプレミスは利用可 |
-| ライセンス | Platform Encryption または ServiceNow Vault サブスクリプション（Field Encryption Enterprise を含む） |
-| プラグイン | Field Encryption Enterprise 有効化後に EKMS プラグイン `com.glide.encryption.external_kms` をインストール（別サブスクリプション必要） |
+| 制約 | EKMS 構成はインスタンスにつき1つのみ。複数の外部鍵の同時使用は不可。AWS KMS 鍵は**対称鍵のみ**、**マルチリージョンキーは非対応**。ドメインセパレーション非対応、オンプレミスは利用可 |
+| ライセンス | Platform Encryption または ServiceNow Vault サブスクリプションが必要（Release notes では Encryption and Key Management subscription bundle と呼ばれる。Platform Encryption には Field Encryption Enterprise と Cloud Encryption が含まれる） |
+| プラグイン | Field Encryption Enterprise（`com.glide.field.encryption.enterprise`）有効化後に EKMS プラグイン「Platform Encryption External Key Management」（`com.glide.encryption.external_kms`）をインストール。ライセンス要件は上の行と同じ。公式ドキュメント中に `com.glide.encryption.externalkms` との表記揺れがあるため、実機で確認すること |
 
-[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-encryption-release-notes.html)
+[出典](https://www.servicenow.com/docs/r/platform-security/ekms-external-key-management.html) [出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-encryption-release-notes.html)
 
 ```mermaid
 flowchart TB
@@ -615,9 +631,9 @@ flowchart TB
 **Edge Encryption（エッジ暗号化）** は、顧客の構内に設置したプロキシで機密データをインターネット送信前に暗号化し、インスタンスには暗号化状態で保存する方式である。Zurich 以降、Edge Encryption と Edge Encryption Core は将来の非推奨化に向けて準備中で、新規インスタンスでは非表示・非有効化（既存はサポート継続）。後継は Field Encryption / Field Encryption Enterprise。[出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/tEY4SHaVXnH80SiyzIMowQ)
 
 - 暗号化タイプには標準（Standard）、Equality-preserving、Order-preserving がある。インデックス付きフィールドには Order-preserving または Equality-preserving のみ使用可能。標準暗号化では String・Date・Date/Time・URL のフィルタが無効化される。[出典](https://www.servicenow.com/docs/r/zurich/platform-security/edge-encryption/edge-encryption-limitations.html)
-- Yokohama〜Australia で Edge Encryption をインストールするには Java 17 が必要。
+- Yokohama〜Australia で Edge Encryption をインストールするには Java 17 が必要。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-encryption-release-notes.html)
 
-> **Brazil での変更:** Edge Encryption プロキシが Java 21 以降に対応（Java 21.x、17.0.3+ をサポート）。pre-Brazil からのスケジュールアップグレードには Java 21 以降かつ ZP13 / AP6 以降が必要。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-encryption-release-notes.html)
+> **Brazil での変更:** Brazil へアップグレードする前に、Edge Encryption プロキシの Java を Java 21 へ上げる必要がある（スケジュールアップグレード・コマンドラインアップグレードとも Java 21 以降が必要）。Brazil のプロキシは Java 21.0 以降（21.x 系）をサポートし、サポート版として 17.x 系の 17.0.3 以降も記載されている。スケジュールアップグレードには Zurich Patch 13（ZP13）または Australia Patch 6（AP6）以降であることも必要で、それより前の版ではスケジュールアップグレードが動作しない。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-encryption-release-notes.html)
 
 ### Password2（双方向暗号化パスワード）フィールド
 
@@ -625,6 +641,9 @@ flowchart TB
 
 - 親暗号モジュール `cm_glide_encrypter` が基本仕様と鍵を提供し、旧来の Password2 データの復号にも使われる。新規フィールドでは一般に `instance_level_glide_encrypter` が使われる。
 - アプリケーションスコープごとに1つのサブモジュール（AES-256-GCM 鍵）を持てる。サブモジュール鍵は KMF 鍵階層内でエンベロープ暗号化される。サブモジュール鍵はローテーション可能、親モジュール鍵は不可。
+
+> **Brazil での変更:** Password2 のサブモジュールは手動で作成できなくなり（「You can't create your own submodules in Brazil.」）、ServiceNow AI Platform の各アプリケーションプラグインが提供する。[出典](https://www.servicenow.com/docs/r/platform-security/platform-encryption/password-2way-encrypted-fields.html)
+
 - 暗号化は `setDisplayValue()`、復号は `getDecryptedValue()` を使う。Password2 に対して `GlideEncrypter()` API や `setValue()` を使ってはならない。テーブルと同じアプリケーションスコープで実行する。
 - Vancouver 以降、Password2 の 3DES を非推奨化して AES に切り替えられる。Zurich 以降、3DES 暗号化文字列鍵は非推奨で KMF 形式がサポート形式となる。`GlideEncrypter` API は将来利用不可となる予定（Washington DC のリリースノート）。[出典](https://www.servicenow.com/docs/r/oEFWM7hCc59ODyg~5YPxfA/JcsF77VtcP52ZoNfxiP24g)
 - プロパティ `glide.kmf.encrypter.enabled` が Password2 機能を制御（新規・アップグレードとも `true`）。
@@ -704,7 +723,7 @@ Data Privacy Store App をインストールすると、Data Discovery Store App
 | 制約 | 内容 |
 |---|---|
 | 分類済みデータのみ | 匿名化できるのは分類済みデータのみ |
-| 構造化データ | 匿名化対象は構造化データ。ジャーナル、コメント、添付ファイル等の自由記述は対象外（ただし Data pattern anonymization により非構造化フィールドの検出パターン部分は匿名化可能。Store App 5.x でジャーナルフィールド対応との Community 記事あり） |
+| 構造化データ | 匿名化対象は構造化データ。ジャーナル、コメント、添付ファイル等の自由記述は対象外（ただし Data pattern anonymization により非構造化フィールドの検出パターン部分は匿名化可能）。なお Xanadu の Data Privacy リリースノートは、Workspace UI でジャーナルフィールドが Data Discovery と Data Anonymization の対象になったと記載している [出典](https://www.servicenow.com/docs/r/xanadu/release-notes/data-privacy-rn.html)。Store App 5.x でのジャーナルフィールド対応と、Workspace・UI16 での不具合を報告する Community 記事もある【第三者情報】[出典](https://www.servicenow.com/community/developer-blog/servicenow-vault-data-privacy-yes-this-is-what-i-need/ba-p/3068348) |
 | ログ・監査 | ログやその他の監査データ中の PII は匿名化されない |
 | SSO 再同期 | SSO・ID 連携が `sys_user` を再同期すると匿名化が上書きされうる（恒久化の仕組みはない） |
 
@@ -761,8 +780,9 @@ Vault Console で扱うツールとメトリクスは以下のとおり（Brazil
 |---|---|
 | Zurich | **Vault Console dashboard**（機密データとクラウド暗号化メトリクスを単一ビューで監視、Ask Now Assist パネルで AI ガイダンス）、**Guided Vault**（Financial Services と CSM 向けのガイド付き設定） |
 | Australia | **Vault Suite**（有償 Vault 機能—Vault Console、Field Encryption、Zero Trust Access、Log Export Service、Code Signing Enterprise、Cloud Encryption—をエンタイトル済みインスタンスに自動インストール）、Vault 用 LES 既定構成（LES 3.5.0 以降）、カスタムアプリ向けガイド付き設定（Ask Now Assist による自動分類・保護）、エージェント型ワークフロー（Securing custom apps with Vault agents、Access Observer configuration、Summarize Access Observer logs、Field encryption with Vault module）、AI Insights の機密データ監視、Vault Console 管理を `sn_vault_console.vault_console_admin` に変更、Ask Now Assist for Vault を **ServiceNow Otto for Vault** に改称（Australia Patch 5 以降）、AI 資産の既定モデルプロバイダーを Azure OpenAI に変更 |
-| Brazil（2026-09 EA） | Vault Console 上部に AI 生成のセキュリティ態勢サマリ、Field encryption and auto-generate access policies ワークフロー、ZTA 既定ポリシー自動適用、Code signing アクティビティメトリクス、LES エクスポート監視ウィジェット、Admin Home に ServiceNow Vault タイル（Vault Suite インストール、Configuration Console から Vault Console）、オンボーディング完了メール、Access Observer / Field Encryption ワークフローの `security_admin` 昇格廃止、既定ポリシー名に「Vault by Default」接頭辞 |
+| Brazil（2026-09 EA） | Vault Console 上部に AI 生成のセキュリティ態勢サマリ、Field encryption and auto-generate access policies ワークフロー、ZTA 既定ポリシー自動適用、Code signing アクティビティメトリクス、LES エクスポート監視ウィジェット、Admin Home に ServiceNow Vault タイル（Vault Suite インストール、Configuration Console から Vault Console）、オンボーディング完了メール、Access Observer / Field Encryption ワークフローには `security_admin` の付与と昇格が必要（`vault_console_admin` に内包されない）と明記、既定ポリシー名に「Vault by Default」接頭辞 |
 | Brazil 期（2026-10、Otto for Vault 3.1） | Agentic classification for ServiceNow assets、月次の Vault coverage report メール（最終月曜、機密カラムがある場合のみ） |
+| Brazil Patch 1（2026-11） | **Vault Suite 1.1.1 から Code Signing を除外**。Vault Suite をインストールしても Code Signing はインストールされず、既に Code Signing があるインスタンスでも Vault Console に表示されなくなった |
 
 [出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/vz6t~EI6Ty~6w~9rkvpumg) [出典](https://www.servicenow.com/docs/r/release-notes/servicenow-vault-rn.html)
 
@@ -790,9 +810,11 @@ Vault Console で扱うツールとメトリクスは以下のとおり（Brazil
 
 - **Trusted instance（信頼インスタンス）** で作成・更新したデータに署名し、**Protected instance（保護インスタンス）** に転送する。両者は **Circle of Trust（COT）** で結ばれる。Code Signing は保護インスタンス側で有効化する。
 - MID Server は署名を検証し、未署名・改ざんの要求を拒否してログ記録・保護インスタンスへ通知する。
-- ジョブ：Sign update sets（更新セット内の対象レコードに署名し署名レコードと検証証明書を追加）、Mass sign records、Mass sign attachments。Security Administrator ロールで実行。
+- ジョブ：Sign update sets（更新セット内の対象レコードに署名し署名レコードと検証証明書を追加）、Mass sign records、Mass sign attachments。ジョブは **System Security > Security Jobs** から作成し、Security Administrator（`security_admin`）ロールを持つ管理者が実行する。署名手順の前提ロールとして `sn_kmf.cryptographic_manager` も挙げられている。[出典](https://www.servicenow.com/docs/r/GypxAX2jEErwkCxugICKdg/bfg4k21dMuZZ5tV3FF8YHw) [出典](https://www.servicenow.com/docs/r/platform-security/cs-fdih.html)
 - プラグイン ID はドキュメント中で `com.glide.code_signing` と `com.glide.codesigning` の表記揺れがある。
 - Australia 版では組み込みの「Wild Card Purpose」が Script include と Business rule に適用される旨の記載がある。
+
+> **Brazil での変更:** Brazil Patch 1（2026-11 リリース）で、Vault Suite 1.1.1 から Code Signing が除外された。Vault Suite をインストールしても Code Signing はインストールされない。既に Code Signing があるインスタンスでも、Code Signing は Vault Console に表示されなくなった（上表の Vault Console メトリクス「Code Signing」は Brazil Patch 1 以降は表示されない）。[出典](https://www.servicenow.com/docs/r/release-notes/servicenow-vault-rn.html)
 
 MID Server 自体は [mid-server.md](./mid-server.md) を参照。
 
@@ -903,11 +925,23 @@ ServiceNow 公式製品に「Shield」という名称の製品は公開情報で
 
 | 製品 | 概要 | 確度 |
 |---|---|---|
-| CrowdStrike Falcon Shield | ServiceNow のセキュリティ構成を自動レビューし、正しく設定されているかの確認と設定変更時のアラートを行う SSPM | 【第三者情報】[出典](https://www.crowdstrike.com/en-us/platform/falcon-shield/how-falcon-shield-helps-secure-servicenow/) |
-| Adaptive Shield（ServiceNow 向けユースケース） | CSRF トークン有効化などの ServiceNow 向けチェック項目を公開 | 【第三者情報】[出典](https://www.adaptive-shield.com/top-app/servicenow/) |
+| CrowdStrike Falcon Shield（旧 Adaptive Shield。CrowdStrike が 2024-11 に買収を発表し、Falcon プラットフォームに統合・改称。買収額は約3億ドルと報道） | ServiceNow のセキュリティ構成を自動レビューし、正しく設定されているかの確認と設定変更時のアラートを行う SSPM。旧 Adaptive Shield 時代には CSRF トークン有効化などの ServiceNow 向けチェック項目を公開していた | 【第三者情報】[出典](https://www.crowdstrike.com/en-us/platform/falcon-shield/how-falcon-shield-helps-secure-servicenow/) [出典](https://www.businesswire.com/news/home/20241106324741/en/CrowdStrike-Acquire-Adaptive-Shield-Deliver-Platform-Unifies) [出典](https://itpro.com/business/acquisition/crowdstrike-eyes-saas-security-gains-with-adaptive-shield-acquisition) [旧名称時代の参考](https://www.adaptive-shield.com/top-app/servicenow/) |
 
 - SSPM はインスタンス外部から API で設定を読み取るため、Security Center のハードニング設定と重複するチェックが多い。複数ツールを併用する場合はチェック結果の突き合わせ基準（どちらを正とするか）を決める。【経験則】
 - AI 利用時のガードレール・ガバナンス（AI Control Tower 等）は [now-assist-ai-agents.md](./now-assist-ai-agents.md) を参照。
+
+### Salesforce Shield との機能対応
+
+「Shield」「Platform Encryption」は、一般には **Salesforce Shield**（Salesforce の有償アドオン。Shield Platform Encryption、Event Monitoring、Field Audit Trail、Data Detect で構成）を指すことが多い。ServiceNow で対応する機能は、主に ServiceNow Vault と標準の監査機能である。下表の対応は機能の目的が近いものを並べた目安で、仕様が同じという意味ではない。【第三者情報】（Salesforce 側の構成は Salesforce 公式ページに基づく）[出典](https://www.salesforce.com/platform/shield/) [出典](https://help.salesforce.com/s/articleView?id=sf.salesforce_shield.htm&language=en_US&type=5)
+
+| Salesforce Shield の構成要素 | ServiceNow の近い機能 | 補足 |
+|---|---|---|
+| Shield Platform Encryption（保存データのフィールド・DB 暗号化） | Field Encryption Enterprise（フィールド・添付）、Cloud Encryption（DB ブロック暗号化）。両者を束ねたバンドルが ServiceNow の「Platform Encryption」 | 名称は同じ「Platform Encryption」でも製品は別物 |
+| Event Monitoring（ユーザー・システムイベントの監視） | Log Export Service（ログの外部 SIEM 転送）、Security Center の Security metrics | LES は Vault の機能 |
+| Field Audit Trail（フィールド変更履歴の長期保持） | Auditing（`sys_audit`）と監査保持期間の設定（`security_admin`） | `sys_audit` は標準機能 |
+| Data Detect（機密データの検出） | Data Discovery / Data Classification | Vault の機能 |
+
+- **ServiceNow Vault と外部クレデンシャルストアは別物である。** ServiceNow Vault は上記のデータ保護機能のバンドルであり、HashiCorp Vault や CyberArk などの外部クレデンシャルストア連携（Discovery・IntegrationHub・Orchestration が MID Server 経由で資格情報を外部から取得する仕組み）とは関係がない。外部クレデンシャルストア連携は [mid-server.md](./mid-server.md)、[../itom/discovery.md](../itom/discovery.md)、認証全般は [authentication-sso.md](./authentication-sso.md) を参照。
 
 ---
 
@@ -953,6 +987,7 @@ ServiceNow 公式製品に「Shield」という名称の製品は公開情報で
 - Updated hardening settings for baseline version 5.0（Australia）：https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/N~wb_AWPcaEgEhYuOGuBCg
 - Anti-CSRF token（Australia）：https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/VZ1Ee22N1eUfHMmUuM6EGg
 - Session activity timeout（Brazil）：https://www.servicenow.com/docs/r/platform-security/instance-security-hardening-settings/sc-session-activity-timeout.html
+- Session activity timeout（Australia）：https://www.servicenow.com/docs/r/australia/platform-security/instance-security-hardening-settings/sc-session-activity-timeout.html
 - Exploring High Security Settings（Brazil）：https://www.servicenow.com/docs/r/platform-security/exploring-high-security-settings.html
 - Elevated privilege roles：https://www.servicenow.com/docs/r/8yND1KuvF7tjP~F577YThQ/VtyHlnPUMLl7Lhh7PPb1HQ
 - Exploring Field Encryption（Brazil）：https://www.servicenow.com/docs/r/platform-security/exploring-fe.html
@@ -965,6 +1000,11 @@ ServiceNow 公式製品に「Shield」という名称の製品は公開情報で
 - Edge Encryption（Australia）：https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/tEY4SHaVXnH80SiyzIMowQ
 - Edge Encryption limitations（Zurich）：https://www.servicenow.com/docs/r/zurich/platform-security/edge-encryption/edge-encryption-limitations.html
 - Encryption release notes（Australia→Brazil）：https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-encryption-release-notes.html
+- Encryption release notes（Zurich、Row conditions）：https://www.servicenow.com/docs/r/u1slaAtcFiiXFQcd9RcR_A/Y3DAV2ad4en646OIsMNpjQ
+- Field Encryption Enterprise examples：https://www.servicenow.com/docs/r/hX5GtoLUEU58KgyL7CW5Ag/PuFZlfG_gWPad0kLXSCToQ
+- Combined Encryption Key Management release notes（Xanadu→Yokohama）：https://www.servicenow.com/docs/r/yokohama/delta-xanadu-yokohama/yokohama-xanadu-encryptionkeymanagement-release-notes.html
+- Sign the flows, subflows, and actions in the protected instance（Code Signing）：https://www.servicenow.com/docs/r/platform-security/cs-fdih.html
+- Data Privacy release notes（Xanadu）：https://www.servicenow.com/docs/r/xanadu/release-notes/data-privacy-rn.html
 - Combined Encryption Key Management release notes（Vancouver→Washington DC）：https://www.servicenow.com/docs/r/oEFWM7hCc59ODyg~5YPxfA/JcsF77VtcP52ZoNfxiP24g
 - Password2 encrypted fields：https://www.servicenow.com/docs/r/platform-security/platform-encryption/password-2way-encrypted-fields.html
 - Access observer：https://www.servicenow.com/docs/r/platform-security/access-observer.html
@@ -987,9 +1027,14 @@ ServiceNow 公式製品に「Shield」という名称の製品は公開情報で
 - Your hardening score isn't just a number（Security on Now blog, 2026-07）：https://www.servicenow.com/community/security-on-now-blog/your-hardening-score-isn-t-just-a-number-here-s-what-it-s/ba-p/3574268
 - External Key Management Service（Platform Privacy & Security blog）：https://www.servicenow.com/community/platform-privacy-security-blog/external-key-management-service-keep-your-encryption-keys-keep/ba-p/3551900
 - ServiceNow Vault: where AI meets security：https://www.servicenow.com/community/platform-privacy-security-blog/servicenow-vault-where-ai-meets-security/ba-p/3410377
+- What's new for Platform Encryption in Australia（Platform Privacy & Security blog）：https://www.servicenow.com/community/platform-privacy-security-blog/what-s-new-for-platform-encryption-in-australia/ba-p/3566833
 - ServiceNow Vault: Data Privacy – yes this is what I need（Developer blog, 2024-10）：https://www.servicenow.com/community/developer-blog/servicenow-vault-data-privacy-yes-this-is-what-i-need/ba-p/3068348
 
 **第三者情報**
 
 - CrowdStrike Falcon Shield for ServiceNow：https://www.crowdstrike.com/en-us/platform/falcon-shield/how-falcon-shield-helps-secure-servicenow/
-- Adaptive Shield – ServiceNow top security use cases：https://www.adaptive-shield.com/top-app/servicenow/
+- CrowdStrike to Acquire Adaptive Shield（Business Wire, 2024-11-06）：https://www.businesswire.com/news/home/20241106324741/en/CrowdStrike-Acquire-Adaptive-Shield-Deliver-Platform-Unifies
+- CrowdStrike eyes SaaS security gains with Adaptive Shield acquisition（ITPro）：https://itpro.com/business/acquisition/crowdstrike-eyes-saas-security-gains-with-adaptive-shield-acquisition
+- Adaptive Shield – ServiceNow top security use cases（旧名称時代の参考資料）：https://www.adaptive-shield.com/top-app/servicenow/
+- Salesforce Shield（Salesforce 製品ページ）：https://www.salesforce.com/platform/shield/
+- Salesforce Shield（Salesforce Help）：https://help.salesforce.com/s/articleView?id=sf.salesforce_shield.htm&language=en_US&type=5

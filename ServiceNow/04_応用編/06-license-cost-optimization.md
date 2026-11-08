@@ -29,8 +29,8 @@ sources:
   - https://www.servicenow.com/docs/r/australia/platform-administration/platform-performance/usage-analytics-module-subscription.html
   - https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/gGe~DtO2m5qQaldjvrK7fQ
   - https://www.servicenow.com/docs/r/platform-administration/subscription-details-v2.html
-  - https://www.servicenow.com/docs/r/yokohama/it-service-management/incident-management/req-itsm-roles-inci-mgmt.html
-  - https://www.servicenow.com/docs/r/yokohama/it-asset-management/saas-license-management/reclaiming-user-subscriptions-saas.html
+  - https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/req-itsm-roles-inci-mgmt.html
+  - https://www.servicenow.com/docs/r/australia/it-asset-management/saas-license-management/reclaiming-user-subscriptions-saas.html
   - https://www.servicenow.com/community/servicenow-ai-platform-articles/about-servicenow-licensing-guide/ta-p/3512215
   - https://www.servicenow.com/community/developer-blog/tip-to-identify-the-licensed-roles/bc-p/3128788
   - https://www.servicenow.com/community/itsm-forum/are-you-paying-for-itil-licenses-nobody-uses/m-p/3556615
@@ -41,6 +41,7 @@ sources:
   - https://www.servicenow.com/community/itsm-forum/licensing-for-approvers-and-fulfillers/m-p/465553
   - https://www.servicenow.com/community/developer-articles/confused-by-servicenow-licensing/ta-p/3383194
   - https://www.servicenow.com/community/itsm-articles/itsm-licensing-in-april-2026-foundation-advanced-and-prime-in/ta-p/3544380
+  - https://www.servicenow.com/community/upgrades-and-patching-forum/servicenow-ai-native-licensing-in-2026-a-practical-guide-to/m-p/3565858
   - https://redresscompliance.com/servicenow-renewal-negotiation-guide
   - https://redresscompliance.com/servicenow-license-rightsizing-playbook
   - https://www.cloudnuro.ai/blog/servicenow-cost-optimization
@@ -77,11 +78,11 @@ sources:
 
 ### 1.1 サブスクリプションの種類（Subscription types）
 
-Subscription Management は、購入したサブスクリプションを次の 5 種類に分類する。最適化の打ち手は種類ごとに異なる。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/types-subscription-v2.html) [出典](https://www.servicenow.com/docs/r/australia/platform-administration/subscriptions-overview-v2.html)
+Subscription Management は、購入したサブスクリプションを次の 5 種類に分類する。最適化の打ち手は種類ごとに異なる。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/types-subscription-v2.html) [出典](https://www.servicenow.com/docs/r/australia/platform-administration/subscriptions-overview-v2.html)（Per-User の割り当て方式の記載差について [出典](https://www.servicenow.com/docs/r/australia/platform-administration/managing-user-subscriptions-v2.html) [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/gGe~DtO2m5qQaldjvrK7fQ)）
 
 | Type（種類） | 計測対象（Meter） | 割り当て方式 | 最適化の主な打ち手 |
 |---|---|---|---|
-| **Per-User**（ユーザー単位） | Rights-based users（Fulfiller User、Business Stakeholder User）と Application users（製品に何らかのアクセスを持つユーザー。Creator User を含む） | ロールに基づく自動割り当て（手動割り当て経験のある顧客は手動も可。後述） | Measured role の棚卸し、Fulfiller → Business Stakeholder / Requester への降格、休眠・退職者の回収 |
+| **Per-User**（ユーザー単位） | Rights-based users（Fulfiller User、Business Stakeholder User）と Application users（製品に何らかのアクセスを持つユーザー。Creator User を含む） | Types of subscriptions ページは「Manually allocated（Measured roles を持つグループを製品サブスクリプションに追加して割り当てる）」と記載。ただし Subscription Management v2 6.1.1（2026-03）で、手動割り当てを使ったことのない顧客には手動割り当てワークフローが提供されなくなり（release notes）、その場合はユーザーとグループのロールに基づいて自動で割り当てられる（managing-user-subscriptions-v2。2.2 参照） | Measured role の棚卸し、Fulfiller → Business Stakeholder / Requester への降格、休眠・退職者の回収 |
 | **Capacity**（容量） | デバイス、Subscription Unit、トランザクション、作成レコード数、管理対象リソース（デバイス、ソフトウェア、ノード等） | インスタンスで自動計算 | 計測定義（Capacity Definition）の確認、不要 CI・ノードの整理、ピークの抑制 |
 | **Unrestricted User**（無制限ユーザー） | インスタンス全体の active user 数（`sys_user` に User ID があり Active = true のユーザー） | インスタンスで自動 | 不要アカウントの無効化（全社員型製品で効く） |
 | **Unlimited**（無制限） | 計測上限なし | インスタンスで自動 | 対象外（数量交渉時の比較材料） |
@@ -129,7 +130,7 @@ flowchart TD
 
 ### 1.3 ロールの「中身」に注意：business_stakeholder と approver_user
 
-`business_stakeholder` ロールは Business Stakeholder プラグイン（`com.snc.business_stakeholder`）で追加され、`sn_incident_read`、`sn_problem_read`、`sn_change_read`、`sn_request_read`、`approver_user` を含む。公式ドキュメントは、`sn_request_read` は将来の変更が予定されているため `business_stakeholder` を持たないユーザーに付与しないよう注意している。[出典](https://www.servicenow.com/docs/r/yokohama/it-service-management/incident-management/req-itsm-roles-inci-mgmt.html)
+`business_stakeholder` ロールは Business Stakeholder プラグイン（`com.snc.business_stakeholder`）で追加され、`sn_incident_read`、`sn_problem_read`、`sn_change_read`、`sn_request_read`、`approver_user` を含む。公式ドキュメントは、`sn_request_read` は将来の変更が予定されているため `business_stakeholder` を持たないユーザーに付与しないよう注意している。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/req-itsm-roles-inci-mgmt.html)
 
 コミュニティでは次の点が繰り返し議論されている。いずれも契約で扱いが異なりうるため、最終的にはアカウント担当に確認する。
 
@@ -144,9 +145,11 @@ flowchart TD
 
 コミュニティの承認済み回答も「UI でログインするユーザーのみが計測される。Web service only の連携アカウントに `itil` ロールを付けても Fulfiller ライセンスは消費しない」としている。ただし同回答は「契約によって異なりうる」と注記しており、「連携アカウントがインシデントや RITM を作成・クローズする場合はどうか」という追加質問には回答がない。【第三者情報】[出典](https://www.servicenow.com/community/itsm-forum/do-service-accounts-consume-fullfiller-licenses/m-p/3253569)
 
-ボット・API・連携アカウント（unattended users）の扱いが発注書（Order Form）で定義されていないと、更新時の使用量確認で論点になりうる。ライセンスアドバイザリー企業も、ユーザー区分の定義を発注書に固定するよう勧めている。【第三者情報】[出典](https://redresscompliance.com/servicenow-renewal-negotiation-guide)
+ライセンスアドバイザリー企業は、「Fulfiller、Requester、Approver の定義を契約に明記し、承認のみのユーザーを Fulfiller 数から外す」よう勧めている（同社の記述は人間のユーザー区分に限られ、連携アカウントには触れていない）。【第三者情報】[出典](https://redresscompliance.com/servicenow-renewal-negotiation-guide)
 
-> **教訓:** 連携アカウントは必ず `Web service access only` を設定し、UI ログインできない状態にする。さらに発注書で「unattended / integration user」の扱いを明文化しておく。セキュリティ上も同じ設定が推奨される（[セキュリティ強化の実践](12-security-hardening-practice.md)）。
+ボット・API・連携アカウント（unattended / integration users）の扱いも、発注書（Order Form）で定義されていないと更新時の使用量確認で論点になりうる。これを直接述べる公開出典は確認できなかった。【経験則】
+
+> **教訓:** 連携アカウントは必ず `Web service access only` を設定し、UI ログインできない状態にする。さらに発注書で「unattended / integration user」の扱いを明文化しておく（【経験則】）。セキュリティ上も同じ設定が推奨される（[セキュリティ強化の実践](12-security-hardening-practice.md)）。
 
 ---
 
@@ -154,7 +157,7 @@ flowchart TD
 
 ### 2.1 画面構成とメニュー
 
-Subscription Management は **Admin > Subscription Management**、または **All > Subscription Management > Subscription Management** から開く。上部タブは Overview、Subscriptions、Issues、Insights、Settings で構成される（Australia 版ドキュメントのスクリーンショットによる）。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/subscriptions-overview-v2.html)
+Subscription Management は **Admin > Subscription Management**、または **All > Subscription Management > Subscription Management** から開く。上部タブの構成は、公式ドキュメントの本文では Overview、Instance entitlements、Account entitlements、Settings と記載されている。一方、同ドキュメント群のスクリーンショットには Subscriptions、Issues、Insights のタブも見える。Subscription Management v2 のバージョンによって構成が異なる可能性があるため、下表は本文とスクリーンショットの両方に現れる画面を併記する。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/subscriptions-overview-v2.html) [出典](https://www.servicenow.com/docs/r/australia/platform-administration/discovering-insights-subscription-management-v2.html)
 
 | タブ / 画面 | 用途 | コスト最適化での使い方 |
 |---|---|---|
@@ -199,17 +202,19 @@ Australia 版の公式ドキュメントは次のように記載している。[
 *図：Subscription Management の製品サブスクリプション詳細ページ（Over-allocated の例。公式ドキュメントのスクリーンショット）*
 ヘッダーに製品名「Customer Service Management Professional - CSM User v4」と赤い「Over-allocated」バッジ、その下に Type: Per-User、Meter Type: Fulfiller user、Category: ServiceNow、Start date / End date が表示される。中段に 3 枚のカード：**Allocation summary**（ドーナツグラフ。凡例は Allocated / Available qty / Over qty。Available qty は 0）、**Allocation history**（月別の積み上げ棒グラフ。Allocated / Available / Over-allocated）、**Insights**（「Over-allocated subscriptions：Your allocated subscriptions exceed what you purchased. Review subscribed groups to make sure they're correct.」と **Review subscribed groups** ボタン）。下段のタブは Subscribed Groups、Subscribed Users、Bundled Items、Custom Tables、Subscription Applications、Associated Roles、Purchase History、Custom Table Allotments、IH Spoke、More。Subscribed Groups タブには Group / Description / Users / Type / Manager の列と、**Remove**・**Add groups** ボタンがある。出典：https://www.servicenow.com/docs/r/australia/platform-administration/subscription-details-v2.html （取得日：2026-11-04）
 
-詳細ページで最適化に使う項目（公式）:[出典](https://www.servicenow.com/docs/r/australia/platform-administration/subscription-details-v2.html)
+詳細ページで最適化に使う項目（Australia 版の subscription-details-v2 本文が挙げるタブは Subscribed groups、Subscribed users、Bundled Items、Purchase History、Token ratio、Subscription applications、容量統合時の Subscription line items。本文で確認できない項目は「根拠」列に注記した）:[出典](https://www.servicenow.com/docs/r/australia/platform-administration/subscription-details-v2.html)
 
-| 項目 | 使い方 |
-|---|---|
-| Meter Type | Fulfiller User か Business Stakeholder User かを確認し、降格先の製品があるかを把握する |
-| Subscribed groups タブの Users / Active users 列 | グループ全体の人数と、集計対象となる active user 数の差を見る |
-| Subscribed users タブ | 割り当て済みの active user 一覧（棚卸しの母集団） |
-| Associated Roles タブ | その製品で計測されるロール（Measured roles）を確認 |
-| Bundled Items タブ | 製品に付随するカスタムテーブル・ポータル訪問・トランザクションの権利と消費 |
-| Purchase History タブ | 各サブスクリプションの開始日・終了日（更新計画に使う） |
-| Subscription applications タブ | 製品に含まれるアプリと Installation status（**買っているのに入れていない** アプリの発見） |
+| 項目 | 使い方 | 根拠 |
+|---|---|---|
+| Meter Type | Fulfiller User か Business Stakeholder User かを確認し、降格先の製品があるかを把握する | 公式（本文） |
+| Subscribed groups タブの Users 列 | グループ全体の人数を確認する | 公式（本文） |
+| Active users 列 | 集計対象となる active user 数を見て、Users 列との差を確認する | 本文に「Active users 列で active user の総数を見る」との記載はあるが、Subscribed groups タブの列とは明示されていない（バージョンにより表示が異なる可能性） |
+| Subscribed users タブ | 割り当て済みの active user 一覧（棚卸しの母集団） | 公式（本文） |
+| Associated Roles タブ | その製品で計測されるロール（Measured roles）を確認 | 公式スクリーンショットで確認（本文にタブとしての記載なし。本文では Subscription applications タブでアプリを選ぶと関連プラグインと associated roles を確認できるとされる。バージョンにより表示が異なる可能性） |
+| Bundled Items タブ | 製品に付随するアドオン（カスタムテーブル・ポータル訪問・トランザクション等）の権利と消費 | 公式（本文） |
+| Purchase History タブ | 各サブスクリプションの開始日・終了日（更新計画に使う）。契約変更後は同一製品の複数エントリが表示されうる | 公式（本文） |
+| Token ratio タブ | 製品サブスクリプションに含まれる Workflow Data Fabric の機能と、その相対的なトークン消費率（token use rate）を確認する。消費の重い機能を把握し、容量の見積もりに使う | 公式（本文） |
+| Subscription applications タブ | 製品に含まれるアプリと Installation status（**買っているのに入れていない** アプリの発見） | 公式（本文） |
 
 ### 2.4 Insights と Issues
 
@@ -264,7 +269,7 @@ flowchart LR
 
 | ステップ | 具体的な作業 | 根拠 |
 |---|---|---|
-| 1. 計測対象ロールの特定 | 製品サブスクリプション詳細の **Associated Roles** タブ、または `license_role` 系テーブルで、契約製品にマップされた Measured roles を一覧化する。カスタムロールが書き込み系ロールを contains している場合も対象 | 公式（Associated Roles タブ）、【第三者情報】`license_role` |
+| 1. 計測対象ロールの特定 | 製品サブスクリプション詳細の **Associated Roles** タブ、または `license_role` 系テーブルで、契約製品にマップされた Measured roles を一覧化する。カスタムロールが書き込み系ロールを contains している場合も対象 | 公式スクリーンショット（Associated Roles タブ。本文での記載は 2.3 の注記参照）、【第三者情報】`license_role` |
 | 2. 保有者の抽出 | `sys_user_has_role` を Measured roles で絞り込み、`user.active=true`、`user.web_service_access_only=false` 等の条件で抽出する。`inherited` で直接付与か継承かを区別する | 【第三者情報】[出典](https://www.servicenow.com/community/itsm-forum/fulfiller-user-cleanup/m-p/3370946) |
 | 3. 付与経路の解明 | 継承の場合は `sys_user_grmember`（グループメンバー）とグループのロールから、どのグループが Fulfiller ロールを与えているかを特定する | 【経験則】 |
 | 4. 実績の突き合わせ | Fulfiller 対象テーブル（例：`incident`、`sc_task`、`change_request`、`change_task`、`problem`、`kb_knowledge`）での更新実績を `sys_audit` の `user` / `tablename` / `sys_created_on` で集計する。承認実績は `sysapproval_approver` で別に集計する | 【第三者情報】[出典](https://www.servicenow.com/community/itsm-forum/are-you-paying-for-itil-licenses-nobody-uses/m-p/3556615) |
@@ -275,8 +280,10 @@ flowchart LR
 **抽出クエリの例**（コミュニティで紹介された `sys_user_has_role` のエンコードクエリ。`{fulfiller roles}` は自社の Measured roles に置き換える）【第三者情報】[出典](https://www.servicenow.com/community/itsm-forum/fulfiller-user-cleanup/m-p/3370946)
 
 ```text
-user.active=true^user.last_login_timeRELATIVEGT@dayofweek@ago@365^user.internal_integration_user=false^role.nameIN{fulfiller roles}
+user.active=true^user.last_login_timeRELATIVEGT@dayofweek@ago@365^user.internal_integration_user=false^user.web_service_access_only=false^role.nameIN{fulfiller roles}
 ```
+
+*注：コミュニティ投稿の元のクエリには `user.internal_integration_user=false` だけが含まれ、`user.web_service_access_only=false` はない。本ファイルでは、公式の active user 定義（Web service access only のユーザーを除外）に合わせて `^user.web_service_access_only=false` を追加した。`internal_integration_user` は「Internal Integration User」フラグ、`web_service_access_only` は「Web service access only」フラグであり、別のフィールドである。公式の集計対象外と合わせるには、後者の条件が必要である。*
 
 ### 3.3 実績判定の注意点
 
@@ -311,7 +318,7 @@ user.active=true^user.last_login_timeRELATIVEGT@dayofweek@ago@365^user.internal_
 | 参照のみのユーザー | レポート閲覧、チケットの状況確認だけ | Business Stakeholder、または Requester のまま閲覧できる設計（ポータル、ダッシュボード共有）へ | 【経験則】 |
 | 休眠ユーザー | 90 日以上 Fulfiller 作業なし | 上長確認のうえ Fulfiller 系グループから外す。必要時に再付与する申請カタログを用意 | 【第三者情報】[出典](https://www.servicenow.com/community/itsm-forum/are-you-paying-for-itil-licenses-nobody-uses/m-p/3556615) |
 | 退職・異動者 | 退職済みだが `sys_user` が Active、または異動後もグループに残留 | HR / IdP 連携で Active = false とグループ脱退を自動化 | 【経験則】 |
-| 連携・ボット | API 用アカウントに `itil` | `Web service access only` を設定。発注書で unattended user を定義 | 公式（集計除外）、【第三者情報】[出典](https://redresscompliance.com/servicenow-renewal-negotiation-guide) |
+| 連携・ボット | API 用アカウントに `itil` | `Web service access only` を設定。発注書で unattended user を定義 | 公式（集計除外）[出典](https://www.servicenow.com/docs/r/australia/platform-administration/subscription-details-v2.html)、【経験則】（発注書での定義） |
 | 管理者・開発者 | 本番に常時 `admin` を持つ開発者 | 本番は必要時のみ昇格（Elevated role の活用）、開発者は非本番で作業 | 【経験則】（admin の計上・重複排除の扱いはコミュニティでも未解決 [出典](https://www.servicenow.com/community/servicenow-ai-platform-articles/about-servicenow-licensing-guide/ta-p/3512215)） |
 | 契約外製品のロール | ITSM しか契約していないのに他製品のロールが付いている | ロールを外す。もしくは契約範囲を見直す | 【経験則】 |
 
@@ -329,7 +336,7 @@ user.active=true^user.last_login_timeRELATIVEGT@dayofweek@ago@365^user.internal_
 
 ### 4.3 回収（Reclaim）の自動化
 
-ServiceNow の SAM（SaaS License Management）には、他社 SaaS / SSO のユーザーサブスクリプションを非活動に基づいて回収する公式機能がある。Removal candidate は Ready → Awaiting User → Awaiting Approval → Awaiting Revocation → Closed Complete / Closed Skipped / Closed Canceled（ユーザー活動を検出）と遷移し、Notify User を有効にするとユーザー本人と上長の承認を挟める。[出典](https://www.servicenow.com/docs/r/yokohama/it-asset-management/saas-license-management/reclaiming-user-subscriptions-saas.html)
+ServiceNow の SAM（SaaS License Management）には、他社 SaaS / SSO のユーザーサブスクリプションを非活動に基づいて回収する公式機能がある。Removal candidate は Attention Required（Notify User を有効にした自動候補で User が空の場合や回収に失敗した場合。問題が解消されると Ready へ）→ Ready → Awaiting User → Awaiting Approval → Awaiting Revocation → Closed Complete / Closed Skipped / Closed Canceled（ユーザー活動を検出）と遷移し、Notify User を有効にするとユーザー本人と上長の承認を挟める。[出典](https://www.servicenow.com/docs/r/australia/it-asset-management/saas-license-management/reclaiming-user-subscriptions-saas.html)
 
 ただし、**ServiceNow 自身の Fulfiller ライセンスをこの機能で回収する公式手順は確認できなかった**。ServiceNow の Fulfiller 回収は、第 3 章の棚卸しを Flow（[Workflow Studio / Flow Designer](../02_リファレンス/platform/flow-designer-workflow-studio.md)）やスケジュールジョブで定期実行し、SAM の状態遷移を参考に「通知 → 本人・上長確認 → グループ脱退」を組むのが現実的である。【経験則】
 
@@ -350,9 +357,9 @@ ServiceNow の SAM（SaaS License Management）には、他社 SaaS / SSO のユ
 |---|---|
 | 有償の Fulfiller シートのうち 15〜30% は有効な作業がなかった | 【第三者情報】Redress Compliance（取得日 2026-11-04）[出典](https://redresscompliance.com/servicenow-renewal-negotiation-guide) |
 | 多くの ServiceNow 環境は 20〜35% のシェルフウェアを抱え、その割合は更新をまたいでも安定している | 【第三者情報】[出典](https://redresscompliance.com/servicenow-license-rightsizing-playbook) |
-| 1,200 Fulfiller のうち 14% が 90 日ログインなし、回収で年 27 万ドル削減（物流企業の例） | 【第三者情報】CloudNuro（取得日 2026-11-04）[出典](https://www.cloudnuro.ai/blog/servicenow-cost-optimization) |
+| 1,200 Fulfiller のうち 14% が 90 日ログインなし、さらに 5% が無効化済み（deactivated）の従業員なのにライセンスを消費しており、これらの回収で年約 27 万ドル削減（物流企業の例） | 【第三者情報】CloudNuro（取得日 2026-11-04）[出典](https://www.cloudnuro.ai/blog/servicenow-cost-optimization) |
 | 全ユーザーに占める Fulfiller 比率は 35% 未満が目安 | 【第三者情報】[出典](https://www.cloudnuro.ai/blog/servicenow-cost-optimization) |
-| Fulfiller 1 名を Requester / Approver に移すと年 456〜2,400 ドルの削減（Fulfiller 単価を月 38〜200 ドルと置いた場合） | 【推定】Redress Compliance の推定単価に基づく（取得日 2026-11-04）[出典](https://redresscompliance.com/servicenow-renewal-negotiation-guide)。価格の詳細は [価格情報](../03_導入編/02-pricing.md) |
+| Fulfiller 1 名を Requester（多くの契約で無償）に移した場合は年 456〜2,400 ドルの削減（Fulfiller 単価を月 38〜200 ドルと置いた場合）。Business Stakeholder（Approver）に移した場合の削減額は、Fulfiller 単価と Business Stakeholder 単価の差額にとどまる（Business Stakeholder の単価は公開情報で確認できず。1.3 参照） | 【推定】Redress Compliance の推定単価に基づく（取得日 2026-11-04）[出典](https://redresscompliance.com/servicenow-renewal-negotiation-guide)。価格の詳細は [価格情報](../03_導入編/02-pricing.md) |
 
 ---
 
@@ -420,14 +427,16 @@ ServiceNow の SAM（SaaS License Management）には、他社 SaaS / SSO のユ
 | 容量・クレジットの繰越 | 未使用の容量・クレジットの扱い | 前年のクレジット使用が 60% 未満ならパックが大きすぎる。繰越（roll-forward）と失効の条項を読む前に未使用残高が繰り越されると思い込まない | 【第三者情報】[出典](https://redresscompliance.com/servicenow-license-rightsizing-playbook) |
 | Swap rights（交換権） | 未使用サブスクリプションを同価値の別製品へ振り替える権利 | 確約した支出を使うものへ回せる。ティア一律購入を拒否し、ティア混在＋交換権で対案 | 【第三者情報】[出典](https://redresscompliance.com/servicenow-renewal-negotiation-guide) |
 | Co-term（満了日の統一） | 期中追加分を本体の満了日に揃える | 当初割引率で、残存月数分のみの価格にする | 同上 |
-| ユーザー区分の定義 | Fulfiller / Requester / Approver / unattended user の定義 | 承認のみのユーザーが Fulfiller に数えられないよう定義と版を発注書に固定 | 【第三者情報】[出典](https://redresscompliance.com/servicenow-renewal-negotiation-guide) |
+| ユーザー区分の定義 | Fulfiller / Requester / Approver の定義 | 承認のみのユーザーが Fulfiller に数えられないよう定義を発注書に明記する。あわせて unattended / integration user の扱いも定義しておく（この部分は【経験則】。1.4 参照） | 【第三者情報】[出典](https://redresscompliance.com/servicenow-renewal-negotiation-guide) |
 | AI（Now Assist）の明細化 | ティア本体、AI 上乗せ分、Assist 割当を分けて記載 | Assist 割当の大きさ、超過単価、監査権、年度末の未使用分の扱い、期中のティア変更可否を書面で | 【第三者情報】[出典](https://redresscompliance.com/servicenow-renewal-negotiation-guide) |
 
 アドバイザリー企業の分析では、「価格保護・交換権・単位定義は、見出しの割引率 5 ポイントよりも 3 年間で大きな価値を持つ」とされ、例として 1,000 Fulfiller・定価月 100 ドルの仮定で、割引 40%・上限なし 9% 値上げ（3 年計 2,360,232 ドル）と、割引 35%・上限 3%（同 2,410,902 ドル）、さらに棚卸し後 800 シートにした場合（同 1,928,722 ドル）を比較している。**最も効くのは割引率ではなく、数量の適正化** である。【推定】（仮定に基づく試算。取得日 2026-11-04）[出典](https://redresscompliance.com/servicenow-renewal-negotiation-guide)
 
+なお、同社の試算でも、価格上限だけを比べた場合は 3 年間では割引 40%・上限なしのほうが約 5 万ドル安い。年額は 1 年目 72.0 万 vs 78.0 万ドル、2 年目 78.48 万 vs 80.34 万ドル、3 年目 85.54 万 vs 82.75 万ドルで、単年で逆転するのは 3 年目、累計で上限 3% 側が安くなるのは 4 年目以降（4 年目終了時の累計は約 329.3 万 vs 約 326.3 万ドル）である。「価格保護は割引 5 ポイントより価値がある」という主張は、3 年契約 1 回だけを見れば試算と合わない。3 年で差が出るのは数量の適正化（800 シート化）によるものである。価格上限の価値は、契約が長期化し更新を重ねるほど大きくなる、と読むのが妥当である。【推定】（上記の仮定から本ファイルで再計算）
+
 ### 6.3 ティア再編（2026-04）に伴う注意
 
-2026-04 に旧ティア（Standard / Pro / Pro Plus / Enterprise / Enterprise Plus）が Foundation / Advanced / Prime に置き換えられたとされる（詳細は [プラットフォームのパッケージ構成](../02_リファレンス/platform/platform-licensing-packaging.md)）。コスト最適化の観点で、次の点が指摘されている。
+コミュニティ寄稿によれば、2026-04-09 に旧 5 ティア（Standard、Pro、Pro Plus、Enterprise、Enterprise Plus。Pro Plus / Enterprise Plus は Now Assist 用のアドオン）が Foundation / Advanced / Prime の 3 ティアに置き換えられ、旧 SKU は 2026-07-01 に新規販売終了（End of Sale）になったとされる。ServiceNow 公式の発表文は確認できなかった。【第三者情報】[出典](https://www.servicenow.com/community/upgrades-and-patching-forum/servicenow-ai-native-licensing-in-2026-a-practical-guide-to/m-p/3565858)（詳細は [プラットフォームのパッケージ構成](../02_リファレンス/platform/platform-licensing-packaging.md)）。なお、後掲のコミュニティ記事は旧基本パッケージを Standard / Professional / Enterprise と表記している。コスト最適化の観点で、次の点が指摘されている。
 
 - ITSM Foundation には正式な Problem / Change が含まれない。Problem・Change・Major Incident・Walk-up が不要なら Foundation、旧 Professional 相当の利用なら Advanced が比較の出発点とされる。【第三者情報】[出典](https://www.servicenow.com/community/itsm-articles/itsm-licensing-in-april-2026-foundation-advanced-and-prime-in/ta-p/3544380)
 - DevOps Change Velocity は ITSM Prime のみに移されたとのコメントがある。Advanced で使っていた顧客は更新時に Prime が必要になりうる。【第三者情報】[出典](https://www.servicenow.com/community/itsm-articles/itsm-licensing-in-april-2026-foundation-advanced-and-prime-in/ta-p/3544380)
@@ -449,7 +458,7 @@ ServiceNow の SAM（SaaS License Management）には、他社 SaaS / SSO のユ
 | 割り当ての引き継ぎ（自動割り当て顧客） | ユーザーとグループのロールに基づき自動割り当てされ、更新後の作業は不要 | — | 同上 |
 | カスタムテーブル・アプリのマッピング | 新 SKU は新しい製品サブスクリプションとして扱われるため、カスタムアプリ・カスタムテーブルを **再マッピング** する必要がある | 更新日前にマッピング一覧を記録し、更新日後に再マップ | [出典](https://www.servicenow.com/docs/r/australia/platform-administration/maintain-mappings-renewal.html) |
 | 反映の遅延 | Subscribed users は日次ジョブで更新される | 更新直後の数字で判断しない | [出典](https://www.servicenow.com/docs/r/australia/platform-administration/allocate-subscriptions-v2.html) |
-| 旧 SKU 名の表示 | 2026-04 以降も既存契約の満了まで旧 SKU のエンタイトルメントが有効で、旧 SKU 名が表示される | 新旧 SKU の対応表を作る | [プラットフォームのパッケージ構成](../02_リファレンス/platform/platform-licensing-packaging.md) |
+| 旧 SKU 名の表示 | 旧 SKU の新規販売終了は 2026-07-01 とされる【第三者情報】。既存契約の満了までは旧 SKU のエンタイトルメントが残り、Subscription Management には旧 SKU 名が表示され続けると考えられる（公式スクリーンショットにも「Customer Service Management Professional - CSM User v4」のような旧体系の製品名が表示されている）。既存契約の扱いを明記した公式資料は確認できなかった【推定】 | 新旧 SKU の対応表を作る（[プラットフォームのパッケージ構成](../02_リファレンス/platform/platform-licensing-packaging.md)） | 【第三者情報】[出典](https://www.servicenow.com/community/upgrades-and-patching-forum/servicenow-ai-native-licensing-in-2026-a-practical-guide-to/m-p/3565858)、[出典](https://www.servicenow.com/docs/r/australia/platform-administration/subscription-details-v2.html) |
 
 > **教訓:** 更新後に Subscription Management が急に「Over-allocated」や「Unmapped」を大量に示すことがある。多くは **新 SKU への再割り当て・再マッピング漏れ** であり、実際の使用増ではない。更新前の割り当てとマッピングのスナップショット（グループ一覧、カスタムアプリ一覧、`license_details` の Product Code）を残しておくのが最も安上がりな対策である。手動割り当てのタブが見えない場合は KB2974856 が案内されている。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/remove-group-from-subscription-v2.html)【経験則】
 
@@ -505,7 +514,7 @@ CoE としての体制づくりは [ガバナンスとCoEの実践](09-governanc
 | 本番で検証用 CI を大量投入 | 容量のピークが跳ね上がる | 非本番で検証、Execute で試算 | 【第三者情報】 |
 | 更新前に割り当てを記録しない | 新 SKU で過剰割り当て・未マッピングが大量発生 | スナップショットの保存 | 公式 |
 | 見積もり受領後に削減を持ち出す | 交渉上の駆け引きと見なされる | 見積もり前に適正化を完了 | 【第三者情報】 |
-| 割引率だけを交渉 | 値上げ上限・削減権がなく 2 年目以降に逆転 | 条項（上限・交換権・定義）を優先 | 【第三者情報】 |
+| 割引率だけを交渉 | 値上げ上限・削減権がないと、3 年目には年額が逆転し（6.2 の試算）、契約が長期化・複数回更新されるほど差が広がる。数量の適正化もできない | 数量の適正化を最優先し、条項（上限・削減権・交換権・定義）も交渉 | 【第三者情報】・【推定】 |
 
 ---
 
@@ -556,12 +565,12 @@ CoE としての体制づくりは [ガバナンスとCoEの実践](09-governanc
 - Now Assist usage: https://www.servicenow.com/docs/r/australia/platform-administration/monitoring-now-assist-usage.html
 - Monitoring instance usage: https://www.servicenow.com/docs/r/australia/platform-administration/platform-performance/usage-analytics-module-subscription.html
 - Subscription Management v2 release notes（Store バージョン履歴）: https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/gGe~DtO2m5qQaldjvrK7fQ
+- Request ITSM Roles — Incident Management: https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/req-itsm-roles-inci-mgmt.html
+- Reclaiming user subscriptions（SaaS License Management）: https://www.servicenow.com/docs/r/australia/it-asset-management/saas-license-management/reclaiming-user-subscriptions-saas.html
 
 **ServiceNow 公式ドキュメント（その他リリース）**
 
 - Viewing product subscription details（Brazil）: https://www.servicenow.com/docs/r/platform-administration/subscription-details-v2.html
-- Request ITSM Roles — Incident Management（Yokohama）: https://www.servicenow.com/docs/r/yokohama/it-service-management/incident-management/req-itsm-roles-inci-mgmt.html
-- Reclaiming user subscriptions（SaaS License Management, Yokohama）: https://www.servicenow.com/docs/r/yokohama/it-asset-management/saas-license-management/reclaiming-user-subscriptions-saas.html
 
 **ServiceNow Community**
 
@@ -575,6 +584,7 @@ CoE としての体制づくりは [ガバナンスとCoEの実践](09-governanc
 - Licensing for Approvers and Fulfillers: https://www.servicenow.com/community/itsm-forum/licensing-for-approvers-and-fulfillers/m-p/465553
 - Confused by ServiceNow licensing（2025-09-17）: https://www.servicenow.com/community/developer-articles/confused-by-servicenow-licensing/ta-p/3383194
 - ITSM Licensing in April 2026: Foundation, Advanced and Prime in Plain Language（2026-05-28）: https://www.servicenow.com/community/itsm-articles/itsm-licensing-in-april-2026-foundation-advanced-and-prime-in/ta-p/3544380
+- ServiceNow AI-Native Licensing in 2026: A Practical Guide（Upgrades and Patching Forum、取得日 2026-11-04）: https://www.servicenow.com/community/upgrades-and-patching-forum/servicenow-ai-native-licensing-in-2026-a-practical-guide-to/m-p/3565858
 
 **第三者（ライセンスアドバイザリー・ベンダー）**
 

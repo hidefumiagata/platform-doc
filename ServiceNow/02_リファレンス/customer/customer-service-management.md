@@ -27,6 +27,11 @@ sources:
   - https://www.servicenow.com/docs/r/customer-relationship-management/crm-configurable-workspace.html
   - https://www.servicenow.com/docs/r/GOfWgam_hnLy1~sy07BOkA/XeBgL7Eo~DatPGY2WtnINw
   - https://www.servicenow.com/docs/r/GOfWgam_hnLy1~sy07BOkA/JQwL9D296Ubx~CvS~FAvWw
+  - https://www.servicenow.com/docs/r/GOfWgam_hnLy1~sy07BOkA/0kxWIJNMdwlYIB~al9NbOg
+  - https://www.servicenow.com/docs/r/GOfWgam_hnLy1~sy07BOkA/eVK5HwIXOnp8Iu2kcoijjQ
+  - https://www.servicenow.com/docs/r/YZ6y4yvCOMhykXn0xJSiRA/w0Xse7pmLZoA5azJ4hHcMA
+  - https://www.servicenow.com/docs/r/wLYnGFihvmNxBr5heMf_jw/0D9iKtKgIgq0hmpMTPV_Tw
+  - https://www.servicenow.com/docs/r/customer-service-management/csm-interaction-record-page.html
   - https://www.servicenow.com/community/csm-articles/customer-portals/ta-p/3383969
   - https://www.servicenow.com/community/csm-articles/advanced-work-assignment-in-csm-omnichannel/ta-p/3456193
 ---
@@ -48,7 +53,7 @@ ServiceNow **Customer Service Management（CSM、顧客サービス管理）** �
 
 本ファイルの基準リリースは **Australia（2026-05 GA）** であり、Brazil で判明した変更は「> **Brazil での変更:**」として併記する。
 
-> **Brazil での変更:** Zurich Patch 12 以降、AI 体験のブランドが「ServiceNow Otto」に変更され、Now Assist for CSM は「ServiceNow Otto for Customer Service Management (CSM)」と表記される。製品エンタイトルメント（購入済み権利）は変わらない。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-agentexperienceforcsm-release-notes.html)
+> **AI ブランド名について:** AI 体験のブランドは **Zurich Patch 12 以降**「ServiceNow Otto」に変更され、Now Assist for CSM は「ServiceNow Otto for Customer Service Management (CSM)」と表記される（Now Assist for CSM ＝ ServiceNow Otto for CSM の別名）。このため、Zurich Patch 12 以降のパッチを適用した Australia インスタンスでも Otto の名称が表示されうる。Brazil のリリースノートでもこの変更が記載されている。製品エンタイトルメント（購入済み権利）は変わらない。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-agentexperienceforcsm-release-notes.html)
 
 関連: ITSM との違いは [ITSM 概要](../itsm/itsm-overview.md)、現場作業員の派遣は [Field Service Management](./field-service-management.md)、営業・受注は [Sales and Order Management（CRM）](./sales-order-management-crm.md) を参照。
 
@@ -64,7 +69,7 @@ CSM は複数のプラグイン／ストアアプリで構成される。Austral
 |---|---|---|---|
 | Customer Service | `com.sn_customerservice` | CSM のコア。Case 管理と CRM Workspace（CSM Configurable Workspace）を有効化。Customer Service Base Entities を自動有効化 | [出典](https://www.servicenow.com/docs/r/australia/delta-zurich-australia/australia-zurich-agentexperienceforcsm-release-notes.html) |
 | Customer Service Base Entities | （ID は公開情報では確認できず） | Account/Contact/Consumer/Household/Entitlement 等の基本テーブル | [出典](https://www.servicenow.com/docs/r/australia/customer-service-management/r_TIWCustomerService.html) |
-| CSM Configurable Workspace | `com.snc.uib.csm_agent_workspace` | エージェント用 Workspace。Customer Service プラグインとともに有効化 | 公式ドキュメント検索結果より（バージョン依存） |
+| CSM Configurable Workspace（CRM Workspace） | `com.snc.uib.csm_agent_workspace` | エージェント用 Workspace。Customer Service プラグイン（`com.sn_customerservice`）の有効化に加え、ServiceNow Store へ依頼してインストールが必要（[出典](https://www.servicenow.com/docs/r/australia/delta-zurich-australia/australia-zurich-agentexperienceforcsm-release-notes.html)）。Yokohama 以降は Customer Central プラグインに依存。公式ドキュメント内で ID 表記に揺れ（`com.snc.uib.csmagentworkspace` 等）があり、スコープを `sn_csm_wrkspc` とするページもあるため、実インスタンスの System Definition > Plugins で確認を推奨 | [出典](https://www.servicenow.com/docs/r/GOfWgam_hnLy1~sy07BOkA/0kxWIJNMdwlYIB~al9NbOg) |
 | Customer Service Install Base Management | `com.snc.install_base` | Install Base Item・Sold Product | [出典](https://www.servicenow.com/docs/r/australia/customer-service-management/c_CreateAnEntitlement.html) |
 | Customer Service Case Types | `com.snc.csm_case_types` / `sn_csm_case_types` | Case Type（ケース種別）と Service Definition。Zurich で Store アプリへ移行 | [出典](https://www.servicenow.com/docs/r/australia/release-notes/case-mgmt-csm-rn.html) |
 | Major Issue Management | `com.sn_majorissue_mgt` | メジャーケース（多数顧客影響の障害）管理。Store からインストール | [出典](https://www.servicenow.com/docs/r/australia/customer-service-management/major-issue-management.html) |
@@ -108,7 +113,7 @@ Australia で廃止（Deprecated）されたもの:
 
 CSM のパッケージは従来 CSM Standard / Pro / Enterprise（および Now Assist を含む Pro Plus / Enterprise Plus）として販売されてきた。2026-04-09 に ServiceNow がティア体系を Foundation / Advanced / Prime の AI ネイティブ 3 ティアへ再編し、CSM は Advanced / Prime の 2 パッケージになったとする第三者情報がある。【第三者情報】公式の機能対照表は公開情報では確認できず。[出典](https://redresscompliance.com/servicenow-csm-licensing-guide)
 
-なお Australia のリリースノートは、Task Intelligence for CSM または Now Assist for CSM プラグインがある Pro 顧客向けに既定の推奨（Recommended Actions）が有効になる、と記載している。[出典](https://www.servicenow.com/docs/r/australia/delta-zurich-australia/australia-zurich-agentexperienceforcsm-release-notes.html)
+なお（Zurich で導入）Task Intelligence for CSM または Now Assist for CSM プラグインがある Pro 顧客には、推奨（Suggested Actions タブ）が既定で配信される（Zurich→Australia 統合リリースノートの Zurich の Changes に記載）。[出典](https://www.servicenow.com/docs/r/australia/delta-zurich-australia/australia-zurich-agentexperienceforcsm-release-notes.html)
 
 ライセンスと価格の詳細は [ライセンスモデル](../../03_導入編/01-licensing-model.md)、[価格情報](../../03_導入編/02-pricing.md)、[エディション比較](../../03_導入編/03-edition-comparison.md) を参照。
 
@@ -349,7 +354,7 @@ Case の状態は New、Open、Awaiting Info、Resolved、Closed（および Can
 |---|---|---|
 | New | ポータル・メール・チャット・電話・アプリからケース作成 | エージェントが自分に割り当て、またはマネージャー割り当てを受諾 → Open。顧客は更新・クローズ可 |
 | Open | エージェントが受諾。Awaiting Info からの戻り、顧客が解決策を却下した場合も | Request Info → Awaiting Info。解決策提示（Resolution code と notes 必須）→ Resolved。クローズ → Closed |
-| Awaiting Info | エージェントが顧客に追加情報を要求 | エージェントが再開、または顧客が更新 → Open。顧客／エージェントがクローズ → Closed |
+| Awaiting Info | エージェントが顧客に追加情報を要求 | エージェントが再開、または顧客が更新 → Open。顧客／エージェントがクローズ → Closed。解決策提示 → Resolved（公式ページの表の Resolved 行に「Awaiting Info から Resolved」と記載。Awaiting Info 行の操作一覧には Propose Solution がなく、ページ内で揺れあり。実インスタンスで確認を推奨） |
 | Resolved | エージェントが解決策を提示 | 顧客が承諾 → Closed（アンケート表示）。顧客が却下 → Open。顧客がクローズ → Closed |
 | Closed | 顧客が解決策を承諾、またはエージェント・マネージャー・顧客がクローズ | 終端。**クローズ後は更新不可** |
 | Canceled | （フォームの状態値として存在） | 遷移の詳細は公開情報では確認できず |
@@ -365,13 +370,14 @@ stateDiagram-v2
     Resolved --> Open : 顧客が却下
     Open --> Closed : エージェント/マネージャーがクローズ
     AwaitingInfo --> Closed : クローズ
+    AwaitingInfo --> Resolved : 解決策提示(※公式表で記載揺れ)
     New --> Closed : 顧客がクローズ
     Closed --> [*]
     state "Awaiting Info" as AwaitingInfo
 ```
 
 クローズに関する制約:
-- エージェントとマネージャーは **Resolved 以外の状態ならいつでも** ケースをクローズできる。Resolved 状態では顧客だけが解決策を承諾／却下できる。[出典](https://www.servicenow.com/docs/r/customer-service-management/r_CustomerServiceCaseStates.html)
+- エージェント、マネージャー、顧客は **Resolved 以外の状態ならいつでも** ケースをクローズできる。Resolved 状態では顧客だけが解決策を承諾／却下できる。[出典](https://www.servicenow.com/docs/r/customer-service-management/r_CustomerServiceCaseStates.html)
 - 状態の整数値は公式の状態説明ページには記載がない。System Definition > Choice Lists で Table=`sn_customerservice_case`、Element=`state` を絞り込むと Value 列で整数値を確認できる。[出典](https://www.servicenow.com/docs/r/YZ6y4yvCOMhykXn0xJSiRA/IAAnVw76QdEGbyVXwILoRg)
 - カスタム状態（例: 値 11 の "closed - lost"）を追加しても、そのままでは Closed と同じ挙動にならないという報告がある。【第三者情報】[出典](https://www.servicenow.com/community/csm-forum/in-csm-i-have-a-state-that-is-not-closing-the-case/m-p/3081493)
 - 自動クローズ（Resolved から一定期間後に Closed へ）の既定動作は公開情報では確認できず。
@@ -495,6 +501,33 @@ SLA エンジンの詳細は [SLA とスケジュール](../platform/sla-schedul
 
 > **Brazil での変更:** Location support agent（`sn_bus_loc.svc_location_support_agent`）が business organization の顧客契約とエンタイトルメントを閲覧でき、特定条件下で Entitlement の使用量を編集できるようになった。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-datamanagementforcsm-release-notes.html)
 
+### 5.5 Service Contract（サービス契約）— Customer Contracts and Entitlements
+
+**Customer Contracts and Entitlements（顧客契約とエンタイトルメント）** アプリケーションは、CSM 向けにサービス契約とエンタイトルメントを標準化・管理・利用するためのアプリケーションで、CSM Configurable Workspace 内で契約を初期オファーから締結まで管理できる。[出典](https://www.servicenow.com/docs/r/YZ6y4yvCOMhykXn0xJSiRA/w0Xse7pmLZoA5azJ4hHcMA)（Xanadu 版）
+
+| 概念 | 説明 |
+|---|---|
+| Service contract（サービス契約） | 顧客と組織の間の合意。Consumer または Account の詳細、対象製品（Covered products）、有効期間を含む |
+| Service contract line（サービス契約明細） | 購入・保有しているサービスまたは契約オファーの情報を保持（サービスプランに相当するランタイム契約明細） |
+| Entitlement | 契約内で具体的なコミットメントを定義できる。契約とは独立した Entitlement（製品購入後のサポート種別・レベル等）も作成可能 |
+| Covered product | 適格な Sold product を契約または Entitlement の対象製品として追加 |
+
+Customer Contracts and Entitlements が作成するテーブルとロール（Yokohama 版）: [出典](https://www.servicenow.com/docs/r/wLYnGFihvmNxBr5heMf_jw/0D9iKtKgIgq0hmpMTPV_Tw)
+
+| 種別 | 名前 | 説明 |
+|---|---|---|
+| テーブル | `sn_pss_core_service_contract` | Service Contract |
+| テーブル | `sn_pss_core_service_contract_line` | Service Contract Line |
+| テーブル | `sn_pss_core_contract_entitlement_usage` | Entitlement Usage |
+| テーブル | `sn_pss_core_entitlement_characteristic` | Characteristics |
+| ロール | `sn_pss_core.service_contract_viewer` | Service contract viewer |
+| ロール | `sn_pss_core.service_contract_manager` | Service contract manager |
+| ロール | `sn_pss_core.pss_integrator` | Integration user |
+
+- 第三者情報では、CSM の契約を Contract Management の `ast_contract` で扱い、その配下に `service_entitlement` を置く構成として説明しているものがある。【第三者情報】[出典](https://policylayer.com/tools/serac/snow-csm-contract-manage.md) Case フォームの Contract フィールドの参照先テーブル、および `ast_service`（Service Contract）や `sn_pss_core_service_contract` との使い分けを Australia 基準で示した公式記述は公開情報では確認できず。
+- Customer Contracts and Entitlements のプラグイン ID、Australia での変更点は公開情報では確認できず。
+- 契約と SLA 定義の関連付け（契約に応じた SLA の自動適用）を説明する CSM 固有の公式記述は公開情報では確認できず。SLA エンジン一般は [SLA とスケジュール](../platform/sla-schedules.md) を参照。
+
 ---
 
 ## 6. Omnichannel（オムニチャネル）
@@ -507,13 +540,17 @@ CSM のオムニチャネルは、すべての顧客接点を **Interaction（�
 |---|---|
 | Chat | ポータルからのライブチャットと Virtual Agent チャット。AWA は pre-chat survey のデータでルーティング可能 |
 | Email | 受信メールを **Email Interaction（Email as an Interaction、EaaI）** でインタラクション化、または **Email to Case** で直接ケース化。返信、ケースへのエスカレーション、コンタクトレコードからの送信が可能 |
-| Voice | ServiceNow Voice for CSM、CTI、または OpenFrame 連携。Amazon Connect の Conversational IVR で Virtual Agent がライブ転送前に対応 |
+| Voice | ServiceNow Voice for CSM、CTI（CTI Softphone `com.snc.cti` は Australia で廃止、1.2 節参照）、または OpenFrame 連携。Amazon Connect の Conversational IVR で Virtual Agent がライブ転送前に対応 |
 | Omnichannel Callback | Virtual Agent・ポータル・Engagement Messenger から音声／ビデオのコールバックを即時または予約で依頼 |
 | Consumer messaging | WhatsApp、LINE、Facebook Messenger、Apple Messages for Business。非同期インタラクションとして扱い、アウトバウンド会話も可能 |
 | Engagement Messenger | 第三者 Web サイトに埋め込むセルフサービスウィジェット（ナレッジ閲覧・ケース作成・チャット）。エージェント不在時はコールバックを表示 |
 | SMS / Social | サポート対象として記載（詳細は当該ページに記載なし）。Social は `sn_cs_social_host` で Case に Social チャネルと Social Logs 関連リストを追加 |
 
-インタラクションのテーブルとして、CSM プラグインは Customer Interaction（`sn_customerservice_customer_interaction`）を持つ。[出典](https://www.servicenow.com/docs/r/australia/customer-service-management/r_TIWCustomerService.html) プラットフォーム共通の `interaction` テーブルとの関係詳細は公開情報では確認できず。
+インタラクションのテーブルとして、CSM プラグインは Customer Interaction（`sn_customerservice_customer_interaction`）を持つ。[出典](https://www.servicenow.com/docs/r/australia/customer-service-management/r_TIWCustomerService.html)
+
+チャット・電話・メール等のインタラクション自体は、プラットフォーム共通の Interaction Management の `interaction` テーブル（番号 `IMS...`）に記録され、CRM Workspace の CSM Interaction record page／Voice interaction record page／Email Interaction record page から **Create Case** 等のアクションでインタラクションに関連付いたケース・Incident・Request・Consumer を作成できる。[出典](https://www.servicenow.com/docs/r/customer-service-management/csm-interaction-record-page.html)、[出典](https://www.servicenow.com/docs/r/wLYnGFihvmNxBr5heMf_jw/F_Q8LDWhwGPM9ZlFDjkdsg)、[出典](https://www.servicenow.com/docs/r/GOfWgam_hnLy1~sy07BOkA/pWOGcXHMC2vq2Zy0V44O5A)
+
+インタラクションとケース等の関連は `interaction_related_record` テーブルに保持される。インタラクション起点でケース→Incident→Problem と作成した場合に関連が記録される一方、ケース起点で作業した場合は同テーブルが更新されないという報告がある。【第三者情報】（Community 投稿）[出典](https://www.servicenow.com/community/csm-forum/csm-interaction-related-record/m-p/3261580)、[出典](https://www.servicenow.com/community/itsm-forum/what-is-the-interaction-related-record-table-used-for/m-p/706557) `interaction_related_record` のフィールド定義を記載した公式ページは公開情報では確認できず。Interaction Management の詳細は [Virtual Agent と会話型AI](../platform/virtual-agent.md) を参照。
 
 ### 6.2 Advanced Work Assignment（AWA）によるルーティング
 
@@ -560,10 +597,12 @@ Zurich〜Australia の主な Voice 機能（Australia リリースノート）[�
 | Call Wrap-Up（2026-06） | 通話中にラップアップを開きリアルタイム入力 |
 | Amazon Connect SSO（2026-06） | SAML IdP 連携で Contact Control Panel に別資格情報なしでアクセス |
 | Overflow menu（2026-06） | コントロールが 5 つを超える場合に追加 CCaaS アクションをメニュー表示 |
-| Voice call widget（2026-09） | ポータルページや Engagement Messenger から直接通話し、AI Voice Agents に接続 |
+| Voice call widget（2026-09） | ポータルページや Engagement Messenger から直接通話し、AI Voice Agents に接続（プラグイン ID `sn-webrtc` は Brazil リリースノートの New plugins にのみ記載。[出典](https://www.servicenow.com/docs/r/brazil/release-notes/customer-self-service-omnichannel-engagement-rn.html)） |
 | ServiceNow Voice with Amazon Connect（2026-09） | Amazon Connect・Five9・NICE からルーティングされた通話を AI Voice Agents が処理 |
 
-Zurich では Customer Service CTI Demo Data と CTI Softphone の提供・機能強化・サポートが終了しており、推奨代替は ServiceNow Voice with Amazon Connect である。[出典](https://www.servicenow.com/docs/r/australia/delta-zurich-australia/australia-zurich-agentexperienceforcsm-release-notes.html)
+> **注:** Australia の 2026-09 Store 更新の「Use Voice call widget for portal communication」と、Brazil リリースノートの「Enable WebRTC for voice calls」（プラグイン WebRTC Voice、`sn-webrtc`）は、機能説明（ポータルページや Engagement Messenger から直接通話でき、ページ遷移後も通話コンテキストを保持し、AI Voice Agents に接続する）が一致するため、同じ機能とみなした【推定】。Australia リリースノートにはプラグイン ID の記載がない。Voice with Amazon Connect の AI Voice Agent 対応も Australia 2026-09 で提供済みで、Brazil のリリースノートにも新機能として掲載されている。いずれも Brazil 固有の新機能ではない点に注意。[出典](https://www.servicenow.com/docs/r/australia/release-notes/customer-self-service-omnichannel-engagement-rn.html)、[出典](https://www.servicenow.com/docs/r/brazil/release-notes/customer-self-service-omnichannel-engagement-rn.html)
+
+Yokohama 以降、Customer Service CTI Demo Data は将来の廃止に向けた準備段階にある（新規インスタンスでは非表示・有効化されないが、引き続きサポートされる）。推奨代替は ServiceNow Voice with Amazon Connect である。[出典](https://www.servicenow.com/docs/r/australia/delta-zurich-australia/australia-zurich-agentexperienceforcsm-release-notes.html) CTI Softphone（`com.snc.cti`）の Australia での廃止（代替なし）は 1.2 節を参照。
 
 ### 6.4 Email チャネル（Australia の強化）
 
@@ -585,7 +624,7 @@ Zurich では Customer Service CTI Demo Data と CTI Softphone の提供・機�
 - 2026-08 には WhatsApp 直接連携で Now Assist Virtual Agent（NAVA）の合成応答と音声メッセージ再生（インラインオーディオプレーヤー）に対応した。[出典](https://www.servicenow.com/docs/r/australia/release-notes/customer-self-service-omnichannel-engagement-rn.html)
 
 > **Brazil での変更（Self-service and omnichannel）:** [出典](https://www.servicenow.com/docs/r/brazil/release-notes/customer-self-service-omnichannel-engagement-rn.html)
-> - **WebRTC voice calls:** ポータルページや Engagement Messenger から通話し、ページ遷移後も通話コンテキストを保持、AI Voice Agents に接続（プラグイン WebRTC Voice、`sn-webrtc`）。
+> - **WebRTC voice calls:** ポータルページや Engagement Messenger から通話し、ページ遷移後も通話コンテキストを保持、AI Voice Agents に接続（プラグイン WebRTC Voice、`sn-webrtc`）。※Australia 2026-09 の Voice call widget と同じ機能（6.3 節）。Voice with Amazon Connect の AI Voice Agents 対応も同様に Australia 2026-09 で提供済み。
 > - Active Call Interaction Control ツールバーのボタンがコンテナ幅に合わせてリサイズ。
 > - セルフサービス利用量の計算でゲストセッションの二重計上を除外。
 
@@ -597,7 +636,7 @@ Zurich では Customer Service CTI Demo Data と CTI Softphone の提供・機�
 
 **CSM Configurable Workspace（CSM 構成可能ワークスペース）** は、カスタマーサービスエージェント向けに設計された Next Experience の Workspace である。Australia のドキュメントでは「**CRM Workspace**」という名称が主に使われ、Core UI のリストとフォームを 1 つのインターフェースに統合し、複数ケースを並行処理できる。構成可能 Workspace フレームワーク上に構築され、ページはレイアウトとコンポーネントで構成される。[出典](https://www.servicenow.com/docs/r/GOfWgam_hnLy1~sy07BOkA/btzNvcbnUyp7oeHXcdVdsA)
 
-- 旧 **CSM Agent Workspace**（UI16 世代の Agent Workspace）は廃止済みで、新規有効化はできない。[出典](https://www.servicenow.com/docs/r/customer-relationship-management/crm-configurable-workspace.html)
+- 旧 **CSM Agent Workspace**（Orlando 前後に導入された Now Experience フレームワークベースの Agent Workspace。UI16 とは別の UI）の Australia での廃止状況・新規有効化可否は公開情報では確認できず。新規導入では構成可能 Workspace（CRM Workspace）が前提となっている。[出典](https://www.servicenow.com/docs/r/customer-relationship-management/crm-configurable-workspace.html)
 - 同じ構成可能 Workspace は Sales CRM・FSM・業界ソリューション（通信・金融・製造）でも共用され、ロール・Case type・製品ライン・チャネルごとにページを構成できる。[出典](https://www.servicenow.com/docs/r/customer-relationship-management/crm-configurable-workspace.html)
 - Workspace の URL は一般に `/now/cwf/agent/...` 配下である。【経験則】公式ドキュメントでの明記は公開情報では確認できず。
 - Workspace の利用に必要なロールとして、`sn_customerservice_agent`、`sn_customerservice.csm_workspace_user`、`agent_workspace_user`、`interaction_agent`（AWA 利用時は `awa_agent`、OpenFrame 利用時は `sn_openframe_user`）が挙げられている。【第三者情報】（Genesys の連携ガイド）[出典](https://help.genesys.cloud/articles/set-up-agents-in-servicenow/)
@@ -669,7 +708,7 @@ CSM の顧客向けポータルは Service Portal フレームワーク上に構
 
 業界向けには Retail（`/rsp`）、Manufacturing Dealer（`/mco`）、Government（`/gsp`）、Grants（`/gmp`）、Patient Support（`/psp`）、Care Team（`/careteam`）、Community（`/community`）などがある（同出典）。業界ソリューションは [業界向けソリューション](../industry/industry-solutions.md) を参照。
 
-Zurich のドキュメントでは、Customer Service Portal と Consumer Service Portal の利用に `com.snc.customer_service_portal` と `com.snc.consumer_service_portal` プラグインを有効化するとしている。Australia では Customer Service Portal Base（`com.snc.csm_portal_base`）が単独 Store アプリへ移行した。[出典](https://www.servicenow.com/docs/r/australia/release-notes/customer-self-service-omnichannel-engagement-rn.html)
+公式の「Activate the Consumer and Customer Service Portals」ページ（Zurich・Australia 版）では、Customer Service Portal に `com.snc.customer_service_portal`、Consumer Service Portal に `com.snc.consumer_service_portal` を有効化する（`admin` ロールが必要）としている。[出典](https://www.servicenow.com/docs/r/GOfWgam_hnLy1~sy07BOkA/eVK5HwIXOnp8Iu2kcoijjQ) なお旧リリース（Washington DC）のプラグイン一覧では Customer Service Portal の ID を `com.glide.service-portal.customer-portal` としており、表記はリリースにより異なる。[出典](https://www.servicenow.com/docs/r/washingtondc/customer-service-management/plugins-activated-with-csm.html) Australia では Customer Service Portal Base（`com.snc.csm_portal_base`）が単独 Store アプリへ移行した。[出典](https://www.servicenow.com/docs/r/australia/release-notes/customer-self-service-omnichannel-engagement-rn.html)
 
 ### 8.2 Consumer Portal の機能
 
@@ -735,7 +774,7 @@ Service Portal の一般的な仕組みは [Service Portal と Employee Center](
 
 `com.snc.proactive_cs_ops` を有効化すると Major Issue Management、Customer Service Install Base Management、Customer Service with Service Management、Customer Service Case Action Status、Task-Outage Relationship の各プラグインもインストールされる。[出典](https://www.servicenow.com/docs/r/xanadu/customer-service-management/activate-proactive-op-man.html)（Xanadu 版）
 
-Event Management アプリケーション自体も Store からインストールする必要がある。**Event Management 連携は CSM Agent Workspace または ServiceNow AI Platform（Core UI）インターフェースでのみ利用可能**と記載されている。
+Event Management アプリケーション自体も Store からインストールする必要がある。Australia 版のドキュメント（2026-03-12 更新）でも、Event Management 連携は CSM Agent Workspace または ServiceNow AI Platform（Core UI）インターフェースでのみ利用可能と記載されている（CRM Workspace は対象外と読める）。[出典](https://www.servicenow.com/docs/r/GOfWgam_hnLy1~sy07BOkA/JQwL9D296Ubx~CvS~FAvWw) 同じ制約は Xanadu 版にも記載がある。[出典](https://www.servicenow.com/docs/r/xanadu/customer-service-management/activate-proactive-op-man.html)（Xanadu 版）
 
 ### 9.3 構成手順（Guided Setup）
 
@@ -786,12 +825,12 @@ CSM のプロパティは `sys_properties` テーブルにあり、一部は **C
 
 | 領域 | 変更 | 出典 |
 |---|---|---|
-| AI ブランド | Now Assist for CSM → ServiceNow Otto for CSM（Zurich Patch 12 以降） | [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-agentexperienceforcsm-release-notes.html) |
+| AI ブランド | Now Assist for CSM → ServiceNow Otto for CSM。変更自体は Zurich Patch 12 以降で、Brazil 固有ではない（Brazil リリースノートにも記載） | [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-agentexperienceforcsm-release-notes.html) |
 | Workspace | CSM/FSM Configurable Workspace の表示名がインストール製品に応じて CRM Workspace／業界別名称に | 同上 |
 | プラグイン | `com.sn_customerservice` を Case Management Core plugin と表記（別途サブスクリプション） | 同上 |
 | Case 管理 | Brazil 固有の新機能・変更・廃止なし | [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-casemanagementforcsm-release-notes.html) |
 | データ管理 | CDF 新フィールド、請求アカウント関連テーブル、Restricted Customer Access、business organization へのプロアクティブ対応拡張 | [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-datamanagementforcsm-release-notes.html) |
-| Omnichannel | WebRTC Voice（`sn-webrtc`）、ServiceNow Voice with Amazon Connect の AI Voice Agents | [出典](https://www.servicenow.com/docs/r/brazil/release-notes/customer-self-service-omnichannel-engagement-rn.html) |
+| Omnichannel | WebRTC Voice（`sn-webrtc`）、ServiceNow Voice with Amazon Connect の AI Voice Agents（いずれも Australia 2026-09 の Store 更新で提供済みで、Brazil リリースノートにも新機能として掲載）。Brazil 固有は Active Call Interaction Control ツールバーのリサイズ、ゲストセッション二重計上の除外 | [出典](https://www.servicenow.com/docs/r/brazil/release-notes/customer-self-service-omnichannel-engagement-rn.html) |
 | ポータル | Consumer Portal に Work Orders ページ。Communities と Gamification の廃止 | 同上 |
 | Intelligence for CSM | Brazil での更新なし | [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-intelligenceforcsm-release-notes.html) |
 
@@ -825,6 +864,17 @@ CSM のプロパティは `sys_properties` テーブルにあり、一部は **C
 - Create entitlements for CSM entities（Australia）: https://www.servicenow.com/docs/r/australia/customer-service-management/c_CreateAnEntitlement.html
 - Configure CSM entitlements（Australia）: https://www.servicenow.com/docs/r/australia/customer-service-management/configure-csm-entitlements.html
 - Add an entitlement to a case: https://www.servicenow.com/docs/r/XqB45azTkh_fhRBNTD2pSw/rzJU~xiA2ltKdbWJ9XM6Ig
+- Customer Contracts and Entitlements（Xanadu）: https://www.servicenow.com/docs/r/YZ6y4yvCOMhykXn0xJSiRA/w0Xse7pmLZoA5azJ4hHcMA
+- Components installed with Customer Contracts and Entitlements（Yokohama）: https://www.servicenow.com/docs/r/wLYnGFihvmNxBr5heMf_jw/0D9iKtKgIgq0hmpMTPV_Tw
+- CSM Configurable Workspace / CRM Workspace activation（Australia）: https://www.servicenow.com/docs/r/GOfWgam_hnLy1~sy07BOkA/0kxWIJNMdwlYIB~al9NbOg
+- Activate the Consumer and Customer Service Portals（Australia）: https://www.servicenow.com/docs/r/GOfWgam_hnLy1~sy07BOkA/eVK5HwIXOnp8Iu2kcoijjQ
+- Plugins activated with Customer Service（Washington DC）: https://www.servicenow.com/docs/r/washingtondc/customer-service-management/plugins-activated-with-csm.html
+- CSM Interaction record page: https://www.servicenow.com/docs/r/customer-service-management/csm-interaction-record-page.html
+- CSM voice interaction record page: https://www.servicenow.com/docs/r/wLYnGFihvmNxBr5heMf_jw/F_Q8LDWhwGPM9ZlFDjkdsg
+- Email Interaction record page（Australia）: https://www.servicenow.com/docs/r/GOfWgam_hnLy1~sy07BOkA/pWOGcXHMC2vq2Zy0V44O5A
+- ServiceNow Community: CSM Interaction Related Record: https://www.servicenow.com/community/csm-forum/csm-interaction-related-record/m-p/3261580
+- ServiceNow Community: What is the interaction_related_record table used for?: https://www.servicenow.com/community/itsm-forum/what-is-the-interaction-related-record-table-used-for/m-p/706557
+- PolicyLayer: snow_csm_contract_manage（第三者）: https://policylayer.com/tools/serac/snow-csm-contract-manage.md
 - Customer service data models（Australia）: https://www.servicenow.com/docs/r/australia/customer-service-management/customer-service-data-models.html
 - Customer data（Australia）: https://www.servicenow.com/docs/r/australia/customer-service-management/customer-data.html
 - CSM use case tables: https://www.servicenow.com/docs/r/customer-service-management/csm-use-case-tables.html

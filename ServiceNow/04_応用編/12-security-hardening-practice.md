@@ -30,10 +30,17 @@ sources:
   - https://www.servicenow.com/docs/r/platform-administration/user-administration/impersonation-audits.html
   - https://www.servicenow.com/docs/bundle/zurich-platform-administration/page/administer/roles/task/audit-user-roles.html
   - https://www.servicenow.com/docs/r/platform-security/identity/explore-identity-audit.html
+  - https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/WZ18gzENNYfIy0Yz7LnnEg
+  - https://www.servicenow.com/docs/r/platform-security/c_AuditedTables.html
+  - https://www.servicenow.com/docs/r/platform-security/r_TransactionLogs.html
+  - https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/vquE8rIq3TcVvQJbtk1wUQ
+  - https://www.servicenow.com/docs/r/build-workflows/workflow-studio/flow-roles.html
   - https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/uTWjZcDMwO7ZuBEu3BxzkQ
   - https://www.servicenow.com/docs/r/lrkTElBCU7vjDopuMF1Pjg/f9mPvawhyrWlL5EllYCofA
   - https://www.servicenow.com/docs/r/platform-security/les-intro.html
   - https://www.servicenow.com/docs/r/platform-security/les-log-sources-export.html
+  - https://www.servicenow.com/docs/r/hX5GtoLUEU58KgyL7CW5Ag/z7MrFbpOTUt823oaurJ7Sw
+  - https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/FaDTkkY0ZVq4KLOCk9Eq1A
   - https://www.servicenow.com/community/platform-privacy-security-blog/what-s-new-for-security-center-in-australia/ba-p/3575152
   - https://www.servicenow.com/community/security-on-now-blog/your-hardening-score-isn-t-just-a-number-here-s-what-it-s/ba-p/3574268
   - https://www.servicenow.com/community/now-platform-articles/vancouver-security-attribute-conditions-explained/ta-p/2646179
@@ -97,9 +104,11 @@ ServiceNow の重大なデータ露出事例の多くは、プラットフォー
 | 2024-01 | `KB1123580` に基づくナレッジ User Criteria の注意喚起 | 設定不備 | `glide.knowman.block_access_with_no_user_criteria` が未設定または false の場合、User Criteria のないナレッジ記事が未認証ユーザーに見える可能性 | ナレッジベースの User Criteria 設計 | 【第三者情報】[出典](https://www.servicenow.com/community/service-management-forum/potential-misconfiguration-of-knowledge-base-user-criteria/m-p/2806103) |
 | 2024-07 | CVE-2024-4879 ほか（UI Macro の Jelly テンプレートインジェクション等） | 製品脆弱性 | 未認証でのリモートコード実行が可能。CISA の KEV（悪用が確認された脆弱性）に登録 | パッチ適用。セルフホスト環境では特に迅速に | 【第三者情報】[出典](https://censys.com/advisory/cve-2024-4879-5178-5217/) |
 | 2024-09 | 公開ナレッジベース経由の非公開記事の露出 | 設定不備 | ナレッジベースが Public で記事が Private の場合、ナレッジ系ウィジェット経由で記事本文を取得できた。1,000 超のインスタンス調査で 45% が意図せずデータを露出 | 記事単位ではなくナレッジベース単位の User Criteria 設計、User Criteria Diagnostics で Guest を検証 | 【第三者情報】[出典](https://www.theregister.com/2024/09/19/servicenow_knowledge_base_leaks/) |
-| 2025-07 | CVE-2025-3648「Count(er) Strike」 | 製品仕様起因 | データ条件・スクリプト条件だけで守られた ACL では、リストの件数表示から値を 1 文字ずつ推測できた | ロール／Security Attribute 条件を必ず持たせる、Query ACL・Security Data Filters | [出典](https://www.varonis.com/blog/counter-strike-servicenow) |
+| 2025-07 | CVE-2025-3648「Count(er) Strike」 | 製品仕様起因 | データ条件・スクリプト条件だけで守られた ACL では、リストの件数表示から値を 1 文字ずつ推測できた | ロール／Security Attribute 条件を必ず持たせる、Query ACL・Security Data Filters | 【第三者情報】[出典](https://www.varonis.com/blog/counter-strike-servicenow) |
 | 2025-11 | Now Assist の Second-order prompt injection | 既定設定起因 | 既定で同一チームに属し、公開時に discoverable な AI エージェント同士の連携を悪用 | AI エージェントの権限・発見範囲・監督実行の設計 | 【第三者情報】[出典](https://thehackernews.com/2025/11/servicenow-ai-agents-can-be-tricked.html) |
 | 2026-01 公表 | CVE-2025-12420「BodySnatcher」 | 製品脆弱性 | Virtual Agent API / Now Assist AI Agents のチャネルプロバイダーが共通の静的シークレットを使用し、メールアドレスだけで利用者になりすませた | AI チャネルのアカウントリンク設定、サンプルエージェントの削除、ストアアプリの更新 | 【第三者情報】[出典](https://www.csoonline.com/article/4118264/servicenow-bodysnatcher-flaw-highlights-risks-of-rushed-ai-integrations.html) |
+
+> **用語の注意:** 2022 年の AppOmni 報告が問題にしたのは「ロールなし、または `public` ロールのみで、条件・スクリプトのない ACL」である。Australia 版公式ドキュメントの「空の ACL（Empty ACL）」は「ロール、Security Attribute、データ条件、スクリプトのいずれも持たない ACL」と定義され、既定で拒否される（§3.1）。**`public` ロールだけを持つ ACL はロールを持つため Australia の定義では空 ACL ではないが、未認証ユーザーに対して開いている**。本ファイルで「空 ACL・`public` ACL」と並べて書く場合、この 2 つは別物として扱う。
 
 **事例から導かれる 3 つの原則【経験則】**
 
@@ -144,7 +153,7 @@ ISC で行っていた作業を Security Center で行う場所は次のとお�
 
 出典：[Security Center（Brazil 版）](https://www.servicenow.com/docs/r/platform-security/security-center/sec-center-v2.html)、[Security Center リリースノート](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-securitycenter-release-notes.html)
 
-Zurich 以降、Security Center には**フル `admin` なしで構成作業ができる粒度の細かい管理ロール**（`sn_vsc.security_center_admin`）が追加された [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-securitycenter-release-notes.html)。セキュリティ部門の担当者に Security Center を見せるために `admin` を付与する必要はない。閲覧のみなら `sn_vsc.security_center_viewer` を使う（ロール名の詳細は [セキュリティとコンプライアンス](../03_導入編/10-security-compliance.md) §7.2）。
+Zurich 以降、Security Center には**フル `admin` なしで構成作業ができる粒度の細かい管理ロール**が追加された [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-securitycenter-release-notes.html)。Australia 版の「Granular roles for Security Center」によると、このロールは Security Center Admin（`sn_vsc.security_center_admin`）で、Store 版 Security Center 3.2 以降で利用でき、Security Center のコンソールとツールへの管理者レベルのアクセスを提供する [出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/vquE8rIq3TcVvQJbtk1wUQ)。セキュリティ部門の担当者に Security Center を見せるために `admin` を付与する必要はない。閲覧のみなら `sn_vsc.security_center_viewer` を使う（ロール名の詳細は [セキュリティとコンプライアンス](../03_導入編/10-security-compliance.md) §7.2）。
 
 ### 2.3 運用サイクル — 何をどの頻度で見るか
 
@@ -197,10 +206,10 @@ Security Center の Security Scanner には Auditor スイートがあり、Aust
 | Daily | Users with Direct Role Assignments (Bypassing Groups) | グループを経由せず直接付与されたロール | §5.5 |
 | Daily | Inactive Users with Assigned Roles | ロールを保持したままの非アクティブユーザー | §5.5 |
 | Daily | External users with access to classified data | 分類済み（機密）テーブル・フィールドにアクセスできる外部ユーザー | §4.4 |
-| Daily | Access controls on Tables | ACL のないテーブル | §3.5 |
-| Daily | Access controls on UI pages | ACL で保護されていない UI Page | §3.4 |
-| Daily | Access Controls on Client callable Script Includes | ACL で保護されていない Client callable Script Include | §3.4 |
-| Weekly | Review client callable script includes with no corresponding ACL | 既定 ACL に依存している Client callable Script Include | §3.4 |
+| Daily | Access controls on Tables | ACL のないテーブル | §3.2 |
+| Daily | Access controls on UI pages | ACL で保護されていない UI Page | §3.5 |
+| Daily | Access Controls on Client callable Script Includes | ACL で保護されていない Client callable Script Include | §3.5 |
+| Weekly | Review client callable script includes with no corresponding ACL | 既定 ACL に依存している Client callable Script Include | §3.5 |
 | Weekly | Dormant user account | 最近ログインのないアクティブユーザー | §5.5 |
 | Weekly | User Account shouldn't have both internal and external roles | 内部ロールと外部ロールを同時に持つユーザー | §4.4 |
 | Monthly | Review custom tables with record producers and no business rule | Record producer はあるがサーバー側検証の Business Rule がないカスタムテーブル | §4.2 |
@@ -209,18 +218,18 @@ Security Center の Security Scanner には Auditor スイートがあり、Aust
 | Monthly | Review large allowed IP address ranges | 広すぎる IP 許可範囲 | — |
 | Monthly | Review public GraphQL schemas | 認証なしで利用できる GraphQL スキーマ | §4.2 |
 | Monthly | Identify out of date store apps | 新バージョンがあるストアアプリ | §1 |
-| Monthly | Insecure GlideRecord calls | ユーザーが呼び出せるスクリプトで ACL を尊重しない GlideRecord 呼び出し | §3.4 |
+| Monthly | Insecure GlideRecord calls | ユーザーが呼び出せるスクリプトで ACL を尊重しない GlideRecord 呼び出し | §3.5 |
 | Monthly | Review public REST API endpoints | 認証なしで利用できる Scripted REST エンドポイント | §4.2 |
 | Monthly | Review public Service Portal pages | 未認証ユーザーに公開された Service Portal ページ | §4.2 |
 | Monthly | Review public UI Pages | 未認証ユーザーに公開された UI Page | §4.2 |
 | Monthly | Review roles that contain the 'admin' role | `admin` ロールを内包するロール | §5.2 |
-| Monthly | Review UI Pages without corresponding ACLs | 汎用 UI Page ACL にフォールバックしている UI Page | §3.4 |
+| Monthly | Review UI Pages without corresponding ACLs | 汎用 UI Page ACL にフォールバックしている UI Page | §3.5 |
 | Monthly | Review users with valid local passwords | API アクセスに使われうるローカルパスワードを持つユーザー | §5.6 |
 | Monthly | Rotate passwords stored with outdated hashing algorithms | 旧ハッシュアルゴリズムで保存されたパスワード | — |
-| Monthly | UI action visibility | テーブルの read 権限がないユーザーでも実行できる UI Action | §3.4 |
+| Monthly | UI action visibility | テーブルの read 権限がないユーザーでも実行できる UI Action | §3.5 |
 | Monthly | Publicly accessible knowledge base and articles | 全ユーザーに見えるナレッジベース・記事 | §4.3 |
 | Monthly | Can Contribute / Cannot Contribute user criteria to be defined on each knowledge | 投稿権限の User Criteria が未定義のナレッジベース | §4.3 |
-| Monthly | All Processors of type - SCRIPT must be protected with CSRF Token | CSRF 保護のないスクリプト型 Processor | §3.4 |
+| Monthly | All Processors of type - SCRIPT must be protected with CSRF Token | CSRF 保護のないスクリプト型 Processor | §3.5 |
 | Quarterly | Review allowed JavaScript libraries | サードパーティ JavaScript ライブラリの許可・拒否ルール | — |
 | Quarterly | Securing record producers | 適切なロールに制限されていない Record producer | §4.2 |
 | Quarterly | Deactivated security controls | 新たに導入されたが未有効化のセキュリティ制御 | §2.4 |
@@ -249,6 +258,8 @@ Access Findings は Access Management Console 内の「事前検出・是正」�
 | 6 | Users with direct role assignments (bypassing groups) | グループを介さない直接ロール付与 | グループ経由への付け替え |
 | 7 | Access controls on client callable script includes | Client callable Script Include のアクセス制御 | `client_callable_script_include` ACL の作成 |
 | 8 | Empty ACLs | 空の ACL | ロールまたは Security Attribute の追加 |
+
+チェック 8 の「Empty ACLs」は、Australia の定義では「ロール、Security Attribute、データ条件、スクリプトのいずれも持たない ACL」を指し、`public` ロールのみの ACL（ロールを持つので空ではないが未認証ユーザーに開いている）とは別物である。`public` ロールのみの ACL は Auditor スイートの public 系チェックや ACL 一覧で別途棚卸しする。空 ACL が既定で拒否されるにもかかわらず検出対象になる理由は §3.1 を参照。
 
 Access Findings の検出項目は Auditor スイートの Daily チェック（§2.5）と重なる。**Access Findings は是正ワークフロー（タスク化）を伴う日常運用、Auditor スイートはスケジュール実行と結果比較による定期監査**、と使い分けるとよい【経験則】。
 
@@ -296,16 +307,18 @@ Australia 版の公式ドキュメントでは、ACL エンジンは**空また�
 | 空の ACL（Empty ACL） | ロール、Security Attribute、データ条件、スクリプトのいずれも持たない ACL |
 | 無効な ACL（Invalid ACL） | 存在しないロールや Security Attribute を参照する ACL、またはスクリプトが `answer=true` や `true` だけの ACL |
 
-この「既定で拒否」は 2022〜2023 年の事故（§1）を受けて強化された挙動であり、**古いインスタンスから移行した ACL・古いカスタムアプリの ACL** は、この前提で作られていないことがある【経験則】。アップグレード後に「突然見えなくなった」という問い合わせの原因として、空 ACL の拒否化がよく挙がる。逆に、「見えるようにするために `public` ロールや `answer = true;` を入れる」という場当たり対応は、無効 ACL として拒否されるか、未認証ユーザーへの露出を生む。
+この「既定で拒否」がどのリリースで導入されたか、§1 の事故との因果関係は公開情報では確認できなかった。**古いインスタンスから移行した ACL・古いカスタムアプリの ACL** は、この前提で作られていないことがある【経験則】。アップグレード後に「突然見えなくなった」という問い合わせの原因として、空 ACL の拒否化がよく挙がる。逆に、「見えるようにするために `public` ロールや `answer = true;` を入れる」という場当たり対応は、無効 ACL として拒否されるか、未認証ユーザーへの露出を生む。
+
+**既定で拒否なのに空 ACL を検出対象にする理由【経験則】（公式の説明は公開情報では確認できず）:** Deny by default の下では、空 ACL は主に「データ露出」ではなく「機能が動かない」問題を起こす。それでも Access Findings（§2.6）や公開前チェックリスト（§4.6）で空 ACL を潰すのは、(1) 空 ACL を見つけた担当者や「見えない」という問い合わせを受けた担当者が、`public` ロールの追加や `answer = true;` といった場当たり修正をしがちで、これが露出の入口になること、(2) 「既定で拒否」の導入リリースが公開情報で確認できず、旧挙動を前提に作られた ACL や設計意図が不明な ACL が残っていることによる。なお、`public` ロールのみを持つ ACL は Australia の定義では空 ACL ではないが、露出リスクはこちらの方が直接的である。
 
 | やってはいけないこと | 理由 | 代わりにやること |
 |---|---|---|
-| `public` ロールをテーブル ACL に付けて「とりあえず全員に見せる」 | `public` は未認証（Guest）ユーザーも満たす | 認証済みユーザー全員に見せたい場合は Security Attribute `UserIsAuthenticated`（旧ラベル `LoggedIn`）を使うか、Explicit Roles の `snc_internal` を使う |
+| `public` ロールをテーブル ACL に付けて「とりあえず全員に見せる」 | `public` は未認証（Guest）ユーザーも満たす | 認証済みユーザー全員に見せたい場合は Security Attribute `UserIsAuthenticated`（Australia 版公式ドキュメントで「認証済みユーザーのみ」の条件例として記載 [出典](https://www.servicenow.com/docs/r/australia/platform-security/access-control/exploring-access-control-list.html)）を使うか、Explicit Roles の `snc_internal` を使う |
 | ロール欄を空にしてスクリプトで `gs.isLoggedIn()` を判定する | スクリプト条件のみの ACL は件数推測の対象（§3.3）、かつ評価コストが高い | Security Attribute 条件にする |
 | スクリプトで `answer = true;` だけを書く | 無効 ACL として拒否される | 条件を明示する |
 | 存在しないロール名を指定（スペルミス、未インストールプラグインのロール） | 無効 ACL として拒否される | ロールは参照フィールドで選ぶ。移送時に依存プラグインを確認 |
 
-Security Attribute は `sys_security_attribute` テーブルに格納され、Vancouver で ACL 条件に「Security Attribute Condition」として追加された。代表的な属性は `Group`、`GroupExplicit`、`HasAdminRole`、`Impersonating`、`InteractiveSession`（対話セッションか連携か）、`LoggedIn`、`NetworkCriteria`（IP 範囲）、`Role`、`RoleExplicit` である【第三者情報】[出典](https://www.servicenow.com/community/now-platform-articles/vancouver-security-attribute-conditions-explained/ta-p/2646179)。`InteractiveSession` や `NetworkCriteria` を使うと、「連携ユーザーは API からのみ」「社外 IP からは不可」といった条件をスクリプトなしで表現できる。
+Security Attribute は `sys_security_attribute` テーブルに格納され、Vancouver で ACL 条件に「Security Attribute Condition」として追加された。代表的な属性は `Group`、`GroupExplicit`、`HasAdminRole`、`Impersonating`、`InteractiveSession`（対話セッションか連携か）、`LoggedIn`、`NetworkCriteria`（IP 範囲）、`Role`、`RoleExplicit` である【第三者情報】[出典](https://www.servicenow.com/community/now-platform-articles/vancouver-security-attribute-conditions-explained/ta-p/2646179)。Vancouver 時点のこのコミュニティ解説は `LoggedIn` 属性を紹介しているが、Australia 版公式ドキュメントの例は `UserIsAuthenticated` であり、両者が同一属性の改称か別属性かは公開情報では確認できなかった（§9）。インスタンスの `sys_security_attribute` で実在する属性名を確認してから使う。`InteractiveSession` や `NetworkCriteria` を使うと、「連携ユーザーは API からのみ」「社外 IP からは不可」といった条件をスクリプトなしで表現できる。
 
 フォーム上で空・無効 ACL の保存をブロックするプロパティ `glide.security.empty_acl.popup_window.enabled`（High Security プラグイン有効時のみ動作）は [アクセス制御（ACL）](../02_リファレンス/platform/access-control-acl.md) §2.5 を参照。
 
@@ -320,7 +333,7 @@ Security Attribute は `sys_security_attribute` テーブルに格納され、Va
 
 ### 3.3 データ条件・スクリプト条件だけの ACL は「件数」から漏れる（Count(er) Strike）
 
-Varonis Threat Labs は 2024 年 2 月に ServiceNow へ報告し、2025 年 7 月 8 日に CVE-2025-3648（"Count(er) Strike"）として公表された問題で、次のメカニズムを示した [出典](https://www.varonis.com/blog/counter-strike-servicenow)。
+Varonis Threat Labs は 2024 年 2 月に ServiceNow へ報告し、2025 年 7 月 8 日に CVE-2025-3648（"Count(er) Strike"）として公表された問題で、次のメカニズムを示した【第三者情報】[出典](https://www.varonis.com/blog/counter-strike-servicenow)。
 
 | ACL 条件の失敗箇所 | 画面の挙動 | 結果 |
 |---|---|---|
@@ -329,7 +342,7 @@ Varonis Threat Labs は 2024 年 2 月に ServiceNow へ報告し、2025 年 7 �
 
 Varonis は、悪用には特別な構成やプラグインは不要で、テーブルや列の一部にアクセスできるユーザーアカウントがあれば足りるとし、セルフ登録（Self-registration）が有効なインスタンスでは攻撃面が広がると指摘した。パッチ前は全インスタンスの数百テーブルに影響しうるとされたが、悪用の確認はない【第三者情報】[出典](https://thehackernews.com/2025/07/servicenow-flaw-cve-2025-3648-could.html)。
 
-ServiceNow はこの対策として Deny-Unless ACL、Query ACL（`query_range` / `query_match`）、Security Data Filters を提供した。Varonis が推奨する対応は次のとおり [出典](https://www.varonis.com/blog/counter-strike-servicenow)。
+ServiceNow はこの対策として Deny-Unless ACL、Query ACL（`query_range` / `query_match`）、Security Data Filters を提供した【第三者情報】[出典](https://www.varonis.com/blog/counter-strike-servicenow)。Query ACL の仕様と Australia での変更は公式リリースノートにも記載がある（§3.6）[出典](https://www.servicenow.com/docs/r/australia/release-notes/access-management-rn.html)。Varonis が推奨する対応は次のとおり【第三者情報】[出典](https://www.varonis.com/blog/counter-strike-servicenow)。
 
 1. 標準・カスタムテーブルの ACL を見直す。**特にデータ条件・スクリプト条件だけで保護されているもの**。
 2. 機密テーブルに Query ACL と Security Data Filters を適用する（Security Data Filters は「rows removed by security constraints」メッセージも抑止する）。
@@ -586,7 +599,7 @@ Now Assist / AI Agents の導入で、「会話チャネル」が外部からの
 | 仕組み | 権限の扱い | リスク | 対策 | 出典 |
 |---|---|---|---|---|
 | Flow（Workflow Studio / Flow Designer）の Run As = System User | ユーザーのロール・ACL を評価せずに実行。Run with roles は使えない | 低権限ユーザーがトリガーできるフローで、システム権限の更新が走る。レコードの作成者・更新者が `system` になり監査で追えない | Run As = User who initiates session ＋ Run with roles（実行中のみ指定ロールに置き換え）を優先。System User を使う場合はトリガー条件を厳しくし、誰が起動したかを別フィールドに記録 | [出典](https://www.servicenow.com/docs/r/lrkTElBCU7vjDopuMF1Pjg/f9mPvawhyrWlL5EllYCofA)、【第三者情報】[出典](https://www.servicenow.com/community/developer-blog/correctly-utilizing-service-accounts-in-flow-designer/ba-p/3458651) |
-| Run with roles | 指定したロールが、フロー実行中にユーザーの通常のロールを**置き換える**。未指定ならユーザーの通常のロールで実行 | 過大なロールを指定すると、フロー経由の昇格になる | 必要最小限のロールのみ指定。コミュニティでは `admin`、`security_admin`、アプリ管理ロールは割り当てられないとされる（公式確認は未了） | [出典](https://www.servicenow.com/docs/r/lrkTElBCU7vjDopuMF1Pjg/f9mPvawhyrWlL5EllYCofA) |
+| Run with roles | 指定したロールが、フロー実行中にユーザーの通常のロールを**置き換える**。未指定ならユーザーの通常のロールで実行 | 過大なロールを指定すると、フロー経由の昇格になる | 必要最小限のロールのみ指定。公式ドキュメント「Flow roles」（Brazil 版）では、`admin`、`security_admin`、アプリ固有の管理ロール（例：HR のアプリ管理ロール）はフローに割り当てられない。ロールは開始ユーザーとして実行するフローにのみ割り当てられ、System User として実行するフローには割り当てられない | [出典](https://www.servicenow.com/docs/r/lrkTElBCU7vjDopuMF1Pjg/f9mPvawhyrWlL5EllYCofA)、[出典](https://www.servicenow.com/docs/r/build-workflows/workflow-studio/flow-roles.html) |
 | Scheduled Job の Run as | 指定ユーザーの権限で実行 | 個人の `admin` アカウントを指定すると、退職・無効化で停止、または過大権限で動き続ける | 専用のサービスアカウント（Web service access only、Internal Integration User）を使う【経験則】 | — |
 | Background scripts（Scripts - Background） | 任意のサーバースクリプトを実行 | ACL・ビジネスルールを迂回した一括更新・データ抽出 | 実行には昇格（`security_admin`）を要求する構成とし、実行履歴（`sys_script_execution_history`）を確認（§6.5） | 【第三者情報】[出典](https://www.servicenow.com/community/developer-articles/discovering-a-previously-executed-background-scripts/ta-p/2604217) |
 | AI エージェント | 既定では対話を開始したユーザーの権限で実行 | エージェント間連携で高権限エージェントを呼ばれる（§4.5） | 監督付き実行、エージェントのチーム分割 | 【第三者情報】[出典](https://thehackernews.com/2025/11/servicenow-ai-agents-can-be-tricked.html) |
@@ -628,7 +641,7 @@ Access Analyzer（ServiceNow Store 製品）の **Compare user access** は、2 
 | ID・アクセス設定の変更 | Identity and Access Audit（`com.glide.security.audit`） | ユーザー、グループ、ロール、ACL、メンバーシップの変更（§6.2） | **最大 30 日** | [出典](https://www.servicenow.com/docs/r/platform-security/identity/explore-identity-audit.html) |
 | `security_admin` への昇格 | `sysevent`（イベント名 `security.elevated_role.enabled`、解除は `security.elevated_role.disabled`） | parm1 に昇格したユーザー、parm2 に `security_admin` | 公式ドキュメントにイベント仕様の記載は見当たらない（コミュニティ情報）。`sysevent` は短期保持 | 【第三者情報】[出典](https://www.servicenow.com/community/developer-forum/notification-on-security-admin-role-elevation/m-p/3105009) |
 | なりすまし | システムログの Impersonate Begin / End、User Impersonation 監査（§6.4） | 誰が誰になりすましたか、開始・終了、その間のトランザクション | トランザクションログと同じ保持ポリシー（既定 7 日） | [出典](https://www.servicenow.com/docs/r/platform-administration/user-administration/impersonation-audits.html) |
-| ブラウザ・API の全操作 | `syslog_transaction` | URL、応答時間、SQL 件数、ACL 時間など | 短期保持。露出調査の唯一の手がかりになることが多い | [出典](https://www.servicenow.com/docs/r/platform-security/les-log-sources-export.html) |
+| ブラウザ・API の全操作 | `syslog_transaction`（All > System Logs > Transactions） | URL、Response time（応答時間）、SQL count（SQL 件数）、Business rule count / time、Output length など。ACL Time 列はなりすまし監査のトランザクションログ一覧（図 2）で確認できる | 短期保持。バックグラウンド・スケジューラーのトランザクションは実行時間が 1,000 ms を超えた場合のみ記録。露出調査の唯一の手がかりになることが多い | [出典](https://www.servicenow.com/docs/r/platform-security/r_TransactionLogs.html)、図 2（§6.4） |
 | スクリプト実行 | `sys_script_execution_history` | Background script の開始・終了時刻、ノード、スクリプト、出力 | 「Record for rollback?」付きの実行で記録。Auto flush で 7 日後に削除（`sys_auto_flush` で変更可能） | 【第三者情報】[出典](https://www.servicenow.com/community/developer-articles/discovering-a-previously-executed-background-scripts/ta-p/2604217) |
 | 外部への通信 | `sys_outbound_http_log` | アウトバウンド HTTP | LES のログソース | [出典](https://www.servicenow.com/docs/r/platform-security/les-log-sources-export.html) |
 | セキュリティ指標 | Security Center の Security metrics | §2.7 | PA ジョブで日次更新 | [出典](https://www.servicenow.com/docs/r/aPoGScNNpfmq9WAhaTvMvQ/Lv9V9vKcfJXLjlMPylcPUA) |
@@ -644,7 +657,7 @@ Identity and Access Audit（Identity Security Audit とも呼ばれる、プラ�
 | 監査対象テーブル | `sys_user_group`、`sys_user_role`、`sys_security_acl`、`sys_user`、`sys_group_has_role`、`sys_user_has_role`、`sys_security_acl_role`、`sys_user_role_contains`、`sys_user_grmember` |
 | モジュール | Audit Results、Configure Table & Fields、Configure Retention Period、User Trails、Group Trails、Role Trails、ACL Trails |
 | 保持 | 直近 30 日分を閲覧可能。保持期間の上限は 30 日 |
-| ロール | `identity_access_audit_viewer`。`role_viewer`・`group_viewer` は監査記録と構成の閲覧、Security Admin は監査証跡の閲覧と、テーブル・フィールド単位の監査の有効・無効化 |
+| ペルソナ・ロール | 公式ドキュメントは「2 つのユーザーペルソナ（`identity_access_audit_viewer`）」と記載し、`role_viewer`・`group_viewer` は監査記録と構成の閲覧、Security Admin は監査証跡の閲覧と、テーブル・フィールド単位の監査の有効・無効化とする（Australia / Brazil 版で同じ記載）[出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/WZ18gzENNYfIy0Yz7LnnEg)。`identity_access_audit_viewer` が単独のロールとして何を付与するかは同ページに詳細がない |
 
 このテーブル群は、まさに §5 の権限昇格の経路（ロール包含、グループメンバー、ACL のロール）に対応している。**`sys_user_role_contains`（ロール包含）と `sys_security_acl_role`（ACL に付くロール）の変更は通常業務ではほぼ発生しない**ため、変更があれば全件レビューする対象にする【経験則】。30 日を超える保持が必要な場合は LES で外部に転送する。
 
@@ -718,13 +731,16 @@ Log Export Service（LES）は、インスタンスのシステムログ・ア�
 
 | 項目 | 内容 |
 |---|---|
-| ログソース（参照可能なテーブル） | `syslog`、`syslog_transaction`、`sys_audit`、`sys_outbound_http_log` |
+| ログソース（参照可能なテーブル） | `syslog`、`syslog_transaction`、`sys_outbound_http_log`、`sys_audit`、アプリケーションノードのログファイル（Australia 版ドキュメント記載分）。加えて、新しい LES Store アプリでは `sys_audit_delete`・`sys_audit_relation`（削除・リレーションの監査、v3.5.0〜3.6.0 で追加）、`sys_flow_log`（フロー実行の詳細・状態）、`sys_user_login_history`（ログイン試行・認証イベント）（いずれも v3.6.0、2026-09 で追加）をサポート。**利用可能なソースは LES アプリのバージョンに依存するため、インスタンス上で確認する** |
 | 既定のログソース | LES プラグイン有効化時に `syslog` と `sys_audit` が自動構成される |
+| 配布形態 | ServiceNow Store アプリとして配布され、ファミリーリリースとは別にバージョンアップされる（v1.0.1 2022-11 〜 v3.6.0 2026-09）。Store リスティングではオンプレミス（セルフホスト）インスタンスは非対応とされる |
 | 接続方式 | Kafka コンシューマー（Splunk Connect for Kafka 等の Kafka コネクタ）、MID Server コンシューマー |
 | 構成 | ソースごとに複数トピックを管理可能 |
 | クローン時の注意 | LES 構成をクローンで保持するためのテーブルについて KB が案内されている |
 
-出典：[LES（Brazil 版）](https://www.servicenow.com/docs/r/platform-security/les-intro.html)、[Log sources](https://www.servicenow.com/docs/r/platform-security/les-log-sources-export.html)
+出典：[LES（Brazil 版）](https://www.servicenow.com/docs/r/platform-security/les-intro.html)、[Log sources（Australia 版）](https://www.servicenow.com/docs/r/hX5GtoLUEU58KgyL7CW5Ag/z7MrFbpOTUt823oaurJ7Sw)、[Log sources（Brazil 版）](https://www.servicenow.com/docs/r/platform-security/les-log-sources-export.html)、[Log Export Service release notes](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/FaDTkkY0ZVq4KLOCk9Eq1A)、[ServiceNow Store: Log Export Service](https://store.servicenow.com/store/app/9d3bab2a1b246a50a85b16db234bcbf1)（オンプレミス非対応の記載。Store ページは動的描画のため本文を直接取得できず、検索結果の抜粋で確認）
+
+> **Brazil での変更:** Brazil 版の Log sources ページには、`sys_audit_delete`、`sys_audit_relation`、`sys_flow_log`、`sys_user_login_history` が追記されている（Store アプリ側の追加をドキュメントに反映したもの）[出典](https://www.servicenow.com/docs/r/platform-security/les-log-sources-export.html)。
 
 **SIEM で作るべき検知ルールの例【経験則】:**
 
@@ -736,7 +752,9 @@ Log Export Service（LES）は、インスタンスのシステムログ・ア�
 | 未認証セッションからの大量のウィジェット / REST 呼び出し | `syslog_transaction`（URL、Output length） |
 | 外部ユーザーの異常な大量取得 | `syslog_transaction` |
 | 想定外の外部宛て通信 | `sys_outbound_http_log` |
-| ログイン失敗の急増 | `syslog`、Security metrics |
+| ログイン失敗の急増 | `sys_user_login_history`（LES v3.6.0 以降）、`syslog`、Security metrics |
+| System User として実行されたフローの想定外の実行（§5.4） | `sys_flow_log`（LES v3.6.0 以降） |
+| レコード・リレーションの大量削除 | `sys_audit_delete`、`sys_audit_relation`（LES v3.5.0〜3.6.0 以降） |
 
 LES のライセンス条件は公式ページでは確認できなかった（§9）。SIEM 連携の設計全般は [連携設計](../03_導入編/09-integration-design.md) と [サポートと監視](../03_導入編/14-support-monitoring.md) を参照。
 
@@ -784,9 +802,10 @@ LES のライセンス条件は公式ページでは確認できなかった（�
 - `KB1553688`、`KB1555166`、`KB1123580`、`KB2046494`、`KB0867184`、`KB1702514` 等の Now Support KB 本文（ログインが必要なため、コミュニティ・第三者の引用で記述した）。
 - `security.elevated_role.enabled` / `security.elevated_role.disabled` イベントの公式仕様（コミュニティ情報のみ）。
 - なりすまし履歴のプロパティ名の確定（Australia EA 時点のコミュニティ解説 `identity.impersonation.history.enabled` と、Brazil 公式ドキュメント `glide.audit.user.impersonation.enabled` が異なる）。
-- Flow の Run with roles に `admin`・`security_admin` を指定できないという制約の公式記載（コミュニティ情報のみ）。
 - Background script の実行に `security_admin` 昇格を要求するプロパティの正式名称と既定値。
 - Log Export Service（LES）のライセンス条件（Platform に含まれるか、別ライセンスか）。
+- Security Attribute `UserIsAuthenticated`（Australia 公式ドキュメントの例）と `LoggedIn`（Vancouver 時点のコミュニティ解説）の関係（同一属性の改称か別属性か）。
+- 空 ACL が「既定で拒否」であるにもかかわらず Access Findings で検出対象とされる公式の理由（§3.1 の説明は経験則）。
 - Security Center の Auditor スイートの全チェック数（Access Controls スイートは Yokohama で 8 件、Australia 版ドキュメントの一覧は 33 行で、うち 1 行は重複）とバージョンごとの差分。
 - Security Center の各バージョン番号（v3.2 / v3.3 等）とファミリーリリースの正確な対応（リリースノートにアプリのバージョン番号の記載がない）。
 - BodySnatcher（CVE-2025-12420）の ServiceNow 公式アドバイザリ本文（`KB2587329` と報じられているが未確認）。
@@ -822,10 +841,17 @@ LES のライセンス条件は公式ページでは確認できなかった（�
 - Audit user roles（Zurich）: https://www.servicenow.com/docs/bundle/zurich-platform-administration/page/administer/roles/task/audit-user-roles.html
 - Exploring Identity and Access Audit（Brazil）: https://www.servicenow.com/docs/r/platform-security/identity/explore-identity-audit.html
 - Auditing（Brazil）: https://www.servicenow.com/docs/r/platform-security/c_AuditedTables.html
+- Exploring Identity and Access Audit（Australia）: https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/WZ18gzENNYfIy0Yz7LnnEg
+- Transaction logs（Brazil）: https://www.servicenow.com/docs/r/platform-security/r_TransactionLogs.html
+- Granular roles for Security Center（Australia）: https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/vquE8rIq3TcVvQJbtk1wUQ
+- Flow roles（Brazil）: https://www.servicenow.com/docs/r/build-workflows/workflow-studio/flow-roles.html
 - Comparing user access（Australia）: https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/uTWjZcDMwO7ZuBEu3BxzkQ
 - Create a flow with roles: https://www.servicenow.com/docs/r/lrkTElBCU7vjDopuMF1Pjg/f9mPvawhyrWlL5EllYCofA
 - Log Export Service（Brazil）: https://www.servicenow.com/docs/r/platform-security/les-intro.html
-- LES Log sources: https://www.servicenow.com/docs/r/platform-security/les-log-sources-export.html
+- LES Log sources（Brazil）: https://www.servicenow.com/docs/r/platform-security/les-log-sources-export.html
+- LES Log sources（Australia）: https://www.servicenow.com/docs/r/hX5GtoLUEU58KgyL7CW5Ag/z7MrFbpOTUt823oaurJ7Sw
+- Log Export Service release notes: https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/FaDTkkY0ZVq4KLOCk9Eq1A
+- ServiceNow Store: Log Export Service: https://store.servicenow.com/store/app/9d3bab2a1b246a50a85b16db234bcbf1
 
 ### ServiceNow Community
 

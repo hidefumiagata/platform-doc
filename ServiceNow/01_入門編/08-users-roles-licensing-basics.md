@@ -7,11 +7,11 @@ last_verified: 2026-11-02
 summary: ServiceNow のユーザー種別（Fulfiller／Business Stakeholder／Approver／Requester など）が、ロール（Role）とサブスクリプション（ライセンス）とどう結びついているかを入門者向けに説明し、誤解しやすいポイントを整理する。
 keywords: [user, ユーザー, role, ロール, license, ライセンス, subscription, サブスクリプション, Fulfiller, フルフィラー, Requester, リクエスター, Business Stakeholder, ビジネスステークホルダー, Approver, 承認者, approver_user, business_stakeholder, itil, snc_internal, snc_external, Subscription Management, Unrestricted User, Identity type, sys_user, sys_user_has_role, license_role]
 sources:
-  - https://www.servicenow.com/docs/r/platform-administration/user-administration/base-system-roles.html
-  - https://www.servicenow.com/docs/r/platform-administration/user-administration/t_CreateAUser.html
+  - https://www.servicenow.com/docs/r/australia/platform-administration/user-administration/base-system-roles.html
+  - https://www.servicenow.com/docs/r/australia/platform-administration/user-administration/t_CreateAUser.html
   - https://www.servicenow.com/docs/r/platform-administration/user-administration/t_AssignARoleToAUser.html
   - https://www.servicenow.com/docs/r/platform-administration/user-administration/c_UserAdministration.html
-  - https://www.servicenow.com/docs/r/platform-administration/subscriptions-overview-v2.html
+  - https://www.servicenow.com/docs/r/australia/platform-administration/subscriptions-overview-v2.html
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/h4dDh7ZSUVE8MFW~bbdm9w
   - https://www.servicenow.com/docs/r/eh2NFokZCOdK5kPblQPzog/WCp1oJbS6O7C2GZBWeqyyA
   - https://www.servicenow.com/docs/r/platform-administration/allocate-subscriptions-v2.html
@@ -28,6 +28,14 @@ sources:
   - https://www.servicenow.com/community/itsm-articles/expanded-role-inheritance-for-itil-and-itil-admin-australia/ta-p/3516134
   - https://www.servicenow.com/community/itsm-articles/new-field-introduction-in-user-sys-user-australia-release/ta-p/3511607
   - https://www.servicenow.com/community/in-other-news/recognising-the-types-of-users-that-access-your-instance/bc-p/3403841
+  - https://www.servicenow.com/community/admin-experience-forum/subscription-groups-and-subscription-users-in-subscription/m-p/3579917
+  - https://www.servicenow.com/community/servicenow-ai-platform-forum/approval-license-need-for-e-mail-approvals/td-p/1091344/page/2
+  - https://www.servicenow.com/community/servicenow-ai-platform-forum/are-requestor-not-charged-by-servicenow/m-p/2487515
+  - https://www.servicenow.com/community/developer-forum/how-to-count-number-of-group-members-in-the-group-for-example/m-p/1521876
+  - https://redresscompliance.com/servicenow-fulfiller-vs-requester-licensing-explained.html
+  - https://www.cloudnuro.ai/blog/understanding-servicenow-licensing-a-comprehensive-guide
+  - https://wiki.licenseware.io/wiki/servicenow-user-roles-and-per-user-subscriptions/
+  - https://meetings.boardbook.org/Documents/DownloadPDF/169f0aa4-2dce-43d7-9129-2855d99770b0?org=2066
 ---
 
 # ユーザー・ロール・ライセンスの基本（Users, Roles and Licensing Basics）
@@ -38,7 +46,7 @@ ServiceNow のライセンス（正式には **Subscription（サブスクリプ
 
 - **Requester（リクエスター／依頼者）**：自分の依頼を出して確認するだけの一般ユーザー
 - **Business Stakeholder（ビジネスステークホルダー）**：Requester の機能に加えて、承認やレポート閲覧ができる
-- **Approver（承認者）**：承認だけを行う（古い契約形態。新規契約では Business Stakeholder に置き換わっていることが多い）
+- **Approver（承認者）**：承認だけを行う（古い契約形態。新規契約では Business Stakeholder に置き換わっていることが多いとされる【第三者情報】。5.2 参照）
 - **Fulfiller（フルフィラー／対応者）**：チケットに対応・処理する担当者。最も高価
 
 本ファイルは入門者向けに、次の3点を説明する。
@@ -86,14 +94,14 @@ ServiceNow のユーザー管理（User Administration）は、ユーザー、�
 | ユーザーのロール | User has role | `sys_user_has_role` | ユーザーとロールの対応（グループ経由で継承されたものも含む） |
 | ロールの包含 | Role contains | `sys_user_role_contains` | ロールの中に別のロールを含める関係（例：`itil_admin` が `itil` を含む） |
 
-テーブル名 `sys_user_grmember`、`sys_user_role_contains` は ServiceNow Community の記事でも使われている標準テーブルである。[出典](https://www.servicenow.com/community/now-platform-articles/prevent-direct-assignment-of-licensable-roles-to-users/ta-p/2307963) 各テーブルの詳細は [ユーザー・グループ・ロール](../02_リファレンス/platform/users-groups-roles.md) を参照。
+`sys_user_role_contains`（ロールの包含関係）は ServiceNow Community の記事で使われている標準テーブルである。[出典](https://www.servicenow.com/community/now-platform-articles/prevent-direct-assignment-of-licensable-roles-to-users/ta-p/2307963)【第三者情報】 `sys_user_grmember`（グループメンバー）は、1件のレコードが1人のユーザーと1つのグループの組を表す多対多（M2M）テーブルであると Community で説明されている。[出典](https://www.servicenow.com/community/developer-forum/how-to-count-number-of-group-members-in-the-group-for-example/m-p/1521876)【第三者情報】（このテーブル名を明記した公式ドキュメントのページは、今回の調査では確認できず。） 各テーブルの詳細は [ユーザー・グループ・ロール](../02_リファレンス/platform/users-groups-roles.md) を参照。
 
 ### 1.2 ロールの継承
 
 ServiceNow のロールは次の2つの方法で「継承」される。
 
 1. **グループからの継承**：ユーザーは、所属するすべてのグループからロールを継承する。グループから継承したロールはユーザーレコードから個別に削除できず、削除するにはグループから外す必要がある。[出典](https://www.servicenow.com/docs/r/platform-administration/user-administration/t_AssignARoleToAUser.html)
-2. **ロールの包含（Contains Roles）**：あるロールが別のロールを含むことができる。たとえば `business_stakeholder` ロールは `approver_user` ロールを含む。[出典](https://www.servicenow.com/docs/r/it-service-management/incident-management/installed-with-business-stakeholder-incident.html)
+2. **ロールの包含（Contains Roles）**：あるロールが別のロールを含むことができる。たとえば `business_stakeholder` ロールは、承認用の `approver_user.business_stakeholder` ロール（基本の `approver_user` とは別のロール）を含む（5.1 参照）。[出典](https://www.servicenow.com/docs/r/it-service-management/incident-management/installed-with-business-stakeholder-incident.html)
 
 ServiceNow 公式ドキュメントは「可能な限り、ロールはグループに割り当ててユーザー管理を簡素化する」ことを推奨している（*"When possible, simplify user administration by assigning roles to groups."*）。[出典](https://www.servicenow.com/docs/r/platform-administration/user-administration/t_AssignARoleToAUser.html)
 
@@ -105,13 +113,13 @@ ServiceNow 公式ドキュメントは「可能な限り、ロールはグルー
 
 ### 2.1 ユーザーの作成
 
-ServiceNow のユーザーは **All > User Administration > Users（ユーザー管理 > ユーザー）** で New を選んで作成する。作成には `user_admin` ロールが必要である。必須項目は **User ID** と、**Given name（名）または Family name（姓）のどちらか**である。[出典](https://www.servicenow.com/docs/r/platform-administration/user-administration/t_CreateAUser.html)
+ServiceNow のユーザーは **All > User Administration > Users（ユーザー管理 > ユーザー）** で New を選んで作成する。作成には `user_admin` ロールが必要である。必須項目は **User ID** と、**Given name（名）または Family name（姓）のどちらか**である。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/user-administration/t_CreateAUser.html)
 
 実務では、ユーザーは手作業で作るより、Active Directory／Microsoft Entra ID などの ID 基盤からの LDAP 連携や SCIM、SSO 時の自動作成（Just-in-Time provisioning）で取り込むことが多い。詳細は [認証とSSO](../02_リファレンス/platform/authentication-sso.md) を参照。
 
 ### 2.2 ライセンスや権限に関係する主なフィールド
 
-`sys_user` テーブルのうち、ライセンスの計測やアクセスに影響する主なフィールドは次のとおり。[出典](https://www.servicenow.com/docs/r/platform-administration/user-administration/t_CreateAUser.html)
+`sys_user` テーブルのうち、ライセンスの計測やアクセスに影響する主なフィールドは次のとおり。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/user-administration/t_CreateAUser.html)
 
 | フィールド（英語） | 日本語訳 | 説明 |
 |---|---|---|
@@ -127,7 +135,7 @@ ServiceNow のユーザーは **All > User Administration > Users（ユーザー
 
 ### 2.3 Identity type（ID 種別）フィールド
 
-`sys_user` テーブルには **Identity type（`identity_type`）** というフィールドがあり、ユーザーが人なのか、システムアカウントなのか、AI エージェントなのかを区別する。[出典](https://www.servicenow.com/docs/r/platform-administration/user-administration/t_CreateAUser.html)
+`sys_user` テーブルには **Identity type（`identity_type`）** というフィールドがあり、ユーザーが人なのか、システムアカウントなのか、AI エージェントなのかを区別する。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/user-administration/t_CreateAUser.html)
 
 | 表示値 | 保存値 | 用途 |
 |---|---|---|
@@ -138,7 +146,7 @@ ServiceNow のユーザーは **All > User Administration > Users（ユーザー
 
 保存値は ServiceNow Community の記事に基づく。[出典](https://www.servicenow.com/community/itsm-articles/new-field-introduction-in-user-sys-user-australia-release/ta-p/3511607)【第三者情報】
 
-- Identity type を **Machine** にすると **Web service access only** が自動的にオンになり、**Human** または **AI** にするとオフになる。AI と他の種別との間の変更は制限されている。[出典](https://www.servicenow.com/docs/r/platform-administration/user-administration/t_CreateAUser.html)
+- Identity type を **Machine** にすると **Web service access only** が自動的にオンになり、**Human** または **AI** にするとオフになる。AI と他の種別との間の変更は制限されている。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/user-administration/t_CreateAUser.html)
 - Australia では Identity type ドロップダウンの **AI** 選択肢で AI エージェント／AI ユーザーを構成できること、および `ai_user_admin` ロールで AI ユーザーの作成・編集・ロール管理ができることがリリースノートに記載されている。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-identity-release-notes.html)
 - Identity type フィールドの導入リリースは情報源によって記載が異なる（Community の記事で「Australia で導入」とするもの、「Xanadu 以降」とするものがある）。公開情報では確定できず。
 
@@ -146,7 +154,7 @@ ServiceNow のユーザーは **All > User Administration > Users（ユーザー
 
 **キャプション:** ユーザーフォーム（User 画面）の例。Web service access only が読み取り専用になり、Identity type フィールドの使用を促すメッセージが表示されている。
 
-**画面の説明:** Next Experience UI のユーザーレコード画面（All > User Administration > Users でユーザーを開いた状態）。左列に User ID、First name、Last name、Title、Password needs reset、Locked out、Active、Web service access only、Internal Integration User のチェックボックスが並び、右列に Email、Calendar integration、Time zone、Business phone、Mobile phone、Photo がある。Web service access only の下に「This field is now read-only. Please use the 'Identity type' field instead.」という吹き出しが表示されている。画面右上には Update と Set Password ボタンがある。なお、この画面のフィールドラベルは First name／Last name であり、Brazil 版の公式ドキュメント上の Given name／Family name とは表記が異なる（インスタンスのバージョンや設定によって異なる可能性がある）。
+**画面の説明:** Next Experience UI のユーザーレコード画面（All > User Administration > Users でユーザーを開いた状態）。左列に User ID、First name、Last name、Title、Password needs reset、Locked out、Active、Web service access only、Internal Integration User のチェックボックスが並び、右列に Email、Calendar integration、Time zone、Business phone、Mobile phone、Photo がある。Web service access only の下に「This field is now read-only. Please use the 'Identity type' field instead.」という吹き出しが表示されている。画面右上には Update と Set Password ボタンがある。なお、この画面のフィールドラベルは First name／Last name であり、Australia 版の公式ドキュメント（Create a user）の手順上の表記 Given name／Family name とは異なる（同ドキュメントの本文中には First name／Last name の表記もある。インスタンスのバージョンや設定によって異なる可能性がある）。
 
 **出典:** https://www.servicenow.com/community/in-other-news/recognising-the-types-of-users-that-access-your-instance/bc-p/3403841 （ServiceNow Community ブログ、2025-10-07 投稿。取得日 2026-11-02）【第三者情報】
 
@@ -164,7 +172,7 @@ ServiceNow のユーザーは **All > User Administration > Users（ユーザー
 
 ### 3.1 ベースシステムロール（Base system roles）
 
-ServiceNow には、インスタンスに標準で含まれる **Base system roles（ベースシステムロール）** がある。ベースシステムロールは無効化できるが、変更や名前の変更はできない。[出典](https://www.servicenow.com/docs/r/platform-administration/user-administration/base-system-roles.html)
+ServiceNow には、インスタンスに標準で含まれる **Base system roles（ベースシステムロール）** がある。ベースシステムロールは無効化できるが、変更や名前の変更はできない。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/user-administration/base-system-roles.html)
 
 | ロール | 説明 | ライセンスとの関係 |
 |---|---|---|
@@ -175,9 +183,9 @@ ServiceNow には、インスタンスに標準で含まれる **Base system rol
 | `user_admin` | ユーザー、グループ、所在地（Location）、会社（Company）を管理する | — |
 | `public` | ログインせずに機能を利用できるようにする | — |
 
-上表の説明は Base system roles ページ（Brazil 版）に基づく。`approver_user` については「組織が適切な権利（Entitlement）を持っていることを確認せずに付与しないこと」と注意書きがある。[出典](https://www.servicenow.com/docs/r/platform-administration/user-administration/base-system-roles.html)
+上表の説明は Base system roles ページ（Australia 版。2026-11-02 に Australia 版 URL で内容を確認）に基づく。`approver_user` については「組織が適切な権利（Entitlement）を持っていることを確認せずに付与しないこと」と注意書きがある。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/user-administration/base-system-roles.html)
 
-> **Australia での変更:** `itil_admin` ロールに `sn_cmdb_admin` ロールが標準で含まれるようになり、`itil_admin` を持つユーザーは CMDB の管理権限も自動的に持つ。また、`itil` ロールの包含ロールに `sn_cmdb_editor`、`sn_comm_management.comm_plan_viewer`、`sn_sla_definition_query`、`sn_uib_collab_user` の4ロールが追加されたと報告されている。アップグレード前に `itil_admin` の付与状況を見直すことが勧められている。[出典](https://www.servicenow.com/community/itsm-articles/expanded-role-inheritance-for-itil-and-itil-admin-australia/ta-p/3516134)【第三者情報】（`itil_admin` が CMDB の完全な制御権限を持つ点は、Brazil 版の公式 Base system roles ページでも確認できる）
+> **Australia での変更:** `itil_admin` ロールに `sn_cmdb_admin` ロールが標準で含まれるようになり、`itil_admin` を持つユーザーは CMDB の管理権限も自動的に持つ。また、`itil` ロールの包含ロールに `sn_cmdb_editor`、`sn_comm_management.comm_plan_viewer`、`sn_sla_definition_query`、`sn_uib_collab_user` の4ロールが追加されたと報告されている。アップグレード前に `itil_admin` の付与状況を見直すことが勧められている。[出典](https://www.servicenow.com/community/itsm-articles/expanded-role-inheritance-for-itil-and-itil-admin-australia/ta-p/3516134)【第三者情報】（`itil_admin` が CMDB の完全な制御権限を持ち、`sn_cmdb_admin` ロールの権限をすべて含む点は、Australia 版の公式 Base system roles ページでも確認できる）
 
 ### 3.2 内部ユーザーと外部ユーザー（`snc_internal`／`snc_external`）
 
@@ -209,19 +217,22 @@ ServiceNow の多くの製品（ITSM、CSM、HRSD など）では、ユーザー
 | **Requester** | リクエスター／依頼者 | 自分の依頼（カタログ要求、インシデント）の作成・閲覧・更新、ナレッジの閲覧、ポータルの利用 | ロールなし、`snc_internal` など | 通常は課金されない（契約による） |
 | **Approver** | 承認者 | Requester の機能＋自分に回付された承認の処理 | `approver_user` | 有償（Approver ライセンス） |
 | **Business Stakeholder** | ビジネスステークホルダー | Requester の機能＋承認＋レコードの閲覧＋レポート・ダッシュボードの閲覧 | `business_stakeholder` | 有償（Fulfiller より安価） |
-| **Fulfiller** | フルフィラー／対応者 | 上記以外の機能。レコードの作成・更新・削除、タスクの処理、プロセスの実行 | `itil`、`sn_incident_write`、`csm_agent` など | 有償（最も高価） |
-| **Creator** | クリエイター | Now Assist の開発者向け機能（Creator 向けスキル）の利用 | `now.assist.creator` | 有償（Creator User メーター） |
+| **Fulfiller** | フルフィラー／対応者 | 上記以外の機能。レコードの作成・更新・削除、タスクの処理、プロセスの実行 | `itil`、`sn_incident_write`、`sn_customerservice_agent`（CSM）など | 有償（最も高価） |
+| **Creator** | クリエイター | Now Assist の開発者向け機能（Creator 向けスキル）の利用 | `now.assist.creator` | 有償（Creator User メーター。Subscription Management のメーター種別一覧では Application user メーターに含まれる。6.2 参照） |
 | **Application user** | アプリケーションユーザー | App Engine で作ったカスタムアプリケーションの利用 | アプリごとのロール | 有償（App Engine） |
 
 - Business Stakeholder は「Requester ができることに加え、承認やダッシュボード、レポートに関する作業ができるが、タスクの対応（Fulfill）はできない」と説明されている。Fulfiller は「キューの作業を実際に行う名前付きユーザー（Named user）」であり、多くの製品で中心となる有償ライセンスである。Application user は App Engine のカスタムアプリケーションに適用され、プラットフォームの中核ソリューションには適用されない。[出典](https://www.servicenow.com/community/architect-articles/servicenow-licensing-fundamentals-that-shape-cost-and-design/ta-p/3521055)【第三者情報】（ServiceNow Community の Architect 記事）
-- Creator User メーターは `now.assist.creator` ロールを持つユーザーを数える。[出典](https://www.servicenow.com/docs/r/eh2NFokZCOdK5kPblQPzog/WCp1oJbS6O7C2GZBWeqyyA)
+- Creator User メーターは `now.assist.creator` ロールを持つユーザーを数える。[出典](https://www.servicenow.com/docs/r/eh2NFokZCOdK5kPblQPzog/WCp1oJbS6O7C2GZBWeqyyA) メーター種別の一覧では、Creator User は Application user メーターに含まれる（*"includes Creator Users"*）。[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/h4dDh7ZSUVE8MFW~bbdm9w)
+- 「Creator」という言葉は、App Engine の Creator 系ライセンス（アプリ開発者向け）を指す文脈でも使われる。上表の Creator（`now.assist.creator`）とは文脈が異なる場合があるので、契約上の定義を確認すること。
 - 価格の目安は [価格情報](../03_導入編/02-pricing.md) を参照（本ファイルでは扱わない）。
 
 ### 4.2 「上位の種別が優先される」という原則
 
-ユーザー種別は、**そのユーザーが持つロールのうち最も権限の大きいもの**で決まる。たとえば、`business_stakeholder` と `itil` の両方を持つユーザーは、Business Stakeholder と Fulfiller の2つではなく、**Fulfiller 1人**として数えられると一般に説明される。【第三者情報】[出典](https://redresscompliance.com/servicenow-fulfiller-vs-requester-licensing-explained.html)
+1人のユーザーが承認用のロールと Fulfiller 用のロールの両方を持つ場合について、第三者の解説（Redress Compliance）では、**Fulfiller シート1つで足りる**（*"An ITSM fulfiller can approve ITSM changes and requests on the same seat."*：Fulfiller は同じシートで承認もできる）と説明されている。ただし、サブスクリプション対象製品の外（Procurement や GRC など）での承認には別途承認の権利が必要とされている。【第三者情報】[出典](https://redresscompliance.com/servicenow-fulfiller-vs-requester-licensing-explained.html)
 
-契約書（Order Form）の定義でも、Fulfiller は「Business Stakeholder や Requester の機能**以外の何らかの機能**を行うユーザー」と定義されることが多く、**1つでも Fulfiller 相当の操作をすれば Fulfiller として数えられる**という考え方である。【第三者情報】[出典](https://redresscompliance.com/servicenow-fulfiller-vs-requester-licensing-explained.html)
+同じ解説では、**計測はロールで決まり、実際の作業では決まらない**（*"ServiceNow subscriptions count the roles a user holds, not the work the user does."*）とされている。つまり write 系（レコードの更新など）のロールを持っていれば、実際にキューの作業をしていなくても、ほとんどログインしていなくても課金対象になる。【第三者情報】[出典](https://redresscompliance.com/servicenow-fulfiller-vs-requester-licensing-explained.html)
+
+また別の第三者の解説では、Fulfiller User を「Business Stakeholder User や Requester User の機能に加えて何らかの機能を行うユーザー」（*"Without limitation, a Fulfiller User is any 'User' that performs any function in addition to Business Stakeholder User function or Requester User function"*）と紹介している（この解説は原典となる契約書を示していない）。【第三者情報】[出典](https://www.cloudnuro.ai/blog/understanding-servicenow-licensing-a-comprehensive-guide) 種別が重なる場合に上位の種別1つで数えるという考え方は、これらの解説や下の判定フローから導かれる一般的な理解であり、公式ドキュメントで明文化された記述は確認できず。【推定】
 
 ```mermaid
 flowchart TB
@@ -237,13 +248,17 @@ flowchart TB
 
 ### 4.3 契約書（Order Form）上の定義の例
 
-公開されている ServiceNow の Order Form の一例では、次のように定義されている。【第三者情報】[出典](https://meetings.boardbook.org/Documents/DownloadPDF/169f0aa4-2dce-43d7-9129-2855d99770b0?org=2066)
+> **注意:** この節で紹介する定義の出典 PDF は、2026-11-02 および 2026-11-08 の再確認ではいずれも HTTP 400 となり取得できなかった。**定義の英語原文は未確認**であり、以下は本ファイル初稿作成時のメモに基づく要約である。代わりとなる公開 Order Form や ServiceNow の公式 Use Rights 文書も、今回の調査では見つからなかった。
 
-- **Requester User:** ロールを持たない（*"without a role"*）ユーザー
-- **Fulfiller User:** 顧客によって Approver ロール以外のロールを付与されたユーザー
-- **Business Stakeholder User:** 自分に回付された承認依頼をメールなどで承認できる、Requester と Fulfiller の中間のユーザー
+公共機関の会議資料として公開されていた ServiceNow の Order Form の一例には、次のような定義が記載されていた（現在は確認不能）。【第三者情報】[出典](https://meetings.boardbook.org/Documents/DownloadPDF/169f0aa4-2dce-43d7-9129-2855d99770b0?org=2066)
 
-この定義は契約時期や契約形態によって異なる。たとえば別の解説では、Requester を「Fulfiller、Business Stakeholder 以外で、サブスクリプションサービス上で Active になっているユーザー」と表現している。【第三者情報】[出典](https://redresscompliance.com/servicenow-fulfiller-vs-requester-licensing-explained.html) **自社の契約書の定義を必ず確認する**こと。
+- **Requester User:** ロールを持たないユーザー、と記載されていた（現在は確認不能）【第三者情報】
+- **Fulfiller User:** 顧客によって Approver ロール以外のロールを付与されたユーザー、と記載されていた（現在は確認不能）【第三者情報】
+- **Business Stakeholder User:** 自分に回付された承認依頼をメールなどで承認できる、Requester と Fulfiller の中間のユーザー、と記載されていた（現在は確認不能）【第三者情報】
+
+上の要約どおりだとすると、この Order Form の Fulfiller User の定義を文字どおり読むと、`business_stakeholder` ロールを持つユーザーも「Approver 以外のロールを付与されたユーザー」に当たり、Fulfiller になるように読める。しかし同じ契約書で Business Stakeholder User が別に定義されているため、実際には Business Stakeholder は別枠として扱われると考えられる。【推定】
+
+この定義は契約時期や契約形態によって異なる。たとえば別の第三者の解説では、Requester を「Fulfiller や Business Stakeholder User 以外で、サブスクリプションサービスのユーザープロファイルで Active にチェックが入っているユーザー」（*"A Requester is any user checked as 'active' on their user profile in the subscription service other than a Fulfiller or Business Stakeholder User"*）と紹介している（原典の契約書は示されていない）。【第三者情報】[出典](https://www.cloudnuro.ai/blog/understanding-servicenow-licensing-a-comprehensive-guide) **自社の契約書の定義を必ず確認する**こと。
 
 ### 4.4 ロールとユーザー種別の対応表（`license_role` テーブル）
 
@@ -287,22 +302,25 @@ ServiceNow インスタンスには、各ロールがどのユーザー種別（
 
 ITSM の Business Stakeholder ロールは **Business Stakeholder プラグイン（`com.snc.business_stakeholder`）** で提供される。`business_stakeholder` ロールは「ITSM のすべての製品で、レコードを閲覧し承認できる」ロールである。[出典](https://www.servicenow.com/docs/r/Sx3eYflWQ2rS18vmPDBm0Q/I7JvpzPElb0OBylrCmsUWg)
 
-`business_stakeholder` ロールが含む主なロールは次のとおり（Australia 版および Brazil 版のドキュメントによる）。[出典](https://www.servicenow.com/docs/r/Sx3eYflWQ2rS18vmPDBm0Q/I7JvpzPElb0OBylrCmsUWg)、[出典](https://www.servicenow.com/docs/r/it-service-management/incident-management/installed-with-business-stakeholder-incident.html)
+`business_stakeholder` ロールの **Contains roles（包含ロール）** 列に記載されているロールは次のとおり（Australia 版および Brazil 版のドキュメントによる）。[出典](https://www.servicenow.com/docs/r/Sx3eYflWQ2rS18vmPDBm0Q/I7JvpzPElb0OBylrCmsUWg)、[出典](https://www.servicenow.com/docs/r/it-service-management/incident-management/installed-with-business-stakeholder-incident.html)
 
 | 包含ロール | 意味 |
 |---|---|
-| `approver_user` | 承認 |
-| `pa_viewer` | Performance Analytics（Platform Analytics）のダッシュボード閲覧 |
-| `cmdb_read` | CMDB の参照 |
-| `sn_incident_read`、`sn_problem_read`、`sn_change_read`、`sn_request_read` | インシデント、問題、変更、リクエストの参照 |
+| `approver_user.business_stakeholder` | 承認（基本ロールの `approver_user` とは別のロール） |
+| `pa_viewer.business_stakeholder` | Performance Analytics（Platform Analytics）のダッシュボード閲覧（基本ロールの `pa_viewer` とは別のロール） |
+| `cmdb_read.business_stakeholder` | CMDB の参照（基本ロールの `cmdb_read` とは別のロール） |
 | `sn_incident_comments_write`、`sn_request_comments_write` | インシデント、リクエストへのコメント書き込み |
+
+- 名前に `.business_stakeholder` が付いたロールは、`approver_user`、`pa_viewer`、`cmdb_read` という基本ロールとは**別のロール**である。そのため、`business_stakeholder` を付与しても、有償の基本ロール `approver_user`（Approver ライセンスが必要）を直接持つことになるとは限らない。
+- 一方、同じ公式ページのロールの説明文（Description）には、`business_stakeholder` が `sn_incident_read`、`sn_problem_read`、`sn_change_read`、`sn_request_read`、`approver_user` を含むとも書かれており、Contains roles 列と一致しない（公式ページ内で記述が食い違っている）。実際の包含関係は自社インスタンスの `sys_user_role_contains` で確認すること。
+- ライセンス上の扱い（Business Stakeholder ライセンスで承認がどこまで認められるか）は、契約内容で確認すること。
 
 Business Stakeholder は ITSM 以外の製品にもある。たとえば CSM（Customer Service Management）の Business Stakeholder は、顧客の代わりにケースを作成する、ケースや顧客データを閲覧する、承認する、レポートやダッシュボードを見るといった操作ができる。[出典](https://www.servicenow.com/docs/r/customer-service-management/business-stakeholder-for-csm.html)
 
 ### 5.2 `approver_user` と `business_stakeholder` の関係
 
-- `approver_user` は古くからある承認専用のロールで、公式ドキュメントに「Approver ライセンスが必要」「料金が発生する」と明記されている。[出典](https://www.servicenow.com/docs/r/platform-administration/user-administration/base-system-roles.html)
-- `business_stakeholder` は `approver_user` を含み、さらに参照権限とレポート閲覧権限を持つ上位互換のロールである。
+- `approver_user` は古くからある承認専用のロールで、公式ドキュメントに「Approver ライセンスが必要」「料金が発生する」と明記されている。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/user-administration/base-system-roles.html)
+- `business_stakeholder` は、承認用の `approver_user.business_stakeholder`（基本の `approver_user` とは別ロール）を含み、さらに参照権限とレポート閲覧権限を持つロールである（5.1 参照）。[出典](https://www.servicenow.com/docs/r/it-service-management/incident-management/installed-with-business-stakeholder-incident.html) 機能面では `approver_user` の上位にあたるが、ライセンス上どう扱われるかは契約で確認すること。
 - ServiceNow Community では「新規契約や更新時には、Approver はほぼ Business Stakeholder に移行している」と回答されている（2021年の回答）。【第三者情報】[出典](https://www.servicenow.com/community/itsm-forum/business-stakeholder-vs-approver-user-roles/m-p/635453)
 - 自社の契約に Approver ライセンスと Business Stakeholder ライセンスのどちらが含まれているかによって、付与すべきロールが変わる。
 
@@ -349,10 +367,11 @@ ServiceNow のサブスクリプションには次の種類がある（Australia
 |---|---|
 | メニュー | **Admin > Subscription Management**、または **All > Subscription Management > Subscription Management** |
 | 必要なロール | `usage_admin`、`sn_sub_man.admin`、`admin` のいずれか |
-| 状態（Status） | Compliant（準拠）、Near capacity（上限に近い。既定は 90%、Settings タブで変更可）、Even（同数）、Over-allocated（超過）など |
-| 主なタブ | Subscribed groups（サブスクライブ済みグループ）、Subscribed users（サブスクライブ済みユーザー）、Bundled items（カスタムテーブルなどの付属品）、Purchase history（購入履歴）など |
+| 状態（Status） | Compliant（準拠）、Near capacity（上限に近い。既定は 90%、Settings タブで変更可）、Even（同数）、Over-allocated（超過）、Account-level only（アカウントレベルのみ。割り当て状態を計算しない。Creator Plus 製品のみ） |
+| 概要画面のタブ | Overview（概要）、Instance entitlements（インスタンスの権利）、Account entitlements（アカウントの権利）、Settings（設定） |
+| 製品詳細画面の主なタブ | Subscribed groups（サブスクライブ済みグループ）、Subscribed users（サブスクライブ済みユーザー）、Bundled items（カスタムテーブルなどの付属品）、Purchase history（購入履歴）など |
 
-[出典](https://www.servicenow.com/docs/r/platform-administration/allocate-subscriptions-v2.html)、[出典](https://www.servicenow.com/docs/r/platform-administration/subscriptions-overview-v2.html)、[出典](https://www.servicenow.com/docs/r/eh2NFokZCOdK5kPblQPzog/WCp1oJbS6O7C2GZBWeqyyA)
+[出典](https://www.servicenow.com/docs/r/platform-administration/allocate-subscriptions-v2.html)、[出典](https://www.servicenow.com/docs/r/australia/platform-administration/subscriptions-overview-v2.html)、[出典](https://www.servicenow.com/docs/r/eh2NFokZCOdK5kPblQPzog/WCp1oJbS6O7C2GZBWeqyyA)
 
 Subscription Management の基本的な考え方は、**「サブスクリプションはグループで管理し、ロールで計測・監査する」**である（*"Subscriptions are managed in Subscription Management using groups."* *"Subscriptions are measured and audited in Subscription Management using roles."*）。[出典](https://www.servicenow.com/docs/r/platform-administration/managing-user-subscriptions-v2.html)
 
@@ -368,7 +387,7 @@ Subscription Management の基本的な考え方は、**「サブスクリプシ
 - 手動割り当てでは、追加したグループは **Subscribed groups** になり、グループのメンバー全員がその製品の権利を得る。Subscription Management は、ロールの割り当て状況に基づいて追加すべきグループを推奨する（例：ITSM の Fulfiller ロールを持つ Service Desk グループを ITSM サブスクリプションに追加）。
 - Subscribed users の更新は**日次のスケジュールジョブ**で行われるため、反映に最大1日かかる。
 - 同じユーザーが複数のサブスクライブ済みグループに所属していても、1人として数えられる。【第三者情報】[出典](https://www.servicenow.com/community/admin-experience-forum/subscription-groups-and-subscription-users-in-subscription/m-p/3579917)
-- ユーザー単位サブスクリプションの割り当て詳細は、割り当てが不完全な場合の誤解を防ぐため Subscription Management の概要画面では表示されず、詳細はアカウント担当（Account Executive）に問い合わせるよう案内されている。[出典](https://www.servicenow.com/docs/r/platform-administration/subscriptions-overview-v2.html)
+- ユーザー単位サブスクリプションの割り当て詳細は、割り当てが不完全な場合の誤解を防ぐため Subscription Management の概要画面では表示されず、詳細はアカウント担当（Account Executive）に問い合わせるよう案内されている。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/subscriptions-overview-v2.html)
 
 ### 6.5 「アクティブユーザー」の定義
 
@@ -378,7 +397,7 @@ Subscription Management で数える **アクティブユーザー（Active user
 - **Web service access only** のユーザー
 - **User ID が空**のユーザー
 
-一方、Unrestricted user メーターでは「`sys_user` テーブルで User ID に値があり、Active が true のユーザー」をアクティブユーザーとしている。[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/h4dDh7ZSUVE8MFW~bbdm9w) どちらの定義で数えるかは画面やサブスクリプションの種類によって異なるため、詳細は ServiceNow の KB0727967 などで確認すること。
+一方、Unrestricted user メーターでは「`sys_user` テーブルで User ID に値があり、Active が true のユーザー」をアクティブユーザーとしている。[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/h4dDh7ZSUVE8MFW~bbdm9w) どちらの定義で数えるかは画面やサブスクリプションの種類によって異なるため、自社の契約内容と Subscription Management の画面で確認すること。
 
 ---
 
@@ -390,7 +409,7 @@ ServiceNow では、**ロールを付与すること自体がライセンス消�
 
 ### 7.2 「承認だけなら無料」とは限らない
 
-- `approver_user` ロールには料金が発生し、Approver ライセンスが必要である。[出典](https://www.servicenow.com/docs/r/platform-administration/user-administration/base-system-roles.html)
+- `approver_user` ロールには料金が発生し、Approver ライセンスが必要である。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/user-administration/base-system-roles.html)
 - メールの返信で承認する場合はロールを持たないユーザーでも技術的には処理できる（標準のインバウンドメールアクション「Update Approval Request」は送信者のロールを確認しない）と Community では報告されている。しかし、それがライセンス上許されるかは契約次第であり、「メールで承認する場合も Approver または Fulfiller の使用権が必要」とする古い価格資料の記述も Community で引用されている。【第三者情報】[出典](https://www.servicenow.com/community/servicenow-ai-platform-forum/approval-license-need-for-e-mail-approvals/td-p/1091344/page/2)
 - 「技術的にできる」ことと「契約上許される」ことは別である。承認者の扱いは契約内容を ServiceNow の営業担当に確認する。【経験則】
 
@@ -406,7 +425,7 @@ ServiceNow では、**ロールを付与すること自体がライセンス消�
 
 ### 7.5 「カスタムロールなら課金されない」わけではない
 
-自分で作ったカスタムロールでも、**有償ロールを包含している**場合や、**製品のテーブルへのアクセス権（ACL）を持つ**場合は、ライセンス計測の対象になりうる。Community では、カスタムロールは含まれる ACL によって分類され、サブスクリプション製品内のテーブルアクセスに応じて権利が判定されると説明されている。【第三者情報】[出典](https://wiki.licenseware.io/wiki/servicenow-user-roles-and-per-user-subscriptions/)
+自分で作ったカスタムロールでも、**有償ロールを包含している**場合や、**製品のテーブルへのアクセス権（ACL）を持つ**場合は、ライセンス計測の対象になりうる。第三者の解説（Licenseware Wiki）では、カスタムロールは含まれる ACL によって分類され（*"according to the Access Control Lists (ACLs) each role contains"*）、サブスクリプション製品内のテーブルへのアクセスに応じて権利が判定される（*"based on access granted to tables within a subscription product"*）と説明されている。【第三者情報】[出典](https://wiki.licenseware.io/wiki/servicenow-user-roles-and-per-user-subscriptions/) この解説は ServiceNow 公式ドキュメント「Automatic subscription assignment」（`user-subscription-auto-assignment.html`）を根拠として挙げているが、2026-11-02 時点でそのページは取得できず（HTTP 404）、公式ドキュメントでの記述は直接確認できていない。なお公式ドキュメントでは、サブスクリプションが必要なロールを Measured roles（計測対象ロール）と呼び、提供するアクセスのレベルで分類されるとしている。[出典](https://www.servicenow.com/docs/r/platform-administration/managing-user-subscriptions-v2.html)
 
 ### 7.6 「インスタンスを増やしてもライセンスは同じ」ではない
 
@@ -429,7 +448,8 @@ ITSM Standard／Pro／Enterprise などのエディションは、特定の機�
 | ロールは権限だけの話 | ロールはライセンス計測の基準でもある |
 | 承認者は無料 | `approver_user` は有償。メール承認の扱いも契約次第 |
 | Requester は常に無料 | Unrestricted User 型では全アクティブユーザーが対象 |
-| 1人が複数ロールを持つと複数ライセンスが必要 | 通常は最も上位の種別1つで数えられる【第三者情報】 |
+| 1人が複数ロールを持つと複数ライセンスが必要 | 承認と Fulfiller の両方のロールを持つ場合は Fulfiller シート1つで足りると説明されている【第三者情報】 |
+| 作業していなければ課金されない | 計測は保持しているロールで決まり、実際の作業量では決まらない【第三者情報】 |
 | カスタムロールは課金対象外 | 有償ロールの包含や製品テーブルへのアクセスがあれば対象になりうる |
 | ロールは直接付与でよい | グループ経由での付与が推奨 |
 | ライセンス定義はドキュメントで決まる | 最終的には契約書（Order Form、Use Rights）で決まる |
@@ -481,11 +501,11 @@ Subscription Management について、Brazil での変更点を明記したリ�
 
 **ServiceNow 公式ドキュメント**
 
-- Base system roles: https://www.servicenow.com/docs/r/platform-administration/user-administration/base-system-roles.html
-- Create a user: https://www.servicenow.com/docs/r/platform-administration/user-administration/t_CreateAUser.html
+- Base system roles: https://www.servicenow.com/docs/r/australia/platform-administration/user-administration/base-system-roles.html
+- Create a user: https://www.servicenow.com/docs/r/australia/platform-administration/user-administration/t_CreateAUser.html
 - Assign a role to a user: https://www.servicenow.com/docs/r/platform-administration/user-administration/t_AssignARoleToAUser.html
 - User administration: https://www.servicenow.com/docs/r/platform-administration/user-administration/c_UserAdministration.html
-- Product subscriptions overview: https://www.servicenow.com/docs/r/platform-administration/subscriptions-overview-v2.html
+- Product subscriptions overview: https://www.servicenow.com/docs/r/australia/platform-administration/subscriptions-overview-v2.html
 - Types of subscriptions in Subscription Management（Australia）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/h4dDh7ZSUVE8MFW~bbdm9w
 - Viewing product subscription details in Subscription Management（Australia）: https://www.servicenow.com/docs/r/eh2NFokZCOdK5kPblQPzog/WCp1oJbS6O7C2GZBWeqyyA
 - Allocate subscriptions in Subscription Management: https://www.servicenow.com/docs/r/platform-administration/allocate-subscriptions-v2.html
@@ -508,9 +528,11 @@ Subscription Management について、Brazil での変更点を明記したリ�
 - Expanded role inheritance for itil and itil_admin (Australia): https://www.servicenow.com/community/itsm-articles/expanded-role-inheritance-for-itil-and-itil-admin-australia/ta-p/3516134
 - New field introduction in User [sys_user] (Australia release): https://www.servicenow.com/community/itsm-articles/new-field-introduction-in-user-sys-user-australia-release/ta-p/3511607
 - Recognising the types of users that access your instance: https://www.servicenow.com/community/in-other-news/recognising-the-types-of-users-that-access-your-instance/bc-p/3403841
+- How to count number of group members in the group（`sys_user_grmember`）: https://www.servicenow.com/community/developer-forum/how-to-count-number-of-group-members-in-the-group-for-example/m-p/1521876
 
 **第三者情報**
 
 - Redress Compliance, ServiceNow Fulfiller vs Requester licensing: https://redresscompliance.com/servicenow-fulfiller-vs-requester-licensing-explained.html
+- CloudNuro, Understanding ServiceNow Licensing: A Comprehensive Guide: https://www.cloudnuro.ai/blog/understanding-servicenow-licensing-a-comprehensive-guide
 - Licenseware Wiki, ServiceNow user roles and per-user subscriptions: https://wiki.licenseware.io/wiki/servicenow-user-roles-and-per-user-subscriptions/
-- ServiceNow Order Form（公開されている契約書の例）: https://meetings.boardbook.org/Documents/DownloadPDF/169f0aa4-2dce-43d7-9129-2855d99770b0?org=2066
+- ServiceNow Order Form（公開されている契約書の例。2026-11-02 の再取得では HTTP 400）: https://meetings.boardbook.org/Documents/DownloadPDF/169f0aa4-2dce-43d7-9129-2855d99770b0?org=2066

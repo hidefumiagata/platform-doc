@@ -11,6 +11,7 @@ sources:
   - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/3BXkJNu_yngCF5YeYJmACA
   - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/kxDB9bUAfQ2YmdJ9F26Biw
   - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/QcBhmMq0qRTNxZ4PCJbo6g
+  - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/5N80Ri3iFeljtUtjTfIybw
   - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/jdGN5HJDyrqEU8wCmeRgJw
   - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/ejF5pyWvbIQ0vL~mkHfn4w
   - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/ivWYcxKSOVPolBZ4o~rRTw
@@ -24,6 +25,7 @@ sources:
   - https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/PIh1gIVWw0ZOjXx8J5AQvw
   - https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/BoP1_arUrSHNEuHg0RDFaw
   - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-knowledgemanagement-release-notes.html
+  - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-knowledgecenter-release-notes.html
   - https://www.servicenow.com/docs/r/platform-user-interface/service-portal/enable-ais-sp.html
 ---
 
@@ -50,7 +52,7 @@ KM の構成要素は次のとおりである。
 
 > テーブル名のうち `kb_knowledge_base`、`kb_category`、`kb_feedback`、`kb_feedback_task`、`kb_use`、`kb_uc_can_read_mtom`、`kb_uc_can_contribute_mtom` は公式ドキュメントの該当ページで明示を確認できず、ServiceNow Community の回答に基づく `【第三者情報】`。インスタンスの System Definition > Tables で確認すること。[出典](https://www.servicenow.com/community/servicenow-ai-platform-forum/when-does-kb-uc-can-read-mtom-have-no-user-criteria-for-a-kb/m-p/1094826) [出典](https://www.servicenow.com/community/developer-forum/kb-feedback-task-assignment/m-p/3469277) [出典](https://www.servicenow.com/community/expert-services-forum/triggers-for-quot-used-quot-flag-set-to-true-in-the-kb-use-table/m-p/3225036)
 
-本ファイルは Australia リリース（2026-05 GA）を基準とする。Knowledge Management 本体については、公式の結合リリースノート上、Australia・Brazil ともに「No updates for this release」とされており、近年の機能追加は主に **Knowledge Center**（ストアアプリ）と **Now Assist（ServiceNow Otto）** 側で行われている点に注意する。[出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/PIh1gIVWw0ZOjXx8J5AQvw) [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-knowledgemanagement-release-notes.html)
+本ファイルは Australia リリース（2026-05 GA）を基準とする。Knowledge Management 本体については、公式の結合リリースノート上、Australia・Brazil ともに「No updates for this release」とされており、近年の機能追加は主に **Knowledge Center**（ストアアプリ。Australia・Brazil とも新機能・変更あり）と **Now Assist（ServiceNow Otto）** 側で行われている点に注意する。[出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/PIh1gIVWw0ZOjXx8J5AQvw) [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-knowledgemanagement-release-notes.html) [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-knowledgecenter-release-notes.html)
 
 関連ファイル：
 
@@ -72,37 +74,40 @@ Knowledge Management 本体と Knowledge Center の変更点を、公式の結�
 
 | リリース | 主な変更 |
 |---|---|
-| Yokohama | KB generation（記事生成）スキルを複製してプロンプトやテンプレートをカスタマイズ可能に。単一／複数ナレッジベースからの記事生成。HTML エディタ（TinyMCE）のツールバーにアクセシビリティチェッカーを追加。Knowledge Management Advanced プラグインで記事バージョニング・購読・テンプレート・AQI を提供 |
-| Zurich | 従来の Workflow（Workflow Editor）ベースの公開・退役処理を、ローコードの Flow（Workflow Studio）に置き換え。Coral テーマが新規ポータル等のデフォルトに。ダークテーマ。ワークスペースの Knowledge ビューページを刷新（レスポンシブ） |
+| Yokohama | KB generation（記事生成）スキルを複製してプロンプトやテンプレートをカスタマイズ可能に。単一／複数ナレッジベースからの記事生成。HTML エディタ（TinyMCE）のツールバーにアクセシビリティチェッカーを追加 |
+| Zurich | Flow（Workflow Studio）ベースの公開・退役処理を追加（公式表現は Workflow ベースの処理を「replacing」。ただしアップグレード環境ではナレッジベースごとに Workflow／Flow を選択でき、既定は Workflow。既存 Workflow が自動で Flow に置き換わるわけではない）。Coral テーマが新規ポータル等のデフォルトに。ダークテーマ。ワークスペースの Knowledge ビューページを刷新（レスポンシブ） |
 | Australia | KM 本体は「No updates for this release」 |
 | Brazil | KM 本体は「No updates for this release」 |
 
 [出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/PIh1gIVWw0ZOjXx8J5AQvw) [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-knowledgemanagement-release-notes.html)
+
+- 記事バージョニング・購読・テンプレート・AQI 等の Knowledge Management Advanced の機能自体は Yokohama 以前から存在する。Xanadu では、Knowledge Management Advanced（記事バージョニングを含む）が新規顧客に既定でインストールされるようになった（既存顧客は任意で有効化）。[出典](https://www.servicenow.com/docs/r/yokohama/delta-vancouver-xanadu/xanadu-vancouver-knowledgemanagement-release-notes.html)
+- Xanadu で、今後 90 日以内に期限切れとなる記事を示すレポート（New report on Knowledge Management dashboard）が Knowledge Management ダッシュボードに追加され、退役か再公開かを判断できるようになった（後述「Valid to の計算ルール」参照）。[出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/PIh1gIVWw0ZOjXx8J5AQvw)
 
 ### Knowledge Center
 
 | リリース | 主な変更 |
 |---|---|
 | Yokohama | Knowledge Center 登場（ストアアプリ）。記事検索によるギャップ・冗長コンテンツの発見、Article Optimization（記事スキャンと改善提案）、記事エディタでの Now Assist 生成・編集、Potential knowledge gaps（潜在ナレッジギャップ） |
-| Zurich | 同機能群。記事エディタの AI 機能のブランドが「ServiceNow Otto」に |
-| Australia | Knowledge health score（重み付け設定可能）、Stale／expiring 記事のレビュー、SharePoint を外部コンテンツ接続（XCC）経由のソースに、Article Optimization の自動修正、重複記事の自動マージ＆公開（ナレッジベース単位）、Box ファイルからの記事生成、Reading Ease スキャン、Now Assist による重複記事のマージ、記事エディタでの Knowledge blocks、Article length スキャン（300 語未満＝SEO、10,000 語超＝AI 検索の観点で警告）、HR ケースデータのギャップ分析対応、文字数表示 等 |
-| Brazil | 「No updates for this release」 |
+| Zurich | 同機能群。リリースノート上、記事エディタの AI 機能は「ServiceNow Otto」ブランドで記載されている（Otto ブランドは 2026-05 の Knowledge 2026 で発表されたもので、Zurich GA 時点の名称ではなく、後からドキュメントに反映されたもの） |
+| Australia | Knowledge health score（重み付け設定可能）、Stale／expiring 記事のレビュー、SharePoint を外部コンテンツ接続（XCC）経由のソースに、Article Optimization の自動修正、重複記事の自動マージ＆公開（ナレッジベース単位）、Box ファイルからの記事生成、Reading Ease スキャン、Now Assist による重複記事のマージ、記事エディタでの Knowledge blocks、Article length スキャン（300 語未満＝SEO、10,000 語超＝AI 検索の観点で警告）、HR ケースデータのギャップ分析対応、文字数表示、Style guides（AI 生成時のトーン・ボイス・用語をナレッジベース単位で定義。パッチの明記なし） 等 |
+| Brazil | New features：Knowledge health score の設定（重み付け）、Stale／expiring 記事のレビュー、Microsoft SharePoint（XCC 経由）をソースとした AI 記事作成、Style guides。Changes：Image Alt Tag スキャン（AI）の信頼度ベース自動修正、重複マージで既存記事を更新（取り消し期間のプロパティ追加）、Article health score に Duplicate score を追加（エディタのサイドパネルに表示）、HR ケースデータのギャップ分析対応（AI Admin Hub で Knowledge gaps identification (HR) スキルを有効化）。多くは Australia（特に Patch 6）の内容と重複する |
 
-Australia の Knowledge Center 新機能の多くは Australia Patch 5／Patch 6 で提供されたものであり、適用パッチによって利用可否が異なる。[出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/BoP1_arUrSHNEuHg0RDFaw)
+Australia の Knowledge Center 新機能は Australia Patch 2、3、5、6 で段階的に追加されたものであり、適用パッチによって利用可否が異なる。主な対応は次のとおり：Now Assist による重複記事のマージ＝Patch 2／Knowledge health score、Reading Ease スキャン、Box からの記事生成＝Patch 3／Article Optimization の自動修正（タイトル・見出しタグ）、重複記事の自動マージ＆公開、ServiceNow Otto ブランドへの更新＝Patch 5／health score の重み設定、Stale／expiring 記事のレビュー、SharePoint ソース、Image Alt Tag の自動修正、自動マージの取り消し期間＝Patch 6。Knowledge blocks の挿入、Article length スキャン、Style guides 等はパッチの明記なし。[出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/BoP1_arUrSHNEuHg0RDFaw)
 
-> **Brazil での変更:** Brazil の Knowledge Management および Knowledge Center の結合リリースノートはいずれも「No updates for this release」である（2026-11-02 時点）。ただし Now LLM Service の旧モデルは 2026 年 9 月リリース以降で非推奨となり Gemma 4 に置き換わる旨が Knowledge Center 側に記載されている（既存スキルでは旧モデルも引き続き利用可能）。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-knowledgemanagement-release-notes.html) [出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/BoP1_arUrSHNEuHg0RDFaw)
+> **Brazil での変更:** Brazil の Knowledge Management 本体の結合リリースノートは「No updates for this release」である。一方、Knowledge Center の結合リリースノートには上表のとおり New features 4 件・Changes 4 件が記載されている（Removed 等の節は「No updates」。2026-11-02 時点）。また Deprecations として、2026 年 9 月リリースから Gemma 4 が Now LLM Service のオープンウェイトモデルに追加され、旧モデルは公開済みの既存 AI スキル・エージェント・agentic workflow でのみ引き続き利用可能で、新規の開発・構成には使用できない旨が記載されている（KB3066214「ServiceNow Otto Model Upgrades」）。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-knowledgemanagement-release-notes.html) [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-knowledgecenter-release-notes.html)
 
 ---
 
 ## プラグイン構成
 
-Knowledge Management の機能は複数のプラグインに分かれている。有効化にはいずれも `admin` ロールが必要で、デフォルトで有効なのは Knowledge Management Core のみである（Knowledge Management Service Portal は Madrid 以降デフォルト有効）。
+Knowledge Management の機能は複数のプラグインに分かれている。有効化にはいずれも `admin` ロールが必要である。デフォルトで有効なのは Knowledge Management Core と Knowledge Management Service Portal（Madrid 以降）である。加えて Xanadu 以降、Knowledge Management Advanced は**新規顧客では自動的に有効化**される（Installer による検証が成功した場合。デモデータは含まれない）。既存顧客（アップグレード環境）は Installer 経由で自ら有効化する。Knowledge Management v3 とともに自動有効化されるわけではない。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/5N80Ri3iFeljtUtjTfIybw) [出典](https://www.servicenow.com/docs/r/yokohama/delta-vancouver-xanadu/xanadu-vancouver-knowledgemanagement-release-notes.html)
 
 | プラグイン名 | プラグイン ID | 機能 | 有効化／ライセンス |
 |---|---|---|---|
 | Knowledge Management Core | `com.glideapp.knowledge` | KM の中核。他の KM プラグインが依存 | デフォルト有効 |
 | Knowledge Management Advanced Installer | `com.snc.knowledge_advanced.installer` | Advanced 導入前に記事・ナレッジベースを検査。エラーを修正して再実行 | 要有効化 |
-| Knowledge Management Advanced | `com.snc.knowledge_advanced` | 記事バージョニング、購読（Subscription）、記事テンプレート、AQI 等。全ナレッジベースが KV3 であることが前提で、Installer 経由で有効化 | 要有効化 |
+| Knowledge Management Advanced | `com.snc.knowledge_advanced` | 記事バージョニング、購読（Subscription）、記事テンプレート、AQI 等。全ナレッジベースが KV3 であることが前提で、Installer 経由で有効化 | Xanadu 以降の新規顧客は自動有効化。既存（アップグレード）顧客は Installer 経由で有効化 |
 | Predictive Intelligence for Knowledge Management | `com.snc.knowledge_ml` | 類似記事、ナレッジ需要インサイト等の ML 機能。`com.snc.contextual_search_ml` も有効化 | 要有効化。本番では別ライセンスが必要な場合あり |
 | Performance Analytics - Content Pack - Knowledge Management | `com.snc.pa.knowledge_v2` | KM の分析コンテンツパック | 要有効化。本番では PA ライセンスが必要な場合あり |
 | Knowledge Management V3 | `com.snc.knowledge3` | KV3 対応（Eureka 以前からのアップグレード時に有効化） | 要有効化 |
@@ -126,7 +131,7 @@ Knowledge Management の機能は複数のプラグインに分かれている�
 
 ## ロール
 
-Knowledge Management のロール（Australia）は次のとおり。KCS 系・ナレッジ管理系の各ロールは `knowledge` ロールを包含する。
+Knowledge Management のロール（Australia）は次のとおり。`knowledge_manager`、`knowledge_admin`、`knowledge_coach`、`knowledge_domain_expert`、`knowledge_group_member`、`kcs_candidate`、`kcs_contributor`、`kcs_publisher` は `knowledge` ロールを包含する（`knowledge_group_manager` は `knowledge_group_member` を包含）。なお公式表の Contains Roles 欄はこれらのロールではすべて「None」であり、包含関係は各ロールの説明文（「Knowledge role comes as a subordinate role」等）で述べられている。
 
 | ロール（日本語） | ロール名 | 説明 | 備考 |
 |---|---|---|---|
@@ -222,7 +227,7 @@ Knowledge Management のロール（Australia）は次のとおり。KCS 系・�
 | Version（バージョン） | 自動採番。公開記事を変更すると増加 | 記事バージョニング有効時 |
 | Workflow（ワークフロー状態） | Draft／Review／Published 等の状態。新規は Draft | 常時 |
 | Language（言語） | 記事の言語（ナレッジベースで有効な言語） | `com.glideapp.knowledge.i18n2` |
-| Short description（短い説明） | 記事タイトル。最大 100 文字。Agent assist の類似記事検索に使われる | 常時 |
+| Short description（簡単な説明） | 記事タイトル。最大 100 文字。Agent assist の類似記事検索に使われる | 常時 |
 | Article body（本文） | HTML エディタで編集する本文 | 常時（Standard テンプレート） |
 | Source Task（ソースタスク） | 記事作成元のタスク（インシデント、ケース等）。自動設定 | タスクから作成時 |
 | Scheduled publish date（公開予定日） | 将来日付での自動公開 | 常時 |
@@ -271,6 +276,8 @@ Knowledge Management のロール（Australia）は次のとおり。KCS 系・�
 - 日付形式が 2 桁年だと既定 Valid to で問題が起き得るため、4 桁年形式を使う。
 
 [出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/vls7oH2IiLkkNiq5Jg4oXw) [出典](https://www.servicenow.com/docs/r/7WDM0xyEt0NzyWpxNsL_LQ/AC3ZHD3lXsQN1O4dPT92GA)
+
+- Xanadu 以降、Knowledge Management ダッシュボードに、今後 90 日以内に期限切れとなる記事を示すレポートがあり、退役するか再公開（Valid to 延長）するかの判断に使える。Knowledge Center（Australia）でも Article Optimization スキャンで Stale／expiring 記事を特定できる（後述）。[出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/PIh1gIVWw0ZOjXx8J5AQvw) [出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/BoP1_arUrSHNEuHg0RDFaw)
 
 > Valid to を過ぎても記事の状態が自動的に Retired に変わるわけではない（検索に表示されなくなるだけ）。期限切れ記事を自動退役させたい場合はスケジュールジョブ等で実装する、という Community 回答がある `【第三者情報】`。[出典](https://www.servicenow.com/community/developer-forum/kb-article-not-moved-to-retired-after-valid-to-date/m-p/2782136)
 
@@ -347,7 +354,7 @@ stateDiagram-v2
 
 ### Workflow から Flow への移行（Zurich 以降）
 
-Zurich で、Knowledge Management の公開・退役処理は従来の Workflow（Workflow Editor）からローコードの Flow（Workflow Studio）へ置き換えられた。
+Zurich で、Knowledge Management の公開・退役処理としてローコードの Flow（Workflow Studio）版が提供された。公式リリースノートは従来の Workflow（Workflow Editor）ベースの処理を「replacing」すると表現しているが、アップグレード環境で既存の Workflow が自動的に Flow へ置き換わるわけではない（下記のとおり既定は Workflow）。
 
 - Zurich へのアップグレード後、Knowledge Base フォームでは Workflow と Flow の両方を選択できる。ナレッジベースごとにどちらか一方のみ使用でき、既定は Workflow。
 - 同一ナレッジベースで「公開は Flow、退役は Workflow」のような混在（クロス選択）はできない。
@@ -422,7 +429,7 @@ Case Management Core（`com.sn_customerservice`）などのプラグインによ
 - Explicit Roles 有効化後に作成したナレッジベースには、次の User criteria が自動で付与される。
   - Can Read：`snc_internal` ロールを持つユーザー
   - Can Contribute：`snc_internal` と他のロールを持つユーザー
-- Explicit Roles 有効化前から存在するナレッジベース（Rome 以降からのアップグレード）には自動付与されないため、フィックススクリプト「Fix unsecured knowledge bases」を実行する。
+- Explicit Roles 有効化前から存在するナレッジベース（Rome 以降へアップグレードした環境）には自動付与されないため、フィックススクリプト「Fix unsecured knowledge bases」を実行する。
 - ロールによる制御は Knowledge Management v2 の方式、User criteria は v3 で導入された方式であり、User criteria の利用が推奨される。
 
 [出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/3BXkJNu_yngCF5YeYJmACA)
@@ -442,7 +449,7 @@ Ownership group（所有グループ）は、メンバーとマネージャー�
 
 | 項目 | 内容 |
 |---|---|
-| 有効化 | `glide.knowman.ownership_group.enabled` を true（既定 false）。Knowledge Management Advanced（`com.snc.knowledge_advanced`）有効時に利用可能 |
+| 有効化 | `glide.knowman.ownership_group.enabled` を true（既定 false）。Knowledge Management Advanced（`com.snc.knowledge_advanced`。Xanadu 以降の新規顧客は自動有効）有効時に利用可能 |
 | 承認 | 記事に所有グループが設定されている場合、承認依頼は所有グループのメンバーへ |
 | 自己承認 | `glide.knowman.ownership_group.allow_self_approval`（既定 true）でメンバーが自作記事を承認可能。無効化可 |
 | 作成者の寄稿権 | 所有グループ設定時、作成者・改訂者は既定で公開記事への寄稿権を失う。`glide.knowman.ownership_group.override`（既定 false）を true にすると維持 |
@@ -464,7 +471,7 @@ Ownership group（所有グループ）は、メンバーとマネージャー�
 
 | 項目 | 内容 |
 |---|---|
-| 前提 | Knowledge Management Advanced（`com.snc.knowledge_advanced`）有効、`glide.knowman.versioning.enabled` = true（既定 true） |
+| 前提 | Knowledge Management Advanced（`com.snc.knowledge_advanced`）有効（Xanadu 以降の新規顧客は自動有効、アップグレード環境は要有効化）、`glide.knowman.versioning.enabled` = true（既定 true） |
 | チェックアウト | 公開記事を Knowledge フォームで **Checkout** すると新バージョン（Draft）が作られ、公開中のバージョンはそのまま |
 | 操作 | チェックアウト（新バージョン作成）、旧版（Outdated）を選んで最新版にする、レビュー中／公開予定の記事のリコール（Recall）、最新公開版の退役 |
 | 番号 | 記事番号にバージョンが付く（例：`KB0010003 v2.0`）。全バージョンは関連リストで確認 |
@@ -483,7 +490,7 @@ Ownership group（所有グループ）は、メンバーとマネージャー�
 
 ### 概要と前提
 
-Article templates（記事テンプレート）は、記事の構造（フィールド）を定義し、FAQ・手順・KCS 記事などを統一された形式で作成するための機能である。Knowledge Management Advanced（`com.snc.knowledge_advanced`）で有効になり、有効化後は記事作成時にテンプレートの選択肢が表示される。管理メニューは **Knowledge > Administration > Article Templates**。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/jdGN5HJDyrqEU8wCmeRgJw)
+Article templates（記事テンプレート）は、記事の構造（フィールド）を定義し、FAQ・手順・KCS 記事などを統一された形式で作成するための機能である。Knowledge Management Advanced（`com.snc.knowledge_advanced`。Xanadu 以降の新規顧客は自動有効、アップグレード環境は要有効化）で有効になり、有効化後は記事作成時にテンプレートの選択肢が表示される。管理メニューは **Knowledge > Administration > Article Templates**。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/jdGN5HJDyrqEU8wCmeRgJw)
 
 ### テーブル構造
 
@@ -671,7 +678,7 @@ Actionable Knowledge Feedback は、否定的なフィードバックから自�
 担当者は、記事の更新、新規記事の作成、追加フィードバックの依頼、再割当を行える。フィードバック送信者には、フィードバックの更新・解決時に通知される。Knowledge Management ダッシュボードで未完了／完了タスクと各状態の滞留時間を追跡できる。[出典](https://www.servicenow.com/docs/r/servicenow-platform/knowledge-management/actionable-knowledge-feedback.html) [出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/PDU2SSf2dqO8xF4_av6sgw)
 
 - フィードバックタスクは `kb_feedback_task` テーブルに格納され、標準ビジネスルール「Knowledge Feedback Task Creation」で作成される `【第三者情報】`。割当先を CI のサポートグループ等に変える場合はこのテーブルにビジネスルールを追加する例が Community で紹介されている。[出典](https://www.servicenow.com/community/developer-forum/kb-feedback-task-assignment/m-p/3469277)
-- Xanadu のドキュメントでは、フィードバックタスクの作成契機として「フラグ」「役に立たない」「低評価」に加え、トピックに対する「ナレッジギャップ」タスクも挙げられている。[出典](https://www.servicenow.com/docs/bundle/washingtondc-servicenow-platform/page/product/knowledge-management/concept/actionable-knowledge-feedback.html)
+- Washington DC のドキュメントでは、フィードバックタスクの作成契機として「フラグ」「役に立たない」「低評価」に加え、トピックに対する「ナレッジギャップ」タスクも挙げられている。[出典](https://www.servicenow.com/docs/bundle/washingtondc-servicenow-platform/page/product/knowledge-management/concept/actionable-knowledge-feedback.html)
 
 ### 利用状況の記録
 
@@ -717,8 +724,9 @@ Knowledge Center は、ナレッジのオーナー・管理者向けに、構成
 | Advanced editor | ドラッグ＆ドロップのコンテンツブロック（列、画像、見出し、テキスト、動画）、デスクトップ／タブレット／モバイルのプレビュー、画像のトリミング・回転、Knowledge blocks の挿入、文字数表示 | 基本編集は不要 |
 | Stale／expiring レビュー | 古い記事・期限切れ間近記事を記事・ナレッジベース単位で特定（Australia） | — |
 | 外部ソースからの記事生成 | SharePoint（XCC 経由）、Box ファイルをソースに記事生成（Australia） | 要 |
+| Style guides | 管理者がスタイルガイド（AI が従うトーン・ボイス・用語）を作成し、ナレッジベースに割り当てて適用順序を設定。執筆者は AI による記事生成時に選択でき、Now Assist（ServiceNow Otto）による記事生成・編集に適用される（Australia、Brazil のリリースノートにも記載） | 要 |
 
-[出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/BoP1_arUrSHNEuHg0RDFaw) [出典](https://servicenow.com/community/knowledge-management-articles/introducing-knowledge-center-with-advanced-editing-powered-by/ta-p/3447858) [出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/r5wsT6sBWg~VO2qK9la2mw)
+[出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/BoP1_arUrSHNEuHg0RDFaw) [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-knowledgecenter-release-notes.html) [出典](https://servicenow.com/community/knowledge-management-articles/introducing-knowledge-center-with-advanced-editing-powered-by/ta-p/3447858) [出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/r5wsT6sBWg~VO2qK9la2mw)
 
 ![Knowledge Center の記事エディタ](../../assets/images/knowledge-management/kc-editor.png)
 
@@ -764,7 +772,7 @@ Knowledge Center は、ナレッジのオーナー・管理者向けに、構成
 
 ## Now Assist（ServiceNow Otto）による生成 AI 機能
 
-Knowledge Management 関連の生成 AI 機能は次のとおり。いずれも Now Assist（Zurich 以降のブランド名は ServiceNow Otto）のライセンスが必要。スキル全般・ライセンス体系は [Now Assist と AI Agents](./now-assist-ai-agents.md) を参照。
+Knowledge Management 関連の生成 AI 機能は次のとおり。いずれも Now Assist のライセンスが必要。Now Assist は 2026 年から ServiceNow Otto ブランドに変更された（2026-05 の Knowledge 2026 で発表。Knowledge Center のリリースノートでは Australia Patch 5 のハイライトに記載）。[出典](https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-Otto-creates-the-unified-AI-experience-for-the-enterprise/) [出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/BoP1_arUrSHNEuHg0RDFaw)スキル全般・ライセンス体系は [Now Assist と AI Agents](./now-assist-ai-agents.md) を参照。
 
 | 機能 | 内容 |
 |---|---|
@@ -966,6 +974,9 @@ Knowledge Management - External Content Integration（`com.snc.knowledge.externa
 - Managing access to knowledge bases and knowledge articles: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/3BXkJNu_yngCF5YeYJmACA
 - Knowledge Management roles: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/kxDB9bUAfQ2YmdJ9F26Biw
 - Additional plugins for Knowledge Management: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/QcBhmMq0qRTNxZ4PCJbo6g
+- Activate the Knowledge Management Advanced plugin: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/5N80Ri3iFeljtUtjTfIybw
+- Combined Knowledge Management release notes for upgrades from Vancouver to Xanadu: https://www.servicenow.com/docs/r/yokohama/delta-vancouver-xanadu/xanadu-vancouver-knowledgemanagement-release-notes.html
+- ServiceNow Otto creates the unified AI experience for the enterprise（プレスリリース、2026-05-05）: https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-Otto-creates-the-unified-AI-experience-for-the-enterprise/
 - Knowledge article templates: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/jdGN5HJDyrqEU8wCmeRgJw
 - Create an article template and use it to create a knowledge article: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/tE1Q22VhmMLDaC8qt6nzvg
 - Knowledge blocks: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/ejF5pyWvbIQ0vL~mkHfn4w

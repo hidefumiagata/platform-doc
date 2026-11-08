@@ -21,7 +21,7 @@ sources:
 | 基準日（`last_verified`） | **2026-11-02**（Datadog は SaaS で名前付きリリースが無いため、情報取得日を基準とする） |
 | 基準サイト | **AP1（日本）**。記述は全サイト共通を前提とし、サイト差異は本文中に「> **サイト差異:** …」で明記 |
 | Agent の基準 | Datadog Agent **v7 系** |
-| 料金の正本 | [03_導入編/pricing-by-product.md](03_導入編/pricing-by-product.md)（公式料金ページの定価、2026-11-02 時点） |
+| 料金の正本 | [03_導入編/02-pricing-by-product.md](03_導入編/02-pricing-by-product.md)（公式料金ページの定価、2026-11-02 時点） |
 | 執筆規約 | [_CONVENTIONS.md](_CONVENTIONS.md) |
 | 収録ファイル数 | 108 ファイル（入門編 7 / リファレンス 71 / 導入編 15 / 応用編 15。README・規約を除く） |
 
@@ -39,7 +39,7 @@ sources:
 
 Datadog を初めて学ぶ場合は、[01_入門編](#01_入門編) を次の順で読む。
 
-1. [Datadogとは](01_入門編/what-is-datadog.md) → 2. [オブザーバビリティの基礎](01_入門編/observability-fundamentals.md) → 3. [製品ポートフォリオ全体像](01_入門編/product-map.md) → 4. [Datadogのアーキテクチャ概観](01_入門編/architecture-overview.md) → 5. [必須概念](01_入門編/core-concepts.md) → 6. [画面構成とナビゲーション](01_入門編/ui-navigation.md) → 7. [はじめてのDatadog](01_入門編/getting-started.md)
+1. [Datadogとは](01_入門編/01-what-is-datadog.md) → 2. [オブザーバビリティの基礎](01_入門編/02-observability-fundamentals.md) → 3. [製品ポートフォリオ全体像](01_入門編/04-product-map.md) → 4. [Datadogのアーキテクチャ概観](01_入門編/03-architecture-overview.md) → 5. [必須概念](01_入門編/05-core-concepts.md) → 6. [画面構成とナビゲーション](01_入門編/06-ui-navigation.md) → 7. [はじめてのDatadog](01_入門編/07-getting-started.md)
 
 その後、関心のある製品を [02_リファレンス](#02_リファレンス) で確認する。
 
@@ -47,17 +47,17 @@ Datadog を初めて学ぶ場合は、[01_入門編](#01_入門編) を次の順
 
 提案・選定・見積り・契約・導入計画では [03_導入編](#03_導入編) を中心に読む。
 
-- 製品の全体像：[製品ポートフォリオ全体像](01_入門編/product-map.md)
-- 料金：[料金体系の全体像](03_導入編/pricing-overview.md) → [製品別料金表（料金の正本）](03_導入編/pricing-by-product.md) → [課金計算の仕組み](03_導入編/billing-mechanics.md) → [コスト見積り手法](03_導入編/cost-estimation.md)
-- 選定・契約：[製品選定と競合比較](03_導入編/selection-and-competitive-comparison.md)、[エディション・プラン](03_導入編/editions-and-plans.md)、[購入経路と契約](03_導入編/procurement-and-contracts.md)
-- 導入計画：[導入方法論](03_導入編/implementation-methodology.md)、[セキュリティとコンプライアンス](03_導入編/security-and-compliance.md)
-- 提案材料：[導入事例](04_応用編/case-studies.md)、[コスト最適化](04_応用編/cost-optimization.md)、[よくある失敗とアンチパターン](04_応用編/common-pitfalls.md)
+- 製品の全体像：[製品ポートフォリオ全体像](01_入門編/04-product-map.md)
+- 料金：[料金体系の全体像](03_導入編/01-pricing-overview.md) → [製品別料金表（料金の正本）](03_導入編/02-pricing-by-product.md) → [課金計算の仕組み](03_導入編/03-billing-mechanics.md) → [コスト見積り手法](03_導入編/05-cost-estimation.md)
+- 選定・契約：[製品選定と競合比較](03_導入編/07-selection-and-competitive-comparison.md)、[エディション・プラン](03_導入編/04-editions-and-plans.md)、[購入経路と契約](03_導入編/06-procurement-and-contracts.md)
+- 導入計画：[導入方法論](03_導入編/08-implementation-methodology.md)、[セキュリティとコンプライアンス](03_導入編/12-security-and-compliance.md)
+- 提案材料：[導入事例](04_応用編/13-case-studies.md)、[コスト最適化](04_応用編/01-cost-optimization.md)、[よくある失敗とアンチパターン](04_応用編/12-common-pitfalls.md)
 
 ### エンジニア・アーキテクト向け
 
 設計・構築・運用では次の順で読む。
 
-- 基本設計：[要件定義とアーキテクチャ設計](03_導入編/requirements-and-architecture-design.md)、[ネットワーク・接続要件](03_導入編/network-and-connectivity.md)、[Agent 展開設計](03_導入編/agent-rollout-design.md)、[運用設計](03_導入編/operations-design.md)
+- 基本設計：[要件定義とアーキテクチャ設計](03_導入編/09-requirements-and-architecture-design.md)、[ネットワーク・接続要件](03_導入編/11-network-and-connectivity.md)、[Agent 展開設計](03_導入編/10-agent-rollout-design.md)、[運用設計](03_導入編/13-operations-design.md)
 - 製品仕様（設定キー・制限値・デフォルト値）：[02_リファレンス](#02_リファレンス) の該当領域。共通基盤は `02_リファレンス/platform/` に集約している
 - 実践知見：[04_応用編](#04_応用編)（タグ戦略、アラート設計、Monitoring as Code、Kubernetes 監視、APM・ログ・SLO・セキュリティ運用など）
 
@@ -65,8 +65,8 @@ Datadog を初めて学ぶ場合は、[01_入門編](#01_入門編) を次の順
 
 AI が本ナレッジを使って質問に回答する際は、次の手順と規則に従う。
 
-1. **ファイルの選択**：まず本 README の各表の「サマリー」で該当ファイルを特定する。製品名から探す場合は [製品ポートフォリオ全体像](01_入門編/product-map.md)（旧称・改称履歴と詳細リファレンスへのリンクあり）を参照する。各ファイルのフロントマターの `summary` と `keywords`（旧称を含む）も検索に使える。
-2. **根拠の優先順位**：仕様（制限値・設定キー・製品名）は **02_リファレンス** を、料金は **[pricing-by-product.md](03_導入編/pricing-by-product.md)** を正とする。ファイル間で記述が食い違う場合はこの 2 つを優先する。
+1. **ファイルの選択**：まず本 README の各表の「サマリー」で該当ファイルを特定する。製品名から探す場合は [製品ポートフォリオ全体像](01_入門編/04-product-map.md)（旧称・改称履歴と詳細リファレンスへのリンクあり）を参照する。各ファイルのフロントマターの `summary` と `keywords`（旧称を含む）も検索に使える。
+2. **根拠の優先順位**：仕様（制限値・設定キー・製品名）は **02_リファレンス** を、料金は **[02-pricing-by-product.md](03_導入編/02-pricing-by-product.md)** を正とする。ファイル間で記述が食い違う場合はこの 2 つを優先する。
 3. **基準日を明示する**：回答には「2026-11-02 時点の情報」であることを示す。Datadog は継続的に変更されるため、最新情報は公式ドキュメント（https://docs.datadoghq.com/ ）での確認を促す。
 4. **サイトを意識する**：基準は AP1（日本）。US1/EU1 等で機能提供・エンドポイント・価格が異なる箇所は本文の「サイト差異」を確認して回答する。サイト一覧は [Datadog Sites](02_リファレンス/platform/datadog-sites.md) を参照する。
 5. **確度ラベルを引き継ぐ**：`【Preview】`・`【Limited Availability】`・`【第三者情報】`・`【推定】`・`【経験則】` が付いた記述を引用する場合は、ラベルを回答に残す。「公開情報では確認できず」と書かれた事項を推測で補わない。
@@ -97,17 +97,17 @@ Datadog の会社・製品思想、オブザーバビリティの基礎、製品
 
 | ファイル | サマリー |
 |---|---|
-| [Datadogとは](01_入門編/what-is-datadog.md) | Datadog, Inc. の会社概要（創業者・創業年・上場・本社・日本法人）、統合オブザーバビリティ＋セキュリティプラットフォームという製品思想、SaaS 提供形態、主要ユースケース、Gartner Magic Quadrant 等による市場での位置づけを 2026-11-02 時点でまとめた入門ファイル。 |
-| [オブザーバビリティの基礎](01_入門編/observability-fundamentals.md) | 監視（Monitoring）とオブザーバビリティ（Observability）の違い、メトリクス・ログ・トレース・イベント・プロファイルの5つのテレメトリシグナル、ゴールデンシグナル/RED/USE の各方法論、SLI/SLO/エラーバジェット/バーンレートの考え方を整理し、それぞれが Datadog のどの機能に対応するかを示す入門ファイル。 |
-| [製品ポートフォリオ全体像](01_入門編/product-map.md) | Datadog の全製品（2026-11-02 時点）を Platform / Infrastructure / APM / Logs / DEM / Security / Software Delivery / Service Management / AI / Data の 10 区分で一覧化し、各製品の 1 行説明・課金単位・提供状況・旧称（改称履歴）・詳細リファレンスへのリンクをまとめた入門ファイル。「この機能は何という製品か」「旧名称の製品は今どれか」「どのファイルを読めばよいか」に答える。 |
-| [Datadogのアーキテクチャ概観](01_入門編/architecture-overview.md) | Datadog がどのような構成（顧客環境側の Agent・SDK・クラウド連携、Intake、SaaS バックエンド、サイト）でテレメトリを収集→処理→保存→可視化→アラートしているかを、データの流れに沿って説明する。Agent 経路、Agentless（クラウド連携・API・Agentless Scanning）経路、OpenTelemetry 経路の違いと、通信方向・ポート・エンドポイント・既定の保持期間をまとめる。 |
-| [必須概念](01_入門編/core-concepts.md) | Datadog を使ううえで最初に押さえるべき共通概念（組織、APIキー/アプリケーションキー、タグ、Unified Service Tagging、ホスト、サービス、メトリクス種別、ファセット、ログのインデックス、モニター、ダッシュボード、SLO）の定義・相互関係・主要なデフォルト値と制限値を、公式ドキュメントに基づいてまとめた入門ファイル。 |
-| [画面構成とナビゲーション](01_入門編/ui-navigation.md) | Datadog の Web UI（左サイドバーのナビゲーションメニュー、主要画面、Cmd/Ctrl+K のクイック検索、時間セレクタ、Saved Views、テンプレート変数、Datadog Clipboard、個人設定）とモバイルアプリの画面構成・操作方法をまとめ、「どこで何ができるか」「どう操作するか」に答える。 |
-| [はじめてのDatadog](01_入門編/getting-started.md) | Datadog を初めて使う人が、無料トライアル登録 → サイト（リージョン）選択 → Agent インストール → インテグレーション追加 → 最初のダッシュボードとモニター作成 → 学習リソース（Learning Center・ドキュメント・認定資格）の活用までを、2026-11-02 時点の公式情報に基づいて順に進めるための入門ガイド。 |
+| [Datadogとは](01_入門編/01-what-is-datadog.md) | Datadog, Inc. の会社概要（創業者・創業年・上場・本社・日本法人）、統合オブザーバビリティ＋セキュリティプラットフォームという製品思想、SaaS 提供形態、主要ユースケース、Gartner Magic Quadrant 等による市場での位置づけを 2026-11-02 時点でまとめた入門ファイル。 |
+| [オブザーバビリティの基礎](01_入門編/02-observability-fundamentals.md) | 監視（Monitoring）とオブザーバビリティ（Observability）の違い、メトリクス・ログ・トレース・イベント・プロファイルの5つのテレメトリシグナル、ゴールデンシグナル/RED/USE の各方法論、SLI/SLO/エラーバジェット/バーンレートの考え方を整理し、それぞれが Datadog のどの機能に対応するかを示す入門ファイル。 |
+| [製品ポートフォリオ全体像](01_入門編/04-product-map.md) | Datadog の全製品（2026-11-02 時点）を Platform / Infrastructure / APM / Logs / DEM / Security / Software Delivery / Service Management / AI / Data の 10 区分で一覧化し、各製品の 1 行説明・課金単位・提供状況・旧称（改称履歴）・詳細リファレンスへのリンクをまとめた入門ファイル。「この機能は何という製品か」「旧名称の製品は今どれか」「どのファイルを読めばよいか」に答える。 |
+| [Datadogのアーキテクチャ概観](01_入門編/03-architecture-overview.md) | Datadog がどのような構成（顧客環境側の Agent・SDK・クラウド連携、Intake、SaaS バックエンド、サイト）でテレメトリを収集→処理→保存→可視化→アラートしているかを、データの流れに沿って説明する。Agent 経路、Agentless（クラウド連携・API・Agentless Scanning）経路、OpenTelemetry 経路の違いと、通信方向・ポート・エンドポイント・既定の保持期間をまとめる。 |
+| [必須概念](01_入門編/05-core-concepts.md) | Datadog を使ううえで最初に押さえるべき共通概念（組織、APIキー/アプリケーションキー、タグ、Unified Service Tagging、ホスト、サービス、メトリクス種別、ファセット、ログのインデックス、モニター、ダッシュボード、SLO）の定義・相互関係・主要なデフォルト値と制限値を、公式ドキュメントに基づいてまとめた入門ファイル。 |
+| [画面構成とナビゲーション](01_入門編/06-ui-navigation.md) | Datadog の Web UI（左サイドバーのナビゲーションメニュー、主要画面、Cmd/Ctrl+K のクイック検索、時間セレクタ、Saved Views、テンプレート変数、Datadog Clipboard、個人設定）とモバイルアプリの画面構成・操作方法をまとめ、「どこで何ができるか」「どう操作するか」に答える。 |
+| [はじめてのDatadog](01_入門編/07-getting-started.md) | Datadog を初めて使う人が、無料トライアル登録 → サイト（リージョン）選択 → Agent インストール → インテグレーション追加 → 最初のダッシュボードとモニター作成 → 学習リソース（Learning Center・ドキュメント・認定資格）の活用までを、2026-11-02 時点の公式情報に基づいて順に進めるための入門ガイド。 |
 
 ### 02_リファレンス
 
-Datadog の製品仕様を領域（`domain`）別に整理したリファレンス。AI が回答する際の主たる根拠であり、機能・設定キー・制限値・デフォルト値・API・権限・サイト差異・課金への影響を記載する。領域区分は [製品ポートフォリオ全体像](01_入門編/product-map.md) の 10 区分に対応する。
+Datadog の製品仕様を領域（`domain`）別に整理したリファレンス。AI が回答する際の主たる根拠であり、機能・設定キー・制限値・デフォルト値・API・権限・サイト差異・課金への影響を記載する。領域区分は [製品ポートフォリオ全体像](01_入門編/04-product-map.md) の 10 区分に対応する。
 
 #### Platform（共通基盤：Agent・インテグレーション・メトリクス・可視化・アラート・権限・API）
 
@@ -252,25 +252,25 @@ Datadog の製品仕様を領域（`domain`）別に整理したリファレン�
 
 ### 03_導入編
 
-Datadog の料金・エディション・契約、製品選定と競合比較、導入方法論、要件定義・設計、ネットワーク、運用、セキュリティとコンプライアンス、サポートと教育を扱う。料金の数値は [製品別料金表（料金の正本）](03_導入編/pricing-by-product.md) を正とする。
+Datadog の料金・エディション・契約、製品選定と競合比較、導入方法論、要件定義・設計、ネットワーク、運用、セキュリティとコンプライアンス、サポートと教育を扱う。料金の数値は [製品別料金表（料金の正本）](03_導入編/02-pricing-by-product.md) を正とする。
 
 | ファイル | サマリー |
 |---|---|
-| [Agent 展開設計](03_導入編/agent-rollout-design.md) | Datadog Agent を数十〜数万台規模に展開するための設計指針。展開方式（インストールスクリプト／MSI、Ansible・Chef・Puppet・SaltStack、Helm・Datadog Operator、Single Step Instrumentation）の選定、バージョン固定と更新方針、構成管理ツールと Fleet Automation の責任分界、段階展開（リング展開）とロールバックの設計に答える。 |
-| [課金計算の仕組み](03_導入編/billing-mechanics.md) | Datadog の請求額がどのように計算されるか（ホスト数の 99 パーセンタイル / ハイウォーターマーク、コンテナとカスタムメトリクスの同梱枠のプール計算、ログの Ingest / Index の二段階課金、APM の Ingested / Indexed Span、コミットと超過のオンデマンド単価、請求画面と請求書の読み方、よくある誤解）を数値例付きで説明する。 |
-| [コスト見積り手法](03_導入編/cost-estimation.md) | Datadog の月額費用を導入前に見積もる手順を、必要な入力情報（ホスト数、コンテナ数、ログ量、スパン量、カスタムメトリクス数、RUM セッション、Synthetic 実行数など）の洗い出し、製品別の計算式、トライアルでの実測方法（datadog.estimated_usage.* メトリクス）、小・中・大規模の試算例（【推定】）、見積りの落とし穴の順に解説する。単価は pricing-by-product.md（料金の正本）の AP1 / US 定価を使用。 |
-| [エディション・プラン](03_導入編/editions-and-plans.md) | Datadog の「エディション（プラン/ティア）」の考え方と、Infrastructure の Free tier / Basic / Pro / Enterprise、DevSecOps Pro / Enterprise バンドル、APM・Cloud Security・Code Security・Cloud Cost Management・Agent Observability・RUM・Incident Response など製品別ティアの機能差、無料トライアル、Datadog for Startups、Student Developer Program、政府機関向け（Datadog for Government / US1-FED）をまとめ、エディション別の機能比較表を提供する。 |
-| [導入方法論](03_導入編/implementation-methodology.md) | Datadog 導入プロジェクトをどのフェーズ（計画・要件定義・設計・PoC・構築・展開・定着）で進め、どの体制・WBS・成果物で管理し、PoC を何の観点で評価するかを、公式 Administrator's Guide（Plan / Build / Run）と実務事例を基に整理する。 |
-| [他製品からの移行](03_導入編/migration-from-other-tools.md) | Zabbix・Nagios・Prometheus/Grafana・New Relic・Amazon CloudWatch・Splunk などから Datadog へ移行する際の進め方（棚卸し→データ収集の置き換え→ダッシュボード/アラート変換→並行稼働→切替）、製品別の対応表、並行稼働に使える公式機能（Agent の Dual Shipping、Observability Pipelines、各種インテグレーション）、移行ツール（Crest Data の Marketplace アプリ、pySigma、Terraformer 等）とその制約を整理する。 |
-| [ネットワーク・接続要件](03_導入編/network-and-connectivity.md) | Datadog Agent・SDK・Synthetics Private Location などが Datadog SaaS へ通信するための送信先エンドポイント、ポート、IP レンジ（ip-ranges）、プロキシ構成、AWS PrivateLink / Azure Private Link / GCP Private Service Connect による閉域接続、ネットワーク断時のバッファリング、帯域見積りの方法をまとめる。ファイアウォール申請・閉域設計の根拠資料として使う。 |
-| [運用設計](03_導入編/operations-design.md) | Datadog を本番運用するための運用設計をまとめる。運用体制（プラットフォームチームの責務・役割・RACI・社内申請窓口）、アラート運用フロー（Monitor → Notification Rules → On-Call → Incident → 振り返り）、ユーザー・権限・キーの運用（入退社・異動、ロール保守、ローテーション周期）、Agent／インテグレーションの保守（更新方針、ヘルス監視、クラウド連携の権限更新）、利用量とコストの監視、ガバナンス（Governance Console・Safety Center・Tag Policies・Audit Trail）、定期レビューのカレンダーとチェックリストに答える。 |
-| [製品別料金表（料金の正本）](03_導入編/pricing-by-product.md) | datadoghq.com/pricing および /pricing/list/ に掲載された全製品の定価（年契約・月契約・オンデマンド、各エディション）、課金単位、同梱の無料枠（コンテナ、カスタムメトリクス、スパン等の allotment）を、US/EU1 と AP1（日本）の両価格で網羅した料金の正本。サイト別価格係数と US1-FED の非提供製品も記載。 |
-| [料金体系の全体像](03_導入編/pricing-overview.md) | Datadog の料金がどの単位（ホスト・量・イベント・シート・コミッター等）で課金されるか、年契約・月契約・オンデマンドの違い、無料枠と試用、主要製品の課金単位の早見表をまとめ、詳細な料金・計算方法・見積りの各ファイルへ案内する。 |
-| [購入経路と契約](03_導入編/procurement-and-contracts.md) | Datadog を購入する経路（直販、AWS / Azure / Google Cloud Marketplace、国内販売パートナー・CPPO）と、契約形態（年契約・月契約・オンデマンド・従量）、コミットと超過、自動更新と値上げ上限、支払い条件、サポートプラン、解約時のデータの扱いを、MSA・Support Terms・DPA 等の公式文書に基づいて整理する。 |
-| [要件定義とアーキテクチャ設計](03_導入編/requirements-and-architecture-design.md) | Datadog 導入時の要件定義と基本設計で決める事項（サイト選択、単一 org / マルチ org の組織構成、タグ設計、データフロー設計、保持期間設計、RBAC 設計、命名規則）について、判断基準・公式推奨・制約値と、そのまま使える設計書テンプレートをまとめた導入ガイド。 |
-| [セキュリティとコンプライアンス](03_導入編/security-and-compliance.md) | Datadog 導入時のセキュリティ審査・コンプライアンス確認に必要な事項（取得認証 SOC 2 / ISO 27001・27017・27018・27701・42001 / PCI DSS / HIPAA / FedRAMP / ISMAP の状況、データ保存場所、通信・保存時の暗号化、PII 対策、データ削除と契約終了後の削除、サブプロセッサ、DPA、日本の個人情報保護法・電気通信事業法などの観点）を、一次情報の出典付きでまとめた導入ガイド。 |
-| [製品選定と競合比較](03_導入編/selection-and-competitive-comparison.md) | オブザーバビリティ製品の選定基準と、Datadog を New Relic・Dynatrace・Grafana Cloud（LGTM）・Elastic Observability・Splunk Observability Cloud・AWS CloudWatch・Azure Monitor・Google Cloud Observability・Sumo Logic と比較（機能・価格モデル・公開定価・日本リージョン・強み弱み）し、Datadog が向くケース／向かないケースを整理する。 |
-| [サポートと教育](03_導入編/support-and-training.md) | Datadog のサポートプラン（Free / Standard / Premier）の応答時間・チャネル・料金、問い合わせ方法（チケット・チャット・Agent flare）、日本語サポートの提供時間、TAM・Technical Enablement 等の有償サービス、Learning Center・認定資格（Datadog Fundamentals 等）・コミュニティをまとめ、導入プロジェクトでのサポート・教育計画の根拠を提供する。 |
+| [Agent 展開設計](03_導入編/10-agent-rollout-design.md) | Datadog Agent を数十〜数万台規模に展開するための設計指針。展開方式（インストールスクリプト／MSI、Ansible・Chef・Puppet・SaltStack、Helm・Datadog Operator、Single Step Instrumentation）の選定、バージョン固定と更新方針、構成管理ツールと Fleet Automation の責任分界、段階展開（リング展開）とロールバックの設計に答える。 |
+| [課金計算の仕組み](03_導入編/03-billing-mechanics.md) | Datadog の請求額がどのように計算されるか（ホスト数の 99 パーセンタイル / ハイウォーターマーク、コンテナとカスタムメトリクスの同梱枠のプール計算、ログの Ingest / Index の二段階課金、APM の Ingested / Indexed Span、コミットと超過のオンデマンド単価、請求画面と請求書の読み方、よくある誤解）を数値例付きで説明する。 |
+| [コスト見積り手法](03_導入編/05-cost-estimation.md) | Datadog の月額費用を導入前に見積もる手順を、必要な入力情報（ホスト数、コンテナ数、ログ量、スパン量、カスタムメトリクス数、RUM セッション、Synthetic 実行数など）の洗い出し、製品別の計算式、トライアルでの実測方法（datadog.estimated_usage.* メトリクス）、小・中・大規模の試算例（【推定】）、見積りの落とし穴の順に解説する。単価は 02-pricing-by-product.md（料金の正本）の AP1 / US 定価を使用。 |
+| [エディション・プラン](03_導入編/04-editions-and-plans.md) | Datadog の「エディション（プラン/ティア）」の考え方と、Infrastructure の Free tier / Basic / Pro / Enterprise、DevSecOps Pro / Enterprise バンドル、APM・Cloud Security・Code Security・Cloud Cost Management・Agent Observability・RUM・Incident Response など製品別ティアの機能差、無料トライアル、Datadog for Startups、Student Developer Program、政府機関向け（Datadog for Government / US1-FED）をまとめ、エディション別の機能比較表を提供する。 |
+| [導入方法論](03_導入編/08-implementation-methodology.md) | Datadog 導入プロジェクトをどのフェーズ（計画・要件定義・設計・PoC・構築・展開・定着）で進め、どの体制・WBS・成果物で管理し、PoC を何の観点で評価するかを、公式 Administrator's Guide（Plan / Build / Run）と実務事例を基に整理する。 |
+| [他製品からの移行](03_導入編/14-migration-from-other-tools.md) | Zabbix・Nagios・Prometheus/Grafana・New Relic・Amazon CloudWatch・Splunk などから Datadog へ移行する際の進め方（棚卸し→データ収集の置き換え→ダッシュボード/アラート変換→並行稼働→切替）、製品別の対応表、並行稼働に使える公式機能（Agent の Dual Shipping、Observability Pipelines、各種インテグレーション）、移行ツール（Crest Data の Marketplace アプリ、pySigma、Terraformer 等）とその制約を整理する。 |
+| [ネットワーク・接続要件](03_導入編/11-network-and-connectivity.md) | Datadog Agent・SDK・Synthetics Private Location などが Datadog SaaS へ通信するための送信先エンドポイント、ポート、IP レンジ（ip-ranges）、プロキシ構成、AWS PrivateLink / Azure Private Link / GCP Private Service Connect による閉域接続、ネットワーク断時のバッファリング、帯域見積りの方法をまとめる。ファイアウォール申請・閉域設計の根拠資料として使う。 |
+| [運用設計](03_導入編/13-operations-design.md) | Datadog を本番運用するための運用設計をまとめる。運用体制（プラットフォームチームの責務・役割・RACI・社内申請窓口）、アラート運用フロー（Monitor → Notification Rules → On-Call → Incident → 振り返り）、ユーザー・権限・キーの運用（入退社・異動、ロール保守、ローテーション周期）、Agent／インテグレーションの保守（更新方針、ヘルス監視、クラウド連携の権限更新）、利用量とコストの監視、ガバナンス（Governance Console・Safety Center・Tag Policies・Audit Trail）、定期レビューのカレンダーとチェックリストに答える。 |
+| [製品別料金表（料金の正本）](03_導入編/02-pricing-by-product.md) | datadoghq.com/pricing および /pricing/list/ に掲載された全製品の定価（年契約・月契約・オンデマンド、各エディション）、課金単位、同梱の無料枠（コンテナ、カスタムメトリクス、スパン等の allotment）を、US/EU1 と AP1（日本）の両価格で網羅した料金の正本。サイト別価格係数と US1-FED の非提供製品も記載。 |
+| [料金体系の全体像](03_導入編/01-pricing-overview.md) | Datadog の料金がどの単位（ホスト・量・イベント・シート・コミッター等）で課金されるか、年契約・月契約・オンデマンドの違い、無料枠と試用、主要製品の課金単位の早見表をまとめ、詳細な料金・計算方法・見積りの各ファイルへ案内する。 |
+| [購入経路と契約](03_導入編/06-procurement-and-contracts.md) | Datadog を購入する経路（直販、AWS / Azure / Google Cloud Marketplace、国内販売パートナー・CPPO）と、契約形態（年契約・月契約・オンデマンド・従量）、コミットと超過、自動更新と値上げ上限、支払い条件、サポートプラン、解約時のデータの扱いを、MSA・Support Terms・DPA 等の公式文書に基づいて整理する。 |
+| [要件定義とアーキテクチャ設計](03_導入編/09-requirements-and-architecture-design.md) | Datadog 導入時の要件定義と基本設計で決める事項（サイト選択、単一 org / マルチ org の組織構成、タグ設計、データフロー設計、保持期間設計、RBAC 設計、命名規則）について、判断基準・公式推奨・制約値と、そのまま使える設計書テンプレートをまとめた導入ガイド。 |
+| [セキュリティとコンプライアンス](03_導入編/12-security-and-compliance.md) | Datadog 導入時のセキュリティ審査・コンプライアンス確認に必要な事項（取得認証 SOC 2 / ISO 27001・27017・27018・27701・42001 / PCI DSS / HIPAA / FedRAMP / ISMAP の状況、データ保存場所、通信・保存時の暗号化、PII 対策、データ削除と契約終了後の削除、サブプロセッサ、DPA、日本の個人情報保護法・電気通信事業法などの観点）を、一次情報の出典付きでまとめた導入ガイド。 |
+| [製品選定と競合比較](03_導入編/07-selection-and-competitive-comparison.md) | オブザーバビリティ製品の選定基準と、Datadog を New Relic・Dynatrace・Grafana Cloud（LGTM）・Elastic Observability・Splunk Observability Cloud・AWS CloudWatch・Azure Monitor・Google Cloud Observability・Sumo Logic と比較（機能・価格モデル・公開定価・日本リージョン・強み弱み）し、Datadog が向くケース／向かないケースを整理する。 |
+| [サポートと教育](03_導入編/15-support-and-training.md) | Datadog のサポートプラン（Free / Standard / Premier）の応答時間・チャネル・料金、問い合わせ方法（チケット・チャット・Agent flare）、日本語サポートの提供時間、TAM・Technical Enablement 等の有償サービス、Learning Center・認定資格（Datadog Fundamentals 等）・コミュニティをまとめ、導入プロジェクトでのサポート・教育計画の根拠を提供する。 |
 
 ### 04_応用編
 
@@ -278,21 +278,21 @@ Datadog の導入・運用経験に基づく実践知見（設計のベストプ
 
 | ファイル | サマリー |
 |---|---|
-| [アラート設計とノイズ削減](04_応用編/alert-design-and-noise-reduction.md) | Datadog Monitors でアラート疲れを防ぐための設計原則（症状ベース、緊急度の3段階）、評価ウィンドウ・回復しきい値・通知グルーピング等のノイズ削減設定、Composite / Anomaly / Outlier / Forecast / Watchdog の使い分け、Notification Rules・条件付き変数・On-Call による通知ルーティング、棚卸し運用と失敗例をまとめる。 |
-| [APM 運用の実践](04_応用編/apm-practices.md) | Datadog APM を本番運用する際の実践知見として、計装の段階的な進め方、サンプリングとリテンションの戦略、サービス命名（Integration override 削除・Inferred Services・Service Remapping Rules）、トレースとログの相関、コストと可視性のバランスの取り方を、公式情報と公開事例に基づいて整理する。 |
-| [導入事例](04_応用編/case-studies.md) | Datadog の国内外の公開導入事例（企業名・業種・規模・課題・構成・利用製品・定量効果）を出典付きで整理し、業種別・目的別の傾向、選定理由、効果指標、コスト最適化の第三者事例をまとめる。提案・選定・社内説明で「どの企業が何のために Datadog をどう使い、どんな効果を出したか」に答えるためのファイル。 |
-| [よくある失敗とアンチパターン](04_応用編/common-pitfalls.md) | Datadog の導入・運用で繰り返し起きる失敗パターン（コスト急増、タグ不統一、アラート過多、権限設計ミス、Agent バージョン放置、IaC・ダッシュボード・サイト選定などの運用プロセスの失敗）を、症状・原因・仕組み・検知方法・対策・課金への影響の形で整理したカタログ。各パターンの公式根拠と、検知に使う推定使用量メトリクス、予防のためのガードレールとチェックリストをまとめる。 |
-| [コスト最適化](04_応用編/cost-optimization.md) | Datadog の請求額を可視性を落とさずに下げるための実践知。ログ（Agent 側フィルタ、Observability Pipelines、除外フィルタ、Daily quota、Flex Logs、アーカイブ / Archive Search）、カスタムメトリクス（タグ設計、Distribution のパーセンタイル、Metrics without Limits、Metric Name pricing）、APM（取り込みサンプリング、保持フィルタ、Single Span）、ホスト / コンテナ（99 パーセンタイル課金、クラウド連携フィルタ、Container Discovery Management、プリペイド）、RUM（RUM without Limits、保持フィルタ、保持クォータ）、Synthetic、コミット（契約）最適化、使用量の可視化と FinOps 運用を、試算例と出典付きで整理する。 |
-| [ダッシュボード設計の実践](04_応用編/dashboard-design-practices.md) | Datadog の Dashboards（ダッシュボード）を「経営向け・サービス運用向け・調査向け」の用途別にどう設計し、階層化・テンプレート変数・Powerpack・権限制御・棚卸しでどう運用し続けるかを、公式ドキュメントと実務知見に基づいてまとめる。 |
-| [Kubernetes 監視の実践](04_応用編/kubernetes-monitoring-practices.md) | Datadog で Kubernetes を本番監視する際の実践知見として、Agent 構成（Node Agent・Cluster Agent・Cluster Checks Runner・KSM Core の分散）、Agent のリソース設計、Autodiscovery の設計と責任分界、メトリクス量とログ量の制御（タグカーディナリティ、labels as tags、コンテナ除外、OpenMetrics、containerCollectAll）、マルチクラスタ運用（命名、GitOps、Fleet Automation、バージョン管理）、よくあるトラブルと対処を、公式情報と公開事例に基づいて整理する。 |
-| [大規模・マルチorg運用](04_応用編/large-scale-and-multi-org.md) | Datadog を大規模組織・複数 Organization（マルチorg）で運用する際の設計判断（単一org か マルチorg か）、Cross-Organization Visibility、Organization Groups、ID・権限・キー管理のスケール、大規模環境の制限値、グローバル展開（サイト・データレジデンシー・Dual Shipping・Disaster Recovery）、M&A 時の org 統合手順をまとめる。 |
-| [ログ管理の実践](04_応用編/log-management-practices.md) | Datadog Log Management を本番で運用するための実践知見。ログの構造化設計（JSON・予約属性・Standard Attributes・トレース相関）、Log Pipelines の設計、Index の分割と順序・Exclusion Filters・Daily Quota の戦略、Standard / Flex / Flex Frozen / Archive による保持期間の階層化、Cloud SIEM などセキュリティ用途のログとの共存（アクセス制御・機微データ・監査）を、公式ガイドと第三者の知見を出典付きでまとめる。 |
-| [Monitoring as Code](04_応用編/monitoring-as-code.md) | Datadog の Monitor・Dashboard・SLO などの監視設定を Terraform でコード管理する実践知見（既存設定の取り込み、モジュール化、レビュー体制と CI/CD、ドリフト検知と防止、UI 変更との共存ルール、Provider v4 移行の注意点）をまとめる。 |
-| [OpenTelemetry 活用戦略](04_応用編/opentelemetry-strategy.md) | Datadog で OpenTelemetry（OTel）をどう使うかを判断するためのガイド。Datadog トレーサー（Datadog SDK）と OTel SDK のどちらを選ぶか、送信経路（DDOT Collector / Agent の OTLP 受信 / 自前 Collector / Direct OTLP）の戦略的な意味、ハイブリッド構成のパターン、ベンダーロックインを避ける方法とその限界、課金と運用の落とし穴、段階的な移行手順をまとめる。 |
-| [組織への定着](04_応用編/organizational-adoption.md) | Datadog を「導入した」状態から「全社で使われ続ける」状態にするための実践知見として、推進役のプラットフォームチーム（中央オブザーバビリティチーム）の責務と体制、SRE 文化の醸成、役割別の教育、社内チャンピオン制度の設計、Governance Console・Audit Trail・Dashboard Usage API・Scorecards・Campaigns を使った利用状況の可視化と定着 KPI を、公式情報と公開事例に基づいて整理する。 |
-| [セキュリティ運用の実践](04_応用編/security-operations-practices.md) | Datadog の Cloud SIEM・Cloud Security（旧称 CSM）・Workload Protection（旧称 CWS）・App and API Protection（旧称 ASM）・Code Security を使う日常のセキュリティ運用の実践をまとめる。分析対象ログの選び方、検知ルールのチューニング（Suppressions・Dynamic Severity・Historical Jobs）、Detection as Code、SOC のトリアージ、ケース・チケット連携、Bits Security Analyst、SOAR、運用メトリクス（TTD/TTA/TTI/TTR）、Findings の自動化（Automation Pipelines・Security Inbox・期限 SLA）、DevSecOps（PR Gates）について、公式情報と実務知見を出典付きで扱う。 |
-| [SLO 運用の実践](04_応用編/slo-practices.md) | Datadog で SLO を実運用するための実践知見をまとめたファイル。SLI の選び方と Datadog 上での実装パターン、目標値と期間の決め方、エラーバジェットポリシーの作り方と Datadog 機能への対応付け、マルチウィンドウ・マルチバーンレートアラートの設計値とルーティング、組織への定着（タグ・命名・IaC・Scorecards・レポート）、国内事例とアンチパターンを扱う。 |
-| [タグ戦略の実践](04_応用編/tagging-strategy.md) | Datadog のタグを「どう設計し、どう付け、どう守らせるか」を実務観点でまとめる。タグ設計の原則、標準タグ辞書、カーディナリティ管理（カスタムメトリクス課金との関係）、チーム/所有権タグ、コスト配賦タグ（Usage Attribution・Cloud Cost Tag Pipelines）、Monitor Tag Policies・Resource Policies・Tag Rules による組織的な強制、典型的な失敗例に答える。 |
+| [アラート設計とノイズ削減](04_応用編/03-alert-design-and-noise-reduction.md) | Datadog Monitors でアラート疲れを防ぐための設計原則（症状ベース、緊急度の3段階）、評価ウィンドウ・回復しきい値・通知グルーピング等のノイズ削減設定、Composite / Anomaly / Outlier / Forecast / Watchdog の使い分け、Notification Rules・条件付き変数・On-Call による通知ルーティング、棚卸し運用と失敗例をまとめる。 |
+| [APM 運用の実践](04_応用編/05-apm-practices.md) | Datadog APM を本番運用する際の実践知見として、計装の段階的な進め方、サンプリングとリテンションの戦略、サービス命名（Integration override 削除・Inferred Services・Service Remapping Rules）、トレースとログの相関、コストと可視性のバランスの取り方を、公式情報と公開事例に基づいて整理する。 |
+| [導入事例](04_応用編/13-case-studies.md) | Datadog の国内外の公開導入事例（企業名・業種・規模・課題・構成・利用製品・定量効果）を出典付きで整理し、業種別・目的別の傾向、選定理由、効果指標、コスト最適化の第三者事例をまとめる。提案・選定・社内説明で「どの企業が何のために Datadog をどう使い、どんな効果を出したか」に答えるためのファイル。 |
+| [よくある失敗とアンチパターン](04_応用編/12-common-pitfalls.md) | Datadog の導入・運用で繰り返し起きる失敗パターン（コスト急増、タグ不統一、アラート過多、権限設計ミス、Agent バージョン放置、IaC・ダッシュボード・サイト選定などの運用プロセスの失敗）を、症状・原因・仕組み・検知方法・対策・課金への影響の形で整理したカタログ。各パターンの公式根拠と、検知に使う推定使用量メトリクス、予防のためのガードレールとチェックリストをまとめる。 |
+| [コスト最適化](04_応用編/01-cost-optimization.md) | Datadog の請求額を可視性を落とさずに下げるための実践知。ログ（Agent 側フィルタ、Observability Pipelines、除外フィルタ、Daily quota、Flex Logs、アーカイブ / Archive Search）、カスタムメトリクス（タグ設計、Distribution のパーセンタイル、Metrics without Limits、Metric Name pricing）、APM（取り込みサンプリング、保持フィルタ、Single Span）、ホスト / コンテナ（99 パーセンタイル課金、クラウド連携フィルタ、Container Discovery Management、プリペイド）、RUM（RUM without Limits、保持フィルタ、保持クォータ）、Synthetic、コミット（契約）最適化、使用量の可視化と FinOps 運用を、試算例と出典付きで整理する。 |
+| [ダッシュボード設計の実践](04_応用編/04-dashboard-design-practices.md) | Datadog の Dashboards（ダッシュボード）を「経営向け・サービス運用向け・調査向け」の用途別にどう設計し、階層化・テンプレート変数・Powerpack・権限制御・棚卸しでどう運用し続けるかを、公式ドキュメントと実務知見に基づいてまとめる。 |
+| [Kubernetes 監視の実践](04_応用編/07-kubernetes-monitoring-practices.md) | Datadog で Kubernetes を本番監視する際の実践知見として、Agent 構成（Node Agent・Cluster Agent・Cluster Checks Runner・KSM Core の分散）、Agent のリソース設計、Autodiscovery の設計と責任分界、メトリクス量とログ量の制御（タグカーディナリティ、labels as tags、コンテナ除外、OpenMetrics、containerCollectAll）、マルチクラスタ運用（命名、GitOps、Fleet Automation、バージョン管理）、よくあるトラブルと対処を、公式情報と公開事例に基づいて整理する。 |
+| [大規模・マルチorg運用](04_応用編/15-large-scale-and-multi-org.md) | Datadog を大規模組織・複数 Organization（マルチorg）で運用する際の設計判断（単一org か マルチorg か）、Cross-Organization Visibility、Organization Groups、ID・権限・キー管理のスケール、大規模環境の制限値、グローバル展開（サイト・データレジデンシー・Dual Shipping・Disaster Recovery）、M&A 時の org 統合手順をまとめる。 |
+| [ログ管理の実践](04_応用編/06-log-management-practices.md) | Datadog Log Management を本番で運用するための実践知見。ログの構造化設計（JSON・予約属性・Standard Attributes・トレース相関）、Log Pipelines の設計、Index の分割と順序・Exclusion Filters・Daily Quota の戦略、Standard / Flex / Flex Frozen / Archive による保持期間の階層化、Cloud SIEM などセキュリティ用途のログとの共存（アクセス制御・機微データ・監査）を、公式ガイドと第三者の知見を出典付きでまとめる。 |
+| [Monitoring as Code](04_応用編/09-monitoring-as-code.md) | Datadog の Monitor・Dashboard・SLO などの監視設定を Terraform でコード管理する実践知見（既存設定の取り込み、モジュール化、レビュー体制と CI/CD、ドリフト検知と防止、UI 変更との共存ルール、Provider v4 移行の注意点）をまとめる。 |
+| [OpenTelemetry 活用戦略](04_応用編/10-opentelemetry-strategy.md) | Datadog で OpenTelemetry（OTel）をどう使うかを判断するためのガイド。Datadog トレーサー（Datadog SDK）と OTel SDK のどちらを選ぶか、送信経路（DDOT Collector / Agent の OTLP 受信 / 自前 Collector / Direct OTLP）の戦略的な意味、ハイブリッド構成のパターン、ベンダーロックインを避ける方法とその限界、課金と運用の落とし穴、段階的な移行手順をまとめる。 |
+| [組織への定着](04_応用編/14-organizational-adoption.md) | Datadog を「導入した」状態から「全社で使われ続ける」状態にするための実践知見として、推進役のプラットフォームチーム（中央オブザーバビリティチーム）の責務と体制、SRE 文化の醸成、役割別の教育、社内チャンピオン制度の設計、Governance Console・Audit Trail・Dashboard Usage API・Scorecards・Campaigns を使った利用状況の可視化と定着 KPI を、公式情報と公開事例に基づいて整理する。 |
+| [セキュリティ運用の実践](04_応用編/11-security-operations-practices.md) | Datadog の Cloud SIEM・Cloud Security（旧称 CSM）・Workload Protection（旧称 CWS）・App and API Protection（旧称 ASM）・Code Security を使う日常のセキュリティ運用の実践をまとめる。分析対象ログの選び方、検知ルールのチューニング（Suppressions・Dynamic Severity・Historical Jobs）、Detection as Code、SOC のトリアージ、ケース・チケット連携、Bits Security Analyst、SOAR、運用メトリクス（TTD/TTA/TTI/TTR）、Findings の自動化（Automation Pipelines・Security Inbox・期限 SLA）、DevSecOps（PR Gates）について、公式情報と実務知見を出典付きで扱う。 |
+| [SLO 運用の実践](04_応用編/08-slo-practices.md) | Datadog で SLO を実運用するための実践知見をまとめたファイル。SLI の選び方と Datadog 上での実装パターン、目標値と期間の決め方、エラーバジェットポリシーの作り方と Datadog 機能への対応付け、マルチウィンドウ・マルチバーンレートアラートの設計値とルーティング、組織への定着（タグ・命名・IaC・Scorecards・レポート）、国内事例とアンチパターンを扱う。 |
+| [タグ戦略の実践](04_応用編/02-tagging-strategy.md) | Datadog のタグを「どう設計し、どう付け、どう守らせるか」を実務観点でまとめる。タグ設計の原則、標準タグ辞書、カーディナリティ管理（カスタムメトリクス課金との関係）、チーム/所有権タグ、コスト配賦タグ（Usage Attribution・Cloud Cost Tag Pipelines）、Monitor Tag Policies・Resource Policies・Tag Rules による組織的な強制、典型的な失敗例に答える。 |
 
 ## 参照元
 

@@ -238,7 +238,7 @@ flowchart LR
 | Notification rules | Finding の通知ルール | `/security/configuration/notification-rules` |
 | Security Inbox | 製品横断の優先度付き Finding 一覧 | `/security/issues` |
 
-出典: 各機能ページ内のリンク [出典](https://docs.datadoghq.com/security/cloud_security_management/vulnerabilities/) [出典](https://docs.datadoghq.com/security/cloud_security_management/identity_risks/) [出典](https://docs.datadoghq.com/security/cloud_security_management/crown_jewels/) [出典](https://docs.datadoghq.com/security/cloud_security_management/review_remediate/remediate_with_ai/)。上部ナビゲーションには Summary・Inbox・Graph【Preview】・Findings・Compliance・Inventory が並ぶ（5.6 節の画像）。画面全般のナビゲーションは [画面構成とナビゲーション](../../01_入門編/ui-navigation.md) を参照する。
+出典: 各機能ページ内のリンク [出典](https://docs.datadoghq.com/security/cloud_security_management/vulnerabilities/) [出典](https://docs.datadoghq.com/security/cloud_security_management/identity_risks/) [出典](https://docs.datadoghq.com/security/cloud_security_management/crown_jewels/) [出典](https://docs.datadoghq.com/security/cloud_security_management/review_remediate/remediate_with_ai/)。上部ナビゲーションには Summary・Inbox・Graph【Preview】・Findings・Compliance・Inventory が並ぶ（5.6 節の画像）。画面全般のナビゲーションは [画面構成とナビゲーション](../../01_入門編/06-ui-navigation.md) を参照する。
 
 ---
 
@@ -1250,7 +1250,7 @@ Cloud Security で使う主な権限・スコープは次の通り。RBAC 全般
 
 ## 課金への影響
 
-Cloud Security の課金単位は **ホスト／月**（CSM Pro / CSM Enterprise）で、コンテナには枠（allotment）と超過課金がある。以下は 2026-11-02 時点の公式料金ページの定価（「Starting at」表記）。**料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)** とし、料金体系の全体像は [料金体系の全体像](../../03_導入編/pricing-overview.md)、計算方法は [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、エディションは [エディション・プラン](../../03_導入編/editions-and-plans.md) を参照する。
+Cloud Security の課金単位は **ホスト／月**（CSM Pro / CSM Enterprise）で、コンテナには枠（allotment）と超過課金がある。以下は 2026-11-02 時点の公式料金ページの定価（「Starting at」表記）。**料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)** とし、料金体系の全体像は [料金体系の全体像](../../03_導入編/01-pricing-overview.md)、計算方法は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、エディションは [エディション・プラン](../../03_導入編/04-editions-and-plans.md) を参照する。
 
 ### プランと定価（US サイト、USD）
 
@@ -1311,7 +1311,7 @@ Cloud Security の課金単位は **ホスト／月**（CSM Pro / CSM Enterprise
 | Sensitive Data Scanner for Cloud Storage | 別製品（[Sensitive Data Scanner](./sensitive-data-scanner.md)） |
 | IaC ファイルのスキャン | Code Security の IaC Security（コミッター課金、[Code Security](./code-security.md)） |
 
-課金対象ホスト数の確認は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md)、コスト削減の実践（Evaluation Filters による対象絞り込み等）は [コスト最適化](../../04_応用編/cost-optimization.md) を参照する。
+課金対象ホスト数の確認は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md)、コスト削減の実践（Evaluation Filters による対象絞り込み等）は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照する。
 
 ---
 
@@ -1330,9 +1330,9 @@ Cloud Security の課金単位は **ホスト／月**（CSM Pro / CSM Enterprise
 | [Fleet Automation と Remote Configuration](../platform/fleet-automation.md) | Agentless Scanning の前提となる Remote Configuration |
 | [Workflow Automation](../service-management/workflow-automation.md) / [Case Management](../service-management/case-management.md) | 修復の自動化・ケース管理 |
 | [Datadog Sites](../platform/datadog-sites.md) | サイト差異 |
-| [製品別料金表](../../03_導入編/pricing-by-product.md) | 料金の正本 |
-| [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md) | Datadog 自体のコンプライアンス（本製品の対象フレームワークとは別） |
-| [セキュリティ運用の実践](../../04_応用編/security-operations-practices.md) | 運用ベストプラクティス |
+| [製品別料金表](../../03_導入編/02-pricing-by-product.md) | 料金の正本 |
+| [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md) | Datadog 自体のコンプライアンス（本製品の対象フレームワークとは別） |
+| [セキュリティ運用の実践](../../04_応用編/11-security-operations-practices.md) | 運用ベストプラクティス |
 
 ---
 

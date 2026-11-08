@@ -28,6 +28,8 @@ sources:
   - https://www.servicenow.com/docs/r/store-release-notes/store-secops-rn-sir.html
   - https://www.servicenow.com/docs/r/store-release-notes/store-secops-rn-vulnerability-response.html
   - https://www.servicenow.com/docs/r/release-notes/secops-sir-rn.html
+  - https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/znxRGVI3epSQvJ3UzuQy_w
+  - https://www.servicenow.com/docs/r/EWrRf5nZrig8aC6lvNhE7Q/sJ4tFH053_kQcc4~oRrn_w
   - https://www.servicenow.com/docs/r/release-notes/secops-tisc-rn.html
   - https://www.servicenow.com/community/secops-articles/essential-information-vr-to-usem-upgrade-guidance/ta-p/3453606
 ---
@@ -126,7 +128,7 @@ Security Operations のベースシステムは、以下 6 種類のインテグ
 
 ### 1.2 Setup Assistant（セットアップアシスタント）
 
-**Setup Assistant** は SIR・VR の初期設定をガイドする画面である。完全なアクセスには `sn_secops_setup.admin` ロールが必要で、`sn_si.admin` を持つユーザーはこれを継承する。Setup Assistant は「SIR Admin」「VR Admin」「VR/SIR Admin」「System Admin」の 4 段階のアクセスレベルを持つ。各ステップの完了状況は `sn_secops_setup_status` テーブル（Setup Status）で管理され、その `key`・`complete` フィールドは読み取り専用である。[出典](https://www.servicenow.com/docs/r/security-management/security-incident-response/setup-assistant-reference.html)
+**Setup Assistant** は SIR・VR の初期設定をガイドする画面である。完全なアクセスには `sn_secops_setup.admin` ロールが必要で、`sn_si.admin` を持つユーザーはこれを継承する。Setup Assistant は「SIR Admin」「VR Admin」「VR/SIR Admin」「System Admin」の 4 段階のアクセスレベルを持つ。各ステップの完了状況は `sn_secops_setup_status` テーブル（Setup Status）で管理され、その `key`・`complete` フィールドは読み取り専用である。[出典](https://www.servicenow.com/docs/r/x8~ohSTeWLioGLVI5x3Vgg/EjEx2i4_BJB~IAh6cy32sQ)
 
 SIR 側の Setup Assistant の主なステップ：
 
@@ -359,7 +361,7 @@ Australia 時点（2026 年 Q1）での SIR の主な機能追加（Community �
 
 ### 2.8 フィッシング対応（User Reported Phishing）
 
-SIR は、ユーザーが報告したフィッシングメールを専用メールボックス経由で取り込み、セキュリティインシデントを自動作成する機能を持つ。メールルール（Phishing email rules）は All > Security Operations > Email Processing > User Reported Phishing で定義し、`sn_sec_cmn.write` ロールが必要。SIR 13.9.23（2025-12）でパターンベースの allow/deny ルールが追加された。[出典](https://www.servicenow.com/docs/r/security-management/security-incident-response/setup-assistant-reference.html)、[出典](https://www.servicenow.com/docs/r/store-release-notes/store-secops-rn-sir.html)
+SIR は、ユーザーが報告したフィッシングメールを専用メールボックス経由で取り込み、セキュリティインシデントを自動作成する機能を持つ。メールルール（Phishing email rules）は All > Security Operations > Email Processing > User Reported Phishing で定義し、`sn_sec_cmn.write` ロールが必要。SIR 13.9.23（2025-12）でパターンベースの allow/deny ルールが追加された。[出典](https://www.servicenow.com/docs/r/x8~ohSTeWLioGLVI5x3Vgg/EjEx2i4_BJB~IAh6cy32sQ)、[出典](https://www.servicenow.com/docs/r/store-release-notes/store-secops-rn-sir.html)
 
 ### 2.9 Major Security Incident Management（MSIM、重大セキュリティインシデント管理）
 
@@ -433,8 +435,10 @@ VR ファミリーの関連アプリ：
 | Application Vulnerability Response（AVR） | アプリケーションの脆弱性（SAST / DAST / SCA 等、例：Veracode、Invicti、Wiz） |
 | Container Vulnerability Response（CVR） | コンテナイメージの脆弱性 |
 | Configuration Compliance（CC） | 構成設定の不備（[5 章](#5-configuration-compliancecc構成コンプライアンス)） |
-| Vulnerability Response Patch Orchestration | パッチ管理ツール（Microsoft SCCM、HCL BigFix 等）との連携 |
-| Vulnerability Emergency Response / Exposure assessment | ゼロデイ等の緊急脆弱性に対するソフトウェアインベントリベースの影響評価 |
+| Patch Orchestration（パッチオーケストレーション） | サードパーティのパッチ管理ツール（例：Microsoft SCCM）との連携。パッチ・パッチ展開データの参照と適用（テーブル `sn_vul_patch_orch_*`） |
+| Exposure Assessment（エクスポージャー評価、Vulnerability Assessment Workspace） | 新規 CVE（CISA KEV 等）に対し、ソフトウェアインストール情報から影響資産を評価（v19.0〜、ロール `sn_vul_analyst.vul_event_manager`、テーブル `sn_vul_exp_by_sw`） |
+
+[出典](https://www.servicenow.com/docs/r/x8~ohSTeWLioGLVI5x3Vgg/0qWAPqOKYi4ApHZD9QaE5w)（Patch Orchestration と Exposure Assessment は「Components installed with Vulnerability Response」に載っているロール・テーブル・スケジュールジョブに基づく。独立したアプリとしての正式名称は公開情報では確認できず）
 
 ### 4.2 USEM（Unified Security Exposure Management）への移行
 
@@ -466,7 +470,7 @@ v30.0 以降、Security Exposure Management Workspace の **Administration conso
 - **Brazil ファミリーへのアップグレード時は USEM（VR v30.x）が最低サポートバージョン**となる。v30 未満の VR がインストールされたまま Brazil に上げると VR は強制的に v30.x に上がり、その後 USEM Migration Assistant で移行を完了する必要がある。ServiceNow は強制アップグレード前の移行を推奨している。
 - **Australia Patch 3m / 4m の既知の問題**：これらのパッチで v30 未満の VR が自動的に USEM へアップグレードされ、ロールバックできない場合がある。VR に留まりたい顧客は適用を避ける必要がある。
 - 新規インストールは Application Manager から最新 v30.x をインストール（USEM 依存アプリも同時に入る）。既存 VR は Application Manager を使わず、**USEM Migration Assistant**（KB2556844、要サポートログイン）を使う。
-- VR v30.x は **Central Vulnerability Database（CVDB）** Store アプリに依存する。VR のエンタイトルメントを持つ顧客は追加ライセンスなしで CVDB を利用できる（ServiceNow 社員のコメント回答）。
+- VR v30.x は **Central Vulnerability Database（CVDB）** Store アプリに依存する。【第三者情報】VR のエンタイトルメントを持つ顧客は追加ライセンスなしで CVDB を利用できる（同記事のコメント欄での ServiceNow 社員の回答。公式ドキュメント・契約条件では未確認）。
 
 [出典](https://www.servicenow.com/community/secops-articles/essential-information-vr-to-usem-upgrade-guidance/ta-p/3453606)
 
@@ -502,7 +506,7 @@ erDiagram
 | Vulnerable Item | `sn_vul_vulnerable_item` | CI × 脆弱性の組（VI / VIT） |
 | Vulnerable Item Detection | `sn_vul_detection` | スキャナーによる個々の検出（ポート・プロトコル等） |
 | Remediation Tasks | `sn_vul_vulnerability` | 修正タスク（旧称 Vulnerability Group） |
-| Remediation Task | `sn_vul_remediation_task` | 統合 Remediation Task（v18.0 で Classic RT を挿入するジョブあり） |
+| Remediation Task | `sn_vul_remediation_task` | VR・AVR・CVR・CC（Test result group）の RT を集約するテーブル（v18.0〜）。`sn_vul_vulnerability` の情報を保持し、`sn_vul_vulnerability` をリストで参照できないユーザーも詳細を見られる。Vulnerability Manager Workspace / IT Remediation Workspace から利用 |
 | Remediation Task Items | `sn_vul_m2m_vul_group_item` | RT と VI の関連 |
 | Remediation Task Change Requests | `sn_vul_m2m_vg_change_request` | RT と変更要求の関連 |
 | Remediation Task Rules | `sn_vul_grouping_rule` | RT のグルーピングルール |
@@ -524,7 +528,7 @@ erDiagram
 
 [出典](https://www.servicenow.com/docs/r/x8~ohSTeWLioGLVI5x3Vgg/0qWAPqOKYi4ApHZD9QaE5w)
 
-> **注意：** Remediation Task のテーブル名は `sn_vul_vulnerability`（ラベル Remediation Tasks）と `sn_vul_remediation_task`（ラベル Remediation Task）が併存しており、Community でも解釈が分かれている。レポートや連携でどちらを参照すべきかは、導入済みの VR バージョン（特に USEM の Remediation Task Management）を確認すること。[出典](https://www.servicenow.com/community/secops-forum/what-is-the-difference-between-quot-sn-vul-remediation-task-quot/m-p/2412868)【第三者情報】
+> **注意：** Remediation Task のテーブルは `sn_vul_vulnerability`（ラベル Remediation Tasks）と `sn_vul_remediation_task`（ラベル Remediation Task）の 2 つがある。公式ドキュメントによると、`sn_vul_vulnerability` は「修正のために整理された VI の集合」で、VR の RT の実体である。`sn_vul_remediation_task` は VR・AVR・CVR・CC の RT を集約するテーブルで、`sn_vul_vulnerability` の情報をワークスペースや閲覧権限の限られたユーザーに提供する。[出典](https://www.servicenow.com/docs/r/x8~ohSTeWLioGLVI5x3Vgg/0qWAPqOKYi4ApHZD9QaE5w) USEM（Remediation Task Management）環境でレポートや連携がどちらを参照すべきかは、導入済みのバージョンで確認すること。なお、両テーブルの使い分けは Community でも議論されている。【第三者情報】[出典](https://www.servicenow.com/community/secops-forum/what-is-the-difference-between-quot-sn-vul-remediation-task-quot/m-p/2412868)
 
 ### 4.4 VR のロール（ペルソナロールと粒度ロール）
 
@@ -576,7 +580,7 @@ VR v30.8.5 で VR ロールから SIR ロールが削除された。[出典](htt
 | Closed | クローズ | **スキャナーによる確認**（v23.0 以降 Close ボタンは削除） | Reopen |
 
 - Remediation Owner は VI / RT を **Resolved にしかできない**。スキャナーが修正を確認すると Closed、未修正なら再オープンされる。
-- 例外申請時、Deferred は承認ワークフロー上 In Review となり、承認されるまでクローズできない。
+- 例外を申請（Request Exception）すると、RT は承認ワークフロー上 In Review になり、承認されるまでクローズできない。承認されると Deferred になり、延期期限（defer date）に再オープンされる。誤検知（False Positive）申請が承認・却下された後の遷移は、このページには書かれていない。
 - v23.0 以降、旧「Remediation Task State Approval」ワークフローは非推奨となり、同名の Flow Designer フローに置き換えられた。
 
 [出典](https://www.servicenow.com/docs/r/x8~ohSTeWLioGLVI5x3Vgg/gfzl087_DD6DEMX2PTbn1g)
@@ -649,7 +653,9 @@ VR のリスク計算は **Vulnerability Calculator（`sn_vul_calculator_group`�
 
 [出典](https://www.servicenow.com/docs/r/x8~ohSTeWLioGLVI5x3Vgg/Rk0nNjDmu1fZ7GxcJJ20Jg)
 
-> ベースラインでは SLA（`contract_sla`）は Remediation Task（`task` 拡張）にのみ適用され、VI には Remediation Target を使う。【第三者情報】[出典](https://www.servicenow.com/community/for-new-customers-vr-forum-read/vulnerability-response-vulnerable-item-table-not-showing-up-in/m-p/321571)
+> Remediation Task には SLA を適用できる。SLA 定義は All > Vulnerability Response > Administration > SLA Definitions で管理し（`sn_vul.vulnerability_admin` が必要）、Task SLA は Remediation Task の関連リストに表示される。[出典](https://www.servicenow.com/docs/r/EWrRf5nZrig8aC6lvNhE7Q/sJ4tFH053_kQcc4~oRrn_w)（Brazil 版のページ。Australia 版の同名ページは未確認）
+>
+> VI の期限には Remediation Target を使う。SLA（`contract_sla`）の対象は `task` を拡張したテーブルなので、VI には適用しないのがベースラインの考え方とされる。【第三者情報】[出典](https://www.servicenow.com/community/for-new-customers-vr-forum-read/vulnerability-response-vulnerable-item-table-not-showing-up-in/m-p/321571)
 
 ### 4.9 主なスケジュールジョブとプロパティ
 
@@ -914,7 +920,13 @@ v6.3.4（2026-07）で全スキルの既定モデルが Now LLM からサード�
 
 既定でワークフローとエージェントのレコードは読み取り専用で、変更するには複製する。エージェンティックワークフローはロールマスキングでアクセス可能なユーザーを決定する。[出典](https://www.servicenow.com/docs/r/Hl2CblJbxzWNxnQLivjlGg/6JPYJensijedprlRRbQaDw)
 
-**Security incident activities handling AI agent** は、Incident / Change / Problem / Response Task の説明文をドラフトし、ユーザーのレビュー・承認後にのみ作成する。メールもユーザーが宛先・件名・本文を承認してから送信し、依頼に応じて状態を更新する。許可ロール・データアクセスロールとも `sn_si.analyst` が必要。関連ワークフローは「Resolve security incident」。[出典](https://www.servicenow.com/docs/r/XRgEFx7nPN6ciT_BBIvnbg/IfK5KyPBYH2qfdPShns5GQ)
+**Security incident activities handling AI agent** は、Incident / Change / Problem / Response Task の説明文をドラフトし、ユーザーのレビュー・承認後にのみ作成する。メールもユーザーが宛先・件名・本文を承認してから送信し、依頼に応じて状態を更新する。許可ロール・データアクセスロールとも `sn_si.analyst` が必要。エージェントの個別ページでは、関連ワークフローを「Resolve security incident」と書いている。[出典](https://www.servicenow.com/docs/r/XRgEFx7nPN6ciT_BBIvnbg/IfK5KyPBYH2qfdPShns5GQ)
+
+> **表記について：** 上の表のワークフロー名とエージェント名は、一覧の公式ページ（[出典](https://www.servicenow.com/docs/r/Hl2CblJbxzWNxnQLivjlGg/6JPYJensijedprlRRbQaDw)）の表記に合わせている。公式ドキュメントの中でも表記が揺れている。
+> - ワークフロー：一覧ページでは「Security incident resolution」、エージェントの個別ページでは「Resolve security incident」
+> - エージェント：一覧ページの中で「Security incident wrap-up generator」と「Security incident wrap up generator AI agent」の 2 通り
+>
+> 解決用ワークフローに Security incident activities handling AI agent が含まれるという構成が一致するため、それぞれ同じワークフロー・エージェントを指すと考えられる。【推定】
 
 VR 側では、USEM の Security Exposure Management Workspace で脆弱性データへの自然言語クエリが可能（Unified Security Exposure Management AI skills and agents）。[出典](https://www.servicenow.com/docs/r/zwMwt0JEh8FTHmrqXNjCAw/iNeg7GvFndzEPcDtQHyAMg)
 
@@ -930,15 +942,20 @@ Now Assist / AI Agents の全般仕様は [Now Assist と AI Agents](../platform
 
 | 連携先 | 主な機能 | 出典 |
 |---|---|---|
-| Splunk / Splunk ES | Import Set API でのインシデント作成、プロファイル（`sn_si.ingestion_profile_admin`）、インシデント分類、過去データ・アラート取得、双方向更新とクローズ同期（Australia） | [出典](https://www.servicenow.com/docs/r/x8~ohSTeWLioGLVI5x3Vgg/CAr14Q4UAkAqdObnfk6HNw) |
+| Splunk / Splunk ES | Import Set API でのインシデント作成、プロファイル（`sn_si.ingestion_profile_admin`）、インシデント分類、過去データ・アラート取得、双方向更新とクローズ同期（Zurich で導入） | [出典](https://www.servicenow.com/docs/r/x8~ohSTeWLioGLVI5x3Vgg/CAr14Q4UAkAqdObnfk6HNw) |
 | Microsoft Sentinel（Azure Sentinel） | インシデント取り込みと双方向同期。Defender ポータル移行に対応（2026 Q1） | [出典](https://www.servicenow.com/community/secops-articles/key-features-released-in-q1-2026-for-security-incident-response/ta-p/3518413) |
 | CrowdStrike Next-Gen SIEM | セキュリティインシデント候補となる検知を発見し自動起票、フィールドマッピング、フィルター、検知コメントと SIR ワークノートの同期 | [出典](https://www.servicenow.com/docs/r/aWI6yzr0o7OSh9MJT0Yyxw/MPl~6X5aFqagctsj0Q5_Gw) |
-| Palo Alto Networks Cortex XSIAM | 状態・優先度・ワークノートの双方向同期（Brazil でフィールドマッピング強化） | [出典](https://www.servicenow.com/docs/r/security-management/security-incident-response/cortex-xsiam-siem.html) |
+| Palo Alto Networks Cortex XSIAM | 状態・優先度・ワークノートの双方向同期（ワークノートと XSIAM コメントの同期は Zurich で導入。Brazil でフィールドマッピングを強化） | [出典](https://www.servicenow.com/docs/r/security-management/security-incident-response/cortex-xsiam-siem.html) |
 | CrowdStrike Falcon（EDR）、Microsoft Defender 等 | エンドポイント情報取得・封じ込め（EDR AI agent からも利用） | [出典](https://www.servicenow.com/docs/r/Hl2CblJbxzWNxnQLivjlGg/6JPYJensijedprlRRbQaDw) |
+| Microsoft Defender | Microsoft Defender と SIR の間で状態とワークノートを双方向に同期（Australia） | [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/znxRGVI3epSQvJ3UzuQy_w) |
 | Microsoft Exchange Online | メール検索・削除（Exchange online integration handling AI agent） | 同上 |
 | Sumo Logic Cloud SIEM | Webhook によるインサイトの SIR インシデント化（第三者提供） | 【第三者情報】[出典](https://help.sumologic.com:443/docs/cse/integrations/security-incident-response-integration) |
 
-Australia（Zurich → Australia）の SIR 連携の新機能として、ServiceNow ワークノートと Palo Alto Networks XSIAM コメントの同期、CrowdStrike Next-Gen SIEM 検知コメントと SIR ワークノートの同期、Splunk ES との双方向更新・クローズ同期が挙げられている。（Zurich→Australia の統合リリースノートより。2026-11-03 時点で当該ページは取得不可となっていたため、検索結果の要約に基づく。）
+「Combined Security Incident Response release notes for upgrades from Zurich to Australia」では、SIR の連携機能が次のリリースに分けて載っている。
+- **Zurich**：ServiceNow のワークノートと Palo Alto Networks XSIAM コメントの同期、Splunk ES との双方向更新・クローズ同期、CrowdStrike Next-Gen SIEM の検知コメントと SIR ワークノートの同期・検知状態の自動更新
+- **Australia**：Microsoft Defender と SIR の間で状態とワークノートを双方向に同期。CrowdStrike Next-Gen SIEM の検知コメント同期・状態の自動更新は Australia の項にも載っている
+
+Zurich→Australia でアップグレードする顧客は、どちらも新機能として受け取る。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/znxRGVI3epSQvJ3UzuQy_w)
 
 ### 9.2 ServiceNow 内部連携
 
@@ -963,7 +980,7 @@ Store 配布の SecOps アプリには **Data Loss Prevention Incident Response*
 
 - SecOps のアプリケーション（SIR、VR、TI、CC 等）は Store から配布されるが、利用には**エンタイトルメント（サブスクリプション）**が必要。[出典](https://www.servicenow.com/docs/r/zwMwt0JEh8FTHmrqXNjCAw/igd_fiyg21Ko2Xdn4u7f8Q)
 - SPC（Core / ASPM / Mitigation Controls Monitoring）は別サブスクリプション。[出典](https://www.servicenow.com/docs/r/security-management/spc-overview.html)
-- VR のエンタイトルメントを持つ顧客は CVDB Store アプリを追加ライセンスなしで利用可能（Community での ServiceNow 社員回答）。[出典](https://www.servicenow.com/community/secops-articles/essential-information-vr-to-usem-upgrade-guidance/ta-p/3453606)
+- 【第三者情報】VR のエンタイトルメントを持つ顧客は CVDB Store アプリを追加ライセンスなしで利用可能（Community 記事のコメント欄での ServiceNow 社員の回答。公式ドキュメント・契約条件では未確認）。[出典](https://www.servicenow.com/community/secops-articles/essential-information-vr-to-usem-upgrade-guidance/ta-p/3453606)
 - VR 用のライセンス使用量テーブル（`sn_vul_licensing_usage`、`sn_vul_licensing_usage_by_ci_classes`）があり、CI クラス別の使用量を確認できる。[出典](https://www.servicenow.com/docs/r/x8~ohSTeWLioGLVI5x3Vgg/0qWAPqOKYi4ApHZD9QaE5w)
 - 【第三者情報】SecOps は Standard / Professional / Enterprise のエディションで販売され、Threat Intelligence は Professional 以上、VR はデバイス数課金（例：「Security Operations Professional - VR - Devices」）、SIR はアナリスト（フルフィラー）課金とされる。エディションごとの連携（コネクタ）数の上限があるとの情報もある。[出典](https://redresscompliance.com/servicenow-secops-licensing-guide)、[出典](https://www.servicenow.com/community/for-new-customers-vr-forum-read/how-license-is-calculated-for-quot-security-operations/m-p/322400)
 - 公式のエディション別機能比較表・定価は公開情報では確認できず。価格の推定値は [価格情報](../../03_導入編/02-pricing.md)、エディション比較は [エディション比較](../../03_導入編/03-edition-comparison.md) を参照。
@@ -978,7 +995,7 @@ Store 配布の SecOps アプリには **Data Loss Prevention Incident Response*
 | プロセス定義 | NIST Stateful（一方向）か NIST Open（双方向）かを早期に決める。変更後は Invalid states の修正が必要 | 公式 |
 | CMDB 品質 | VR・SIR の価値は CI 照合精度とビジネスサービス関連付けに依存。未照合資産は `sn_vul.ci_manager` が処理 | 公式／【経験則】 |
 | VR の割り当て設計 | Assignment Rule（最初の一致）と Remediation Task Rule の粒度が IT 部門の受容性を左右する。RT を細かくしすぎると件数過多、粗すぎると責任分界が曖昧 | 【経験則】 |
-| 期限管理 | VI は Remediation Target、RT は SLA を使う。複数ルール一致時は最短期限 | 公式 |
+| 期限管理 | VI は Remediation Target、RT は SLA を使う。複数ルール一致時は最短期限 | 公式（Remediation Target、RT の SLA 定義）／【第三者情報】（VI に SLA を使わない理由） |
 | USEM 移行 | Brazil 移行前に USEM Migration Assistant で計画的に移行。Australia Patch 3m / 4m の自動アップグレード問題に注意 | Community 公式記事 |
 | Store アプリのバージョン管理 | ファミリーアップグレードとは別に SecOps アプリの更新計画が必要（月次〜四半期でリリース）。アップグレード管理は [アップグレード管理](../../03_導入編/13-upgrade-management.md) | 公式 |
 | AI の利用制約 | IRAP-Protected 等の制限環境では一部 AI 機能が使えない | 公式 |
@@ -991,7 +1008,9 @@ Store 配布の SecOps アプリには **Data Loss Prevention Incident Response*
 - Understanding Security Incident Response: https://www.servicenow.com/docs/r/x8~ohSTeWLioGLVI5x3Vgg/eyajkubrzs~4YCt1eYwMMg
 - Components installed with Security Incident Response: https://www.servicenow.com/docs/r/x8~ohSTeWLioGLVI5x3Vgg/Ggj2k2A3Ycyj_BpBcgz1tA
 - Setup Assistant reference（Australia）: https://www.servicenow.com/docs/r/x8~ohSTeWLioGLVI5x3Vgg/EjEx2i4_BJB~IAh6cy32sQ
-- Setup Assistant reference（Brazil）: https://www.servicenow.com/docs/r/security-management/security-incident-response/setup-assistant-reference.html
+- Setup Assistant reference（Brazil。内容は Australia 版と同じ。本文では Australia 版を出典とする）: https://www.servicenow.com/docs/r/security-management/security-incident-response/setup-assistant-reference.html
+- Combined Security Incident Response release notes for upgrades from Zurich to Australia: https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/znxRGVI3epSQvJ3UzuQy_w
+- View Vulnerability Response SLAs for remediation tasks（Brazil）: https://www.servicenow.com/docs/r/EWrRf5nZrig8aC6lvNhE7Q/sJ4tFH053_kQcc4~oRrn_w
 - Types of ServiceNow integrations provided: https://www.servicenow.com/docs/r/x8~ohSTeWLioGLVI5x3Vgg/CAr14Q4UAkAqdObnfk6HNw
 - Vulnerability Response implementation: https://www.servicenow.com/docs/r/x8~ohSTeWLioGLVI5x3Vgg/r4txelem41snRcX3bQXe5g
 - Components installed with Vulnerability Response: https://www.servicenow.com/docs/r/x8~ohSTeWLioGLVI5x3Vgg/0qWAPqOKYi4ApHZD9QaE5w

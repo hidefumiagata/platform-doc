@@ -13,6 +13,7 @@ sources:
   - https://www.servicenow.com/docs/r/servicenow-platform/service-catalog/c_IntroductionToCatalogItems.html
   - https://www.servicenow.com/docs/r/8K~WUyyBmjUR0pLPxM8yeA/hJnvDDowivS_C3638JM7mQ
   - https://www.servicenow.com/docs/r/8K~WUyyBmjUR0pLPxM8yeA/coXRFdevEJQZ5xvN202EJw
+  - https://docs.servicenow.com/bundle/london-it-service-management/page/product/service-catalog-management/concept/c_MultipleServiceCatalogs.html
   - https://www.servicenow.com/docs/r/8K~WUyyBmjUR0pLPxM8yeA/F3WD1Plep0xlkcutTm3yMg
   - https://www.servicenow.com/docs/r/cCCsnXLy_7vD00AGlASipQ/2iBjvIgrbEth4P1pae7faQ
   - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/qzsQje1UPaF1RtEqCIHoDA
@@ -134,7 +135,7 @@ Service Catalog のロールは次のとおり（Australia ドキュメント「
 
 補足事項：
 
-- Variable set（変数セット）の**作成は管理者のみ**で、`catalog_manager`／`catalog_editor` は担当カタログのアイテムに既存の変数セットを添付できるだけである。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/qzsQje1UPaF1RtEqCIHoDA)
+- `catalog_manager`／`catalog_editor` は Variable set（変数セット）を**作成できず**、担当カタログのアイテムに既存の変数セットを添付できるだけである（公式ページはこの否定形でのみ記載しており、`catalog_admin` が作成できるかどうかには触れていない）。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/qzsQje1UPaF1RtEqCIHoDA)
 - Catalog UI policy の作成手順の前提ロールは `admin` と記載されている。[出典](https://www.servicenow.com/docs/r/8K~WUyyBmjUR0pLPxM8yeA/yH2AIjzwg3IriysBCp0VGA)
 - Order guide の作成には `catalog_admin` または `admin` が必要である。[出典](https://www.servicenow.com/docs/r/8K~WUyyBmjUR0pLPxM8yeA/vCh5Hm2lTwlwifREnzA_pQ)
 - 依頼者（エンドユーザー）は特別なロールを必要としない。アイテムの閲覧・注文可否は User criteria（後述）で制御される。
@@ -152,7 +153,8 @@ Service Catalog のロールは次のとおり（Australia ドキュメント「
 
 `sc_catalog` テーブルは、カタログアイテムを掲載する最上位の単位である。ベースシステムには「Service Catalog」というカタログが存在し、組織は用途別に複数のカタログ（例：IT、HR、Facilities、Technical Catalog）を作成できる。
 
-- メニュー：**All > Service Catalog > Catalogs**（カタログ一覧）。カタログ単位で Manager（`catalog_manager` を持つユーザー）と Editors（`catalog_editor` を持つユーザー）を指定し、委任管理を行う。[出典](https://www.servicenow.com/docs/r/8K~WUyyBmjUR0pLPxM8yeA/coXRFdevEJQZ5xvN202EJw)
+- メニュー：**All > Service Catalog > Catalog Definitions > Maintain Catalogs** で新規カタログを作成し、Title、Manager、Editors などを入力する（London 版ドキュメント「Multiple service catalogs setup」記載。Australia 版の同等手順ページは今回確認できず）。[出典](https://docs.servicenow.com/bundle/london-it-service-management/page/product/service-catalog-management/concept/c_MultipleServiceCatalogs.html)
+- カタログ単位で Manager（`catalog_manager` を持つユーザー）と Editors（`catalog_editor` を持つユーザー）を指定し、委任管理を行う。[出典](https://www.servicenow.com/docs/r/8K~WUyyBmjUR0pLPxM8yeA/coXRFdevEJQZ5xvN202EJw)
 - カタログには背景色（Background color）やデスクトップ画像（Desktop image）を設定でき、スコープ API `sn_sc.CatalogJS` からも取得できる。[出典](https://www.servicenow.com/docs/r/zZBaGIzc7EPkA0ySnMn5eg/cMwSGUvNqdV4KDcaassKqg)
 - 1 つのアイテムを複数カタログに掲載できる（Catalog item フォームの Catalogs フィールドは複数選択）。
 - カタログ単位で User criteria（Available for／Not available for）を設定できる。
@@ -161,7 +163,7 @@ Service Catalog のロールは次のとおり（Australia ドキュメント「
 
 `sc_category` テーブルは、カタログ内のアイテム分類である。カテゴリは親カテゴリ（Parent）を持つことで階層化できる。
 
-- メニュー：**All > Service Catalog > Catalog Definition > Maintain Categories**（Xanadu 版ドキュメント記載）。Desktop image は Service Catalog ホームページでカテゴリとともに表示される大きな画像で、レンダラー（Renderer）の設定次第で表示される。[出典](https://www.servicenow.com/docs/r/GCPjp~ldPTNRN99oH1DYFg/JklyV9zVG7NCklcziisvYg)
+- メニュー：**All > Service Catalog > Catalog Definitions > Maintain Categories**（Xanadu 版ドキュメント記載）。Desktop image は Service Catalog ホームページでカテゴリとともに表示される大きな画像で、レンダラー（Renderer）の設定次第で表示される。[出典](https://www.servicenow.com/docs/r/GCPjp~ldPTNRN99oH1DYFg/JklyV9zVG7NCklcziisvYg)
 - **カテゴリが設定されていないアイテムはカタログ検索でヒットしない**（Service Portal の場合。Employee Center の場合は Taxonomy topic への割り当てが必要）。[出典](https://www.servicenow.com/docs/r/8K~WUyyBmjUR0pLPxM8yeA/hJnvDDowivS_C3638JM7mQ)
 - カテゴリに設定した User criteria は配下アイテムに自動継承**されない**。アイテムごとに設定する必要がある（後述「User criteria によるアクセス制御」）。[出典](https://www.servicenow.com/docs/r/8K~WUyyBmjUR0pLPxM8yeA/HVBqBgNVC0yR2CP3tmCC1w)
 - Employee Center では、カテゴリの代わりに **Taxonomy（Employee experience taxonomy、`sn_ect` プラグイン）** のトピックでアイテムを整理する。Catalog item フォームの関連リスト「Assigned topics」は `sn_ect` が有効な場合のみ表示される。[出典](https://www.servicenow.com/docs/r/8K~WUyyBmjUR0pLPxM8yeA/hJnvDDowivS_C3638JM7mQ) 詳細は [Service Portal と Employee Center](./portals-employee-center.md) を参照。
@@ -182,6 +184,8 @@ Service Catalog ドキュメントが定義するアイテムの種類は次の 
 | コンテンツアイテム | Content item | `sc_cat_item_content` | 商品・サービスではなく情報を提供する（ナレッジ記事、外部サイト等へのリンク） |
 
 上記のほか、ベースシステムや他アプリケーションが `sc_cat_item` を継承したクラスを持つ。例：`sc_cat_item_wizard`（Wizard、レガシー）、`sc_cat_item_service`（Service Portfolio 関連）、Standard change template（`std_change_record_producer`、Change Management）など。`glide.sc.item.cannot_try_it` の既定値に `sc_cat_item_service` が含まれる。[出典](https://www.servicenow.com/docs/r/8K~WUyyBmjUR0pLPxM8yeA/rWVSN88kI2UuPPHMgpFGuQ)（`std_change_record_producer` の扱いは [Change Management](../itsm/change-management.md) を参照）
+
+カタログアイテムは Localization Framework を使って多言語に翻訳できる（Service Catalog items ページに「Translation of Service Catalog items」として記載される既存機能。導入リリースは公開情報では確認できず）。[出典](https://www.servicenow.com/docs/r/servicenow-platform/service-catalog/c_IntroductionToCatalogItems.html) 詳細は [ローカライゼーション](./localization.md) を参照。
 
 ### アイテムの作成方法
 
@@ -387,7 +391,7 @@ flowchart LR
 
 作成手順（Australia）：[出典](https://www.servicenow.com/docs/r/8K~WUyyBmjUR0pLPxM8yeA/vCh5Hm2lTwlwifREnzA_pQ)
 
-1. **All > Service Catalog > Catalog Definition > Order Guides** を開き、New をクリック。
+1. **All > Service Catalog > Catalog Definitions > Order Guides** を開き、New をクリック。
 2. フィールドを入力して保存。
 3. 関連リスト **Rule base（ルールベース）** に、どのアイテムを注文に含めるかのルールを定義する。
 4. （任意）**Generate sequence（シーケンスの生成）** で Rule base のアイテムを入力する順序を設定する。シーケンスを定義すると、依存アイテムの前に必須アイテムが入力されたかを手動で確認する必要がなくなる。シーケンスは Playbooks で構成される。
@@ -558,7 +562,7 @@ Service Catalog variable form fields ページ（日本語 UI 表記つき）に
 
 ### 概要
 
-Variable set（`item_option_new_set`）は、複数のカタログアイテム・Order guide で再利用する変数のまとまりである。セットへの変更は、そのセットを使う全アイテムに反映される。変数セットの作成は管理者のみ可能で、`catalog_manager`／`catalog_editor` は担当アイテムへの添付のみできる。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/qzsQje1UPaF1RtEqCIHoDA)
+Variable set（`item_option_new_set`）は、複数のカタログアイテム・Order guide で再利用する変数のまとまりである。セットへの変更は、そのセットを使う全アイテムに反映される。`catalog_manager`／`catalog_editor` は変数セットを作成できず、担当アイテムへの既存セットの添付のみできる（公式ページは `catalog_admin` の作成可否には触れていない）。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/qzsQje1UPaF1RtEqCIHoDA)
 
 | 種類 | 英語名 | 説明 |
 |---|---|---|
@@ -626,7 +630,7 @@ Catalog client script（`catalog_script_client`）は、カタログアイテム
 | Applies to | **A Catalog Item** または **A Variable Set**。選択に応じて Catalog item／Variable set 参照フィールドが有効になる |
 | Active | 有効化 |
 | UI Type | **Desktop**（Core UI のみ）／**Mobile / Service Portal**（モバイル・ポータル・Configurable Workspace）／**All** |
-| Type | **onLoad**／**onChange**／**onSubmit**（MRVS 用に onCellEdit も存在する【経験則】） |
+| Type | **onLoad**／**onChange**／**onSubmit** の 3 種類。なお MRVS（Multi-row variable set）では onSubmit はサポートされない（「MRVS の仕様と制約」参照） |
 | Variable name | onChange の対象変数（名前付き変数のみ選択可） |
 | Applies on a Catalog Item view | 注文画面（依頼者ビュー）で実行 |
 | Applies on Requested Items | 依頼後の RITM フォーム（フルフィラービュー）で実行 |
@@ -830,6 +834,14 @@ flowchart TD
 | `closed_rejected` | Closed Rejected（今回の調査では一次情報で確認できず）|
 
 `sc_req_item` と `sc_task` の `state` は task テーブルの選択肢を継承し、一般に Pending（-5）、Open（1）、Work in Progress（2）、Closed Complete（3）、Closed Incomplete（4）、Closed Skipped（7）が使われる【経験則】。ServiceNow Community でも「REQ、RITM、SCTASK の State／Stage の標準的な組み合わせを定義した公式ドキュメントはなく、明示的に構成しない限り自動同期されない」と指摘されている【第三者情報】。[出典](https://www.servicenow.com/community/itsm-forum/documenting-ootb-lifecycle-behavior-for-requests-ritms-and/m-p/3352680)
+
+一方、REQ と RITM の間にはベースシステムのビジネスルールによる最低限の連動があると一般に説明される【経験則】（公式ドキュメントで網羅的な仕様は確認できず）。
+
+- **承認 → 処理開始**：REQ（`sc_request`）が承認される（`approval` = Approved、`request_state` = `in_process`）と、配下 RITM の処理（RITM レベルの承認、Flow／Workflow によるフルフィルメント）が進む。REQ が却下されると配下 RITM もクローズされる。
+- **全 RITM クローズ → REQ クローズ**：配下の RITM がすべてクローズ（非アクティブ）になると、親 REQ の `state`／`request_state` がクローズ系の値に更新される。
+- **SCTASK と RITM**：SCTASK をクローズしても RITM が自動でクローズされるとは限らず、RITM のクローズは Flow／Workflow 側で明示的に行うのが一般的である。
+
+実際の動作はインスタンスのビジネスルール（`sc_request`／`sc_req_item` 上のもの）とフロー設計に依存するため、導入時は対象インスタンスで確認すること。
 
 > 注意：ServiceNow ドキュメントの「Request states」「Request task states」ページ（Draft、Awaiting Qualification、Pending Dispatch 等）は Service Management（`sm_request`／`sm_task`、Field Service 等）向けであり、Service Catalog の `sc_request`／`sc_task` とは別物である。[出典](https://www.servicenow.com/docs/r/3qjO_fir2JvVQpXZx3xbkw/bKYL7pjiAQDtBW27KSCKYg)
 
@@ -1141,8 +1153,9 @@ Now Assist in Conversational Catalog Request は、Virtual Agent 内で生成 AI
 |---|---|---|
 | `sn_now_assist_cr.lm.reference_question_choices.limit` | 参照質問の選択肢数の上限。超えるアイテムは会話型依頼非対応 | 2000000 |
 | `sn_now_assist_cr.lm.accept_user_input_as_is` | 自由入力をそのまま受け入れるか（0〜3 の組み合わせ） | 0 |
-| （質問数上限のプロパティ） | LLM 会話型依頼に対応する最大質問数。プロパティ名は公式ページ（ポルトガル語版）で翻訳されて表示されており、英語名は確認できず | 500 |
 | `sn_now_assist_cr.recommend_form_question_threshold` | 質問数がこの値を超えるとフォームでの入力を推奨（-1 で無効） | 10 |
+
+上記のほか、LLM による会話型依頼に対応できるアイテムの最大質問数（既定 500）を制御するプロパティがあるが、公式ページ上ではプロパティ名が機械翻訳された形で表示されており、英語の正式名は公開情報では確認できず。[出典](https://www.servicenow.com/docs/r/8K~WUyyBmjUR0pLPxM8yeA/rWVSN88kI2UuPPHMgpFGuQ)
 
 - FedRAMP、NSC DOD IL5、Australia IRAP-Protected データセンター、セルフホストなど一部の制限環境では利用できない機能がある。[出典](https://www.servicenow.com/docs/r/8K~WUyyBmjUR0pLPxM8yeA/7RKdYWIT98CB0XMlZUkklg)
 - Now Assist 全般とライセンスは [Now Assist と AI Agents](./now-assist-ai-agents.md) を参照。
@@ -1197,7 +1210,6 @@ Service Catalog のプロパティは **All > Service Catalog > Catalog Administ
 |---|---|
 | 新機能 | **サブスクリプションアクセスの強制**：`glide.sc.catalog_item.subscription_enforcement`（`require_criteria`／`allow_bypass`、既定 `allow_bypass`） |
 | 新機能 | **Core UI から Angular ポータルへの移行**：プラグイン `com.glideapp.servicecatalog.ui16_portal`（アップグレード時はインストールで移行、新規インスタンスは既定で有効） |
-| 新機能 | **Localization Framework によるカタログアイテムの翻訳**（Brazil の Service Catalog ドキュメントに記載）。[出典](https://www.servicenow.com/docs/r/servicenow-platform/service-catalog/c_IntroductionToCatalogItems.html) 詳細は [ローカライゼーション](./localization.md) |
 | 非推奨 | **Request management ACL から catalog ロールを削除**（`sc_request`、`sc_req_item` 等。前述「ロール」節） |
 
 ### それ以前の主な変更
@@ -1262,6 +1274,7 @@ Service Catalog のプロパティは **All > Service Catalog > Catalog Administ
 - Catalog Item form（Australia）: https://www.servicenow.com/docs/r/8K~WUyyBmjUR0pLPxM8yeA/hJnvDDowivS_C3638JM7mQ
 - Add a standard catalog item: https://www.servicenow.com/docs/r/yEOfGyFTg0Q8oBn1GnIy5Q/tff3tvKSUadF3_vpZUpMTw
 - Service Catalog terms and roles（Australia）: https://www.servicenow.com/docs/r/8K~WUyyBmjUR0pLPxM8yeA/coXRFdevEJQZ5xvN202EJw
+- Multiple service catalogs setup（London）: https://docs.servicenow.com/bundle/london-it-service-management/page/product/service-catalog-management/concept/c_MultipleServiceCatalogs.html
 - Types of service catalog variables（Australia）: https://www.servicenow.com/docs/r/8K~WUyyBmjUR0pLPxM8yeA/F3WD1Plep0xlkcutTm3yMg
 - Service Catalog variable form fields: https://www.servicenow.com/docs/r/cCCsnXLy_7vD00AGlASipQ/2iBjvIgrbEth4P1pae7faQ
 - Service catalog variable sets（Australia）: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/qzsQje1UPaF1RtEqCIHoDA

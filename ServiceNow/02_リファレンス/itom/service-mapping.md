@@ -5,7 +5,7 @@ domain: itom
 release: Australia
 last_verified: 2026-11-02
 summary: ServiceNow Service Mapping の仕様リファレンス。Top-down（パターンベース）、Tag-based、機械学習（Automated Service Suggestions）、Traffic-based の各マッピング方式、Application service（Service instance）の種類とテーブル、Entry points、Patterns、ロール、プロパティ、Service Mapping Plus / AI Agents、Brazil での変更点を網羅する。
-keywords: [Service Mapping, サービスマッピング, ITOM, ITOM Visibility, top-down mapping, tag-based mapping, machine learning, Automated Service Suggestions, application service, service instance, entry point, エントリーポイント, pattern, パターン, Pattern Designer, traversal rules, traffic-based discovery, Service Mapping Plus, multi-source service mapping, unified map, cmdb_ci_service_discovered, cmdb_ci_service_by_tags, svc_traversal_rules, sa_pattern, service_mapping_admin, sm_app_owner, CSDM, AI Agents for Service Mapping, CMDB MCP Server]
+keywords: [Service Mapping, サービスマッピング, ITOM, ITOM Visibility, top-down mapping, tag-based mapping, machine learning, Automated Service Suggestions, application service, service instance, entry point, エントリーポイント, pattern, パターン, Pattern Designer, traversal rules, traffic-based discovery, Service Mapping Plus, multi-source service mapping, unified map, cmdb_ci_service_discovered, cmdb_ci_service_by_tags, svc_traversal_rules, sa_pattern, service_mapping_admin, service_mapping_user, sm_admin, sm_app_owner, CMDB-based mapping, boundary, connection rules, ServiceNow Otto, Lightweight Service Model, CSDM, AI Agents for Service Mapping, CMDB MCP Server]
 sources:
   - https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/iEnX0dmE9l6USMvKxyjTzQ
   - https://www.servicenow.com/docs/r/Tm19yM2Ui3~uN9XFBacppg/oqkGxCqQ7VwkBp~TSxM10Q
@@ -26,7 +26,12 @@ sources:
   - https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/75d1Tix4~BSpibBomfiDbQ
   - https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/wrdC4KwqlA20qz8j_acmPw
   - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-servicemapping-release-notes.html
-  - https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/F1OLwrhGxuvclQVHleDwKw
+  - https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/it-operations-management/service-mapping/service-mapping-ai-agents.md
+  - https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/KnqoEVMhV6np3afu7Q4nKQ
+  - https://www.servicenow.com/docs/r/LZHoJyH9VPKmhdIph_6gSw/3rDZMCS6o7v5KMbgDeTqNg
+  - https://www.servicenow.com/docs/r/it-operations-management/service-mapping/cmdb-based-mapping.html
+  - https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/bf7_wmfmbaULxe6cv_fB4w
+  - https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/4GbwgTQK15fHQk3wi7zH1w
   - https://www.servicenow.com/community/itom-articles/quick-start-guide-for-service-mapping/ta-p/3521583
   - https://www.servicenow.com/community/itom-articles/getting-ready-for-top-down-discovery/ta-p/3543154
   - https://www.servicenow.com/community/itom-blog/automated-service-suggestions-machine-learning-is-supercharging/ba-p/2372224
@@ -72,7 +77,7 @@ Service Mapping は ITOM Visibility サブスクリプションの一部とし�
 | ITOM Visibility License | `com.snc.itom.vis.license` | ITOM Visibility ライセンスを要する Store アプリの有効化を可能にする | [公式](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/75d1Tix4~BSpibBomfiDbQ) |
 | ITOM Map（内部） | `com.itom-map-app` | Service Mapping・Event Management・Service Operations Workspace のマップ基盤となる内部依存プラグイン | [公式](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/75d1Tix4~BSpibBomfiDbQ) |
 | Service Mapping Plus | `sn_sm_scoped_app`（Store） | ML ベースのマッピング（Automated Service Suggestions）、Tag-based マッピング Workspace、Multi-source service mapping、Lightweight Service Model 等 | [公式](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/zRk5WtU1NKQdno6uhRBUIw) |
-| AI Agents for Service Mapping | `sn_sm_gen_ai`（Store） | Service Mapping 用 AI エージェント（Now Assist 必須） | [公式](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/F1OLwrhGxuvclQVHleDwKw) |
+| AI Agents for Service Mapping | `sn_sm_gen_ai`（Store） | Service Mapping 用 AI エージェント（Now Assist 導入が前提） | [公式（Australia）](https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/it-operations-management/service-mapping/service-mapping-ai-agents.md) |
 | Discovery and Service Mapping Patterns | `sn_itom_pattern`（Store） | パターンのコンテンツ更新。ファミリーリリースを待たずに新規・修正パターンを配信 | 【第三者情報】[Community](https://www.servicenow.com/community/itom-articles/getting-ready-for-top-down-discovery/ta-p/3543154) |
 | Visibility Content | `sn_pattern_design` | パターン関連コンテンツ（Tokyo 以降必要とされる） | 【第三者情報】[Community](https://www.servicenow.com/community/itom-articles/getting-ready-for-top-down-discovery/ta-p/3543154) |
 | ITOM Content Service | Store | Service Fingerprints（プロセス分類）と ML 候補のフィルタリングに必要 | [公式](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/h2q8~4vgsPQ_pGsWrdgC9Q) |
@@ -106,7 +111,7 @@ CSDM（Common Service Data Model）上、Application service は「Business Appl
 
 Application service は、CI を「どのように投入（populate）するか」によって種類とテーブルが異なる。[出典](https://www.servicenow.com/docs/r/servicenow-platform/configuration-management-database-cmdb/application-services.html) / [出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/LKd87HjvwYKREPw7DmJc5Q)
 
-| 種類（Population method） | テーブル | 必要ライセンス | 投入方法 |
+| 種類（Population method） | テーブル | 必要ライセンス【推定】 | 投入方法 |
 |---|---|---|---|
 | Discovered（Top-Down Discovery） | `cmdb_ci_service_discovered`（Mapped Application Service） | Service Mapping | Entry point からのパターンベース（トップダウン）ディスカバリー |
 | Created Manually（Manual） | `cmdb_ci_service_discovered` | 不要 | CI と関係を手動で登録 |
@@ -114,6 +119,16 @@ Application service は、CI を「どのように投入（populate）するか�
 | Dynamic CI Group | `cmdb_ci_query_based_service` | 不要 | 関連付けた CMDB Group のメンバーで投入 |
 | Dynamic（Dynamic Service） | `cmdb_ci_service_calculated` | 不要 | `cmdb_rel_ci` の CI リレーションシップの変化に追随して自動更新 |
 | Converted Business Service | `cmdb_ci_service_discovered` | 不要 | レガシーの `cmdb_ci_service`（Business service）や `cmdb_ci_service_manual` から変換（`cmdb_ci_service` からの変換は不可逆） |
+
+- 「必要ライセンス」列は【推定】である。出典の「Application services」ページにはライセンスの記載がない。CSDM の Service instance 作成ページで、Top-Down Discovery と Tags の必要ロールが Service Mapping のロール（`sm_admin`）、その他の方式の必要ロールがベースシステムの `app_service_admin` とされていること（2.3）、および Service Mapping 本体に ITOM Visibility サブスクリプションが必要であること（1.1）から推定した。正確な権利範囲は契約・ライセンスガイドで確認すること。
+
+**表以外の作成・投入方法：** 公式「Application services」ページには、上表のほかに次の方法も挙げられている。[出典](https://www.servicenow.com/docs/r/servicenow-platform/configuration-management-database-cmdb/application-services.html)
+
+| 方法 | 内容 |
+|---|---|
+| Ingesting APM maps（APM マップ取り込み） | Dynatrace / AppDynamics の APM（アプリケーション性能監視）のアプリケーションモデルから Application service を作成する。連携アプリは ServiceNow Store で提供される |
+| Application service API | CI/CD パイプライン等から Application service を一括作成する自動化向けの API（`createOrUpdateService` 等）。API で作成した手動サービスは `cmdb_ci_service_discovered` に格納される |
+| CSV ファイルからの作成 | CSV ファイルからサービス情報を抽出し、Application service の候補を作成する。ナビゲーターの **Service Mapping > Services > Import Service Definitions** に対応する（図1） |
 
 - 親テーブルは Service Instance `[cmdb_ci_service_auto]` である。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/LKd87HjvwYKREPw7DmJc5Q)
 - API で作成した手動サービスも `cmdb_ci_service_discovered` に格納される。
@@ -144,7 +159,7 @@ Australia では、CSDM のガイド付きフローで Service instance（Applic
 | Advanced Details | Additional Info、Questionnaire、Reject Messages、Worknotes |
 | 作成後 | View CMDB Group CI's、View Service CI's、View Map |
 
-**ロール：** Top-Down Discovery と Tags は `sm_admin`（Australia の Service Mapping 側では `service_mapping_admin`、後述）、Dynamic CI Group・Manual・Dynamic Service は `app_service_admin` が必要。Owned By に新しいユーザーを設定する場合は `sm_app_owner` ロールを付与する。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/LKd87HjvwYKREPw7DmJc5Q)
+**ロール：** Top-Down Discovery と Tags は、CSDM ページ上は `sm_admin` と記載されている（Australia の Service Mapping のロール定義では `service_mapping_admin`。9.1 参照）。Dynamic CI Group・Manual・Dynamic Service は `app_service_admin` が必要。Owned By に新しいユーザーを設定する場合は `sm_app_owner` ロールを付与する。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/LKd87HjvwYKREPw7DmJc5Q)
 
 ---
 
@@ -152,7 +167,7 @@ Australia では、CSDM のガイド付きフローで Service instance（Applic
 
 ### 3.1 4つの基本方式
 
-Australia の公式ドキュメントでは、Service Mapping の CI 収集・サービス構成方式として次の4つが挙げられる。[出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/iEnX0dmE9l6USMvKxyjTzQ) / [出典](https://www.servicenow.com/docs/r/Tm19yM2Ui3~uN9XFBacppg/oqkGxCqQ7VwkBp~TSxM10Q)
+公式ドキュメント「Choose the right method for discovery and mapping application services」（参照したのは Yokohama 版の英語ページ）では、Service Mapping の CI 収集・サービス構成方式として次の4つが挙げられる。Australia 版（2026-03 更新）にも同名ページがあり、同じ4方式（pattern-based、tag-based、traffic-based、Predictive Intelligence ベース）が挙げられているが、表の細部が Australia 版と一致するかは英語の Australia 版ページで照合できていない。[出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/iEnX0dmE9l6USMvKxyjTzQ) / [出典（Yokohama）](https://www.servicenow.com/docs/r/Tm19yM2Ui3~uN9XFBacppg/oqkGxCqQ7VwkBp~TSxM10Q)
 
 | 方式 | 仕組み | 適するケース | 長所 | 短所 | 要件 |
 |---|---|---|---|---|---|
@@ -184,7 +199,7 @@ Australia の公式ドキュメントでは、Service Mapping の CI 収集・�
 | 項目 | 内容 |
 |---|---|
 | 要件 | Australia 以降、Service Mapping Plus 最新版、統合対象となる2つ以上の既存サービス（または2つ以上の継続更新されるデータソース） |
-| 対応データソース | Discovered（Top-down/水平、MID Server と Patterns）、Tag-based、ML-powered、Traffic-based、Manual（Dynamic application service に変換） |
+| 対応データソース | Discovered（Top-down/水平、MID Server と Patterns）、Tag-based、ML-powered（traffic-based mapping を含む）、Manual（Dynamic application service に変換）。公式ページの詳細節では Traffic-based mapping は ML-powered maps の下位項目として記載されている（冒頭の要約節では独立した項目として並ぶ） |
 | 上限 | 既定で1つの Unified service に最大10サービス。プロパティ `sn_sm_scoped_app.sm.unified_services.max_children_per_service` で変更可 |
 | 制約 | Unified service をさらに統合することはできない（単一サービスのみ追加可） |
 | 作成手順 | Service Mapping Workspace でサーバータグや URI 等で検索 → 統合するサービスを選択（Top-down と Tag-based など混在可）→ ランキングアルゴリズムの推奨を確認 → 完了。選択した未マップサービスは non-operational のインスタンスになる |
@@ -208,7 +223,7 @@ flowchart LR
 
 ### 4.1 処理フロー
 
-Top-down mapping は Entry point から出発し、Pattern で CI と外向き接続を順に発見していく方式である。公式ドキュメントの処理フローは以下のとおり。[出典](https://www.servicenow.com/docs/r/Tm19yM2Ui3~uN9XFBacppg/AjS6GFhdFDhZBZSR07NwRw)
+Top-down mapping は Entry point から出発し、Pattern で CI と外向き接続を順に発見していく方式である。公式ドキュメント「Pattern-based discovery in Service Mapping」（Yokohama 版）の処理フローは以下のとおり。Australia 版で変更がないかは英語ページで照合できていない。[出典（Yokohama）](https://www.servicenow.com/docs/r/Tm19yM2Ui3~uN9XFBacppg/AjS6GFhdFDhZBZSR07NwRw)
 
 1. **ホストの水平ディスカバリー：** Discovery が Shazzam プローブでポートスキャンし、Classification・Identification・Exploration プローブを実行する。MID Server がプローブを実行し、結果を ECC Queue 経由で返し、ホストが CMDB に登録される。
 2. **アプリケーションのトップダウンディスカバリー：** Service Mapping は Entry point の IP に対するアプリケーションディスカバリー要求を作成し、MID Server を割り当てる。MID Server は Pattern の **Identification section** を実行して Entry point に一致する CI を特定し、次に **Connection section** を実行して外向き接続を発見する。
@@ -332,11 +347,59 @@ Traffic-based discovery は、パターンベースのマッピングを補完�
 | TCP Connection `[cmdb_tcp]` | netstat、lsof | トップダウン中の接続発見 |
 
 **挙動：**
-- ベースシステムでは netstat / ss / lsof の TCP データのみを使用する。Netflow / VPC ログの利用には追加設定が必要。改良版 ADM（Application Dependency Mapping）水平ディスカバリーのデータも使われる。
-- Predictive Intelligence あり：トラフィックデータとアプリケーションフィンガープリントに基づき **接続を提案**（自動追加ではない）。
+- ベースシステムでは netstat / ss / lsof の TCP データのみを使用する。Netflow / VPC ログの利用には追加設定が必要。水平ディスカバリーの一部として「improved Application Dependency Mapping (ADM)」（改良版 ADM）が収集した TCP 接続データも使われる。
+- Predictive Intelligence あり：トラフィックデータとアプリケーションフィンガープリントから **接続候補（suggestions）を生成** し、**Connection rules（接続ルール）に一致した候補は自動追加** する（公式原文：「Service Mapping automatically adds connections to service instances based on connection rules.」）。一致しない候補は Suggestions から手動で追加・却下する（4.6・6.5 参照）。
 - Predictive Intelligence なし：トラフィックベース接続を **自動追加** する（無関係 CI の手動クリーンアップが必要な場合あり）。
 - トラフィックのみで作られた接続は削除されないが、同じ接続がパターンベースでも作られた場合はトラフィックベース側が削除される。
 - 推奨運用：初期ディスカバリー時に使い、チューニング後は無効化してマップをクリーンに保つ。
+
+### 4.5 CMDB-based mapping（CMDB ベースのトップダウンマッピング）
+
+CMDB-based mapping は、CMDB に既に登録されているデータを使い、MID Server にアクセスせずにトップダウンディスカバリーを実行して Application service をマップする Top-down 系の機能である。[出典（Xanadu）](https://www.servicenow.com/docs/r/LZHoJyH9VPKmhdIph_6gSw/3rDZMCS6o7v5KMbgDeTqNg) / [出典（Brazil）](https://www.servicenow.com/docs/r/it-operations-management/service-mapping/cmdb-based-mapping.html)
+
+| 項目 | 内容 |
+|---|---|
+| 導入時期 | Xanadu 版ドキュメント（2024-08 更新）に掲載。要件は「Service Mapping Plus の August 2024 版」（6.7 の表では 1.13.0 に相当【推定】） |
+| 有効化 | システムプロパティ `sa.topdown.enable_cmdb_based_mapping` を `true` に設定（`sys_properties.list` で検索） |
+| 必要ロール | `service_mapping_admin` |
+| 前提データ | TCP Connection `[cmdb_tcp]`、Running Process `[cmdb_running_process]`、Hardware `[cmdb_ci_hardware]` が投入済みであること（Service Graph Connectors など MID Server 以外のソースでも可） |
+| 処理 | トップダウンディスカバリーは IP アドレスから関連ホストを取得し、利用可能な MID Server を探す。MID Server がなく CMDB-based mapping が有効な場合、CMDB に登録済みの着信トラフィックからその IP 上のターゲットプロセスを特定し、プロセスに紐づくアプリケーションをマップのノードとする。アプリケーションが見つからない場合は ADM ロジックで分類・作成し、分類できない場合は `cmdb_ci_appl` に単純なアプリケーションを作成する |
+
+- Service Mapping Plus 1.20.0（2026-05）のリリースノートにも「CMDB-based mapping」のサポートが記載されている（6.6 参照）。コア機能（Xanadu 期、SMP 2024-08 版が要件）と 1.20.0 の記載の違いは公開情報では確認できず。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/wrdC4KwqlA20qz8j_acmPw)
+- 【第三者情報】Community の Quick Start Guide は CMDB-based mapping を「ML-based のアプローチ（Xanadu+）」の一つとして分類しているが、公式ドキュメント上はトップダウンディスカバリーの実行方式として説明されている。[出典](https://www.servicenow.com/community/itom-articles/quick-start-guide-for-service-mapping/ta-p/3521583)
+
+### 4.6 Boundaries・Behaviors・Connection rules
+
+Top-down マップの範囲と内容を調整する設定として、Boundary（境界）、Connection rules（接続ルール）、Behaviors（ビヘイビア）がある。
+
+**Boundary（境界）：** [出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/bf7_wmfmbaULxe6cv_fB4w)
+
+| 項目 | 内容 |
+|---|---|
+| 目的 | Boundary に指定した地点でディスカバリーを止め、その先の外向き接続をたどらないようにする。パターンまたは Traffic-based discovery で発見された不要な CI を除くために使う |
+| 操作 | **All > CSDM > Manage Technology Management Services > Service Instance** でサービスを選び **View Map** → マップを **Edit** ビューにする → 不要な CI へつながるコネクタを右クリック → **Mark boundary**。CI に境界アイコンが付く |
+| 必要ロール | `service_mapping_admin` |
+| 影響 | CI を除くとその接続も削除され、その CI の外向き接続経由でのみ到達していた下流 CI も除かれる |
+| 制約 | マップから編集できるのは Service Mapping が発見したサービスのみ。Tag-based サービスと Dynamic サービスはマップから微調整・編集できない |
+
+- Traffic-based 接続の除去は、接続候補（suggestions）が無効なら CI を右クリック → Traffic Based Connections List で User decision を **Remove** に設定、有効なら接続候補の手順で管理する。
+
+**Connection rules（接続ルール）：** [出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/4GbwgTQK15fHQk3wi7zH1w)
+
+| 項目 | 内容 |
+|---|---|
+| 目的 | Predictive Intelligence が生成した接続候補を絞り込み、トラフィックベース接続とその接続先 CI を発見済みサービスに自動追加する。Global スコープのルールは複数サービスにまとめて適用できる |
+| メニュー | **Service Mapping > Administration > Connection Rules**、またはサービスマップの **Suggestions > Global Rules** |
+| 必要ロール | `service_mapping_admin` |
+| 前提 | フィンガープリントベース（Predictive Intelligence）のアプリケーションディスカバリー、`sa_ml.connection_suggestions.active` = true |
+| 主な項目 | Active（有効なルールのみ評価）、Name、Order（適用順）、Condition（条件）、Scope（複数サービス向けは Global）、Excluded Services（適用除外の Discovered Application Service） |
+| 条件の元テーブル | Connection Suggestion `[sa_ml_connection_suggestion]`（トップダウンディスカバリー実行時のみ投入） |
+
+- 【第三者情報】ML ベースで作成したサービスには、作成時にそのサービス専用のローカル接続ルールが作られる（6.5）。[出典](https://www.servicenow.com/community/itom-articles/quick-start-guide-for-service-mapping/ta-p/3521583)
+
+**Behaviors（ビヘイビア）：** Classic UI の **Service Mapping > Administration > Behaviors** メニューに存在する（5.3 の図1）。Behaviors の目的・テーブル・項目を説明する Australia 版公式ページは、本ファイル作成時の調査では特定できず、公開情報では確認できず。
+
+**Application service 用の Discovery schedule：** Top-down サービスの再ディスカバリー頻度は Discovery schedule で制御する（4.2）。[出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/X4w5SP~mVw~LmwTbOasLDw) スケジュール自体の設定項目は [discovery.md](./discovery.md) を参照。Application service 専用スケジュールの設定項目は、本ファイルでは公開情報で確認できていない。
 
 ---
 
@@ -390,7 +453,8 @@ Traversal rules は、CMDB リレーションシップを通じて関連 CI を�
 | Priority Level | 適用順。数値が小さいほど優先 |
 | Is Reverse | 選択すると Child CI からマッピングを開始する |
 
-- 既定ではタグベースディスカバリーに参加できるトラバーサルルールは **5件** まで。上限はシステムプロパティ `svc_traversal.rules.active` で変更できる（ページ内で表記揺れがあるため実機で確認）。
+- 既定ではタグベースディスカバリーで有効にできるトラバーサルルール（CI リレーションシップ）は **5件** まで。上限はシステムプロパティで変更できる（既定値 5）。Service Mapping はタグベースディスカバリーで有効なリレーションシップのみを使う。[出典（Components installed with Service Mapping、Australia）](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/KnqoEVMhV6np3afu7Q4nKQ) / [出典（Traversal rules in Service Mapping、Australia）](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/JhQ_t78ep0XJihqrEB5Rww)
+  - 注：公式ページ間でプロパティ名の表記が異なる。Components ページは `svc_by_tags.max.traversal.rules.active`、Traversal rules ページは `svc_traversal.rules.active`（同ページ内にも `svctraversal.rules.active` という表記揺れあり）としている。インスタンスの `sys_properties` で正確な名前を確認すること。
 - タグベースディスカバリーはルールの順序で対象 CI を特定するため、正しい順序で追加することが重要。
 
 ### 5.3 メニューと Workspace
@@ -401,7 +465,7 @@ Traversal rules は、CMDB リレーションシップを通じて関連 CI を�
 
 【第三者情報】Quick Start Guide の Tag-based 手順：①`cmdb_key_value`（Configuration > CMDB Key Value）でタグを正規化し、OOTB の Tag Governance カテゴリと揺れのあるキー名用のカスタムカテゴリを作る → ②Tag-Based Service Families で Application + Environment 等のカテゴリを選択 → ③Service Candidates を確認し Create Services（タグ付き CI が Entry point になる）→ ④Operational Status を Operational に設定。日次ジョブでサービスが再計算される。[出典](https://www.servicenow.com/community/itom-articles/quick-start-guide-for-service-mapping/ta-p/3521583)
 
-![Service Mapping のアプリケーションナビゲーターメニュー](../../assets/images/service-mapping/sm-workspace-launch.png)
+![Service Mapping のアプリケーションナビゲーターメニュー](../../assets/images/service-mapping/sm-navigator-menu.png)
 
 *図1：Classic UI のアプリケーションナビゲーターで「service map」をフィルタした Service Mapping メニュー*
 
@@ -422,7 +486,11 @@ Traversal rules は、CMDB リレーションシップを通じて関連 CI を�
 3. マッピングの開始点となる **Entry point を自動計算** し、**Application service candidates（ASC、アプリケーションサービス候補）** を生成する。各候補は Entry point と、既に識別済みのリソースの集合を含む。
 4. 利用者は候補を選び、新しい Application service を作成するか、既存サービスに追加する。
 
-経緯：ML ベースのマッピングは Quebec で導入され、Rome でグローバル／ローカルポリシーによる提案接続の自動承認が追加された。Automated Service Suggestions は 2022-11 の Store リリース（Service Mapping Plus 1.6.0）で提供開始された。ML ベースのマッピングは Top-down と共存できる。[出典](https://www.servicenow.com/community/itom-blog/automated-service-suggestions-machine-learning-is-supercharging/ba-p/2372224) / [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/wrdC4KwqlA20qz8j_acmPw)
+経緯（主体ごとに区別して記載）：
+- **Quebec：** Service Mapping 本体に、Predictive Intelligence ベースの接続提案（Connection suggestions）による ML ベースのマッピングが導入された。**Rome：** グローバル／ローカルポリシーによる提案接続の自動承認が追加された（2022 年の Community ITOM Blog の記述）。
+- **Service Mapping Plus 1.0.2（2022-02）：** ML ベースの拡張機能を Store アプリ Service Mapping Plus として本体から分離して提供開始（リリースノート上の記載は「Service Mapping Plus offers extended features for Service Mapping」）。
+- **Service Mapping Plus 1.6.0（2022-11）：** Automated Service Suggestions（候補からのサービス作成）の提供開始。
+- ML ベースのマッピングは Top-down と共存できる。[出典](https://www.servicenow.com/community/itom-blog/automated-service-suggestions-machine-learning-is-supercharging/ba-p/2372224) / [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/wrdC4KwqlA20qz8j_acmPw)
 
 **要件・制約：**
 
@@ -466,7 +534,7 @@ Australia の公式手順は以下のとおり。[出典](https://www.servicenow
 3. 検索方法を選ぶ。
    - **Service Fingerprints** タブ：含まれるコンポーネントで候補を選ぶ。
    - **Application Service Suggestions** タブ：基本情報で候補を選ぶ。
-4. （任意）**Preview map** で提案コンポーネントを確認する。プレビューは不在（absent）の接続を省くため候補と異なる場合がある（KB1205971）。**List navigation** で一覧に戻る。
+4. （任意）**Preview map** で提案コンポーネントを確認する。プレビューは不在（absent）の接続を省くため候補と異なる場合がある（[KB1205971](https://support.servicenow.com/kb?id=kb_article_view&sysparm_article=KB1205971)。閲覧には Now Support へのログインが必要な場合がある）。**List navigation** で一覧に戻る。
 5. **Map application service** を選択する。
 6. 次のいずれかを選ぶ。
    - **Create new service：** Name（一意の名前が提案済み。**Other name suggestions** で別案）、Number（自動採番）、Description、Service owner（変更の承認・却下者）、Service group（既定 All＝全グループが利用可）。
@@ -495,10 +563,9 @@ ML ベースで作成したサービスは、接続候補と **Connection rules�
 
 【第三者情報】Quick Start Guide の ML ベース手順：①Readiness Dashboard で Check Readiness（プロセス、TCP データ、フィンガープリント、ML クラスタリングを確認）→ ②Application Service Candidates をサービスオーナーと確認 → ③作成時に Entry point、ローカル接続ルール、高信頼度の接続が自動追加される → ④ディスカバリー後、**Actions > Connection Suggestions** で高信頼度は「Added by rule」、中信頼度は手動追加して再ディスカバリー → ⑤レビュー・承認後 Operational に設定。[出典](https://www.servicenow.com/community/itom-articles/quick-start-guide-for-service-mapping/ta-p/3521583)
 
-### 6.6 CMDB-based mapping
+### 6.6 CMDB-based mapping との関係
 
-- Service Mapping Plus 1.20.0（2026-05）で、IIS サーバーの候補作成と **CMDB-based mapping** が追加された。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/wrdC4KwqlA20qz8j_acmPw)
-- 【第三者情報】CMDB-based Mapping（Xanadu 以降）はシステムプロパティ `sa.topdown.enable_cmdb_based_mapping` で有効化し、MID Server によるアクセスなしで動作すると説明されている。[出典](https://www.servicenow.com/community/itom-articles/quick-start-guide-for-service-mapping/ta-p/3521583)
+CMDB-based mapping は、MID Server を使わずに CMDB の既存データでトップダウンディスカバリーを行う Top-down 系の機能であり、仕様は 4.5 に記載する。Service Mapping Plus 1.20.0（2026-05）のリリースノートには「Support for IIS server candidate creation and CMDB-based mapping」とあり、ML 候補（IIS サーバー候補）側からの CMDB-based mapping 対応を指すと読めるが、具体的な内容は公開情報では確認できず。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/wrdC4KwqlA20qz8j_acmPw)
 
 ### 6.7 Service Mapping Plus の主なバージョン履歴
 
@@ -506,7 +573,7 @@ Service Mapping Plus は Store アプリで、ファミリーと独立して更�
 
 | バージョン | 時期 | 主な追加・変更 |
 |---|---|---|
-| 1.0.2 | 2022-02 | 初回リリース。Predictive Intelligence による ML ベースマッピング |
+| 1.0.2 | 2022-02 | リリースノート上の最初の版。Service Mapping の拡張機能（ML ベースマッピング等）を Store アプリとして提供 |
 | 1.6.0 | 2022-11 | Automated service suggestions（サービス作成） |
 | 1.8.0 | 2023-05 | 既存サービスを更新する提案、名前ソース（LB 名・プロセス名）追加、ホーム検索・タイル等 |
 | 1.9.0 | 2023-08 | ドメインセパレーション対応（リーフドメインのみ） |
@@ -517,11 +584,11 @@ Service Mapping Plus は Store アプリで、ファミリーと独立して更�
 | 1.16.3 | 2025-08 | Tag-based mapping Workspace、候補のノイズ・非稼働サーバー除外の改善 |
 | 1.17.0 / 1.17.2 | 2025-12 / 2026-01 | 統合 Tag-based マップを CMDB Workspace で表示 |
 | 1.18.3 | 2026-03 | Multi-Source Service Mapping |
-| 1.20.0 | 2026-05 | IIS サーバー候補作成、CMDB-based mapping |
+| 1.20.0 | 2026-05 | IIS サーバー候補作成、CMDB-based mapping のサポート（4.5・6.6 参照） |
 | 1.22.0 | 2026-07 | Multi-source の Enrichment step（CSDM 連携）、AI エージェント作成サービス等のウィジェット |
-| 1.23.2 | 2026-08 | UI・ドキュメント上の「Now Assist」を「ServiceNow Otto」に名称変更 |
-| 1.24.5 | 2026-09 | Lightweight Service Model（Dynamic / Tag-based サービスを軽量化） |
-| 1.25.1 | 2026-10 | 空の ASC 除去、ML テーブルの ACL 追加、ASC 再計算エラー修正等 |
+| 1.23.2 | 2026-08 | 会話型 AI 体験のブランド名が「Now Assist」から「ServiceNow Otto」に変更（リリースノート原文：「ServiceNow Otto replaces Now Assist as the new brand name for the conversational AI experience.」）。本ファイル 10章・11章の「Now Assist」表記はそれ以前の名称 |
+| 1.24.4 / 1.24.5 | 2026-09 | Lightweight Service Model（Dynamic / Tag-based サービスを Lightweight に変換して性能向上）。SMP リリースノートでは 1.24.5 の項に記載、Brazil 差分リリースノートでは「1.24.4 以降で利用可能」と記載されており、両資料で版番号が異なる |
+| 1.25.1 | 2026-10 | 空の ASC 除去、ML テーブルの ACL 追加、ASC 再計算エラー修正、Lightweight モデル変換の不具合修正等 |
 
 ---
 
@@ -594,7 +661,7 @@ Service Mapping には一般的なアプリケーションの大半をカバー�
 
 ### 8.1 定義と種類
 
-**Pattern（パターン）** は、CI の属性と外向き接続を検出するためのコマンド（操作）のシーケンスである。Pattern-based discovery は Service Mapping がデバイスとアプリケーションのデータを収集する主たる方式である。[出典](https://www.servicenow.com/docs/r/Tm19yM2Ui3~uN9XFBacppg/AjS6GFhdFDhZBZSR07NwRw)
+**Pattern（パターン）** は、CI の属性と外向き接続を検出するためのコマンド（操作）のシーケンスである。Pattern-based discovery は Service Mapping がデバイスとアプリケーションのデータを収集する主たる方式である（公式ドキュメント Yokohama 版の記述。Australia 版との差異は未照合）。[出典（Yokohama）](https://www.servicenow.com/docs/r/Tm19yM2Ui3~uN9XFBacppg/AjS6GFhdFDhZBZSR07NwRw)
 
 | 種類 | 利用者 | 用途 |
 |---|---|---|
@@ -655,7 +722,21 @@ Australia の公式ドキュメントで定義されている Application servic
 | `pd_admin` | Pattern Designer | Pattern の作成・編集 [出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/iZ4HV9FLcdt_eQp3a1uxGQ) |
 | `evt_mgmt_admin` / `evt_mgmt_operator` / `evt_mgmt_user` / `evt_mgmt_integration` | Event Management | Event Management 側のロール（[event-management-aiops.md](./event-management-aiops.md) 参照） |
 
-- 旧リリースおよび一部の現行ページ・Community では `sm_admin`、`sm_user` という名称も使われている（例：CSDM の Service instance 作成ページは Top-Down Discovery / Tags に `sm_admin` を記載）。実機のロール定義で確認すること。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/LKd87HjvwYKREPw7DmJc5Q)
+**ロールの包含関係（Australia「Components installed with Service Mapping」）：** [出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/KnqoEVMhV6np3afu7Q4nKQ)
+
+| ロール | Contains roles（含むロール） |
+|---|---|
+| `service_mapping_admin` | `app_service_admin`、`app_service_owner`、`discovery_admin`、`itil_admin`、`itom_admin`、`sam_core_admin`、`personalize_dictionary`、`pd_admin`、`pd_user`、`service_mapping_user` |
+| `service_mapping_user` | 公開ページ上の表記は `sam_core_user.service_mapping_user`、`itil.service_mapping_user` で、包含の向きは不明瞭（実機で確認） |
+| `sm_app_owner` | `service_mapping_user` |
+| `app_service_admin` | `itil` |
+| `app_service_user` | `cmdb_read` |
+| `pd_admin` | `pd_user` |
+
+**`sm_admin` / `sm_user` との関係：**
+- Australia 版の「Control user access to application services」と「Components installed with Service Mapping」には `sm_admin`、`sm_user` は登場せず、Service Mapping の管理・閲覧ロールは `service_mapping_admin`、`service_mapping_user` として定義されている。サービスオーナー用は旧来どおり `sm_app_owner`。[出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/ljw9EjPtjKE1mWz0fjXKyA) / [出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/KnqoEVMhV6np3afu7Q4nKQ)
+- 一方、旧リリースの資料・Community 記事（例：2026 年の Quick Start Guide）や、CSDM の Service instance 作成ページ（Top-Down Discovery / Tags の必要ロール）では `sm_admin`、`sm_user` が使われている。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/LKd87HjvwYKREPw7DmJc5Q) / 【第三者情報】[Community](https://www.servicenow.com/community/itom-articles/quick-start-guide-for-service-mapping/ta-p/3521583)
+- `sm_admin` → `service_mapping_admin` への改名の時期、および現行インスタンスに `sm_admin` が別名・旧ロールとして残っているかは公開情報では確認できず。実機の **User Administration > Roles** で確認すること。
 - `sn_cmdb_editor` または `itil` ロールのみのユーザーも、すべての Service instance を閲覧できる。
 
 ### 9.2 Service group によるアクセス制限
@@ -694,28 +775,38 @@ Service Mapping Workspace は、リソースの分析・監視・更新、Applic
 
 **その他：** Refresh アイコン、Search for server、Tag-based service mapping アイコン（ダッシュボード）、Application service readiness アイコン、Application Service Suggestions タブ、AI Agents パネル（Now Assist 導入時）。
 
+> 注：上表のタイル名・条件の「Now Assist」は Australia 版公式ドキュメントの表記である。Service Mapping Plus 1.23.2（2026-08）以降は、会話型 AI 体験のブランド名が「ServiceNow Otto」に変更されている（UI 上のタイル名が具体的にどう変わったかは公開情報では確認できず）。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/wrdC4KwqlA20qz8j_acmPw)
+
 【第三者情報】Unified Map を Service Mapping Workspace から開くには、システムプロパティ `sn_sm_scoped_app.sa.unified_map.enabled` を true にし、Mapped application services ウィジェットでサービスを選び View map で CMDB Workspace の Unified Map を開く、と第三者ブログで説明されている。[出典](https://www.lovemytool.com/2024/10/using-servicenow-service-mapping-to.html)
 
 ---
 
 ## 11. AI Agents for Service Mapping（Now Assist）
 
-**AI Agents for Service Mapping**（アプリスコープ `sn_sm_gen_ai`）は、CMDB 上のサービスマップの作成・保守を自動化するエージェント群である。エージェントは定期スケジュールでバックグラウンド実行され、管理者の個別入力なしに対象レコードを処理する。[出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/F1OLwrhGxuvclQVHleDwKw)
+**AI Agents for Service Mapping**（ITOM AI Agents for Service Mapping、アプリスコープ `sn_sm_gen_ai`）は、CMDB 上のサービスマップの作成・保守を自動化するエージェント群である。エージェントは定期スケジュールでバックグラウンド実行され、管理者の個別入力なしに対象レコードを処理する。以下は Australia 版公式ドキュメントのソース（ServiceNowDocs GitHub リポジトリの australia ブランチ）に基づく。[出典（Australia）](https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/it-operations-management/service-mapping/service-mapping-ai-agents.md)
 
-| エージェント | 内容 |
-|---|---|
-| Service Mapping AI Agent | Application Service Candidates（ASC）からノイズを除き、高信頼度の候補に絞って ML ベースのサービスマップを自動作成 |
-| Tag-Based Service Map Creation AI Agent | クラウドのメタデータタグからサービスマップを作成。タグでまとめられた VM が無関係なシステムの集まりではなく同一 Application service に属するか（整合性）を検証 |
-| Business App Mapping AI Agent | Business application を Application service に紐付ける（少数の Business application から多数の発見済みサービスへトップダウンに作業） |
+| エージェント | 内容 | 出典 |
+|---|---|---|
+| Service Mapping AI Agent | Application Service Candidates（ASC）から ML ベースのサービスマップを自動作成 | [公式（Australia）](https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/it-operations-management/service-mapping/service-mapping-ai-agents.md) |
+| Tag-Based Service Map Creation AI Agent | クラウドのメタデータタグに基づく候補からサービスマップを作成。タグでまとめられた VM が同一アプリケーションに属するかを検証する。トポロジーを構成するには候補に CI が2つ以上必要 | [公式（Australia）](https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/it-operations-management/service-mapping/service-mapping-ai-agents.md) |
+| Business App Map Agent（Business App Mapping AI Agent） | Business application を Application service に紐付ける（CSDM 関係の作成） | Australia 版 AI Agents ページには記載なし。Australia 版 Workspace ページに「Business app linked to service instance」タイルから **Business App Map Agent** の activity を開く旨の記載があり、[SMP 1.22.0（2026-07）リリースノート](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/wrdC4KwqlA20qz8j_acmPw) に「Business Applications linked by AI Agent」ウィジェットの追加が記載されている。[Workspace（Australia）](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/66SJGtWe9Kx2SoQ9V9OkVQ) |
 
-- エージェントは既定で無効。Service Mapping AI Agent と Tag-Based Service Map Creation AI Agent は同時に有効化され、Business App Mapping AI Agent は個別に有効化する。有効化には `service_mapping_admin` が必要で、Service Mapping Workspace のホームの AI Agents パネルから操作する。
-- 作成されたサービスマップは既定で **non-operational** に設定され、管理者がレビューしてから operational にする。
-- 前提：ITOM AI agents for Service Mapping 1.3.1 以降、Service Mapping Plus 1.20.0 以降、Now Assist。
-- ドキュメント間で実行間隔（15分ごと等）や対応パッチの記載が異なるため、インスタンスのバージョンの資料で確認すること。
+**スケジュールと処理件数（Australia）：** [出典](https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/it-operations-management/service-mapping/service-mapping-ai-agents.md)
+- スケジュールジョブ **SM Gen AI - Agent Invocation Orchestrator** が **15分ごと** に実行される。
+- 各エージェントの既定の処理件数は **100件**。上限に達するとエージェントの状態が **Paused** になり、上限を引き上げるまで停止する。上限はプロパティ `sn_sm_gen_ai.agent_invocation_limit.ServiceMapCreationAISpecialist`（Service Mapping AI Agent）と `sn_sm_gen_ai.agent_invocation_limit.TagBasedServiceMapCreationAISpecialist`（Tag-Based Agent）で変更し、変更後に Service Mapping Workspace でエージェントを再有効化する。上限を上げると AI リソース消費が増える。
+- 過去90日以内に処理済みの候補はスキップされる。一時的なプラットフォームエラー（同時実行 AI エージェントのプラン上限到達など）の場合は次回実行で処理され、それ以外の失敗は自動再試行されない。
+
+**有効化と運用（Australia）：** [出典](https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/it-operations-management/service-mapping/service-mapping-ai-agents.md)
+- エージェントは既定で無効。Service Mapping AI Agent と Tag-Based Service Map Creation AI Agent は、Service Mapping ホーム（Workspace）の1つの有効化ボタンで同時に有効化される。有効化と監視は Service Mapping admin ロール（`service_mapping_admin`）で行い、AI Agent Studio の設定は不要。エージェント定義とトークン使用量の管理は AI admin が AI Agent Studio で行う。
+- エージェントの活動は Service Mapping のリストナビゲーションの AI Activity で確認する。
+- 作成されたサービスマップは既定で **non-operational** に設定され、管理者がレビューしてから Mapped Application Services 一覧のサービスレコードで operational にする。
+- Business App Map Agent の有効化方法（個別有効化の可否）は Australia 版 AI Agents ページには記載なし。
+- 前提条件の版番号（ITOM AI agents for Service Mapping 1.3.1 以降、Service Mapping Plus 1.20.0 以降など）は、Australia 版 AI Agents ページ・Workspace ページのいずれにも記載がなく、公開情報では確認できず。Now Assist の導入が前提であることは Workspace ページの記載（Now Assist 導入時に AI Agent activation パネルが表示される）から読み取れる。[出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/66SJGtWe9Kx2SoQ9V9OkVQ)
+- 名称：本章の「Now Assist」は Australia 版ドキュメントの表記。Service Mapping Plus 1.23.2（2026-08）以降は「ServiceNow Otto」が会話型 AI 体験の新ブランド名として Now Assist を置き換えている。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/wrdC4KwqlA20qz8j_acmPw)
 
 Now Assist / AI Agents の基盤は [../platform/now-assist-ai-agents.md](../platform/now-assist-ai-agents.md) を参照。
 
-> **Brazil での変更:** **Service Mapping MCP tools** が CMDB MCP Server プラグイン（v1.0.0）として提供され、Claude などの AI クライアントからライブの Application service データを照会し、サービストポロジーの問い合わせ、マッピングのギャップ発見、自然言語による Application service 作成ができる。また **Lightweight Service Model**（Service Mapping Plus 1.24.4 以降）により、Dynamic / Tag-based サービスを Lightweight に変換し、履歴スナップショットを持たずに現行データのみを保持することでストレージを削減し、大規模 CI でのマッピング性能を向上できる。Brazil の差分リリースノートでは、Service Mapping 本体の変更・削除・廃止は「なし」とされている。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-servicemapping-release-notes.html)
+> **Brazil での変更:** **Service Mapping MCP tools** が CMDB MCP Server プラグイン（v1.0.0）として提供され、Claude などの AI クライアントからライブの Application service データを照会し、サービストポロジーの問い合わせ、マッピングのギャップ発見、自然言語による Application service 作成ができる。また **Lightweight Service Model**（Brazil 差分リリースノートでは Service Mapping Plus 1.24.4 以降、SMP リリースノートでは 1.24.5 の項に記載。6.7 参照）により、Dynamic / Tag-based サービスを Lightweight に変換し、履歴スナップショットを持たずに現行データのみを保持することでストレージを削減し、大規模 CI でのマッピング性能を向上できる。Brazil の差分リリースノートでは、Service Mapping 本体の変更・削除・廃止は「なし」とされている。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-servicemapping-release-notes.html)
 
 ---
 
@@ -764,9 +855,14 @@ Now Assist / AI Agents の基盤は [../platform/now-assist-ai-agents.md](../pla
 
 - 事前定義 Entry point タイプの完全な一覧と、各タイプの属性名（URL、ポート、ホスト等）の正式なフィールド名。
 - Australia 版ドキュメントにおける Traffic-based discovery の `conn_aging_time`・`ignored_ports`・`max_connections` プロパティの既定値（旧リリース版の記載を引用）。
-- `svc_traversal_rules` 関連プロパティ（`svc_traversal.rules.active`）の正確な表記（公式ページ内で表記揺れ）。
+- `sm_admin` から `service_mapping_admin` への改名時期と、現行インスタンスでの `sm_admin` の扱い。
+- Lightweight Service Model の正確な導入版（SMP リリースノートは 1.24.5、Brazil 差分リリースノートは 1.24.4）。
+- CMDB-based mapping について、Xanadu 期の機能と SMP 1.20.0 で記載された「サポート」の差異。
+- Service Mapping の Behaviors の仕様（目的・テーブル・項目）。
+- 3.1・4.1・8.1 で引用した Yokohama 版ページの内容が Australia 版英語ページと一致するか。
 - Application service の状態値（Operational status 以外のマップ状態、例：In Progress 以外の値）の完全な一覧と遷移。
-- AI Agents for Service Mapping の Australia 版の正確な実行間隔と対応パッチ（ページ間で記載が異なり、一部ページは取得時に 404）。
+- AI Agents for Service Mapping の前提条件の版番号（ITOM AI agents for Service Mapping / Service Mapping Plus の必要版）と、Business App Map Agent の仕様・有効化方法（Australia 版 AI Agents ページに記載なし）。実行間隔は 15分ごと・既定 100件で確定済み（11章）。
+- タグベースディスカバリーのトラバーサルルール上限プロパティの正式名（Components ページは `svc_by_tags.max.traversal.rules.active`、Traversal rules ページは `svc_traversal.rules.active`。5.2 参照）。
 - Brazil の GA 日付と、Brazil ファミリーで Service Mapping 本体に入る変更の全容（差分リリースノートの一部は AI 生成の免責付き）。
 
 ---
@@ -790,6 +886,11 @@ Now Assist / AI Agents の基盤は [../platform/now-assist-ai-agents.md](../pla
 - Automated Service Suggestions（Australia）: https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/h2q8~4vgsPQ_pGsWrdgC9Q
 - Map application services based on Automated Service Suggestions（Australia）: https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/zRk5WtU1NKQdno6uhRBUIw
 - ITOM Content Service（Australia）: https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/0UE2xgIyFniG7k8I5b1QPg
+- Components installed with Service Mapping（Australia、ロール・プロパティ）: https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/KnqoEVMhV6np3afu7Q4nKQ
+- Configure Service Mapping to work with the CMDB（Xanadu）: https://www.servicenow.com/docs/r/LZHoJyH9VPKmhdIph_6gSw/3rDZMCS6o7v5KMbgDeTqNg
+- CMDB-based mapping（Brazil）: https://www.servicenow.com/docs/r/it-operations-management/service-mapping/cmdb-based-mapping.html
+- Remove CIs not belonging to application services（Australia、Boundary）: https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/bf7_wmfmbaULxe6cv_fB4w
+- Add CIs to application services using connection rules（Australia）: https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/4GbwgTQK15fHQk3wi7zH1w
 - Service Mapping Workspace（Australia）: https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/66SJGtWe9Kx2SoQ9V9OkVQ
 - Service Mapping Workspace（Zurich）: https://www.servicenow.com/docs/r/guxhDnVk8OUAJKLm7WZsYA/nS008eR8tkTd9Xn55nZ4Jg
 - Multi-source service mapping（Australia）: https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/U6XBcS0UFsusPIYRdsGaXw
@@ -797,9 +898,13 @@ Now Assist / AI Agents の基盤は [../platform/now-assist-ai-agents.md](../pla
 - Create a Service instance (application service)（Australia）: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/LKd87HjvwYKREPw7DmJc5Q
 - Application services（CMDB、Brazil 版）: https://www.servicenow.com/docs/r/servicenow-platform/configuration-management-database-cmdb/application-services.html
 - Plugins or applications installed with ITOM Visibility（Australia）: https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/75d1Tix4~BSpibBomfiDbQ
-- AI Agents for Service Mapping: https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/F1OLwrhGxuvclQVHleDwKw
+- AI Agents for Service Mapping（Australia、ServiceNowDocs GitHub ソース）: https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/it-operations-management/service-mapping/service-mapping-ai-agents.md
+- AI Agents for Service Mapping（旧 URL、2026-11 時点で 404）: https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/F1OLwrhGxuvclQVHleDwKw
 - Service Mapping Plus release notes: https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/wrdC4KwqlA20qz8j_acmPw
 - Brazil Service Mapping release notes（Zurich→Brazil 差分）: https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-servicemapping-release-notes.html
+
+**ServiceNow Support（KB）**
+- KB1205971（ML 候補の Preview map と候補の差異）: https://support.servicenow.com/kb?id=kb_article_view&sysparm_article=KB1205971
 
 **ServiceNow Store**
 - Discovery and Service Mapping Patterns: https://store.servicenow.com/store/app/851a63e21b246a50a85b16db234bcb70

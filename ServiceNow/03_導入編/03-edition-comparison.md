@@ -14,8 +14,11 @@ sources:
   - https://www.servicenow.com/products/now-platform-app-engine/pricing.html
   - https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/ai-native-sku-overview.html
   - https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-moves-beyond-the-sidecar-AI-era-giving-customers-a-complete-AI-native-experience-across-all-products-and-packages/default.aspx
+  - https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-Otto-creates-the-unified-AI-experience-for-the-enterprise/default.aspx
   - https://www.servicenow.com/docs/r/store-release-notes/na-suite-rn-2026-07-09.html
   - https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-now-assist.html
+  - https://www.servicenow.com/docs/r/xUi4EDRoQXDqROOshinXwQ/uCno_JMAfN4aeh_edNjfCg
+  - https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/a_EYDYFki7jMi9g11U1kDQ
   - https://www.servicenow.com/docs/r/it-operations-management/itom-visibility/itom-visibility-landing-page.html
   - https://www.servicenow.com/docs/r/guxhDnVk8OUAJKLm7WZsYA/8XAnPqUIHAXKSJUAjYY0Mw
   - https://www.servicenow.com/community/itsm-articles/itsm-licensing-in-april-2026-foundation-advanced-and-prime-in/ta-p/3544380
@@ -60,7 +63,7 @@ ServiceNow の製品は、同じ製品ライン（例：ITSM）の中で機能�
 | 2025（Zurich） | HRSD に新しい Professional / Enterprise SKU が導入（Hiring Experiences を同梱） | ServiceNow Community 公式ブログ [出典](https://www.servicenow.com/community/hrsd-blog/zurich-release-deep-dive-hrsd/ba-p/3375480) |
 | 2025-10-17 | Custom Table Guide 改定。App Engine Starter で「Direct Task Inherited Tables」が対象外に | 【第三者情報】 [出典](https://www.servicenow.com/community/servicenow-ai-platform-articles/the-new-servicenow-s-custom-table-guide-and-its-impact-on-your/ta-p/3482612) |
 | **2026-04-09** | **Foundation / Advanced / Prime の新ティア発表・提供開始。** 全製品に AI を同梱、ESM Foundation（中堅企業向け）発表 | 公式プレスリリース [出典](https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-moves-beyond-the-sidecar-AI-era-giving-customers-a-complete-AI-native-experience-across-all-products-and-packages/default.aspx) |
-| 2026-05（Knowledge 2026 / Australia GA） | Now Assist・Moveworks・AI Experience のブランドを **ServiceNow Otto** に統合（「Your product entitlements remain unchanged」） | 公式 Store リリースノート [出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-now-assist.html) |
+| 2026-05-05（Knowledge 2026。Australia GA と同時期） | Now Assist・Moveworks・AI Experience を統合した **ServiceNow Otto** を発表。製品 UI・ドキュメント上の名称変更は 2026-07〜08 の Store リリースで順次反映（Now Assist for ITSM 17.0.5 等に「branding has been renamed to ServiceNow Otto」と記載）。リブランドに伴って既存の製品権利が不変かどうかは **公開情報では確認できず** | 公式プレスリリース [出典](https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-Otto-creates-the-unified-AI-experience-for-the-enterprise/default.aspx)、公式 Store リリースノート [出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-now-assist.html) |
 | 2026-07-01 | 旧 SKU の新規販売終了（以降の更新は新ティアで見積） | 【第三者情報】 [出典](https://echelonai.com/blog/7-questions-to-ask-before-you-renew-servicenow) |
 | 2026-07-09 | Now Assist Admin Console 9.0.5 の Store リリースノートに「ServiceNow is introducing three AI subscription tiers - Foundation, Advanced, and Prime」、Generative AI Controller 13.1.2 に「AI entitlements are now standardized across products using a Good / Better / Best」と記載 | 公式 Store リリースノート [出典](https://www.servicenow.com/docs/r/store-release-notes/na-suite-rn-2026-07-09.html) |
 | 2026-09（Brazil） | 製品ドキュメントに「ServiceNow product tiers」ページ（Brazil 版）が掲載 | 公式ドキュメント [出典](https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/ai-native-sku-overview.html) |
@@ -78,8 +81,11 @@ flowchart LR
     A --> PR["Prime<br/>Autonomous AI workforce"]
   end
   S -. 概ね .-> F
-  P -. Foundation or Advanced .-> A
-  PP -. Foundation or Advanced .-> A
+  S -. Change/Problem 利用時 .-> A
+  P -. 機能次第 .-> F
+  P -. 機能次第 .-> A
+  PP -. 機能次第 .-> F
+  PP -. 機能次第 .-> A
   E -. 概ね .-> A
   EP -. 概ね .-> PR
 ```
@@ -96,7 +102,7 @@ flowchart LR
 |---|---|---|---|
 | **Standard** | コアのワークフロー（ITSM ならインシデント・問題・変更・要求・ナレッジ）と標準レポート | 標準の Reports / Dashboards、Service Catalog、Knowledge、Workspace 等 | 【第三者情報】 |
 | **Professional（Pro）** | Standard ＋ アナリティクスと機械学習 | **Performance Analytics**（KPI・トレンド・ブレークダウン）、**Predictive Intelligence**（分類・類似検索・推奨）、**Virtual Agent**、Continual Improvement Management 等 | 【第三者情報】 [出典](https://www.servicenow.com/community/architect-articles/understanding-servicenow-licensing-packaging-tiers-standard/ta-p/3532073) |
-| **Pro Plus** | Pro ＋ **Now Assist（生成 AI）** のアドオン | 要約、解決メモ生成、ナレッジ記事生成、Now Assist in Virtual Agent / AI Search、AI Agent Studio 等 | 公式 Doc 引用（コミュニティ経由）＋ 【第三者情報】 |
+| **Pro Plus** | Pro ＋ **Now Assist（生成 AI）** のアドオン | 要約、解決メモ生成、ナレッジ記事生成、Now Assist in Virtual Agent / AI Search、AI Agent Studio 等 | 旧製品ドキュメントの文言をコミュニティ投稿が引用 [出典](https://www.servicenow.com/community/virtual-agent-forum/itsm-pro-quot-versus-quot-pro-plus-licensing-question/m-p/3150403)、機能例は 【第三者情報】 [出典](https://www.constellationr.com/insights/news/servicenow-launches-now-assist-across-now-platform-pricing-bundles) |
 | **Enterprise** | Pro ＋ 運用最適化 | **Workforce Optimization**、**Process Mining**（Process Optimization）等 | 【第三者情報】 [出典](https://assets.applytosupply.digitalmarketplace.service.gov.uk/g-cloud-15/documents/92271/205111268855265-pricing-document-2026-01-29-1405.pdf) |
 | **Enterprise Plus** | Enterprise ＋ Now Assist のアドオン | Pro Plus と同等の生成 AI ＋ Enterprise 機能 | 【第三者情報】 |
 
@@ -134,8 +140,7 @@ flowchart LR
 | AI agents（AI Agent Studio） | OOTB エージェントを設定して利用 | OOTB エージェントを設定して利用 | **自然言語指示から新規エージェントを作成可能** | カスタム AI agent の新規構築は Prime のみ |
 | AI Action Fabric | 外向き（outbound）A2A 接続 | 外向き A2A 接続 | ＋ **内向き MCP Server Console** | |
 | AI Control Tower | ○（同一機能） | ○ | ○ | 外部 AI 資産の完全管理には別ライセンス「AI Control Tower for Enterprise AI」が必要 |
-| Workflow Data Fabric Foundation（Integration Hub、RPA Hub、Automation Center、Data Catalog） | ○ | ○ | ○ | |
-| Workflow Data Fabric Advanced（Zero Copy Connectors、Stream Connect） | 有償アップグレード | 有償アップグレード | 有償アップグレード | |
+| Workflow Data Fabric（WDF） | ティア横断：**WDF Foundation**（Integration Hub、RPA Hub、Automation Center、Data Catalog）は全ティアに同梱（「embedded in every tier edition」）。**WDF Advanced**（Zero Copy Connectors、Stream Connect）は有償アップグレード（「available as a paid upgrade」）。ティアによる購入可否の制約は記載なし | ← | ← | 同ページのティア比較表（Foundation / Advanced / Prime 列）に WDF の行はない。Foundation ティアで WDF Advanced を購入できるかは公開情報では確認できず |
 | RaptorDB Standard | ○ | ○ | ○ | RaptorDB Professional（ultra-scale analytics 等）は有償オプション |
 | Moveworks for ServiceNow（EmployeeWorks） | ティア相当レベルで同梱 | ティア相当レベルで同梱 | ティア相当レベルで同梱 | |
 
@@ -155,7 +160,7 @@ flowchart LR
 | HRSD | Foundation / Advanced / Prime | 公式価格ページ（検索結果経由）＋【第三者情報】 |
 | SecOps（SIR / VR） | Foundation / Advanced / Prime（SIR と VR で独立に選択可） | 【第三者情報】コミュニティ記事 |
 | App Engine | Foundation / Prime（検索結果上の表記） | 公式価格ページ（検索結果経由） |
-| ITAM（SAM / HAM） | SAM Advanced / SAM Prime、HAM Advanced 等 | 公式 Store リリースノート＋【第三者情報】 |
+| ITAM（SAM / HAM） | HAM Foundation / Advanced / Prime（Now Assist for HAM 4.1.0 のリリースノートに記載。各ティアの機能範囲は公開情報では確認できず）、SAM Advanced / SAM Prime | 公式 Store リリースノート [出典](https://www.servicenow.com/docs/r/store-release-notes/na-suite-rn-2026-07-09.html)＋【第三者情報】 |
 | IRM、SPM | 新ティアの中身は **公開情報では確認できず** | — |
 
 さらに、複数製品をまとめた **組み合わせ SKU** が用意されている 【第三者情報】 [出典](https://www.servicenow.com/community/itsm-articles/itsm-licensing-in-april-2026-foundation-advanced-and-prime-in/ta-p/3544380)。
@@ -163,7 +168,7 @@ flowchart LR
 | 組み合わせ SKU | 内容 |
 |---|---|
 | **ESM Foundation** | ITSM Foundation ＋ 業務部門（IT・HR・法務・財務・調達・ワークプレイス）の基本サービス。ユーザー単位課金。中堅企業向けで「数週間で稼働」を謳う（公式プレスリリース） |
-| **ServiceOps Advanced / Prime** | ITSM と ITOM を共通のクレジットメーターで購入（1 Credit = 1 ITOM SU、10 Credits = 1 ITSM Fulfiller とする記事あり） |
+| **ServiceOps Advanced / Prime** | ITSM と ITOM を共通のクレジットメーターで購入（1 Credit = 1 ITOM SU、10 Credits = 1 ITSM Fulfiller とする記事あり）【第三者情報】 [出典](https://www.servicenow.com/community/architect-articles/navigating-the-april-2026-servicenow-itom-licensing-model/ta-p/3555121) |
 | **ITSM Prime Add-on** | CSM Prime や Industry Prime の顧客が、ITSM 一式を別途購入せずに Prime レベルの ITSM AI を追加するための SKU |
 
 ---
@@ -317,7 +322,8 @@ ITOM の新パッケージには **Foundation が存在しない**。公式価�
 | | Health Log Analytics | × | ○ |
 | | Service Observability | × | ○ |
 | | Synthetic Monitoring | × | ○ |
-| Platform Capabilities | AI Control Tower、Workflow Data Fabric、CMDB、CSDM、Knowledge Management、Employee Center、Now Mobile、Workflow Automation、Application Development、Predictive Intelligence、App Engine Starter、Universal Request Pro、Mobile Publishing、Platform Analytics Advanced、Process Mining | ○ | ○ |
+| Platform Capabilities | AI Control Tower、Workflow Data Fabric、CMDB、CSDM、Knowledge Management、Employee Center、Now Mobile、Workflow Automation、Application Development、Predictive Intelligence、Universal Request Pro、Mobile Publishing、Platform Analytics Advanced、Process Mining | ○ | ○ |
+| | App Engine Starter（カスタムテーブル枠） | △ 5 tables 【第三者情報】 [出典](https://www.servicenow.com/community/architect-articles/navigating-the-april-2026-servicenow-itom-licensing-model/ta-p/3555121) | △ 数量の記載なし（価格ページは ○ のみ。コミュニティ記事も「Everything in Advanced, plus」とするのみ） |
 
 - 価格ページの注記：「App Engine Starter tables are for configuring packaged applications.」（App Engine Starter のテーブル枠はパッケージアプリケーションの構成用）。
 - コミュニティ記事によれば、Prime は Workflow Data Fabric のクレジットプールが SU あたり約 2 倍、GenAI assist 割当も約 2 倍とされる（正確な倍率は非公開）。また旧 Professional にあったイベント相関（AIOps）は **Prime のみ** になり、Advanced にはイベント相関・ログ分析・SRE 機能がない 【第三者情報】 [出典](https://www.servicenow.com/community/architect-articles/navigating-the-april-2026-servicenow-itom-licensing-model/ta-p/3555121)。
@@ -349,13 +355,13 @@ ITAM は ITSM のエディションとは **別サブスクリプション** で
 |---|---|---|---|---|
 | 旧 | SAM Professional（SAM Pro） | ソフトウェア資産ライフサイクル、ディスカバリー、正規化、支出検出、ライセンスコンプライアンス、リクレーム、最適化。Platform Analytics、Predictive Intelligence、Client Software Distribution を含む | SU（管理対象デバイス等） | 【第三者情報】 |
 | 旧 | SAM Enterprise | SAM Pro ＋ クラウドコスト管理、ML による正規化 | SU | 【第三者情報】 |
-| 旧 | HAM（HAM Pro） | ハードウェア資産ライフサイクル、デバイス・ネットワーク資産管理、分析、Predictive Intelligence | SU（リソースカテゴリごとの比率） | 【第三者情報】／公式（課金方式） |
-| 新 | **HAM Advanced** | 「consolidating all HAM and AI capabilities under ServiceNow's AI SKU strategy」。Now Assist for HAM の機能表示は HAM SKU ティアで制御 | — | 公式 Store リリースノート [出典](https://www.servicenow.com/docs/r/store-release-notes/na-suite-rn-2026-07-09.html) |
+| 旧 | HAM（HAM Pro） | ハードウェア資産ライフサイクル、デバイス・ネットワーク資産管理、分析、Predictive Intelligence | SU（リソースカテゴリごとの比率） | 機能内容は 【第三者情報】、課金方式は公式ドキュメント [出典](https://www.servicenow.com/docs/r/xUi4EDRoQXDqROOshinXwQ/uCno_JMAfN4aeh_edNjfCg) |
+| 新 | **HAM Foundation / Advanced / Prime** | Now Assist for Hardware Asset Management 4.1.0 のリリースノートは「Feature visibility is now automatically enforced based on the HAM SKU tier (Foundation, Advanced, or Prime)」と記載。また AI Agents for ITAM 4.1.0 のリリースノートは「Introducing a new HAM Advanced SKU consolidating all HAM and AI capabilities」と記載し、ティア別プラグインと `sys_gen_ai_asset_subscription` による実行時の権利チェックを追加したとしている。各ティアの機能範囲は **公開情報では確認できず** | — | 公式 Store リリースノート（2026-07-09）[出典](https://www.servicenow.com/docs/r/store-release-notes/na-suite-rn-2026-07-09.html) |
 | 新 | SAM Advanced / **SAM Prime** | SAM Prime は「Software Asset Management AI Prime」アプリとして Store に掲載。SAM Enterprise 相当＋ AI 機能とする情報あり | — | 【第三者情報】 [出典](https://apprepo.service-now.com/store/app/70bdf70747c44f10a342e65fe16d4368) |
 
-- HAM の課金は「リソースカテゴリごとの Subscription Unit 比率」で、使うカテゴリだけをオプトインできる、と公式ドキュメントに記載されていた（検索結果で確認）。
+- HAM の課金は「リソースカテゴリごとの Subscription Unit 比率」で、オプトインしたリソースカテゴリだけが Subscription Unit に計上される。公式ドキュメント「Hardware Asset Management licensing」（Australia 版、2026-03-12 更新）は、比率の例として End-user computers 4:1、Servers 1:1、Network gear 5:1、Mobile devices 10:1、Monitors 15:1、Storage 3:1、Printers 10:1 等を挙げている（資産数 : SU 数。比率は契約で異なりうる）[出典](https://www.servicenow.com/docs/r/xUi4EDRoQXDqROOshinXwQ/uCno_JMAfN4aeh_edNjfCg)。
 - 出典：[Fujitsu G-Cloud 価格資料](https://assets.applytosupply.digitalmarketplace.service.gov.uk/g-cloud-15/documents/92271/205111268855265-pricing-document-2026-01-29-1405.pdf)、[Redress Compliance ITAM](https://redresscompliance.com/servicenow-itam-licensing) 【第三者情報】。
-- SAM Advanced と SAM Prime の機能境界は **公開情報では確認できず**。
+- SAM Advanced と SAM Prime の機能境界、HAM Foundation / Advanced / Prime の各ティアの機能境界は **公開情報では確認できず**。
 
 詳細は [ITAM 概要](../02_リファレンス/itam/itam-overview.md)、[Software Asset Management](../02_リファレンス/itam/software-asset-management.md) を参照。
 
@@ -372,7 +378,7 @@ HRSD は **Unrestricted User（全従業員数）** を課金単位とする（[
 | HR Case Management / HR Knowledge | ○ | ○ | ○ | 【第三者情報】Fujitsu |
 | Employee Center（Pro）/ Universal Request | ○ | ○ | ○ | 【第三者情報】Fujitsu（Standard に Employee Center Pro と Universal Request を記載） |
 | HR Agent Workspace | — | ○ | ○ | 【第三者情報】Fujitsu |
-| Performance Analytics | × | ○ | ○ | 【第三者情報】Fujitsu。2023 年のコミュニティ投稿では旧 Professional に Lifecycle Events・PA・ECP がないとの証言あり |
+| Performance Analytics | × | ○ | ○ | 【第三者情報】Fujitsu。2023 年のコミュニティ投稿では旧 Professional に Lifecycle Events・PA・ECP がないとの証言あり 【第三者情報】 [出典](https://www.servicenow.com/community/hrsd-forum/differences-between-servicenow-hrsd-standard-professional-and/m-p/2574722) |
 | Predictive Intelligence / Virtual Agent / モバイル | × | ○ | ○ | 【第三者情報】Fujitsu |
 | Employee Journey Management（Lifecycle Events、Journey Designer、Journey Accelerator） | × | × | ○ | 【第三者情報】Fujitsu |
 | Alumni Service Center | × | × | ○ | 【第三者情報】Fujitsu |
@@ -454,7 +460,7 @@ HRSD は Store リリースごとに機能の必要 SKU が明示されている
 | Outsourced Customer Service | × | ○ | ○ |
 | Continual Improvement Management | × | ○ | ○ |
 | Vendor Management Workspace | × | ○ | ○ |
-| DevOps | ○ | ○ | ○ |
+| DevOps | △（下記注） | ○ | ○ |
 | Now Assist for CSM | × | △ 追加料金（Pro Plus） | △ 追加料金（Enterprise Plus） |
 | Workforce Optimization | × | × | ○ |
 | Process Mining | × | × | ○ |
@@ -462,6 +468,8 @@ HRSD は Store リリースごとに機能の必要 SKU が明示されている
 | Service Catalog、Service Level Management、Surveys and Assessments、Workspaces | × | ○ | ○ |
 
 価格ページの注記（原文）：「1. Messaging (part of Omnichannel) is included in the Professional package. 2. Agent Affinity (part of Advanced Work Assignment) is included in the Professional package. 3. IT Operations Management is needed for Proactive Customer Service Operations. 4. Shift-Based Assignment (part of Advanced Work Assignment) is included in the Enterprise Package.」
+
+> **DevOps の所属ティアについての注：** 上記スナップショットでは、パッケージ説明文が DevOps を Professional の追加機能（「Standard ＋ … DevOps」）として挙げる一方、機能比較表では Standard に ○ が付いていた（公式ページ内の不整合）。第三者の製品リスティングは DevOps を CSM Standard に含めているが 【第三者情報】 [出典](https://us.fitgap.com/products/servicenow-customer-service-management)、アーカイブの再取得ができず確定できないため Standard は △ とした。既存契約では注文書で確認すること。
 
 #### 5.5.2 新ティア（CSM Foundation / Advanced / Prime）
 
@@ -473,15 +481,17 @@ HRSD は Store リリースごとに機能の必要 SKU が明示されている
 | CRM の顧客・ケース基本機能、ナレッジ管理 | ○ | ○ | ○ |
 | Now Assist for CSM | 基本割当 | ○ | 年間消費割当が約 2 倍 |
 | App Engine Starter | 50 fulfillers / 100 unnamed users / 50 transactions 上限 | — | — |
-| Engagement Messenger | × | ○ | ○ |
-| Proactive Customer Service Operations | × | ○ | ○ |
-| Outsourced Customer Service | × | ○ | ○ |
-| Service Bridge（ITSM へのエスカレーション） | × | ○ | ○ |
+| Engagement Messenger | —（記載なし） | ○ | ○【推定】 |
+| Proactive Customer Service Operations | × | ○ | ○【推定】 |
+| Outsourced Customer Service | × | ○ | ○【推定】 |
+| Service Bridge（ITSM へのエスカレーション） | × | ○ | ○【推定】 |
 | ポータル訪問上限 | — | 2,000 visits / fulfiller / 月、400 / unrestricted user | 4,000 visits / fulfiller / 月 |
 | Process Mining | — | — | 15,000 records |
 | カスタム AI skills / agents 構築（AI Control Tower 管理下） | × | × | ○ |
 
-- 旧 CSM Standard に含まれていた **Engagement Messenger が新 Foundation では Advanced 以上** とされている点に注意（上記記事による）。
+- 記事は Foundation について「completely lacks Service Bridge, Outsourced Customer Service, and Proactive Operations」と明記している（上表の × はこれに基づく）。
+- 記事は Advanced に Engagement Messenger を挙げるが、Foundation での扱いは明記されておらず **公開情報では確認できず**（旧 CSM Standard には Engagement Messenger が含まれていた）。
+- Prime 列の Engagement Messenger・Proactive Customer Service Operations・Outsourced Customer Service・Service Bridge は記事に個別の記載がなく、Prime が Advanced を包含するという一般構造からの 【推定】 である。
 - 「CSM には Foundation がない」とするパートナー記事もあり、情報が一致していない 【第三者情報】 [出典](https://www.getmacha.com/blog/servicenow-csm-ai-implementation)。
 
 詳細は [Customer Service Management](../02_リファレンス/customer/customer-service-management.md) を参照。Field Service Management（FSM）は CSM とは別ライセンスで、Standard / Professional / Enterprise があり Schedule Optimization と Field Service Marketplace は Professional への有償アドオンとするコミュニティ投稿がある 【第三者情報】 [出典](https://www.servicenow.com/community/field-service-management-forum/fsm-package-plugins-and-functionalities-standard-professional/m-p/3411597)。詳細は [Field Service Management](../02_リファレンス/customer/field-service-management.md)。
@@ -502,7 +512,8 @@ Fujitsu G-Cloud 価格資料（2026-01-29）の記載 【第三者情報】 [出
 | **VR** | 脆弱性フィードと資産コンテキストの相関によるリスクベース脆弱性管理、ビジネス影響に基づく優先度付けと自動化 | Standard ＋ Application Vulnerability Response、Patch Orchestration、SBOM Response、Vulnerability Crisis Management | Professional ＋ Container Vulnerability Response、クラウドセキュリティ連携、Configuration Compliance |
 
 - 補足：Vancouver リリースの公式ブログは「With Vulnerability Response Professional and Enterprise」で Prisma Cloud 連携によるコンテナ脆弱性取り込みが可能と記載している [出典](https://www.servicenow.com/community/secops-blog/what-s-new-in-security-operations-vancouver-release/bc-p/2722602)。
-- Threat Intelligence Security Center と Security Posture Control は任意の追加購入（Optional advanced add-on）【第三者情報】。
+- Threat Intelligence Security Center（TISC）について、ServiceNow Community の記事は「SIR Professional には含まれず、SIR Enterprise に含まれる。または SIR なしで単体購入も可能」としている 【第三者情報】 [出典](https://www.servicenow.com/community/secops-articles/understand-threat-intelligence-security-center-s-value-to-your/ta-p/2962991)。これは上表の Fujitsu 資料（SIR Enterprise に TISC アクセスを記載）と整合する。Professional 以下で TISC を使うには別途購入が必要になる。基本の Threat Intelligence モジュールは Professional から含まれるとする第三者情報もあり、TISC と混同しないよう注意する 【第三者情報】 [出典](https://redresscompliance.com/servicenow-secops-licensing-guide)。
+- Security Posture Control のエディション上の扱いは **公開情報では確認できず**。
 
 #### 5.6.2 新ティア（SIR / VR Foundation / Advanced / Prime）
 
@@ -510,12 +521,13 @@ Fujitsu G-Cloud 価格資料（2026-01-29）の記載 【第三者情報】 [出
 
 | ティア | SIR | VR | 共通 |
 |---|---|---|---|
-| Foundation | コアテーブル、Threat Intelligence、Configuration Compliance | 同左 | 基本的な Now Assist。チケット管理の規律づけ向け |
+| Foundation | SIR/VR 共通（製品別の割当は記事に記載なし） | 同左 | コアテーブル（core application tables）、Threat Intelligence、Configuration Compliance、基本的な Now Assist。記事は「ticketing discipline framework」と位置づけ |
 | Advanced | Major Security Incident Management（MSIM） | Vulnerability Crisis Management（ゼロデイ）、Patch Orchestration | Cybersecurity Executive Dashboard（取締役会向け報告） |
-| Prime | **DLP Incident Response**（SIR Prime 専用） | **Vulnerability Solution Management**（VR Prime 専用。修正を根本原因 CI に紐付け） | プラットフォームネイティブな統合機能 |
+| Prime | **DLP Incident Response**（SIR Prime 専用） | **Vulnerability Solution Management**（VR Prime 専用。修正を根本原因 CI に紐付け） | —（記事は「security stack consolidation に焦点を当てたネイティブなプラットフォーム機能」と述べるのみで、具体的な機能名なし） |
 
 - SIR と VR のティアは **独立に選択可能**（例：SIR Prime ＋ VR Advanced）。
-- Vulnerability Solution Management は CI マッピングの精度に依存するため、Prime 移行前に CMDB 健全性の確認が必要とされる。
+- **Configuration Compliance の位置づけの変化：** 旧体系では Configuration Compliance は VR Enterprise に含まれていた（5.6.1 の Fujitsu 資料）が、新体系のコミュニティ記事では Foundation の要素として挙げられている。ただし記事は SIR/VR のどちらに割り当てるかを明記しておらず、旧 VR Standard 相当の契約で利用できるかは注文書で確認すること 【第三者情報】。
+- Vulnerability Solution Management は CI マッピングの精度に強く依存する（「relies heavily on precise CI mapping」）ため、Prime 移行前に CMDB 健全性の確認が必要とされる 【第三者情報】 [出典](https://www.servicenow.com/community/architect-articles/technical-blueprint-the-april-2026-servicenow-secops-licensing/ta-p/3568679)。
 
 詳細は [Security Operations](../02_リファレンス/secops/security-operations.md) を参照。
 
@@ -531,7 +543,7 @@ Fujitsu G-Cloud 価格資料（2026-01-29）の記載 【第三者情報】 [出
 | インテリジェント自動化、Virtual Agent、継続的モニタリング、Predictive Intelligence | × | ○ | ○ | 【第三者情報】Fujitsu |
 | Advanced Risk / Advanced Audit 等の advanced 機能 | — | ○（Store リスティングは「standard IRM advanced features and applications, including Advanced Risk Management, Advanced Audit, Compliance」と記載） | ○ | 【第三者情報】 |
 | 高度な自動リスク評価、包括的コンプライアンス、運用リスクのオーケストレーション | × | × | ○ | 【第三者情報】Fujitsu |
-| Continuous Authorization and Monitoring（CAM）、Regulatory Change、Operational Resilience | × | 資料により異なる | ○ | 公式製品ページ（検索結果の抜粋）では Enterprise に記載 |
+| Continuous Authorization and Monitoring（CAM）、Regulatory Change、Operational Resilience | × | 資料により異なる | ○ | 公式 IRM 製品ページは直接取得できず（HTTP 403）、検索エンジン経由の抜粋で Enterprise 欄に記載があるのを見ただけで **原文は未確認** [出典](https://www.servicenow.com/products/integrated-risk-management.html)。CAM は Standard / Professional / Enterprise の各 IRM ライセンスで利用可能とするコミュニティ投稿もあり、情報が一致しない 【第三者情報】 |
 
 - 課金単位は **IRM Operator** 等（パートナー価格表の表記）【第三者情報】。GRC Business User Lite、GRC Reader 等の軽量ロールが別途ある。
 - 2022 年のコミュニティ投稿では、Professional の Advanced Risk には「アクティブな Risk Assessment Methodology（RAM）は最大 2 つまで」という制限があったとの報告がある（公式定義は未確認）【第三者情報】 [出典](https://www.servicenow.com/community/grc-forum/what-is-limited-in-advanced-risk-professional/td-p/1324339/page/2)。
@@ -553,10 +565,11 @@ IRM の Foundation / Advanced / Prime 別の中身は **公開情報では確認
 |---|---|---|---|
 | Project Portfolio Management、Demand Management、Resource Management | ○ | ○ | 【第三者情報】 |
 | Innovation Management、Release Management、Digital Portfolio Management、Alignment Planner Workspace、Scenario Planning、Mobile | ○ | ○ | 【第三者情報】 [出典](https://project-management.com/servicenow-itbm-review/) |
-| 財務計画、Performance Analytics | ○ | ○ | 【第三者情報】Fujitsu |
+| 財務計画 | ○ | ○ | 【第三者情報】Fujitsu |
+| Performance Analytics | △ 資料により異なる | ○ | Fujitsu は Standard に記載 【第三者情報】 [出典](https://assets.applytosupply.digitalmarketplace.service.gov.uk/g-cloud-15/documents/92271/205111268855265-pricing-document-2026-01-29-1405.pdf)、ServiceNow 社員のコミュニティ回答では Pro のプラットフォーム機能 [出典](https://www.servicenow.com/community/spm-forum/plugin-for-servicenow-spm-professional/m-p/3166538) |
 | Strategic Planning（戦略計画・プロダクト計画） | × | ○ | ServiceNow 社員のコミュニティ回答 [出典](https://www.servicenow.com/community/spm-forum/plugin-for-servicenow-spm-professional/m-p/3166538) |
 | Scaled Agile Framework（SAFe）、Investment Funding、Agile Development | × | ○ | 【第三者情報】 |
-| Predictive Intelligence、Virtual Agent、Performance Analytics（Pro プラットフォーム機能） | × | ○ | ServiceNow 社員のコミュニティ回答 |
+| Predictive Intelligence、Virtual Agent（Pro プラットフォーム機能） | × | ○ | ServiceNow 社員のコミュニティ回答 [出典](https://www.servicenow.com/community/spm-forum/plugin-for-servicenow-spm-professional/m-p/3166538) |
 
 - 課金単位は **SPM User**（Fulfiller ＋ Requester がともに課金対象）とされる 【第三者情報】 [出典](https://www.servicenow.com/community/servicenow-ai-platform-articles/about-servicenow-licensing-guide/ta-p/3512215)。
 - SPM Enterprise の公式な機能構成は **公開情報では確認できず**。
@@ -579,7 +592,7 @@ App Engine は「カスタムアプリケーションを作って Fulfiller に�
 | 項目 | App Engine Starter | App Engine Enterprise | 確度・出典 |
 |---|---|---|---|
 | 入手方法 | 各製品に同梱（無償） | 有償 | 公式ドキュメントの文言（コミュニティ投稿で引用）：「App Engine Starter is free and included in all products ... a paid license of App Engine subscription is needed」 [出典](https://www.servicenow.com/community/app-engine-forum/app-engine-subscriptions/m-p/3127910) |
-| カスタムテーブル | 製品・エディションごとの上限あり（Starter 25 / Starter 50 という SKU も存在） | 無制限（unlimited custom apps / tables） | 公式ドキュメント（検索結果の抜粋）＋【第三者情報】 |
+| カスタムテーブル | 製品・エディションごとの上限あり（パートナー価格資料には「App Engine Starter 25: … up to 25 Custom Tables」「App Engine Starter 50: … up to 50 Custom Tables」という SKU 記述がある） | 無制限（unlimited custom apps / tables） | 【第三者情報】 [出典](https://assets.applytosupply.digitalmarketplace.service.gov.uk/g-cloud-14/documents/92465/204661809116859-pricing-document-2025-06-30-1349.pdf)。どの製品・エディションにどちらの枠が付くかは公開情報では確認できず |
 | Direct Task Inherited Tables（`task` を拡張し、拡張階層がすべてカスタムテーブルのもの） | **×（2025-10-17 の Custom Table Guide 改定以降）** | ○ | 【第三者情報】 [出典](https://www.servicenow.com/community/servicenow-ai-platform-articles/the-new-servicenow-s-custom-table-guide-and-its-impact-on-your/ta-p/3482612) |
 | App Engine Studio、Now Assist for Creator、AI Agents、Process Mining、PA、Virtual Agent、Predictive Intelligence | × | ○ | 【第三者情報】コミュニティ投稿 |
 
@@ -592,13 +605,13 @@ App Engine は「カスタムアプリケーションを作って Fulfiller に�
 |---|---|---|---|
 | カスタムテーブル | 15 | 無制限 | 公式価格ページ（検索結果の抜粋） |
 | スコープアプリ | 3 | 無制限 | 公式価格ページ（検索結果の抜粋） |
-| Now Assist for App Engine / Now Assist for Creator | × | ○ | Store リスティング（検索結果の抜粋） |
+| Now Assist for App Engine / Now Assist for Creator（ServiceNow Otto for App Engine / for Creator） | × | ○ | 公式「App Engine - Prime」リリースノート 29.1.3（2026-04）は「Building on Foundation capabilities」として Prime が ServiceNow Otto for App Engine と ServiceNow Otto for Creator を解放すると記載 [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/a_EYDYFki7jMi9g11U1kDQ)。Store のアプリページ [出典](https://appstoreprod.service-now.com/store/app/cd00c4db47cc03103d01112a636d43e2) |
 
 出典：[App Engine 価格ページ](https://www.servicenow.com/products/now-platform-app-engine/pricing.html)（直接取得不可、検索結果の抜粋で確認）。App Engine Advanced の有無は **公開情報では確認できず**。
 
 **製品同梱の App Engine Starter 枠（新 ITSM の例）**：Foundation 10 tables、Advanced 25 tables、Prime 50 tables（公式 ITSM 価格ページ）。
 
-詳細は [アプリケーション開発](../02_リファレンス/platform/app-development.md)、[カスタマイズと技術的負債](../04_応用編/02-customization-technical-debt.md) を参照。
+詳細は [アプリケーション開発](../02_リファレンス/platform/app-development.md)、[カスタマイズと技術的負債](../04_応用編/02-customization-technical-debt.md)、[スクリプティングのベストプラクティス](../04_応用編/07-scripting-best-practices.md) を参照。
 
 ---
 
@@ -608,9 +621,9 @@ App Engine は「カスタムアプリケーションを作って Fulfiller に�
 |---|---|---|---|---|
 | ITSM | Standard / Pro / Pro Plus / Enterprise / Enterprise Plus | Foundation / Advanced / Prime | Fulfiller | Problem・Change が Advanced へ。PI・VA・Now Assist が Foundation から。DevOps Change Velocity が Prime 専用 |
 | ITOM | Visibility / AIOps Professional / AIOps Enterprise（＋ Standard/Pro/Enterprise 表記） | **Advanced / Prime のみ** | Subscription Unit | Event Management・HLA 等の AIOps は Prime 専用 |
-| ITAM | SAM Pro / SAM Enterprise / HAM（Pro） | SAM Advanced / SAM Prime、HAM Advanced | SU（デバイス等） | AI 機能を SKU ティアで制御 |
+| ITAM | SAM Pro / SAM Enterprise / HAM（Pro） | SAM Advanced / SAM Prime、HAM Foundation / Advanced / Prime（各ティアの機能範囲は公開情報では確認できず） | SU（デバイス等） | AI 機能を SKU ティアで制御 |
 | HRSD | Standard / Professional / Enterprise ＋ Pro Plus / Enterprise Plus | HR Foundation / Advanced / Prime | Unrestricted User（全従業員） | EJM・Voice Agents が Advanced。AI Specialist は Prime |
-| CSM | Standard / Professional / Pro Plus / Enterprise（/ Enterprise Plus） | Foundation / Advanced / Prime | Fulfiller（＋ポータル利用量） | Engagement Messenger・Service Bridge が Advanced。カスタム AI は Prime |
+| CSM | Standard / Professional / Pro Plus / Enterprise（/ Enterprise Plus） | Foundation / Advanced / Prime | Fulfiller（＋ポータル利用量） | Service Bridge・Outsourced CS・Proactive Operations は Foundation 外（Advanced に記載）。カスタム AI は Prime |
 | SecOps | SIR / VR 各 Standard / Professional / Enterprise | SIR / VR 各 Foundation / Advanced / Prime | Fulfiller・資産数等 | MSIM・Patch Orchestration が Advanced。DLP IR・VSM が Prime |
 | IRM | Standard / Professional / Enterprise | 公開情報では確認できず | IRM Operator 等 | — |
 | SPM | Standard / Professional（/ Enterprise） | 公開情報では確認できず | SPM User | — |
@@ -644,13 +657,13 @@ flowchart TD
 |---|---|---|
 | 1 | 現在使っている機能を「新ティア比較表」の行単位で棚卸ししたか | 旧 Standard の Change / Problem、旧 Pro の DevOps Change Velocity など、**上位ティアに移動した機能** がある |
 | 2 | ITOM で Event Management / AIOps を使っているか | ITOM Advanced にはイベント相関がなく **Prime が必要** |
-| 3 | CSM で Engagement Messenger、Proactive Customer Service Operations、Outsourced Customer Service を使っているか | 新体系では Advanced 以上とされる |
+| 3 | CSM で Engagement Messenger、Proactive Customer Service Operations、Outsourced Customer Service、Service Bridge を使っているか | Proactive Operations・Outsourced CS・Service Bridge は Foundation に含まれないとされる。Engagement Messenger は Advanced に記載があり、Foundation での扱いは公開情報では確認できず 【第三者情報】 |
 | 4 | カスタムアプリで `task` を拡張したテーブルを使っているか | App Engine Starter の対象外（2025-10-17 改定）となり、App Engine Enterprise（または相当ティア）が必要になりうる |
-| 5 | 製品同梱の App Engine Starter テーブル数（例：ITSM Foundation 10 / Advanced 25 / Prime 50）に収まるか | 超過分は App Engine の購入が必要 |
+| 5 | 製品同梱の App Engine Starter テーブル数（例：ITSM Foundation 10 / Advanced 25 / Prime 50（公式価格ページ）、ITOM Advanced 5（コミュニティ記事、Prime は記載なし）【第三者情報】）に収まるか | 超過分は App Engine の購入が必要 |
 | 6 | assist の割当量・プール単位・超過単価・非本番での消費が注文書に明記されているか | ティアごとの assist 数量は非公開。超過料金が後から発生しやすい 【第三者情報】 |
 | 7 | 製品ラインごとに全 Fulfiller が同一ティアになる前提か、混在可能か | 「1 製品ライン 1 パッケージ」原則と例外（App Engine、SecOps 等）がある 【第三者情報】 |
 | 8 | ITSM と ITOM を ServiceOps SKU にまとめるか、別 SKU のままにするか | 共通クレジットメーターと統合 true-up の可否が変わる 【第三者情報】 |
-| 9 | Pro Plus / Enterprise Plus で購入済みの Now Assist 権利が更新時にどう引き継がれるか | ブランド変更（Otto）では権利は不変とされるが、新ティア移行は別の商談イベント |
+| 9 | Pro Plus / Enterprise Plus で購入済みの Now Assist 権利が更新時にどう引き継がれるか | ブランド変更（Otto）に伴う権利の扱いは公開情報では確認できず。新ティアへの移行は更新時の別の商談イベントになる |
 
 ### 7.2 契約中のエディションをインスタンスで確認する
 
@@ -674,8 +687,6 @@ flowchart TD
 
 > **Brazil での変更:** 製品ドキュメントに「ServiceNow product tiers」（Brazil 版、2026-09-10 更新）が掲載され、Foundation / Advanced / Prime の定義、AI Agent Studio・AI Action Fabric（Prime で inbound MCP Server Console）・AI Control Tower・Workflow Data Fabric・RaptorDB のティア別扱いが明文化された [出典](https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/ai-native-sku-overview.html)。
 
-> **Brazil での変更:** Now Assist / Moveworks / AI Experience のブランドは ServiceNow Otto に統合済みで、Store リリースノート上も「Rebranding from Now Assist to ServiceNow Otto」と記載されている。製品権利は変わらないとされる [出典](https://www.servicenow.com/docs/r/store-release-notes/na-suite-rn-2026-07-09.html)。
-
 > **Brazil での変更:** ITOM Visibility の Brazil 版ドキュメントでは、Cryptographic Asset Compliance、AI Agent Topology Mapping、Cloud License Estimator 等が Visibility 配下のアプリとして記載されている [出典](https://www.servicenow.com/docs/r/it-operations-management/itom-visibility/itom-visibility-landing-page.html)。
 
 Brazil に伴うエディション構成そのもの（どの機能がどのティアに属するか）の変更は、2026-11-02 時点で **公開情報では確認できず**。
@@ -688,7 +699,7 @@ Brazil に伴うエディション構成そのもの（どの機能がどのテ�
 - ティアごとの assist 割当数量、assist の超過単価
 - Moveworks 機能のティア別の分割
 - IRM、SPM の新ティア（Foundation / Advanced / Prime）別の機能構成
-- SAM Advanced と SAM Prime の機能境界、HAM の新ティア構成の全体像
+- SAM Advanced と SAM Prime の機能境界、HAM 各ティア（Foundation / Advanced / Prime）の機能境界
 - HRSD 新ティアの公式比較表の全行（価格ページは直接取得できず、検索結果の抜粋のみ）
 - 旧 ITSM・HRSD・SecOps・IRM・SPM の公式価格ページの比較表（アーカイブ未収録または取得不可）
 - 新体系での ITOM Subscription Unit の換算比率
@@ -706,11 +717,16 @@ Brazil に伴うエディション構成そのもの（どの機能がどのテ�
 - App Engine 価格ページ: https://www.servicenow.com/products/now-platform-app-engine/pricing.html （検索結果の抜粋のみ）
 - ServiceNow product tiers（Brazil）: https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/ai-native-sku-overview.html
 - プレスリリース（2026-04-09）: https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-moves-beyond-the-sidecar-AI-era-giving-customers-a-complete-AI-native-experience-across-all-products-and-packages/default.aspx
+- プレスリリース（2026-05-05、ServiceNow Otto）: https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-Otto-creates-the-unified-AI-experience-for-the-enterprise/default.aspx
 - Now Assist suite Store リリースノート（2026-07-09）: https://www.servicenow.com/docs/r/store-release-notes/na-suite-rn-2026-07-09.html
 - Now Assist for ITSM Store リリースノート: https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-now-assist.html
 - ITOM Visibility（Brazil）: https://www.servicenow.com/docs/r/it-operations-management/itom-visibility/itom-visibility-landing-page.html
 - Subscriptions for IT Operations Management（Zurich）: https://www.servicenow.com/docs/r/guxhDnVk8OUAJKLm7WZsYA/8XAnPqUIHAXKSJUAjYY0Mw
 - カスタムテーブルのサブスクリプション割当: https://www.servicenow.com/docs/r/platform-administration/allocating-custom-tables-subscr-apps-v2.html
+- Hardware Asset Management licensing（Australia）: https://www.servicenow.com/docs/r/xUi4EDRoQXDqROOshinXwQ/uCno_JMAfN4aeh_edNjfCg
+- App Engine - Prime リリースノート: https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/a_EYDYFki7jMi9g11U1kDQ
+- ServiceNow Store（App Engine - Prime）: https://appstoreprod.service-now.com/store/app/cd00c4db47cc03103d01112a636d43e2
+- IRM 製品ページ: https://www.servicenow.com/products/integrated-risk-management.html （直接取得不可、検索結果の抜粋のみ）
 - GRC: Continuous Authorization and Monitoring Advanced リリースノート: https://www.servicenow.com/docs/r/store-release-notes/store-grc-rn-continuous-authorization-monitoring-advanced.html
 
 ServiceNow Community
@@ -734,11 +750,13 @@ ServiceNow Community
 - Advanced Risk Professional の制限: https://www.servicenow.com/community/grc-forum/what-is-limited-in-advanced-risk-professional/td-p/1324339/page/2
 - CAM 紹介: https://www.servicenow.com/community/grc-articles/introduction-to-continuous-authorization-and-monitoring-cam/ta-p/3563558
 - ITSM の資産管理機能: https://www.servicenow.com/community/ham-forum/i-am-looking-for-asset-management-features-that-comes-with-itsm/m-p/2948069
+- Threat Intelligence Security Center の価値（ライセンス言及）: https://www.servicenow.com/community/secops-articles/understand-threat-intelligence-security-center-s-value-to-your/ta-p/2962991
 - Security Operations Vancouver: https://www.servicenow.com/community/secops-blog/what-s-new-in-security-operations-vancouver-release/bc-p/2722602
 - CSM Quebec: https://www.servicenow.com/community/csm-blog/what-s-new-in-customer-service-management-in-the-quebec-release/ba-p/2292161
 
 第三者情報
 - Fujitsu G-Cloud ServiceNow Product Pricing（2026-01-29）: https://assets.applytosupply.digitalmarketplace.service.gov.uk/g-cloud-15/documents/92271/205111268855265-pricing-document-2026-01-29-1405.pdf
+- G-Cloud 14 ServiceNow 価格資料（2025-06-30、App Engine Starter 25 / 50 の記述）: https://assets.applytosupply.digitalmarketplace.service.gov.uk/g-cloud-14/documents/92465/204661809116859-pricing-document-2025-06-30-1349.pdf
 - Constellation Research（2023-09-20）: https://www.constellationr.com/insights/news/servicenow-launches-now-assist-across-now-platform-pricing-bundles
 - Redress Compliance（2026 tiers）: https://redresscompliance.com/servicenow-2026-pricing-tiers-pillar
 - Redress Compliance（Foundation / Advanced / Prime compared）: https://redresscompliance.com/servicenow-foundation-advanced-prime-compared
@@ -749,6 +767,8 @@ ServiceNow Community
 - Now Advisory（license tiers）: https://nownegotiations.pages.dev/servicenow-license-tiers
 - Echelon AI: https://echelonai.com/blog/7-questions-to-ask-before-you-renew-servicenow
 - SoftwareReviews（Info-Tech）: https://www.softwarereviews.com/vendor-technology-notes/servicenow-bundles-ai-into-every-product-and-bets-that-context-is-the-missing-piece
+- Redress Compliance（SecOps licensing guide）: https://redresscompliance.com/servicenow-secops-licensing-guide
+- FitGap（ServiceNow CSM）: https://us.fitgap.com/products/servicenow-customer-service-management
 - Macha（CSM AI）: https://www.getmacha.com/blog/servicenow-csm-ai-implementation
 - CANCOM ITSM 概要: https://www.cancom.at/_asset/adabcd61-b525-41da-be61-b6dd9e35aed4
 - project-management.com（SPM review）: https://project-management.com/servicenow-itbm-review/

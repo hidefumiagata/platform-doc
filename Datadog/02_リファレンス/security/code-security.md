@@ -1165,7 +1165,7 @@ Software Catalog の詳細は [Software Catalog](../platform/software-catalog.md
 
 [出典](https://docs.datadoghq.com/security/code_security/) [出典](https://docs.datadoghq.com/security/automation_pipelines/) [出典](https://docs.datadoghq.com/getting_started/code_security/)
 
-Case Management は [Case Management](../service-management/case-management.md)、インシデントは [Incident Management](../service-management/incident-management.md)、セキュリティ運用の実践は [セキュリティ運用の実践](../../04_応用編/security-operations-practices.md) を参照。
+Case Management は [Case Management](../service-management/case-management.md)、インシデントは [Incident Management](../service-management/incident-management.md)、セキュリティ運用の実践は [セキュリティ運用の実践](../../04_応用編/11-security-operations-practices.md) を参照。
 
 ---
 
@@ -1212,7 +1212,7 @@ Case Management は [Case Management](../service-management/case-management.md)�
 
 ## 課金への影響
 
-Code Security の公式定価（2026-11-02 時点、USD / 月、[料金リスト](https://www.datadoghq.com/pricing/list/) 掲載値）は次のとおり。料金の正本は [製品別料金表 §10.3](../../03_導入編/pricing-by-product.md#103-code-security)。
+Code Security の公式定価（2026-11-02 時点、USD / 月、[料金リスト](https://www.datadoghq.com/pricing/list/) 掲載値）は次のとおり。料金の正本は [製品別料金表 §10.3](../../03_導入編/02-pricing-by-product.md#103-code-security)。
 
 | 製品 | 課金単位 | US/EU1 年契約 | US/EU1 月契約 | US/EU1 オンデマンド | AP1 年契約 | AP1 月契約 | AP1 オンデマンド |
 |---|---|---|---|---|---|---|---|
@@ -1227,9 +1227,9 @@ Code Security の公式定価（2026-11-02 時点、USD / 月、[料金リスト
 | Code Security Flex Bundle (Secrets) | committer | $48 | $58 | $70 | $60 | $72.50 | $87.50 |
 | Code Security Advanced Bundle | committer | $55 | $66 | $80 | $68.75 | $82.50 | $100 |
 
-[出典](https://www.datadoghq.com/pricing/list/) [出典](https://www.datadoghq.com/pricing/?product=code-security)（取得日 2026-11-02。AP1 列は [製品別料金表 §10.3](../../03_導入編/pricing-by-product.md#103-code-security) の掲載値、取得日 2026-11-03）
+[出典](https://www.datadoghq.com/pricing/list/) [出典](https://www.datadoghq.com/pricing/?product=code-security)（取得日 2026-11-02。AP1 列は [製品別料金表 §10.3](../../03_導入編/02-pricing-by-product.md#103-code-security) の掲載値、取得日 2026-11-03）
 
-> **サイト差異:** 料金ページは Datadog Site の選択で価格が切り替わる。AP1（日本）の価格は US/EU1 とは別建てで、上表の AP1 列のとおり US/EU1 より高い（例：SAST 年契約 US/EU1 $25 に対し AP1 $31.25）。AP2・UK1 の価格は [製品別料金表 §18](../../03_導入編/pricing-by-product.md#18-サイト別価格一覧付録と-us1-fed-の非提供製品) を参照。US1-FED では提供されていない。
+> **サイト差異:** 料金ページは Datadog Site の選択で価格が切り替わる。AP1（日本）の価格は US/EU1 とは別建てで、上表の AP1 列のとおり US/EU1 より高い（例：SAST 年契約 US/EU1 $25 に対し AP1 $31.25）。AP2・UK1 の価格は [製品別料金表 §18](../../03_導入編/02-pricing-by-product.md#18-サイト別価格一覧付録と-us1-fed-の非提供製品) を参照。US1-FED では提供されていない。
 
 | 論点 | 内容 |
 |---|---|
@@ -1245,7 +1245,7 @@ Code Security の公式定価（2026-11-02 時点、USD / 月、[料金リスト
 
 [出典](https://www.datadoghq.com/pricing/?product=code-security) [出典](https://docs.datadoghq.com/account_management/billing/pricing/) [出典](https://docs.datadoghq.com/security/code_security/iast/setup/) [出典](https://docs.datadoghq.com/security/code_security/software_composition_analysis/setup_runtime/)
 
-課金計算の仕組みは [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、見積りは [コスト見積り手法](../../03_導入編/cost-estimation.md)、使用量の確認は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md) を参照。
+課金計算の仕組みは [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、見積りは [コスト見積り手法](../../03_導入編/05-cost-estimation.md)、使用量の確認は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md) を参照。
 
 ---
 
@@ -1260,9 +1260,9 @@ Code Security の公式定価（2026-11-02 時点、USD / 月、[料金リスト
 - [DORA Metrics・Quality Gates・Code Coverage](../software-delivery/software-delivery-insights.md)
 - [Software Catalog](../platform/software-catalog.md)
 - [API とキー管理](../platform/api-and-keys.md)
-- [製品別料金表](../../03_導入編/pricing-by-product.md)
-- [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md)
-- [セキュリティ運用の実践](../../04_応用編/security-operations-practices.md)
+- [製品別料金表](../../03_導入編/02-pricing-by-product.md)
+- [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md)
+- [セキュリティ運用の実践](../../04_応用編/11-security-operations-practices.md)
 
 ## 参照元
 

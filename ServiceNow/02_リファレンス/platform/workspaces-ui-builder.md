@@ -37,6 +37,8 @@ sources:
   - https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/fFNgdbVDDJ7rIDPamwLwiA
   - https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/zDIhLoz1_0AXTfdPdmzZLQ
   - https://www.servicenow.com/docs/r/release-notes/configurable-workspace-rn.html
+  - https://www.servicenow.com/docs/r/yokohama/delta-vancouver-washingtondc/washingtondc-vancouver-agentexperienceforcsm-release-notes.html
+  - https://www.servicenow.com/docs/r/yokohama/delta-vancouver-xanadu/xanadu-vancouver-agentexperienceforcsm-release-notes.html
   - https://www.servicenow.com/docs/r/release-notes/service-operations-workspace-itsm-rn.html
   - https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-migration-utility-sow.html
   - https://www.servicenow.com/community/next-experience-articles/workspace-getting-started-faqs/ta-p/2331982
@@ -136,8 +138,8 @@ flowchart TB
 
 Configurable Workspace は「ServiceNow AI Platform が提供するワークスペース App shell」であり、ServiceNow はこれを基盤に、特定のユーザー・課題を対象とした**製品別のビルド済み Configurable Workspace**（例: Service Operations Workspace、CSM Configurable Workspace）を提供している。管理者は UI Builder を使って、ゼロから Configurable Workspace の Experience を作るか、ビルド済みワークスペースを自社のワークフロー・ブランド・データに合わせて変更する。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/learn-about-agent-workspace.html)
 
-- Configurable Workspace は ServiceNow AI Platform の機能で、**既定で有効（active by default）**。[出典](https://www.servicenow.com/docs/r/release-notes/configurable-workspace-rn.html)
-- ブラウザ要件: **モバイルデバイス、Internet Explorer、旧 Microsoft Edge（Legacy）は非対応**。Chromium ベースの Edge 等を使用する。[出典](https://www.servicenow.com/docs/r/release-notes/configurable-workspace-rn.html)
+- Configurable Workspace は ServiceNow AI Platform の機能で、**既定で有効（active by default）**（Zurich・Australia とも同記載）。[出典（Zurich→Australia 統合 RN、Activation information）](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/zDIhLoz1_0AXTfdPdmzZLQ)
+- ブラウザ要件: **モバイルデバイス、Internet Explorer、旧 Microsoft Edge（Legacy）は非対応**。Chromium ベースのブラウザや最新の Microsoft Edge 等を使用する（Zurich・Australia とも同記載）。[出典（Zurich→Australia 統合 RN、Browser requirements）](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/zDIhLoz1_0AXTfdPdmzZLQ)
 - Configurable Workspace は Platform UI（Core UI）と完全な機能パリティを持つことを目的としておらず、一部のリスト・フォーム操作は同等だが、設計思想として別の体験を提供する。[出典（Community FAQ）](https://www.servicenow.com/community/next-experience-articles/workspace-getting-started-faqs/ta-p/2331982)
 
 ### 2.2 構成要素（Parts within a Configurable Workspace）
@@ -268,7 +270,7 @@ Declarative actions（宣言型アクション）は、Configurable Workspace �
 
 ### 3.2 アクションの種類とナビゲーション
 
-アプリケーションナビゲーターで「Declarative actions」を検索すると表示されるモジュール（**All > Now Experience Framework > Declarative Actions** 配下）。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/declarative-actions-landing.html)
+アプリケーションナビゲーターで「Declarative actions」を検索すると表示されるモジュール。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/declarative-actions-landing.html) 【経験則】メニュー上は **All > Now Experience Framework > Declarative Actions** 配下に並ぶ。
 
 | モジュール | 説明 |
 |---|---|
@@ -282,7 +284,7 @@ Declarative actions（宣言型アクション）は、Configurable Workspace �
 | Related List Actions | 関連リスト上部のアクションバーに表示されるアクション |
 | List Action Groups | 複数リストアクションを split button にまとめる |
 | Field Decorators | フィールド内にアイコンとして表示されるアクション。**単一行文字列フィールドのみ対応**（複数行は非対応） |
-| Attachment Actions | 添付ファイルに対するアクション |
+| Attachment Actions | フォームアクション内に表示されるアクション（添付ファイル関連）を定義する |
 
 ### 3.3 共通フィールドと実装方式（Implemented as）
 
@@ -382,7 +384,7 @@ ServiceNow Community の宣言型アクション入門記事（Tokyo 以降未�
 
 ### 5.1 概要
 
-Service Operations Workspace（SOW）は、複数の IT Service Management（ITSM）および IT Operations Management（ITOM）ワークフローに統合された体験を提供する Configurable Workspace である。ITSM 向けの **Service Operations Workspace for ITSM** と ITOM 向けの **Service Operations Workspace for ITOM** があり、統合することでサービスと運用を1つのプラットフォームで扱える。旧 **ITSM Agent Workspace** の後継である。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/service-operations-workspace/explore-sow.html)
+Service Operations Workspace（SOW）は、複数の IT Service Management（ITSM）および IT Operations Management（ITOM）ワークフローに統合された体験を提供する Configurable Workspace である。ITSM 向けの **Service Operations Workspace for ITSM** と ITOM 向けの **Service Operations Workspace for ITOM** があり、統合することでサービスと運用を1つのプラットフォームで扱える。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/service-operations-workspace/explore-sow.html) 旧 **ITSM Agent Workspace** の後継であり、移行ユーティリティで共通のカスタマイズや構成を移行できる。[出典（移行ガイド）](https://www.servicenow.com/docs/r/australia/it-service-management/service-operations-workspace/migration-from-itsm-aw-sow.html)
 
 - SOW は San Diego でリリースされ、ITSM Agent Workspace とフルパリティとされた（Problem Management の一部機能はワークスペース外）。[出典（Community FAQ）](https://www.servicenow.com/community/next-experience-articles/workspace-getting-started-faqs/ta-p/2331982)
 - SOW for ITSM は Australia で**既定で有効**、Australia の既定バージョンは **9.0**。ServiceNow Store で配布され、旧リリースからのアップグレード時に 9.0 が自動インストールされる。[出典（SOW for ITSM リリースノート Australia）](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/WR7g~P9UDo0UEa48SL6vdQ)
@@ -723,7 +725,7 @@ Workspace Builder のドキュメントでは、**ワークスペースの既定
 
 Audience は「誰がページを見られるか」を定義する。一般にロールとドメインに基づく許可／拒否リストで構成され、**Role、Group、User、Company、Department、Location、Script** を対象にできる。[出典](https://www.servicenow.com/docs/r/australia/application-development/ui-builder/add-audiences.html)
 
-- Role 以外（Department、Group、Location、Company）でアクセスを構成するには、システムプロパティ **`glide.ux.user_criteria_enabled` = true** が必要。
+- Role、Department、Group、Location、Company に基づくアクセスを構成するには、システムプロパティ **`glide.ux.user_criteria_enabled` = true** が必要（公式ページの記載）。
 - Audience レコードの **Order** は小さいほど優先度が高い。**Active** チェックボックスが必要。
 - 必要な Audience が一覧にない場合は **Open audiences in platform** からプラットフォーム側で作成する。
 
@@ -926,7 +928,7 @@ Zurich で導入され、Australia リリースノートでも「Changes」と�
 | Build pages with Now Assist | Zurich（28.2、2025-12） | コンポーネント追加、データバインド、レイアウト調整、ページインサイト（コンポーネント数、データリソース情報、アクセス権限） |
 | AI on pages | Zurich GA | 任意のページ・コンポーネント・コントローラーに生成 AI 機能を追加（Now Assist skills をページに追加） |
 | Floating Now Assist panel | Zurich（28.2） | 固定パネルからドラッグ可能なフローティングパネルへ |
-| UI Builder Agent | Zurich 以降 | AI Agent Studio で事前構成済みのエージェント。UI Builder の機能説明、ページ構成の把握（例: 動的テーマ・クライアントスクリプトの有無）、ページ構成の加速（レイアウト変更、ボタン追加、背景色変更） |
+| UI Builder Agent | 公開情報では明確に確認できず（UI Builder Agent ページに導入リリースの記載なし。前提の UI Generation は Zurich 版以降が必要。Zurich UIB RN の 2025-12 項に「UI Builder の Now Assist パネルでページを構築」とあり、リンク先が UI Builder Agent の利用ページ） | AI Agent Studio で事前構成済みのエージェント。UI Builder の機能説明、ページ構成の把握（例: 動的テーマ・クライアントスクリプトの有無）、ページ構成の加速（レイアウト変更、ボタン追加、背景色変更） |
 | AI-Generated experience | Brazil 版ドキュメントで確認 | 自然言語の説明から Home（ランディング）・List・Record の3ページからなる接続済み Experience を生成 |
 
 [出典（Zurich UIB RN）](https://www.servicenow.com/docs/r/zurich/release-notes/ui-builder-rn.html) [出典（UI Builder Agent）](https://www.servicenow.com/docs/r/australia/application-development/ui-builder/uib-builder-agent-concept.html)
@@ -969,7 +971,7 @@ ServiceNow Fluent の Workspace API ドキュメントは、ワークスペー�
 
 ### 8.2 テーブル間の関係
 
-`【第三者情報】` 第三者ブログ（UI Builder Tips #1: The Tables Behind UI Builder）は次のように整理している: UX Application（`sys_ux_page_registry`）がワークスペースのランディングパスを指定し、ワークスペース内のルートと画面を束ねる。UX App Route（`sys_ux_app_route`）はワークスペース内の1ルートで、必須パラメータ（fields）と任意パラメータを保持する。UX Screen（`sys_ux_screen`）はバリアントと同じもので、Screen collection（ルートを持つ）、表示条件、バリアント内容の Macroponent 定義を結び付ける。[出典](https://hashnode-hub.vercel.app/posts/66c667c8c512f0c5fdeeb478)
+`【第三者情報】` 第三者ブログ（UI Builder Tips #1: The Tables Behind UI Builder）は次のように整理している: UX Application（`sys_ux_page_registry`）がワークスペースのランディングパスを指定し、ワークスペース内のルートと画面を束ねる。UX App Route（`sys_ux_app_route`）はワークスペース内の1ルートで、必須パラメータ（fields）と任意パラメータを保持する。UX Screen（`sys_ux_screen`）はバリアントと同じもので、Screen collection（ルートを持つ）、表示条件、バリアント内容の Macroponent 定義を結び付ける。[出典（Reece Poulsen、2024-08）](https://hashnode.com/posts/the-tables-behind-ui-builder/66c667c8c512f0c5fdeeb478)
 
 公式ドキュメントでも「UI Builder のページは画面レコード（`sys_ux_screen`）に支えられ、それがページ定義（Macroponent レコード）を参照する」と明記されている。[出典](https://www.servicenow.com/docs/r/australia/application-development/ui-builder/resolve-missing-page-definition.html)
 
@@ -1036,9 +1038,9 @@ App Engine Studio でのワークスペース作成はライセンス上の考�
 |---|---|---|---|
 | ITSM Agent Workspace | **Deprecated、ServiceNow のサポート対象外**（「ITSM Agent Workspace is deprecated, and is no longer supported by ServiceNow.」。2024 年の Migration Utility 2.0.x リリースノートで明記） | Service Operations Workspace for ITSM | [Store RN](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-migration-utility-sow.html)、[Community ブログ](https://www.servicenow.com/community/itsm-blog/migration-utility-for-service-operations-workspace/ba-p/3107862) |
 | HR Service Delivery Agent Workspace (Classic) | **Deprecated、サポート対象外、新規有効化不可**（Yokohama 版ドキュメント） | Agent Workspace for HR Case Management (Configurable) | [HRSD Classic](https://www.servicenow.com/docs/r/H8yQl2SqBqnT6LbpTm28UQ/lLQ63ymGP6rTFRk2AgckwA) |
-| CSM Agent Workspace | Xanadu 版「Changes to plugins」ページで Washington DC にて deprecated とされている旨を検索結果上で確認（ページ本文は未精査） | CSM Configurable Workspace | [Changes to plugins（Xanadu）](https://docs.servicenow.com/bundle/kingston-release-notes/page/administer/plugins/reference/plugin-changes.html) |
+| CSM Agent Workspace | **Washington DC で deprecated（サポート対象外、新規有効化不可）**。**Xanadu 以降は deploy・機能強化・サポートのいずれも対象外**（「Starting with the Xanadu release, CSM Agent Workspace is no longer deployed, enhanced, or supported.」） | CSM Configurable Workspace | [CSM RN（Vancouver→Washington DC）](https://www.servicenow.com/docs/r/yokohama/delta-vancouver-washingtondc/washingtondc-vancouver-agentexperienceforcsm-release-notes.html)、[CSM RN（Vancouver→Xanadu）](https://www.servicenow.com/docs/r/yokohama/delta-vancouver-xanadu/xanadu-vancouver-agentexperienceforcsm-release-notes.html) |
 
-ServiceNow の非推奨プロセスは Now Support の **KB0867184「Deprecation Process」** に定義されている。一般に deprecated となったアプリ／プラグインは、インスタンス上で有効のまま残るが、機能強化・修正・サポートの対象外となる（`【第三者情報】` Community 投稿での KB 引用に基づく）。[出典](https://www.servicenow.com/community/service-operations-workspace/will-the-itsm-agent-workspace-still-be-available-after-dec-24/m-p/3123349)
+ServiceNow の非推奨プロセスは Now Support の **KB0867184「Deprecation Process」** に定義されている（公式 CSM リリースノートが非推奨の詳細参照先として KB0867184 を明記）。[出典](https://www.servicenow.com/docs/r/yokohama/delta-vancouver-xanadu/xanadu-vancouver-agentexperienceforcsm-release-notes.html) 一般に deprecated となったアプリ／プラグインは、インスタンス上で有効のまま残るが、機能強化・修正・サポートの対象外となる（`【第三者情報】` Community 投稿での KB 引用に基づく）。[出典](https://www.servicenow.com/community/service-operations-workspace/will-the-itsm-agent-workspace-still-be-available-after-dec-24/m-p/3123349)
 
 ### 10.3 ITSM Agent Workspace → SOW 移行（Migration Utility）
 
@@ -1077,7 +1079,7 @@ ServiceNow の非推奨プロセスは Now Support の **KB0867184「Deprecation
 
 - Core UI のカスタマイズを**そのまま持ち込む（lift and shift）べきではない**。プロセスを OOTB 機能と比較し、エージェントの実際の働き方に合わせて再構成する。[出典（Community FAQ）](https://www.servicenow.com/community/next-experience-articles/workspace-getting-started-faqs/ta-p/2331982)
 - Agent Workspace や Quebec より前に作成したカスタムワークスペースには移行ツール／移行パスがない（FAQ 執筆時点。ITSM については後に Migration Utility が提供された）。Legacy UI Builder のページは新 UI Builder で作り直しが必要。[出典（Community FAQ）](https://www.servicenow.com/community/next-experience-articles/workspace-getting-started-faqs/ta-p/2331982)
-- ワークスペースのカスタマイズは、OOTB ページのオーナーシップを取るより、**バリアントの追加、宣言型アクション、UI interaction** で拡張する方がアップグレード影響を抑えられる（3.1、7.11 参照）。技術的負債の観点は [カスタマイズと技術的負債](../../04_応用編/02-customization-technical-debt.md) を参照。
+- ワークスペースのカスタマイズは、OOTB ページのオーナーシップを取るより、**バリアントの追加、宣言型アクション、UI interaction** で拡張する方がアップグレード影響を抑えられる（3.1、7.11 参照）。技術的負債の観点は [カスタマイズと技術的負債](../../04_応用編/02-customization-technical-debt.md)、アップグレード時の教訓は [アップグレードの教訓](../../04_応用編/04-upgrade-lessons.md) を参照。
 
 ### 10.5 UI16（Core UI）との関係
 
@@ -1143,6 +1145,7 @@ ServiceNow の非推奨プロセスは Now Support の **KB0867184「Deprecation
 - UI Builder の正式な URL（`/now/builder/ui`）、旧 Agent Workspace の URL（`/now/workspace/agent`）、SOW の URL（`/now/sow/home`）を明記した公式ページは今回確認できず（いずれも【経験則】として記載）。
 - `sys_ux_app_route` と `sys_ux_screen_type` の厳密な参照関係、`sys_ux_data_broker` 系テーブルの全サブテーブル一覧とフィールド定義は公開情報では確認できず。
 - ITSM Agent Workspace 等の旧 Agent Workspace プラグインの最終的な削除（removal）時期は公開情報では確認できず。
+- UI Builder Agent の導入リリースは公開情報では明確に確認できず（Australia 版 UI Builder Agent ページには記載がなく、前提プラグイン UI Generation（`sn_ui_generation`）に「Zurich version or later」が必要とあるのみ）。
 - AI-Generated experience が Australia で利用可能かどうかは公開情報では明確に確認できず（Brazil 版ドキュメントで確認）。
 - 公式「List of workspaces」以外を含むワークスペースの総数・完全な一覧は公開情報では確認できず。
 
@@ -1232,7 +1235,8 @@ ServiceNow の非推奨プロセスは Now Support の **KB0867184「Deprecation
 - Migration Utility for SOW release notes（Store）: https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-migration-utility-sow.html
 - Deprecation information（Australia）: https://www.servicenow.com/docs/r/australia/release-notes/rn-summary-deprecated-info.html
 - HR Service Delivery Agent Workspace (Classic): https://www.servicenow.com/docs/r/H8yQl2SqBqnT6LbpTm28UQ/lLQ63ymGP6rTFRk2AgckwA
-- Changes to plugins（Xanadu）: https://docs.servicenow.com/bundle/kingston-release-notes/page/administer/plugins/reference/plugin-changes.html
+- Combined Agent experience for CSM release notes for upgrades from Vancouver to Washington DC: https://www.servicenow.com/docs/r/yokohama/delta-vancouver-washingtondc/washingtondc-vancouver-agentexperienceforcsm-release-notes.html
+- Combined Agent experience for CSM release notes for upgrades from Vancouver to Xanadu: https://www.servicenow.com/docs/r/yokohama/delta-vancouver-xanadu/xanadu-vancouver-agentexperienceforcsm-release-notes.html
 
 ### ServiceNow Community
 
@@ -1246,4 +1250,4 @@ ServiceNow の非推奨プロセスは Now Support の **KB0867184「Deprecation
 
 ### 第三者情報
 
-- UI Builder Tips #1: The Tables Behind UI Builder: https://hashnode-hub.vercel.app/posts/66c667c8c512f0c5fdeeb478
+- UI Builder Tips #1: The Tables Behind UI Builder（Reece Poulsen、2024-08-21）: https://hashnode.com/posts/the-tables-behind-ui-builder/66c667c8c512f0c5fdeeb478

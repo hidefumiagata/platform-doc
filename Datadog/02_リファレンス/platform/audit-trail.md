@@ -74,9 +74,9 @@ Datadog のツールとポリシーは PCI v4.0 に準拠している。[出典]
 | ログのアーカイブ・転送（Audit Trail とは別設定） | [Indexes・保持・アーカイブ](../logs/log-indexes-retention-archives.md) |
 | サイトごとの差異 | [Datadog Sites（サイト）](./datadog-sites.md) |
 | 使用量の確認 | [Usage・Usage Attribution・Cost Visibility](./usage-and-cost-attribution.md) |
-| コンプライアンス設計 | [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md) |
-| 料金の正本 | [製品別料金表](../../03_導入編/pricing-by-product.md) |
-| マルチ org 運用 | [大規模・マルチorg運用](../../04_応用編/large-scale-and-multi-org.md) |
+| コンプライアンス設計 | [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md) |
+| 料金の正本 | [製品別料金表](../../03_導入編/02-pricing-by-product.md) |
+| マルチ org 運用 | [大規模・マルチorg運用](../../04_応用編/15-large-scale-and-multi-org.md) |
 
 ## データフロー
 
@@ -1289,7 +1289,7 @@ Datadog の Usage Metering API には、Audit Trail に関する次のフィー�
 
 ## 課金への影響
 
-Datadog Audit Trail の課金単位は、公式料金ページで **「Per % of spend, per month」**（月ごとの支出に対する %）である。料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。
+Datadog Audit Trail の課金単位は、公式料金ページで **「Per % of spend, per month」**（月ごとの支出に対する %）である。料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)。
 
 | 契約形態 | 料金（2026-11-02 時点、公式定価） |
 |---|---|
@@ -1307,7 +1307,7 @@ Datadog Audit Trail の課金単位は、公式料金ページで **「Per % of 
 - **アーカイブ**: アーカイブ先（S3 / GCS / Azure Storage）のストレージ料金とリクエスト料金は、クラウド事業者から別途請求される【経験則】。
 - **使用量の確認**: Audit Trail Settings 画面の **View Usage History**、Usage Metering API の `audit_trail_enabled_hwm`、`audit_trail_event_forwarding_events_sum` で確認できる。[出典](https://docs.datadoghq.com/api/latest/usage-metering/)
 - 公式ブログには 14 日間の無償トライアルの案内がある。[出典](https://www.datadoghq.com/blog/compliance-governance-transparency-with-datadog-audit-trail/)（2022-06-09 公開。現行の条件は要確認）
-- Audit Trail が監査する設定（ログ Index の保持期間、Exclusion Filter、APM Retention Filter、カスタムメトリクスなど）は他製品の課金に直結する。これらは Notable Events として抽出できる。コスト管理の観点は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) と [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+- Audit Trail が監査する設定（ログ Index の保持期間、Exclusion Filter、APM Retention Filter、カスタムメトリクスなど）は他製品の課金に直結する。これらは Notable Events として抽出できる。コスト管理の観点は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) と [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 > 補足: Usage Metering API に残る非推奨フィールド `audit_logs_lines_indexed_sum`（監査ログのインデックス行数）は、2024-10-01 に廃止予定と記載されている。現行の課金単位（% of spend）とは別のものである。[出典](https://docs.datadoghq.com/api/latest/usage-metering/)
 
@@ -1335,7 +1335,7 @@ Datadog Audit Trail の課金単位は、公式料金ページで **「Per % of 
 - **Audit Trail 自体の改ざん・無効化対策**: Audit Trail の無効化は `@asset.type:audit_trail_state @asset.new_value.enabled:false` のイベント（Cloud SIEM の「Datadog audit trail disabled」ルールと同じ条件）で検知できる [出典](https://docs.datadoghq.com/security/default_rules/def-000-atd/)。保持期間などの設定変更は `@asset.type:audit_logs_settings` で追う。`audit_logs_write` 権限は少数の管理者に限る【経験則】。
 - **閲覧権限の最小化**: 監査イベントには利用者のメールアドレス、送信元 IP、GeoIP などの個人に関わる情報が含まれる。`audit_logs_read` は監査・セキュリティ担当に限る【経験則】。
 - **AI エージェントの操作**: 人の行動を網羅して追うには、`@usr.id` だけでなく `@delegator.id` も検索に含める。サードパーティ製エージェントは区別されないため、専用のサービスアカウントとキーを割り当て、キー単位で追跡できるようにする【経験則】。
-- **マルチ org**: Audit Trail の設定（有効化・保持・アーカイブ・転送先）とイベントは org 単位である（Usage API も org 単位で `audit_trail_enabled_hwm` を返す）。子 org を作ったら、それぞれで設定が必要かを確認する。親 org から子 org のイベントをまとめて見られるかは公開情報では確認できず。運用は [大規模・マルチorg運用](../../04_応用編/large-scale-and-multi-org.md) を参照。
+- **マルチ org**: Audit Trail の設定（有効化・保持・アーカイブ・転送先）とイベントは org 単位である（Usage API も org 単位で `audit_trail_enabled_hwm` を返す）。子 org を作ったら、それぞれで設定が必要かを確認する。親 org から子 org のイベントをまとめて見られるかは公開情報では確認できず。運用は [大規模・マルチorg運用](../../04_応用編/15-large-scale-and-multi-org.md) を参照。
 - **データ削除との関係**: Datadog からのデータ削除の手順は公式の [Delete data from Datadog](https://docs.datadoghq.com/account_management/delete_data/) を参照。Audit Trail のドキュメントの Further Reading にもこのページへのリンクがある。
 
 ## 参照元

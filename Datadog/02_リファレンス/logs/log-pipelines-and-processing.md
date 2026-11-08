@@ -46,7 +46,7 @@ Datadog Log Management の **Log Pipelines（ログパイプライン）** は�
 | Log Explorer、Facets、検索構文、Calculated Fields（クエリ時パース）、Patterns、Live Tail | [ログ検索と分析](./log-search-and-analytics.md) |
 | 機密データのマスキング（Sensitive Data Scanner） | [Sensitive Data Scanner](../security/sensitive-data-scanner.md) |
 | OCSF 正規化・脅威インテリジェンスを使う Cloud SIEM 側の運用 | [Cloud SIEM](../security/cloud-siem.md) |
-| ログ運用のベストプラクティス | [ログ管理の実践](../../04_応用編/log-management-practices.md) |
+| ログ運用のベストプラクティス | [ログ管理の実践](../../04_応用編/06-log-management-practices.md) |
 
 ## 処理全体の流れ
 
@@ -1137,7 +1137,7 @@ Log Pipelines は Granular Access Control により、**ロール、個別ユー
 
 [出典](https://github.com/DataDog/terraform-provider-datadog/tree/master/docs/resources)
 
-Terraform 全般は [Terraform と IaC](../platform/terraform-and-iac.md)、運用方法は [Monitoring as Code](../../04_応用編/monitoring-as-code.md) を参照。
+Terraform 全般は [Terraform と IaC](../platform/terraform-and-iac.md)、運用方法は [Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) を参照。
 
 ## サイト差異
 
@@ -1217,14 +1217,14 @@ Log Management における Pipeline・Processor の処理は、**Ingest（取�
 |---|---|---|---|
 | Log Ingest（処理を含む） | 取り込みログ 1GB（非圧縮）/ 月 | $0.10 / $0.10 / $0.10 | $0.125 / $0.125 / $0.125 |
 
-> **サイト差異:** Log Ingest の単価はサイトで異なる。基準サイト AP1 では $0.125/GB、US/EU1 では $0.10/GB（いずれも年契約・月契約・オンデマンド共通、2026-11-02 時点。正本は [製品別料金表](../../03_導入編/pricing-by-product.md) §7.1）。
+> **サイト差異:** Log Ingest の単価はサイトで異なる。基準サイト AP1 では $0.125/GB、US/EU1 では $0.10/GB（いずれも年契約・月契約・オンデマンド共通、2026-11-02 時点。正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md) §7.1）。
 
 - **取り込み量は Pipeline 処理の前に計測される**ため、Exclude Attribute Processor で属性を削除しても Ingest 料金は減らない。[出典](https://docs.datadoghq.com/logs/log_configuration/processors/exclude_attribute_processor/)
 - Indexing（Standard Indexing / Flex Logs）はログイベント件数単位の課金であり、Pipeline で属性を増やしても件数は変わらない。Index・保持期間の課金は [Indexes・保持・アーカイブ](./log-indexes-retention-archives.md) を参照。
 - Pipeline で抽出した属性からカスタムメトリクスを生成する場合は、生成したメトリクスがカスタムメトリクスとして課金対象になりうる（[Custom Metrics と DogStatsD](../platform/custom-metrics-and-dogstatsd.md)）。
 - Tap to Parse は AI Credits を消費しない。[出典](https://docs.datadoghq.com/logs/log_configuration/processors/grok_parser/)
 - OCSF Processor・Threat Intel Processor の利用に Cloud SIEM 等の追加ライセンスが必要かは、Processor ドキュメント上では公開情報では確認できず。
-- 料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、計算方法は [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、最適化は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+- 料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、計算方法は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、最適化は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ## 設計・運用上の注意点
 
@@ -1242,7 +1242,7 @@ Log Management における Pipeline・Processor の処理は、**Ingest（取�
 | 10 | 命名規約は Standard Attributes を基準とし、チームごとの属性名の揺れは Remapper（Pipeline 内）か Aliasing（Pipeline 後）で吸収する。Remapper はソースを既定で削除、Aliasing はソースとデスティネーションの両方を保持する点が異なる。 | 公式仕様の比較 [出典](https://docs.datadoghq.com/logs/log_configuration/attributes_naming_convention/) |
 | 11 | パース不具合の調査は Pipeline Scanner（15 分セッション）と Preview pipeline changes を使い、どの Pipeline・Processor がログを変更したかを確認する。 | 公式機能 |
 
-運用面の詳細な知見は [ログ管理の実践](../../04_応用編/log-management-practices.md)、[よくある失敗とアンチパターン](../../04_応用編/common-pitfalls.md) を参照。
+運用面の詳細な知見は [ログ管理の実践](../../04_応用編/06-log-management-practices.md)、[よくある失敗とアンチパターン](../../04_応用編/12-common-pitfalls.md) を参照。
 
 ## 関連ファイル
 
@@ -1257,8 +1257,8 @@ Log Management における Pipeline・Processor の処理は、**Ingest（取�
 - [組織・ユーザー・権限管理](../platform/account-and-access-management.md)
 - [Terraform と IaC](../platform/terraform-and-iac.md)
 - [APM インスツルメンテーション](../apm/apm-instrumentation.md)
-- [製品別料金表](../../03_導入編/pricing-by-product.md)
-- [ログ管理の実践](../../04_応用編/log-management-practices.md)
+- [製品別料金表](../../03_導入編/02-pricing-by-product.md)
+- [ログ管理の実践](../../04_応用編/06-log-management-practices.md)
 
 ## 参照元
 

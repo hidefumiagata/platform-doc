@@ -16,6 +16,7 @@ sources:
   - https://www.servicenow.com/docs/r/australia/governance-risk-compliance/policy-and-compliance-management/r_InstallWPolAndCompl.html
   - https://www.servicenow.com/docs/r/australia/governance-risk-compliance/policy-and-compliance-management/pc-policy-life-cycle-ovrvw.html
   - https://www.servicenow.com/docs/r/australia/governance-risk-compliance/policy-and-compliance-management/c_Attestations.html
+  - https://www.servicenow.com/docs/r/store-release-notes/store-grc-rn-policy-compliance-mgmt.html
   - https://www.servicenow.com/docs/r/australia/governance-risk-compliance/grc-compliance-management-workspace/grc-unified-compliance-workspace.html
   - https://www.servicenow.com/docs/r/australia/governance-risk-compliance/grc-risk-management-workspace/grc-risk-overview.html
   - https://www.servicenow.com/docs/r/australia/governance-risk-compliance/grc-risk-management-workspace/r_RolesInstallWRisk.html
@@ -27,11 +28,13 @@ sources:
   - https://www.servicenow.com/docs/r/australia/governance-risk-compliance/grc-risk-management-workspace/risk-workspace.html
   - https://www.servicenow.com/docs/r/australia/governance-risk-compliance/audit-management/audit-management.html
   - https://www.servicenow.com/docs/r/australia/governance-risk-compliance/audit-management/r_InstallWAudit.html
+  - https://www.servicenow.com/docs/r/Z61H6JNUJXKe8NNPQzK7MQ/T5PmW5icm4oMGo_ERL22Wg
   - https://www.servicenow.com/docs/r/australia/governance-risk-compliance/third-party-risk-management/third-party-risk-mgt-landing-page.html
   - https://www.servicenow.com/docs/r/australia/governance-risk-compliance/third-party-risk-management/tprm-data-model.html
   - https://www.servicenow.com/docs/r/Z61H6JNUJXKe8NNPQzK7MQ/evCsII5xVZfz3HPLJm9YZw
   - https://www.servicenow.com/docs/r/australia/governance-risk-compliance/business-continuity-mangmt-overview.html
   - https://www.servicenow.com/docs/r/australia/governance-risk-compliance/installed-with-bcm.html
+  - https://www.servicenow.com/docs/r/australia/governance-risk-compliance/bcm-lite-operators.html
   - https://www.servicenow.com/docs/r/australia/governance-risk-compliance/states-ui-actions-bia.html
   - https://www.servicenow.com/docs/r/australia/governance-risk-compliance/states-ui-actions-bcp.html
   - https://www.servicenow.com/docs/r/australia/governance-risk-compliance/states-for-exercise-events.html
@@ -53,7 +56,10 @@ sources:
   - https://www.servicenow.com/docs/r/australia/governance-risk-compliance/ai-risk-management/ai-risk-and-compliance.html
   - https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/DAg5SzjeMgUttaoTijnUsg
   - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-auditmanagement-release-notes.html
+  - https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/vQOX74rVcSPaJhcdxsNkpA
   - https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-advancedrisk-release-notes.html
+  - https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/ZzG5DM1gCgijKVPQWiG0Tw
+  - https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/VQV2D~DTXlzikntcqa6pIQ
   - https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/PADcbuMmtmbRE3FizN2rRA
   - https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/bJ23iS2ITAUQJAVq9_PQ2w
   - https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/AJ_V7tdZPbHN3aS3QKsmvg
@@ -67,7 +73,7 @@ sources:
 
 ServiceNow **Integrated Risk Management（IRM、統合リスク管理）** は、ServiceNow AI Platform 上で動作するガバナンス・リスク・コンプライアンス（Governance, Risk, and Compliance：GRC）アプリケーション群の総称である。公式ドキュメントでは製品群を「Governance, Risk, and Compliance（GRC）」、ライセンス／製品名を「Integrated Risk Management（IRM）」と呼び分けることが多い。IRM は「継続的モニタリングと自動化により、リスクとコンプライアンスの状態をリアルタイムに可視化し、拡張企業（ベンダーを含む）全体の非効率なプロセスを統合リスクプログラムに変える」ことを目的とする。[出典](https://www.servicenow.com/docs/r/australia/governance-risk-compliance/r_WhatIsGRC.html)
 
-Australia リリースの GRC ドキュメントに掲載されるアプリケーションは以下のとおり。[出典](https://www.servicenow.com/docs/r/australia/governance-risk-compliance/r_WhatIsGRC.html)
+次の表は、Australia 版 GRC トップページ（r_WhatIsGRC.html）に載っている 12 アプリに、関連アプリ 2 つ（Model Risk Management、Operational Sustainability Management）を加えたものである。12 アプリの[出典](https://www.servicenow.com/docs/r/australia/governance-risk-compliance/r_WhatIsGRC.html)。関連アプリ 2 つはこのページに載っていないため、それぞれの行に個別の出典を付けた。
 
 | アプリケーション（英語正式名） | 日本語の目安 | 本ファイルでの扱い |
 |---|---|---|
@@ -82,9 +88,9 @@ Australia リリースの GRC ドキュメントに掲載されるアプリケ�
 | Smart Assessment Engine（SAE） | スマート評価エンジン | 共通基盤として概説 |
 | Compliance Case Management | コンプライアンスケース管理 | 概説 |
 | Continuous Authorization and Monitoring（CAM） | 継続的認可・監視（主に米国連邦 RMF 向け） | 概説 |
-| Model Risk Management | モデルリスク管理 | 概説 |
 | AI Risk and Compliance | AI リスク・コンプライアンス | 概説（[Now Assist と AI Agents](../platform/now-assist-ai-agents.md) も参照） |
-| ESG Management → Operational Sustainability Management | ESG／サステナビリティ管理 | 概説（詳細は [Finance・Supply Chain・その他](../other/finance-supply-chain-esg.md)） |
+| （関連）Model Risk Management | モデルリスク管理 | 概説。r_WhatIsGRC.html には載っていない。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/ZzG5DM1gCgijKVPQWiG0Tw) |
+| （関連）ESG Management → Operational Sustainability Management | ESG／サステナビリティ管理 | 概説（詳細は [Finance・Supply Chain・その他](../other/finance-supply-chain-esg.md)）。r_WhatIsGRC.html には載っていない。[出典](https://www.servicenow.com/docs/r/IeyvtzPk6NMGMe~ZDyPSJQ/yj70DSp9LQ4X9QXvRMzAGw) |
 
 IRM の各アプリは ServiceNow Store から配布される Store アプリケーションであり、利用にはエンタイトルメント（ライセンス）の確認後に Store からダウンロード・有効化する。リリースファミリー（Australia 等）とは独立にバージョン（例：22.x＝Australia 世代、23.x＝Brazil 世代）が更新される。[出典](https://www.servicenow.com/docs/r/australia/governance-risk-compliance/grc-and-store.html)
 
@@ -198,7 +204,7 @@ Australia の「Common GRC features」に列挙される主要な横断機能は
 | GRC notification redirection | 通知リンクを権限・ペルソナに応じてワークスペースまたはクラシック UI に振り分け（Australia の新機能） |
 | Anonymous Reporting Center（ARC） | 匿名でのコンプライアンス・プライバシー・AI 関連の懸念報告 |
 | Mobile experience | モバイルでのタスク・承認・通知 |
-| GRC licensing summary dashboard | ライセンス消費の可視化（後述 §11） |
+| GRC licensing summary dashboard | ライセンス消費の可視化（後述 §13.2） |
 | Microsoft Word ベースの監査レポート（Document designer） | 非技術者でも監査レポートテンプレートを構成可能 |
 
 ### 1.6 Issue（課題）と Issue workflows
@@ -228,12 +234,12 @@ IRM は製品ごとに Next Experience のワークスペースを提供し、�
 |---|---|---|
 | Compliance Workspace | Policy and Compliance、Regulatory Change Management、Compliance Case | ポリシー作成・赤入れ（redlining）、統制、指標、エビデンス要求、例外、Issue |
 | Risk Workspace | Risk Management、Advanced Risk | プラグイン「GRC: Risk Management workspace」（`com.sn_risk_workspace`）。13.0.5 で導入 |
-| Audit Workspace／Audit Supervisor Workspace | Audit Management | Lite Audit Workspace（`sn_audit.shared_*` ロール）もあり |
+| Audit Workspace／Audit Supervisor Workspace | Audit Management | 機能を絞った Lite Audit Workspace（Audit Workspace limited）もある（§4.2 参照） |
 | Vendor Management Workspace（GRC） | TPRM | `sn_vrm_ws`。ITSM 版 `sn_itsm_vendor` は Australia で非推奨 |
 | BCM Configurable Workspace／BCM Classic Workspace | BCM | UI Builder で構成可能 |
 | Privacy Workspace／PDR Workspace | Privacy Management、Personal Data Rights | |
 | CAM Workspace | Continuous Authorization and Monitoring | |
-| Model Risk Workspace | Model Risk Management | |
+| Model Risk workspace | Model Risk Management | 22.3.2 で、メールのリンクを Model Risk workspace または GRC Tasks ポータルに振り分けるようになった（[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/VQV2D~DTXlzikntcqa6pIQ)） |
 | AI Risk and Compliance workspace | AI Risk and Compliance | |
 
 [出典](https://www.servicenow.com/docs/r/australia/governance-risk-compliance/grc-risk-management-workspace/risk-workspace.html) [出典](https://www.servicenow.com/docs/r/australia/governance-risk-compliance/third-party-risk-management/third-party-risk-mgt-landing-page.html)
@@ -319,7 +325,11 @@ stateDiagram-v2
   Published --> Retired
   Retired --> Draft: 再開
   Draft --> [*]: Delete
+  AwaitingApproval --> [*]: Delete（Approver）
+  Published --> [*]: Delete
 ```
+
+- Delete は Draft、Awaiting approval（Approver が実行）、Published の各状態から実行できる。Review と Retired からの Delete は公式ページに記載がない。
 
 | 状態 | 主な作業 | 担当 |
 |---|---|---|
@@ -330,7 +340,7 @@ stateDiagram-v2
 | Retired（廃止） | ナレッジ記事を削除、レコードは監査目的で保持 | — |
 
 - 公開先ナレッジベースはプロパティ `sn_compliance.knowledge_base`（既定「Governance, Risk, and Compliance」）で指定。記事書式は Article Template で定義。
-- Store のリリースノートには「公開済みポリシーに新しい Valid to を設定すると Review に戻る」既知の問題が記載されている（AI 要約ページ。要確認）。[出典](https://www.servicenow.com/docs/r/store-release-notes/store-grc-rn-policy-compliance-mgmt.html)
+- 公開済みポリシーに新しい Valid to を設定すると Review 状態に戻ってしまう不具合があった。この不具合は GRC: Policy and Compliance Management 22.0.2（2026-03）で修正された（リリースノートの Fixed issues に記載）。[出典](https://www.servicenow.com/docs/r/store-release-notes/store-grc-rn-policy-compliance-mgmt.html)
 
 ### 2.5 Control（統制）の状態と Attestation（自己証明）
 
@@ -376,7 +386,7 @@ Compliance Workspace での主な作業：ポリシーの作成と赤入れ（Po
 ### 2.9 外部コンテンツ連携
 
 - **UCF（Unified Compliance Framework）Common Controls Hub** との連携で Authority Document と Citation を取り込み、フレームワーク間の共通統制を管理できる。[出典](https://www.servicenow.com/docs/r/australia/governance-risk-compliance/policy-and-compliance-management/r_PolicyComplianceMgmt.html)
-- **DORA（Digital Operational Resilience Act）フレームワーク** の有効化手順が Policy and Compliance 配下に用意されている（Operational Resilience §6 参照）。
+- **DORA（Digital Operational Resilience Act）フレームワーク** の有効化手順が Policy and Compliance 配下に用意されている（Operational Resilience（§7）参照）。
 
 ---
 
@@ -454,7 +464,7 @@ Advanced Risk Assessment はリスクライフサイクル（特定・分析・�
 
 ### 3.5 Risk のライフサイクル（Advanced Risk）
 
-バージョン 14.0 以降、Advanced Risk を有効にした Risk は以下 5 状態を持つ（それ以前は Active／Inactive のみ）。[出典](https://www.servicenow.com/docs/r/australia/governance-risk-compliance/grc-risk-management-workspace/risk-lifecycle-using-advanced-risk.html)
+バージョン 14.0 以降、Advanced Risk を有効にした Risk は以下 6 状態（Draft、Assess、Respond、Review、Monitor、Retired）を持つ（それ以前は Active／Inactive のみ）。[出典](https://www.servicenow.com/docs/r/australia/governance-risk-compliance/grc-risk-management-workspace/risk-lifecycle-using-advanced-risk.html)
 
 ```mermaid
 stateDiagram-v2
@@ -464,23 +474,35 @@ stateDiagram-v2
   Assess --> Respond: 評価完了・対応戦略あり
   Assess --> Monitor: 評価完了・対応戦略なし
   Assess --> Draft: Return to draft
+  Assess --> Review: 評価をレビューに提出（Attestation なしなら sn_risk.user も可）
+  Review --> Monitor: Monitor（sn_risk.manager のみ）
+  Review --> Respond: Respond（sn_risk.manager のみ）
+  Review --> Draft: Return to draft
   Respond --> Monitor: Risk Response タスク完了
-  Respond --> Assess: Assess
+  Respond --> Assess: Assess（進行中の対応タスクはキャンセル）
+  Respond --> Draft: Return to draft
   Monitor --> Assess: Assess（再評価）
-  Draft --> Retired
-  Assess --> Retired
-  Respond --> Retired
-  Monitor --> Retired
+  Monitor --> Draft: Return to draft
+  Draft --> Retired: Retire
+  Assess --> Retired: Retire
+  Respond --> Retired: Retire
+  Review --> Retired: Retire
+  Monitor --> Retired: Retire
   Retired --> Draft: Activate
 ```
+
+- Respond 状態から Assess を実行すると、進行中の Risk Response タスクはキャンセルされる。
+- 評価済みのリスクをレビューに提出できるのは、`sn_risk.user` の場合はそのリスクに Attestation がないときに限られる。Review から Monitor／Respond へ進める操作は `sn_risk.manager` に限られる。
+- 状態名は「Retired」、そこへ遷移する UI アクション名は「Retire」である（公式ページの状態一覧・状態表とも同じ使い分け）。
 
 | 状態 | 説明 | 主な UI アクション |
 |---|---|---|
 | Draft | 第 2 線が作成、または第 1 線が特定したリスクの識別・マッピング段階。Entity や主 RAM を変更すると主 RAM の最新評価に基づき状態更新 | Save、Assess、Monitor、Retire、Navigate to assessment scope、360 degree |
-| Assess | ARA を実施中 | Save、View assessment、Cancel assessment、Return to draft、Retire |
-| Respond | Risk Response タスクが進行中。完了で Monitor へ自動遷移 | Save、Assess、Retire、Return to draft |
-| Monitor | 評価済みリスクの監視 | Save、Assess、Retire、Return to draft |
-| Retired | 監査目的で保持（関連評価・対応も退役） | 360 degree、Activate（Draft へ） |
+| Assess | ARA を実施中 | Save、View assessment、Cancel assessment、Return to draft、Retire、Navigate to assessment scope、360 degree |
+| Respond | Risk Response タスクが進行中。完了で Monitor へ自動遷移。Assess で戻すと進行中の対応タスクはキャンセル | Save、Assess、Retire、Navigate to assessment scope、360 degree、Return to draft |
+| Review | 評価済みのリスクがレビューに提出され、レビュー待ちの状態 | Monitor（`sn_risk.manager`）、Respond（`sn_risk.manager`）、Return to draft、Retire |
+| Monitor | 評価済みで対応タスクが完了したリスクの監視。Metrics の KRI を実行できる | Save、Assess、Retire、Navigate to assessment scope、360 degree、Return to draft |
+| Retired | 監査目的で保持（関連評価・対応も退役） | 360 degree、Activate（Draft へ）、Navigate to assessment scope |
 
 ### 3.6 Risk Event（リスクイベント／損失事象）
 
@@ -500,7 +522,19 @@ Risk Workspace（プラグイン `com.sn_risk_workspace`）は、リスク評価
 
 Risk Workspace の主な操作：Risk Framework／Risk Statement 作成、Risk Statement と Control Objective の関連付け、Manual／Basic／Scripted Risk Indicator の作成と実行、Issue 管理、Assessment scope 作成、評価スケジュール、ARA 実施、任意オブジェクト評価、Risk Response タスク作成、Risk Identification ワークフロー、Risk Event の作成・分析、ビジネスプロセス作成、テストプラン作成、マトリクスレポート。[出典](https://www.servicenow.com/docs/r/australia/governance-risk-compliance/grc-risk-management-workspace/risk-workspace.html)
 
-> **Australia の変更（Advanced Risk）:** Australia ではリスク評価の精度・コラボレーション・ガバナンスに焦点を当て、AI によるリスク提案と Control Objective ワークフローが改良された。Patch 3 で Risk Workspace ホームの Tasks ウィジェットが性能改善のため削除された。[出典](https://www.servicenow.com/docs/r/release-notes/grc-advanced-risk-rn.html)
+> **Australia の変更（Advanced Risk）:** Australia で追加・変更された Advanced Risk の機能は次のとおり。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/vQOX74rVcSPaJhcdxsNkpA)
+>
+> - **Worst case aggregation rollup（22.3.2）:** 残余リスクが最も高い 1 件のリスクのスコアを集約スコアにする。
+> - **Not applicable の非表示（22.3.2）:** 統制評価・残余評価で Not applicable のチェックボックスを隠せる。RAM で設定する。
+> - **Risk Identification テンプレートの版管理（22.3.2）:** 既存のテンプレートから新しい版を作れる。
+> - **Risk Assessment Project の Audit entry フィールド（22.3.2）:** Audit Management と Audit Workspace が必要。
+> - **GRC 通知リンクのリダイレクト（22.3.2）:** ユーザーのロールに合ったワークスペースでリンクを開く。
+> - **Risk assessment project の並行レビューとフィードバック:** 既定で有効。
+> - **Risk Suggestion AI Agent の強化（Otto for IRM 22.x）:** 会話形式で操作でき、提案されたリスクを追加前に編集できる。
+> - **Risk event response template の強化（22.0.x）:** Entity に応じてオーナーと承認者を割り当てる。
+> - **Control Objective workflow（22.0.x）:** 下書きや承認中の変更は、承認されるまで有効な版に反映されない。
+> - **変更:** Risk event administrator に Risk Manager と同等の権限が付き、クローズ済みの Risk Event を再オープンできるようになった。
+> - **非推奨:** Australia ではなし。Risk Workspace ホームの Tasks ウィジェットは、ホームの読み込み性能を改善するため削除された（Zurich で削除）。
 >
 > **Brazil での変更:** Advanced Risk の Brazil 向け差分リリースノートでは、新機能・変更・非推奨はいずれも「No updates for this release」。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-advancedrisk-release-notes.html)
 
@@ -527,7 +561,7 @@ Audit Management は内部監査チームの業務を自動化し、リソース
 | External Auditor [`sn_audit.external_auditor`] | エンゲージメント監査人・監査タスクへのアサイン、クローズ済みエンゲージメントの参照。Policy and Compliance／Risk 導入時は公開ポリシー・Control・Monitor 状態の Risk を参照 | — |
 | Engagement Project Manager [`sn_audit_advanced.engagement_project_manager`] | 高度な計画立案（GRC: Advanced Audit が必要） | `sn_audit.manager`, `resource_manager`, `it_project_manager` |
 
-Lite Audit Workspace 用に `sn_audit.shared_admin`／`shared_manager`／`shared_user`／`shared_approver` もある。`【第三者情報】`（検索結果スニペットより。公式ページ本文の確認は未了）
+Lite Audit Workspace（Audit Workspace limited）には、`sn_audit.shared_admin`、`sn_audit.shared_manager`、`sn_audit.shared_user`、`sn_audit.shared_approver` の 4 ロールが付属する。これらのロールは上表の出典（r_InstallWAudit.html）には載っておらず、Australia 版の「Audit Workspace limited」ページに記載がある。新しいエンゲージメントを作れるのは `sn_audit.shared_manager` を持つユーザーである。Advanced Core の Store アプリを入れている場合は、エビデンス機能のロール（`sn_grc_advanced` スコープの evidence_reader、evidence_requester、evidence_responder、evidence_admin）も加わる。[出典](https://www.servicenow.com/docs/r/Z61H6JNUJXKe8NNPQzK7MQ/T5PmW5icm4oMGo_ERL22Wg)
 
 ### 4.3 テーブル一覧（Australia）
 
@@ -572,10 +606,12 @@ Lite Audit Workspace 用に `sn_audit.shared_admin`／`shared_manager`／`shared
 
 | プロパティ | アプリ | 説明 | 既定値 |
 |---|---|---|---|
-| `sn_audit.reter_report_attachments` | Audit Management | レポート生成のたびに以前の Word レポート添付を保持 | No |
-| `sn_audit.knowledge_base` | Audit Management | 監査レポートに使う KB 名 | Audit |
+| `sn_audit.retain_report_attachments` | Audit Management | レポートを生成するたびに、以前の Word レポート添付をエンゲージメントレコードに残す | No |
+| `sn_audit.knowledge_base` | Audit Management | 監査レポートの公開先ナレッジベースの名前 | Audit |
 | `sn_audit_advanced.default_adv_notification_duedate_duration` | Advanced Audit | マイルストーン期限の何日前に通知するか | 8 |
-| `sn_audit_advanced.role_documentation_link` 等 | Advanced Audit | PPM 連携・ロールアップ説明のリンク | — |
+| `sn_audit_advanced.role_documentation_link` | Advanced Audit | 高度な計画立案（PPM 連携）を有効化・利用するときに必要なロールの説明リンク | 公式記載なし |
+| `sn_audit_advanced.ppm_project_documentation_link` | Advanced Audit | プロジェクト機能と必要ロールの説明リンク | 公式記載なし |
+| `sn_audit_advanced.rollup_documentation_link` | Advanced Audit | 費用・リソースをプロジェクトからエンゲージメントと計画へ集計（ロールアップ）する仕組みの説明リンク | 公式記載なし |
 
 [出典](https://www.servicenow.com/docs/r/australia/governance-risk-compliance/audit-management/r_InstallWAudit.html)
 
@@ -673,8 +709,12 @@ BCM は以下のサブアプリケーションで構成される。[出典](http
 | Core | `sn_bcm_loss_scenario` | 損失シナリオ（影響を受ける要素） |
 | Core | `sn_bcm_element_definition` | 要素（アクティビティ）定義 |
 | Core | `sn_bcm_document` | 計画文書のセクション |
-| Core | `sn_gmc_impact_analysis_question`、`sn_gmc_grid_configuration`、`sn_gmc_grid_column_configuration` | 影響分析の質問、依存関係評価グリッド等の設定 |
-| BIA | `sn_bia_analysis` | BIA 本体（データと使用テンプレート） |
+| Core | `sn_bcm_impact_analysis_question` | Impact analysis question（影響分析の質問） |
+| Core | `sn_bcm_grid_configuration`、`sn_bcm_grid_column_configuration` | Grid configuration／Grid column configuration（依存関係評価グリッドなどの設定） |
+| Core | `sn_bcm_choice` | BCM Choice（BCM の選択肢） |
+| Core | `sn_bcm_element_variable` | Element variable（要素の変数） |
+| BIA | `sn_bia_analysis` | Impact Analysis（BIA 本体。データと使用テンプレート） |
+| BIA | `sn_bia_dependency_report_source` | Dependency report source（依存関係レポートのソース） |
 | BIA | `sn_bia_template` | BIA テンプレート（影響カテゴリと依存関係グループ） |
 | BIA | `sn_bia_dependency`／`sn_bia_dependency_group` | 依存関係とそのグループ |
 | BIA | `sn_bia_category_result`／`sn_bia_result` | 影響カテゴリ結果、停止時間と影響評価 |
@@ -693,21 +733,20 @@ BCM は以下のサブアプリケーションで構成される。[出典](http
 | Exercise/Crisis | `sn_recovery_impacted_asset_to_activated_plan`、`sn_recovery_approval` | 影響資産 ⇔ 発動計画、イベント承認 |
 | Approver Configurator | `sn_grc_appr_approval_configuration`／`_level`／`_rule`／`sn_grc_appr_appr_approval` | 承認設定・レベル・ルール・承認者 |
 
-注：上記は公式ページ（ポルトガル語版 Australia ページ経由）からの抽出。`sn_bia_analysis` は抽出時に `sn_bia_análise` と翻訳表記されていたため、英語名は推定。`【推定】`
-
 ### 6.3 ロール一覧（Australia）
 
 [出典](https://www.servicenow.com/docs/r/australia/governance-risk-compliance/installed-with-bcm.html)
 
 | ロール | 説明 |
 |---|---|
-| BCM Administrator [`sn_bcm.admin`] | マスタデータ含む全テーブルの CRUD。新しめのドキュメントでは ACL に System Administrator の代わりにこのロールを使用（Release 9.x.x 以降）`【第三者情報】`（検索結果スニペット） |
-| BCM Program Manager [`sn_bcm.program_manager`] | 全 BCM アプリテーブルの CRUD。イベントの承認・却下、イベントタスクの Skip／Trigger |
-| BCM Planner [`sn_bcm.planner`] | 参照＋訓練への資産・計画の追加（削除は訓練オーナーのみ） |
-| BCM Contributor | トレンド・訓練・危機テーブル参照、依存関係ステータス・RTO／RPO・依存関係評価の編集（抽出元表記 `sn_gcn.contributor`） |
-| BCM Viewer [`sn_bcm.viewer`] | BCM 全データの参照 |
-| BCM core viewer | SAE テンプレート参照可能なコアビューア（抽出元表記 `sn_gcn.core_viewer`。英語名は `sn_bcm.core_viewer` と推定）`【推定】` |
-| Recovery team member | イベント・訓練で割り当てられた復旧タスクリストの参照 |
+| BCM Administrator [`sn_bcm.admin`] | マスタデータを含む全テーブルの CRUD。Release 9.x 以降、ACL では System Administrator の代わりにこのロールを使う。Approver Configurator の管理ロールを含み、開発者ロールは含まない（含むロール：`sn_bcm.program_manager`、`sn_bia.bia_admin`、`sn_bcp.plan_admin`、`sn_grc_appr.admin`、`sn_bcm.core_manager` ほか） |
+| BCM Program Manager [`sn_bcm.program_manager`] | 全 BCM アプリテーブルの CRUD。イベントの承認・却下、イベントタスクの Skip／Trigger（含むロール：`sn_bia.bia_manager`、`sn_bcp.plan_manager`、`sn_recovery.event_manager`、`sn_bcm.core_viewer` ほか） |
+| BCM Planner [`sn_bcm.planner`] | 参照に加え、訓練への資産・計画の追加（削除は訓練オーナーのみ。計画オーナー以外が追加できるのは承認済み計画だけ）（含むロール：`sn_bia.bia_planner`、`sn_bia.bia_viewer`、`sn_recovery.event_user`、`sn_bcm.core_viewer` ほか） |
+| BCM Contributor [`sn_bcm.contributor`] | BIA・訓練・危機イベントの参照。自分がコントリビューターに入っている BCP の参照。Pending 状態の依存関係の作成・削除、RTO／RPO・依存関係評価フィールドの更新。コントリビューターになっているレコードを表示するには BCM Viewer ロールも必要（含むロール：`sn_bia.bia_contributor`、`sn_bcm.core_viewer` ほか） |
+| BCM Viewer [`sn_bcm.viewer`] | BCM 全データの参照（含むロール：`sn_bcp.plan_viewer`、`sn_bia.bia_viewer`、`sn_recovery.event_viewer`、`sn_bcm.core_viewer` ほか） |
+| BCM core viewer [`sn_bcm.core_viewer`] | Smart Assessment テンプレートの参照 |
+| BCM Recovery Team member [`sn_bcm.recovery_team_member`] | BCM Program Manager が割り当てた危機イベント・訓練の復旧タスクリストの参照（含むロール：`sn_recovery.event_member`、`sn_recovery.event_viewer`、`sn_bcp.plan_viewer`、`sn_bcm.core_viewer`） |
+| BIA 系ロール [`sn_bia.bia_admin`／`sn_bia.bia_manager`／`sn_bia.bia_planner`／`sn_bia.bia_viewer`／`sn_bia.bia_contributor`] | BIA の管理・作成・計画・参照・貢献に使うロール。公式ページでは上記 BCM ロールに含まれるロールとしてのみ現れ、単独の説明はない（BIA Manager の行は識別子が `sn_bcp.plan_manager` と誤記されている） |
 | BCP Plan Manager [`sn_bcp.plan_manager`] | 全計画の CRUD |
 | BCP Plan Administrator [`sn_bcp.plan_admin`] | 計画テンプレート・文書セクション・損失シナリオの構成 |
 | Plan viewer／contributor [`sn_bcp.plan_viewer`／`sn_bcp.plan_contributor`] | 計画参照／貢献者リストに含まれる場合の参照 |
@@ -717,6 +756,7 @@ BCM は以下のサブアプリケーションで構成される。[出典](http
 | `sn_recovery.event_member`（Operator Lite） | リカバリイベントの読み書き・作成 |
 | `sn_recovery.event_viewer`（Operator Lite） | 全リカバリイベントの参照 |
 | Approval configuration admin [`sn_grc_appr.admin`] | 承認設定テーブルの CRUD（BCM レコード承認には BCM ロールも必要） |
+| Approver [`sn_grc_appr.approver`] | Approval テーブルへのフルアクセス（Approver Configurator） |
 
 BCM Lite operator（`sn_bcm_lite.lite_operator`）はビューア系ロールを束ねるもので、`sn_bcp.plan_admin`、`sn_bcp.plan_manager` などの Operator ロールは Lite operator に付与できない。[出典](https://www.servicenow.com/docs/r/australia/governance-risk-compliance/bcm-lite-operators.html) `【第三者情報】`（検索結果スニペット経由）
 
@@ -731,7 +771,6 @@ stateDiagram-v2
   InReview --> PendingApproval: Submit for approval
   PendingApproval --> Approved: Approve
   PendingApproval --> Returned: Reject
-  InReview --> Returned: Reject
   Returned --> InReview: 再提出
   Approved --> Archived: Archive
   Archived --> Draft: Edit（BCM 9.0.x 以降）
@@ -744,7 +783,7 @@ stateDiagram-v2
 | Pending approval | Submit for approval で遷移。編集不可（Add／Add first level CMDB dependencies が使えない） |
 | Approved | Approve で遷移。読み取り専用。Overview タブに進捗表示 |
 | Archived | Archive で遷移。BCM 9.0.x 以降は Edit で Draft に戻せる。期限切れ BIA は週次の Scheduled Job で自動アーカイブ |
-| Returned | Reject で遷移。編集・再提出可能 |
+| Returned | Reject で遷移。編集・再提出可能。どの状態から Reject できるかは公式ページに明記されていない（図では承認段階の Pending approval からの遷移だけを描いた） |
 
 共通 UI アクション：Generate PDF（Details タブの Activity パネルに添付）、Copy（テンプレート化）、360º view、Delete、Edit、Save。
 
@@ -826,8 +865,12 @@ Operational Resilience は、パンデミック、異常気象、サイバー攻
 | Operational Resilience Manager [`sn_oper_res.manager`] | ダッシュボード・レポートのレビュー、運用上の脆弱性ケースの起票 | `sn_grc.manager`, `sn_compliance.reader`, `sn_oper_res.user`, `sn_risk.reader`, `sn_grc_case_mgmt.grc_case_manager` |
 | Operational Resilience User [`sn_oper_res.user`] | ダッシュボード参照、影響許容度・テストプランの回答、Vulnerability Response データ参照 | `sn_incident.read`, `sn_grc.reader`, `task_editor`, `sn_grc_case_mgmt.grc_case_business_user` |
 | `sn_oper_res.operational_resilience_business_user` | Employee Center から「Report operational vulnerability」を提出 | — |
-| BCM and OpRes Administrator／Manager／User [`sn_oper_res.bcm_opres_admin`／`_manager`／`_user`] | BCM と OpRes を組み合わせたライセンス形態向け。User は BCM UIB Workspace 参照のみ、IRM レポート・データ不可 | `sn_bcm.viewer` ほか |
-| IRM OpRes Administrator／Manager／User [`sn_oper_res.irm_opres_admin`／`_manager`／`_user`] | IRM と OpRes の組み合わせ向け。BCM レポート・データ不可 | `sn_grc.reader`, `sn_oper_res.user`（P&C・Risk 導入時は `sn_compliance.reader`, `sn_risk.reader`） |
+| BCM and Operational Resilience Administrator [`sn_oper_res.bcm_opres_admin`] | BCM と OpRes を組み合わせたライセンス形態向けの管理者（公式に説明文なし） | `sn_oper_res.bcm_opres_manager`, `sn_oper_res.admin` |
+| BCM and Operational Resilience Manager [`sn_oper_res.bcm_opres_manager`] | 同マネージャー（公式に説明文なし） | `sn_oper_res.bcm_opres_user`, `sn_oper_res.manager` |
+| BCM and Operational Resilience User [`sn_oper_res.bcm_opres_user`] | BCM UIB Workspace の参照。IRM のレポート・データにはアクセス不可 | `sn_bcm.viewer`, `sn_oper_res.user` |
+| IRM Operational Resilience Administrator [`sn_oper_res.irm_opres_admin`] | IRM と OpRes を組み合わせた形態向けの管理者（公式に説明文なし） | `sn_oper_res.irm_opres_manager`, `sn_oper_res.admin` |
+| IRM Operational Resilience Manager [`sn_oper_res.irm_opres_manager`] | 同マネージャー（公式に説明文なし） | `sn_oper_res.irm_opres_user`, `sn_oper_res.manager` |
+| IRM Operational Resilience User [`sn_oper_res.irm_opres_user`] | BCM のレポート・データにはアクセス不可 | `sn_grc.reader`, `sn_oper_res.user`（Policy and Compliance と Risk Management を導入している場合のみ `sn_compliance.reader`, `sn_risk.reader` も含む） |
 | Digital resilience incident admin／manager／user [`sn_dri_inc_rptg.digital_resilience_incident_*`] | デジタルレジリエンスインシデント報告の管理・作成・参加 | — |
 
 ---
@@ -851,7 +894,7 @@ GRC: Privacy Management は、統合されたデータプライバシーのリ�
 
 | テーブル | 説明 |
 |---|---|
-| `sn_privacy_processing_activity` | 処理活動（公式記載では「Extends task table [sn_grc_item]」） |
+| `sn_privacy_processing_activity` | 処理活動。公式記載は「Extends task table [sn_grc_item]」で、task と `sn_grc_item` という別々のテーブル名が混在している。実際にどちらを継承しているかは公開情報では確定できなかった |
 | `sn_privacy_m2m_pa_pa` | 処理活動の上流・下流階層 |
 | `sn_privacy_data_transfer` | 階層関係のノード間の個人データ移転 |
 | `sn_privacy_transfer_mechanism` | 移転の法的根拠（SCC、BCR、十分性認定） |
@@ -970,11 +1013,10 @@ Australia 版のロール・テーブル一覧での差分は確認できなか�
 | Smart Assessment Engine（SAE） | リスク・コンプライアンス評価を自動化する新世代評価エンジン。質問バンク、テンプレート版管理、評価後自動化（`sn_smart_imp_auto`）。TPRM・RCM・Privacy・Control 評価で利用。クラシック評価エンジン（`asmt_*`）からの移行ガイドあり |
 | Compliance Case Management | コンプライアンス案件の報告・調査・分析・解決 |
 | Continuous Authorization and Monitoring（CAM） | IT システムの認可（ATO）と継続的監視。認可パッケージ、Control 要求事項の継承（Implementation status） |
-| Model Risk Management | モデル（統計・AI モデル）リスクの管理。Model Risk Workspace |
+| Model Risk Management | 定量モデル（統計・AI モデル）のリスクを、ライフサイクル全体で特定・評価・検証・低減する。Model Risk workspace（r_WhatIsGRC.html には載っていない関連アプリ） |
 | AI Risk and Compliance | AI Control Tower と連携し、AI システム・モデル・データセットの規制・ポリシー準拠とリスク評価を管理 |
-| Regulatory Agency Library | 規制当局ライブラリ（Store アプリ） |
 
-[出典](https://www.servicenow.com/docs/r/australia/governance-risk-compliance/r_WhatIsGRC.html) [出典](https://www.servicenow.com/docs/r/australia/governance-risk-compliance/ai-risk-management/ai-risk-and-compliance.html)
+[出典](https://www.servicenow.com/docs/r/australia/governance-risk-compliance/r_WhatIsGRC.html) [出典](https://www.servicenow.com/docs/r/australia/governance-risk-compliance/ai-risk-management/ai-risk-and-compliance.html) [出典（Model Risk Management）](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/VQV2D~DTXlzikntcqa6pIQ)
 
 ---
 
@@ -984,8 +1026,8 @@ Australia 版のロール・テーブル一覧での差分は確認できなか�
 
 | 項目 | 内容 |
 |---|---|
-| 主なスキル | Issue Summarization（Issue 要約）、Risk event summary（リスクイベント要約）、AI 推奨 Risk Statement、RCM アラート要約、TPRM の Issue summarization／recommendation、BCM の AI 機能 |
-| AI エージェント | Report a GRC issue AI agent、Control Objective Change Agent |
+| 主なスキル | 製品ページ（now-assist-for-irm.html）は個別スキル名を挙げていない。確認できたものは以下。① **Issue Summarization skill**（Issue 要約。GRC 22.4.0 のリリースノートに記載。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/DAg5SzjeMgUttaoTijnUsg)）② リスク評価・リスクイベント・Issue・規制アラート等の主要 GRC レコード向けの標準要約スキル（ServiceNow 社員による Community ブログ。[出典](https://www.servicenow.com/community/grc-blog/now-assist-summarization-in-grc-how-to-make-it-part-of-your-risk/ba-p/3531178)）③ RCM の AI によるアラート要約・推奨（§9.5 参照。[出典](https://www.servicenow.com/community/grc-articles/mature-your-risk-management-program-with-expanded-capabilties-at/ta-p/3596030)）。TPRM・BCM 等の個別スキル名と、スキルの完全な一覧は公開情報では確認できず |
+| AI エージェント | Report a GRC issue AI agent、Control Objective Change Agent（[出典](https://www.servicenow.com/docs/r/australia/governance-risk-compliance/grc-common-functions/standalone-ai-agents-in-risk-sustainability.html)）、Risk Suggestion AI Agent（Advanced Risk、§3.7 参照） |
 | 既定 LLM | 新規・非アクティブの AI 資産は Now LLM Service ではなく第三者 LLM を既定に。Issue Summarization（GRC 22.4.0）は Azure OpenAI gpt-5.4-mini が既定（Gemini 3.5 Flash、GPT 5.1、GPT 5.4 mini も選択可） |
 | 制約 | FedRAMP、NSC DOD IL5、Australia IRAP-Protected データセンター、セルフホスト、一部の in-country SKU・Regulated Markets では一部機能が利用不可（KB1584492、KB0743854、KB2593939） |
 | データ処理 | インスタンス外の ServiceNow 集中環境や Microsoft Azure 等へデータ転送の可能性。入出力・編集はモデル改善に利用（オプトアウト可） |
@@ -1006,7 +1048,7 @@ IRM は複数ティアの Store プラグイン（ライセンス識別子）で
 
 | ティア | 公開情報で確認できた内容 |
 |---|---|
-| IRM Foundation | 2026-04 に導入されたエントリーレベル（22.1.2 で「ライセンスティアのデジタル識別子」と説明）。依存：AI Platform Foundation、IRM Standard、IRM Generative AI（22.3.2 以降）。2026 Q3（2026-09-10 GA）に ARA の Risk Assessment Methodologies（最大 3 つの有効 RAM、Factor 無制限）と RCM（コア＋AI 要約）が追加 |
+| IRM Foundation | 2026-04 に導入されたエントリーレベルのライセンスティア（[出典](https://www.servicenow.com/community/grc-articles/mature-your-risk-management-program-with-expanded-capabilties-at/ta-p/3596030)。リリースノートで最も古い掲載である 22.1.2〔2026-04〕とも一致し、そこでは「ライセンスティアのデジタル識別子」と説明されている）。依存：AI Platform Foundation、IRM Standard、IRM Generative AI（22.3.2 以降）。2026 Q3（2026-09-10 GA）に ARA の Risk Assessment Methodologies（最大 3 つの有効 RAM、Factor 無制限）と RCM（コア＋AI 要約）が追加 |
 | IRM Standard | Foundation の前身プログラムで段階的に廃止中 |
 | IRM Standard V2 | 2026 Q3 に RCM コアワークフローが追加 |
 | IRM Professional | 「IRM の高度版」。Store では Policy and Compliance、高度なリスク管理、高度な監査管理を含むと説明。23.0.2（2026-09）で Zurich Patch 12／Australia Patch 5 をサポート |
@@ -1050,9 +1092,8 @@ GRC licensing summary dashboard（`All > GRC Licensing Overview > Licensing Summ
 | 変更 | Tasks ページに最終リフレッシュ時刻とバックグラウンド更新通知 |
 | 非推奨 | なし（共通 GRC）。TPRM 文脈では ITSM 版 Vendor Management Workspace（`sn_itsm_vendor`）が非推奨 |
 | Audit | Audit entry（第 3 線レコード、`sn_audit_ws.third_line_manager`） |
-| Advanced Risk | AI リスク提案・Control Objective ワークフロー改良。Patch 3 で Risk Workspace ホームの Tasks ウィジェット削除 |
+| Advanced Risk | Worst case aggregation rollup、Not applicable の非表示、Risk Identification テンプレートの版管理、Risk Assessment Project の Audit entry フィールド（いずれも 22.3.2）。Risk Suggestion AI Agent の強化、Control Objective workflow、Risk event administrator の権限拡張と再オープン（§3.7 参照。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/vQOX74rVcSPaJhcdxsNkpA)） |
 | RCM | IRM Standard 対応、機能別ロール、SAE テンプレート版管理（22.3.2） |
-| 共通 UI | 全 GRC モジュール（ワークスペース含む）でパンくずナビゲーション |
 
 ### 14.2 Brazil
 
@@ -1094,6 +1135,7 @@ GRC licensing summary dashboard（`All > GRC Licensing Overview > Licensing Summ
 - Australia 版での `sn_grc_issue`、`sn_grc_profile_class` 等の公式テーブル定義ページ（GRC Profiles スコープの全テーブル一覧）。
 - Risk Management テーブル一覧の Australia 版（Zurich 版で記載）。
 - RCM のアラート・タスクの具体的なテーブル名（公式ページに記載なし）。
+- Otto for IRM の生成 AI スキルの完全な一覧（TPRM・BCM 等の個別スキル名を含む）。
 - Operational Resilience の影響許容度 4 区分の Australia 公式ページでの記載（検索結果スニペットのみ）。
 - ESG（Operational Sustainability Management）の改称時期と Australia 版のロール・テーブル一覧。
 - 各 IRM アプリの Store プラグイン ID の完全な一覧（`com.sn_compliance`、`com.sn_risk_workspace`、`com.sn_privacy`、`com.sn_grc_workspace` 以外は未確認）。
@@ -1122,10 +1164,11 @@ GRC licensing summary dashboard（`All > GRC Licensing Overview > Licensing Summ
 - Advanced Risk Assessment: https://www.servicenow.com/docs/r/Z61H6JNUJXKe8NNPQzK7MQ/~zKds~uUI54gnR9oGZ6H3A
 - Manage risk events: https://www.servicenow.com/docs/r/australia/governance-risk-compliance/grc-risk-management-workspace/manage-risk-events.html
 - GRC Risk Workspace: https://www.servicenow.com/docs/r/australia/governance-risk-compliance/grc-risk-management-workspace/risk-workspace.html
-- Advanced Risk release notes: https://www.servicenow.com/docs/r/release-notes/grc-advanced-risk-rn.html
+- Combined Advanced Risk release notes（Zurich → Australia）: https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/vQOX74rVcSPaJhcdxsNkpA
 - Brazil/Australia Advanced Risk delta: https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-advancedrisk-release-notes.html
 - Exploring Audit Management: https://www.servicenow.com/docs/r/australia/governance-risk-compliance/audit-management/audit-management.html
 - Components installed with Audit Management: https://www.servicenow.com/docs/r/australia/governance-risk-compliance/audit-management/r_InstallWAudit.html
+- Audit Workspace limited（Lite Audit Workspace）: https://www.servicenow.com/docs/r/Z61H6JNUJXKe8NNPQzK7MQ/T5PmW5icm4oMGo_ERL22Wg
 - Brazil/Zurich Audit Management delta: https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-auditmanagement-release-notes.html
 - Third-party Risk Management: https://www.servicenow.com/docs/r/australia/governance-risk-compliance/third-party-risk-management/third-party-risk-mgt-landing-page.html
 - Third-party risk management data model: https://www.servicenow.com/docs/r/australia/governance-risk-compliance/third-party-risk-management/tprm-data-model.html
@@ -1148,8 +1191,11 @@ GRC licensing summary dashboard（`All > GRC Licensing Overview > Licensing Summ
 - GRC: Regulatory Change Management release notes: https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/1bgo_m_0x5ZT0WDUGKM~Sw
 - Components installed with Operational Sustainability Management (formerly ESG Management): https://www.servicenow.com/docs/r/IeyvtzPk6NMGMe~ZDyPSJQ/yj70DSp9LQ4X9QXvRMzAGw
 - AI Risk and Compliance: https://www.servicenow.com/docs/r/australia/governance-risk-compliance/ai-risk-management/ai-risk-and-compliance.html
+- Combined Model Risk Management release notes（Zurich → Australia）: https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/ZzG5DM1gCgijKVPQWiG0Tw
+- GRC: Model Risk Management release notes: https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/VQV2D~DTXlzikntcqa6pIQ
 - ServiceNow Otto for IRM: https://www.servicenow.com/docs/r/australia/governance-risk-compliance/grc-common-functions/now-assist-for-irm.html
 - AI agents in ServiceNow Otto for IRM: https://www.servicenow.com/docs/r/australia/governance-risk-compliance/grc-common-functions/standalone-ai-agents-in-risk-sustainability.html
+- Now Assist summarization in GRC（Community ブログ、2026-04-23）: https://www.servicenow.com/community/grc-blog/now-assist-summarization-in-grc-how-to-make-it-part-of-your-risk/ba-p/3531178
 - GRC licensing summary dashboard: https://www.servicenow.com/docs/r/australia/governance-risk-compliance/grc-common-functions/grc-licensing-summary-dashboard.html
 - Combined Common GRC release notes（Zurich → Australia）: https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/DAg5SzjeMgUttaoTijnUsg
 - IRM Foundation release notes: https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/PADcbuMmtmbRE3FizN2rRA

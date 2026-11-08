@@ -22,6 +22,8 @@ sources:
   - https://www.servicenow.com/docs/r/zurich/application-development/automated-test-framework-atf/atf-suites-overview.html
   - https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/pIpIzMo4e20_GK~CWaGW7w
   - https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/ZkT~6XbFHA4iB3VG6f5Bnw
+  - https://www.servicenow.com/docs/r/washingtondc/application-development/automated-test-framework-atf/atf-suite-schedule-record.html
+  - https://www.servicenow.com/docs/r/platform-administration/time-configuration/t_ScheduleAScriptExecution.html
   - https://www.servicenow.com/docs/r/zurich/application-development/automated-test-framework-atf/run-scheduled-test-suite-script.html
   - https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/jpnKWtziIAZDvh4AVIOkaA
   - https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/Zcdj8pK6AKm6UYgF6gCKIw
@@ -38,6 +40,17 @@ sources:
   - https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/JYBzQK1EtOk8uSa0nSC9qA
   - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-automatedtestframework-release-notes.html
   - https://www.servicenow.com/docs/r/application-development/automated-test-framework-atf/atf-landing-page.html
+  - https://www.servicenow.com/docs/r/application-development/automated-test-framework-atf/atf-create-tests-ws.html
+  - https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/sJpLzMpXwd2mY4cqvsL3Kw
+  - https://www.servicenow.com/docs/r/KClk0UwQlFjGoDJBQtfqgw/vts7KTPB0FuxQnRuTGycyg
+  - https://www.servicenow.com/docs/r/ja-JP/application-development/automated-test-framework-atf/atf-create-custom-category.html
+  - https://docs.servicenow.com/bundle/orlando-application-development/page/administer/auto-test-framework/task/atf-create-custom-step.html
+  - https://www.servicenow.com/docs/r/Iru_OmfY8svQHlgM89Nuiw/aEpK1i3lmd8nPk7nk1gzSg
+  - https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/bs3hPTM4DoIfm640R074Hw
+  - https://www.servicenow.com/docs/r/vAF6lp8vm2~kKTU5ernM8g/pkL1wROw6k7zQMNmov_5Xg
+  - https://www.servicenow.com/docs/r/application-development/servicenow-sdk/atf-test-now-ts.html
+  - https://developer.servicenow.com/blog.do?p=/post/ny-atf/
+  - https://github.com/ServiceNow/sncicd-tests-run
   - https://developer.servicenow.com/print_page.do?release=zurich&category=learning-module&identifier=ATF_About_zurich%2Cservicenow_application_developer&module=learning+plan
   - https://servicenow.github.io/sdk/guides/atf-guide
   - https://www.servicenow.com/community/servicenow-ai-platform-blog/from-build-to-tested-in-one-conversation-introducing-atf-test/ba-p/3567980
@@ -87,7 +100,7 @@ ATF のテスト実行は既定で無効になっている。無効の状態で 
 4. スケジュール実行を使う場合は、スケジュール実行の有効化プロパティ（`sn_atf.schedule.enabled`）も有効にする。
 5. Save する。
 
-- Australia のリリースノートでは、`sn_atf.runner.enabled` を true にすることが ATF Test Generator and Cloud Runner Store アプリのコンテンツパック有効化の前提とされている。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/JYBzQK1EtOk8uSa0nSC9qA)
+- Australia（および Zurich）の統合リリースノートでは、`sn_atf.runner.enabled` を true にすると ATF Test Generator and Cloud Runner Store アプリのコンテンツパックが有効化されると記載されている。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/JYBzQK1EtOk8uSa0nSC9qA)
 - CI/CD API でスイートを起動した際に「Scheduled test/suite execution is disabled.」で失敗する場合は、`sn_atf.schedule.enabled` を true にする必要がある。[出典](https://www.servicenow.com/docs/r/api-reference/rest-apis/cicd-api.html)
 
 ### 1.2 非本番での実行と本番での扱い
@@ -235,7 +248,7 @@ ATF のモジュールはアプリケーションナビゲーターの **Automat
 |---|---|---|---|
 | `atf_cloud_runner.radio_visible` | Pick a Browser ダイアログに Cloud Runner の選択肢を表示するか | true | [出典](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/jpnKWtziIAZDvh4AVIOkaA) |
 | `sn_atf_tg.generation.create_separate_update_set` | ATF Test Generator の生成時に Update Set を作成するか | true | [出典](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/Zcdj8pK6AKm6UYgF6gCKIw) |
-| `sn_atf.test.triage.task.type` | Failure Insights の「Create a task」で作成するタスクの種類 | Incident 系のタスクタイプ | [出典](https://www.servicenow.com/docs/r/guL1zqmJkV9eywMq_6qu~w/WLKM2aaxrR~fO6O85NwSyA) |
+| `sn_atf.test.triage.task.type` | Failure Insights の「Create a task」で作成するタスクの種類 | `incident` | [出典](https://www.servicenow.com/docs/r/guL1zqmJkV9eywMq_6qu~w/WLKM2aaxrR~fO6O85NwSyA) |
 | `sn_atf.headless.*` | Headless Browser 用（後述「17. Headless Browser」） | — | [出典](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/tf351Zyp64yupCWv29VZ3w) |
 
 - ATF Code Coverage（Australia）を有効化するプロパティ名は、Community 記事で `sn.code.coverage.enabled` と `x_snc_atf_code_coverage_enabled` の 2 説があり、公式ドキュメントでは確認できず。
@@ -272,7 +285,7 @@ Test フォームの主な要素は次のとおり（上記画面に基づく）
 
 1. Test フォームで **Run Test** を押す。クライアント側ステップを含む場合は **Pick a Browser** ダイアログで「Start a new test runner」（新しいタブでランナー起動）、既存ランナー、または Cloud Runner（導入時）を選ぶ。
 2. 実行完了後、**Go to Result** で結果レコードを開く。
-3. ステップのステータスは Waiting / Running / Success / Failure / Skipped / Error / Canceled。
+3. ステップのステータスは Waiting / Running / Success / Failure / Skipped / Error / Cancelled。
 4. スクリーンショットは既定で取得され、結果レコードの添付（Manage Attachments）からダウンロードできる。
 5. Field Values Validation ステップは大文字小文字を区別する。
 
@@ -288,7 +301,9 @@ Test フォームで **Add Test Step** を押すと Add Test Step パネルが�
 
 ### 7.2 テストステップカテゴリと主なステップ
 
-公式のカテゴリ一覧（Developer ラーニングモジュール）は 12 カテゴリである: List and Related List、Service Catalog、Custom UI、Forms in Service Portal、Application Navigator、Service Catalog in Service Portal、Form、REST、Responsive Dashboards、Reporting、Server、Email。[出典](https://developer.servicenow.com/print_page.do?release=zurich&category=learning-module&identifier=ATF_About_zurich%2Cservicenow_application_developer&module=learning+plan)
+Developer ラーニングモジュール（Zurich）に記載のカテゴリは次のとおり: List and Related List、Service Catalog、Custom UI、Forms in Service Portal、Application Navigator、Service Catalog in Service Portal、Form、REST、Responsive Dashboards、Reporting、Server、Email。[出典](https://developer.servicenow.com/print_page.do?release=zurich&category=learning-module&identifier=ATF_About_zurich%2Cservicenow_application_developer&module=learning+plan)
+
+Australia ではこれに加えて **Configurable Workspace** カテゴリ（Open Workspace Page、Test Page ステップ）がある。このため上記はすべてのカテゴリを網羅した一覧ではない。インストール済みのアプリケーションによってもカテゴリは増える。[出典](https://www.servicenow.com/docs/r/application-development/automated-test-framework-atf/atf-create-tests-ws.html)
 
 各カテゴリのステップは、ServiceNow 公式 SDK（ServiceNow Fluent）の ATF ガイドに API 名として列挙されている。下表は SDK の API 名から対応する UI 上のステップを整理したものである（UI 表示名は英語の一般的表記で、厳密な表示名はインスタンスで確認すること）。[出典](https://servicenow.github.io/sdk/guides/atf-guide)
 
@@ -306,6 +321,9 @@ Test フォームで **Add Test Step** を押すと Add Test Step パネルが�
 | **Reporting** | レポートの表示確認 | `reportVisibility` |
 | **Responsive Dashboards** | レスポンシブダッシュボード | `responsiveDashboardVisibility`、`responsiveDashboardSharing` |
 | **Custom UI** | スクリプトなしで UI 操作テスト（UI ページ、Configurable Workspace 等のコンポーネント）。Page Inspector でコンポーネントを取得 | SDK では UI Test Script として別ガイド扱い |
+| **Configurable Workspace** | Configurable Workspace ページを開き、ページ上のコンポーネントを操作するテスト（Australia の公式ドキュメントに記載） | Open Workspace Page（URL を指定してワークスペースページを開く）、Test Page（Configurable Workspace Test Authoring モーダルでコンポーネントを調べ、操作を選ぶ）。[出典](https://www.servicenow.com/docs/r/application-development/automated-test-framework-atf/atf-create-tests-ws.html) |
+
+- 7.4 の **Run UI Test Script** ステップがどのカテゴリに属するかは、公開情報では確認できず（開発者ガイドには「ATF のテストステップ」とだけ書かれている）。[出典](https://www.servicenow.com/docs/r/eJIqiaxRKVcMaR8XQU6_oA/pfmpYUSfh8LSpaXpS~~V0g)
 
 - Email の送信検証を PDI で行う場合、PDI はメール送信が既定で無効のため、System Properties > Email Properties で送信を有効にする必要がある。[出典](https://developer.servicenow.com/print_page.do?release=zurich&category=learning-module&identifier=ATF_About_zurich%2Cservicenow_application_developer&module=learning+plan)
 - Flow のテスト（Workflow Studio / Flow Designer のフロー起動・完了確認）は Email の `validateOutboundEmailGeneratedByFlow` 等のほか、ATF Test Generator がフロー関連ステップを生成する（2.5.4 以降）。Flow 自体の仕様は [Workflow Studio / Flow Designer](flow-designer-workflow-studio.md) を参照。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/jb86qhteaeRpry1vCwUtPA)
@@ -432,7 +450,7 @@ Server UI アクション（フォームを送信・再読み込みする UI ア
 
 | 仕様 | 内容 |
 |---|---|
-| 実行ユーザー | 現在のセッションのログインユーザーとして実行。テスト内に Impersonate ステップがあればそのユーザー。ログアウト・再ログインしたらランナーを再起動する |
+| 実行ユーザー | 現在のセッションのログインユーザーとして実行。テスト内に Impersonate ステップがあればそのユーザー。ランナー起動後にログアウト・再ログインした場合、ランナーは新しいセッション（再ログインしたユーザー）で実行される |
 | 待機 | 待機中テストがなければ「Waiting for a test to run」を表示し、**5 秒ごと** に待機中テストを確認 |
 | 表示 | Execution Frame にテスト進捗を表示。追加デバッグ有効時は Execution Frame と Debug Info の 2 タブ |
 | ダイアログの扱い | `confirm` は true を返す、`prompt` は「test value」を返す、`alert` は無視、`console.log` / `console.error` は捕捉 |
@@ -503,7 +521,7 @@ Server UI アクション（フォームを送信・再読み込みする UI ア
 3. 関連リンク **Find changes since last successful run** を押す（失敗結果にのみ表示）。
 4. **What changed** 関連リストで変更されたメタデータを確認する。
 5. バージョン比較: 変更ファイルを右クリックして Comparison、変更ファイルを開いて Comparison、または ATF Test Results で 2 つの結果を選んで比較。比較ビューは最新バージョンが左。
-6. 任意で Test Results フォームの **Create a task** でタスクを作成（変更ファイルを 1 つ以上選択。複数選択でもタスクは 1 件）。タスク種別は `sn_atf.test.triage.task.type`（既定は Incident 系。Problem 等のタスク派生テーブルにも変更可）。
+6. 任意で Test Results フォームの **Create a task** でタスクを作成（変更ファイルを 1 つ以上選択。複数選択でもタスクは 1 件）。タスク種別は `sn_atf.test.triage.task.type`（既定は incident。Problem 等、タスクを拡張したテーブルにも変更可）。
 
 - 必要ロールは `admin`。What changed の更新は遅れる場合がある。Metadata exception list に載るテーブルは対象外。
 - [出典](https://www.servicenow.com/docs/r/guL1zqmJkV9eywMq_6qu~w/WLKM2aaxrR~fO6O85NwSyA) / [出典](https://www.servicenow.com/community/developer-advocate-blog/new-atf-failure-insight-feature-in-zurich-shows-you-exactly-why/ba-p/3407059)
@@ -537,7 +555,7 @@ Server UI アクション（フォームを送信・再読み込みする UI ア
 | 仕様 | 内容 | 出典 |
 |---|---|---|
 | 入手方法 | 対象アプリケーションに対応するプラグイン（多くは `...atf` で終わる ATF Tests プラグイン）を有効化 | [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/JYBzQK1EtOk8uSa0nSC9qA) |
-| 合格条件 | **カスタマイズのないベースシステム** で、プラグインの **既定デモデータ** がある場合にのみ合格する（Australia の記述） | [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-automatedtestframework-release-notes.html) |
+| 合格条件 | **カスタマイズのないベースシステム** で実行した場合にのみ合格する。Australia の記述では、加えてアプリケーション／機能プラグインに付属する **既定デモデータ** が必要とされる | [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/JYBzQK1EtOk8uSa0nSC9qA) |
 | 自社データでのテスト | クイックスタートテストを **コピー** して自社データを加える | [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/JYBzQK1EtOk8uSa0nSC9qA) |
 | デモデータ | 多くのスイートでデモデータの読み込みが必要。一部テストは特定のデモレコード（例: CSM Walkup の Seattle ロケーション）に依存 | [出典](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/pIpIzMo4e20_GK~CWaGW7w) |
 | リリース表記 | 各テストに追加されたリリース（Madrid〜Australia）が記載されている | [出典](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/pIpIzMo4e20_GK~CWaGW7w) |
@@ -625,13 +643,13 @@ All > Automated Test Framework (ATF) > **Schedules**（Suite Schedules ページ
 | Name | スケジュール名 |
 | Active | 有効化 |
 | Application | 所属アプリケーション |
-| Run | 実行頻度: Daily、Weekly、Monthly、Periodically、Once、On Demand、Business Calendar: Entry Start、Business Calendar: Entry End |
+| Run | 実行頻度。ATF の公式ページ（[Suite schedule record](https://www.servicenow.com/docs/r/washingtondc/application-development/automated-test-framework-atf/atf-suite-schedule-record.html)）は選択肢を列挙していない。【推定】Scheduled Script Execution と同じ選択肢（Daily、Weekly、Monthly、Periodically、Once、On Demand、Business Calendar: Entry Start / Entry End など）を持つ [出典](https://www.servicenow.com/docs/r/platform-administration/time-configuration/t_ScheduleAScriptExecution.html) |
 | Time / Day / Starting / Repeat interval / Days / Hours | 実行時刻・曜日・開始日・繰り返し間隔 |
-| Conditional / Condition | 任意のサーバー側条件スクリプト。最終行が true/false に評価される必要があり、false ならスイートを実行しない。**Execute Now では条件は評価されない** |
+| Conditional / Condition | Conditional をオンにすると、Condition に書いたスクリプトでこのスケジュールのスイートを実行するかどうかを決められる [出典](https://www.servicenow.com/docs/r/washingtondc/application-development/automated-test-framework-atf/atf-suite-schedule-record.html)。【推定】Scheduled Script Execution と同様に、スクリプトの最後の式は true/false に評価される必要がある [出典](https://www.servicenow.com/docs/r/platform-administration/time-configuration/t_ScheduleAScriptExecution.html)。Execute Now 実行時に条件が評価されるかどうかは、公開情報では確認できず |
 | **Run in cloud** | Cloud Runner で実行する。**新規スケジュールは既定 True、既存スケジュールは False**。子テストのブラウザー名を変えても Cloud Runner で実行される |
 
 - 保存後、**Execute Now** で即時実行できる。
-- 出典: [Scheduling test execution](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/ZkT~6XbFHA4iB3VG6f5Bnw)、[Developer ラーニングモジュール](https://developer.servicenow.com/print_page.do?release=zurich&category=learning-module&identifier=ATF_About_zurich%2Cservicenow_application_developer&module=learning+plan)
+- 出典（Name / Active / Application / Run / Time / Run in cloud）: [Scheduling test execution](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/ZkT~6XbFHA4iB3VG6f5Bnw)、Day / Repeat interval / Conditional: [Suite schedule record](https://www.servicenow.com/docs/r/washingtondc/application-development/automated-test-framework-atf/atf-suite-schedule-record.html)、全体の流れ: [Developer ラーニングモジュール](https://developer.servicenow.com/print_page.do?release=zurich&category=learning-module&identifier=ATF_About_zurich%2Cservicenow_application_developer&module=learning+plan)
 
 ### 15.3 Scheduled Suite Run
 
@@ -663,10 +681,10 @@ All > Automated Test Framework (ATF) > **Schedules**（Suite Schedules ページ
 
 ```javascript
 // 公式ページの記載どおり（sys_id はスケジュール sys_atf_schedule の sys_id に置き換える）
-sn_atf.ScheduledRunsExecutor().setScheduleSysId("SYS_ATF_SCHEDULE_SYS_ID_HERE").start();
+new sn_atf.ScheduledRunsExecutor().setScheduleSysId("SYS_ATF_SCHEDULE_SYS_ID_HERE").start();
 ```
 
-> 公式ページの記載は `new` を付けない形である。スクリプトインクルードの呼び出し形式（`new` の要否）はインスタンスで確認して使うこと。手順の前提として、必要なブラウザーを導入した OS の仮想マシンを用意し、そのブラウザーで Scheduled Client Test Runner を開いておく。
+> 公式ページの記載どおり `new` を付けて呼び出す。手順の前提として、必要なブラウザーを導入した OS の仮想マシンを用意し、そのブラウザーで Scheduled Client Test Runner を開いておく。
 
 ### 15.6 結果メール
 
@@ -930,7 +948,7 @@ flowchart TD
 
 ### 21.2 アップグレード活用時の注意点
 
-- Quick start tests はベースシステム＋既定デモデータでのみ合格が保証される。カスタマイズ済みインスタンスではコピーして自社化したテストで判定する。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-automatedtestframework-release-notes.html)
+- Quick start tests はベースシステム（カスタマイズなし）＋既定デモデータでのみ合格が保証される。カスタマイズ済みインスタンスではコピーして自社化したテストで判定する。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/JYBzQK1EtOk8uSa0nSC9qA)
 - Run UI Test Script や Custom UI ステップは DOM・コンポーネント構造に依存するため、リリース間で壊れやすい（Run UI Test Script の公式注意事項）。アップグレード後の失敗がテスト側の問題か製品側の変更かを切り分ける。[出典](https://www.servicenow.com/docs/r/eJIqiaxRKVcMaR8XQU6_oA/pfmpYUSfh8LSpaXpS~~V0g)
 - Custom UI ステップのコンポーネントはメタデータに保存されないため、クローンやテスト移送の後に再取得が必要になる場合がある。[出典](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/lpsJurpvpk8DaqAdSJX3Fg)
 - `sn_atf.screenshots.use_glide_screenshot` は新リリースへのアップグレード後に false になる。高忠実度スクリーンショットを使う場合は再設定する。[出典](https://www.servicenow.com/docs/r/application-development/automated-test-framework-atf/atf-admin-properties.html)
@@ -979,7 +997,7 @@ flowchart TD
 | 2022-11（Store） | ATF Test Generator and Cloud Runner 初版 | [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/jb86qhteaeRpry1vCwUtPA) |
 | Yokohama | ATF Test Generator and Cloud Runner が GCC、SPP EU、SPP AU で利用可能に | [出典](https://www.servicenow.com/docs/access?context=atf-tg-cr-intro&version=australia&pubname=australia-servicenow-platform&ft:locale=en-US) |
 | Zurich | **ATF Failure Insights**、**Configurable Workspace のテスト（Page Inspector）**。Coral テーマが Next Experience / Core UI の新規体験の既定テーマに | [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/JYBzQK1EtOk8uSa0nSC9qA) |
-| Australia | **ATF Code Coverage**、**Run UI Test Script ステップ**。Test Agent（Build Agent 拡張）GA。Quick start tests の合格条件の記述が「ベースシステム＋既定デモデータ」に明確化 | [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/JYBzQK1EtOk8uSa0nSC9qA) / [出典](https://www.servicenow.com/community/servicenow-ai-platform-blog/from-build-to-tested-in-one-conversation-introducing-atf-test/ba-p/3567980) |
+| Australia | **ATF Code Coverage**、**Run UI Test Script ステップ**。Test Agent（Build Agent 拡張）GA。Quick start tests の合格条件として「カスタマイズのないベースシステム」に加え「既定デモデータ」が必要と記載 | [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/JYBzQK1EtOk8uSa0nSC9qA) / [出典](https://www.servicenow.com/community/servicenow-ai-platform-blog/from-build-to-tested-in-one-conversation-introducing-atf-test/ba-p/3567980) |
 
 > **Brazil での変更:** Brazil の ATF 統合リリースノート（Zurich→Brazil）では、Brazil 自体の新機能・変更・非推奨・削除はいずれも「No updates for this release」と記載されている（2026-11-02 時点で確認）。Brazil の ATF ランディングページの構成も Australia と同等である。Store アプリ（ATF Test Generator and Cloud Runner）や Test Agent はファミリーリリースとは別に更新されるため、Store のリリースノートを別途確認すること。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-automatedtestframework-release-notes.html) / [出典](https://www.servicenow.com/docs/r/application-development/automated-test-framework-atf/atf-landing-page.html)
 
@@ -1049,8 +1067,11 @@ ServiceNow 公式ドキュメント（servicenow.com/docs）
 - Building and running automated test suites（Zurich）: https://www.servicenow.com/docs/r/zurich/application-development/automated-test-framework-atf/atf-suites-overview.html
 - Copy an automated test suite: https://www.servicenow.com/docs/r/KClk0UwQlFjGoDJBQtfqgw/vts7KTPB0FuxQnRuTGycyg
 - Create a test for Configurable Workspace interaction via Page Inspector（Australia）: https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/sJpLzMpXwd2mY4cqvsL3Kw
+- Create tests for Configurable Workspace（Configurable Workspace test step category）: https://www.servicenow.com/docs/r/application-development/automated-test-framework-atf/atf-create-tests-ws.html
 - Available quick start tests by application or feature（Australia）: https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/pIpIzMo4e20_GK~CWaGW7w
 - Scheduling test execution（Zurich）: https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/ZkT~6XbFHA4iB3VG6f5Bnw
+- Suite schedule record: https://www.servicenow.com/docs/r/washingtondc/application-development/automated-test-framework-atf/atf-suite-schedule-record.html
+- Schedule a script execution: https://www.servicenow.com/docs/r/platform-administration/time-configuration/t_ScheduleAScriptExecution.html
 - Run a scheduled test suite using a script（Zurich）: https://www.servicenow.com/docs/r/zurich/application-development/automated-test-framework-atf/run-scheduled-test-suite-script.html
 - Executing the tests using Cloud Runner（Zurich）: https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/jpnKWtziIAZDvh4AVIOkaA
 - Generating the tests（Zurich）: https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/Zcdj8pK6AKm6UYgF6gCKIw

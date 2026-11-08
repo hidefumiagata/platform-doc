@@ -985,7 +985,7 @@ Incident Management の設定は Datadog Terraform Provider で管理でき、�
 | `datadog_incident_notification_template` | 通知テンプレート |
 | `datadog_status_page` | Status Pages [出典](https://docs.datadoghq.com/incident_response/status_pages/) |
 
-Terraform の一般的な運用は [Terraform と IaC](../platform/terraform-and-iac.md) と [Monitoring as Code](../../04_応用編/monitoring-as-code.md) を参照。
+Terraform の一般的な運用は [Terraform と IaC](../platform/terraform-and-iac.md) と [Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) を参照。
 
 ## 制限値・クォータ・デフォルト値
 
@@ -1045,7 +1045,7 @@ Incident Management と Status Pages の制限値・既定値は次のとおり�
 
 ## 課金への影響
 
-Incident Management は**シート（seat）課金**の SKU である。Incident Management と On-Call を個別 SKU で契約するか、両者を 1 つのシートにまとめた **Incident Response バンドル**で契約するかを選べる。料金の数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、課金計算の一般論は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。[出典](https://docs.datadoghq.com/account_management/billing/incident_response/)
+Incident Management は**シート（seat）課金**の SKU である。Incident Management と On-Call を個別 SKU で契約するか、両者を 1 つのシートにまとめた **Incident Response バンドル**で契約するかを選べる。料金の数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、課金計算の一般論は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。[出典](https://docs.datadoghq.com/account_management/billing/incident_response/)
 
 ### 定価（2026-11-02 時点、USD、1 シートあたり月額）
 
@@ -1057,7 +1057,7 @@ Incident Management は**シート（seat）課金**の SKU である。Incident
 
 [出典](https://www.datadoghq.com/pricing/list/) [出典](https://www.datadoghq.com/pricing/?product=incident-response#products)
 
-> **サイト差異:** AP1 の定価は US/EU1 と異なる（上表の AP1 列）。AP1 列の数値は料金の正本である [製品別料金表](../../03_導入編/pricing-by-product.md) §13 に従う（Pricing Comparison の既定表示は US サイトの価格）。実際の契約単価は見積・契約条件により異なる場合がある。
+> **サイト差異:** AP1 の定価は US/EU1 と異なる（上表の AP1 列）。AP1 列の数値は料金の正本である [製品別料金表](../../03_導入編/02-pricing-by-product.md) §13 に従う（Pricing Comparison の既定表示は US サイトの価格）。実際の契約単価は見積・契約条件により異なる場合がある。
 
 ### シートが必要な操作・不要な操作（Incident Management）
 
@@ -1082,7 +1082,7 @@ UI 上でも Slack・Teams 経由でも、上記の操作にはシートが必�
 | 割当解除 | Seat Management で解除。解除後もインシデントの作成・閲覧・チャンネル参加は可能。On-Call の通知設定を削除してもシートは解除されない |
 | 請求額の基準 | 請求期間中の**同時割当シート数の最大値**。コミット数を超えた分はオンデマンド単価 |
 | 超過時の請求 | コミット済みシートが埋まっていても新規請求は成功し、超過分はオンデマンドとして課金 |
-| 月途中の解除 | その月は課金対象のまま、翌月の請求から外れる。このため同じ請求期間内にシートを別の人へ付け替えると、解除したシートもその期間は課金されるため、**その期間は 2 シート分**の請求になる（[製品別料金表](../../03_導入編/pricing-by-product.md) §13 の「シートの計数」と同じ扱い。公式ドキュメントには付け替えの明示的な記載はなく、「月途中に解除したシートはその月は課金対象」という記載からの帰結） |
+| 月途中の解除 | その月は課金対象のまま、翌月の請求から外れる。このため同じ請求期間内にシートを別の人へ付け替えると、解除したシートもその期間は課金されるため、**その期間は 2 シート分**の請求になる（[製品別料金表](../../03_導入編/02-pricing-by-product.md) §13 の「シートの計数」と同じ扱い。公式ドキュメントには付け替えの明示的な記載はなく、「月途中に解除したシートはその月は課金対象」という記載からの帰結） |
 | コミット数の削減 | 更新（renewal）時に反映 |
 | 両製品が必要なユーザー | Incident Response シート 1 つで足りる（2 シートは不要） |
 | 複数 org | シートはメールアドレスで重複排除され、二重課金されない |
@@ -1106,12 +1106,12 @@ UI 上でも Slack・Teams 経由でも、上記の操作にはシートが必�
 
 - Incident Automations（Workflow Automation で動作）は Incident Management の課金に含まれ、追加費用はない。[出典](https://docs.datadoghq.com/incident_response/incident_management/setup_and_configuration/automations/)
 - 一部の公式ドキュメント（Slack・Microsoft Teams 連携ページ）には「usage-based Incident Management billing（利用量ベース課金）」の組織向けの記述があり、その場合は月間アクティブユーザーが課金対象となる旨が書かれている（例：Slack でタイムライン同期されるメッセージを書いただけでは課金ユーザーにならないが、Pin した場合は課金ユーザーになる）。利用量ベース課金の単価・適用条件は公開情報では確認できず（旧来の契約形態と推定される）【推定】。[出典](https://docs.datadoghq.com/incident_response/incident_management/setup_and_configuration/integrations/slack/)
-- Bits Investigation は料金ページで AI Credits の消費対象として記載されている（目安：1 回あたり約 4 クレジット）。インシデントから起動した場合にも同様に AI Credits を消費するかは公開情報で明示されていない。AI Credits の詳細は [Bits AI と AI 機能](../ai/bits-ai.md) と [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。[出典](https://www.datadoghq.com/pricing/?product=incident-response#products)
-- 料金体系の全体像は [料金体系の全体像](../../03_導入編/pricing-overview.md)、エディションとの関係は [エディション・プラン](../../03_導入編/editions-and-plans.md) を参照。
+- Bits Investigation は料金ページで AI Credits の消費対象として記載されている（目安：1 回あたり約 4 クレジット）。インシデントから起動した場合にも同様に AI Credits を消費するかは公開情報で明示されていない。AI Credits の詳細は [Bits AI と AI 機能](../ai/bits-ai.md) と [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照。[出典](https://www.datadoghq.com/pricing/?product=incident-response#products)
+- 料金体系の全体像は [料金体系の全体像](../../03_導入編/01-pricing-overview.md)、エディションとの関係は [エディション・プラン](../../03_導入編/04-editions-and-plans.md) を参照。
 
 ## 運用上の参考（Datadog 社内の運用例）
 
-Datadog 自身のインシデント運用は公式ブログ「How We Manage Incidents at Datadog」（2023-11-06 公開）で公開されている。2 年以上前の情報であり、現行の製品仕様とは食い違う可能性がある。実践的な設計指針は [運用設計](../../03_導入編/operations-design.md) と [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md) を参照。[出典](https://www.datadoghq.com/blog/how-datadog-manages-incidents/)（2023-11-06 公開）
+Datadog 自身のインシデント運用は公式ブログ「How We Manage Incidents at Datadog」（2023-11-06 公開）で公開されている。2 年以上前の情報であり、現行の製品仕様とは食い違う可能性がある。実践的な設計指針は [運用設計](../../03_導入編/13-operations-design.md) と [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md) を参照。[出典](https://www.datadoghq.com/blog/how-datadog-manages-incidents/)（2023-11-06 公開）
 
 | 観点 | Datadog 社内の運用例 |
 |---|---|

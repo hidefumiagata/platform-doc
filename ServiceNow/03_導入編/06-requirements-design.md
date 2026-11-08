@@ -10,6 +10,8 @@ sources:
   - https://www.servicenow.com/docs/r/application-development/app-engine-studio/aes-custom-vs-config.html
   - https://www.servicenow.com/community/architect-forum/seeking-official-servicenow-guidance-on-fit-to-standard/m-p/3298315
   - https://www.servicenow.com/community/manufacturing-articles/implementation-assets-on-nowcreate/ta-p/3277266
+  - https://www.servicenow.com/community/in-other-news/now-create-retirement-faqs-and-introduction-to-the-best/ba-p/3425556
+  - https://sii.pl/blog/en/understanding-the-now-create-framework-structure-advantages-and-common-pitfalls/
   - https://www.servicenow.com/community/now-platform-articles/pack-amp-break-green-amp-brown-field-implementation/ta-p/3101282
   - https://www.servicenow.com/community/architect-articles/the-servicenow-architect-s-guide-to-a-successful-implementation/ta-p/3423012
   - https://www.servicenow.com/community/architect-articles/recommended-format-solution-design-format-for-your/ta-p/2929116
@@ -24,6 +26,7 @@ sources:
   - https://www.servicenow.com/community/workflow-automation-forum/when-is-the-deprecation-date-for-legacy-workflow-engine/td-p/3460362/page/2
   - https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/196W0ylohpY~Vw8XhLvKxg
   - https://www.servicenow.com/docs/r/SbrhqYG7UKQCk7uYwvgVBA/SehPmHDWDfxzAhX4D5JZgQ
+  - https://www.servicenow.com/docs/r/K~TMjGrGv2CmYjaGLbVoJQ/ME5mVCM51f_0XDAcrumXwQ
   - https://www.servicenow.com/docs/r/platform-administration/grandfathered-and-exempt-tables-v2.html
   - https://www.servicenow.com/community/app-engine-forum/never-extend-from-the-task-table-for-your-custom-scoped/m-p/3483899
   - https://www.servicenow.com/community/architect-forum/now-with-paris-what-is-the-benefit-of-extending-from-task-for-a/m-p/2194469
@@ -67,7 +70,7 @@ ServiceNow 導入における要件定義・設計フェーズは、「何を作
 | 8. 設計書テンプレート | 設計書体系、Solution Architecture & Design（SAD）の構成、設計品質ゲート（Instance Scan） |
 | 9. チェックリスト | 要件定義・設計の完了判定 |
 
-関連ファイル：導入方法論と Fit to Standard ワークショップは [04-implementation-methodology.md](04-implementation-methodology.md)、体制は [05-project-organization.md](05-project-organization.md)、インスタンス戦略は [07-instance-strategy.md](07-instance-strategy.md)、データ移行は [08-data-migration.md](08-data-migration.md)、連携設計は [09-integration-design.md](09-integration-design.md)、セキュリティ設計は [10-security-compliance.md](10-security-compliance.md)、カスタマイズと技術的負債は [../04_応用編/02-customization-technical-debt.md](../04_応用編/02-customization-technical-debt.md)、ITSM プロセス設計の実践知は [../04_応用編/11-itsm-process-design-tips.md](../04_応用編/11-itsm-process-design-tips.md)。
+関連ファイル：導入方法論と Fit to Standard ワークショップは [04-implementation-methodology.md](04-implementation-methodology.md)、体制は [05-project-organization.md](05-project-organization.md)、インスタンス戦略は [07-instance-strategy.md](07-instance-strategy.md)、データ移行は [08-data-migration.md](08-data-migration.md)、連携設計は [09-integration-design.md](09-integration-design.md)、セキュリティ設計は [10-security-compliance.md](10-security-compliance.md)、アップグレードと技術的負債の教訓は [../04_応用編/04-upgrade-lessons.md](../04_応用編/04-upgrade-lessons.md)、ITSM プロセス設計の実践知は [../04_応用編/11-itsm-process-design-tips.md](../04_応用編/11-itsm-process-design-tips.md)。
 
 ---
 
@@ -75,7 +78,7 @@ ServiceNow 導入における要件定義・設計フェーズは、「何を作
 
 ### 1.1 導入方法論における位置づけ
 
-ServiceNow 公式の導入方法論 Now Create（現在は My Now の Best Practices サイトで提供）では、要件定義・設計に相当する作業は主に **Plan フェーズ**の「Conduct Process Workshops（プロセスワークショップ）」と「Conduct Platform Workshops（プラットフォームワークショップ）」で行われる。ワークショップには Process Workshop Presentation（プロセスワークショップ資料）と Process Guide（製品ごとの推奨プロセス）が用意され、合意結果は Starter Stories（ユーザーストーリーのひな形）をベースにバックログ化する。[出典](https://www.servicenow.com/community/manufacturing-articles/implementation-assets-on-nowcreate/ta-p/3277266) フェーズ構成の詳細は [04-implementation-methodology.md](04-implementation-methodology.md) を参照。
+ServiceNow 公式の導入方法論 Now Create は、2025-12-05 のポータル廃止後も、コンテンツと方法論が My Now の Best Practices サイトで引き続き提供されている。[出典](https://www.servicenow.com/community/in-other-news/now-create-retirement-faqs-and-introduction-to-the-best/ba-p/3425556) Now Create のフェーズ構成では、要件定義・設計に相当する作業は主に **Plan フェーズ**の「Conduct Process Workshops（プロセスワークショップ）」と「Conduct Platform Workshops（プラットフォームワークショップ）」で行われる。[出典](https://sii.pl/blog/en/understanding-the-now-create-framework-structure-advantages-and-common-pitfalls/)【第三者情報】（旧 Now Create ポータルの画面に基づく。フェーズ表と出典の詳細は [04-implementation-methodology.md](04-implementation-methodology.md) を参照） 実装アセットとしては Process Workshop Presentation（プロセスワークショップ資料）、Process Guide（推奨プロセス）、Starter Stories（ユーザーストーリーのひな形）などが用意されており、ワークショップの合意結果は Starter Stories をベースにバックログ化する。[出典](https://www.servicenow.com/community/manufacturing-articles/implementation-assets-on-nowcreate/ta-p/3277266)
 
 アジャイル（スプリント）型で進める場合でも、要件定義・設計は「最初に全部決める」のではなく、**Plan フェーズで全体方針（設計原則・データモデル・ロールモデル・通知方針）を固め、個々の機能はスプリント内のストーリー詳細化で設計する**ハイブリッド型が一般的である。【経験則】
 
@@ -318,10 +321,10 @@ ServiceNow 導入ではアジャイル型の進行が多いため、機能要件
 
 | 資産 | 提供元 | 内容 | 出典 |
 |---|---|---|---|
-| Process Workshop Presentation / Process Guide | Now Create（現 My Now Best Practices） | 製品別のワークショップ資料と推奨プロセス。CSM、FSM、SOM、FSO など製品別版がある | [出典](https://www.servicenow.com/community/manufacturing-articles/implementation-assets-on-nowcreate/ta-p/3277266) |
+| Process Workshop Presentation / Process Guide | Now Create（現 My Now Best Practices） | 製品別のワークショップ資料と推奨プロセス（例：Manufacturing Commercial Operations 版） | [出典](https://www.servicenow.com/community/manufacturing-articles/implementation-assets-on-nowcreate/ta-p/3277266)、移行先は[出典](https://www.servicenow.com/community/in-other-news/now-create-retirement-faqs-and-introduction-to-the-best/ba-p/3425556) |
 | Starter Stories | 同上 | ユーザーストーリーのひな形 | 同上 |
-| Scoping guides | 同上 | スコープ定義のガイド。下記の要件収集ツールの補完として ServiceNow 社員が推奨 | [出典](https://www.servicenow.com/community/onboarding-hub-articles/guidelines-for-requirements-gathering/ta-p/2618053) |
-| Requirements gathering tool（Word） | ServiceNow 社員によるコミュニティ記事（2023-07-19 投稿） | 要件収集のテンプレート兼ガイドライン。全製品は網羅しないが拡張の土台になる（添付ファイルとして配布） | [出典](https://www.servicenow.com/community/onboarding-hub-articles/guidelines-for-requirements-gathering/ta-p/2618053) |
+| Scoping guides | 同上 | スコープ定義のガイド。下記の要件収集ツールの記事へのコメントで、ServiceNow 社員が補完資料として推奨 | [出典](https://www.servicenow.com/community/onboarding-hub-articles/guidelines-for-requirements-gathering/ta-p/2618053)【第三者情報】 |
+| Requirements gathering tool（Word） | ServiceNow 社員によるコミュニティ記事（2023-07-19 投稿） | 要件収集のテンプレート兼ガイドライン。全製品は網羅しないが拡張の土台になる（添付ファイルとして配布） | [出典](https://www.servicenow.com/community/onboarding-hub-articles/guidelines-for-requirements-gathering/ta-p/2618053)【第三者情報】 |
 | Business Requirement Template – Incident Management（Excel） | コミュニティ記事（2020-04-21 投稿） | 11 シート構成：Incident forms、Additional Requirement、Choice Fields、Tasks、Notifications、State Propagation Matrix、SLA、Roles & Privileges、Priority Matrix、Plugin、Reporting。各シートに OOB の動作と経験に基づくベストプラクティスを記載 | [出典](https://www.servicenow.com/community/itsm-articles/business-requirement-template-itsm-part-1-incident-management/ta-p/2304378)【第三者情報】 |
 
 > Incident Management 用テンプレートの 11 シート構成は、そのまま「プロセス設計書の章立て」としても使える。4 節（プロセス設計）、6 節（ロール設計）、7 節（通知設計）はこの構成に沿って項目を整理している。
@@ -415,9 +418,9 @@ Data lookup rules と Assignment rules は同時に定義できる。レコー�
 
 #### 4.4.1 新規の自動化は Workflow Studio（Flow Designer）で作る
 
-ServiceNow の Flow / Workflow 製品チームを率いる ServiceNow 社員は、2026-01 のコミュニティ回答で「現時点で Legacy Workflow エンジンを非推奨にする計画はない」「新しい自動化はすべて Flow Designer で作ることを推奨する」と述べている。また **Zurich 以降、新規インスタンスには Legacy Workflow が OOTB で同梱されなくなった**（既存インスタンスの既存 Legacy Workflow は引き続き動作する）。[出典](https://www.servicenow.com/community/workflow-automation-forum/when-is-the-deprecation-date-for-legacy-workflow-engine/td-p/3460362/page/2)【第三者情報】（ServiceNow 社員のコミュニティ回答）
+ServiceNow の Flow / Workflow 製品チームを率いる ServiceNow 社員は、2026-01 のコミュニティ回答で「現時点で Legacy Workflow エンジンを非推奨にする計画はない」「新しい自動化はすべて Flow Designer で作ることを推奨する」と述べている。また同社員は「As of the Zurich release, ServiceNow no longer ships legacy workflows out of the box for new instances」とも述べており、**Zurich 以降、新規インスタンスには OOTB の Legacy Workflow（ベースシステムのワークフロー定義）が同梱されなくなった**と読める（エンジン自体は存続し、既存の Legacy Workflow は引き続き動作する）。同スレッドには「将来のリリースで完全に廃止される見込み」とする非社員の投稿もあるが、公式の根拠は示されていない。[出典](https://www.servicenow.com/community/workflow-automation-forum/when-is-the-deprecation-date-for-legacy-workflow-engine/td-p/3460362/page/2)【第三者情報】（ServiceNow 社員のコミュニティ回答）
 
-コミュニティでは、新規 Zurich インスタンスで Workflow Editor から New Workflow を選ぶと Flow Designer にリダイレクトされるという報告もある。【第三者情報】[出典](https://www.servicenow.com/community/workflow-automation-forum/when-is-the-deprecation-date-for-legacy-workflow-engine/td-p/3460362/page/2)
+同スレッドには、新規作成されたインスタンスでは Workflow Editor で新しいワークフローを作成できなくなっているという非社員の投稿（2026-01-06）もある（公式ドキュメントの裏付けはない）。【第三者情報】[出典](https://www.servicenow.com/community/workflow-automation-forum/when-is-the-deprecation-date-for-legacy-workflow-engine/td-p/3460362/page/2)
 
 #### 4.4.2 手段の使い分け
 
@@ -631,6 +634,7 @@ ServiceNow のユーザー種別（Fulfiller、Business Stakeholder、Approver�
 |---|---|
 | 「念のため `itil` を付ける」 | Fulfiller が増える。参照だけで足りるペルソナには参照系ロールや Business Stakeholder 系のロールを検討する |
 | 承認者を Fulfiller にしない | 承認だけのペルソナは `approver_user` 等で設計し、タスクの作業をさせない |
+| `approver_user` 自体も有償 | 公式ドキュメント「Base system roles」（Brazil 版）は `approver_user` について「There's a fee associated with this role」と明記し、エンタイトルメントを確認せずに付与しないよう注意している。承認者の人数とライセンス種別（Approver 枠の有無）を契約で確認する。[出典](https://www.servicenow.com/docs/r/platform-administration/user-administration/base-system-roles.html) |
 | カスタムロールの Requires Subscription | カスタムロールが OOTB の計測ロールを包含すると計測対象になり得る。Subscription Management でロールとサブスクリプションの対応を確認する |
 | `task` 拡張テーブルの権限 | `task` の ACL を継承するため、カスタムアプリの利用者に ITIL 系ロールが必要になり、Fulfiller 化する可能性がある（5.3） |
 
@@ -641,10 +645,11 @@ ServiceNow のユーザー種別（Fulfiller、Business Stakeholder、Approver�
 | 論点 | 内容 | 出典 |
 |---|---|---|
 | `security_admin` | ベースシステムで唯一のエレベーテッド特権ロールで、既定の管理者（admin）ユーザーに割り当てられている。ACL や High Security Settings の変更に必要 | [出典](https://www.servicenow.com/docs/r/platform-security/c_ElevatedPrivilege.html) |
-| admin ロールへの Elevated privilege | Australia のドキュメントでは、admin ロールにエレベーテッド特権を使うことはサポートされず、代わりに管理者に手動エレベートを求めるよう記載されている | [出典](https://www.servicenow.com/docs/r/platform-security/c_ElevatedPrivilege.html) |
+| admin ロールへの Elevated privilege | 公式ドキュメント（Brazil 版で確認。Australia 版でも同旨と想定）では、admin ロールにエレベーテッド特権を使うことはサポートされず、代わりに管理者に手動エレベートを求めるよう記載されている | [出典](https://www.servicenow.com/docs/r/platform-security/c_ElevatedPrivilege.html) |
 | エレベーションの伝播 | ロール包含はロールの付与のみを伝播し、エレベーションは伝播しない。エレベーテッドロール A がエレベーテッドロール B を包含していても、B には個別にエレベートが必要 | [出典](https://www.servicenow.com/docs/r/platform-security/c_ElevatedPrivilege.html) |
 | Granular admin roles（Australia で導入） | `admin` を与えずに特定の管理作業を委譲できる細粒度の管理ロール。例：通知の設定ができる `notification_admin`（`sysevent_email_action`、`sys_email_layout`、`sysevent_email_template` の設定） | [出典](https://www.servicenow.com/docs/r/platform-administration/granular-admin-roles-notifications.html)、[出典](https://www.servicenow.com/community/platform-privacy-security-blog/granular-admin-roles-in-australia-precise-access-control-for-a/ba-p/3562990)【第三者情報】 |
 | `itil_admin` の包含拡大（Australia） | Australia から `itil_admin` は既定で `sn_cmdb_admin` を包含する。`itil_admin` 保持者は CMDB 管理者相当の権限を得るため、付与対象を見直す | [出典](https://www.servicenow.com/docs/r/platform-administration/user-administration/base-system-roles.html)、[出典](https://www.servicenow.com/community/itsm-articles/expanded-role-inheritance-for-itil-and-itil-admin-australia/ta-p/3516134)【第三者情報】 |
+| `itil` の包含拡大（Australia） | Australia では `itil` の Contains Roles にもロールが 4 つ追加された。記事ではロール名が画像でしか示されていないため、インスタンスの `sys_user_role`（`itil` レコードの Contains Roles）で確認すること。`itil` は Fulfiller 判定やカスタム業務ロール（6.3 の `u_sd_agent` など）の土台なので、`itil` を包含するカスタム業務ロールはアップグレード後に実効ロールとアクセス範囲を再確認する | [出典](https://www.servicenow.com/community/itsm-articles/expanded-role-inheritance-for-itil-and-itil-admin-australia/ta-p/3516134)【第三者情報】 |
 
 > **設計への反映【経験則】:** Australia 以降のインスタンスでは、「業務部門の管理者に通知やカタログの保守を任せたいが `admin` は渡せない」という従来の典型的な要件を、Granular admin roles で満たせる可能性がある。ロール設計書の「管理者ペルソナ」には、`admin`（少数）、`security_admin`（エレベート）、細粒度管理ロール（業務部門の保守担当）の 3 層を設けるとよい。
 
@@ -705,7 +710,7 @@ Australia の公式ドキュメント「Create an email notification」に基づ
 
 ### 7.3 Weight による重複抑止
 
-1 つの操作で複数の通知が生成された場合、**対象テーブルと受信者が同じ通知**は件名・本文が異なっていても重複とみなされ、Weight が最も高い通知だけが送信される。他の通知は Outbox から Skipped mailbox に移る。公式の例では、エージェントがインシデントにコメントしてからクローズすると「Incident commented」と「Incident Closed」の両方が発火し得るが、同じテーブル・同じ Caller 宛のため Weight の高い方のみ送られる。既定値 0 は「条件を満たせば送信する」を意味する。[出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/arqcJvflekHKxKqf4TzPqg)
+1 つの操作で複数の通知が生成された場合、**対象テーブルと受信者が同じ通知**は、Weight が異なれば件名・本文が違っても重複とみなされ、Weight が最も高い通知だけが送信される。Weight が同じ場合は、件名と本文（透かし＝watermark を除く）も同一のときだけ重複とみなされる。他の通知は Outbox から Skipped mailbox に移る。公式の例では、エージェントがインシデントにコメントしてからクローズすると「Incident commented」と「Incident Closed」の両方が発火し得るが、同じテーブル・同じ Caller 宛のため Weight の高い方のみ送られる。既定値 0 は「条件を満たせば送信する」を意味する。[出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/arqcJvflekHKxKqf4TzPqg)
 
 ServiceNow 社員による 2015 年のコミュニティ記事では、次の挙動が検証されている（古い記事であり、現行リリースでの挙動はインスタンスで確認すること）。【第三者情報】[出典](https://www.servicenow.com/community/united-kingdom-snug/notifications-email-notification-weight-examples/ba-p/2271497)
 
@@ -867,14 +872,14 @@ Instance Scan は、インスタンスの異常や改善機会を検出するル
 
 **出典:** https://www.servicenow.com/community/developer-articles/enforcing-best-practices-and-development-standards-for-your/ta-p/2349946 （ServiceNow Community、2022-10-12 投稿。取得日 2026-11-02）【第三者情報】
 
-**HealthScan** は、ServiceNow が数千のインスタンスの分析から集めたベストプラクティスの定義を使い、Security、Upgradability、Performance、Manageability、Usability の 5 カテゴリでインスタンスをスキャンするもので、結果は Health Assessment Dashboard で重大度別に確認できる。[出典](https://www.servicenow.com/docs/r/impact/healthscan.html) 公式ドキュメントはカスタマイズのガイドラインとして「HealthScan を定期的に実行して不要なカスタマイズを見つける」ことを挙げている。[出典](https://www.servicenow.com/docs/r/application-development/app-engine-studio/aes-custom-vs-config.html)
+**HealthScan** は、ServiceNow が数千のインスタンスの分析から集めたベストプラクティスの定義を使い、Security、Upgradability、Performance、Manageability、Usability の 5 カテゴリでインスタンスをスキャンする診断ツールである。[出典](https://www.servicenow.com/docs/r/impact/healthscan.html) HealthScan は Instance Scan のようなインスタンス標準の機能ではなく、ServiceNow Impact（Impact Delivery Instance）を通じて提供される。利用できるかどうかは契約（Impact のエンタイトルメント）で確認する。 公式ドキュメントはカスタマイズのガイドラインとして「HealthScan を定期的に実行して不要なカスタマイズを見つける」ことを挙げている。[出典](https://www.servicenow.com/docs/r/application-development/app-engine-studio/aes-custom-vs-config.html)
 
 | ゲート | タイミング【経験則】 | 手段 |
 |---|---|---|
 | 設計レビュー | 各スプリントの設計確定時、Design Authority | 8.3 のチェックリスト |
 | 開発完了 | アップデートセットの完了時 | Instance Scan（Point Scan、Scan Update Set） |
 | リリース前 | 本番移送前 | Instance Scan の Suite、ATF |
-| 定期 | 四半期・アップグレード前 | HealthScan、カスタマイズ登録簿の棚卸し |
+| 定期 | 四半期・アップグレード前 | HealthScan（Impact 契約がある場合。ない場合は Instance Scan の Full Scan で代替）、カスタマイズ登録簿の棚卸し |
 
 ### 8.5 設計判断記録（ADR）
 
@@ -919,7 +924,7 @@ Fit-Gap 一覧が「要件ごとの判断」を記録するのに対し、テー
 - **公式の設計書テンプレート:** ServiceNow 公式の「設計書（Design Document）」テンプレートや Fit-Gap 一覧の公式フォーマットは、公開情報では確認できず。Now Create（現 My Now Best Practices）の資産はログインが必要で、本文は確認できていない。本ファイルの列定義・章立ての多くは【経験則】として示した。
 - **Custom Table Guide の具体的な判定基準:** どの親テーブルを拡張したテーブルが免除されるか、フィールド数などの具体的な基準は、Legal schedule（PDF）を本調査では確認できず。公式ドキュメントの記載範囲（免除は主に `sys_portal_page`、`sys_user_preference` 等のシステムテーブルの拡張）にとどめた。
 - **`task` 拡張テーブルとライセンスの関係:** `task` 拡張のカスタムテーブルが利用者の Fulfiller 化を必ず招くかどうかは、契約と ACL 設計に依存し、公式の一般則は確認できず。
-- **Weight が同値の場合の挙動:** 公式ドキュメント（リファレンス編の引用）は「件名・本文を比較して重複を判定する」とし、2015 年のコミュニティ記事は「同じ Weight・対象・受信者なら両方送られる」と報告している。Australia での挙動はインスタンスで確認すること。
+- **Weight が同値の場合の挙動:** 公式ドキュメント（Zurich 版）は、同値時は件名・本文（透かしを除く）も比較して重複を判定すると明記している（7.3）。2015 年のコミュニティ記事の検証結果（同じ Weight・対象・受信者なら両方送られる）はこれと矛盾し得るため、Australia のインスタンスで確認すること。[出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/arqcJvflekHKxKqf4TzPqg)
 - **Brazil での State Management・Instance Scan・ロール設計関連の変更:** 本調査では、Brazil で State Model、Instance Scan、Granular admin roles に関する変更点は確認できず（Notifications の変更点のみ確認）。
 - **Legacy Workflow の正式な非推奨日:** 公式ドキュメント上の非推奨・廃止日は確認できず。ServiceNow 社員のコミュニティ回答（2026-01）では「非推奨の計画はない」とされている。
 
@@ -938,14 +943,15 @@ Fit-Gap 一覧が「要件ごとの判断」を記録するのに対し、テー
 - Decision tables workflow: https://www.servicenow.com/docs/r/build-workflows/workflow-studio/exploring-decision-builder.html
 - Exploring ServiceNow AI Platform tables（Yokohama 版）: https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/196W0ylohpY~Vw8XhLvKxg
 - Custom tables（Xanadu 版）: https://www.servicenow.com/docs/r/SbrhqYG7UKQCk7uYwvgVBA/SehPmHDWDfxzAhX4D5JZgQ
+- Custom tables（Australia 版・韓国語ローカライズ。定義とエンタイトルメントの記述が Xanadu 版と同じであることを 2026-11-04 に確認）: https://www.servicenow.com/docs/r/K~TMjGrGv2CmYjaGLbVoJQ/ME5mVCM51f_0XDAcrumXwQ
 - Grandfathered and exempted tables（Brazil 版）: https://www.servicenow.com/docs/r/platform-administration/grandfathered-and-exempt-tables-v2.html
 - Create a role（Yokohama 版）: https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/J2RiI2yJx_Hz8kzmsjYH_g
 - Assign a role to a user: https://www.servicenow.com/docs/r/platform-administration/user-administration/t_AssignARoleToAUser.html
 - Base system roles: https://www.servicenow.com/docs/r/platform-administration/user-administration/base-system-roles.html
-- Elevated privilege roles: https://www.servicenow.com/docs/r/platform-security/c_ElevatedPrivilege.html
+- Elevated privilege roles（Brazil 版）: https://www.servicenow.com/docs/r/platform-security/c_ElevatedPrivilege.html
 - Granular admin roles for Notifications: https://www.servicenow.com/docs/r/platform-administration/granular-admin-roles-notifications.html
 - Create an email notification（Australia）: https://www.servicenow.com/docs/r/australia/platform-administration/t_CreateANotification.html
-- Create an email notification（Weight の挙動）: https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/arqcJvflekHKxKqf4TzPqg
+- Create an email notification（Weight の挙動、Zurich 版。Australia 版での記述変更は未確認）: https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/arqcJvflekHKxKqf4TzPqg
 - Email Notification API（ServiceNow Fluent）: https://www.servicenow.com/docs/r/a3E8xg0zsiQLBPKbKO15Mg/drqUzUBvvocxxduE9UZ3zQ
 - Email layouts: https://www.servicenow.com/docs/r/platform-administration/email-layouts.html
 - Brazil vs. Australia Notifications release notes: https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-notifications-release-notes.html
@@ -956,6 +962,7 @@ Fit-Gap 一覧が「要件ごとの判断」を記録するのに対し、テー
 
 - Seeking official ServiceNow guidance on Fit to Standard: https://www.servicenow.com/community/architect-forum/seeking-official-servicenow-guidance-on-fit-to-standard/m-p/3298315
 - Implementation assets on Now Create: https://www.servicenow.com/community/manufacturing-articles/implementation-assets-on-nowcreate/ta-p/3277266
+- Now Create Retirement FAQs and Introduction to the Best Practices site（2025-11-12）: https://www.servicenow.com/community/in-other-news/now-create-retirement-faqs-and-introduction-to-the-best/ba-p/3425556
 - Pack & Break: Green & Brown field implementation: https://www.servicenow.com/community/now-platform-articles/pack-amp-break-green-amp-brown-field-implementation/ta-p/3101282
 - The ServiceNow Architect's guide to a successful implementation: https://www.servicenow.com/community/architect-articles/the-servicenow-architect-s-guide-to-a-successful-implementation/ta-p/3423012
 - Recommended format: Solution design format for your ServiceNow solution: https://www.servicenow.com/community/architect-articles/recommended-format-solution-design-format-for-your/ta-p/2929116
@@ -970,3 +977,7 @@ Fit-Gap 一覧が「要件ごとの判断」を記録するのに対し、テー
 - Notifications: Email notification weight examples: https://www.servicenow.com/community/united-kingdom-snug/notifications-email-notification-weight-examples/ba-p/2271497
 - Enforcing best practices and development standards for your instance (Instance Scan): https://www.servicenow.com/community/developer-articles/enforcing-best-practices-and-development-standards-for-your/ta-p/2349946
 - Reducing skipped records in ServiceNow upgrades: https://www.servicenow.com/community/developer-blog/reducing-skipped-records-in-servicenow-upgrades/ba-p/3102307
+
+### 第三者ブログ（【第三者情報】）
+
+- Sii Poland「Understanding the Now Create framework: structure, advantages and common pitfalls」（2025-07-18、旧 Now Create ポータルのフェーズ構成画面を掲載）: https://sii.pl/blog/en/understanding-the-now-create-framework-structure-advantages-and-common-pitfalls/

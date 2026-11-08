@@ -5,7 +5,7 @@ domain: platform
 release: Australia
 last_verified: 2026-11-02
 summary: ServiceNow 導入プロジェクトのテスト計画（単体・システム/結合・UAT・性能・回帰）、Automated Test Framework（ATF）の導入プロジェクトでの使い方、Test Management 2.0 による手動テスト管理、Instance Scan による品質ゲート、Go-Live 判定チェックリスト、カットオーバー（本番移送・データ投入・メール有効化）手順、Hypercare と運用移管を実務で使える粒度でまとめる。
-keywords: [テスト計画, test plan, 単体テスト, unit test, システムテスト, system test, 結合テスト, integration test, UAT, user acceptance testing, 受入テスト, 性能テスト, 負荷テスト, load test, performance test, 回帰テスト, regression test, ATF, Automated Test Framework, sn_atf.runner.enabled, Cloud Runner, Test Management 2.0, com.snc.test_management.2.0, sn_test_management.test_manager, sn_test_management.tester, Instance Scan, scan_user, Go-Live, 本番稼働, Go/No-Go, カットオーバー, cutover, zBoot, Update Set, batch update set, Application Repository, glide.email.smtp.active, glide.email.read.active, glide.email.test.user, blackout schedule, Hypercare, ハイパーケア, AMS, 運用移管, Instance Observer, syslog_transaction]
+keywords: [テスト計画, test plan, 単体テスト, unit test, システムテスト, system test, 結合テスト, integration test, UAT, user acceptance testing, 受入テスト, 性能テスト, 負荷テスト, load test, performance test, 回帰テスト, regression test, ATF, Automated Test Framework, sn_atf.runner.enabled, Cloud Runner, Test Management 2.0, com.snc.test_management.2.0, sn_test_management.test_manager, sn_test_management.tester, Instance Scan, scan_user, Go-Live, 本番稼働, Go/No-Go, カットオーバー, cutover, zBoot, Update Set, batch update set, Application Repository, glide.email.smtp.active, glide.email.read.active, glide.email.test.user, blackout schedule, Hypercare, ハイパーケア, AMS, 運用移管, Instance Observer, syslog_transaction, penetration test, ペネトレーションテスト, 脆弱性診断, KB0538598, rollback context, glide.rollback.expiration_days_plugin]
 sources:
   - https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/zqr~gFhQN2U7V9ntGgpiQg
   - https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/4hkh6VNi_eAnyfY91R522Q
@@ -34,13 +34,26 @@ sources:
   - https://www.servicenow.com/community/onboarding-hub-blog/servicenow-handover-ams/bc-p/3408201
   - https://www.servicenow.com/community/international-localization/global-go-live-considerations/ta-p/2327308
   - https://www.servicenow.com/community/in-other-news/5-common-pitfalls-in-servicenow-implementations-and-how-to-avoid/ba-p/3217075
-  - https://www.servicenow.com/community/in-other-news/how-to-think-about-planning-your-servicenow-digital/ba-p/3059144
+  - https://www.servicenow.com/community/upgrades-and-patching-articles/reschedule-an-upgrade-or-patch-with-now-support/ta-p/3365028
+  - https://www.servicenow.com/community/developer-articles/now-support-scheduled-maintenance-faqs-april-8-2023/ta-p/2516591
   - https://www.servicenow.com/community/csm-articles/leading-practices-for-performance-load-testing-for-customer/ta-p/3286016
   - https://www.servicenow.com/community/developer-forum/load-testing-on-servicenow-instance/m-p/1937127
   - https://www.servicenow.com/community/architect-forum/how-performance-testing-is-done-in-servicenow/m-p/3558300
   - https://www.servicenow.com/community/developer-articles/effective-troubleshooting-of-slow-transactions-in-servicenow/ta-p/2748206
   - https://www.servicenow.com/community/developer-blog/use-sub-production-notifications-like-a-boss/ba-p/2287129
   - https://support.servicenow.com/kb?id=kb_article_view&sysparm_article=KB2710227
+  - https://www.servicenow.com/content/dam/servicenow-assets/public/en-us/doc-type/success/quick-answer/automated-test-framework-use.pdf
+  - https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/LtrHVbAzQ4ggq3Kc7GTlsQ
+  - https://www.servicenow.com/community/now-assist-articles/unpredictable-paths-the-complexity-of-uat-in-the-age-of-agentic/ta-p/3250533
+  - https://medium.com/globant/servicenow-test-management-2-0-150da41da856
+  - https://www.servicenow.com/community/spm-forum/test-management-close-out/m-p/973569
+  - https://www.servicenow.com/docs/r/application-development/automated-test-framework-atf/atf-sched-suites.html
+  - https://www.servicenow.com/docs/access?context=atf-tg-cr-intro&version=australia&pubname=australia-servicenow-platform&ft:locale=en-US
+  - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/~~MiSOZ7wxFGK52qh6mkhg
+  - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/_x6qSQJ4f8DWOq_nd00d0w
+  - https://www.servicenow.com/docs/r/q0JUS4fl39QNjim0ATT18w/eij5jYePyc5hG69oMQ2kZA
+  - https://www.servicenow.com/community/in-other-news/what-customers-can-expect-from-a-penetration-test/ba-p/2266292
+  - https://www.servicenow.com/community/in-other-news/validate-controls-defenses-with-customer-security-testing/ba-p/2294441
 ---
 
 # テストと本番稼働（Testing and Go-Live）
@@ -55,7 +68,7 @@ ServiceNow のテストと本番稼働には、オンプレミス型パッケー
 |---|---|---|
 | 設定はメタデータ | 設定・開発の成果物は Update Set またはアプリケーション（スコープアプリ）として移送する。「本番へ何をどの順で移すか」がカットオーバーの中心になる | 5 章 |
 | 標準の自動テスト機能 | Automated Test Framework（ATF、自動テストフレームワーク）がプラットフォーム標準で使える。ただし**実行は非本番のみ**、既定で無効 | 3 章 |
-| 本番インスタンスでの制約 | 本番でのプラグイン有効化は取り消せない、ATF は本番で実行しない、負荷テストは非本番で行う | 2.5、4、5 章 |
+| 本番インスタンスでの制約 | 本番で有効化したプラグインは原則として戻せない（rollback context に対応したプラグインのみ、期限内に限定的なロールバックが可能）、ATF は本番で実行しない、負荷テストは非本番で行う | 2.6、3.1、4、5 章 |
 | ホスティングは ServiceNow | インフラ監視・バックアップは ServiceNow 側が自動で行う。Go-Live 監視用の「プレースホルダーケース」は推奨されない | 6 章 |
 | 年 2 回のリリース | Go-Live 時点のリリース（パッチ）を揃え、Go-Live 後すぐにアップグレード計画が始まる。ATF の回帰テスト資産がアップグレードで再利用される | 3.6、7 章 |
 
@@ -133,7 +146,7 @@ ServiceNow の公式ドキュメント「Validate app functionality」（Austral
 | 性能・負荷テスト | ServiceNow 側のインフラは顧客が負荷試験で検証する対象ではない。顧客の作り込み（スクリプト、ACL、レポート、連携量）の性能を非本番で確認する | 4 章 |
 | 回帰テスト | パッチ・アップグレードや追加リリースの後に既存機能を確認する。ATF で自動化する | 3 章 |
 | 移行リハーサル | データ移行と本番移送の手順・所要時間を本番クローン上で検証 | 5.4、[データ移行](08-data-migration.md) |
-| セキュリティテスト | ACL・ロール・データ可視性の確認（なりすましによる確認） | 2.4、[セキュリティとコンプライアンス](10-security-compliance.md) |
+| セキュリティテスト | ACL・ロール・データ可視性の確認（なりすましによる確認）。顧客が第三者のペネトレーションテスト・脆弱性診断を行う場合は、ServiceNow の Customer Penetration Testing ポリシー（Now Support の KB0538598「Customer Application Penetration Testing \| Policy & Procedure」）に従う。ServiceNow 社員による Community 記事によると、対象は**非本番インスタンス**で、Now Support の「Schedule a Penetration Test」から申請し、ServiceNow の Application Security チームが申請を確認して開始日を合意する。インスタンスの堅牢化（High Security Plugin 等）と最新パッチ適用が前提で、準備と日程調整に数週間かかることがある。このプログラム以外のセキュリティテストは認められていない。日本の導入では第三者診断を求められることが多いため、テスト計画に申請リードタイムを入れる | 2.4、[セキュリティとコンプライアンス](10-security-compliance.md)。KB 名は公式ドキュメント [Other security hardening resources（Australia）](https://www.servicenow.com/docs/r/q0JUS4fl39QNjim0ATT18w/eij5jYePyc5hG69oMQ2kZA) で確認。手続きの内容は【第三者情報】[出典](https://www.servicenow.com/community/in-other-news/what-customers-can-expect-from-a-penetration-test/ba-p/2266292)、[出典](https://www.servicenow.com/community/in-other-news/validate-controls-defenses-with-customer-security-testing/ba-p/2294441)（2016〜2018 年の記事。最新の条件は KB0538598 で確認する） |
 
 ### 2.2 テスト計画書に書くべき項目
 
@@ -146,7 +159,7 @@ ServiceNow 導入のテスト計画書には、一般的な項目に加えて Se
 | 環境 | テストごとのインスタンス（DEV / TEST / UAT / STAGING） | どの時点で本番からクローンしてテスト環境を作るか（[インスタンス戦略と環境](07-instance-strategy.md)） |
 | テストデータ | ユーザー、グループ、ロール、CI、カタログ、ナレッジ、移行データ | 本番クローンを使う場合はデータマスキング・メール抑止を考慮（2.6） |
 | ロール別シナリオ | エンドユーザー（ロールなし）、`itil`、承認者、マネージャー、管理者など | ロールごとにテストする。ATF / 手動ともに Impersonate（なりすまし）で切り替える |
-| UI 範囲 | Core UI（Classic）、Next Experience、Service Operations Workspace、Service Portal / Employee Center、モバイル | ATF の UI テスト対応範囲には制約がある（3.2） |
+| UI 範囲 | Core UI（Classic）、Next Experience、Service Operations Workspace、Service Portal / Employee Center、モバイル | ATF の UI テスト対応範囲には制約がある（3.1） |
 | 合否基準 | 合格率、残存欠陥の重大度別上限、性能目標 | Go/No-Go 判定基準と一致させる（5.2） |
 | 欠陥管理 | 欠陥の起票先、重大度定義、トリアージ会議 | Test Management 2.0 を使う場合、欠陥は自動起票されない（2.7） |
 | 移送管理 | テスト対象の Update Set / アプリバージョンの特定 | 「どのバージョンをテストしたか」を記録しないと、本番に未テストの変更が入る |
@@ -228,7 +241,7 @@ ServiceNow には手動テストを計画・実行・記録するアプリケー
 | 項目 | 内容 |
 |---|---|
 | プラグイン | `com.snc.test_management.2.0`。既定では有効化されていないため、管理者が有効化する |
-| ロール | Test manager（`sn_test_management.test_manager`）、Tester（`sn_test_management.tester`。ロール名は第三者記事による【第三者情報】） |
+| ロール | Test manager（`sn_test_management.test_manager`）【第三者情報】、Tester（`sn_test_management.tester`）【第三者情報】。公式の概要ページは表示名（Test Manager / Tester）のみを示しており、技術名は第三者記事による |
 | 関連製品 | Agile Development 2.0 と連携し、Sprint Tracking ビューからテストを作成して Story に紐付けられる |
 | ライセンス | 公式ページにライセンス上の位置づけの記載なし。Community では「プロジェクト・ポートフォリオ（PPM / SPM）系のプラグイン群に含まれる」との投稿がある【第三者情報】 |
 
@@ -368,14 +381,14 @@ ServiceNow は主要アプリケーション向けに **Quick start tests（ク�
 |---|---|---|
 | Client Test Runner（手動） | テスト作成時の対話的実行 | 実行ユーザーのブラウザータブが必要 |
 | Scheduled Client Test Runner | 夜間の定期実行（自前 PC / VM で常時起動） | 条件に合うランナーが起動していないとスケジュール実行されない。画面ロックで遅くなるため VM 推奨 |
-| Cloud Runner（Store アプリ「ATF Test Generator and Cloud Runner」） | ローカル準備なしの定期実行・並列実行・CI/CD | ADCv2 ロードバランサー必須。オンプレミス、SPP Singapore、National Security Cloud などでは利用不可。既定の並列レーンは 2（追加購入可）。スイート内は並列・ランダム順で、Execution order と Abort on failure は無視される |
+| Cloud Runner（Store アプリ「ATF Test Generator and Cloud Runner」） | ローカル準備なしの定期実行・並列実行・CI/CD | ADCv2 ロードバランサー必須（未対応なら Now Support に依頼）。SPP Singapore、National Security Cloud（NSC）、オンプレミス、一部の規制市場では利用不可（[ATF Test Generator and Cloud Runner（Australia）](https://www.servicenow.com/docs/access?context=atf-tg-cr-intro&version=australia&pubname=australia-servicenow-platform&ft:locale=en-US)）。既定の並列レーンは 2（追加購入可）。スイート内は並列・ランダム順で、Execution order と Abort on failure は無視される（[Executing the tests using Cloud Runner](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/jpnKWtziIAZDvh4AVIOkaA)） |
 | サーバー側ステップのみ | 単体テスト | ランナー不要 |
 
-出典：[Scheduling test execution](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/ZkT~6XbFHA4iB3VG6f5Bnw)、[Executing the tests using Cloud Runner](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/jpnKWtziIAZDvh4AVIOkaA)、詳細は [ATF リファレンス 11・15・16 章](../02_リファレンス/platform/automated-test-framework.md)
+出典：[Scheduling test execution](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/ZkT~6XbFHA4iB3VG6f5Bnw)、[Executing the tests using Cloud Runner](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/jpnKWtziIAZDvh4AVIOkaA)、[ATF Test Generator and Cloud Runner（Australia）](https://www.servicenow.com/docs/access?context=atf-tg-cr-intro&version=australia&pubname=australia-servicenow-platform&ft:locale=en-US)、詳細は [ATF リファレンス 11・15・16 章](../02_リファレンス/platform/automated-test-framework.md)
 
 **スケジュール実行の要点**
 
-- スケジュールできるのはテストスイートのみで、個別テストはスケジュールできない。[出典](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/ZkT~6XbFHA4iB3VG6f5Bnw)
+- スケジュールできるのはテストスイートのみで、個別テストはスケジュールできない（公式ページ「Working with scheduled test suites」に "You can schedule only test suites, not individual tests." とある。版指定なしの URL で、取得時は Brazil 版が表示された）。個別テストを定期実行したい場合は、そのテストだけを含むスイートを作ってスケジュールする【経験則】。なお Cloud Runner はテストとテストスイートのどちらもクラウドで実行できるが、スケジュールの単位はスイートである。[出典](https://www.servicenow.com/docs/r/application-development/automated-test-framework-atf/atf-sched-suites.html)、[出典](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/ZkT~6XbFHA4iB3VG6f5Bnw)
 - スケジュールは **All > Automated Test Framework (ATF) > Schedules** で作成する。Schedule レコードの **Run in cloud** を true にすると Cloud Runner で実行する（新規スケジュールの既定は true）。[出典](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/ZkT~6XbFHA4iB3VG6f5Bnw)
 - CI/CD パイプラインからは CI/CD API の `POST /api/sn_cicd/testsuite/run` でスイートを起動できる（`sn_cicd.sys_ci_automation` または `admin` が必要）。[出典](https://www.servicenow.com/docs/r/api-reference/rest-apis/cicd-api.html)
 
@@ -452,15 +465,15 @@ ServiceNow Community の Onboarding Hub 記事（Tech Support 視点の Go-Live 
 | 事項 | 内容 |
 |---|---|
 | 開発開始前の相談 | 開発を始める前に Solution Consultant（ServiceNow 側）と、開発と Go-Live に向けたインスタンス準備を相談する |
-| 本番の zBoot | 本番インスタンスをデモデータなしで zBoot（初期化）する場合は、Technical Support へケースで依頼する |
-| プラグイン | 契約上の権利があるプラグインを本番 zBoot 直後に導入する。**プラグインには正常な無効化手段がなく**、本番で有効化したプラグインは無効化・アンインストールできない（ロールバックは 7 日以内のみ可能）。先にサブ本番で試す |
-| 通貨 | Single-currency mode（単一通貨モード）にするかを Go-Live 前に決める。稼働後の変更は「非常に複雑」 |
+| 本番の zBoot | 本番インスタンスをデモデータなしで zBoot（初期化）する場合は、Technical Support へケースで依頼する（KB0538835） |
+| プラグイン | 契約上の権利があるプラグインを本番 zBoot 直後に導入する。**プラグインには正常な無効化手段がなく**、本番で有効化したプラグインは原則として戻せない。先にサブ本番で試す（Community 記事）。例外として、rollback context に対応したプラグインに限り、有効化後の一定期間はロールバックできる。保持期間は公式では `glide.rollback.expiration_days_plugin`（Australia の表記。旧リリースのドキュメントでは `glide.rollback.expirationdaysplugin` 形式）で既定 15 日。Community 記事は 7 日としている。テーブル・列の削除などスキーマ変更を伴う場合は rollback context が作られない。ロールバックはデータを削除するため、実施前に Now Support に相談する（[Rollback context properties（Australia）](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/~~MiSOZ7wxFGK52qh6mkhg)、[Roll back and delete recovery（Australia）](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/_x6qSQJ4f8DWOq_nd00d0w)） |
+| 通貨 | Single-currency mode（単一通貨モード）にするかを Go-Live 前に決める。稼働後の変更は「非常に複雑」（KB0596448） |
 | ロケール | `glide.system.locale` を早期に設定する |
 | 非契約プラグインの除去 | 購入・権利のないプラグインをサブ本番から除去してから本番へのクローンを行う（プラグインは構成としてクローンされ、除外できない） |
 | Store アプリの権利 | Store アプリはサブ本番では見えても、権利（Entitlement）は本番で確認される。サブ本番で導入できても本番で使えるとは限らない。権利の反映には複数のバックエンドチームと日次のデータロードが関わるため、**アプリと依存関係が本番で見えることを十分前に確認**する |
 | バックアップ | 臨時の（アドホック）バックアップは依頼できない。バックアップは自動で取得される（KB0992741） |
 
-> 上記 Community 記事は KB0716626（プラグイン FAQ）、KB0695388（プラグイン有効化の概要）、KB1438103（Store の調達）、KB0715621（クローン FAQ）、KB0717791（テストデータの削除）、KB0529232（監視）を参照している。いずれも Now Support の KB で、本文はログインが必要。
+> 上記 Community 記事は次の KB を参照している。zBoot：KB0538835。通貨：KB0596448（Single currency mode）。プラグイン：KB0716626（Plugin FAQs）、KB0695388（Plugin Activation Overview）、KB0759221（可視性・有効化・ライセンス）、KB0716414（プラグインのアンインストール）。Store アプリ：KB1438103（Store の調達・サブ本番へのインストール）、KB0030614（アプリと依存関係の調達）、KB0030186（Opt in）。クローン：KB0715621（Clone FAQ。クローン用オンデマンドバックアップの依頼にも参照）。スコープアプリの移送：KB0961293。大量削除：KB0717791（Mass-Deletion and Excess Data Management Recommendations。テストデータの削除を含む）。インスタンス名の変更：KB0550695。復元：KB0791676。バックアップ：KB0992741。監視：KB0529232（ServiceNow Monitoring）。いずれも Now Support の KB で、本文はログインが必要。
 
 ### 5.2 Go-Live 判定（Go/No-Go）チェックリスト
 
@@ -487,6 +500,7 @@ Go/No-Go 判定は、カットオーバー開始前（通常は数日前）の�
 | B4 | 本番と UAT 環境のリリース・パッチレベルが一致 | 【経験則】 |
 | B5 | 本番のインスタンス固有設定（SSO、メール、連携先エンドポイント、資格情報、MID Server）が準備済み | [連携設計](09-integration-design.md)、[認証と SSO](../02_リファレンス/platform/authentication-sso.md) |
 | B6 | 本番に ATF テストを持ち込む場合は「保管のみ・実行しない」運用 | 3.6 |
+| B7 | Go-Live 枠・Hypercare 期間に、本番インスタンス（および移送元・リハーサル環境）の予定アップグレード・パッチや Now Support 側のメンテナンスが入っていないことを確認済み。重なる場合は日程を変更する。予定されたファミリーアップグレード・パッチは Now Support の **Maintenance Center** から日時を変更でき（対象外の変更・期限あり。手順は KB2178897）、許容範囲を超える延期はケースで相談する。Now Support 自体のインフラ保守中はインスタンスのアップグレード・クローン等の自動処理が最大 4 時間止まる例があり、重なる自動作業は日程変更が推奨された | 【経験則】。手段は [出典](https://www.servicenow.com/community/upgrades-and-patching-articles/reschedule-an-upgrade-or-patch-with-now-support/ta-p/3365028)、[出典](https://www.servicenow.com/community/developer-articles/now-support-scheduled-maintenance-faqs-april-8-2023/ta-p/2516591)（いずれも ServiceNow 社員の Community 記事） |
 
 **C. データ**
 
@@ -523,7 +537,7 @@ Go/No-Go 判定は、カットオーバー開始前（通常は数日前）の�
 |---|---|---|
 | F1 | 切り戻し判断のポイント（Point of No Return）と判断者が決まっている | 【経験則】 |
 | F2 | 切り戻し手段：旧システムの再開手順、Update Set の Back out、投入データの削除方法 | [アップデートセットとクローン](../02_リファレンス/platform/update-sets-cloning.md) |
-| F3 | 「本番で有効化したプラグインは戻せない」「アドホックのバックアップは取れない」前提で切り戻し計画が立っている | 5.1 |
+| F3 | 「本番で有効化したプラグインは原則として戻せない（rollback context 対応プラグインの期限内の限定的なロールバックのみ）」「アドホックのバックアップは取れない」前提で切り戻し計画が立っている | 5.1 |
 
 ### 5.3 本番への移送方式
 
@@ -545,7 +559,7 @@ ServiceNow の本番移送方式は大きく 2 つある。Community Onboarding 
 1. スコープアプリを DEV から Application Repository に公開する。
 2. DEV を TEST にクローンしてテストする。不具合は DEV で修正→再公開→再テスト。
 3. TEST で開発モードのままのアプリを削除し、リポジトリから再インストールする。
-4. TEST からテストデータを削除し（KB0717791）、再テスト後に DEV もクリーンアップする。
+4. TEST からテストデータを削除し（KB0717791：大量削除・過剰データ管理の推奨事項）、再テスト後に DEV もクリーンアップする。
 5. DEV のオンデマンドバックアップを Support に有効化してもらう。
 6. Go-Live 日時に DEV→本番のクローンをスケジュールする（クローンエンジンは開始時刻に DEV のバックアップを取る）。クローン時にテストデータを除外する。
 7. 必要に応じて、テストデータが残るテーブルからレコードを削除する。
@@ -556,8 +570,8 @@ ServiceNow の本番移送方式は大きく 2 つある。Community Onboarding 
 
 | 方式 | 理由 |
 |---|---|
-| インスタンス名の変更（例：DEV を本番名に改名） | 時間がかかり、旧 URL が廃止されるまで本番名を再利用できない |
-| DEV のバックアップを本番に復元 | 復元用のオンデマンドバックアップは提供されない。復元はテーマなどインスタンス固有のパラメーターを置き換えるため再設定が必要（クローンは保持する） |
+| インスタンス名の変更（例：DEV を本番名に改名） | 時間がかかり、旧 URL が廃止されるまで本番名を再利用できない（KB0550695） |
+| DEV のバックアップを本番に復元 | 復元用のオンデマンドバックアップは提供されない。復元はテーマなどインスタンス固有のパラメーターを置き換えるため再設定が必要（クローンは保持する）（KB0791676） |
 
 **Batch update set（バッチ Update Set）の活用**
 
@@ -569,7 +583,7 @@ Update Set が多数ある場合は Batch update set（バッチ）でまとめ�
 
 ```mermaid
 gantt
-  title カットオーバー例（初回 Go-Live、金曜夜開始は避け木曜開始の例）
+  title カットオーバー例（初回 Go-Live、火曜夜作業・水曜朝利用開始）
   dateFormat  YYYY-MM-DD HH:mm
   axisFormat  %m/%d %H:%M
   section 事前（T-14〜T-1）
@@ -577,14 +591,16 @@ gantt
   最終リハーサル（本番相当）          :a2, 2026-05-14 09:00, 2d
   Go/No-Go 判定会議                   :milestone, a3, 2026-05-18 17:00, 0d
   section 当日（T-0）
-  旧システム凍結・最終抽出            :b1, 2026-05-21 18:00, 3h
-  Update Set/アプリ適用・手作業設定   :b2, 2026-05-21 18:00, 4h
-  データ投入（ユーザー・CMDB・オープンチケット） :b3, 2026-05-21 21:00, 6h
-  照合・スモークテスト                :b4, 2026-05-22 03:00, 3h
-  最終 Go 判定・メール/連携有効化     :milestone, b5, 2026-05-22 06:00, 0d
+  旧システム凍結・最終抽出            :b1, 2026-05-19 18:00, 3h
+  Update Set/アプリ適用・手作業設定   :b2, 2026-05-19 18:00, 4h
+  データ投入（ユーザー・CMDB・オープンチケット） :b3, after b1 b2, 6h
+  照合・スモークテスト                :b4, after b3, 3h
+  最終 Go 判定・メール/連携有効化     :milestone, b5, after b4, 0d
   section 稼働後
-  利用開始・Hypercare                 :c1, 2026-05-22 08:00, 21d
+  利用開始・Hypercare                 :c1, 2026-05-20 08:00, 21d
 ```
+
+上の例は、5.6 の「月曜・金曜を避け火〜木曜が好まれる」に合わせ、火曜夜（5/19）に作業して水曜朝（5/20）に利用を開始する。データ投入は、旧システムの最終抽出と設定の適用（Update Set・手作業設定）の両方が終わってから始める（設定前に投入すると、選択肢値・参照先・Business Rule が本番の最終状態と異なる）。逆に、木曜夜作業・金曜朝開放として週末を安定化のバッファにする計画もあるが、その場合は金曜日中の問い合わせ増と週末の Hypercare 要員を確保する【経験則】。
 
 **カットオーバー当日の作業項目（例）**
 
@@ -617,7 +633,7 @@ ServiceNow 自体の Go-Live を自社の変更管理プロセス（すでに Se
 |---|---|---|
 | ビッグバン vs 段階的 | ビッグバン：全員が同時に開始、トレーニングを同時に実施でき旧ツール置き換え時は定常化が早い。一方で関係者調整が重く、タイムゾーンをまたぐサポートが逼迫し、テストは機能・翻訳・UX をすべて網羅する必要がある。段階的（地域・機能ごと）：地域チームの立ち上げ期間を確保でき、パイロットを先行利用者にできる。一方で旧ツールとの二重運用期間と Go-Live 支援期間が長くなる | 【第三者情報】[出典](https://www.servicenow.com/community/international-localization/global-go-live-considerations/ta-p/2327308) |
 | 曜日 | 月曜（リスクが高い、祝日の可能性）と金曜（金曜夜の P1 対応を避けたい）を避け、火〜木曜が一般に好まれる | 【第三者情報】同上 |
-| 時刻 | 何時に切り替えるかは計画後半まで見落とされがち。全チームのタイムゾーンと業務時間外を地図化し、各地域への影響が最小の時間帯を選ぶ（例：英国正午の切替は日本の 21 時） | 【第三者情報】同上 |
+| 時刻 | 何時に切り替えるかは計画後半まで見落とされがち。全チームのタイムゾーンと業務時間外を地図化し、各地域への影響が最小の時間帯を選ぶ（例：英国正午の切替は日本の 21 時。これは英国冬時間 GMT の場合で、英国夏時間 BST の期間〈3 月末〜10 月末〉は日本の 20 時になる） | 【第三者情報】同上 |
 | リリースの時期 | Go-Live 前に最新リリースへのアップグレードが推奨されるため、年 2 回のリリース時期と重なる場合は計画を調整する | [導入方法論](04-implementation-methodology.md) 7.5 |
 | 日本の事情 | 年度末（3 月）・年度初め（4 月）の人事異動、ゴールデンウィーク・年末年始の長期休暇を避ける。長期休暇直前の Go-Live は Hypercare 要員が手薄になる | 【経験則】 |
 
@@ -720,8 +736,8 @@ Hypercare の出口基準は公開情報では標準化されていない。Comm
 | UAT の丸投げ | 未トレーニングの利用者がテストできず、UAT が遅延・形骸化 | Guided UAT、UAT 前のトレーニング、業務シナリオ単位のテストケース | 【第三者情報】[出典](https://www.servicenow.com/community/in-other-news/5-common-pitfalls-in-servicenow-implementations-and-how-to-avoid/ba-p/3217075) |
 | テストしたものと本番適用物の不一致 | 本番だけで起きる不具合。Update Set の適用漏れ・順序違い | Batch update set、移送物一覧のバージョン管理、本番相当環境でのリハーサル | [出典](https://www.servicenow.com/docs/r/guL1zqmJkV9eywMq_6qu~w/R2bchAjL86Fk5rtCqzhSFg) |
 | Update Set に乗らない設定の漏れ | プロパティ・スケジュール・資格情報・データが本番に無い | 手作業設定の手順書化とダブルチェック、リハーサルで手順を通す | 【経験則】 |
-| 本番でのプラグイン誤有効化 | 不要なプラグインが本番で有効になり戻せない | プラグイン有効化を変更管理の承認対象にする。サブ本番で先に評価 | [出典](https://www.servicenow.com/community/onboarding-hub-articles/go-live-best-practice-tech-support-perspective-onboarding/ta-p/3466586) |
-| Store アプリの権利未反映 | 本番でアプリがインストールできず Go-Live 延期 | 十分前に本番での可視性を確認し、アカウント担当に権利を確認 | 同上 |
+| 本番でのプラグイン誤有効化 | 不要なプラグインが本番で有効になり、原則として戻せない（rollback context 対応プラグインのみ既定 15 日以内に限定的なロールバックが可能） | プラグイン有効化を変更管理の承認対象にする。サブ本番で先に評価 | [出典](https://www.servicenow.com/community/onboarding-hub-articles/go-live-best-practice-tech-support-perspective-onboarding/ta-p/3466586)、[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/~~MiSOZ7wxFGK52qh6mkhg) |
+| Store アプリの権利未反映 | 本番でアプリがインストールできず Go-Live 延期 | 十分前に本番での可視性を確認し、アカウント担当に権利を確認 | [出典](https://www.servicenow.com/community/onboarding-hub-articles/go-live-best-practice-tech-support-perspective-onboarding/ta-p/3466586) |
 | 通知の誤送信 | データ投入やテストの通知が利用者に一斉送信される | 非本番は `glide.email.test.user`、本番は投入後に Outbox を確認してから送信有効化 | [出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/bv0fJhcFJU0KUWWDeL7slw) |
 | クローンで ATF テスト消失 | テスト環境のリフレッシュでテスト資産が消える | スコープアプリ + Git で管理、クローン前に退避、本番に保管のみ | [出典](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/zqr~gFhQN2U7V9ntGgpiQg) |
 | 本番で ATF を実行 | 本番データの破損・障害 | `sn_atf.runner.enabled` を本番では false のまま、スモークテストは手動 | [出典](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/4hkh6VNi_eAnyfY91R522Q) |
@@ -738,9 +754,12 @@ Hypercare の出口基準は公開情報では標準化されていない。Comm
 - ServiceNow 公式の「Go-Live チェックリスト」「カットオーバー計画テンプレート」「Hypercare 出口基準」の公開版（Now Create / Best Practices サイトの資産はログインが必要で、本文を確認できず）。
 - 負荷テストに関する ServiceNow の公式ポリシー（事前通知の要否、リードタイム、申請方法）。Community で言及される KB0687724 の内容、および KB2710227 の本文全体。
 - Now Create の CSM 向け性能テストホワイトペーパーの内容。
-- Test Management 2.0 のテーブル名、状態値、ライセンス上の位置づけ（どのサブスクリプションに含まれるか）、`sn_test_management.tester` ロール名の公式表記。
+- Test Management 2.0 のテーブル名、状態値、ライセンス上の位置づけ（どのサブスクリプションに含まれるか）、`sn_test_management.test_manager` と `sn_test_management.tester` のロール技術名の公式表記（公式は表示名のみ）。
+- 顧客ペネトレーションテストのポリシー KB0538598 の本文（Now Support ログインが必要）。現行の対象インスタンス、申請リードタイム、実施回数の上限は Community 記事でしか確認できていない。
+- どのプラグインが rollback context に対応しているかの一覧。
 - ServiceNow Success の Quick Answer「Automated Test Framework use」PDF の本文（取得時に 403。ATF が負荷・性能テスト用ではない旨は検索結果の抜粋でのみ確認）。
 - Go-Live を Now Support に事前通知する公式の手続きの有無（Community 記事はプレースホルダーケースを推奨しないとするのみ）。
+- Go-Live 枠と ServiceNow 側の定期メンテナンス（データセンター保守）・自動パッチ予定の重なりを確認・回避する公式の手続き。アップグレード・パッチの日程変更（Maintenance Center、KB2178897）は Community 記事で確認できたが、KB 本文（Now Support ログインが必要）とデータセンター保守の通知方法は確認できず。
 - Brazil におけるテスト・Go-Live 関連機能（Test Management 2.0、Instance Scan）の変更点。ATF は Brazil で変更なしと確認済み。
 
 ---
@@ -771,6 +790,11 @@ Hypercare の出口基準は公開情報では標準化されていない。Comm
 - Stats tools / diagnostics: https://www.servicenow.com/docs/r/platform-administration/c_StatsToolsDiagnosticsPlugin.html
 - Instance Observer overview: https://www.servicenow.com/docs/r/ja-JP/impact/io-overview.html
 - Go live and monitor（AI エージェントの導入・保護チュートリアル）: https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/LtrHVbAzQ4ggq3Kc7GTlsQ
+- Working with scheduled test suites: https://www.servicenow.com/docs/r/application-development/automated-test-framework-atf/atf-sched-suites.html
+- ATF Test Generator and Cloud Runner（Australia）: https://www.servicenow.com/docs/access?context=atf-tg-cr-intro&version=australia&pubname=australia-servicenow-platform&ft:locale=en-US
+- Rollback context properties（Australia）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/~~MiSOZ7wxFGK52qh6mkhg
+- Roll back and delete recovery（Australia）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/_x6qSQJ4f8DWOq_nd00d0w
+- Other security hardening resources（Australia、KB0538598 の記載）: https://www.servicenow.com/docs/r/q0JUS4fl39QNjim0ATT18w/eij5jYePyc5hG69oMQ2kZA
 
 **ServiceNow Developer / Success / Support**
 
@@ -785,7 +809,8 @@ Hypercare の出口基準は公開情報では標準化されていない。Comm
 - ServiceNow handover to AMS: https://www.servicenow.com/community/onboarding-hub-blog/servicenow-handover-ams/bc-p/3408201
 - Global go-live considerations: https://www.servicenow.com/community/international-localization/global-go-live-considerations/ta-p/2327308
 - 5 common pitfalls in ServiceNow implementations: https://www.servicenow.com/community/in-other-news/5-common-pitfalls-in-servicenow-implementations-and-how-to-avoid/ba-p/3217075
-- How to think about planning your ServiceNow digital transformation: https://www.servicenow.com/community/in-other-news/how-to-think-about-planning-your-servicenow-digital/ba-p/3059144
+- Reschedule an upgrade or patch with Now Support: https://www.servicenow.com/community/upgrades-and-patching-articles/reschedule-an-upgrade-or-patch-with-now-support/ta-p/3365028
+- Now Support scheduled maintenance FAQs: https://www.servicenow.com/community/developer-articles/now-support-scheduled-maintenance-faqs-april-8-2023/ta-p/2516591
 - Leading practices for performance load testing for CSM: https://www.servicenow.com/community/csm-articles/leading-practices-for-performance-load-testing-for-customer/ta-p/3286016
 - Load testing on ServiceNow instance: https://www.servicenow.com/community/developer-forum/load-testing-on-servicenow-instance/m-p/1937127
 - How performance testing is done in ServiceNow: https://www.servicenow.com/community/architect-forum/how-performance-testing-is-done-in-servicenow/m-p/3558300
@@ -793,6 +818,8 @@ Hypercare の出口基準は公開情報では標準化されていない。Comm
 - Use sub-production notifications like a boss: https://www.servicenow.com/community/developer-blog/use-sub-production-notifications-like-a-boss/ba-p/2287129
 - Unpredictable paths: the complexity of UAT in the age of agentic AI: https://www.servicenow.com/community/now-assist-articles/unpredictable-paths-the-complexity-of-uat-in-the-age-of-agentic/ta-p/3250533
 - Test Management close-out: https://www.servicenow.com/community/spm-forum/test-management-close-out/m-p/973569
+- What customers can expect from a penetration test: https://www.servicenow.com/community/in-other-news/what-customers-can-expect-from-a-penetration-test/ba-p/2266292
+- Validate controls & defenses with customer security testing: https://www.servicenow.com/community/in-other-news/validate-controls-defenses-with-customer-security-testing/ba-p/2294441
 
 **第三者**
 

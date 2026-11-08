@@ -71,7 +71,7 @@ CI Visibility が答える主な問い：
 | DORA Metrics・PR Gates（旧 Quality Gates）・Code Coverage | 言及のみ | [DORA Metrics・Quality Gates・Code Coverage](./software-delivery-insights.md) |
 | CD（デプロイ）の可視化（CD Visibility） | 言及のみ | 公開情報は [CD Visibility ドキュメント](https://docs.datadoghq.com/continuous_delivery/) |
 | モニター共通仕様 | CI Pipeline モニター固有部分のみ | [Monitors](../platform/monitors.md) |
-| 料金の正本 | 課金単位の要約のみ | [製品別料金表](../../03_導入編/pricing-by-product.md) |
+| 料金の正本 | 課金単位の要約のみ | [製品別料金表](../../03_導入編/02-pricing-by-product.md) |
 
 ### 名称と提供形態の変遷
 
@@ -729,7 +729,7 @@ Ingestion Control の除外フィルターは、CI Visibility で処理するイ
 
 ## 課金への影響
 
-CI Visibility（Pipeline Visibility）は **アクティブな Git コミッター数** で課金される。料金の数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、課金計算の仕組みは [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+CI Visibility（Pipeline Visibility）は **アクティブな Git コミッター数** で課金される。料金の数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、課金計算の仕組みは [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 
 ### 定価（2026-11-02 時点、USD、公式料金ページ掲載値）
 
@@ -742,7 +742,7 @@ CI Visibility（Pipeline Visibility）は **アクティブな Git コミッタ�
 
 > 表の単価は US/EU1 のもの。超過スパンの値は料金ページの価格データ（`PIP-SPA-VIS`）による。料金ページ FAQ の文言は「Additional pipeline spans can be purchased at $3 per million spans per month」で、これは月契約の単価と一致する。
 
-> **サイト差異:** AP1 の単価は CI Pipeline Visibility が 年 $10／月 $12／オンデマンド $15、追加スパンが $3.125／$3.75／$4.6875、Test Optimization が $25／$30／$36.25、Code Coverage が $10／$12／$15（2026-11-02 時点）。詳細は [製品別料金表 §12](../../03_導入編/pricing-by-product.md) を参照。
+> **サイト差異:** AP1 の単価は CI Pipeline Visibility が 年 $10／月 $12／オンデマンド $15、追加スパンが $3.125／$3.75／$4.6875、Test Optimization が $25／$30／$36.25、Code Coverage が $10／$12／$15（2026-11-02 時点）。詳細は [製品別料金表 §12](../../03_導入編/02-pricing-by-product.md) を参照。
 
 [出典](https://www.datadoghq.com/pricing/list/) [出典](https://www.datadoghq.com/pricing/?product=ci-cd-monitoring)
 
@@ -791,7 +791,7 @@ CI Visibility（Pipeline Visibility）は **アクティブな Git コミッタ�
 - [Log Management：ログ収集](../logs/log-collection.md) / [Indexes・保持・アーカイブ](../logs/log-indexes-retention-archives.md)
 - [Datadog Agent](../platform/agent.md) / [コンテナ/Kubernetes向けAgent](../platform/kubernetes-and-containers-agent.md)
 - [Terraform と IaC](../platform/terraform-and-iac.md)
-- [製品別料金表（料金の正本）](../../03_導入編/pricing-by-product.md) / [コスト最適化](../../04_応用編/cost-optimization.md)
+- [製品別料金表（料金の正本）](../../03_導入編/02-pricing-by-product.md) / [コスト最適化](../../04_応用編/01-cost-optimization.md)
 
 ## 参照元
 

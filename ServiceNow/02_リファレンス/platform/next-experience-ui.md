@@ -11,7 +11,7 @@ sources:
   - https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/uisvpmI1QesG_Vn6gVgl8A
   - https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/FbF9igBfp51X~7gN0oPZBw
   - https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/9DTKB7jixSOEVtEdSYDa4Q
-  - https://www.servicenow.com/docs/r/platform-user-interface/next-experience-adoption-paths.html
+  - https://www.servicenow.com/docs/r/australia/platform-user-interface/next-experience-adoption-paths.html
   - https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/IRKKARGDgaVUA_mtMg6gOQ
   - https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/VsP_aQEuvsNDOuiWRcR89g
   - https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/mDo8Q3jZ_~522NFO2kiYGg
@@ -21,11 +21,27 @@ sources:
   - https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/SMNFe5ibvd0WlSYjmh~yqw
   - https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/Bv8aEfPBfbGqpfzfed8b5Q
   - https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/6dqE~NEoiVuQLW3PhQ0CUg
-  - https://www.servicenow.com/docs/r/platform-user-interface/next-experience-theming.html
+  - https://www.servicenow.com/docs/r/australia/platform-user-interface/next-experience-theming.html
+  - https://www.servicenow.com/docs/r/australia/platform-user-interface/tb-create-theme.html
+  - https://www.servicenow.com/docs/r/australia/it-service-management/service-operations-workspace/customize-options-side-panel.html
   - https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/vhUf~9psg0Cnu2nKIsNKxQ
   - https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/7XmH8cwtqEte3Il5iPpjfg
   - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-nextexperience-release-notes.html
   - https://www.servicenow.com/docs/r/ja-JP/platform-user-interface/next-exp-client-script-globals.html
+  - https://www.servicenow.com/docs/r/VSGj5uf15r1UFmxfhJoyeg/Gw05DR_0pM_547g4M81Clg
+  - https://www.servicenow.com/docs/r/platform-user-interface/next-experience-adoption-paths.html
+  - https://www.servicenow.com/docs/r/ja-JP/platform-user-interface/ne-start-options-user.html
+  - https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/fa0pZuUe3ROtm~PIlLwkwQ
+  - https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/aDCln_VLw5CjlOnfuATPpA
+  - https://www.servicenow.com/docs/r/IMox7xm_aeG3Rv607AxPnQ/0fML3S0RgyIgakMUuqfCcg
+  - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/kVEIwt6LQo5zw2GyfhzsIA
+  - https://www.servicenow.com/docs/r/platform-user-interface/tb-edit-theme.html
+  - https://www.servicenow.com/docs/r/ja-JP/platform-user-interface/tb-enable-dark-theme-using-sysprops.html
+  - https://www.servicenow.com/docs/r/mobile/config-ne-theming.html
+  - https://docs.servicenow.com/bundle/washingtondc-platform-user-interface/page/administer/navigation-and-ui/task/tb-create-theme.html
+  - https://www.servicenow.com/docs/r/platform-user-interface/t_ConfigureLogoColorsSysDfltsUI16.html
+  - https://www.servicenow.com/docs/r/zurich/platform-user-interface/working-in-classic-lists-and-forms.html
+  - https://store.servicenow.com/store/app/7bd5738647a3be50a342e65fe16d4306
   - https://www.servicenow.com/community/next-experience-articles/next-experience-ui-overview/ta-p/2332080
   - https://www.servicenow.com/community/now-platform-articles/interface-comparison-between-ui16-the-next-experience/ta-p/2307243
 ---
@@ -66,7 +82,7 @@ Next Experience UI に関しては複数の名称が混在しているため、�
 | 用語 | 意味 |
 |---|---|
 | **Next Experience UI** | 現行の UI 全体の正式名称 |
-| **Polaris** | Next Experience の開発コード名・旧称。システムプロパティ名（`glide.ui.polaris.*`）やクライアント変数名（`NOW.isUsingPolaris`）に名残がある。また Utah〜Yokohama のデフォルト**テーマ名**でもある |
+| **Polaris** | Next Experience の開発コード名・旧称。システムプロパティ名（`glide.ui.polaris.*`）やクライアント変数名（`NOW.isUsingPolaris`）に名残がある。また**テーマ名**でもあり、Web の Next Experience では San Diego〜Yokohama、モバイルでは Utah〜Yokohama の既定テーマ |
 | **Next Experience UI Framework**（旧 Now Experience UI Framework） | Next Experience を支える Web Components ベースのフロントエンドフレームワーク。UI Builder や Workspace もこの上に構築される |
 | **Unified Navigation** | 画面上部の共通ヘッダー（旧称 global header） |
 | **classic environment** | リスト・フォームで直接作業する従来型画面。Next Experience 有効時にも利用される |
@@ -82,11 +98,11 @@ Next Experience UI は San Diego リリースで導入され、その後のリ�
 | リリース | 主な変更 |
 |---|---|
 | San Diego | Next Experience UI（Unified Navigation、Polaris テーマ、Default landing page）導入。新規顧客は既定で有効、既存顧客はアップグレードしても自動では有効化されなかった [出典](https://www.servicenow.com/community/next-experience-articles/next-experience-ui-overview/ta-p/2332080) |
-| Utah | Polaris がデフォルトテーマ（Utah〜Yokohama） [出典](https://www.servicenow.com/docs/r/mobile/config-ne-theming.html) |
+| Utah | （モバイル）Polaris がモバイルの既定テーマに（モバイルでは Utah〜Yokohama が Polaris 既定。Web では San Diego から Polaris が既定） [出典](https://www.servicenow.com/docs/r/mobile/config-ne-theming.html) |
 | Xanadu | 複数テーマの公開（multi-theme）、Preferences に「User experience」グループ（Turn off Next Experience / Enable analytics / Current start page）追加、通知メニューのピン留め、ページ性能メトリクス表示、クローン時に Next Experience / Theme Builder テーマを保持 [出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/7XmH8cwtqEte3Il5iPpjfg) |
 | Yokohama | Unified Navigation メニューのファジー検索（精度スコア調整可）、キーボードショートカットのカスタマイズ、Preferences モーダルの刷新（検索バー付き）、Theme Builder が Next Experience のコアプラグインとして既定で有効 [出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/7XmH8cwtqEte3Il5iPpjfg) |
-| Zurich | Coral が新規の Portal / Web / Mobile 体験のデフォルトテーマに。Web・Mobile のダークテーマオプション、Workspace の lazy loading ユーザー設定、Now Assist パネルのワイドモード、Usage Analytics ユーティリティメニュー（`analytics_viewer` ロール）、OpenFrame 通話バッジ [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/vhUf~9psg0Cnu2nKIsNKxQ) |
-| **Australia** | Coral テーマ刷新、In-Product Surveys、All Menu Editing、アクセシビリティ設定「Enable auto-focus on page alerts」、ユーザーメニューへの「Works with ServiceNow」バッジ、**UI11 / UI15 の非推奨化** [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/vhUf~9psg0Cnu2nKIsNKxQ) |
+| Zurich | Coral が新規の Portal / Web / Mobile 体験のデフォルトテーマに。Web・Mobile のダークテーマオプション、Workspace の lazy loading ユーザー設定、Now Assist パネルのワイドモード、Usage Analytics ユーティリティメニュー（`analytics_viewer` ロール）、OpenFrame 通話バッジ。Unified Navigation Onboarding / Unified Navigation Onboarding With Feedback ツアー（とそのステップ）を削除 [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/vhUf~9psg0Cnu2nKIsNKxQ) |
+| **Australia** | Coral テーマ刷新、In-Product Surveys、All Menu Editing、アクセシビリティ設定「Enable auto-focus on page alerts」、ユーザーメニューへの「Works with ServiceNow」バッジ、**UI11 / UI15 の非推奨化**。Unified Navigation Onboarding ツアー（とそのステップ）の削除が Australia 欄にも掲載 [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/vhUf~9psg0Cnu2nKIsNKxQ) |
 
 > **Brazil での変更:** Zurich→Brazil の統合リリースノート（2026-10-08 更新）では、Brazil リリースにおける Next Experience の New / Changed / Deprecated / Removed / Activation の各項目はいずれも「No updates for this release」とされている [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-nextexperience-release-notes.html)。
 
@@ -129,7 +145,7 @@ Australia の公式ドキュメント「Using the Next Experience Unified Naviga
 | **Notifications menu**（通知メニュー） | Workspace を含むインスタンス全体の通知の表示と個人設定 |
 | **User menu**（ユーザーメニュー） | Profile、Preferences、Keyboard shortcuts、Impersonate user、Elevate role、Printer friendly version（クラシック環境のみ） |
 
-> **注記（ServiceNow Otto）:** Australia のドキュメントでは、Unified Navigation の AI パネルが「ServiceNow Otto」と表記されている。ServiceNow は Knowledge 2026 で Now Assist を含む AI 体験を ServiceNow Otto ブランドに統合すると発表しており、ドキュメント上の名称置き換えは段階的に進んでいる 【第三者情報】 [出典](https://www.servicenow.com/community/developer-advocate-blog/otto-vs-now-assist-what-actually-changed/ba-p/3594171)。詳細は [Now Assist と AI Agents](./now-assist-ai-agents.md) を参照。
+> **注記（ServiceNow Otto）:** Australia のドキュメントでは、Unified Navigation の AI パネルが「ServiceNow Otto」と表記されている。ServiceNow は Knowledge 2026 で Now Assist を含む AI 体験を ServiceNow Otto ブランドに統合すると発表しており、ドキュメント上の名称置き換えは段階的に進んでいる 【第三者情報】 [出典](https://www.servicenow.com/community/developer-advocate-blog/otto-vs-now-assist-what-actually-changed/ba-p/3594171)。一方、公式の Zurich→Australia 統合リリースノートでは、Changes 表の Zurich 欄と Australia 欄の両方に「ServiceNow Otto® announcement（ServiceNow Otto® is the conversational AI platform integrated into ServiceNow workflows）」が掲載されている [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/vhUf~9psg0Cnu2nKIsNKxQ)。Zurich のリリース時点で Otto の名称があったとは考えにくいため、Knowledge 2026 の発表後にリリースノートが遡って改訂された可能性が高い 【推定】。詳細は [Now Assist と AI Agents](./now-assist-ai-agents.md) を参照。
 
 > **Domain picker（ドメインピッカー）について:** 上記の Australia ページには Domain picker の記載はない。ただし Next Experience キーボードショートカット一覧には「Open the instance toolbar to change domains（Control+Alt+t）」があり、ドメイン切り替えはインスタンスツールバーから行う [出典](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/FfZNYroFMxGHyGktVkITZQ)。詳細は [ドメインセパレーション](./domain-separation.md) を参照。
 
@@ -161,7 +177,7 @@ Filter 欄の主な使い方は以下のとおりである。
 - 管理者は system user preference（システムユーザー設定）で組織単位に本機能を無効化でき、その場合は従来の UI16 ワークフローでメニューを構成する。設定名は公開情報では確認できず [出典](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/X62tP9vSHJDzqiWudJNjUg)。
 - 本機能は ServiceNow Store でもアプリとして公開されている（自然言語プロンプトによるモジュール作成にも言及） [出典](https://store.servicenow.com/store/app/7bd5738647a3be50a342e65fe16d4306)。プラットフォーム同梱か Store 配布かの区別は公開情報では明確に確認できず。
 - 対象はリスト・レコード・ランディングページ型モジュールで構成される小規模アプリであり、Workspace は対象外、クラシックモジュールのインコンテキスト編集は不可 【第三者情報（Community Platform Academy 記事）】 [出典](https://www.servicenow.com/community/servicenow-ai-platform-blog/platform-academy-next-experience-all-menu-editing/bc-p/3561070)。
-- 同機能の公式ドキュメントでは「New record」が両方の区分に掲載されている。実機での確認を推奨する。
+- 同機能の公式ドキュメントでは「New record」が両方の区分に掲載されている。また Zurich→Australia の統合リリースノートでは、All Menu Editing で構成できるモジュールを「Record, List, Dashboard, and Custom page」と記載しており、上表（機能ページに基づく Dashboard / List / New Record / Single Record）と一致しない [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/vhUf~9psg0Cnu2nKIsNKxQ)。対象モジュールタイプは実機での確認を推奨する。
 
 ### 2.4 Favorites メニュー（お気に入り）
 
@@ -353,32 +369,34 @@ Next Experience の開始ページには次の 3 種類がある [出典](https:
 上部に Unified Navigation、その下に「Welcome!」の **Onboarding**（オンボーディング）バナー（Start tour ボタン、Close ボタン付き）がある。中央は「ITIL Dashboard」の **Visualizations**（可視化）領域で、Operational / Tactical / Strategic タブ、Priority・Assignment Group・Location のフィルター、「P1 Problems on my Team」「Open Problems assigned to Me」等の件数タイル、Trending Problems の折れ線グラフ、Problems by State のドーナツグラフ、Problems at Risk の棒グラフが並ぶ。最下部は「Tools and info to optimize your day」の **Useful features**（便利な機能）領域で、ダッシュボードやナレッジへのリンクカードが 3 枚表示される。
 出典：ServiceNow Community「Next Experience UI Overview」https://www.servicenow.com/community/next-experience-articles/next-experience-ui-overview/ta-p/2332080 （取得日：2026-11-03）。
 
+> **注記（Australia）:** Zurich→Australia の統合リリースノートでは、Zurich と Australia の両方の Deprecations に「The Unified Navigation Onboarding and Unified Navigation Onboarding With Feedback tours, and their steps, are removed」と記載されている。図 2 のオンボーディング領域（Start tour ボタン）は San Diego 時点の表示であり、Australia では Unified Navigation のオンボーディングツアーは削除済みである。下記のオンボーディング関連設定（`overview_help.visited.navui` 等）の Australia での実際の効果は実機で確認すること [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/vhUf~9psg0Cnu2nKIsNKxQ)。
+
 Default landing page は直接変更できないが、UI Builder でカスタムランディングページを作るときのテンプレートとして利用できる 【第三者情報】 [出典](https://www.servicenow.com/community/next-experience-articles/next-experience-ui-overview/ta-p/2332080)。オンボーディング領域の表示はユーザー設定 `glide.ui.polaris.landing_page_header_collapsed`、初回ログイン時のオンボーディングポップアップは `overview_help.visited.navui` で制御される 【第三者情報】（`overview_help.visited.navui` は公式のシステムプロパティ一覧にも記載あり） [出典](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/9DTKB7jixSOEVtEdSYDa4Q)。
 
 ## 4. テーマ（Themes）
 
 ### 4.1 テーマの基本
 
-Next Experience のテーマは、ブランドに合わせて UI の外観をカスタマイズする仕組みである。テーマはクラシック環境（リスト、フォーム、ダッシュボード）にも適用されるが、カスタムコンポーネントにはテーマが反映されない [出典](https://www.servicenow.com/docs/r/platform-user-interface/next-experience-theming.html)。
+Next Experience のテーマは、ブランドに合わせて UI の外観をカスタマイズする仕組みである。テーマはクラシック環境（リスト、フォーム、ダッシュボード）にも適用されるが、カスタムコンポーネントにはテーマが反映されない [出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/next-experience-theming.html)。
 
 | 項目 | 内容 |
 |---|---|
 | テーマ定義テーブル | `sys_ux_theme`（UX Themes）。テーマは `sys_ux_style`（UX Style）レコードを参照し、色・形状・タイポグラフィ等を保持する [出典](https://www.servicenow.com/docs/r/mobile/config-ne-theming.html) |
-| 基本テーマ | **Coral**（既定）と **Polaris**。いずれも固定・読み取り専用で、直接編集やコピーは不可（公式テーマページの記述） [出典](https://www.servicenow.com/docs/r/platform-user-interface/next-experience-theming.html) |
+| 基本テーマ | **Coral**（既定）と **Polaris**。いずれも固定・読み取り専用で、直接編集やコピーは不可（公式テーマページの記述） [出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/next-experience-theming.html) |
 | Core style（コアスタイル） | 色、形状とフォーム、タイポグラフィ、イメージ。既定で有効 |
 | Variant style（バリアントスタイル） | 主に色覚多様性などアクセシビリティ目的の代替版。ユーザーが Preferences で選択すると Core style を上書き |
 | スタイルの優先順位 | Order（順序）の大きいスタイルが、Applicability（適用条件）を満たす場合に小さいものを上書き。基本システムスタイルは Order 0 |
 | その他テーマ化対象 | 空状態画像、ログインページのイラスト・背景色・グラデーション |
 
-[出典](https://www.servicenow.com/docs/r/platform-user-interface/next-experience-theming.html)
+[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/next-experience-theming.html)
 
-> **注記：** モバイル向けドキュメントでは「基本レコードは変更できないがコピーは作成できる」とされており、Web 向けテーマページの「コピー不可」と記述が異なる。Web ではカスタムテーマは Theme Builder テーマレコードをコピーし、UX Theme Styles のスタイルをコピーして修正する方法が案内されている（少なくとも 1 つの Core style が必須） [出典](https://www.servicenow.com/docs/r/platform-user-interface/next-experience-theming.html) / [出典](https://www.servicenow.com/docs/r/mobile/config-ne-theming.html)。
+> **注記：** モバイル向けドキュメントでは「基本レコードは変更できないがコピーは作成できる」とされており、Web 向けテーマページの「コピー不可」と記述が異なる。Web ではカスタムテーマは Theme Builder テーマレコードをコピーし、UX Theme Styles のスタイルをコピーして修正する方法が案内されている（少なくとも 1 つの Core style が必須） [出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/next-experience-theming.html) / [出典](https://www.servicenow.com/docs/r/mobile/config-ne-theming.html)。
 
 ### 4.2 Coral と Polaris
 
 | 項目 | Polaris | Coral |
 |---|---|---|
-| デフォルトだったリリース | Utah〜Yokohama（Next Experience 有効時） | Zurich 以降（新規インスタンス） |
+| デフォルトだったリリース | Web：San Diego〜Yokohama（Next Experience 有効時）／モバイル：Utah〜Yokohama | Zurich 以降（新規インスタンス） |
 | アップグレード時の扱い | 既存顧客がアップグレードしても Polaris のまま維持される | 既存顧客が Coral に移行するには Theme Builder で公開するか、UX Parent App Theme テーブルに追加する |
 | Australia での変更 | — | 色体系の刷新、柔らかいアウトラインと角丸コンポーネント、ダークモードの改善、AI グラデーションスタイル、控えめなアニメーション、マウス操作時のフォーカス挙動改善 |
 
@@ -386,10 +404,10 @@ Next Experience のテーマは、ブランドに合わせて UI の外観をカ
 
 ### 4.3 Theme Builder
 
-**Theme Builder** は、管理者がテーマを作成・編集・プレビュー・公開するツールである。Yokohama 以降は Next Experience のコアプラグインとして同梱され、既定で有効である（Xanadu 以前は ServiceNow Store からのインストール） [出典](https://www.servicenow.com/docs/r/platform-user-interface/next-experience-theming.html) / [出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/7XmH8cwtqEte3Il5iPpjfg)。
+**Theme Builder** は、管理者がテーマを作成・編集・プレビュー・公開するツールである。Yokohama 以降は Next Experience のコアプラグインとして同梱され、既定で有効である（Xanadu 以前は ServiceNow Store からのインストール） [出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/next-experience-theming.html) / [出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/7XmH8cwtqEte3Il5iPpjfg)。
 
-- メニュー位置：**All > Now Experience Framework > Themes > Theme Builder**（Washington DC のドキュメントによる） [出典](https://docs.servicenow.com/bundle/washingtondc-platform-user-interface/page/administer/navigation-and-ui/task/tb-create-theme.html)。
-- 必要ロール：テーマ作成手順（Washington DC）では admin、テーマ編集手順では `ui_builder_admin` と記載されており、ドキュメント間で異なる [出典](https://www.servicenow.com/docs/r/platform-user-interface/tb-edit-theme.html)。
+- メニュー位置：Australia 版のテーマ作成手順では **All > Now Experience Framework > Theme Builder** [出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/tb-create-theme.html)。Washington DC 版では **All > Now Experience Framework > Themes > Theme Builder** と記載されていた [出典](https://docs.servicenow.com/bundle/washingtondc-platform-user-interface/page/administer/navigation-and-ui/task/tb-create-theme.html)。
+- 必要ロール：Australia 版のテーマ作成手順・テーマ編集手順とも `ui_builder_admin`（Washington DC 版のテーマ作成手順では admin と記載されていた） [出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/tb-create-theme.html) / [出典](https://www.servicenow.com/docs/r/platform-user-interface/tb-edit-theme.html)。
 - 公開先：作成したテーマはインスタンスの Web または Mobile の実装に公開する。Theme Builder で公開したテーマは UX Parent App Theme テーブルに自動追加される [出典](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/SMNFe5ibvd0WlSYjmh~yqw)。
 - Xanadu 以降、クローン時に Next Experience / Theme Builder のテーマは上書きされず保持される [出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/7XmH8cwtqEte3Il5iPpjfg)。
 
@@ -420,11 +438,11 @@ UX Parent App Theme テーブルにレコードがなく、かつ `glide.ui.pola
 4. 特定のアプリケーションスコープにのみ適用する場合は Suffix フィールドを入力する（その場合は必須）。
 5. Submit し、ブラウザーを再読み込みする。
 
-Polaris に戻す場合は、Polaris テーマの sys_id で同じ手順を行う [出典](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/PjDyAAZehAEfi~T19w_1zg)。Xanadu より前は、このプロパティがカスタムテーマを全体に適用する主な方法であった [出典](https://www.servicenow.com/docs/r/mobile/config-ne-theming.html)。
+Polaris に戻す場合は、Polaris テーマの sys_id で同じ手順を行う [出典](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/PjDyAAZehAEfi~T19w_1zg)。複数テーマの公開（UX Parent App Theme）は Xanadu で導入されたため、Xanadu より前はこのプロパティがカスタムテーマを全体に適用する主な方法であったと考えられる 【推定】 [出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/7XmH8cwtqEte3Il5iPpjfg)。
 
 ### 4.6 ダークテーマ
 
-Polaris と Coral には **Dark Theme**（ダークテーマ）バリアントがあり、Configurable Workspace、リスト、フォーム、ダッシュボード、レポートに対応する。Theme Builder はダークバリアントを自動生成しないが、カスタマイズ範囲が限定された代替ダークカラーパレットを作成できる [出典](https://www.servicenow.com/docs/r/platform-user-interface/next-experience-theming.html)。
+Polaris と Coral には **Dark Theme**（ダークテーマ）バリアントがあり、Configurable Workspace、リスト、フォーム、ダッシュボード、レポートに対応する。Theme Builder はダークバリアントを自動生成しないが、カスタマイズ範囲が限定された代替ダークカラーパレットを作成できる [出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/next-experience-theming.html)。
 
 | プロパティ | 既定値 | 説明 |
 |---|---|---|
@@ -466,19 +484,21 @@ Next Experience には「サイドパネル／サイドバー」と呼ばれる�
 
 ### 5.1 Contextual side panel（Workspace）
 
-Contextual side panel は Configurable Workspace のレコードページ右側に表示される、複数タブを持つパネルである。例えば Service Operations Workspace では、インシデントやインタラクションなど全レコードページに表示され、既定のタブでレコード情報の参照、Microsoft Teams によるコラボレーション、レコメンデーション表示を行う [出典](https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/5f8U0xs7vLWss9dCfrESxA)。
+Contextual side panel は Configurable Workspace のレコードページ右側に表示される、複数タブを持つパネルである。例えば Service Operations Workspace では、インシデントやインタラクションなど全レコードページに表示され、既定のタブでレコード情報の参照、Microsoft Teams によるコラボレーション、レコメンデーション表示を行う [出典](https://www.servicenow.com/docs/r/australia/it-service-management/service-operations-workspace/customize-options-side-panel.html)。
 
-- 標準的な構成要素：Attachments（添付ファイル）、Templates（テンプレート）、Agent Assist（エージェントアシスト）、Ribbon（リボン：Customer 360、Active SLA、CMDB Timeline 等） 【第三者情報（ServiceNow Community ブログ）】 [出典](https://www.servicenow.com/community/next-experience-blog/workspace-for-a-custom-app-headers-highlighted-values-sidebar/ba-p/2618970)。
-- 構成方法：App Engine Studio / Workspace Builder ではレコードページの「Contextual Side Panel」でコンポーネントをトグル。UI Builder では SRP Record ページの右側リサイズ可能ペインのタブサイドバーで、タブの variant（UX Screen）を複製して Screen Condition（表示位置）と UX Screen Conditions の Script（表示条件）を編集する。必要ロールは admin / `workspace_admin` / `ui_builder_admin` のいずれか [出典](https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/5f8U0xs7vLWss9dCfrESxA)。
-- 基本システムの variant は直接編集せず複製する（アップグレードで上書きされるため） [出典](https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/5f8U0xs7vLWss9dCfrESxA)。
+- 標準的なタブ（Service Operations Workspace の公式記述）：レコード情報の参照、Microsoft Teams によるコラボレーション、レコメンデーション表示 [出典](https://www.servicenow.com/docs/r/australia/it-service-management/service-operations-workspace/customize-options-side-panel.html)。Workspace によっては Attachments（添付ファイル）、Templates（テンプレート）、Agent Assist（エージェントアシスト）などのタブも構成される 【第三者情報（ServiceNow Community ブログ）】 [出典](https://www.servicenow.com/community/next-experience-blog/workspace-for-a-custom-app-headers-highlighted-values-sidebar/ba-p/2618970)。
+- **Ribbon**（リボン：Customer 360、Active SLA 等）は Workspace レコードページの上部に表示される要素であり、右側の Contextual side panel のタブではない 【経験則】。
+- 構成方法（Service Operations Workspace の場合）：**All > Now Experience Framework > UI Builder** で Service Operations Workspace を開き、SRP Record ページの Body > Resizable panes > right の Tab sidebar を選択する。Config の「SOW - sidebar tabs top」からタブの variant（UX Screen）を開いて複製し、Screen Condition（表示位置）と UX Screen Conditions の Script（表示条件）を編集する。必要ロールは admin / `workspace_admin` / `ui_builder_admin` のいずれか [出典](https://www.servicenow.com/docs/r/australia/it-service-management/service-operations-workspace/customize-options-side-panel.html)。
+- 基本システムの variant は直接編集せず複製する（アップグレードで上書きされるため） [出典](https://www.servicenow.com/docs/r/australia/it-service-management/service-operations-workspace/customize-options-side-panel.html)。
+- App Engine Studio / Workspace Builder からの構成手順は、上記の公式ページには記載がなく、本ファイルでは公開情報で確認できていない。
 - キーボードショートカット Shift+Alt+x で Contextual sidebar にフォーカスを移動できる [出典](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/FfZNYroFMxGHyGktVkITZQ)。
-- Contextual side panel はクラシック環境（Core UI のフォーム）には存在しない。詳細な構成は [Workspace と UI Builder](./workspaces-ui-builder.md) を参照。
+- Contextual side panel は Configurable Workspace の機能であり、クラシック環境（Core UI のフォーム）には存在しない 【経験則】。詳細な構成は [Workspace と UI Builder](./workspaces-ui-builder.md) を参照。
 
 ### 5.2 Sidebar（Connect Chat の後継）
 
 **Connect Chat** は Next Experience では利用できない。代替として **Sidebar** が一部のチャット機能を提供する。Connect Chat と Sidebar の違いは KB1123615「Moving from Connect Chat to Sidebar」に記載されている [出典](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/N5p2A95EPBqJBIloBmUBSg)。
 
-> **注記：** Sidebar がチャット機能を提供し始めたリリースは、ドキュメントのバージョンにより「Xanadu 以降」「Yokohama 以降」「Australia 以降」と記載が揺れている（各版の文書が自版のリリース名で書かれているためと考えられる 【推定】）。Brazil 版の「Considerations for activating Next Experience」では「starting with Brazil」と記載されている [出典](https://www.servicenow.com/docs/r/platform-user-interface/next-experience-adoption-paths.html)。
+> **注記：** Sidebar がチャット機能を提供し始めたリリースは、ドキュメントのバージョンにより「Xanadu 以降」「Yokohama 以降」「Australia 以降」と記載が揺れている（各版の文書が自版のリリース名で書かれているためと考えられる 【推定】）。Australia 版の「Considerations for activating Next Experience」では「Starting with Australia, certain Connect Chat functions are available in Next Experience by using Sidebar」と記載されており [出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/next-experience-adoption-paths.html)、同ページの Brazil 版（バージョン指定なし URL で表示される版）では「starting with Brazil」と記載されている [出典](https://www.servicenow.com/docs/r/platform-user-interface/next-experience-adoption-paths.html)。
 
 Sidebar discussions は Workspace のタスク型・インタラクション型レコードでのリアルタイムコラボレーションを提供し、Shift+Alt+d で開ける [出典](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/FbF9igBfp51X~7gN0oPZBw) / [出典](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/FfZNYroFMxGHyGktVkITZQ)。
 
@@ -526,19 +546,19 @@ Sidebar discussions は Workspace のタスク型・インタラクション型�
 | 機能 | 状況 |
 |---|---|
 | Connect Chat | 利用不可。Sidebar に一部機能を移行（KB1123615） |
-| Connect Support | 利用不可。Utah で完全廃止予定とされ、Advanced Work Assignment と Agent Chat への移行を推奨 |
+| Connect Support | 利用不可。Advanced Work Assignment と Agent Chat への移行を推奨。公式ページ（Australia 版）には「Utah で完全廃止予定（scheduled to be completely deprecated in Utah）」という古い時点の記述がそのまま残っており、Australia 時点で廃止が完了しているかどうかは公開情報では確認できず |
 | Homepages | 直接 URL を知っていれば既存のものは閲覧可能だが、作成・編集は不可。Homepage deprecation help tool で Responsive dashboards に変換 |
 | Live Feed | 非サポート（KB1157068） |
 | JavaScript console log | Next Experience フレームワークでは非サポート |
 | ATF（Automated Test Framework） | UI Builder ページ、Configurable Workspace、ランディングページは未サポート（将来対応予定）。クラシックリスト・フォームを含む Core UI はサポート |
 
-[出典](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/N5p2A95EPBqJBIloBmUBSg) / [出典](https://www.servicenow.com/docs/r/platform-user-interface/next-experience-adoption-paths.html)
+[出典](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/N5p2A95EPBqJBIloBmUBSg) / [出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/next-experience-adoption-paths.html)
 
 このほか、コミュニティでは Guided Tours（ガイドツアー）の対応や Update Set タブなどの一部機能が Next Experience で欠落・制限されているとの指摘がある 【第三者情報（フォーラムのコメント、時点不明）】 [出典](https://www.servicenow.com/community/now-platform-articles/interface-comparison-between-ui16-the-next-experience/ta-p/2307243)。
 
 ### 6.4 旧 UI（UI11 / UI15）の非推奨化（Australia）
 
-Australia で、UI11 および UI15 と通称される旧 UI は非推奨（deprecated）となり、機能強化も不具合修正も行われず、サポート対象外となった。印刷用表示など一部の旧来のレンダリング経路は引き続き表示される場合があり、個別に対応される [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/vhUf~9psg0Cnu2nKIsNKxQ)。なお Next Experience を有効化するには UI16 がインストールされている必要がある [出典](https://www.servicenow.com/docs/r/platform-user-interface/next-experience-adoption-paths.html)。
+Australia で、UI11 および UI15 と通称される旧 UI は非推奨（deprecated）となり、機能強化も不具合修正も行われず、サポート対象外となった。印刷用表示など一部の旧来のレンダリング経路は引き続き表示される場合があり、個別に対応される [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/vhUf~9psg0Cnu2nKIsNKxQ)。なお Next Experience を有効化するには UI16 がインストールされている必要がある [出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/next-experience-adoption-paths.html)。
 
 ### 6.5 ブラウザー要件
 
@@ -548,7 +568,7 @@ Next Experience は Internet Explorer 11 と iOS 版 Firefox をサポートし�
 
 ### 7.1 導入パス（Adoption paths）
 
-Next Experience の有効化状況は、インスタンスの経緯とカスタマイズ度合いにより異なる [出典](https://www.servicenow.com/docs/r/platform-user-interface/next-experience-adoption-paths.html)。
+Next Experience の有効化状況は、インスタンスの経緯とカスタマイズ度合いにより異なる [出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/next-experience-adoption-paths.html)。
 
 | 顧客の状況 | 動作・推奨 |
 |---|---|
@@ -556,7 +576,7 @@ Next Experience の有効化状況は、インスタンスの経緯とカスタ�
 | 既存顧客・UI カスタマイズなしでアップグレード | アップグレード時に Next Experience が有効化される |
 | 既存顧客・UI カスタマイズあり（独自 UI スタイル・UI スクリプト、classic Workspace の利用、classic Workspace のカスタムコンポーネント） | カスタマイズの作成者またはパートナーの支援を推奨。Scriptable PolarisUI API、Next Experience クライアントスクリプトのグローバル変数、Jelly タグで調整 |
 | 以前のアップグレードで有効化モーダルを見逃した顧客 | システムプロパティで手動有効化し、インスタンスを再読み込み（モーダルはアップグレード時のみ表示） |
-| アップグレード前にオプトアウトしたい顧客 | システムプロパティ `glide.ui.next_experience.opt_out` を作成し `true` に設定すると、アップグレード時に Next Experience が有効化されない |
+| アップグレード前にオプトアウトしたい顧客 | システムプロパティ `glide.ui.next_experience.opt_out` を `true` に設定すると、アップグレード時に Next Experience が有効化されない。導入パスのページは「作成して設定」と案内しているが、Australia の公式システムプロパティ一覧には既定値 `false` で掲載されている（アップグレード中に一度だけ評価され、まだ Next Experience を使っていないインスタンスにのみ適用） [出典](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/9DTKB7jixSOEVtEdSYDa4Q) |
 
 Zurich・Australia のリリースノートでも「Next Experience はリリースのロードまたはアップグレード時に既定で有効。既知の問題がある場合はアップグレード前にオプトアウト用システムプロパティを作成できる」「Theme Builder も同梱され既定で有効」とされている [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/vhUf~9psg0Cnu2nKIsNKxQ)。
 
@@ -576,23 +596,25 @@ flowchart TD
 
 ### 7.2 管理者による有効化手順
 
-admin ロールのユーザーがログイン時に表示される「Turn on Next Experience」モーダルから有効化する [出典](https://www.servicenow.com/docs/r/platform-user-interface/next-experience-adoption-paths.html)。
+admin ロールのユーザーがログイン時に表示される「Turn on Next Experience」モーダルから有効化する [出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/next-experience-adoption-paths.html)。
 
 1. ログイン時のモーダルで **Get started** を選択する。
 2. 影響範囲を確認する（管理者本人だけでなく**全ユーザー**に影響する）。
-3. **Turn on Next Experience** を選択し、ログアウト・再ログインする。
+3. **Turn on Next Experience** を選択し、表示されるバナーで確認する。
+4. ログアウトして再ログインする（Australia 版ドキュメントの手順に記載あり）。
 
-インスタンス全体で無効化する場合は `sys_properties.list` で `glide.ui.polaris.experience` を `false` に設定する [出典](https://www.servicenow.com/docs/r/platform-user-interface/next-experience-adoption-paths.html)。
+インスタンス全体で無効化する場合は `sys_properties.list` で `glide.ui.polaris.experience` を `false` に設定する [出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/next-experience-adoption-paths.html)。
 
-> **警告（公式）:** Next Experience の有効化・無効化は、インスタンスの機能への影響を理解するまでは推奨されない。円滑な有効化にはパートナーの支援が必要な場合がある [出典](https://www.servicenow.com/docs/r/platform-user-interface/next-experience-adoption-paths.html)。
+> **警告（公式）:** Next Experience の有効化・無効化は、インスタンスの機能への影響を理解するまでは推奨されない。円滑な有効化にはパートナーの支援が必要な場合がある [出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/next-experience-adoption-paths.html)。
 
 ### 7.3 ユーザー単位の有効／無効切り替え
 
-Next Experience がインスタンスで有効化されている場合、管理者はユーザーが自分のセッションで Next Experience をオン／オフできるようにできる。設定は `glide.ui.polaris.on_off_user_pref_enabled` を `true` にすることで、ユーザーは **User menu > Preferences > User Experience** の「Turn off Next Experience」で切り替えられる [出典](https://www.servicenow.com/docs/r/IMox7xm_aeG3Rv607AxPnQ/0fML3S0RgyIgakMUuqfCcg) / [出典](https://www.servicenow.com/docs/r/platform-user-interface/next-experience-adoption-paths.html)。
+Next Experience がインスタンスで有効化されている場合、管理者はユーザーが自分のセッションで Next Experience をオン／オフできるようにできる。この切り替えは `glide.ui.polaris.on_off_user_pref_enabled` で制御し、`true` のときユーザーは Preferences の「Turn off Next Experience」トグルで切り替えられる。トグルはユーザー設定 `glide.ui.polaris.use` を設定し、プロパティが `false` のときトグルは表示されない [出典](https://www.servicenow.com/docs/r/IMox7xm_aeG3Rv607AxPnQ/0fML3S0RgyIgakMUuqfCcg) / [出典](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/9DTKB7jixSOEVtEdSYDa4Q)。
 
-- `glide.ui.polaris.on_off_user_pref_enabled` は既定ではシステムプロパティ一覧に存在せず、true/false 型で新規作成する 【第三者情報（コミュニティ記事）】 [出典](https://www.servicenow.com/community/now-platform-articles/enabling-toggle-button-to-switch-next-experience-ui/ta-p/2316088)。
+- Australia の公式システムプロパティ一覧では、`glide.ui.polaris.on_off_user_pref_enabled` の既定値は `true` である [出典](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/9DTKB7jixSOEVtEdSYDa4Q)。「既定ではシステムプロパティ一覧に存在せず、true/false 型で新規作成する」とするコミュニティ記事は旧リリース時点の情報である 【第三者情報（コミュニティ記事）】 [出典](https://www.servicenow.com/community/now-platform-articles/enabling-toggle-button-to-switch-next-experience-ui/ta-p/2316088)。既存インスタンスではレコードの有無と値を確認すること。
+- トグルの表示位置は、公式システムプロパティ一覧では「Display section of the user preferences」、Preferences ページ（3.1 参照）や有効化手順ページでは User Experience グループと、公式ドキュメント間で記載が揺れている [出典](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/9DTKB7jixSOEVtEdSYDa4Q) / [出典](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/VsP_aQEuvsNDOuiWRcR89g)。
 - 値は小文字の `true` でなければ反映されなかったとの報告がある 【第三者情報（フォーラム）】 [出典](https://www.servicenow.com/community/servicenow-ai-platform-articles/enabling-toggle-button-to-switch-next-experience-ui/tac-p/3281281)。
-- 本設定は `glide.ui.polaris.experience` が `true` であることが前提 【第三者情報】。
+- 本設定は `glide.ui.polaris.experience` が `true` であることが前提。`glide.ui.polaris.experience` は他のすべての Next Experience プロパティとユーザー設定より優先される [出典](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/9DTKB7jixSOEVtEdSYDa4Q)。
 
 ### 7.4 Next Experience Readiness Checker
 
@@ -608,7 +630,9 @@ Australia の公式「Next Experience system properties」に掲載されたプ�
 
 | プロパティ | 型 | 既定値 | 説明 |
 |---|---|---|---|
-| `glide.ui.polaris.experience` | true \| false | true | プラットフォームで Unified Navigation（Next Experience）を有効化 |
+| `glide.ui.polaris.experience` | true \| false | true | インスタンス全体で Next Experience UI をオン／オフ。他のすべての Next Experience プロパティとユーザー設定より優先され、`false` で全ユーザーに対しオフ |
+| `glide.ui.next_experience.opt_out` | true \| false | false | アップグレード時に Next Experience UI が自動でオンになるのを防ぐ。まだ Next Experience を使っていないインスタンスにのみ適用され、アップグレード中に一度だけ評価される |
+| `glide.ui.polaris.on_off_user_pref_enabled` | true \| false | true | ユーザー設定に Next Experience のオン／オフのトグルを表示（ユーザー設定 `glide.ui.polaris.use` を設定）。`false` でトグル非表示 |
 | `glide.ui.polaris.menus` | true \| false | true | ヘッダーの Unified Navigation メニューを表示。`false` にするよりロール単位で非表示にすることを推奨 |
 | `glide.ui.polaris.global_search` | true \| false | true | ヘッダーのグローバル検索を表示 |
 | `glide.ui.polaris.nav_filter_accuracy_score` | integer | 75 | メニューのフィルター精度。100 で完全一致 |
@@ -630,8 +654,6 @@ Australia の公式「Next Experience system properties」に掲載されたプ�
 
 | プロパティ | 説明 | 出典 |
 |---|---|---|
-| `glide.ui.next_experience.opt_out` | `true` でアップグレード時の Next Experience 自動有効化を抑止（作成して設定） | [公式](https://www.servicenow.com/docs/r/platform-user-interface/next-experience-adoption-paths.html) |
-| `glide.ui.polaris.on_off_user_pref_enabled` | ユーザーによる Next Experience のオン／オフを許可 | [公式](https://www.servicenow.com/docs/r/IMox7xm_aeG3Rv607AxPnQ/0fML3S0RgyIgakMUuqfCcg) |
 | `glide.ui.next_experience.instance_tools_disabled` | `false` で Show instance tools（スコープ・アップデートセットの常時表示）を有効化（作成して設定） | [公式](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/FbF9igBfp51X~7gN0oPZBw) |
 | `glide.ui.polaris.theme.custom` | 単一テーマを強制（テーマの sys_id。UX Parent App Theme テーブルが空の場合のみ有効） | [公式](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/PjDyAAZehAEfi~T19w_1zg) |
 | `glide.next_experience.user_selected_landing_page_enabled` | ユーザーによる開始ページ選択を許可 | [公式](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/6dqE~NEoiVuQLW3PhQ0CUg) |
@@ -689,8 +711,8 @@ DOM や jQuery を直接操作する UI スクリプト・クライアントス�
 ## 9. 実務上の留意点
 
 - **ロール別のメニュー制御**：不要なメニューを `glide.ui.polaris.menus = false` で全体非表示にするのではなく、Unified Navigation Menus の Hidden Roles / Visible Roles でロール単位に制御する（公式推奨） [出典](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/9DTKB7jixSOEVtEdSYDa4Q)。
-- **アップグレード前の確認**：UI スクリプトや独自スタイルが多いインスタンスでは、Readiness Checker と非サポート機能一覧（6.3）を確認し、必要に応じて `glide.ui.next_experience.opt_out` で有効化を延期する [出典](https://www.servicenow.com/docs/r/platform-user-interface/next-experience-adoption-paths.html)。
-- **テーマ移行**：Zurich 以前からアップグレードした既存インスタンスは Polaris のまま。Coral に移行する場合は Theme Builder で公開するか UX Parent App Theme に追加する [出典](https://www.servicenow.com/docs/r/platform-user-interface/next-experience-theming.html)。
+- **アップグレード前の確認**：UI スクリプトや独自スタイルが多いインスタンスでは、Readiness Checker と非サポート機能一覧（6.3）を確認し、必要に応じて `glide.ui.next_experience.opt_out` で有効化を延期する [出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/next-experience-adoption-paths.html)。
+- **テーマ移行**：Zurich 以前からアップグレードした既存インスタンスは Polaris のまま。Coral に移行する場合は Theme Builder で公開するか UX Parent App Theme に追加する [出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/next-experience-theming.html)。
 - **ATF**：Configurable Workspace・UI Builder ページは ATF の UI テスト対象外のため、テスト計画で手動テストを補う（[ATF](./automated-test-framework.md) 参照）。
 - **開発者の誤スコープ防止**：Show instance tools を有効にしてスコープとアップデートセットを常時表示すると、誤ったスコープ・アップデートセットでの作業を防ぎやすい 【経験則】。
 - **ユーザー教育**：UI16 に慣れたユーザーには、All メニューの Filter（`.list` / `.do`）、ピン留め、キーボードショートカット（Control+/）を案内すると移行がスムーズである 【経験則】。導入時の定着化は [定着化と組織変革](../../04_応用編/13-adoption-change-management.md) を参照。
@@ -701,7 +723,9 @@ DOM や jQuery を直接操作する UI スクリプト・クライアントス�
 - All Menu Editing を組織単位で無効化する system user preference の名称、および同機能がプラットフォーム同梱か Store 配布か。
 - 既存顧客のアップグレード時に Next Experience が自動有効化されるようになった最初のリリース。
 - 管理者がユーザーに上書きさせない開始ページを設定する具体的な手順とプロパティ名。
-- Theme Builder の必要ロール（ドキュメントにより admin と `ui_builder_admin` で記載が異なる）。
+- Theme Builder の必要ロール（Australia 版は `ui_builder_admin`、Washington DC 版のテーマ作成手順は admin と記載が異なる）。
+- Contextual side panel を App Engine Studio / Workspace Builder から構成する公式手順。
+- Connect Support の廃止が完了したリリース（公式ページは「Utah で完全廃止予定」の記述のまま）。
 - Brazil における Next Experience の変更点（公式統合リリースノートでは「更新なし」）。
 
 ## 参照元
@@ -712,7 +736,8 @@ DOM や jQuery を直接操作する UI スクリプト・クライアントス�
 - Using the Next Experience Unified Navigation（Australia）: https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/FbF9igBfp51X~7gN0oPZBw
 - Next Experience system properties（Australia）: https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/9DTKB7jixSOEVtEdSYDa4Q
 - Next Experience system properties（Zurich）: https://www.servicenow.com/docs/r/VSGj5uf15r1UFmxfhJoyeg/Gw05DR_0pM_547g4M81Clg
-- Considerations for activating Next Experience: https://www.servicenow.com/docs/r/platform-user-interface/next-experience-adoption-paths.html
+- Considerations for activating Next Experience（Australia）: https://www.servicenow.com/docs/r/australia/platform-user-interface/next-experience-adoption-paths.html
+- Considerations for activating Next Experience（Brazil。バージョン指定なし URL）: https://www.servicenow.com/docs/r/platform-user-interface/next-experience-adoption-paths.html
 - Configuring the Next Experience UI（Australia）: https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/IRKKARGDgaVUA_mtMg6gOQ
 - Next Experience preferences（Australia）: https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/VsP_aQEuvsNDOuiWRcR89g
 - Next Experience user start options: https://www.servicenow.com/docs/r/ja-JP/platform-user-interface/ne-start-options-user.html
@@ -721,7 +746,8 @@ DOM や jQuery を直接操作する UI スクリプト・クライアントス�
 - Next Experience All Menu Editing（Australia）: https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/X62tP9vSHJDzqiWudJNjUg
 - Create a Next Experience Menu Application（Australia）: https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/fa0pZuUe3ROtm~PIlLwkwQ
 - Next Experience keyboard shortcuts（Australia）: https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/FfZNYroFMxGHyGktVkITZQ
-- Working with themes in Next Experience: https://www.servicenow.com/docs/r/platform-user-interface/next-experience-theming.html
+- Working with themes in Next Experience（Australia）: https://www.servicenow.com/docs/r/australia/platform-user-interface/next-experience-theming.html
+- Create a theme with Theme Builder（Australia）: https://www.servicenow.com/docs/r/australia/platform-user-interface/tb-create-theme.html
 - Override the Next Experience default theme（Australia）: https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/PjDyAAZehAEfi~T19w_1zg
 - Publish multiple themes in Next Experience（Australia）: https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/SMNFe5ibvd0WlSYjmh~yqw
 - Disable the dark theme in all Next Experience instances（Australia）: https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/Bv8aEfPBfbGqpfzfed8b5Q
@@ -732,7 +758,7 @@ DOM や jQuery を直接操作する UI スクリプト・クライアントス�
 - Working in classic lists and forms（Zurich）: https://www.servicenow.com/docs/r/zurich/platform-user-interface/working-in-classic-lists-and-forms.html
 - Next Experience client-side scripting global variables: https://www.servicenow.com/docs/r/ja-JP/platform-user-interface/next-exp-client-script-globals.html
 - Next Experience Readiness Checker（Australia）: https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/aDCln_VLw5CjlOnfuATPpA
-- Configure contextual side panel tabs in Service Operations Workspace: https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/5f8U0xs7vLWss9dCfrESxA
+- Configure contextual side panel tabs in Service Operations Workspace（Australia）: https://www.servicenow.com/docs/r/australia/it-service-management/service-operations-workspace/customize-options-side-panel.html
 - Redirect non-admin users to Service Operations Workspace: https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/kVEIwt6LQo5zw2GyfhzsIA
 - Combined Next Experience release notes for upgrades from Zurich to Australia: https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/vhUf~9psg0Cnu2nKIsNKxQ
 - Combined Next Experience release notes for upgrades from Xanadu to Australia: https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/7XmH8cwtqEte3Il5iPpjfg

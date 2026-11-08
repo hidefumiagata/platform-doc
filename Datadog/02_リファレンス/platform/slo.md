@@ -37,24 +37,24 @@ Datadog の SLO には次の 3 タイプがある。[出典](https://docs.datado
 | Monitor-based SLO（モニターベース SLO） | **By Monitor Uptime** | 時間ベース：モニターが ALERT でない時間 ÷ 総時間 | 既存 Monitor の稼働時間 |
 | Time Slice SLO（タイムスライス SLO） | **By Time Slices** | 時間ベース：条件を満たした時間スライス ÷ 総スライス | Monitor 不要の独自アップタイム定義 |
 
-本ファイルは SLO 機能の**仕様（何ができ、何が上限か）**を扱う。SLI/SLO の選び方・目標値設計・運用プロセスなどの実務知見は [SLO 運用の実践](../../04_応用編/slo-practices.md) を参照。
+本ファイルは SLO 機能の**仕様（何ができ、何が上限か）**を扱う。SLI/SLO の選び方・目標値設計・運用プロセスなどの実務知見は [SLO 運用の実践](../../04_応用編/08-slo-practices.md) を参照。
 
 ### 本ファイルの範囲と関連ファイル
 
 | トピック | 参照先 |
 |---|---|
 | SLO の仕様（タイプ、計算、エラーバジェット、Corrections、アラート、ウィジェット、API、制限値） | 本ファイル |
-| SLO の設計・運用ベストプラクティス、組織導入 | [SLO 運用の実践](../../04_応用編/slo-practices.md) |
+| SLO の設計・運用ベストプラクティス、組織導入 | [SLO 運用の実践](../../04_応用編/08-slo-practices.md) |
 | Monitor 全般（評価設定、No Data、モニタータイプ一覧。SLO Alerts も `slo alert` タイプとして掲載） | [Monitors（モニター）](./monitors.md) |
 | 通知チャネル、Downtime | [通知と Downtime](./notifications-and-downtimes.md) |
 | ダッシュボード全般、Scheduled Reports | [Dashboards（ダッシュボード）](./dashboards.md) |
 | SLI に使うメトリクス（メトリクスタイプ、クエリ、関数） | [Metrics](./metrics.md)、[メトリクスクエリと関数](./metrics-query-and-functions.md) |
 | SLI 用カスタムメトリクスの作成・課金 | [Custom Metrics と DogStatsD](./custom-metrics-and-dogstatsd.md) |
-| SLO のタグ設計 | [Tagging](./tagging.md)、[タグ戦略の実践](../../04_応用編/tagging-strategy.md) |
-| SLO を Terraform で管理 | [Terraform と IaC](./terraform-and-iac.md)、[Monitoring as Code](../../04_応用編/monitoring-as-code.md) |
+| SLO のタグ設計 | [Tagging](./tagging.md)、[タグ戦略の実践](../../04_応用編/02-tagging-strategy.md) |
+| SLO を Terraform で管理 | [Terraform と IaC](./terraform-and-iac.md)、[Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) |
 | SLO の監査ログ | [Audit Trail](./audit-trail.md) |
 | サービス単位の信頼性レポート | [Software Catalog（旧 Service Catalog）](./software-catalog.md) |
-| アラート設計（Burn Rate アラートの位置づけ） | [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md) |
+| アラート設計（Burn Rate アラートの位置づけ） | [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md) |
 
 ## 用語
 
@@ -933,7 +933,7 @@ Terraform 全般は [Terraform と IaC](./terraform-and-iac.md) を参照。
   - DogStatsD 等で送るカスタムメトリクスはカスタムメトリクスとして課金。パーセンタイル集計を有効にした Distribution は追加の時系列を生む。詳細は [Custom Metrics と DogStatsD](./custom-metrics-and-dogstatsd.md) を参照。
   - Monitor-based SLO の Synthetic テストは Synthetic Monitoring のテスト実行数で課金される（[Synthetic Monitoring](../dem/synthetic-monitoring.md) 参照）。
 - SLI 用メトリクスに `sum by` で高カーディナリティなタグを使うと、カスタムメトリクスの時系列数が増える点に注意する。
-- 料金の数値は [製品別料金表](../../03_導入編/pricing-by-product.md)（正本）、課金計算の考え方は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+- 料金の数値は [製品別料金表](../../03_導入編/02-pricing-by-product.md)（正本）、課金計算の考え方は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 
 ## サイト差異
 
@@ -969,10 +969,10 @@ Terraform 全般は [Terraform と IaC](./terraform-and-iac.md) を参照。
 - [組織・ユーザー・権限管理](./account-and-access-management.md)
 - [Synthetic Monitoring](../dem/synthetic-monitoring.md)
 - [Incident Management](../service-management/incident-management.md)
-- [SLO 運用の実践](../../04_応用編/slo-practices.md)
-- [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md)
-- [Monitoring as Code](../../04_応用編/monitoring-as-code.md)
-- [製品別料金表](../../03_導入編/pricing-by-product.md)
+- [SLO 運用の実践](../../04_応用編/08-slo-practices.md)
+- [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md)
+- [Monitoring as Code](../../04_応用編/09-monitoring-as-code.md)
+- [製品別料金表](../../03_導入編/02-pricing-by-product.md)
 
 ## 参照元
 

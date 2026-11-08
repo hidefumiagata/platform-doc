@@ -5,7 +5,7 @@ domain: general
 release: Australia
 last_verified: 2026-11-02
 summary: ServiceNow を学ぶための公式学習基盤 ServiceNow University（旧 Now Learning）、無料の Personal Developer Instance（PDI）と Developer Program、認定資格体系（CSA / CAD / CIS 各種 / CTA / CMA ほか）と受験・維持の手続き、コミュニティ、日本語の学習リソースを、入門者向けに整理する。
-keywords: [ServiceNow University, Now Learning, PDI, Personal Developer Instance, Developer Program, 認定資格, certification, CSA, CAD, CIS, CIS-DF, Data Foundations, CTA, CMA, CRMA, ArchX, CPOA, delta exam, デルタ試験, Pearson VUE, Learning Credits, SNUG, Community MVP, 学習パス]
+keywords: [ServiceNow University, Now Learning, PDI, Personal Developer Instance, Developer Program, 認定資格, certification, CSA, CAD, CIS, CIS-DF, Data Foundations, CTA, CMA, CRMA, ArchX, CPOA, delta exam, デルタ試験, Pearson VUE, Learning Credits, RiseUp, SNUG, Community MVP, 学習パス]
 sources:
   - https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-University-drives-career-growth-with-real-time-coaching-and-simulation/default.aspx
   - https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/POoFRmMpmmeY2c0J7z2SHg
@@ -22,6 +22,8 @@ sources:
   - https://nowben.com/servicenow-certification-updates-crma-data-foundations-and-archx/
   - https://nowben.com/servicenow-certification-pathways-infographic/
   - https://www.servicenow.com/community/snug-apj/ct-p/snug-apj
+  - https://servicenow.swoogo.com/Knowledge26Certification
+  - https://www.businesswire.com/news/home/20221026005599/en/RiseUp-with-ServiceNow-Program-to-Skill-One-Million-People-by-2024
 ---
 
 # 学習パスと認定資格（Learning Path & Certifications）
@@ -42,8 +44,8 @@ ServiceNow の学習と資格取得は、次の 4 つの公式基盤を組み合
 - 学習ポータルは 2025 年 5 月の Knowledge 2025 で **ServiceNow University** として刷新された（旧称 Now Learning）。2026 年 5 月の Knowledge 2026 で AI コーチ **AI Learning Guide** と演習環境 **SimStudio** が追加された。[出典](https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-University-drives-career-growth-with-real-time-coaching-and-simulation/default.aspx)
 - 手を動かす練習には無料の **PDI** を使う。ただし 10 日間ログインがないと回収（reclaim）されうるため、成果物はアップデートセットやソース管理に退避する。[出典](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/POoFRmMpmmeY2c0J7z2SHg)
 - 認定資格の入口は **CSA（Certified System Administrator）**。その上に **CAD**（開発者）、**CIS-xx**（製品別の導入スペシャリスト）、最上位の **CTA / CMA / CRMA**（アーキテクト）がある。
-- 2025-11-18 に試験の配信が Webassessor（Kryterion）から **Pearson VUE** に移行し、バウチャー方式は廃止された。2026 年には **CIS-DF（Data Foundations: CMDB and CSDM）** が多くの CIS の前提資格になった。【第三者情報】[出典](https://www.servicenow.com/community/training-and-certifications/article-bye-webassessor-hello-pearson-vue/td-p/3387020)
-- メインライン資格は、年 1 回の **デルタ試験（delta exam）** と **認定維持料（Certification Maintenance Program fee）** で維持する。【第三者情報】
+- 2025-11-18 に試験の配信が Webassessor（Kryterion）から **Pearson VUE** に移行し、バウチャー方式は廃止された。2026 年には **CIS-DF（Data Foundations: CMDB and CSDM）** が多くの CIS の前提資格になった。【第三者情報】[出典（Pearson VUE 移行）](https://www.servicenow.com/community/training-and-certifications/article-bye-webassessor-hello-pearson-vue/td-p/3387020)、[出典（CIS-DF の前提化）](https://nowben.com/servicenow-certification-updates-crma-data-foundations-and-archx/)
+- メインライン資格は、年 1 回の **デルタ試験（delta exam）** と **認定維持料（Certification Maintenance Program fee）** で維持する。【第三者情報】[出典](https://www.servicenow.com/community/training-and-certifications/delta-exam-guide-zurich-version/ta-p/2308148)
 
 > **注意（情報の確度）:** 認定制度の詳細（受験料、再受験規定、前提資格）は ServiceNow University の「Credential program」ページや Certification Program Guide に載っている。ただし、これらはログインが必要なため本調査では直接確認できなかった。本ファイルではコミュニティの公式ロール保持者や長期貢献者の記事、パートナー系メディアから二次的に確認し、`【第三者情報】` を付けている。受験前には必ず ServiceNow University 上で最新情報を確認すること。
 
@@ -109,18 +111,21 @@ ServiceNow University のヘッダーには、2025-11 時点で次のメニュ�
 | Career journeys | 職種別（管理者、開発者、Platform Owner 等）の推奨学習経路 |
 | Credential program | 認定資格の一覧・試験情報 |
 | Help Center | FAQ、ケース起票 |
-| Explore catalog | コースカタログ検索（言語でのフィルタも可能） |
+| Tours | サイト内のガイドツアー（画面の使い方の案内）。図 3 のヘッダーに表示されている |
+| Explore catalog | コースカタログ検索（言語でのフィルターも可能） |
 
 ### 2.3 学習コンテンツの種類
 
 | 種類 | 説明 | 費用（目安） |
 |---|---|---|
 | **On-demand course**（オンデマンドコース） | 動画・テキスト・ラボの自習型。Fundamentals 系や Implementation 系がある | 多くは無料。【第三者情報】[出典](https://www.servicenow.com/community/training-and-certifications/2026-exam-vouchers-courses-exams-amp-retakes-major-changes/bc-p/3556422) |
-| **ILT（Instructor-Led Training、講師主導研修）** | 公開クラスまたは企業向けのクラス。2〜3 日程度 | 有料。2 日 $1,900、3 日 $2,700（1 回分の受験資格を含む）【第三者情報】 同上 |
+| **ILT（Instructor-Led Training、講師主導研修）** | 公開クラスまたは企業向けのクラス。2〜3 日程度 | 有料。2 日 $1,900、3 日 $2,700（1 回分の受験資格を含む）【推定】【第三者情報】（推定値。出典: [Mark Roethof, 2026-01-18](https://www.servicenow.com/community/training-and-certifications/2026-exam-vouchers-courses-exams-amp-retakes-major-changes/bc-p/3556422)、取得日: 2026-11-02） |
 | **Learning Path**（ラーニングパス） | 複数コースを目的別に束ねた学習経路 | コース単位 |
 | **Career journey**（キャリアジャーニー） | 職種別に、学習経路と資格を段階的に示したもの | 無料 |
 | **LabX / Guided Simulation**（ガイド付きシミュレーション） | ラボ用インスタンスで課題を解く演習。AI Learning Guide と連動する | コースによる |
 | **Lab instance**（コース付属のラボインスタンス） | Implementation 系コースで払い出される期限付きインスタンス。期限延長の回数とインスタンス数に上限がある | コースに含まれる |
+
+> **RiseUp with ServiceNow（ライズアップ）:** RiseUp with ServiceNow は、ServiceNow が 2022-10 に発表した個人向けのスキル育成プログラムである。ServiceNow University（当時は Now Learning）の無料コースを使い、キャリアチェンジ層や未経験者を ServiceNow 人材に育てることを目的とする。発表時の目標は「2024 年までに 100 万人を育成」で、ブートキャンプ、アプレンティスシップ、パートナーへの人材マッチング（Partner Placement Program）の 3 施策で構成された。[出典](https://www.businesswire.com/news/home/20221026005599/en/RiseUp-with-ServiceNow-Program-to-Skill-One-Million-People-by-2024) 2026 年も、パートナー団体経由のコホート型プログラムが続いている（例: The Diana Award と組んだ 10 週間・無料・オンラインのプログラム。2026-04-13〜06-19、ケニア・ナイジェリア・南アフリカ向け）。【第三者情報】[出典](https://diana-award.org.uk/our-programmes-and-initiatives/inspire-series/rise-up) 日本で RiseUp のプログラムが提供されているかは、公開情報では確認できず。
 
 > **Learning Credits（ラーニングクレジット、LC）:** Learning Credits は ServiceNow University で研修費・受験料などに使う前払いの通貨で、1 LC = 1 USD とされる。顧客企業がまとめて購入し、従業員は会社アカウントに連携（My company access）すると使える。決済時はクレジットカードか LC を選ぶ。[出典](https://www.servicenow.com/services/training-and-certification/learning-credits.html)（本調査では 403 で本文を取得できず、検索結果の抜粋で確認）【第三者情報】
 
@@ -174,7 +179,7 @@ PDI の取得手順は公式ドキュメント「Get a development instance」�
 | リリース | 新規要求時は最新 GA リリース。リリースを選んで要求でき、パッチや新リリースへのアップグレードも可能 | 同上 |
 | 休止（Hibernation） | アイドル状態が続くと DB とアプリサーバーが停止する（データは保持）。Developer Site にサインインすると起動し、10 日間のカウントダウンがリセットされる | [Understanding PDIs](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/POoFRmMpmmeY2c0J7z2SHg) |
 | 回収（Reclamation） | **10 日間の非アクティブ**で回収されうる。回収されたインスタンスは初期状態にリセットされ、別の会員に再割り当てされる。可用性は保証されず、非アクティブ期間は変更されうる | 同上 |
-| 活動とみなされる操作（公式ドキュメント） | インスタンスへのサインイン、アプリ作成、テーブル作成、テーブルへのフィールド追加、Script Include 作成 | 同上 |
+| 活動とみなされる操作（公式ドキュメント） | Developer Site へのサインイン（休止中のインスタンスが起動し、10 日間のカウントダウンがリセットされる）、アプリ作成、テーブル作成、テーブルへのフィールド追加、Script Include 作成 | 同上 |
 | クローン | 顧客・パートナーインスタンスとの間で、クローン元・クローン先のどちらにもできない | 同上 |
 | Team Development | 顧客・パートナーインスタンスとリンクできない | 同上 |
 | 公開 | ServiceNow Application Repository / Store には公開できない | 同上 |
@@ -190,7 +195,7 @@ PDI の取得手順は公式ドキュメント「Get a development instance」�
 - バックグラウンド処理や開発者サイトへのログインは「活動」とみなさない。PDI そのものへの明示的なログインが必要である。
 - 対象者には 3 通の通知メールが送られる（初回は 2026-07-07、前日リマインドは 07-10、回収通知は 07-11）。回収通知を受け取った後にログインしても回収される前提で考える。
 
-> **公式情報どうしの差異:** 公式ドキュメント「Understanding PDIs」は「10 日間の非アクティブで回収されうる」とし、サインイン以外の開発操作（テーブル作成等）も活動として挙げている。一方、上記ブログ（2026-07）は「90 日以上経過」という条件を加え、「PDI への明示的ログインのみが活動」としている。最新の運用はブログ側と考えられるが、安全策として **10 日以内に必ず PDI にログインする** こと。【推定】
+> **公式情報どうしの差異:** 公式ドキュメント「Understanding PDIs」は「10 日間の非アクティブで回収されうる」とし、サインイン以外の開発操作（テーブル作成等）も活動として挙げている。一方、上記ブログ（2026-07）は「90 日以上経過」という条件を加え、「PDI への明示的ログインのみが活動」としている。最も鋭く食い違うのは Developer Site へのサインインの扱いである。ドキュメントは Developer Site へのサインインでカウントダウンがリセットされるとするが、ブログは Developer Site へのログインを活動とみなさず、PDI 自体へのログインのみを活動とする。最新の運用はブログ側と考えられるが、安全策として **10 日以内に必ず PDI にログインする** こと。【推定】
 
 2026 年は Australia 版・Brazil 版の PDI に待ち行列（waitlist）が発生しているとの報告が複数ある。待ち行列から抜けると順番を失うため、取り消さないよう助言されている。【第三者情報】[出典](https://www.servicenow.com/community/developer-forum/latest-pdi-waitlist-length/m-p/3609789)
 
@@ -222,9 +227,10 @@ ServiceNow University の資格（credential）は、次の種類に分かれる
 | 種類 | 試験形式 | 維持 | 例 |
 |---|---|---|---|
 | **Mainline Certification**（メインライン資格） | 監督付き（proctored）試験。Pearson VUE のテストセンターまたはオンライン（OnVUE）で受験する | 年 1 回のデルタ試験と維持料が必要 | CSA、CAD、CIS-ITSM |
-| **Expert Certification**（エキスパート資格） | ワークショップ・ボードレビュー等を含むプログラム型 | 個別の維持規定がある | CTA、CMA、CRMA |
-| **Micro-Certification**（マイクロ認定） | 監督なしのオンライン試験。対象範囲が狭い | デルタ試験はない | Flow Designer、UI Builder、ATF、Integration Hub、Virtual Agent など |
-| **Accreditation**（アクレディテーション） | 主に新製品やパートナー向け（Delivery / Bootcamp / Now Assist / Pre-Sales 等） | 個別の規定がある | Now Assist for ITSM、AI Agents の Delivery Accreditation |
+| └ Mainline の区分（For / Parent type） | Mainline はさらに **Core**（CSA・CAD 等）、**Implementer**（CIS 各種）、**Platform Owner**（CPOA）、**Expert**（ArchX・CTA・CMA・CRMA）に区分される。Expert はワークショップ・ボードレビュー等を含むプログラム型で、独立した種類ではなく Mainline の上位レベルとして扱われる | Expert は個別の維持規定がある | CTA、CMA、CRMA、ArchX（Expert） |
+| **Micro-Certification**（マイクロ認定） | 監督なしのオンライン試験。対象範囲が狭い。実機操作を模した**シミュレーター形式（Simulator）**のものもある（例: CMDB Health） | デルタ試験はない | Welcome to ServiceNow、Flow Designer、UI Builder、Automated Test Framework（ATF）、Integration Hub、Virtual Agent、Platform Analytics、Predictive Intelligence、Configure the CMDB、Service Portal、CMDB Health（Simulator）など |
+| **Accreditation** / **Delivery Accreditation** / **Bootcamp Accreditation**（アクレディテーション） | 主に新製品やパートナー向け。一覧では Accreditation、Delivery Accreditation、Bootcamp Accreditation が別の種類として載っている | 個別の規定がある | Now Assist for ITSM、AI Agents の Delivery Accreditation |
+| **PreSales** / **Sales**（プリセールス / セールス） | パートナーの営業・プリセールス担当者向けの資格 | 個別の規定がある | 製品別の PreSales Accreditation |
 | **Suite Certification**（スイート認定） | 構成する資格をすべて取得すると自動付与される | 構成資格に従う | ITSM Professional、HR Professional、CSM Professional |
 
 ### 4.2 主要なメインライン資格
@@ -233,8 +239,9 @@ ServiceNow University の資格（credential）は、次の種類に分かれる
 |---|---|---|---|
 | **CSA** | Certified System Administrator（認定システム管理者） | 管理者、全職種の入口 | 前提資格なし。すべての上位資格の起点 |
 | **CAD** | Certified Application Developer（認定アプリケーション開発者） | 開発者 | 6 か月以上の実務経験を推奨【第三者情報】 |
-| **CPOA** | Certified Platform Owner Associate（認定プラットフォームオーナー・アソシエイト） | Platform Owner、CoE リーダー | 3〜5 年の経験を推奨【第三者情報】。上位に CPOP（Professional、2026 年にベータ）、CPOE（Expert、開発中）がある |
+| **CPOA** | Certified Platform Owner Associate（認定プラットフォームオーナー・アソシエイト） | Platform Owner、CoE リーダー | 3〜5 年の経験を推奨【第三者情報】。上位に CPOP（Professional）と CPOE（Expert）が予定されている。NowBen のインフォグラフィックではどちらも「Coming Soon」と表示されている（図 2）。提供開始時期は公開情報では確認できなかった |
 | **CIS-xx** | Certified Implementation Specialist（認定導入スペシャリスト） | 製品別の導入コンサルタント・エンジニア | CSA が前提。多くは CIS-DF も前提（後述） |
+| **CAS** | Certified Application Specialist（認定アプリケーション・スペシャリスト） | 特定アプリケーション領域の担当者 | 受験料の情報（§5.3）で CSA・CAD と並んで挙げられている【第三者情報】。対象アプリケーションと前提資格の詳細は公開情報では確認できず |
 
 出典: [Blog5_TM 資格一覧（2026）](https://www.servicenow.com/community/training-and-certifications/blog5-tm-consolidated-full-amp-up-to-date-servicenow/m-p/3508209)、[NowBen](https://nowben.com/servicenow-certification-updates-crma-data-foundations-and-archx/)【第三者情報】
 
@@ -268,7 +275,7 @@ ServiceNow University の資格（credential）は、次の種類に分かれる
 
 - CIS-DF は、CIS-ITSM / CIS-DISCO / CIS-SM / CIS-HAM / CIS-SAM / CIS-SIR / CIS-VR の 7 資格の**受験前提**になった。猶予期間は 2026-01-26 に終了した。[出典](https://nowben.com/servicenow-certification-updates-crma-data-foundations-and-archx/)
 - 上記 7 資格の**既存保持者**も、資格を保持し続けるには **2026-12-31 までに CIS-DF に合格**する必要がある。[出典](https://www.servicenow.com/community/training-and-certifications/blog5-tm-consolidated-full-amp-up-to-date-servicenow/m-p/3508209)
-- CIS-DF の初回受験は 2026 年 6 月まで無料の期間限定措置だった（現在は終了）。[出典](https://www.servicenow.com/community/training-and-certifications/2026-exam-vouchers-courses-exams-amp-retakes-major-changes/bc-p/3556422)
+- CIS-DF には 2026 年 6 月まで無料の期間限定措置があった（現在は終了）。ただし、無料の対象は情報源によって異なる。Mark Roethof の記事は「初回受験」が無料、NowBen は「コース」が無料としている。[出典（Mark Roethof）](https://www.servicenow.com/community/training-and-certifications/2026-exam-vouchers-courses-exams-amp-retakes-major-changes/bc-p/3556422)、[出典（NowBen）](https://nowben.com/servicenow-certification-updates-crma-data-foundations-and-archx/)
 
 > 【経験則】 ITSM・ITOM・ITAM・SecOps の資格がいずれも CIS-DF を前提にしたことは、「CMDB / CSDM を正しく設計できること」をこれらの製品導入の共通基盤とみなす方針の表れと読める。CMDB の実務上の重要性は [CMDB成功の要因](../04_応用編/05-cmdb-success-factors.md) を参照。
 
@@ -276,14 +283,14 @@ ServiceNow University の資格（credential）は、次の種類に分かれる
 
 | 略称 | 正式名称 | 前提資格（2026 年時点） | 形式 |
 |---|---|---|---|
-| **ArchX** | Architecture Excellence（アーキテクチャ・エクセレンス） | CSA（CIS 1 つ以上を推奨） | 1〜3 年程度の経験がある初中級アーキテクト向けのコース。費用 $2,500【第三者情報】 |
+| **ArchX** | Architecture Excellence（アーキテクチャ・エクセレンス） | CSA（CIS 1 つ以上を推奨） | 1〜3 年程度の経験がある初中級アーキテクト向けのコース。費用 $2,500【推定】【第三者情報】（推定値。出典: [NowBen](https://nowben.com/servicenow-certification-updates-crma-data-foundations-and-archx/)、取得日: 2026-11-02） |
 | **CTA** | Certified Technical Architect（認定テクニカルアーキテクト） | CSA、CAD、CIS 2 つ（または CIS-DF + CIS 1 つ）、**ArchX**（2026 年から必須） | ワークショップと、パネルへの設計発表（ボードレビュー）を含むプログラム型 |
-| **CMA** | Certified Master Architect（認定マスターアーキテクト） | CSA、CAD、CIS-DF、CIS-ITSM、その他 CIS 1 つ（ITIL 資格を挙げる情報もある） | 長期（約半年）のプログラムと、当日渡されるケーススタディに基づくボードレビュー。最高位の資格 |
-| **CRMA** | Certified CRM Architect（認定 CRM アーキテクト） | CSA、ArchX、CIS-CSM または CIS-FSM。CRM 案件 5 件以上の実務経験 | 2026 年新設。登録開始 2026-03-04、コース開始 2026-05 上旬、初回定員 50 名、費用 $4,000【第三者情報】 |
+| **CMA** | Certified Master Architect（認定マスターアーキテクト） | 情報源によって異なる。Blog5_TM: CSA、CAD、CIS-ITSM、その他 CIS 2 つ、ITIL V3 / V4。NowBen インフォグラフィック: CSA → CAD（必須前提）、CIS-DF → CIS 1 つ（DF・ITSM 以外）→ CIS-ITSM | 長期（約半年）のプログラムと、当日渡されるケーススタディに基づくボードレビュー。最高位の資格 |
+| **CRMA** | Certified CRM Architect（認定 CRM アーキテクト） | CSA、ArchX、CIS-CSM または CIS-FSM。CRM 案件 5 件以上の実務経験 | 2026 年新設。登録開始 2026-03-04、コース開始 2026-05 上旬、初回定員 50 名、費用 $4,000【推定】【第三者情報】（推定値。出典: [NowBen](https://nowben.com/servicenow-certification-updates-crma-data-foundations-and-archx/)、取得日: 2026-11-02） |
 
 出典: [NowBen（CRMA・DF・ArchX）](https://nowben.com/servicenow-certification-updates-crma-data-foundations-and-archx/)、[NowBen インフォグラフィック](https://nowben.com/servicenow-certification-pathways-infographic/)、[Blog5_TM](https://www.servicenow.com/community/training-and-certifications/blog5-tm-consolidated-full-amp-up-to-date-servicenow/m-p/3508209)、[CMA 体験記（2019-2020 年のパイロット期）](https://www.servicenow.com/community/architect-blog/participating-in-the-servicenow-certified-master-architect/ba-p/2272332)【第三者情報】
 
-> **CMA / CTA の前提資格について:** 情報源の時期によって記載が食い違う。例として、CMA の前提に CAD や ITIL を含むかどうか、CTA の CIS が「2 つ」か「CIS-DF + 1 つ」かが異なる。上表は 2026 年時点のインフォグラフィックとコミュニティ一覧を突き合わせたものである。応募前に ServiceNow University の該当ページで確認すること。
+> **CMA / CTA の前提資格について:** 情報源によって記載が食い違う。CMA の前提資格を明記しているのは Blog5_TM（コミュニティ一覧）と NowBen のインフォグラフィックで、NowBen の記事（CRMA・DF・ArchX）は CMA の前提資格に触れていない。Blog5_TM は ITIL と「CIS-ITSM + その他 CIS 2 つ」を挙げるが、インフォグラフィックには ITIL がなく、代わりに CIS-DF を含む。CTA についても、要件の CIS が「2 つ」か「CIS-DF + 1 つ」かが情報源によって異なる。上表は 2026 年時点のインフォグラフィックとコミュニティ一覧を突き合わせたものである。応募前に ServiceNow University の該当ページで確認すること。
 
 ### 4.5 資格パスの図
 
@@ -294,7 +301,7 @@ ServiceNow University の資格（credential）は、次の種類に分かれる
 - **画面の説明:** 最上部の「Start Here」から **CSA** に入り、そこから色分けされた線で各資格へ分岐する図である。
   - 左の緑の系統は Platform Owner 系で、CPOA → CPOP（Coming Soon）→ CPOE（Coming Soon）と進む。
   - 中央のオレンジは **CAD** である。
-  - CIS の分岐は 3 つある。① CIS-CSM / CIS-FSM の選択、② CIS-DF 不要の CIS から 1 つ選択、③ 右の赤い系統（CIS-DF → CIS を 1 つ（DF・ITSM 以外の 15 種から）→ CIS-ITSM → **CMA**）である。
+  - CIS の分岐は 3 つある。① CIS-CSM / CIS-FSM の選択、② CIS-DF 不要の CIS から 1 つ選択、③ 右の赤い系統（CIS-DF → CIS を 1 つ（DF・ITSM 以外の 15 種から）→ CIS-ITSM → **CMA**）である。赤い CMA 系統の線は CSA から CAD を経由しており、CAD には赤い丸（必須前提）が付いている。つまり、インフォグラフィック上でも CAD は CMA の必須前提である。
   - 紫の **ArchX** は「CIS 2 つ（DF 不要の 9 種＋DF の計 10 種から）」または「CIS-DF の後、CIS 1 つ（DF 以外の 16 種から）」を経て到達する。ArchX からは **CTA**（CAD も必要）と **CRMA**（CIS-CSM / FSM も必要）に分岐する。
   - 左下には CIS 全 17 種の一覧がある。赤い「＊」は CIS-DF が必須の資格（DISCO、HAM、ITSM、SAM、SIR、SM、VR）を表す。
   - 凡例は、チェックマークが「パス完了」、黄色の丸が「推奨前提」、赤い丸が「必須前提」を表す。
@@ -368,18 +375,18 @@ flowchart TD
 
 | 項目 | 内容 |
 |---|---|
-| 受験料 | CSA / CAD: 300 USD、CIS 各種: 450 USD（税別。パートナー割引あり） |
-| 講師主導研修（ILT） | 2 日 1,900 USD、3 日 2,700 USD（1 回分の受験を含む） |
-| オンデマンドコース | 0 USD（受験料は別途） |
+| 受験料 | 【推定】CSA / CAD / CAS: 300 USD、CIS 各種: 450 USD（税別。パートナー割引あり）。CPOA の受験料は公開情報では確認できず |
+| 講師主導研修（ILT） | 【推定】2 日 1,900 USD、3 日 2,700 USD（1 回分の受験を含む） |
+| オンデマンドコース | 【推定】0 USD（受験料は別途） |
 | 受験期限 | 登録・支払い後 **90 日以内**に受験する。期限を過ぎると権利は失効し、返金されない |
 | キャンセル・返金 | 不可。期限内のリスケジュールは無料 |
 | 再受験の待機期間 | 1 回目の不合格後 3 日、2 回目の後 30 日、3 回目以降は 6 か月（旧来の「再受験は最大 3 回」の上限は廃止） |
-| 再受験料 | CSA / CAD / CPOA: 150 USD、CIS 各種: 225 USD |
+| 再受験料 | 【推定】CSA / CAD / CPOA: 150 USD、CIS 各種: 225 USD |
 | パートナー特典 | 必要なコースを修了したパートナー社員には、CSA の初回受験が無料になる場合がある |
 
-出典: [2026 Exam vouchers, courses, exams & retakes: major changes（Mark Roethof, 2026-01-18）](https://www.servicenow.com/community/training-and-certifications/2026-exam-vouchers-courses-exams-amp-retakes-major-changes/bc-p/3556422)、[NowBen](https://nowben.com/servicenow-certification-updates-crma-data-foundations-and-archx/)【第三者情報】
+出典: [2026 Exam vouchers, courses, exams & retakes: major changes（Mark Roethof, 2026-01-18）](https://www.servicenow.com/community/training-and-certifications/2026-exam-vouchers-courses-exams-amp-retakes-major-changes/bc-p/3556422)、[NowBen](https://nowben.com/servicenow-certification-updates-crma-data-foundations-and-archx/)【推定】【第三者情報】（表中の価格はすべて第三者情報に基づく推定値。取得日: 2026-11-02）
 
-- 【第三者情報】 移行前（Webassessor 時代、2025-08）に CSA を受験した日本人の記事では、バウチャー代を 330 USD（返金不可）と記載している。[出典](https://zenn.dev/mirako/articles/0db3f3ee5fdff9)
+- 【推定】【第三者情報】 移行前（Webassessor 時代、2025-08）に CSA を受験した日本人の記事では、バウチャー代を 330 USD（返金不可）と記載している。[出典](https://zenn.dev/mirako/articles/0db3f3ee5fdff9)（取得日: 2026-11-02）
 - 価格は公式に確認できなかった。社内の予算化には ServiceNow University の決済画面で最新額を確認すること。
 
 ---
@@ -410,7 +417,7 @@ flowchart TD
 | 項目 | 内容 |
 |---|---|
 | 対象者 | 料金期間の開始時点で、メインライン資格を **1 年以上**保持している人 |
-| 金額 | 年 200 USD（一部の Tier パートナーは 100 USD）とする情報と、「200 Learning Credits または 100 USD」とする情報があり、食い違っている |
+| 金額 | 年 200 USD（一部の Tier パートナーは 100 USD）とする情報と、「200 Learning Credits または 100 USD」とする情報があり、食い違っている【推定】【第三者情報】（推定値。出典は表の下を参照。取得日: 2026-11-02） |
 | 支払い | クレジットカードまたは Learning Credits。返金不可。デルタ受験の**前**に支払う |
 | 期限 | デルタ期間の終了日（2026 年度は 2026-04-16） |
 | 未払い・未受験の場合 | 資格が失効する。再取得には研修と監督付き試験が必要になることがある |
@@ -450,8 +457,8 @@ flowchart TD
 
 | イベント | 概要（2026 年） |
 |---|---|
-| **Knowledge** | 年次の旗艦カンファレンス。Knowledge 2026 は 2026-05-05〜07 にラスベガスで開催され、会場で認定試験も受験できた。[出典](https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-University-drives-career-growth-with-real-time-coaching-and-simulation/default.aspx) |
-| **now[dev]** | 開発者向けイベント。now[dev]26 は 2026-11-04〜05 にサンノゼ（San Jose Convention Center）で開催。[出典](https://www.servicenow.com/community/developer-advocate-blog/transitioning-from-webassessor-to-pearson-vue/ba-p/3413010)（Developer Advocate Blog 一覧ページの告知） |
+| **Knowledge** | 年次の旗艦カンファレンス。Knowledge 2026 は 2026-05-05〜07 にラスベガス（The Venetian Expo）で開催された。[出典](https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-University-drives-career-growth-with-real-time-coaching-and-simulation/default.aspx) 会期中（2026-05-04〜07）は The Venetian 内の会場テストセンターで認定試験を受験できた。参加登録者は受験料 75% 引き（CSA / CAD 75 USD、CIS 112.50 USD）、受験言語は英語と日本語、会場受験では前提研修が不要とされた。[出典（Get Certified at Knowledge 公式案内）](https://servicenow.swoogo.com/Knowledge26Certification)（取得日: 2026-11-02） |
+| **now[dev]** | 開発者向けイベント。now[dev]26 は 2026-11-04〜05 にサンノゼ（San Jose Convention Center）で開催。[出典](https://www.servicenow.com/community/now-dev-26-hackathon/ct-p/creatorcon-hackathon)（now[dev]26 Hackathon ページ。11-04 にハッカソン、11-05 の基調講演で結果発表、会場は San Jose Convention Center）、[NowBen](https://nowben.com/servicenow-announces-the-nowdev26-conference-designed-for-developers/)【第三者情報】 |
 | **ServiceNow World Forum Tokyo** | 国内の主要イベント。2026 年はハッカソンの決勝を実施した。[出典](https://www.servicenow.com/community/snug-apj/ct-p/snug-apj) |
 | **Japan Developer Challenge 2026**（#BuildWithBuildAgentTokyo） | 2026-09-07〜10-16 に開催。オンライン参加可・無料。同上 |
 
@@ -465,8 +472,8 @@ flowchart TD
 |---|---|
 | **製品ドキュメント日本語版** | `servicenow.com/docs/r/ja-JP/...` の形式で、多くのページに日本語版がある（例: [開発インスタンスの取得](https://www.servicenow.com/docs/r/ja-JP/application-development/get-dev-instance.html)）。【経験則】 用語・画面項目の英語名を確かめるため、英語版と併読するとよい |
 | **ServiceNow University の日本語コース** | カタログは言語で絞り込める。ただし日本語化されたコースは一部に限られ、英語のみのコースも多いとコミュニティで指摘されている【第三者情報】[出典](https://www.servicenow.com/community/training-and-certifications/are-any-of-the-now-learning-videos-available-in-languages-other/m-p/2642475) |
-| **日本語での受験** | CSA は日本語試験の受験実績が報告されており、Pearson VUE の予約時に受験言語を選ぶ手順がある【第三者情報】。各資格の現行の提供言語は、公開情報では確認できなかった |
-| **ServiceNow Japan のコミュニティブログ** | `servicenow.com/community/japan-blog/`。イベントや学習施策の案内がある（例: AI Learning Days） |
+| **日本語での受験** | CSA は日本語試験の受験実績が報告されており、Pearson VUE の予約時に受験言語を選ぶ手順がある【第三者情報】[出典](https://zenn.dev/mirako/articles/0db3f3ee5fdff9)（2025-08 の受験記。実試験の日本語表記に言及している）、[予約手順](https://www.servicenow.com/community/training-and-certifications/gf-2-i-just-scheduled-my-1st-exam-with-pearson-vue-here-s-the/td-p/3429986)。各資格の現行の提供言語は、公開情報では確認できなかった |
+| **ServiceNow Japan のコミュニティブログ** | `servicenow.com/community/japan-blog/`。イベントや学習施策の案内がある（例: 2025 年の AI Learning Days の日本語での告知）。[出典](https://www.servicenow.com/community/japan-blog/7-31-ai-learning-days%E3%81%AE%E3%81%94%E6%A1%88%E5%86%85/ba-p/3276359) |
 | **Japan 日本 SNUG** | 日本のユーザー会。ミートアップや Community Day を開催している。2026 年度はプラットフォーム、セキュリティ、AI Agent の分科会が活動した（2026-06-12 の Community Day で報告）。「SNUG Techワークショップシリーズ 2026」では Slack チャネルを用意している（申込みには ServiceNow ID が必要）。[出典](https://www.servicenow.com/community/snug-apj/ct-p/snug-apj) |
 
 ### 8.2 公式以外のリソース
@@ -499,7 +506,7 @@ flowchart TD
 
 - 試験はリリース単位で改訂される。学習教材・PDI・ドキュメントのリリース（例: Australia）を揃えると混乱しにくい（[リリースサイクルとバージョン](07-release-cycle.md)）。
 - CSA は「ServiceNow を語るための共通言語」として、営業・PM・コンサルタントにも取得が勧められることが多い。
-- 資格は「最低限の知識」の証明であり、実案件の設計力は別に磨く必要がある。導入時の典型的な失敗は [導入失敗パターンと対策](../04_応用編/01-implementation-failure-patterns.md) を参照。
+- 資格は「最低限の知識」の証明であり、実案件の設計力は別に磨く必要がある。導入の実務上の知見は [コンサルティング・プレイブック](../04_応用編/14-consulting-playbook.md) と [導入方法論](../03_導入編/04-implementation-methodology.md) を参照。
 
 ---
 
@@ -534,6 +541,8 @@ flowchart TD
 - Personal developer instance guide（Brazil、2026-09-10 更新）: https://www.servicenow.com/docs/r/application-development/personal_developer_instance_guide.html
 - 開発インスタンスの取得（Get a development instance、日本語版）: https://www.servicenow.com/docs/r/ja-JP/application-development/get-dev-instance.html
 - Learning Credits: https://www.servicenow.com/services/training-and-certification/learning-credits.html
+- RiseUp with ServiceNow Program to Skill One Million People by 2024（プレスリリース、2022-10-26）: https://www.businesswire.com/news/home/20221026005599/en/RiseUp-with-ServiceNow-Program-to-Skill-One-Million-People-by-2024
+- Get Certified at Knowledge（Knowledge 2026 会場受験の公式案内）: https://servicenow.swoogo.com/Knowledge26Certification
 
 **ServiceNow Community（公式アカウント・投稿者記事）**
 - Keeping PDIs Available for Active Builders（2026-07-10）: https://www.servicenow.com/community/developer-blog/personal-developer-instance-pdi-lifecycle-changes-what-you-need/ba-p/3572058
@@ -552,6 +561,8 @@ flowchart TD
 - Announcing our 2026 ServiceNow MVPs: https://www.servicenow.com/community/in-other-news/announcing-our-2026-servicenow-mvps/bc-p/3496192
 - An exciting opportunity to become a 2026 Rising Star: https://www.servicenow.com/community/in-other-news/an-exciting-opportunity-to-become-a-2026-rising-star/ba-p/3566839
 - SNUG APJ / Japan 日本 SNUG: https://www.servicenow.com/community/snug-apj/ct-p/snug-apj
+- now[dev]26 Hackathon: https://www.servicenow.com/community/now-dev-26-hackathon/ct-p/creatorcon-hackathon
+- Japan Blog: 7/31 AI Learning Days のご案内: https://www.servicenow.com/community/japan-blog/7-31-ai-learning-days%E3%81%AE%E3%81%94%E6%A1%88%E5%86%85/ba-p/3276359
 
 **第三者情報**
 - NowBen: ServiceNow Certification Updates: CRMA, Data Foundations, and ArchX: https://nowben.com/servicenow-certification-updates-crma-data-foundations-and-archx/
@@ -559,3 +570,5 @@ flowchart TD
 - トレノケート、2022年より ServiceNow 認定トレーニングを提供開始（2021-11-09）: https://kyodonewsprwire.jp/release/202111083003
 - Zenn: ServiceNow CSA 受験記（2025-09-01）: https://zenn.dev/mirako/articles/0db3f3ee5fdff9
 - Tokyo ServiceNow Developer Meetup: https://www.meetup.com/tokyo-servicenow-developer-meetup
+- The Diana Award: RiseUp with ServiceNow: https://diana-award.org.uk/our-programmes-and-initiatives/inspire-series/rise-up
+- NowBen: ServiceNow announces the now[dev]26 conference: https://nowben.com/servicenow-announces-the-nowdev26-conference-designed-for-developers/

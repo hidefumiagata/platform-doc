@@ -40,6 +40,14 @@ sources:
   - https://www.servicenow.com/community/itom-blog/why-it-s-one-two-three-strikes-you-score-in-the-australia-aiops/ba-p/3531189
   - https://www.servicenow.com/community/itom-blog/stop-fighting-fires-manage-alerts-autonomously-with-an-agentic/ba-p/3510578
   - https://www.servicenow.com/community/itom-forum/itom-aiops-august-2026-store-release-highlights/m-p/3588416
+  - https://www.servicenow.com/docs/r/guxhDnVk8OUAJKLm7WZsYA/GGvvEKPdMscw73HWyg6aig
+  - https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/y5L~1SujMuCHZYScdrbXLQ
+  - https://www.servicenow.com/docs/r/xIukoQY2A2qGfsWn8TUt1A/h_f6clmg3VJs5YSjz8Q5tA
+  - https://www.servicenow.com/community/service-operations-workspace/faq-for-service-operations-workspace/ta-p/2627397
+  - https://www.servicenow.com/community/itom-forum/event-management-question-about-auto-close-interval-property/m-p/965151
+  - https://www.servicenow.com/community/architect-articles/navigating-the-april-2026-servicenow-itom-licensing-model/ta-p/3555121
+  - https://www.servicenow.com/docs/r/it-operations-management/event-management/aiops-conf-console.html
+  - https://www.servicenow.com/docs/r/it-operations-management/event-management/access-itom-config-console.html
 ---
 
 # Event Management と AIOps（イベント管理と AIOps）
@@ -81,25 +89,31 @@ Zurich → Australia の Event Management 統合リリースノートでは、Au
 |---|---|
 | 新機能 | **Unified alert grouping across Event Management and HLA**：Event Management と Health Log Analytics のアラートを1つのグループにまとめ、圧縮率とアラート品質を向上 |
 | 新機能 | **Explicit node-based control for CI binding**：Node フィールドの使い方を明示的に制御でき、アラートと CI の紐付け精度を向上（後方互換あり） |
+| ハイライト | **AI-guided Implementation Planner（AI ガイド付き実装プランナー）**：「Streamline Event Management setup with the new AI-guided Implementation Planner」。管理者が ITOM AIOps をより速く正確に構成できるよう支援する（詳細仕様はリリースノートに記載なし） |
+| ハイライト | **OpenTelemetry（OTel）メトリクスの MID Server API 経由サポート**：「Support OpenTelemetry (OTel) metrics through the MID Server API」。メトリクス取り込みの簡素化と異常検知の改善を目的とする（第11.2節参照） |
 | 変更 | Coral テーマの改善（配色、ダークモード等） |
 | 廃止予定（Deprecation） | **Alert Clustering Definitions（ACD）** を廃止予定とし、Service Operations Workspace の **Alert Automation** に置き換え（既存設定は引き続きサポート） |
 | 廃止予定（Deprecation） | **Service Management Dashboard**：サポート終了、新規アクティベート不可 |
-| アクティベーション | Event Management プラグイン `com.glideapp.itom.snac` の有効化（ServiceNow Store から入手可能） |
+| アクティベーション | 「Event Management is available with activation of the Event Management plugin (`com.glideapp.itom.snac`)」（詳細は「Request Event Management」参照）。Australia のリリースノートのこの記述には Store の言及はない |
+
+> **Brazil での変更:** Brazil のドキュメントには「Configure Event Management using ServiceNow Otto for Setup」というページがあり、「The ITOM Configuration console gives administrators a single place to complete all Event Management setup steps」「The console contains two modules: Discovery and Event Management」と記載されている。別ページ（Access the IT Operations Management configuration console）では、ITOM AIOps と ServiceNow Otto for ITOM プラグインが前提で、ServiceNow Otto for ITOM と ServiceNow Otto の両プラグインを入れたときだけ「Configure with AI」UI アクションが表示されるとしている。Australia の AI-guided Implementation Planner がこのコンソールに置き換わったのか、名称が変わっただけなのかは、公開情報では確認できず。[出典](https://www.servicenow.com/docs/r/it-operations-management/event-management/aiops-conf-console.html) [出典](https://www.servicenow.com/docs/r/it-operations-management/event-management/access-itom-config-console.html)
 
 ### 1.2 Zurich で導入された主な機能（Australia でも有効）
 
-同リリースノートの Zurich 部分には次の記載がある（括弧内は Store アプリのバージョン）。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/l5TTtePNQlkBxppLTO0~aQ)
+同リリースノートの Zurich 部分には次の記載がある。括弧内の数値はリリースノートの各項目に付記されたバージョン番号をそのまま転記したもので、**どの Store アプリのバージョンかはリリースノート上で明示されていない**（同ページには Event Management、Integrations Launchpad、Express List、Alert Automation、SOW for ITOM の各 Store バージョン詳細へのリンクが並んでいる）。したがってこれらは「Zurich ファミリーで利用可能になった機能」と「その機能を提供した Store バージョン」を区別して読む必要がある。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/l5TTtePNQlkBxppLTO0~aQ)
 
 - **ITOM AIOps configuration center**（集中設定ハブ、26.11.0）
 - **Incident creation delay**：Respond automation で Incident 作成前に待機時間を設け、自然回復したアラートを自動クローズ（26.11.0）
-- **ITOM Event Management guided setup**（ガイド付きセットアップ、27.2.1）
-- **Mixed alert grouping**：CMDB ベースとタグベースのグルーピングを1グループに統合（26.9.0 以降）
-- **AIOps 360 overview dashboard**
-- Dynatrace / Datadog / Kafka の **メトリクスコネクタ**（Metric Intelligence 向け、2.17.1）
-- SCOM 2025 対応、Kafka コネクタの OAuth 対応（2.17.1）
-- Express List の Bulk alert response、Link View、Live updates トグル
-- Impact calculation の対象アプリケーションサービスのフィルタリング
-- 廃止：`em_alert_lists_auto_refresh` テーブルによるライブ更新制御（`sys_ux_list` のプロパティへ移行）、未使用の V1 コネクタ定義、vRealize コネクタの XML API（JSON API へ）
+- AIOps 360 Overview ダッシュボードの Recommended カテゴリ、アラートの Dependency view、Express List の複数アラート一括対応（Respond to multiple alerts）、SOW リストの Live updates 機能更新（いずれも 26.11.0）
+- Express List の新アラートグループのリンク表示（Link View）、HLA / Metric Intelligence アラートの異常情報のプレビュー表示、ライブ更新の自動再開プロパティと時間範囲設定（いずれも 26.9.0）
+- AWS の複数サブスクリプション対応、Integrations Launchpad からの Dynatrace メトリクスコネクタ構成、Datadog / Kafka の **メトリクスコネクタ**（Metric Intelligence 向け、いずれも 2.17.1）
+- **Mixed alert grouping**（CMDB ベースとタグベースのグルーピングを1グループに統合。SOW 版を含む。バージョン付記なし）
+- **AIOps 360 overview dashboard**、Impact calculation の対象アプリケーションサービスのフィルタリング、Integrations Launchpad のメトリクスコネクタ（バージョン付記なし）
+- SCOM 2025 対応、Kafka コネクタの OAuth 対応
+
+- Zurich での廃止事項：`em_alert_lists_auto_refresh` テーブルによるライブ更新制御（`sys_ux_list` のプロパティへ移行）、未使用の V1 コネクタ定義、vRealize コネクタの XML API（JSON API へ）
+
+> **Store 配信時期の注意:** 同リリースノートの Zurich 部分には **ITOM Event Management guided setup（ガイド付きセットアップ、27.2.1）** も掲載されている。ただし本ファイル第7章の SOW ITOM Apps Store リリースノートでは 27.x 系が 2026-03（27.0.0）以降に配信されており、27.2.1 が同じアプリ系列の番号であれば Australia GA（2026-05）後の Store 更新に当たる。リリースノートは 27.2.1 をどのアプリの番号か明示していないため、「Zurich 以降のインスタンスで利用可能な、Australia 期の Store 更新で提供された機能」と解釈するのが妥当である。【推定】[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/l5TTtePNQlkBxppLTO0~aQ) [出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itom-service-ops-workspace-itom-apps.html)
 
 ### 1.3 Australia 向け AIOps Store 機能（2026 Q1）
 
@@ -121,7 +135,7 @@ ServiceNow 公式コミュニティブログ（ITOM Blog、ServiceNow 社員投�
 Service Operations Workspace の「ITOM AIOps configuration」→「Alert automations」→「Enrich alerts」画面。「Improve configuration item (CI) identification」トグルを有効にすると、「Select which CI class you'd like to identify」（例：Server）と「Identify the CI when the following alert fields match the CI attributes」（Alert field: host = CI attribute: Name）を指定できる。右側に「Fallback 1」（CI class: Service Instance、Alert field: serviceName = Name）と「Fallback 2」（CI class: Configuration Item）が追加されており、各 Fallback に「Override Node field behavior」リンクと「Test CI identification」ボタンがある。スライドには「Available through AIOps Experience Store App / Only supported on Australia」「Professional/Enterprise」と記載。
 出典: https://www.servicenow.com/community/itom-blog/why-it-s-one-two-three-strikes-you-score-in-the-australia-aiops/ba-p/3531189 （取得日: 2026-11-03）
 
-> **Brazil での変更:** Australia → Brazil の Event Management リリースノートでは、新機能・変更・廃止はいずれも「No updates for this release」とされている。一方、アクティベーションの記述は「**ServiceNow Store にリクエストしてインストール**」となっており、ローカライズ言語として日本語を含む7言語（US English、UK English、French、German、Italian、Japanese、Spanish）が列挙されている。Brazil のハイライトには「ServiceNow Otto for ITOM による自動アラート処理」が挙げられている。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-eventmanagement-release-notes.html) ITOM AIOps 全体の Brazil リリースノートも「No updates」で、Event Management・HLA・Metric Intelligence は Store で月次／四半期更新されるアプリとして列挙されている。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-itomaiops-release-notes.html)
+> **Brazil での変更:** Australia → Brazil の Event Management リリースノートでは、新機能・変更・廃止はいずれも「No updates for this release」とされている。一方、アクティベーションの記述は「**ServiceNow Store にリクエストしてインストール**」となっている（Australia のリリースノートは「プラグイン `com.glideapp.itom.snac` の有効化」という記述で Store に言及していない。差異はリリースノートの記述上のものであり、提供方式が実際に変わったかどうかは公開情報では確認できず）。また、ローカライズ言語として日本語を含む7言語（US English、UK English、French、German、Italian、Japanese、Spanish）が列挙されている。Brazil のハイライトには「ServiceNow Otto for ITOM による自動アラート処理」が挙げられている。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-eventmanagement-release-notes.html) ITOM AIOps 全体の Brazil リリースノートも「No updates」で、Event Management・HLA・Metric Intelligence は Store で月次／四半期更新されるアプリとして列挙されている。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-itomaiops-release-notes.html)
 
 > **Brazil 期の Store 変更（2026-08 以降）:** Service Operations Workspace ITOM Apps 27.2.17（2026-08）で、ITOM 各アプリの「Now Assist」表記が **ServiceNow Otto** にリブランドされた。[出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itom-service-ops-workspace-itom-apps.html)
 
@@ -153,9 +167,10 @@ flowchart LR
   A2 --> EV
   A4 --> EV
   A5 --> EV
-  MID -->|異常検知| MI[Metric Intelligence<br/>em_alert_anomaly]
+  MID -->|異常検知 → 異常イベント| EV
+  EV -->|異常イベントから作成| MI[Metric Intelligence<br/>異常アラート em_alert_anomaly]
   HLA --> EV
-  MI -->|Promotion rule| EV
+  MI -->|ルールで昇格 promote| AL
   EV -->|Event rules / Field mapping<br/>Process Events ジョブ| AL[(em_alert)]
   AL --> GR[Alert grouping<br/>Correlation / Automated / CMDB / Tag / Text / Mixed]
   AL --> PR[Alert priority / Impact calculation]
@@ -223,7 +238,7 @@ flowchart LR
 | 5 | OK | アラートは作成されるが、リソースは機能している |
 | 0 | Clear（クリア） | 対応不要。アラートは作成されず、**既存アラートをクローズ** |
 
-> 2〜4 の数値と各ラベルの対応は「0=Clear、1=Critical、5=OK」の公式記述とラベルの並び順からの対応であり、厳密な値はインスタンスの `sys_choice`（`name=em_event`、`element=severity`）で確認すること。【推定】
+> 2〜4 の数値と各ラベルの対応は「0=Clear、1=Critical、5=OK」の公式記述（Web サービス API ページは「1 – Critical から 5 – OK、0 – Clear」とのみ記載し 2〜4 のラベルは示していない）と、Event field format ページのラベルの並び順（Critical、Major、Minor、Warning、OK、Clear。数値は付記なし）からの対応であり、厳密な値はインスタンスの `sys_choice`（`name=em_event`、`element=severity`）で確認すること。【推定】
 
 ### 3.3 Resolution state（解決状態）
 
@@ -361,13 +376,15 @@ stateDiagram-v2
   Open --> Closed: Clear / Closing イベント、手動クローズ、自動クローズ
   Closed --> Reopen: 同一 Message key のイベント再受信
   Reopen --> Closed
-  Closed --> Flapping: flap_interval 内に flap_frequency 回の再発
-  Flapping --> Open: quiet interval 経過後の新イベント
+  Open --> Flapping: flap_interval 内で開閉（OK ⇔ Critical 等）が flap_frequency 回に達する
+  Reopen --> Flapping: 同上
+  state "直前の状態" as Prev
+  Flapping --> Prev: 5分毎のジョブが更新なし＋quiet interval 経過を確認
   Flapping --> Closed: Close Flapping Alerts ジョブ（5分毎）
   Open --> Open: 同一キーで更新（Overall Event Count 増加）
 ```
 
-> 上図は公式記述（状態定義、Flapping の出入り条件、ジョブ）をもとに整理したもの。遷移の細部（Flapping 解除後の状態は直前状態またはイベントの Severity 依存）は公式ページを参照。[出典](https://www.servicenow.com/docs/r/u7nZu9GEUxWr9UkuDmbe6w/rj6Ob8gdOftM7MsQtk82Dw)
+> 上図は公式記述（状態定義、Flapping の出入り条件、ジョブ）をもとに整理したもの。Flapping への遷移元の状態は公式ページで特定されておらず（「重大度が OK と対応の必要な重大度の間を行き来する」状態と説明）、図では開閉を繰り返すアラートとして Open / Reopen から示した。quiet interval 経過後に新イベントが届いた場合は、**Flapping のアラートが再オープンされるのではなく新しいアラートが生成**され、その状態は新イベントの Severity に依存する（図では表現していない）。Flapping 解除の扱いは、Configure alert flapping ページでは「5分毎のバックグラウンドジョブが直前の状態値に戻す」、Components installed ページでは「Close Flapping Alerts（5分毎）が Flapping のアラートをクローズする」と記載されており、両方を併記した。[出典](https://www.servicenow.com/docs/r/u7nZu9GEUxWr9UkuDmbe6w/rj6Ob8gdOftM7MsQtk82Dw) [出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/HY9DIzHsel~lMx8JvzuCwA)
 
 ### 5.3 Flapping（フラッピング）の設定
 
@@ -379,14 +396,14 @@ stateDiagram-v2
 | `evt_mgmt.flap_frequency` | Flapping とみなす再発回数 |
 | `evt_mgmt.flap_quiet_interval` | Flapping を抜けるのに必要な静穏時間（秒） |
 
-Flapping からの離脱：quiet interval 経過後に新イベントが届く（新アラートが生成され、状態はイベントの Severity 依存）か、5分毎のバックグラウンドジョブが更新なしと quiet interval 経過を確認した場合。デフォルト値は公開ドキュメントでは確認できず。
+Flapping からの離脱：quiet interval 経過後に新イベントが届く（新アラートが生成され、状態はイベントの Severity 依存）か、5分毎のバックグラウンドジョブが更新なしと quiet interval 経過を確認した場合（アラートは直前の状態値に戻る）。デフォルト値は公開ドキュメントでは確認できず。
 
 ### 5.4 自動クローズとその他の主要プロパティ
 
 | プロパティ | 説明 | 出典 |
 |---|---|---|
 | `evt_mgmt.alert_auto_close_interval` | 一定時間更新のないアラートを自動クローズ（Auto Close Alerts ジョブ、10分毎）。**0 にすると機能が無効化され性能劣化の恐れ** | [公式](https://www.servicenow.com/docs/r/Tm19yM2Ui3~uN9XFBacppg/WX5uB5nhCpuS1TthTDtUZQ) |
-| 同上の既定値 | 168（時間）とするコミュニティ回答がある【第三者情報】 | [Community](https://www.servicenow.com/community/itom-forum/event-management-question-about-auto-close-interval-property/m-p/965151) |
+| 同上の既定値 | 公式の Components installed ページでは Auto Close Alerts ジョブが「既定で7日を超えて更新のないアラートをクローズ」と記載（＝168 時間。コミュニティ回答の「168」とも一致） | [公式](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/HY9DIzHsel~lMx8JvzuCwA) / [Community](https://www.servicenow.com/community/itom-forum/event-management-question-about-auto-close-interval-property/m-p/965151) |
 | `evt_mgmt.event_processor_enable_multi_node` | マルチノードでのイベント処理。本番では Yes 推奨 | [公式](https://www.servicenow.com/docs/r/Tm19yM2Ui3~uN9XFBacppg/WX5uB5nhCpuS1TthTDtUZQ) |
 | `evt_mgmt.event_processor_job_count` | イベント処理ジョブ数。推奨 4（`process events*` ジョブの数と一致を確認） | 同上 |
 | `evt_mgmt.self_health_active` | Event Management 自己ヘルス監視（CMDB に CI を作成）。既定 No | 同上 |
@@ -404,18 +421,21 @@ Alert priority は複数要素の重み付けで算出されるスコアで、Al
 | 要素 | 設定テーブル | 内容 |
 |---|---|---|
 | Services（業務サービス重要度） | `em_alert_priority_category_mapping` | 影響サービスの重要度スコア合計 |
-| Severity | 同上 | Critical の既定 = 1（再マッピング可）。OK は計算対象外 |
+| Severity | 同上 | 公式ページに記載された既定値は Critical = 1 のみ（再マッピング可）。Major / Minor / Warning の既定値は公式ページに記載がなく、インスタンスの `em_alert_priority_category_mapping` で確認する。OK は計算対象外 |
 | CI type | `em_alert_priority_ci_type` | CI クラス毎の重み（例：`cmdb_ci_Mainframe`=80、`cmdb_ci_Server`=60） |
-| Role | `em_alert_priority_category_mapping` | Parent > None > Secondary |
+| Role | `em_alert_priority_category_mapping` | Parent > None > Secondary（数値の既定値は公式ページに記載なし） |
 | Secondary | 直接カウント | 親配下の二次アラート数 |
 | State | `em_alert_priority_category_mapping` | Open=1、Reopen=2、Flapping=3。Closed は対象外 |
 
+- 公式例 7302020.003 の内訳：Services = 7（影響サービス2件の 3 + 4）、Severity = 3、CI type = 20、Role = 2、Secondary = 0、State = 3（Flapping）。すなわち 7×1,000,000 + 3×100,000 + 20×100 + 2×10 + 0 + 3×0.001 = 7,302,020.003。
+- > 注意：Critical の既定値 1 は、例の Severity 値 3 より小さい。スコアが大きいほど優先度が高い計算式と、Critical = 1 という既定値の関係（重みの向き）は公式ページでは説明されていない。重みを調整する際はインスタンスの既定マッピングを確認すること。
 - カテゴリ順序は `em_alert_priority_category_order` で定義。
 - 計算はグループ内の全アラートが対象。1,000件超のグループでは厳密でない場合がある。
 - 再計算トリガー：新規アラート、Closed からの状態変化、Role 変化、CI バインド（1回）、二次アラート数変化、Severity 変化。
-- キュー：`em_alert_trigger_queue`。「Event Management: Queue With Alert Priority」ジョブ2本が毎分・最大1,000件/バッチで並列処理。
+- キュー：`em_alert_trigger_queue`。スケジュールジョブ **Event Management - Alert Priority Queue** の2本が毎分・最大1,000件/バッチで並列（マルチスレッド）処理する。Alert priority ページではこのジョブを「Event Management: Queue With Alert Priority」と表記しているが、Components installed ページのジョブ名は「Alert Priority Queue」であり、同じジョブを指す。
+- **Event Management - Calculate Alert Priority Grouping**（30分毎）：システム内の最高・最低の優先度スコアをもとに、アラートを Urgent / High / Moderate / Low の各グループに振り分ける。
 
-[出典](https://www.servicenow.com/docs/r/u7nZu9GEUxWr9UkuDmbe6w/aD0Cih4P5z7mVoYVsSH59g)
+[出典](https://www.servicenow.com/docs/r/u7nZu9GEUxWr9UkuDmbe6w/aD0Cih4P5z7mVoYVsSH59g) [出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/HY9DIzHsel~lMx8JvzuCwA)
 
 ---
 
@@ -423,7 +443,7 @@ Alert priority は複数要素の重み付けで算出されるスコアで、Al
 
 ### 6.1 概要
 
-**Alert management rule（アラート管理ルール）** は、条件に一致したアラートに対して Incident 作成、サブフロー実行、外部アプリ起動などを自動化するルール。**Event Management > Rules > Alert Management Rules** で作成する。プラグインは Alert Rule Management（`sn_em_arm`）。スケジュールジョブ「Evaluate Scoped Alert Rules Management0/1」が **11 秒毎** に新規・更新アラートへ適用するため、ルールが動かないと感じても 10〜15 秒待ってから調査する。[出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/lhzFY54e4qurWPK1U4~kpQ) [出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/HY9DIzHsel~lMx8JvzuCwA) [出典](https://www.servicenow.com/docs/r/u7nZu9GEUxWr9UkuDmbe6w/77F6fXXw64~htXxNArb_hw)
+**Alert management rule（アラート管理ルール）** は、条件に一致したアラートに対して Incident 作成、サブフロー実行、外部アプリ起動などを自動化するルール。**Event Management > Rules > Alert Management Rules** で作成する。プラグインは Alert Rule Management（`sn_em_arm`）。Components installed ページでは、スケジュールジョブ「Evaluate Scoped Alert Rules Management0/1」が **11 秒毎** に新規・更新アラートへ適用すると記載されている（Create an alert management rule ページでは評価ジョブを「Event Management - Evaluate Alert Management Rules」と表記しており、間隔の記載はない）。また同ページによると、ルールはアラート更新の **5 秒後** に実行され、その間に再更新があるとタイマーがリセットされる（`evt_mgmt.alert_rule_delay` で変更可）。このため、ルールが動かないと感じても十数秒は待ってから調査するのがよい。【経験則】[出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/lhzFY54e4qurWPK1U4~kpQ) [出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/HY9DIzHsel~lMx8JvzuCwA) [出典](https://www.servicenow.com/docs/r/u7nZu9GEUxWr9UkuDmbe6w/77F6fXXw64~htXxNArb_hw)
 
 ### 6.2 フォーム項目
 
@@ -504,7 +524,7 @@ SOW ITOM Apps の Store 更新（2026年）の主な Alert Automation 関連変�
 | Text（T） | スケジュールジョブ。Description、Metric Name、CI Class のテキスト類似 | 仮想アラート |
 | Tag Cluster（Tag） | スケジュールジョブ。ユーザー定義のタグクラスタリング定義 | 仮想アラート |
 | Shared Impacted Services | 同一 Top Service に解決されるアラートを自動グループ化 | — |
-| Mixed | CMDB とタグ等の複数戦略を1グループに統合（Zurich 26.9.0 以降、Australia で HLA も統合） | 仮想アラート |
+| Mixed | CMDB ベースとタグベースのグルーピングを1グループに統合（Zurich で導入）。※ types ページには記載がなく、統合リリースノートの Zurich 部分に基づく [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/l5TTtePNQlkBxppLTO0~aQ)。Australia の「Unified alert grouping across Event Management and HLA」（HLA と Event Management のアラートを統合）は、リリースノート上は Mixed とは別項目として記載されている | 公開情報では確認できず |
 | Manual（M） | ユーザーが手動作成 | 実アラート |
 
 [出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/SBN4GRlqDU4Nx7fKToN2~w) [出典](https://www.servicenow.com/docs/r/it-operations-management/event-management/alert-group-use-cases.html)
@@ -664,11 +684,13 @@ Service Operations Workspace の「AIOps configuration」→「Integration Launc
 | 収集 | エージェント（Agent Client Collector）は WebSocket で MID Server へ、サードパーティ／カスタム（REST）コネクタは Connector 経由で MID Server へ |
 | Normalizer / Batcher | MID Server でデータ整形・バッチ化し、インスタンスの REST API へ送信 |
 | Clotho（MetricBase） | インスタンス側の時系列データベース（TSDB、`com.snc.clotho`） |
-| Trainer / Learner ジョブ | 履歴データから日次で正常モデルを作成（ドキュメント版により最大14日／32日と記載差あり） |
+| Trainer / Learner ジョブ | 履歴データから日次で正常モデルを作成。Exploring Metric Intelligence ページでは「最大14日分の履歴データ」を使用し、多くのモデルは直近14日のデータを収集すると記載 |
 | Model cache（MID Server） | 正常モデルのバウンドを MID Server にキャッシュ |
 | リアルタイム異常検知（MID Server） | 受信データをバウンドと比較し異常スコア（0〜10）を付与 |
 
-処理レベルは段階的で、**Metrics Only → Bounds（統計モデルとバウンドを作成し Insights Explorer に表示）→ Anomaly Scores（異常スコアの計算・表示）** の順に包含関係にある。【版差注意】異常アラートは通常 IT アラートとは別テーブル（`em_alert_anomaly`）に保持され、**Anomaly alert promotion rule** で IT アラートへ昇格できる。Metric rules では対象メトリクス、しきい値、範囲、生成イベントの Severity を定義する。
+異常検知の処理レベル（Action level）は構成設定 `anomaly_detection_action_level` で指定し、**Metrics Only（収集のみ）→ Bounds（統計モデルとバウンドを作成し Insights Explorer に表示）→ Anomaly Scores（異常スコアの計算・表示）→ Anomaly Alerts → IT Alerts** の順に上位が下位を包含する。`anomaly_detection_action_level` を設定すると `anomaly_detection_enabled` は無視される。既定値は新規レコードで Bounds、アップグレードしたレコードで Anomaly Alerts。[出典](https://www.servicenow.com/docs/r/xIukoQY2A2qGfsWn8TUt1A/h_f6clmg3VJs5YSjz8Q5tA)
+
+異常アラートは通常の IT アラートとは別に Alert Anomaly テーブル（`em_alert_anomaly`、「Metric Intelligence が送った異常イベントから作成され、ユーザーがレビューするための異常アラート」）に保持され、ルールを作成して IT アラートへ昇格（promote）できる。Metric rules では対象メトリクス、しきい値と範囲、生成イベントの Severity を定義する（CI タイプやリソースでの絞り込みも可能）。[出典](https://www.servicenow.com/docs/r/Tm19yM2Ui3~uN9XFBacppg/M9NCz4rtsA86vNO2oFkUdg) [出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/fA0T6eH~9nxRqrlh6bODBQ)
 
 ### 11.2 Push Metrics API（MID Server）
 
@@ -680,7 +702,7 @@ Service Operations Workspace の「AIOps configuration」→「Integration Launc
 
 [出典](https://www.servicenow.com/docs/r/api-reference/rest-apis/push-metrics-MID-server.html)
 
-> Australia 期の Event Management リリースノート（ロケール版）では **OpenTelemetry（OTel）メトリクスの MID Server API 経由サポート** が言及されているが、Australia ファミリーに紐付くかどうかは英語版ページを取得できず確認できなかった。
+> Zurich → Australia の Event Management 統合リリースノートの Australia 部分（Highlight information）には「Support OpenTelemetry (OTel) metrics through the MID Server API」と記載されている。ただし、OTel メトリクスの受信エンドポイントやペイロード形式が上表の Push Metrics API と同じかどうかは、公開情報では確認できず。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/l5TTtePNQlkBxppLTO0~aQ)
 
 ### 11.3 主要テーブルとプロパティ
 
@@ -869,7 +891,7 @@ Generic JSON の Push URL：`https://<instance>/api/sn_em_connector/em/inbound_e
 | Evaluate Scoped Alert Rules Management0 / 1 | 11 秒 |
 | Impact Calculator Trigger | 6 秒 |
 | Impact Tree Builder | 11 秒 |
-| Alert Priority Queue | 1 分 |
+| Alert Priority Queue（2本が並列実行。Alert priority ページでの表記は「Queue With Alert Priority」） | 1 分 |
 | Maintenance Calculator | 1 分 |
 | Update virtual alerts for aggregation groups | 1 分 |
 | Close Threshold Alerts | 2 分 |
@@ -900,12 +922,14 @@ Generic JSON の Push URL：`https://<instance>/api/sn_em_connector/em/inbound_e
 
 - 「**Alert impact profile**」という名称の独立機能・テーブル（本ファイルでは Impact calculation 等で代替整理）。
 - `em_event.severity` の 2〜4 の数値とラベルの厳密な対応（0=Clear、1=Critical、5=OK のみ公式記述で確認）。
-- `evt_mgmt.flap_interval` / `flap_frequency` / `flap_quiet_interval` の既定値、`evt_mgmt.alert_auto_close_interval` の公式既定値。
+- `evt_mgmt.flap_interval` / `flap_frequency` / `flap_quiet_interval` の既定値（`evt_mgmt.alert_auto_close_interval` は Auto Close Alerts ジョブの説明で既定7日と確認済み）。
+- Alert priority の Severity（Major / Minor / Warning）および Role の既定数値。
 - Alert management rule の格納テーブル名（公式ページに記載なし）。
-- Australia ファミリーとしての OpenTelemetry メトリクス（MID Server API）サポートの正式な記載（英語版リリースノートが取得できず）。
-- Australia リリースノートで言及された「AI-guided Implementation Planner」の詳細仕様（Brazil ドキュメントでは「ServiceNow Otto for Setup」として ITOM Configuration console から提供と記載）。
+- OpenTelemetry メトリクス（MID Server API）サポートの受信エンドポイントやペイロード形式（Australia のハイライトに記載があることは確認済み。第11.2節参照）。
+- Australia リリースノートで言及された「AI-guided Implementation Planner」の詳細仕様と、Brazil の「ServiceNow Otto for Setup」/ ITOM Configuration console との関係（第1.1節参照）。
 - Operator Workspace の正式な廃止日・プラグイン ID。
-- Brazil で Event Management がファミリーのプラグインから Store インストール方式へ完全移行したかどうかの詳細（Brazil リリースノートの「Store にリクエストしてインストール」記述のみ確認）。
+- Brazil で Event Management の提供方式が実際に変わったかどうか（Australia のリリースノートは「プラグイン `com.glideapp.itom.snac` の有効化」、Brazil のリリースノートは「Store にリクエストしてインストール」と記述が異なることのみ確認）。
+- Zurich 部分のリリースノートに付記された Store バージョン番号（26.9.0、26.11.0、27.2.1、2.17.1）がそれぞれどの Store アプリのものか。
 
 ---
 
@@ -933,6 +957,7 @@ Generic JSON の Push URL：`https://<instance>/api/sn_em_connector/em/inbound_e
 - Health Log Analytics Store release notes: https://www.servicenow.com/docs/r/store-release-notes/store-rn-itom-health-log-analytics.html
 - Exploring Metric Intelligence: https://www.servicenow.com/docs/r/Tm19yM2Ui3~uN9XFBacppg/M9NCz4rtsA86vNO2oFkUdg
 - Components installed with Metric Intelligence（Australia）: https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/fA0T6eH~9nxRqrlh6bODBQ
+- Configure the action level for anomaly detection（Australia）: https://www.servicenow.com/docs/r/xIukoQY2A2qGfsWn8TUt1A/h_f6clmg3VJs5YSjz8Q5tA
 - Push Metrics API: https://www.servicenow.com/docs/r/api-reference/rest-apis/push-metrics-MID-server.html
 - Configure Event Management connectors（Australia）: https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/8gDvGtcyhsWH8f3zf2ZZYQ
 - Service Operations Workspace for ITOM user interface: https://www.servicenow.com/docs/r/Tm19yM2Ui3~uN9XFBacppg/SMYZRHcDJz3_9sEtNsQQdQ
@@ -940,6 +965,8 @@ Generic JSON の Push URL：`https://<instance>/api/sn_em_connector/em/inbound_e
 - Plugins or applications installed with ITOM AIOps（Australia）: https://www.servicenow.com/docs/r/u7nZu9GEUxWr9UkuDmbe6w/77F6fXXw64~htXxNArb_hw
 - Subscriptions for IT Operations Management: https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/y5L~1SujMuCHZYScdrbXLQ
 - Combined Event Management release notes, Zurich → Australia: https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/l5TTtePNQlkBxppLTO0~aQ
+- Configure Event Management using ServiceNow Otto for Setup（Brazil）: https://www.servicenow.com/docs/r/it-operations-management/event-management/aiops-conf-console.html
+- Access the IT Operations Management configuration console（Brazil）: https://www.servicenow.com/docs/r/it-operations-management/event-management/access-itom-config-console.html
 - Event Management release notes, Australia → Brazil: https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-eventmanagement-release-notes.html
 - ITOM AIOps release notes, Australia → Brazil: https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-itomaiops-release-notes.html
 - Service Operations Workspace ITOM Apps release notes: https://www.servicenow.com/docs/r/store-release-notes/store-rn-itom-service-ops-workspace-itom-apps.html

@@ -60,7 +60,7 @@ Datadog は OpenTelemetry（OTel、オープンテレメトリー）で計装（
 - Datadog SDK と OTel API/SDK の互換性
 - 課金上の扱い
 
-OTel を採用するかどうかや段階的な移行など、戦略面の判断は [OpenTelemetry 活用戦略](../../04_応用編/opentelemetry-strategy.md) を参照する。
+OTel を採用するかどうかや段階的な移行など、戦略面の判断は [OpenTelemetry 活用戦略](../../04_応用編/10-opentelemetry-strategy.md) を参照する。
 
 > **ポイント（2026-11-02 時点）:** Datadog の公式推奨は「Datadog SDK + DDOT Collector」。自前で運用する Collector については、Datadog は新規構成で **OTLP HTTP Exporter + `span_metrics` Connector** の構成を推奨している。従来の Datadog Exporter / Datadog Connector も引き続きサポートされ、既存構成を移行する必要はない [出典](https://docs.datadoghq.com/opentelemetry/setup/collector_exporter/datadog_exporter/)。
 
@@ -1086,7 +1086,7 @@ DDOT 関連のポートとして、ほかに `8888`（Collector のヘルスメ�
 
 ## 課金への影響
 
-OpenTelemetry 専用の課金体系はほとんどなく、基本的には OTel 経由で送ったデータにも Datadog の通常の製品課金が適用される。料金の数値は [製品別料金表](../../03_導入編/pricing-by-product.md) が正本で、課金計算の仕組みは [課金計算の仕組み](../../03_導入編/billing-mechanics.md) にある。
+OpenTelemetry 専用の課金体系はほとんどなく、基本的には OTel 経由で送ったデータにも Datadog の通常の製品課金が適用される。料金の数値は [製品別料金表](../../03_導入編/02-pricing-by-product.md) が正本で、課金計算の仕組みは [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) にある。
 
 | データ・要素 | 課金単位・扱い | 根拠 |
 |---|---|---|
@@ -1103,11 +1103,11 @@ OpenTelemetry 専用の課金体系はほとんどなく、基本的には OTel 
 | DDOT で有効にする追加機能 | APM、Orchestrator Explorer、Process Collection などは追加料金が発生しうる（公式は料金ページの確認と CSM への相談を推奨） | [出典](https://docs.datadoghq.com/opentelemetry/setup/ddot_collector/install/kubernetes_daemonset/) |
 | 使用量メトリクス | `datadog.estimated_usage.apm.otlp_partner_ingested_bytes`（マネージドパートナー経由で取り込んだスパンのバイト数）が用意されている | [出典](https://docs.datadoghq.com/account_management/billing/usage_metrics/) |
 
-参考として、Infrastructure Pro の定価は、2026-11-02 時点の料金ページで US（US1/US3/US5）が **$15 / ホスト / 月（年契約）、$18 / ホスト / 月（オンデマンド）**。最新値と他製品の単価は [製品別料金表](../../03_導入編/pricing-by-product.md) で確認する。
+参考として、Infrastructure Pro の定価は、2026-11-02 時点の料金ページで US（US1/US3/US5）が **$15 / ホスト / 月（年契約）、$18 / ホスト / 月（オンデマンド）**。最新値と他製品の単価は [製品別料金表](../../03_導入編/02-pricing-by-product.md) で確認する。
 
-> **サイト差異:** 料金はサイトによって異なる。AP1（日本）の掲載値は、Managed Platform OTLP（OTLP APM Ingest）が **$0.625 / GB**、Infrastructure Pro が **$18.75 / ホスト / 月（年契約）、$22.50 / ホスト / 月（オンデマンド）**。見積りでは [製品別料金表](../../03_導入編/pricing-by-product.md) の AP1 列を使う [出典](https://www.datadoghq.com/pricing/?product=managed-platform-otlp#products)。
+> **サイト差異:** 料金はサイトによって異なる。AP1（日本）の掲載値は、Managed Platform OTLP（OTLP APM Ingest）が **$0.625 / GB**、Infrastructure Pro が **$18.75 / ホスト / 月（年契約）、$22.50 / ホスト / 月（オンデマンド）**。見積りでは [製品別料金表](../../03_導入編/02-pricing-by-product.md) の AP1 列を使う [出典](https://www.datadoghq.com/pricing/?product=managed-platform-otlp#products)。
 
-コスト削減の実践（Collector 側でのフィルタやサンプリング、タグ設計）は [コスト最適化](../../04_応用編/cost-optimization.md) と [OpenTelemetry 活用戦略](../../04_応用編/opentelemetry-strategy.md) を参照。
+コスト削減の実践（Collector 側でのフィルタやサンプリング、タグ設計）は [コスト最適化](../../04_応用編/01-cost-optimization.md) と [OpenTelemetry 活用戦略](../../04_応用編/10-opentelemetry-strategy.md) を参照。
 
 ---
 
@@ -1141,9 +1141,9 @@ OpenTelemetry 専用の課金体系はほとんどなく、基本的には OTel 
 - [ログ収集](../logs/log-collection.md) / [Observability Pipelines](../logs/observability-pipelines.md)
 - [Serverless Monitoring](../infrastructure/serverless.md)
 - [LLM Observability](../ai/llm-observability.md)：GenAI セマンティック規約
-- [製品別料金表](../../03_導入編/pricing-by-product.md) / [課金計算の仕組み](../../03_導入編/billing-mechanics.md)
-- [他製品からの移行](../../03_導入編/migration-from-other-tools.md)
-- [OpenTelemetry 活用戦略](../../04_応用編/opentelemetry-strategy.md)
+- [製品別料金表](../../03_導入編/02-pricing-by-product.md) / [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)
+- [他製品からの移行](../../03_導入編/14-migration-from-other-tools.md)
+- [OpenTelemetry 活用戦略](../../04_応用編/10-opentelemetry-strategy.md)
 
 ---
 

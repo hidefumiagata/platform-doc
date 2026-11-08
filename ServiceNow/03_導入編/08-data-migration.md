@@ -13,15 +13,21 @@ sources:
   - https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/~Q_19EvGVFyk2FAqT4_16A
   - https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/gTHKMNpw8kIcgcG0U39aMA
   - https://www.servicenow.com/docs/r/integrate-applications/system-import-sets/create-robust-import-set-transformer.html
-  - https://www.servicenow.com/docs/r/zurich/servicenow-platform/integration-hub-etl/integrationhub-etl.html
+  - https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/servicenow-platform/integration-hub-etl/integrationhub-etl.md
   - https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/UtdRkuLteVXa8K9vWCYFZg
   - https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/iL9Wsw4f4Z63cCJBH4Dq9A
   - https://www.servicenow.com/docs/r/api-reference/rest-apis/c_ImportSetAPI.html
-  - https://www.servicenow.com/docs/r/zurich/api-reference/rest-apis/c_AttachmentAPI.html
+  - https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/api-reference/rest-apis/c_AttachmentAPI.md
   - https://www.servicenow.com/docs/r/integrate-applications/easy-import/c_EasyImport.html
   - https://www.servicenow.com/docs/r/servicenow-platform/knowledge-management/import-word-platform.html
   - https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/J_rHuRIkkrvfyB0OO9aM~Q
-  - https://docs.servicenow.com/bundle/xanadu-integrate-applications/page/administer/import-sets/task/delete-import-sets.html
+  - https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/integrate-applications/system-import-sets/delete-import-sets.md
+  - https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/integrate-applications/easy-import/c_EasyImport.md
+  - https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/integrate-applications/easy-import/easy-import-properties.md
+  - https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/integrate-applications/easy-import/t_DownloadAnImportTemplate.md
+  - https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/integrate-applications/easy-import/t_AddARecordInTheTemplate.md
+  - https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/~5IScw_bCpQEBEmZFX3RmA
+  - https://www.servicenow.com/community/developer-forum/how-to-import-utf-8-correct/m-p/1914420
   - https://www.servicenow.com/community/servicenow-ai-platform-articles/import-transform-learning-path/ta-p/2306952
   - https://www.servicenow.com/community/onboarding-hub-blog/designing-smarter-data-migration-for-servicenow/ba-p/3360053
   - https://www.servicenow.com/community/developer-blog/best-practices-for-cmdb-data-integration/ba-p/2266129
@@ -29,6 +35,13 @@ sources:
   - https://www.servicenow.com/community/knowledge-management-articles/options-for-importing-external-articles-into-servicenow/ta-p/2673388
   - https://www.servicenow.com/community/developer-forum/migrate-records-from-one-table-to-another-and-still-retaining/td-p/2070045/page/3
   - https://www.servicenow.com/community/developer-blog/scim-provisioning-from-microsoft-entra-id/ba-p/2984734
+  - https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/eY~hb42v93guk4uZypzHRA
+  - https://www.servicenow.com/community/cmdb-articles/understanding-ire-reconciliation-rules/ta-p/3289239
+  - https://www.servicenow.com/community/developer-forum/how-to-import-work-notes-comments-to-incidents-when-migrating/m-p/1762695
+  - https://www.servicenow.com/community/itsm-forum/data-migration-approach-10-years-x-tool-to-servicenow/td-p/3547738
+  - https://www.servicenow.com/community/knowledge-forum/can-an-knowledge-article-which-is-imported-directly-move-to/m-p/2900651
+  - https://www.servicenow.com/community/virtual-agent-forum/previous-versions-of-kb-articles-got-updated-via-trasnform-map/td-p/3406253
+  - https://www.aegissofttech.com/insights/servicenow-migration-challenges
 ---
 
 # データ移行（Data Migration）
@@ -148,7 +161,7 @@ ServiceNow Community の Onboarding Hub ブログ（ServiceNow コミュニテ�
 | 移行対象 | 典型的な方針 | 主なターゲットテーブル | 主な手法 |
 |---|---|---|---|
 | 組織マスタ（会社・部署・拠点） | **必須で移行**。ユーザーより先に投入 | `core_company`、`cmn_department`、`cmn_location`、`cmn_cost_center` | Import Set（Excel/CSV）、HR システム連携 |
-| ユーザー | **必須**。ただし「一括移行」ではなく ID 管理基盤からの**連携として構築**するのが原則 | `sys_user` | LDAP、SCIM、Import Set |
+| ユーザー | **必須**。ただし「一括移行」ではなく ID 管理基盤からの**連携として構築**するのが原則 | `sys_user` | LDAP、SCIM（Entra ID はギャラリーアプリ／SOAP。3.1.2 節）、Import Set |
 | グループ・メンバー・ロール | 移行（新しいグループ設計に合わせて再定義） | `sys_user_group`、`sys_user_grmember`、`sys_user_has_role`（ロールは原則グループ経由で付与） | Import Set |
 | CMDB（CI・関係） | **Discovery / Service Graph Connector で再収集**できるものは移行せず再収集。台帳でしか持てない CI（ビジネスサービス、アプリケーション等）は移行 | `cmdb_ci_*`、`cmdb_rel_ci` | IntegrationHub ETL、Import Set + IRE、Discovery |
 | 資産（HAM/SAM） | 契約・資産番号など台帳情報を移行 | `alm_hardware`、`alm_asset`、`ast_contract` 等 | Import Set |
@@ -190,7 +203,8 @@ flowchart LR
 | 方式 | 仕組み | 特徴 | 参照 |
 |---|---|---|---|
 | LDAP（Active Directory 等） | LDAP Server（`ldap_server_config`）、LDAP OU Definition（`ldap_ou_config`）、Data Source を設定し、MID Server 経由で取得したデータを Import Set に入れ、Users / Groups の Transform Map で `sys_user`・`sys_user_group` へ変換 | オンプレ AD と定期同期できる。移行後もそのまま運用連携になる | [MID Server](../02_リファレンス/platform/mid-server.md) |
-| SCIM | `SCIM v2 - ServiceNow Cross-domain Identity Management`（`com.snc.integration.scim2`）プラグインを有効化し、Microsoft Entra ID 等の IdP から SCIM でプロビジョニング | IdP 主導のプッシュ型。Entra ID のギャラリーアプリ標準設定は SOAP を使う点に注意【第三者情報】 | [出典](https://www.servicenow.com/community/developer-blog/scim-provisioning-from-microsoft-entra-id/ba-p/2984734) |
+| SCIM | `SCIM v2 - ServiceNow Cross-domain Identity Management`（`com.snc.integration.scim2`）プラグインを有効化し、SCIM 2.0 準拠の IdP からのプロビジョニングを受け付ける | IdP 主導のプッシュ型。ただし **Microsoft Entra ID からの SCIM プロビジョニングは ServiceNow KB2599716 でサポート対象外**とされている（下の行を参照）【第三者情報】 | [出典](https://www.servicenow.com/community/developer-blog/scim-provisioning-from-microsoft-entra-id/ba-p/2984734) |
+| Microsoft Entra ID ギャラリーアプリ（ServiceNow コネクタ） | Entra ID のエンタープライズアプリケーション（ギャラリー）の ServiceNow アプリで、SOAP API を使ってユーザー・グループをプロビジョニング | Entra ID から連携する場合の推奨構成（KB2599716 は SOAP ベースのプロビジョニングを推奨）。構成時に回避策が必要な課題があるとされる【第三者情報】 | [出典](https://www.servicenow.com/community/developer-blog/scim-provisioning-from-microsoft-entra-id/ba-p/2984734) |
 | Import Set（CSV / Excel） | 人事データ等のファイルを Data Source に添付し Transform Map で変換 | 初期一括投入、外部委託者など IdP 外のユーザーに使う | 本ファイル 4 章 |
 | HR システム連携 | Workday 等の HR システムから Integration Hub スポーク等で連携 | HRSD 導入時。人事属性は HR プロファイル側でも管理 | [HR Service Delivery](../02_リファレンス/employee/hr-service-delivery.md) |
 
@@ -208,7 +222,7 @@ flowchart LR
 |---|---|---|---|
 | ログイン ID | `user_name`（User ID） | SSO の NameID と一致させやすい | 旧システムと命名規則が異なると不一致 |
 | メールアドレス | `email` | 一般的に一意 | 退職者再雇用・共有メールで重複、変更が起こり得る |
-| 社員番号 | `employee_number` | 人事上不変 | 外部委託者は持たないことがある。Entra ID 連携で非アクティブ旧レコードとの重複エラー事例あり【第三者情報】 |
+| 社員番号 | `employee_number` | 人事上不変 | 外部委託者は持たないことがある。再雇用者などで非アクティブな旧レコードと値が重複し得る【経験則】 |
 | AD の objectGUID 等 | `source`、`ldap_server` 等 | LDAP 連携標準 | LDAP 以外のソースでは使えない |
 
 - ServiceNow の公式ドキュメントは、**一意な値を持つフィールドでコアレスする**ことを求めている。複数レコードが一致した場合は最初の 1 件だけが更新される。[出典](https://www.servicenow.com/docs/r/integrate-applications/system-import-sets/c_ImportSetCoalesce.html)
@@ -221,7 +235,7 @@ flowchart LR
 |---|---|
 | 退職者・非アクティブユーザー | 過去チケットの `caller_id` や `assigned_to` の参照先として必要なら `active=false` で移行する。ライセンス集計の対象外になるよう、ロールを付与しない【経験則】 |
 | パスワード | SSO 前提とし、パスワードは移行しない。ローカル認証が必要なユーザーは初回ログイン時リセット運用【経験則】 |
-| 暗号化フィールド | Import Set の変換はユーザー「System」として実行されるため、**暗号化フィールド（Edge Encryption / Column Level Encryption 対象）には書き込めない**。[出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/I1J3ifzWRL7k5C8oZuGVMw) |
+| 暗号化フィールド | Import Set の変換はユーザー「System」として実行されるため、**暗号化フィールドには書き込めない**（対象となる具体的な暗号化方式は公開情報では確認できず）。[出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/I1J3ifzWRL7k5C8oZuGVMw) |
 | `NULL` の扱い | 大文字の `NULL` は Transform Map で予約語（フィールドをクリアする指示）であり、First name / Last name などの値として使ってはならない（`Null`、`null` は可）。[出典](https://www.servicenow.com/docs/r/integrate-applications/system-import-sets/t_CreateATransformMap.html) |
 | タイムゾーン・言語 | `time_zone`、`preferred_language` を移行すると日本語 UI・日時表示が利用者ごとに決まる。日本語化は [ローカライゼーション](../02_リファレンス/platform/localization.md) |
 | ライセンス | `itil` 等のフルフィラーロールを持つユーザー数がライセンス数に直結する。移行時のロール付与は [ユーザー・ロール・ライセンスの基本](../01_入門編/08-users-roles-licensing-basics.md) を参照 |
@@ -243,7 +257,7 @@ CMDB の CI（Configuration Item、構成アイテム）は、**Identification a
 | **Discovery** による再収集 | サーバー、ネットワーク機器、PC など自動検出できる CI | 自動で通る | 旧 CMDB からの移行より再収集のほうが品質が高いことが多い【経験則】。[Discovery](../02_リファレンス/itom/discovery.md) |
 | **Service Graph Connector** | SCCM / Intune / Jamf / クラウド等、既存管理ツールが CI 情報を持つ場合 | 自動で通る（IntegrationHub ETL ベース） | [Service Graph Connectors](../02_リファレンス/itom/service-graph-connectors.md) |
 | **IntegrationHub ETL** | 旧 CMDB や台帳（CSV/Excel/JDBC）からの複数クラス・関係を含む移行 | 自動で通る | 4.3 節 |
-| **Import Set + `CMDBTransformUtil`** | 単一テーブル・関係なしの比較的単純な CI 移行 | onBefore スクリプトで明示的に呼ぶ | 4.2.6 節 |
+| **Import Set + `CMDBTransformUtil`** | 単一テーブル・関係なしの比較的単純な CI 移行 | onBefore スクリプトで明示的に呼ぶ | 4.2.7 節 |
 | スクリプト IRE（`sn_cmdb.IdentificationEngine.createOrUpdateCI`） | 複数クラス・関係を含む複雑なデータで、ETL で表現しにくい場合 | 明示的に呼ぶ | [出典](https://www.servicenow.com/community/developer-blog/best-practices-for-cmdb-data-integration/ba-p/2266129) |
 | 手入力・Easy Import | ビジネスサービス、アプリケーションサービスなど少量の論理 CI | 直接書き込み（IRE は通らない） | 少量・設計段階で作る CI に限定【経験則】 |
 
@@ -253,7 +267,7 @@ CMDB の CI（Configuration Item、構成アイテム）は、**Identification a
 |---|---|
 | クラスマッピング | 旧 CMDB の CI 種別を ServiceNow の既存クラス（`cmdb_ci_win_server`、`cmdb_ci_linux_server`、`cmdb_ci_computer`、`cmdb_ci_netgear` 等）へマッピングし、文書化する。安易にクラスを新設しない。[出典](https://www.servicenow.com/community/developer-blog/best-practices-for-cmdb-data-integration/ba-p/2266129) |
 | 識別項目 | IRE の識別ルール（例: ハードウェアならシリアル番号、名前、MAC アドレス等の組み合わせ）を満たす項目を必ず移行データに含める。識別項目が欠けた CI は IRE で識別できない【経験則】 |
-| データソース登録 | IRE 用のデータソース名（Discovery source）を事前に登録し、データソース優先順位を設計する。IntegrationHub ETL では CMDB アプリケーション用のデータソース設定が前提条件。[出典](https://www.servicenow.com/docs/r/zurich/servicenow-platform/integration-hub-etl/integrationhub-etl.html) |
+| データソース登録 | IRE 用のデータソース名（Discovery source）を事前に登録し、データソース優先順位を設計する。IntegrationHub ETL では CMDB アプリケーション用のデータソース設定が前提条件。[出典](https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/servicenow-platform/integration-hub-etl/integrationhub-etl.md) |
 | 関係（Relationship） | `cmdb_rel_ci`（親 CI、子 CI、関係タイプ）を CI 投入後に投入する。依存識別ルールを持つ CI（Dependent CI）は Import Set + `CMDBTransformUtil` では処理できないため、IntegrationHub ETL またはスクリプト IRE を使う。[出典](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/iL9Wsw4f4Z63cCJBH4Dq9A) |
 | 資産との関係 | ハードウェア CI と資産（`alm_hardware`）は連動作成される設定がある。資産管理を導入する場合は投入順序と同期ルールを ITAM 側と調整する。[Hardware Asset Management](../02_リファレンス/itam/hardware-asset-management.md) |
 | 移行後の検証 | CMDB Health ダッシュボード（完全性・正確性・コンプライアンス）や CMDB Integrations Dashboard で重複・孤立 CI を確認する |
@@ -303,7 +317,7 @@ Transform Map では onBefore スクリプトで `target.autoSysFields(false)` �
 
 - `sys_created_by` / `sys_updated_by` は参照フィールドではなく **ユーザー名（`user_name`）の文字列** である。【経験則】
 - 日時はインスタンス内部では GMT（UTC）で保持される。JST の値をそのまま入れると 9 時間ずれる。Field map の Date format 指定またはスクリプトで変換する。【経験則】
-- `autoSysFields(false)` は公式に「特殊な用途向け」とされる操作であり、必ず非本番でテストする。【第三者情報】
+- `autoSysFields(false)` は通常の運用では使わない特殊な用途向けの操作であり、必ず非本番でテストする。【経験則】
 
 #### 3.3.4 Work notes / Additional comments（ジャーナル）の移行
 
@@ -360,7 +374,7 @@ Work notes（作業メモ）や Additional comments（追加コメント）は�
 
 ### 3.5 添付ファイル
 
-添付ファイルは `sys_attachment`（メタデータ）と `sys_attachment_doc`（分割された本体）に格納され、データベース容量を大きく消費する。移行が必要な場合は **Attachment API** を使う。[出典](https://www.servicenow.com/docs/r/zurich/api-reference/rest-apis/c_AttachmentAPI.html)
+添付ファイルは `sys_attachment`（メタデータ）と `sys_attachment_doc`（分割された本体）に格納され、データベース容量を大きく消費する。移行が必要な場合は **Attachment API** を使う。[出典](https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/api-reference/rest-apis/c_AttachmentAPI.md)
 
 | 項目 | 仕様 |
 |---|---|
@@ -368,7 +382,7 @@ Work notes（作業メモ）や Additional comments（追加コメント）は�
 | 1 リクエストのファイル数 | 1 リクエストにつき 1 ファイル |
 | 最大サイズ | プロパティ `com.glide.attachment.max_size`（既定 1024 MB）で制御 |
 | 拡張子制限 | プロパティ `glide.attachment.extensions` |
-| 権限 | 実行ユーザーが `sys_attachment` レコードを作成できるロールを持つこと |
+| 権限 | `sys_attachment` レコードの作成権限と、添付先テーブルの読み書き権限（例: `incident` なら `itil`）の両方が必要。既定で添付追加専用の単一ロールはないため、必要なら専用ロールを作成して移行用アカウントに付与する [出典](https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/api-reference/rest-apis/c_AttachmentAPI.md) |
 | タイムアウト | REST の添付リクエストは既定 60 秒でキャンセルされるとの記載あり【第三者情報】[出典](https://www.servicenow.com/community/knowledge-management-articles/options-for-importing-external-articles-into-servicenow/ta-p/2673388) |
 
 ---
@@ -384,7 +398,7 @@ Work notes（作業メモ）や Additional comments（追加コメント）は�
 | **IntegrationHub ETL** | RTE + IRE をガイド付き UI で設定 | CMDB（および IRE がサポートする一部の非 CMDB テーブル） | `cmdb_inst_admin` | IRE 自動適用、テスト実行可能 | CMDB 用途中心 |
 | **Import Set API** | REST でステージングテーブルへ投入し変換を実行 | 外部 ETL ツール・スクリプトからの移行 | 対象ステージングテーブルへの書き込み権限 | Transform Map を再利用できる | 1 リクエストのサイズ・回数設計が必要 |
 | **Table API** | `/api/now/table/{table}` で直接 CRUD | 少量の補正、ナレッジ等 | 対象テーブルの ACL 権限 | シンプル | 変換・コアレスを外部で実装する必要。ビジネスルールが動く |
-| **Attachment API** | 添付ファイルの投入 | 添付・画像 | `sys_attachment` 作成権限 | 唯一の標準的な添付投入手段 | 1 ファイル 1 リクエスト |
+| **Attachment API** | 添付ファイルの投入 | 添付・画像 | `sys_attachment` 作成権限 + 添付先テーブルの権限 | 唯一の標準的な添付投入手段 | 1 ファイル 1 リクエスト |
 | **Easy Import** | リストから Excel テンプレートを作り、少数列を取り込む | マスタの少量投入・一括更新 | `admin` のみ | 最も手軽 | 大量・複雑変換には不向き |
 
 ```mermaid
@@ -432,7 +446,8 @@ Data source（`sys_data_source`）の主な種類と制約は次のとおり。[
 | ServiceNow REST（Integration Hub） | 有効な Transform Map が必要 |
 | Custom（Load by Script） | 有効な Transform Map が必要 |
 
-- 日本語データを CSV で投入する場合は文字コード（UTF-8 推奨）を事前に統一する。Data source の CSV 設定で文字コードを指定できる。【経験則】
+- 日本語データを CSV で投入する場合は、事前に UTF-8 へ変換して文字コードを統一してから投入する。【経験則】
+- Data source フォームに文字コード専用のフィールドは公式ドキュメントでは確認できず。コミュニティでは、Data source の Properties 欄に `charset=utf-8` のように指定する方法が回答されている（未検証のため、インスタンスで確認すること）。【第三者情報】[出典](https://www.servicenow.com/community/developer-forum/how-to-import-utf-8-correct/m-p/1914420)
 - 旧システム DB に直接接続できる場合は JDBC + MID Server で、ファイルの受け渡しを省ける。【経験則】
 
 #### 4.2.3 作成手順の概要
@@ -545,7 +560,7 @@ Import Set から CMDB に書き込む場合は、onBefore スクリプトで `C
 
 #### 4.3.1 概要
 
-IntegrationHub ETL は、サードパーティのデータを CMDB（および IRE がサポートする一部の非 CMDB テーブル）へ、データ整合性を保ちながら取り込むための ServiceNow Store アプリケーションである。ガイド付き UI でマッピングを作成し、サンプルデータでテスト実行できる。プラグインは `sn_int_studio`。進捗・結果・エラーは Integration Commons for CMDB アプリに含まれる **CMDB Integrations Dashboard** で確認する。[出典](https://www.servicenow.com/docs/r/zurich/servicenow-platform/integration-hub-etl/integrationhub-etl.html)
+IntegrationHub ETL は、サードパーティのデータを CMDB（および IRE がサポートする一部の非 CMDB テーブル）へ、データ整合性を保ちながら取り込むための ServiceNow Store アプリケーションである。ガイド付き UI でマッピングを作成し、サンプルデータでテスト実行できる。プラグインは `sn_int_studio`。進捗・結果・エラーは Integration Commons for CMDB アプリに含まれる **CMDB Integrations Dashboard** で確認する。[出典](https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/servicenow-platform/integration-hub-etl/integrationhub-etl.md)
 
 | 構成要素 | 役割 |
 |---|---|
@@ -560,7 +575,7 @@ IntegrationHub ETL は、サードパーティのデータを CMDB（および I
 
 #### 4.3.2 作業ステップ
 
-IntegrationHub ETL の作業手順は次のとおり。[出典](https://www.servicenow.com/docs/r/zurich/servicenow-platform/integration-hub-etl/integrationhub-etl.html)
+IntegrationHub ETL の作業手順は次のとおり。[出典](https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/servicenow-platform/integration-hub-etl/integrationhub-etl.md)
 
 1. CMDB アプリケーション用のデータソース（Discovery source）を設定する。
 2. ソースデータをステージングテーブルへインポートする（Import Set を利用）。
@@ -572,14 +587,14 @@ IntegrationHub ETL の作業手順は次のとおり。[出典](https://www.serv
 | 項目 | 仕様 |
 |---|---|
 | 必要ロール | `cmdb_inst_admin`（統合の作成・カスタマイズ） |
-| 対象 | CMDB クラス、IRE がサポートする非 CMDB テーブル（例: Location、User） |
+| 対象 | CMDB クラス、IRE がサポートする非 CMDB テーブル（対象テーブルは公式ページ「IRE support for non-CMDB tables」を参照） |
 | 非 CMDB テーブル | クラスの関連付けは任意、CMDB 関係は適用されず、関連付けは参照フィールドに基づく |
 | ネスト JSON | データソースで「Data in single column」を有効にする必要。フィールド名は英字または `_` で始まり英数字と `_` のみ、`temp`・`object` は予約語、各階層で配列・オブジェクトの使い方を一貫させる |
 | 制約 | 受信データが検出されない場合は読み取り専用で開く。データソースごとに 1 つの ETL Transform Map |
 
-> 非 CMDB テーブルへの対応は、IntegrationHub ETL の Store リリースノートではバージョン 3.1.0（2023-02）で追加と記載されている。一方、リリース別ドキュメントでは「Zurich から」「Australia から」と記載が揺れており、ファミリーリリースとの対応は公開情報では確定できず。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/UtdRkuLteVXa8K9vWCYFZg)
+> 非 CMDB テーブルへの対応は、IntegrationHub ETL の Store リリースノートではバージョン 3.1.0（2023-02）で追加と記載されている。一方、リリース別ドキュメントでは「Zurich から」「Australia から」と記載が揺れており、Australia ブランチの IntegrationHub ETL ページ（GitHub ソース）には「Starting with the Brazil release」と書かれている。このため、ファミリーリリースとの対応は公開情報では確定できず。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/UtdRkuLteVXa8K9vWCYFZg)
 
-> 最新版: IntegrationHub ETL の Store 版は 3.4.0（2026-06、WCAG 2.2 AA 対応）、3.6.0（2026-09、IRE Adoption バナー表示）、3.6.1（2026-10）が公開されている。移行で使うバージョンはインスタンスのファミリー互換性（Store の System Requirements）で確認する。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/UtdRkuLteVXa8K9vWCYFZg)
+> 最新版: IntegrationHub ETL の Store 版は 3.4.0（2026-06、WCAG 2.2 AA 対応）、3.6.0（2026-09、IRE Adoption バナー表示と 400% ズーム時のリフロー対応）、3.6.1（2026-10、アクセシビリティの追加改善）が公開されている。移行で使うバージョンはインスタンスのファミリー互換性（Store の System Requirements）で確認する。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/UtdRkuLteVXa8K9vWCYFZg)
 
 IntegrationHub 全体の仕様は [IntegrationHub](../02_リファレンス/platform/integrationhub.md)、Service Graph Connector は [Service Graph Connectors](../02_リファレンス/itom/service-graph-connectors.md) を参照。
 
@@ -594,7 +609,7 @@ Robust Import Set Transformer は、従来の Transform Map よりも柔軟・�
 | 主な設定 | Source table（インポートセットテーブル）、Robust Transform Engine（ETL 定義または CMDB 定義を選択）、Batch size（100 から始めて調整を推奨） |
 | ETL 定義 | エンティティ（テーブルに相当する抽象）、エンティティフィールド、エンティティオペレーション、マッピングを定義 |
 | 優先 | データソースに Transform Map と Robust Import Set Transformer の両方がある場合は後者が使われる [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/I1J3ifzWRL7k5C8oZuGVMw) |
-| ネストデータ | Paris 以降、1 列に格納したネスト JSON / XML を扱える |
+| ネストデータ | Paris 以降、Data source が JSON / XML のペイロードを 1 列に格納している場合、ETL 定義でネストしたデータ構造を扱える [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/~5IScw_bCpQEBEmZFX3RmA) |
 
 ### 4.5 API による移行（Import Set API / Table API）
 
@@ -635,12 +650,14 @@ Easy Import は、リストからインポートテンプレート（Excel）を
 
 | 項目 | 仕様 |
 |---|---|
-| 利用者 | `admin` のみ |
-| 対象テーブル | 現在のスコープのテーブル、および他アプリへの書き込みを許可したテーブル |
-| テンプレート形式 | XLSX 推奨（XLS はレガシー互換）|
-| エクスポート上限 | テンプレートにデータを含めてエクスポートする場合、既定 10,000 件まで（プロパティ `glide.import_template.row_limit`）【第三者情報】 |
-| シート | テンプレートの最初のシートのみ取り込まれる |
-| 用途 | マスタ（拠点・部署）の少量投入、移行後の一括補正 |
+| 利用者 | `admin` のみ [出典](https://www.servicenow.com/docs/r/integrate-applications/easy-import/c_EasyImport.html) |
+| 対象テーブル | 現在のスコープのテーブル、および他アプリへの書き込みを許可したテーブル [出典](https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/integrate-applications/easy-import/c_EasyImport.md) |
+| テンプレート形式 | XLSX 推奨（XLS はレガシー互換）。形式の選択欄（Export template format）はプロパティ `glide.legacy.excel.export` が true のときのみ表示される。テンプレートには使い方を説明する Directions タブが含まれる [出典](https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/integrate-applications/easy-import/t_DownloadAnImportTemplate.md) |
+| テンプレートの行数上限 | プロパティ `glide.import_template.row_limit`（Integer、既定 10,000）。既定ではレコードが 10,000 件を超えるテーブルでも先頭 10,000 件だけがテンプレートに出力される [出典](https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/integrate-applications/easy-import/easy-import-properties.md) |
+| ビジネスルール | プロパティ `glide.easy_import.run_business_rules`（既定 true）。true ではビジネスルール、ワークフロー、承認エンジン、監査、フィールド正規化が動く（`GlideRecord.setWorkflow()` 相当）。履歴データの投入ではオフを検討する [出典](https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/integrate-applications/easy-import/easy-import-properties.md) |
+| 取り込まないフィールド型 | プロパティ `glide.import_template.field_types_to_ignore`（journal、image、workflow、glide_list などが既定で対象）。Work notes などのジャーナルは Easy Import では入らない [出典](https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/integrate-applications/easy-import/easy-import-properties.md) |
+| シート | テンプレートの最初のページ（シート）のレコードだけが取り込まれ、他のページは無視される [出典](https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/integrate-applications/easy-import/t_AddARecordInTheTemplate.md) |
+| 用途 | マスタ（拠点・部署）の少量投入、移行後の一括補正【経験則】 |
 
 ### 4.7 性能と大量データの扱い
 
@@ -663,7 +680,8 @@ Easy Import は、リストからインポートテンプレート（Excel）を
 | 項目 | 仕様 |
 |---|---|
 | Import Set Deleter | 毎日深夜 0 時に実行されるスケジュールジョブ。既定で **7 日より古いインポートセットとそのステージング行**を削除 [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/I1J3ifzWRL7k5C8oZuGVMw) |
-| 有効化前の確認 | ジョブが無効だった場合、有効化前にインポートセットテーブルの合計が 500 万件以下であることを確認。超える場合は先に手動削除するか、サポートに相談 [出典](https://docs.servicenow.com/bundle/xanadu-integrate-applications/page/administer/import-sets/task/delete-import-sets.html) |
+| 有効化前の確認 | ジョブが無効だった場合、有効化前にインポートセットテーブルの合計が 500 万件以下であることを確認。超える場合は先に手動削除するか、サポートに相談 [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/I1J3ifzWRL7k5C8oZuGVMw) |
+| 実行頻度・場所 | **All > System Import Sets > Import Set Tables > Scheduled Cleanup** で Import Set Deleter を開き、Run（Daily / Weekly / Monthly / Periodically / Once / On Demand）や Active を変更できる。**Execute Now** で即時実行。必要ロールは `admin` [出典](https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/integrate-applications/system-import-sets/delete-import-sets.md) |
 | 保持期間短縮 | 7 日でも巨大になる場合は 3 日などへ短縮を検討【第三者情報】[出典](https://www.servicenow.com/community/servicenow-ai-platform-articles/import-transform-learning-path/ta-p/2306952) |
 | 移行時の注意 | 7 日で変換履歴・エラー行が消えるため、**移行の照合・エビデンスは削除前に取得**しておく。長期のリハーサル期間中は保持期間を一時的に延ばすことも検討【経験則】 |
 
@@ -818,7 +836,7 @@ gantt
 | リハーサルで時間が読めず本番で超過 | 全件でのリハーサル未実施 | 本番同規模のリハーサルを最低 1 回 |
 | 暗号化フィールドに値が入らない | インポートはユーザー System で実行され暗号化フィールドに書けない | 暗号化対象項目は別手段で投入するか設計を見直す |
 
-導入全体の失敗パターンは [導入失敗パターンと対策](../04_応用編/01-implementation-failure-patterns.md)、連携の落とし穴は [連携の落とし穴](../04_応用編/08-integration-pitfalls.md) を参照。
+連携の落とし穴は [連携の落とし穴](../04_応用編/08-integration-pitfalls.md) を参照。
 
 ---
 
@@ -826,7 +844,7 @@ gantt
 
 > **Brazil での変更:** 2026-11-02 時点で、Import Set、Transform Map、Import Set API、Robust Import Set Transformer の仕様について、Brazil で変更・廃止されたことを示すリリースノートは公開情報では確認できず。Brazil 版ドキュメントでも、Import Set Deleter（7 日保持）、インポートがユーザー System として実行され暗号化フィールドに書けない点、`CMDBTransformUtil.identifyAndReconcile()` の後に `ignore = true` を設定する手順は従来と同じ内容で記載されている。
 
-> **Brazil での変更:** IntegrationHub ETL は Store アプリとしてファミリーリリースとは独立に更新されており、2026-09 の 3.6.0 で IRE Adoption（IRE 採用状況）を示すバナーメッセージが追加、2026-10 の 3.6.1 でアクセシビリティ（400% ズーム時のリフロー）対応が行われている。Brazil 固有の機能差は公開情報では確認できず。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/UtdRkuLteVXa8K9vWCYFZg)
+> **Brazil での変更:** IntegrationHub ETL は Store アプリであり、以下はファミリーリリース（Brazil）に依存しない Store 更新である（Brazil 固有の変更ではない）。2026-09 の 3.6.0 で IRE Adoption（IRE 採用状況）を示す動的バナーメッセージと 400% ズーム時のリフロー対応が追加され、2026-10 の 3.6.1 で高倍率ズーム時のアクセシビリティがさらに改善された。Brazil 固有の機能差は公開情報では確認できず。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/UtdRkuLteVXa8K9vWCYFZg)
 
 ---
 
@@ -837,7 +855,7 @@ gantt
 - Transform のイベントスクリプトとフィールドマップの公式な実行順序表（コミュニティ回答のみ）。
 - Concurrent Import の上限を決めるシステムプロパティの正式名称（ドキュメント間で表記揺れ）。
 - ジャーナル（Work notes）を元の日時・投稿者で再現する ServiceNow 公式の手順（コミュニティ記事のみ）。
-- IntegrationHub ETL の非 CMDB テーブル対応が始まったファミリーリリース（ドキュメント間で Zurich / Australia の記載揺れ）。
+- IntegrationHub ETL の非 CMDB テーブル対応が始まったファミリーリリース（ドキュメント間で Zurich / Australia / Brazil の記載揺れ）。
 
 ---
 
@@ -851,13 +869,18 @@ gantt
 - Map with transformation event scripts: https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/~Q_19EvGVFyk2FAqT4_16A
 - Concurrent imports: https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/gTHKMNpw8kIcgcG0U39aMA
 - Create a robust import set transformer: https://www.servicenow.com/docs/r/integrate-applications/system-import-sets/create-robust-import-set-transformer.html
-- Delete import sets: https://docs.servicenow.com/bundle/xanadu-integrate-applications/page/administer/import-sets/task/delete-import-sets.html
-- IntegrationHub ETL: https://www.servicenow.com/docs/r/zurich/servicenow-platform/integration-hub-etl/integrationhub-etl.html
+- Delete import sets（公式ドキュメントの GitHub ソース、Australia ブランチ）: https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/integrate-applications/system-import-sets/delete-import-sets.md
+- IntegrationHub ETL（公式ドキュメントの GitHub ソース、Australia ブランチ）: https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/servicenow-platform/integration-hub-etl/integrationhub-etl.md
 - IntegrationHub ETL release notes: https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/UtdRkuLteVXa8K9vWCYFZg
 - Applying IRE to Import Sets: https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/iL9Wsw4f4Z63cCJBH4Dq9A
 - Import Set API: https://www.servicenow.com/docs/r/api-reference/rest-apis/c_ImportSetAPI.html
-- Attachment API: https://www.servicenow.com/docs/r/zurich/api-reference/rest-apis/c_AttachmentAPI.html
+- Attachment API（公式ドキュメントの GitHub ソース、Australia ブランチ）: https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/api-reference/rest-apis/c_AttachmentAPI.md
 - Easy import: https://www.servicenow.com/docs/r/integrate-applications/easy-import/c_EasyImport.html
+- Easy import（Australia ブランチの GitHub ソース）: https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/integrate-applications/easy-import/c_EasyImport.md
+- Easy import properties（公式ドキュメントの GitHub ソース、Australia ブランチ）: https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/integrate-applications/easy-import/easy-import-properties.md
+- Download an import template（同上）: https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/integrate-applications/easy-import/t_DownloadAnImportTemplate.md
+- Add a record in the template（同上）: https://raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/markdown/integrate-applications/easy-import/t_AddARecordInTheTemplate.md
+- Robust Import Set Transformers（Australia）: https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/~5IScw_bCpQEBEmZFX3RmA
 - Import a Word document to a knowledge base: https://www.servicenow.com/docs/r/servicenow-platform/knowledge-management/import-word-platform.html
 - System roles: https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/J_rHuRIkkrvfyB0OO9aM~Q
 
@@ -876,6 +899,7 @@ gantt
 - Data migration approach 10 years X-tool to ServiceNow: https://www.servicenow.com/community/itsm-forum/data-migration-approach-10-years-x-tool-to-servicenow/td-p/3547738
 - Can an knowledge article which is imported directly move to published: https://www.servicenow.com/community/knowledge-forum/can-an-knowledge-article-which-is-imported-directly-move-to/m-p/2900651
 - Previous versions of KB articles got updated via transform map: https://www.servicenow.com/community/virtual-agent-forum/previous-versions-of-kb-articles-got-updated-via-trasnform-map/td-p/3406253
+- How to import UTF-8 correct（データソースの文字コード指定）: https://www.servicenow.com/community/developer-forum/how-to-import-utf-8-correct/m-p/1914420
 
 ### 第三者情報
 - 6 ServiceNow Migration Challenges & Best Practices（Aegis Softtech）: https://www.aegissofttech.com/insights/servicenow-migration-challenges

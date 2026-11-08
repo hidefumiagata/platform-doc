@@ -673,7 +673,7 @@ Windows 版の Browser テスト対応: ワーカー v1.71.0 以降は Chrome・
 | 独自ルート証明書 | Linux: `.pem` を `/etc/datadog/certs` にマウント（中間→ルートの順）。Windows: `NODE_EXTRA_CA_CERTS` |
 
 > **サイト差異:** EU1（`app.datadoghq.eu`）の Private Location 向けエンドポイントは静的 IP が `ip-ranges.datadoghq.eu` で公開される。US1-FED（`app.ddog-gov.com`）と `us2.ddog-gov.com` では FIPS イメージを使用する。[出典](https://docs.datadoghq.com/synthetics/platform/private_locations/)  
-> ネットワーク設計全般は [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md) を参照。
+> ネットワーク設計全般は [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md) を参照。
 
 ### 設定ファイルとシークレット
 
@@ -850,7 +850,7 @@ Network Path テストは TCP・UDP・ICMP でパケット経路（traceroute）
 | Agent 要件 | Remote Configuration 有効、system-probe の traceroute モジュール有効、`workers`（既定 4）≥ 同時実行テスト数 | — |
 | データ保持 | 30 日 | — |
 
-- 課金は 1,000 テストあたり/月（US/EU1 年契約 $5、AP1 年契約 $6.25）。Agent 実行でも Managed Location 実行でも同一価格（課金節、[製品別料金表](../../03_導入編/pricing-by-product.md) 参照）。提供ステータス（GA/Preview）は公開情報では確認できず。関連製品として [Cloud Network Monitoring（旧 NPM）](../infrastructure/cloud-network-monitoring.md) も参照。
+- 課金は 1,000 テストあたり/月（US/EU1 年契約 $5、AP1 年契約 $6.25）。Agent 実行でも Managed Location 実行でも同一価格（課金節、[製品別料金表](../../03_導入編/02-pricing-by-product.md) 参照）。提供ステータス（GA/Preview）は公開情報では確認できず。関連製品として [Cloud Network Monitoring（旧 NPM）](../infrastructure/cloud-network-monitoring.md) も参照。
 
 ### Test Suites
 
@@ -876,7 +876,7 @@ SLO 全般は [SLO](../platform/slo.md) を参照。
 | Goal-Based Testing | 開始 URL と自然言語のゴールを与え、エージェントが分岐を探索してゴール到達の可否を判定 | 【Preview】（ウェイティングリスト） |
 
 > **サイト差異:** Bits Testing は `app.ddog-gov.com` / `us2.ddog-gov.com` では非対応。Goal-Based Testing のサイト対応は公開情報では確認できず。
-- 課金: Bits Testing のテスト生成ジョブは AI Credits で課金（2026-11-30 まで無料と掲載）。生成されたテストの実行は通常の API / Browser / Network Path の実行回数として課金される。詳細は課金節と [製品別料金表 §14](../../03_導入編/pricing-by-product.md#14-aiagent-observabilityai-credits) を参照。Goal-Based Testing の課金単位は公開情報では確認できず。
+- 課金: Bits Testing のテスト生成ジョブは AI Credits で課金（2026-11-30 まで無料と掲載）。生成されたテストの実行は通常の API / Browser / Network Path の実行回数として課金される。詳細は課金節と [製品別料金表 §14](../../03_導入編/02-pricing-by-product.md#14-aiagent-observabilityai-credits) を参照。Goal-Based Testing の課金単位は公開情報では確認できず。
 
 [出典](https://docs.datadoghq.com/synthetics/bits_testing/)、[出典](https://docs.datadoghq.com/synthetics/goal_based_testing/)。AI 機能全般は [Bits AI と AI 機能](../ai/bits-ai.md) を参照。
 
@@ -986,7 +986,7 @@ Synthetic テストは実行ごとに `synthetics.*` メトリクスを生成す
 
 ## 課金への影響
 
-Synthetic Monitoring はテスト実行回数（test run）単位の従量課金である。以下は公式料金ページの定価（2026-11-02 基準、2026-11-03 取得、USD、月額換算）。料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。[出典](https://www.datadoghq.com/pricing/list/)
+Synthetic Monitoring はテスト実行回数（test run）単位の従量課金である。以下は公式料金ページの定価（2026-11-02 基準、2026-11-03 取得、USD、月額換算）。料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)。[出典](https://www.datadoghq.com/pricing/list/)
 
 | SKU | 課金単位 | US/EU1 年契約 | US/EU1 月契約 | US/EU1 オンデマンド | AP1 年契約 | AP1 月契約 | AP1 オンデマンド |
 |---|---|---|---|---|---|---|---|
@@ -996,7 +996,7 @@ Synthetic Monitoring はテスト実行回数（test run）単位の従量課金
 | Parallel Testing（Continuous Testing アドオン） | 追加 1 並列あたり/月 | $79 | $95 | $114 | $98.75 | $118.75 | $142.50 |
 | Network Path | 1,000 テストあたり/月 | $5 | $6 | $7.20 | $6.25 | $7.50 | $9 |
 
-> **サイト差異:** 基準サイト AP1 の価格は US/EU1 より高い（上表の AP1 列）。その他のサイトの価格は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。Continuous Testing（Parallel Testing）は料金ページの製品カードで「currently unavailable on the US-FED site」と表示され、US1-FED では提供されない。[出典](https://www.datadoghq.com/pricing/?product=synthetic-monitoring)
+> **サイト差異:** 基準サイト AP1 の価格は US/EU1 より高い（上表の AP1 列）。その他のサイトの価格は [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照。Continuous Testing（Parallel Testing）は料金ページの製品カードで「currently unavailable on the US-FED site」と表示され、US1-FED では提供されない。[出典](https://www.datadoghq.com/pricing/?product=synthetic-monitoring)
 
 課金ルール（公式料金ページ FAQ・ドキュメント）:
 
@@ -1011,8 +1011,8 @@ Synthetic Monitoring はテスト実行回数（test run）単位の従量課金
 | Fast retry | リトライ実行が課金対象の実行回数に含まれるかは公開情報では確認できず | — |
 | Private Location | 料金表に Private Location 自体の個別 SKU は見当たらない（テストは通常どおり実行回数で課金）。ワーカーのインフラ費用は利用者負担 | [料金表](https://www.datadoghq.com/pricing/list/) |
 | Synthetic 由来の RUM データ | RUM 未契約でも Browser テストの RUM データを追加費用なしでプレビュー可能と記載 | [出典](https://docs.datadoghq.com/synthetics/guide/explore-rum-through-synthetics/) |
-| Network Path | 1,000 テストあたりの月額課金（上表）。Datadog Agent（ホスト・End User Device）からの実行でも Managed Synthetic Locations からの実行でも同一価格 | [料金ページ](https://www.datadoghq.com/pricing/?product=synthetic-monitoring)、[製品別料金表](../../03_導入編/pricing-by-product.md) |
-| Bits Testing | テスト生成ジョブ（Autonomous test generation job）は AI Credits で課金（料金ページでは「Free of charge through Nov 30」、2026-11-30 まで無料と掲載）。生成されたテストの実行は通常の API / Browser / Network Path の実行回数として課金。AI Credits の価格は [製品別料金表 §14](../../03_導入編/pricing-by-product.md#14-aiagent-observabilityai-credits) を参照 | [料金ページ](https://www.datadoghq.com/pricing/?product=synthetic-monitoring) |
+| Network Path | 1,000 テストあたりの月額課金（上表）。Datadog Agent（ホスト・End User Device）からの実行でも Managed Synthetic Locations からの実行でも同一価格 | [料金ページ](https://www.datadoghq.com/pricing/?product=synthetic-monitoring)、[製品別料金表](../../03_導入編/02-pricing-by-product.md) |
+| Bits Testing | テスト生成ジョブ（Autonomous test generation job）は AI Credits で課金（料金ページでは「Free of charge through Nov 30」、2026-11-30 まで無料と掲載）。生成されたテストの実行は通常の API / Browser / Network Path の実行回数として課金。AI Credits の価格は [製品別料金表 §14](../../03_導入編/02-pricing-by-product.md#14-aiagent-observabilityai-credits) を参照 | [料金ページ](https://www.datadoghq.com/pricing/?product=synthetic-monitoring) |
 | Goal-Based Testing | Preview のため課金単位は公開情報では確認できず | — |
 | 割引 | 複数年・ボリューム割引は「Contact Us」（非公開） | [料金ページ](https://www.datadoghq.com/pricing/?product=synthetic-monitoring) |
 
@@ -1029,16 +1029,16 @@ Mobile テスト : 実行回数/月 × 選択デバイス数 × ceil(ステッ�
 
 例【推定】: API テスト 1 本を 1 分間隔・3 ロケーションで実行 → 129,600 実行/月 → 年契約単価で約 $64.8/月。Browser テスト 1 本（20 ステップ）を 15 分間隔・2 ロケーション・Chrome Laptop Large のみで実行 → 5,760 実行/月 → 年契約単価で約 $69.1/月。
 
-見積り手法とコスト最適化は [コスト見積り手法](../../03_導入編/cost-estimation.md)、[課金計算の仕組み](../../03_導入編/billing-mechanics.md)、[コスト最適化](../../04_応用編/cost-optimization.md)、使用量の部門配賦は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md) を参照。
+見積り手法とコスト最適化は [コスト見積り手法](../../03_導入編/05-cost-estimation.md)、[課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、[コスト最適化](../../04_応用編/01-cost-optimization.md)、使用量の部門配賦は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md) を参照。
 
 ## 設計上の留意点
 
 - **ロケーション数・頻度・デバイス数の掛け算で実行回数が増える**: Browser テストはデバイス×ブラウザ×ロケーションが乗算される。本番監視は少数ロケーション・低頻度、CI では必要なデバイスのみ、のように用途で分ける【経験則】。
-- **アラートのノイズ抑制**: Fast retry と「n 拠点以上で X 分間失敗」を組み合わせて一過性の失敗で通知しない設計が公式に推奨される仕組みとして用意されている。[出典](https://docs.datadoghq.com/synthetics/guide/synthetic-test-retries-monitor-status/)。全般は [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md) を参照。
+- **アラートのノイズ抑制**: Fast retry と「n 拠点以上で X 分間失敗」を組み合わせて一過性の失敗で通知しない設計が公式に推奨される仕組みとして用意されている。[出典](https://docs.datadoghq.com/synthetics/guide/synthetic-test-retries-monitor-status/)。全般は [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md) を参照。
 - **WAF・ボット対策**: Synthetic のトラフィックが WAF にブロックされる場合、`synthetics.json` の IP 許可、または `user-agent`・カスタムヘッダーでの識別を設定する。IP 変更検知用に `synthetics.json` 自体を HTTP テストで監視する方法が公式に示されている。[出典](https://docs.datadoghq.com/synthetics/guide/identify_synthetics_bots/)
 - **アナリティクス汚染の回避**: `window._DATADOG_SYNTHETICS_BROWSER` で Web アナリティクスの初期化を抑止できる。
 - **機密情報**: Global variables の難読化、「Do not save response body」、スクリーンショット無効化、Capture HTTP payloads の無効化（PII 残存リスク）を検討する。Private Location の設定ファイルのシークレットは Datadog 側に保存されないため安全に保管する。
-- **IaC 管理**: テスト・Global variables・Private Location は Terraform で管理できる。[Monitoring as Code](../../04_応用編/monitoring-as-code.md) 参照。
+- **IaC 管理**: テスト・Global variables・Private Location は Terraform で管理できる。[Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) 参照。
 
 ## 参照元
 

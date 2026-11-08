@@ -10,23 +10,35 @@ sources:
   - https://www.servicenow.com/docs/r/australia/platform-administration/table-administration-and-data-management/exploring-table-administration.html
   - https://www.servicenow.com/docs/r/australia/platform-administration/table-administration-and-data-management/c_DataDictionaryTables.html
   - https://www.servicenow.com/docs/r/australia/platform-administration/table-administration-and-data-management/table-extension-and-classes.html
+  - https://www.servicenow.com/docs/bundle/zurich-platform-administration/page/administer/table-administration/concept/table-extension-and-classes.html
   - https://www.servicenow.com/docs/r/australia/platform-administration/table-administration-and-data-management/r_GlobalDefaultFields.html
   - https://www.servicenow.com/docs/r/australia/platform-administration/c_UniqueRecordIdentifier.html
   - https://www.servicenow.com/docs/r/australia/platform-administration/table-administration-and-data-management/task-table-structure.html
   - https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/0wR9GHXNkSaxsw8TCJPr7w
   - https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/c_ConfigurationManagementDatabase.html
+  - https://www.servicenow.com/docs/r/api-reference/server-api-reference/c_GlideRecordUtilAPI.html
   - https://www.servicenow.com/docs/r/australia/platform-administration/c_ReferenceField.html
+  - https://servicenow.com/docs/bundle/yokohama-platform-administration/page/script/server-scripting/concept/c_ReferenceQualifiers.html
   - https://www.servicenow.com/docs/r/australia/platform-user-interface/dot-walking-examples.html
   - https://www.servicenow.com/docs/r/australia/application-development/c_ApplicationScope.html
   - https://www.servicenow.com/docs/r/australia/application-development/c_GlobalScope.html
   - https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/LXK5qwxCykj7b7g0ZCKyrg
   - https://www.servicenow.com/docs/r/australia/platform-administration/c_ServiceNowPlugins.html
   - https://www.servicenow.com/docs/r/australia/platform-administration/user-administration/r_BaseSystemRoles.html
+  - https://www.servicenow.com/docs/r/platform-administration/user-administration/base-system-roles.html
+  - https://www.servicenow.com/docs/r/australia/platform-security/t_ConfigureAccessControl.html
   - https://www.servicenow.com/docs/r/australia/platform-security/access-control/exploring-access-control-list.html
+  - https://www.servicenow.com/docs/r/australia/platform-security/access-control/acl-denial-behavior.html
+  - https://www.servicenow.com/docs/r/australia/api-reference/scripts/client-scripts.html
+  - https://www.servicenow.com/docs/r/australia/application-development/servicenow-sdk/acl-api-now-ts.html
+  - https://www.servicenow.com/docs/r/platform-security/instance-security-hardening-settings/sc-enforce-deny-acls-referencing-deleted-roles.html
+  - https://www.servicenow.com/docs/r/xanadu/platform-security/access-control/r_SecurityJumpStartACLRules.html
+  - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-accessmanagement-release-notes.html
   - https://www.servicenow.com/docs/r/australia/api-reference/business-rules-classic/c_BusinessRules.html
   - https://www.servicenow.com/docs/r/australia/application-development/servicenow-sdk/business-rule-api-now-ts.html
-  - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-accessmanagement-release-notes.html
   - https://www.servicenow.com/docs/r/zurich/platform-administration/how-now-platform-works.html
+  - https://www.sec.gov/Archives/edgar/data/1373715/000137371526000007/now-20251231.htm
+  - https://www.oreilly.com/library/view/learning-servicenow/9781788837040/ch05.html
 ---
 
 # 必須の基本概念（Core Concepts）
@@ -210,9 +222,9 @@ ServiceNow では、テーブルやフィールドの「定義情報」自体も
 - **インスタンス間移送の整合性の鍵である**：Update Set や XML で移したレコードは sys_id が保たれる。そのため、移送元と移送先で同じ sys_id を持つ「同一レコード」として扱われる。逆に、移送先で手作業により同じ内容のレコードを作ると sys_id が異なる別レコードになり、参照が合わなくなる原因になる。【経験則】
 - **番号（Number）とは別物である**：インシデントの `INC0010001` のような **Number（番号）** は人が読むための表示値で、システム内部の一意キーは sys_id である。Task テーブルでは `number` がテーブルの表示値（Display value）として定義されている。[出典](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/0wR9GHXNkSaxsw8TCJPr7w)
 
-### 4.4 すべてのテーブルに自動で付くシステムフィールド
+### 4.4 テーブルに自動で付くシステムフィールド
 
-テーブルを作成すると、次の必須システムフィールドが自動で追加される。これらは削除も変更もできない。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/table-administration-and-data-management/r_GlobalDefaultFields.html)
+テーブルを作成すると、次の必須システムフィールドが自動で追加される。これらは削除も変更もできない。ただし `sys_class_name`（Class）は拡張可能（Extensible）なテーブルにのみ追加される。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/table-administration-and-data-management/r_GlobalDefaultFields.html)
 
 | Label | Name | Type | 内容 |
 |---|---|---|---|
@@ -293,7 +305,7 @@ ServiceNow では、テーブルやフィールドの「定義情報」自体も
 | Escalation | `escalation` | Integer | SLA に基づく経過度合い（Normal、Moderate、High、Overdue） |
 | Task type | `sys_class_name` | System Class Name | タスクの種類（子クラス）。子テーブルで作成すると自動設定 |
 
-- 上記のほか、`assignment_group`（Assignment group、割り当てグループ）も Task のフィールドとして各子テーブルで共通に使われる。【第三者情報】（Packt『Learning ServiceNow』Chapter 5 等）[参考](https://www.oreilly.com/library/view/learning-servicenow/9781788837040/ch05.html)
+- 上記のほか、`assignment_group`（Assignment group、割り当てグループ）も Task のフィールドとして各子テーブルで共通に使われる。Australia 版「Important Task table fields」には掲載がなく、公式ページでの裏付けは確認できなかったため第三者情報として記す。【第三者情報】（Packt『Learning ServiceNow』Chapter 5 等）[参考](https://www.oreilly.com/library/view/learning-servicenow/9781788837040/ch05.html)
 - 子テーブル（例：`incident`）は上記を継承したうえで、独自フィールド（例：`caller_id`、`category`）を追加する。子テーブルによって `state` の選択肢は上書き・追加されることがある（例：Incident の New / In Progress / On Hold / Resolved / Closed / Canceled）。【経験則】詳細は [Incident Management](../02_リファレンス/itsm/incident-management.md) を参照。
 - Task を拡張しているからこそ、SLA、承認（Approval）、割り当て、通知、Activity（活動履歴）、Workspace など「仕事」に共通の仕組みを、インシデントでも変更でも人事ケースでも同じように使える。【経験則】
 - **ベストプラクティス**：独自の「業務の依頼・対応」アプリを作るときは、Task を拡張したテーブルにすると、上記の共通機能を流用できる。一方で、Task 拡張テーブルはライセンス（サブスクリプション）上のカウント対象になりうるため、ライセンス条件の確認が必要である。【経験則】ライセンス面は [ライセンスモデル](../03_導入編/01-licensing-model.md) を参照。
@@ -337,7 +349,7 @@ flowchart TB
 
 ### 6.1 Reference フィールド
 
-**Reference field（参照フィールド）** は、別テーブルのレコードへのリンクを保存するフィールドである。例えば Incident テーブルの **Caller（`caller_id`、起票者）** フィールドは、User [`sys_user`] テーブルへの参照である。参照フィールドを定義すると 2 つのテーブル間に関係が作られ、フォームに参照フィールドを置くと参照先テーブルの他のフィールドもフォームで使えるようになる。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/c_ReferenceField.html)
+**Reference field（参照フィールド）** は、別テーブルのレコードへのリンクを保存するフィールドである。例えば Incident テーブルの **Caller（`caller_id`、発信者）** フィールドは、User [`sys_user`] テーブルへの参照である。参照フィールドを定義すると 2 つのテーブル間に関係が作られ、フォームに参照フィールドを置くと参照先テーブルの他のフィールドもフォームで使えるようになる。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/c_ReferenceField.html)
 
 | 項目 | 内容 |
 |---|---|
@@ -356,7 +368,7 @@ flowchart TB
 
 ### 6.2 Dot-walking（ドットウォーク）
 
-**Dot-walking（ドットウォーク）** は、参照フィールドを経由して関連テーブルのフィールドにアクセスする操作である。フォーム、リスト、フィルター、条件ビルダー、スクリプトなどで使える。スクリプトでは JavaScript のドット記法で書く（例：`caller_id.vip` で「起票者の VIP フラグ」）。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/dot-walking-examples.html)
+**Dot-walking（ドットウォーク）** は、参照フィールドを経由して関連テーブルのフィールドにアクセスする操作である。フォーム、リスト、フィルター、条件ビルダー、スクリプトなどで使える。スクリプトでは JavaScript のドット記法で書く（例：`caller_id.vip` で「発信者の VIP フラグ」）。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/dot-walking-examples.html)
 
 - 参照先のフィールドがさらに参照フィールドであれば、続けてたどれる（例：`caller_id.manager.email`）。【経験則】
 - データをコピーせずに「関連先の最新値」を表示・条件判定に使えるため、ServiceNow で非常によく使う。【経験則】
@@ -372,7 +384,7 @@ flowchart TB
 
 | 観点 | Table extension（拡張） | Reference（参照） |
 |---|---|---|
-| 関係の意味 | 「インシデント **は** タスク **である**」（is-a） | 「インシデント **は** 起票者（ユーザー）**を持つ**」（has-a） |
+| 関係の意味 | 「インシデント **は** タスク **である**」（is-a） | 「インシデント **は** 発信者（ユーザー）**を持つ**」（has-a） |
 | 設定できる時期 | テーブル作成時のみ | いつでもフィールドとして追加可能 |
 | データ | 子レコードは親のフィールドを自分の項目として持つ | 参照先の sys_id だけを持ち、項目はドットウォークでたどる |
 | 例 | `incident` extends `task` | `incident.caller_id` → `sys_user` |
@@ -414,7 +426,8 @@ flowchart TB
 | Plugin（プラグイン） | インストール済みアプリケーションに機能を追加し、ServiceNow AI Platform の機能を拡張する |
 | Application（アプリケーション） | 一連の機能を実装する独立したコードのまとまり。**ServiceNow Store** からインストールするか、自分で作成する |
 
-- プラグインには `com.` で始まる ID がある（例：SNC Access Control の `com.snc.snc_access_control`、Customer Service Base Entities の `com.snc.cs_base`）。[出典（ACL 設定ページ）](https://www.servicenow.com/docs/r/platform-security/t_ConfigureAccessControl.html)、[出典（Australia コア機能リリースノート）](https://www.servicenow.com/docs/r/de-DE/release-notes/core-platform-rn.html)
+- プラグインには `com.` で始まる ID がある（例：SNC Access Control プラグインの ID は `com.snc.snc_access_control`）。[出典（Configure access control、Australia）](https://www.servicenow.com/docs/r/australia/platform-security/t_ConfigureAccessControl.html)
+  - 注：Australia 版「ServiceNow plugins」ページ自体には個別のプラグイン ID の例は載っていない。インスタンス上では All > **System Definition > Plugins**（または Application Manager）で各プラグインの ID を確認できる。【経験則】
 
 ### 8.2 有効化（Activate）のルール
 
@@ -485,16 +498,18 @@ flowchart TB
 
 - ユーザーがアクセスするには、ACL に記載された **すべての条件を満たす** 必要がある。[出典](https://www.servicenow.com/docs/r/australia/platform-security/access-control/exploring-access-control-list.html)
 - レコードへのアクセスでは、**テーブルレベルの ACL とフィールドレベルの ACL の両方** を通過する必要がある。[出典](https://www.servicenow.com/docs/r/australia/platform-security/access-control/exploring-access-control-list.html)
-- 同じ評価段階で複数の ACL が一致した場合は、**どれか 1 つを通過すれば** アクセスが許可される。[出典](https://www.servicenow.com/docs/r/yokohama/platform-security/access-control/exploring-access-control-list.html)
-- **Deny by default**：ロール・セキュリティ属性・データ条件・スクリプトのいずれも持たない「空の ACL」や、存在しないロールを参照する等の「無効な ACL」は、アクセスを完全に拒否する。[出典](https://www.servicenow.com/docs/r/australia/platform-security/access-control/exploring-access-control-list.html)
+- 同じ評価段階で **Allow-If** ACL が複数一致した場合は、**どれか 1 つを通過すれば** アクセスが許可される。[出典](https://www.servicenow.com/docs/r/australia/platform-security/access-control/exploring-access-control-list.html)
+- **Deny-Unless** ACL は Allow-If ACL より **先に** 評価され、優先される。一致した Deny-Unless ACL が複数ある場合は **すべて** を満たす必要があり、1 つでも満たさなければ Allow-If の結果にかかわらず拒否される。Deny-Unless を通過しただけでは許可にならず、一致する Allow-If ACL があればその許可が必要になる。なお、公式ページは「一致する Allow-If ACL がなく Deny-Unless ACL を通過した場合は既定で許可される」と「Deny-Unless が一致しても、アクセスは Allow-If ACL が明示的に許可したときにのみ与えられる」の両方を記載しており、ページ内で記述が食い違っている。実際の挙動はベースシステムの既定 ACL やテーブルの Allow-If ACL の有無に左右されるため、「Deny-Unless だけを置けば許可される」と考えず、インスタンスの Access Analyzer や ACL のデバッグで確認すること。詳細は [アクセス制御（ACL）](../02_リファレンス/platform/access-control-acl.md) を参照。[出典（Deny-Unless ACL）](https://www.servicenow.com/docs/r/australia/platform-security/access-control/acl-denial-behavior.html)
+- **Deny by default**：ロール・セキュリティ属性・データ条件・スクリプトのいずれも持たない「空の ACL」や、存在しないロールを参照する等の「無効な ACL」は、アクセスを完全に拒否する、と Australia 版の公式ページは説明している（存在しないロールを参照する ACL の扱いについては、[10.3](#103-australia--brazil-での主な変更) の Brazil での変更と注記も参照）。[出典](https://www.servicenow.com/docs/r/australia/platform-security/access-control/exploring-access-control-list.html)
 - ACL の作成・更新には **`security_admin` への昇格** が必要。それ以外の管理者は既存 ACL の閲覧とデバッグができる。[出典](https://www.servicenow.com/docs/r/australia/platform-security/access-control/exploring-access-control-list.html)
-- ACL レコードは Access Control [`sys_security_acl`] テーブルに保存される。[出典](https://www.servicenow.com/docs/r/xanadu/platform-security/access-control/r_SecurityJumpStartACLRules.html)
+- ACL レコードは Access Control [`sys_security_acl`] テーブルに保存される。[出典](https://www.servicenow.com/docs/r/australia/application-development/servicenow-sdk/acl-api-now-ts.html)
 
 ![incident.* に対する report_view 操作の ACL レコード画面](../assets/images/04-core-concepts/acl-incident-record-form.png)
 
 **図 4：ACL レコードのフォーム（`incident.*` の report_view）**
 
 - 画面の説明：ヘッダーは「Access Control incident.*」。Type = record、Operation = report_view、Admin overrides にチェック、Protection policy = -- None --、Name = incident.*、Description = 「Allow report_view for all fields in incident, for users with role (sn_incident_read, itil).」、右側に Application = Global、Active にチェック。下部の **Definition** 欄の青い説明枠には「Access Control Rules は次の 3 つのチェックがすべて true の場合に許可する：①ユーザーが Role リストのいずれかのロールを持つ（またはリストが空）、②Condition が true（または空）、③Script が true を返すか answer を true にする（または空）。3 つのチェックは表示順に独立して評価される」と書かれている。**Requires role** リストには `itil` と `sn_incident_read`、Condition は空（「67 records match condition」）である。
+- 補足：「（またはリストが空）」「（または空）」は、3 つのチェックそれぞれについて「その項目が未設定ならそのチェックは通過とみなす」という意味である。ただし、ロール・セキュリティ属性・データ条件・スクリプトの **すべてが空** の ACL は、10.1 の **Deny by default** により拒否される。[出典](https://www.servicenow.com/docs/r/australia/platform-security/access-control/exploring-access-control-list.html)
 - 出典：https://www.servicenow.com/docs/r/australia/platform-security/access-control/exploring-access-control-list.html （取得日：2026-11-02）
 
 ![ACL の評価フロー図](../assets/images/04-core-concepts/acl-evaluation-flow.png)
@@ -502,7 +517,7 @@ flowchart TB
 **図 5：ACL の評価の流れ（公式ドキュメント Figure「ACL evaluate conditions」）**
 
 - 画面の説明：Start「User requests access to an object（ユーザーがオブジェクトへのアクセスを要求）」→「Find ACL rules matching object（一致する ACL を探す）」。一致する ACL がなければ（No Matches）緑の線で「Grant user access to the object（アクセス許可）」へ進む。一致があれば（Matches Found）「Evaluate permissions of matching ACL rules」へ進み、①「Does the user have one of the requested roles?」②「Is the condition true?」③「Does the script return true?」を順に判定し、すべて Yes なら許可、どこかで No なら「Deny user access to the object（アクセス拒否）」となる。
-- 補足：図は「一致する ACL がなければ許可」と描いているが、公式本文は「ベースシステムではデフォルトの ACL がレコード操作を保護しているため、これはまれ」と説明している。[出典](https://www.servicenow.com/docs/r/yokohama/platform-security/access-control/exploring-access-control-list.html)
+- 補足：図は「一致する ACL がなければ許可」と描いているが、公式本文は「ベースシステムではデフォルトの ACL がレコード操作を保護しているため、これはまれ」と説明している。[出典](https://www.servicenow.com/docs/r/australia/platform-security/access-control/exploring-access-control-list.html)
 - 出典：https://www.servicenow.com/docs/r/australia/platform-security/access-control/exploring-access-control-list.html （取得日：2026-11-02）
 
 ### 10.2 ロールと ACL の関係
@@ -521,6 +536,8 @@ flowchart TB
 
 > **Brazil での変更:** 参照しているロールが **1 つもインスタンスに存在しない** ACL は、厳格にアクセス拒否（strict denial）されるようになった（有効なロールと無効なロールが混在する ACL は対象外）。新規インスタンスでは既定で有効、アップグレードしたインスタンスではシステムプロパティ `glide.security.acl_with_invalid_roles_strict_deny` で有効化する。対象 ACL は Access Findings の Access Checks リストで確認できる。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-accessmanagement-release-notes.html)
 
+> **注（10.1 の Deny by default との関係）:** Australia 版の「Explore Access Control Lists」は「存在しないロールを参照する ACL は無効な ACL として拒否される」と一般論として説明している。一方、Brazil 版のセキュリティ強化設定のページは、`glide.security.acl_with_invalid_roles_strict_deny` が `true` なら「存在しないロールだけを参照する ACL」は明示的に拒否されてエラーが記録されるが、`false` の場合は既定のロジックにフォールバックし、認証状態だけでアクセスが許可されうる、と説明している。したがって、存在しないロールだけを参照する ACL が **既定で確実に拒否される** のは、Brazil 以降の新規インスタンス、またはアップグレードしたインスタンスでこのプロパティを有効にした場合に限られる。Australia の時点で、この種の ACL が実際にどう評価されていたかを明確に述べた公式記述は、公開情報では確認できず。運用上は、存在しないロールを参照する ACL を放置せず、有効なロールに修正すること。[出典（Explore ACL、Australia）](https://www.servicenow.com/docs/r/australia/platform-security/access-control/exploring-access-control-list.html)、[出典（Enforce deny for ACLs referencing deleted roles）](https://www.servicenow.com/docs/r/platform-security/instance-security-hardening-settings/sc-enforce-deny-acls-referencing-deleted-roles.html)
+
 ACL の評価順序、ワイルドカード ACL、Query ACL、デバッグ方法などの詳細は [アクセス制御（ACL）](../02_リファレンス/platform/access-control-acl.md) を参照。
 
 ## 11. Business rule（ビジネスルール）
@@ -530,7 +547,7 @@ ACL の評価順序、ワイルドカード ACL、Query ACL、デバッグ方法
 **Business rule（ビジネスルール）** は、レコードが **表示（display）・登録（insert）・更新（update）・削除（delete）** されるとき、またはテーブルが **照会（query）** されるときに実行される **サーバーサイドスクリプト** である。All > **System Definition > Business Rules** で作成し、Table、操作（Insert / Update / Delete / Query）、条件、スクリプトを設定する。[出典](https://www.servicenow.com/docs/r/australia/api-reference/business-rules-classic/c_BusinessRules.html)
 
 - Australia の公式ドキュメントは、ビジネスルールを **クラシックな自動化手段** と位置づけ、「新しいプロセス自動化には **Workflow Studio** を使い、ビジネスルールは既存のものの保守に使う」ことを推奨している。[出典](https://www.servicenow.com/docs/r/australia/api-reference/business-rules-classic/c_BusinessRules.html) Workflow Studio は [Workflow Studio / Flow Designer](../02_リファレンス/platform/flow-designer-workflow-studio.md) を参照。
-- ビジネスルールのレコード自体も Business Rule [`sys_script`] テーブルに保存される。[出典](https://www.servicenow.com/docs/r/xanadu/platform-security/access-control/r_SecurityJumpStartACLRules.html)
+- ビジネスルールのレコード自体も Business Rule [`sys_script`] テーブルに保存される。[出典](https://www.servicenow.com/docs/r/australia/application-development/servicenow-sdk/business-rule-api-now-ts.html)
 
 ### 11.2 実行タイミング（When）
 
@@ -579,10 +596,12 @@ sequenceDiagram
 
 | 観点 | Business rule | Client script（クライアントスクリプト） |
 |---|---|---|
-| 実行場所 | サーバー | ブラウザ（フォーム上） |
-| 効く範囲 | フォーム、リスト、Web サービスなど **すべてのアクセス経路** | フォームのみ（リスト編集では動かない） |
+| 実行場所 | サーバー | ブラウザ（主にフォーム上） |
+| 効く範囲 | フォーム、リスト、Web サービスなど **すべてのアクセス経路** | 主にフォーム（onLoad / onChange / onSubmit）と検索ページ。リスト編集では **onCellEdit** タイプのみが動く。ブラウザで動くため、Web サービスやインポートなどサーバー経由の更新では動かない |
 | 画面への即時反映 | なし（保存後に結果が見える） | あり（入力中にフォームを制御） |
 | 推奨される使い分け | データの整合性・強制ルール | 入力補助・フォームの動的制御 |
+
+Client script は一般にフォームと検索ページでのみ動き、リストでは `onCellEdit()` タイプ（リストエディタでセルの値を変更したときに動く）を除いて動かない。[出典（Client scripts）](https://www.servicenow.com/docs/r/australia/api-reference/scripts/client-scripts.html)
 
 公式ドキュメントは、同じフィールドの制御について「フォーム体験のためのクライアントスクリプト」と「すべての経路で強制するためのビジネスルール（またはアクセス制御）」の両方を実装することを推奨している。[出典](https://www.servicenow.com/docs/r/australia/api-reference/business-rules-classic/c_BusinessRules.html)
 
@@ -590,7 +609,7 @@ sequenceDiagram
 
 ## 12. 「設定もレコード」という原則
 
-ServiceNow では、顧客の設定・カスタマイズはプラットフォームのソースコードを書き換えるのではなく、**インスタンスのテーブルにメタデータ（レコード）として保存** される。例えば、テーブル定義は `sys_db_object`、フィールド定義は `sys_dictionary`、ビジネスルールは `sys_script`、ACL は `sys_security_acl` のレコードである。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/table-administration-and-data-management/c_DataDictionaryTables.html)
+ServiceNow では、顧客の設定・カスタマイズはプラットフォームのソースコードを書き換えるのではなく、**インスタンスのテーブルにメタデータ（レコード）として保存** される。例えば、テーブル定義は `sys_db_object`、フィールド定義は `sys_dictionary`、ビジネスルールは `sys_script`、ACL は `sys_security_acl` のレコードである。[出典（sys_db_object / sys_dictionary）](https://www.servicenow.com/docs/r/australia/platform-administration/table-administration-and-data-management/c_DataDictionaryTables.html)、[出典（sys_script）](https://www.servicenow.com/docs/r/australia/application-development/servicenow-sdk/business-rule-api-now-ts.html)、[出典（sys_security_acl）](https://www.servicenow.com/docs/r/australia/application-development/servicenow-sdk/acl-api-now-ts.html)
 
 この原則から、次のことが導かれる。【経験則】
 
@@ -601,7 +620,7 @@ ServiceNow では、顧客の設定・カスタマイズはプラットフォー
 | 設定の移送 = レコードの移送 | Update Set は「設定レコードの変更」を記録し、別インスタンスで再生する仕組み。sys_id が保たれる |
 | 設定にもスコープと ACL が効く | 設定レコードもいずれかのアプリケーションスコープに属し、ACL で保護される |
 
-アップグレード時のスキップの扱いは [アップグレード管理](../03_導入編/13-upgrade-management.md) と [カスタマイズと技術的負債](../04_応用編/02-customization-technical-debt.md) を参照。
+アップグレード時のスキップの扱いは [アップグレード管理](../03_導入編/13-upgrade-management.md) と [アップグレードの教訓](../04_応用編/04-upgrade-lessons.md) を参照。
 
 ## 13. その他よく出る用語（一覧）
 
@@ -609,7 +628,7 @@ ServiceNow では、顧客の設定・カスタマイズはプラットフォー
 
 | 用語（英語 / 日本語） | 一言説明 | 詳細 |
 |---|---|---|
-| Client script（クライアントスクリプト） | ブラウザで動くフォーム制御スクリプト（onLoad / onChange / onSubmit など） | [クライアントサイドスクリプト](../02_リファレンス/platform/scripting-client-side.md) |
+| Client script（クライアントスクリプト） | ブラウザで動くフォーム制御スクリプト（onLoad / onChange / onSubmit、リスト編集用の onCellEdit） | [クライアントサイドスクリプト](../02_リファレンス/platform/scripting-client-side.md) |
 | UI policy（UI ポリシー） | スクリプトなしでフィールドの必須・読み取り専用・表示を切り替える | 同上 |
 | Data policy（データポリシー） | 全経路で必須・読み取り専用をサーバー側で強制する | [データモデルとSystem Dictionary](../02_リファレンス/platform/data-model-dictionary.md) |
 | Script include（スクリプトインクルード） | 再利用可能なサーバーサイドの関数・クラス | [サーバーサイドスクリプト](../02_リファレンス/platform/scripting-server-side.md) |
@@ -671,10 +690,12 @@ ServiceNow では、顧客の設定・カスタマイズはプラットフォー
 - ServiceNow plugins（Australia）: https://www.servicenow.com/docs/r/australia/platform-administration/c_ServiceNowPlugins.html
 - Base system roles（Australia）: https://www.servicenow.com/docs/r/australia/platform-administration/user-administration/r_BaseSystemRoles.html
 - Base system roles（Brazil）: https://www.servicenow.com/docs/r/platform-administration/user-administration/base-system-roles.html
-- Configure access control / SNC Access Control（Brazil）: https://www.servicenow.com/docs/r/platform-security/t_ConfigureAccessControl.html
-- ServiceNow AI Platform core feature release notes（Australia、独語版）: https://www.servicenow.com/docs/r/de-DE/release-notes/core-platform-rn.html
+- Configure access control / SNC Access Control（Australia）: https://www.servicenow.com/docs/r/australia/platform-security/t_ConfigureAccessControl.html
 - Explore Access Control Lists（Australia）: https://www.servicenow.com/docs/r/australia/platform-security/access-control/exploring-access-control-list.html
-- Exploring Access Control Lists（Yokohama）: https://www.servicenow.com/docs/r/yokohama/platform-security/access-control/exploring-access-control-list.html
+- Deny-Unless ACL（Australia）: https://www.servicenow.com/docs/r/australia/platform-security/access-control/acl-denial-behavior.html
+- Client scripts（Australia）: https://www.servicenow.com/docs/r/australia/api-reference/scripts/client-scripts.html
+- Access Control List API - ServiceNow Fluent（Australia）: https://www.servicenow.com/docs/r/australia/application-development/servicenow-sdk/acl-api-now-ts.html
+- Enforce deny for ACLs referencing deleted roles（セキュリティ強化設定、Brazil）: https://www.servicenow.com/docs/r/platform-security/instance-security-hardening-settings/sc-enforce-deny-acls-referencing-deleted-roles.html
 - Security jump-start - ACL rules plugin（Xanadu）: https://www.servicenow.com/docs/r/xanadu/platform-security/access-control/r_SecurityJumpStartACLRules.html
 - Access management release notes（Zurich → Brazil 差分）: https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-accessmanagement-release-notes.html
 - Classic Business rules（Australia）: https://www.servicenow.com/docs/r/australia/api-reference/business-rules-classic/c_BusinessRules.html

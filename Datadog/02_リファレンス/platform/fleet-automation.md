@@ -65,8 +65,8 @@ sources:
 | API キー・アプリケーションキーの管理 | [API とキー管理](./api-and-keys.md) |
 | ロール・権限の設計 | [組織・ユーザー・権限管理](./account-and-access-management.md) |
 | 監査ログ | [Audit Trail](./audit-trail.md) |
-| Agent の大規模展開方針（配布方式、更新ポリシー） | [Agent 展開設計](../../03_導入編/agent-rollout-design.md) |
-| ファイアウォール・プロキシ・PrivateLink | [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md) |
+| Agent の大規模展開方針（配布方式、更新ポリシー） | [Agent 展開設計](../../03_導入編/10-agent-rollout-design.md) |
+| ファイアウォール・プロキシ・PrivateLink | [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md) |
 
 ---
 
@@ -334,7 +334,7 @@ Remote Configuration は、配布する設定の機密性・完全性・可用�
 - 署名と検証の実装について、公式ドキュメントは具体的な方式を明記していない。Datadog Agent のソースコードでは、Remote Configuration クライアントが TUF（The Update Framework）系のライブラリ（`go-tuf`）と Uptane 方式のメタデータ検証を使っていることが確認できる。[出典](https://github.com/DataDog/datadog-agent/blob/main/pkg/config/remote/service/service.go)
 - Agent の flare は、パスワード、API キー、プロキシ認証情報、SNMP コミュニティ文字列などの機微情報を除去してから送られる。flare 収集の実装はオープンソースで確認できる。[出典](https://docs.datadoghq.com/agent/troubleshooting/send_a_flare/)
 - Fleet View に表示される Agent 構成は、機微情報をスクラブしたものである。[出典](https://github.com/DataDog/datadog-agent/blob/main/pkg/config/example/datadog-agent_linux.yaml.example)
-- 監査要件全般は [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md) と [Audit Trail](./audit-trail.md) を参照。
+- 監査要件全般は [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md) と [Audit Trail](./audit-trail.md) を参照。
 
 ### 2.9 Remote Configuration の権限（RBAC）
 
@@ -896,7 +896,7 @@ resource "datadog_fleet_schedule" "staging" {
 
 [出典](https://docs.datadoghq.com/agent/fleet_automation/upgrade_agents/) [出典](https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/fleet_schedule)
 
-IaC 全般は [Terraform と IaC](./terraform-and-iac.md) と [Monitoring as Code](../../04_応用編/monitoring-as-code.md) を参照。
+IaC 全般は [Terraform と IaC](./terraform-and-iac.md) と [Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) を参照。
 
 > **注記:** API リファレンスでは、スケジュールの `version_to_latest` を「Number of major versions behind the latest」と説明している。UI の選択肢は「最新／1 つ前／2 つ前のバージョン」で、Agent 7 系のマイナーバージョンを指すと考えられる。説明文の「major」は、厳密なセマンティックバージョニングの意味ではない可能性がある【推定】。[出典](https://docs.datadoghq.com/api/latest/fleet-automation/)
 
@@ -930,7 +930,7 @@ Ansible / Chef / Puppet などを使う環境で Fleet Automation を導入す�
 - バージョン固定（`DD_AGENT_MINOR_VERSION` など）を外し、Fleet Automation に任せる
 - Fleet Automation のアップグレードを使わない
 
-展開方針の設計は [Agent 展開設計](../../03_導入編/agent-rollout-design.md) を参照。
+展開方針の設計は [Agent 展開設計](../../03_導入編/10-agent-rollout-design.md) を参照。
 
 ### 6.7 SDK のリモートアップグレード（Upgrade SDKs）【Preview】
 
@@ -1202,7 +1202,7 @@ Fleet Automation の参照機能（Fleet View）は、組織の全ユーザー�
 - **注意:** 大量のホストへ一括でデプロイすると、課金対象も一度に増える。スコープ（対象ホスト数）を確認してから配布する【経験則】。
 - `infrastructure_mode`（例: `full`、`basic`、`end_user_device`、`cloud_cost_only`）も Fleet Automation で変更できるフィールドに含まれる。モードによって収集範囲が変わるため、ホストの課金区分に影響しうる。詳細は [Agent 設定リファレンス](./agent-configuration.md) と料金ファイルを参照。
 
-料金の数値は [製品別料金表（料金の正本）](../../03_導入編/pricing-by-product.md)、課金計算は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+料金の数値は [製品別料金表（料金の正本）](../../03_導入編/02-pricing-by-product.md)、課金計算は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 
 ---
 
@@ -1223,7 +1223,7 @@ Fleet Automation の参照機能（Fleet View）は、組織の全ユーザー�
 | 11 | 閉域・プロキシ環境では `config.<site>` を許可リストへ追加し忘れやすい。その場合のステータスは CONNECTION ERROR になる | 公式 [setup_remote_config](https://docs.datadoghq.com/agent/guide/setup_remote_config/) |
 | 12 | Datadog Disaster Recovery（DDR）【Limited Availability】の推奨フェイルオーバー方式は、顧客主導の DNS フェイルオーバーである。DASH 2026 のまとめ記事は「Fleet Automation と Remote Configuration による Agent のカットオーバー」にも触れているが、公式ドキュメントでは手順を確認できず（アカウントチームに相談） | 公式 [disaster_recovery](https://docs.datadoghq.com/disaster_recovery/)、[DASH 2026 まとめ](https://www.datadoghq.com/blog/dash-2026-new-feature-roundup-scale/)（2026-06-09） |
 
-大規模・マルチ org 環境での運用は [大規模・マルチorg運用](../../04_応用編/large-scale-and-multi-org.md)、運用設計は [運用設計](../../03_導入編/operations-design.md)、よくある失敗は [よくある失敗とアンチパターン](../../04_応用編/common-pitfalls.md) を参照。
+大規模・マルチ org 環境での運用は [大規模・マルチorg運用](../../04_応用編/15-large-scale-and-multi-org.md)、運用設計は [運用設計](../../03_導入編/13-operations-design.md)、よくある失敗は [よくある失敗とアンチパターン](../../04_応用編/12-common-pitfalls.md) を参照。
 
 ---
 
@@ -1256,8 +1256,8 @@ Fleet Automation の参照機能（Fleet View）は、組織の全ユーザー�
 - [APM の概念とインジェスト制御](../apm/apm-concepts-and-ingestion.md) / [Dynamic Instrumentation と Live Debugger](../apm/dynamic-instrumentation.md)
 - [App and API Protection](../security/app-and-api-protection.md) / [Workload Protection](../security/workload-protection.md)
 - [Observability Pipelines](../logs/observability-pipelines.md)
-- [Agent 展開設計](../../03_導入編/agent-rollout-design.md) / [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md) / [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md)
-- [Datadogのアーキテクチャ概観](../../01_入門編/architecture-overview.md)
+- [Agent 展開設計](../../03_導入編/10-agent-rollout-design.md) / [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md) / [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md)
+- [Datadogのアーキテクチャ概観](../../01_入門編/03-architecture-overview.md)
 
 ---
 

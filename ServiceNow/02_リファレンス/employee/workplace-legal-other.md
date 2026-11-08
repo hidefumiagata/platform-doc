@@ -23,6 +23,8 @@ sources:
   - https://www.servicenow.com/docs/r/baBFTRuHLgu7HSwp0SUEQQ/SwW8LJTZ6TE1EYPWVkAOBg
   - https://www.servicenow.com/docs/r/baBFTRuHLgu7HSwp0SUEQQ/WRRkpISSefEIqX0R6LoF~w
   - https://www.servicenow.com/docs/r/employee-service-management/employee-service-management-overview.html
+  - https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/V44L4zPUcwdhYPJpcZ6pnA
+  - https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-Otto-creates-the-unified-AI-experience-for-the-enterprise/default.aspx
 ---
 
 # Workplace Service Delivery・Legal Service Delivery 等
@@ -38,7 +40,7 @@ sources:
 
 加えて、IT・HR・ワークプレイス・法務・調達・財務などを1つのプラットフォーム上で提供する考え方である **Enterprise Service Management（ESM、エンタープライズサービス管理）** の全体像と、部門横断の共通部品（Employee Center Pro、Universal Request など）を整理する。
 
-- 基準リリースは **Australia**（2026-05 GA）。WSD・LSD はいずれも ServiceNow Store から配布される「ストアアプリ」であり、ファミリーリリースとは別に年数回（例：2026年3月、6月、7月）アプリ単体のバージョンアップが提供される点に注意する。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/V44L4zPUcwdhYPJpcZ6pnA)
+- 基準リリースは **Australia**（2026-05 GA）。WSD・LSD はいずれも ServiceNow Store から配布される「ストアアプリ」であり、ファミリーリリースとは別に年数回（例：2026年3月、6月、7月、9月）アプリ単体のバージョンアップが提供される点に注意する。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/V44L4zPUcwdhYPJpcZ6pnA)
 - HR Service Delivery は [hr-service-delivery.md](./hr-service-delivery.md)、Employee Center は [../platform/portals-employee-center.md](../platform/portals-employee-center.md)、財務・調達系ワークフローは [../other/finance-supply-chain-esg.md](../other/finance-supply-chain-esg.md) を参照。
 
 > **Brazil での変更:** Brazil 版ドキュメント（2026-09-10 更新）の Employee Service Management 概要では、Employee Slate が **EmployeeWorks Web App（formerly Employee Slate）** として掲載され、生成 AI 機能は「Otto for HRSD」のように **ServiceNow Otto** ブランドで記載されている。WSD・LSD 固有の Brazil 新機能は公開情報では確認できず。[出典](https://www.servicenow.com/docs/r/employee-service-management/employee-service-management-overview.html)
@@ -51,7 +53,7 @@ sources:
 
 Enterprise Service Management（ESM）は、ITSM で確立した「サービスカタログ → リクエスト/ケース → 割り当て → SLA → ナレッジ → セルフサービス」という型を、IT 以外の部門（HR、ワークプレイス、法務、財務、調達、マーケティング等）に展開するアプローチである。ServiceNow では単一データモデル（Now Platform）上に各部門アプリを載せるため、従業員は Employee Center（従業員ポータル）という1つの入口から全部門に依頼でき、部門間の引き継ぎもタスク連携で行える。[出典](https://www.servicenow.com/docs/r/employee-service-management/employee-service-management-overview.html)
 
-ServiceNow 公式ブログ（UK、2026年）では「ESM Foundation」として IT、HR、財務、調達、法務、ワークプレイスを単一プラットフォームに集約する文脈で ESM を説明している（本文はアクセス制限により詳細未確認）。[出典](https://www.servicenow.com/uk/blogs/2026/enterprise-service-management-foundation)
+ServiceNow 公式ブログ（UK、2026年）に「ESM Foundation」を題材とした記事があるが、本文はアクセス制限により取得できず、記事の主張内容は公開情報では確認できず。[出典](https://www.servicenow.com/uk/blogs/2026/enterprise-service-management-foundation)
 
 ### 1.2 Employee Service Management 配下の製品一覧
 
@@ -85,7 +87,7 @@ ServiceNow 公式ドキュメントの「Employee Service Management」配下に
 
 [出典](https://www.servicenow.com/docs/r/employee-service-management/employee-service-management-overview.html)
 
-> **ServiceNow Otto について:** 2026 年に Now Assist・Moveworks・AI Experience のブランドが **ServiceNow Otto** に統合され、製品内ラベル・ドキュメントの名称が順次変更された（Store リリースノート Version 15.1.4、2026-08）。Australia 版ドキュメント（2026-03 以降の更新分）でも「ServiceNow Otto for WSD」「ServiceNow Otto for LSD」と記載されているため、本ファイルでは旧称 Now Assist for WSD / LSD と同義として扱う。[出典](https://www.servicenow.com/docs/r/store-release-notes/na-suite-rn-2026-07-09.html) 【第三者情報】改称時期の詳細は第三者記事に依拠：[出典](https://www.scaler.com/topics/servicenow-assist-features/)
+> **ServiceNow Otto について:** **ServiceNow Otto** は Knowledge 2026（2026-05-05）で発表された、Now Assist・Moveworks・AI Experience を統合する AI 体験のブランドである。[出典](https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-Otto-creates-the-unified-AI-experience-for-the-enterprise/default.aspx) その後、Store アプリの名称は順次「Now Assist → ServiceNow Otto」に変更されている。例として、2026-07-09 の Now Assist Suite ストアリリースノートには ServiceNow Otto for Conversational Spokes 1.1.1（Rebranding from Now Assist to ServiceNow Otto）と ServiceNow Otto for Integration Hub 2.3.1（Name change from Now Assist to ServiceNow Otto）が載っている。[出典](https://www.servicenow.com/docs/r/store-release-notes/na-suite-rn-2026-07-09.html) 現行の公式ドキュメントでは「ServiceNow Otto for WSD」「ServiceNow Otto for LSD」と表記されているため、本ファイルではこれらを旧称 Now Assist for WSD / LSD と同義として扱う。WSD / LSD 向けアプリそれぞれの改称バージョンと日付は、公開情報では確認できず。
 
 ### 1.4 ESM のアーキテクチャ（概念図）
 
@@ -110,7 +112,7 @@ flowchart LR
 
 ### 2.1 WSD の概要
 
-Workplace Service Delivery（WSD）は、オフィスの拠点・建物・フロア・スペースのマスタを基盤に、会議室/座席/駐車場の予約、来訪者受付、ファシリティ依頼（ワークプレイスケース）、席替え・移転、スペース計画、リース管理、予防保全を提供するスイートである。基盤アプリは **Workplace Core（`sn_wsd_core`）** で、その他のアプリはすべて Workplace Core のロケーション・ユーザープロファイル・タスクを前提とする。[出典](https://www.servicenow.com/docs/r/etYGEBUVr6RQYKLnfpRuhw/n4ywu0ry80o6PRvDrc3USQ)
+Workplace Service Delivery（WSD）は、オフィスの拠点・建物・フロア・スペースのマスタを基盤に、会議室/座席/駐車場の予約、来訪者受付、ファシリティ依頼（ワークプレイスケース）、席替え・移転、スペース計画、リース管理、予防保全を提供するスイートである。**Workplace Core（`sn_wsd_core`）** は WSD スイートの中核アプリで、ワークプレイスデータと運用管理の基盤（foundation for managing workplace data and operations）である。他の WSD アプリは Workplace Core のロケーション階層等を参照して動作する【推定】。[出典](https://www.servicenow.com/docs/r/etYGEBUVr6RQYKLnfpRuhw/n4ywu0ry80o6PRvDrc3USQ)
 
 ### 2.2 WSD アプリケーション一覧（Australia）
 
@@ -118,7 +120,7 @@ Workplace Service Delivery（WSD）は、オフィスの拠点・建物・フロ
 |---|---|---|
 | 1 | Workplace Core（`sn_wsd_core`） | ロケーション階層、スペース割当、シフト計画、予防保全の基盤データ |
 | 2 | Workplace Reservation Management（`sn_wsd_rsv`） | 座席・会議室・駐車場等の予約。繰り返し予約、複数日予約に対応 |
-| 3 | ServiceNow Otto for WSD（旧 Now Assist for WSD） | 生成 AI によるスペース予約、サービス/ゲスト追加。エージェント型 AI により緊急時に影響スペースを閉鎖する等の自動化 |
+| 3 | ServiceNow Otto for WSD（旧 Now Assist for WSD） | 生成 AI によるスペース予約、サービス/ゲスト追加。エージェント型 AI により、緊急保全依頼時に影響スペースをブロック（予約不可化）し、既存予約を別ロケーションへ自動で移す等の自動化 |
 | 4 | Workplace Concierge | 出社日の設定、同僚の出社予定の参照、ワークスペースの提案 |
 | 5 | Workplace Central | 計画担当・管理者向けワークスペース（スペース最適化、リース、予防保全、移転、予約） |
 | 6 | Indoor Mapping | キャンパス/建物/フロアの屋内マップと経路案内。Map Studio で地図を設計 |
@@ -140,7 +142,10 @@ Workplace Service Delivery（WSD）は、オフィスの拠点・建物・フロ
 
 #### 2.2.1 パッケージ（Professional / Enterprise）
 
-WSD は Store 上で **Workplace Service Delivery Professional** などのスイートアプリとして配布され、ライセンスを保有する WSD アプリを一括でダウンロードできる。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/~KhcWnwrYsWoFXx7sK~nQw)
+WSD は Store 上で、ライセンスを保有する WSD アプリを一括でダウンロードできるスイートアプリとして配布される。名前が似た次の2つは別のアプリなので、区別すること。
+
+- **Workplace Service Delivery Suite**：スイート本体（2026-09 時点の最新は 2.17.21）。2.12.1（2024-05）で一時的に「Workplace Service Delivery Professional」に改称され、2.15.0（2025-02）で Suite の名称に戻った。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/V44L4zPUcwdhYPJpcZ6pnA)
+- **Workplace Service Delivery Professional**：上記とは別に、独自のリリースノートとバージョン系列（v1.4.22、2026-09 など）を持つアプリ。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/~KhcWnwrYsWoFXx7sK~nQw)
 
 | パッケージ | 含まれる主な機能（第三者情報） |
 |---|---|
@@ -165,7 +170,7 @@ Workplace Core のロケーションは `sn_wsd_core_workplace_location` を親�
 | 5 | `sn_wsd_core_floor`（Floor、フロア） | フロア |
 | 6 | `sn_wsd_core_area`（Area、エリア） | フロア内のエリア |
 | 7 | `sn_wsd_core_space`（Space、スペース） | 座席・会議室などのワークスペース |
-| 拡張 | `sn_wsd_core_room`（Room / Workplace rooms） | Space を拡張した部屋と予約可能アイテム |
+| 拡張 | `sn_wsd_core_room`（Room） | Space を拡張した部屋と予約可能アイテム（Australia の「Workplace rooms」ラベルについては 2.4.3 の注記を参照） |
 
 ```mermaid
 flowchart TD
@@ -266,6 +271,8 @@ Workplace Reservation Management（`sn_wsd_rsv`）は、従業員が座席（デ
 | `sn_wsd_core_space_suggestion_configuration` | Space Suggestion Configuration | スペース提案ロジック（Workplace Concierge 必須） |
 
 [出典](https://www.servicenow.com/docs/r/etYGEBUVr6RQYKLnfpRuhw/QYKjytkdmFPLmoqtme_XkQ)
+
+> 注記：Australia 版の Reservation Management コンポーネントページでは、Workplace rooms は `sn_wsd_core_room_list`（Space を拡張）である。一方、Yokohama 版の Workplace Core コンポーネントページでは、`sn_wsd_core_room` にも Room と Workplace rooms の両方のラベルが記載されている。本ファイルでは Australia 版の記載に従い、Workplace rooms を `sn_wsd_core_room_list` として扱う。[出典](https://www.servicenow.com/docs/r/H8yQl2SqBqnT6LbpTm28UQ/qlyKsyedOs1EUQg97dY1zQ)
 
 #### 2.4.4 Reservable Module（予約可能モジュール）の設定項目
 
@@ -374,7 +381,8 @@ Workplace Reservation Management（`sn_wsd_rsv`）は、従業員が座席（デ
 1. スペース側またはモジュール側でチェックインが必須（Override check-in policy = Always require check-in など）。
 2. Reservable Module の **Cancel reservations exceeding check-in time** が選択されている（在席センサーのないスペースの場合）。
 3. `sn_wsd_rsv.time_when_reservation_cancelled_without_check_in`（既定 30 分）を経過。
-4. チェックイン/アウトのリマインダージョブは 30 分間隔で実行される。
+
+なお、チェックイン/アウトのリマインダー・判定ジョブは 30 分間隔で実行される。このため、取消が実行されるのは条件成立から最大 30 分程度遅れる場合がある【推定】。
 
 [出典](https://www.servicenow.com/docs/r/etYGEBUVr6RQYKLnfpRuhw/qUh~e4Hg4WCpht1yoAroFw)、[出典](https://www.servicenow.com/docs/r/etYGEBUVr6RQYKLnfpRuhw/5aHYHdk6riXC2qjL0TOpFQ)
 
@@ -499,9 +507,11 @@ Australia では「Workplace Event Planners」グループが追加され、エ�
 | `sn_wsd_case_fulfillment_instruction` | Fulfillment Instruction | 対応手順 |
 | `sn_wsd_case_workplace_field_mapping` | Workplace Field Mapping | 項目マッピング |
 | `sn_wsd_case_workplace_template_configuration` | Workplace Template Configuration | テンプレート構成 |
-| `sn_wsd_case_approval_option` | Approval Option | 承認オプション |
 
-[出典](https://www.servicenow.com/docs/r/etYGEBUVr6RQYKLnfpRuhw/SaKw9tWWDPYjEYoGehB7Gg)
+
+[出典](https://www.servicenow.com/docs/r/etYGEBUVr6RQYKLnfpRuhw/SaKw9tWWDPYjEYoGehB7Gg)（Australia 版のテーブル一覧は上記 11 テーブル）
+
+承認オプション（Approval options）は、Workplace case Manager ロールの説明で CRUD の対象として言及されている。ただし、それを保持するテーブル名は Australia 版のコンポーネント一覧には載っておらず、公開情報では確認できず。
 
 #### 2.7.4 ワークプレイスケースのフォームと AI 要約
 
@@ -607,20 +617,23 @@ Organization、Visit、Invitations は Xanadu 版の一覧には無く、新し�
 |---|---|
 | 会話型予約 | 生成 AI によるスペース予約、予約へのサービス・ゲスト追加 |
 | Workplace Case Summarization | ケースの項目・コメントを要約し作業メモへ共有（要約入力・プロンプト・アクセスは設定可能） |
-| Workplace Collaboration Agent | 協業効果が高い出社日を推奨し、近くのスペース予約や出社予定者の表示を支援する会話型 AI エージェント（2026-01 リリース。Workplace Reservation Management、Now Assist for WSD、Workplace Concierge のいずれかのプラグインが必要と記載） |
-| エージェント型ワークフロー | 緊急時の影響スペース閉鎖、緊急保全・変更イベントの自動割当（Workplace Event Planners） |
+| Workplace Collaboration Agent | 協業効果が高い出社日を推奨し、近くのスペース予約や出社予定者の表示を支援する会話型 AI エージェント（2026-01 リリース。Workplace Reservation Management、Now Assist for WSD、Workplace Concierge の各プラグインで利用可能と記載。3つすべてが必要か、どれか1つでよいかは公開情報では確認できず）。[出典](https://www.servicenow.com/community/wsd-blog/workplace-service-delivery-what-s-new-in-the-march-12th-release/ba-p/3510149) |
+| エージェント型ワークフロー | 緊急保全依頼時に、AI エージェントが影響スペースをブロック（予約不可化）し、既存予約を別ロケーションへ自動で移す。緊急保全・変更イベントの自動割当（Workplace Event Planners） |
 
-[出典](https://www.servicenow.com/docs/r/etYGEBUVr6RQYKLnfpRuhw/n4ywu0ry80o6PRvDrc3USQ)、[出典](https://www.servicenow.com/community/wsd-blog/workplace-service-delivery-what-s-new-in-the-march-12th-release/ba-p/3510149)。AI 全般は [../platform/now-assist-ai-agents.md](../platform/now-assist-ai-agents.md) を参照。
+[出典](https://www.servicenow.com/docs/r/etYGEBUVr6RQYKLnfpRuhw/n4ywu0ry80o6PRvDrc3USQ)（Workplace Collaboration Agent 行を除く。同行の出典は行内の WSD Blog）。AI 全般は [../platform/now-assist-ai-agents.md](../platform/now-assist-ai-agents.md) を参照。
 
 ### 2.12 WSD のストアリリース動向
 
 | 時期 | 主な追加・変更 |
 |---|---|
-| 2023-11 | Workplace Connectors 導入 |
+| 2023-08（Suite 2.9.0） | Workplace Connectors 追加 |
+| 2024-05（Suite 2.12.1） | スイート名を Workplace Service Delivery Professional に改称 |
+| 2025-02（Suite 2.15.0） | スイート名を Workplace Service Delivery Suite に戻す |
 | 2026-01 | Workplace Collaboration Agent |
-| 2026-03（Q1） | IFM Integration Framework、Workplace Case Summarization、新スペース計画体験、Invitee Availability、強化された繰り返し予約（5つの既定パターン＋エディタ）、新入社員の座席自動割当、Facility Assets and Models、Google 個人認証、Map Printing 強化 |
-| 2026-06 | Workplace Service Delivery Suite 2.17.5 |
-| 2026-07 | スイート名を Workplace Service Delivery Suite に戻す改称 |
+| 2026-03（Suite 2.17.4） | IFM Integration Framework、Workplace Case Summarization、新スペース計画体験、Invitee Availability、強化された繰り返し予約（5つの既定パターン＋エディタ）、新入社員の座席自動割当、Facility Assets and Models、Google 個人認証、Map Printing 強化（機能内容は WSD Blog による） |
+| 2026-06（Suite 2.17.5） | スイートの更新（スイートのリリースノートには個別プラグインへの参照のみ） |
+| 2026-07（Suite 2.17.12） | 同上 |
+| 2026-09（Suite 2.17.21） | 同上（本ファイル作成時点の最新） |
 
 [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/V44L4zPUcwdhYPJpcZ6pnA)、[出典](https://www.servicenow.com/community/wsd-blog/workplace-service-delivery-what-s-new-in-the-march-12th-release/ba-p/3510149)
 
@@ -645,8 +658,10 @@ Legal Service Delivery（LSD）は、法務支援を依頼する従業員と、�
 | Legal Simple Contracts | NDA、販売/第三者契約レビュー依頼 | 同上。**非推奨、CM Pro への移行を推奨** |
 | Legal Simple Privacy | プライバシーアセスメント依頼 | 同上 |
 | Legal Hold Notification | リーガルホールド案件、カストディアン、通知、解除 | 同上 |
+| Legal Simple Compliance | 法務コンプライアンス依頼を提出・管理する既製ワークフロー群。Gifts and Entertainment Compliance、Legal Conflict of Interest、Legal Stock Preclearance を含む | Legal Request Management 必須 |
+| Legal Simple Intellectual Property | 知的財産（IP）依頼をライフサイクルを通じて提出・追跡する実務アプリ。インストールすると Legal Invention Disclosure（発明届出・特許出願・発明者報奨）も入る | Legal Request Management 必須 |
 | Gifts and Entertainment Compliance | 贈答・接待の授受申告 | Legal Simple Compliance |
-| Legal Conflict of Interest | 利益相反の申告・承認・登録簿（期限切れ通知、延長申請） | Otto/Virtual Agent または Employee Center のフォームから申告 |
+| Legal Conflict of Interest | 利益相反の申告・承認・登録簿（期限切れ通知、延長申請） | Legal Simple Compliance に含まれる。Otto/Virtual Agent または Employee Center のフォームから申告 |
 | Legal Stock Preclearance | 株式売買の事前承認、取引ウィンドウ、アクセスリスト | Legal Simple Compliance |
 | ServiceNow Otto for LSD | 依頼・案件の AI 要約、ナレッジ検索からの回答生成 | Employee Center、Legal Counsel Center、グローバル検索 |
 | Legal Counsel Center | 弁護士・法務担当が依頼を分類・優先付け・解決する Next Experience ワークスペース | — |
@@ -655,11 +670,11 @@ Legal Service Delivery（LSD）は、法務支援を依頼する従業員と、�
 | Legal Virtual Agent Conversations | 法務向け既定チャットトピック | **将来リリースで廃止予定** |
 | Now Mobile / Mobile Agent app | 従業員向け／法務スタッフ向けモバイル | — |
 
-[出典](https://www.servicenow.com/docs/r/etYGEBUVr6RQYKLnfpRuhw/7uffa5edK9jSd0hELnBAVQ)、[出典](https://www.servicenow.com/docs/r/baBFTRuHLgu7HSwp0SUEQQ/pmOYhtHu2IofKpC5MBuDiA)
+[出典](https://www.servicenow.com/docs/r/etYGEBUVr6RQYKLnfpRuhw/7uffa5edK9jSd0hELnBAVQ)、[出典](https://www.servicenow.com/docs/r/baBFTRuHLgu7HSwp0SUEQQ/pmOYhtHu2IofKpC5MBuDiA)、[出典](https://www.servicenow.com/docs/r/baBFTRuHLgu7HSwp0SUEQQ/xwFmsMkPrAcBmr~jp4Dz1A)、[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/H9QQ99cBcwzQ1O3Opp7cWw)
 
 **Australia での非推奨（将来リリースで削除予定、Australia ではサポート継続）:** Legal Virtual Agent Conversations、Predictive Intelligence for Legal Service Delivery（いずれも機械学習で Subcategory と Assignment group を予測する機能）。[出典](https://www.servicenow.com/docs/r/pt-BR/release-notes/lsd-rn-landing-page.html)
 
-**Australia での主な強化:** 法務依頼・法務案件に対する Attorney-Client Privilege（ACP、弁護士・依頼者間秘匿特権）保護。利害関係者を限定したアクセス制御、機密バナー、文書監査証跡を提供する。[出典](https://www.servicenow.com/docs/r/etYGEBUVr6RQYKLnfpRuhw/QWd~td4neK2HjzhsTCf0tQ)
+**主な機能（Australia 版ドキュメント記載）:** 法務依頼・法務案件に対する Attorney-Client Privilege（ACP、弁護士・依頼者間秘匿特権）保護。利害関係者を限定したアクセス制御、機密バナー、文書監査証跡を提供する。どのリリースで導入された機能かは、公開情報では確認できず。[出典](https://www.servicenow.com/docs/r/etYGEBUVr6RQYKLnfpRuhw/QWd~td4neK2HjzhsTCf0tQ)
 
 ### 3.3 Legal Request Management（法務リクエスト管理）
 
@@ -713,7 +728,7 @@ flowchart LR
 
 [出典](https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/egIAqk4ZMsi92TumUVSikw)
 
-> 法務データの機密性：LSD は「IT 管理者（`admin`）が法務データを閲覧できないようにする」構成がコミュニティ公式ブログで解説されており、`sn_lg_ops.request_admin` が添付・メールを含む法務依頼データへの明示的アクセスを与えるロールとされる。【第三者情報】[出典](https://www.servicenow.com/community/lsd-blog/ensuring-it-administrators-do-not-have-access-to-legal-data/ba-p/3070052) ACL 設計は [../platform/access-control-acl.md](../platform/access-control-acl.md) を参照。
+> 法務データの機密性：LSD は「IT 管理者（`admin`）が法務データを閲覧できないようにする」構成が ServiceNow Community の公式ブログ（LSD Blog）で解説されており、`sn_lg_ops.request_admin` が添付・メールを含む法務依頼データへの明示的アクセスを与えるロールとされる。[出典](https://www.servicenow.com/community/lsd-blog/ensuring-it-administrators-do-not-have-access-to-legal-data/ba-p/3070052) ACL 設計は [../platform/access-control-acl.md](../platform/access-control-acl.md) を参照。
 
 #### 3.3.4 テーブル（Legal Request Management）
 
@@ -777,13 +792,17 @@ Legal Matter Management（`sn_lg_matter`）は、部門横断のタスクが必�
 
 #### 3.4.2 ロール
 
-| ロール（ラベル） | ロール名 | 説明 |
-|---|---|---|
-| Matter Admin | `sn_lg_matter.matter_admin` | 法務案件と基盤データの管理者権限。matter_config、matter_manager を含む |
-| Matter Configurator | `sn_lg_matter.matter_config` | 実務領域・受付フォーム・案件テンプレートの設定、Catalog Builder でのレコードプロデューサー管理（トランザクションデータなし） |
-| Read-only Matter Configurator | `sn_lg_matter.matter_config_read` | 設定データの参照。`sn_lg_ops.legal_user` を含む |
-| Matter Fulfiller | `sn_lg_matter.matter_fulfiller` | 割り当て案件の作業。`approver_user`、`email_composer`、`knowledge`、`task_editor`、`workspace_user`、`awa_agent`、`sn_lg_ops.legal_report_viewer`、`sn_lg_ops.legal_sla_read` などを含む |
-| Matter Manager | `sn_lg_matter.matter_manager` | 全案件データと案件の割当。matter_fulfiller を含む |
+| ロール（ラベル） | ロール名 | 説明 | 包含ロール |
+|---|---|---|---|
+| Matter Admin | `sn_lg_matter.matter_admin` | 法務案件と基盤データの管理者権限 | `sn_lg_matter.matter_config`、`sn_lg_matter.matter_manager` |
+| Matter Configurator | `sn_lg_matter.matter_config` | 実務領域・受付フォーム・案件テンプレートの設定、Catalog Builder でのレコードプロデューサー管理（トランザクションデータなし） | Catalog Builder editor ロール、`catalog_editor`、`connection_admin`、email client quick message author ロール、`flow_designer`、`flow_designer_scripting`、`sla_manager`、`sn_interview_temp.writer`、`sn_lg_matter.matter_config_read`、`sn_templated_snip.template_snippet_writer` |
+| Read-only Matter Configurator | `sn_lg_matter.matter_config_read` | 設定データ（実務領域、案件テンプレート等）の参照 | `sn_lg_ops.legal_user` |
+| Matter Fulfiller | `sn_lg_matter.matter_fulfiller` | 割り当て案件の作業 | `approver_user`、`email_composer`、`knowledge`、`sn_interview_temp.reader`、`sn_lg_matter.matter_config_read`、`sn_lg_ops.legal_report_viewer`、`sn_lg_ops.legal_sla_read`、`sn_templated_snip.template_snippet_reader`、`task_editor`、`workspace_user`、`awa_agent` |
+| Matter Manager | `sn_lg_matter.matter_manager` | 全案件データと案件の割当 | `sn_interview_temp.writer`、`sn_lg_matter.matter_fulfiller` |
+
+この表は Australia 版ページ（取得時はポルトガル語表示）から作成した。Catalog Builder editor と email client quick message author の2ロールは、ページ上で技術名が翻訳表示されていたため、英語の正式な技術名は公開情報では確認できず（インスタンスの `sys_user_role` で確認すること）。
+
+`sn_lg_matter.matter_config` は `flow_designer`、`flow_designer_scripting`、`connection_admin`、`sla_manager` を包含する。フロー・接続・SLA 定義まで変更できる強い権限になるため、付与対象者は限定すること【経験則】。
 
 Legal Counsel Center ワークスペースへのアクセスは `sn_lg_cf_workspace.legal_workspace_user`（`workspace_user` を継承）で提供される。[出典](https://www.servicenow.com/docs/r/baBFTRuHLgu7HSwp0SUEQQ/56eKcLIn76VHME1VyDRGgA)
 
@@ -921,7 +940,7 @@ stateDiagram-v2
 | ロケーションマスタ | WSD は `cmn_location` と別系統の `sn_wsd_core_*` 階層を使うため、CMDB/資産側のロケーションとの対応付けと移行（Location Migration Configuration）を初期に決める。[出典](https://www.servicenow.com/docs/r/H8yQl2SqBqnT6LbpTm28UQ/qlyKsyedOs1EUQg97dY1zQ) |
 | ポータル統合 | WSD・LSD のカタログ/レコードプロデューサーは Employee Center Pro に集約し、部門別トピックで整理する【経験則】 |
 | 予約のノーショー対策 | チェックイン必須＋自動取消（2.4.6）とセンサー連携（Workplace Connectors）を組み合わせる |
-| 法務データの分離 | LSD は ACL・ロール設計で IT 管理者からの閲覧を制限する構成が案内されている【第三者情報】（3.3.3） |
+| 法務データの分離 | LSD は ACL・ロール設計で IT 管理者からの閲覧を制限する構成が ServiceNow Community の公式ブログ（LSD Blog）で案内されている（3.3.3） |
 | ストアアプリの更新 | WSD・LSD はストアアプリとして随時更新されるため、ファミリーアップグレードとは別にアプリ更新の検証計画が必要【経験則】。[../../03_導入編/13-upgrade-management.md](../../03_導入編/13-upgrade-management.md) 参照 |
 | 非推奨機能 | Legal Counsel Center Classic、Legal Simple Contracts、Legal Virtual Agent Conversations、Predictive Intelligence for LSD、Space Management の旧 Neighborhood テーブルを新規利用しない |
 
@@ -981,6 +1000,8 @@ stateDiagram-v2
 - Employee Service Management（Brazil）: https://www.servicenow.com/docs/r/employee-service-management/employee-service-management-overview.html
 - ESM Foundation（ServiceNow UK Blog 2026）: https://www.servicenow.com/uk/blogs/2026/enterprise-service-management-foundation
 - Now Assist Suite store release notes 2026-07-09: https://www.servicenow.com/docs/r/store-release-notes/na-suite-rn-2026-07-09.html
-- ServiceNow Assist 2026（第三者）: https://www.scaler.com/topics/servicenow-assist-features/
+- ServiceNow Otto creates the unified AI experience for the enterprise（ServiceNow Press Release, 2026-05-05）: https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-Otto-creates-the-unified-AI-experience-for-the-enterprise/default.aspx
+- Legal Invention Disclosure（Australia）: https://www.servicenow.com/docs/r/baBFTRuHLgu7HSwp0SUEQQ/xwFmsMkPrAcBmr~jp4Dz1A
+- Legal Simple Intellectual Property release notes: https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/H9QQ99cBcwzQ1O3Opp7cWw
 - FitGap: ServiceNow Workplace Service Delivery（第三者）: https://us.fitgap.com/products/018611/servicenow-workplace-service-delivery
 - AWS Marketplace listing（第三者）: https://aws.amazon.com/marketplace/pp/prodview-fnh4fygak3hgw

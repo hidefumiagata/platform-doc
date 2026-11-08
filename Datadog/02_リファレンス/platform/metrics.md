@@ -51,8 +51,8 @@ Datadog の Metrics（メトリクス）は、環境のふるまいを時系列�
 | OpenTelemetry からのメトリクス取り込み | [OpenTelemetry サポート](./opentelemetry.md) |
 | Agent の収集・設定 | [Datadog Agent](./agent.md)、[Agent 設定リファレンス](./agent-configuration.md) |
 | 使用量の確認、Usage Attribution | [Usage・Usage Attribution・Cost Visibility](./usage-and-cost-attribution.md) |
-| 料金の数値（正本） | [製品別料金表](../../03_導入編/pricing-by-product.md) |
-| コスト削減の実践 | [コスト最適化](../../04_応用編/cost-optimization.md)、[タグ戦略の実践](../../04_応用編/tagging-strategy.md) |
+| 料金の数値（正本） | [製品別料金表](../../03_導入編/02-pricing-by-product.md) |
+| コスト削減の実践 | [コスト最適化](../../04_応用編/01-cost-optimization.md)、[タグ戦略の実践](../../04_応用編/02-tagging-strategy.md) |
 
 ### Datadog Metrics の主要コンポーネント
 
@@ -714,7 +714,7 @@ Datadog の **Metrics without Limits™（MWL）** は、カスタムメトリ�
 [出典](https://docs.datadoghq.com/metrics/metrics-without-limits/)
 
 - MWL で落としたタグのデータも取り込み自体は行われているため、後から再びクエリ可能に戻すことができる（2021 年の公式ブログでの説明）。戻した後に過去分がどこまでクエリ可能になるかの現行仕様の詳細は、公開情報では確認できず。[出典](https://www.datadoghq.com/blog/metrics-without-limits/)（2021 年公開。現行仕様と異なる可能性あり）
-- MWL の実践的な使い方は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+- MWL の実践的な使い方は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ## メトリクス単位（Metric Units）
 
@@ -851,7 +851,7 @@ Datadog の Metrics に関する RBAC 権限は以下のとおり。[出典](htt
 
 ## 課金への影響
 
-Datadog の Metrics は、**標準メトリクス**（Agent・標準インテグレーション由来）がインフラホスト料金に含まれ、**カスタムメトリクス**が課金対象になる。カスタムメトリクスの課金モデルには、従来の **カーディナリティ（Timeseries）課金** と、新しい **Metric Name Pricing** の 2 種類があり、契約により一方が適用される（SKU は相互排他）。料金数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、計算の仕組みは [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+Datadog の Metrics は、**標準メトリクス**（Agent・標準インテグレーション由来）がインフラホスト料金に含まれ、**カスタムメトリクス**が課金対象になる。カスタムメトリクスの課金モデルには、従来の **カーディナリティ（Timeseries）課金** と、新しい **Metric Name Pricing** の 2 種類があり、契約により一方が適用される（SKU は相互排他）。料金数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、計算の仕組みは [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 
 ### カーディナリティ（Timeseries）課金
 
@@ -877,7 +877,7 @@ Datadog の Metrics は、**標準メトリクス**（Agent・標準インテグ
 
 [出典](https://www.datadoghq.com/pricing/list/)（取得日 2026-11-02）
 
-> **サイト差異:** AP1 では Custom Metrics $6.25、Ingested Custom Metrics $0.125（100 あたり／月、全契約形態）。料金ページの既定表示（Datadog Site: US）は上表の値。サイト別の単価は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
+> **サイト差異:** AP1 では Custom Metrics $6.25、Ingested Custom Metrics $0.125（100 あたり／月、全契約形態）。料金ページの既定表示（Datadog Site: US）は上表の値。サイト別の単価は [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照。
 
 - 既存顧客の割当量は最新の契約書を参照するよう料金ページに注記がある。
 - indexed 超過分の単価は「契約で定める」と課金ドキュメントに記載。
@@ -935,7 +935,7 @@ Usage 画面と Usage Attribution の詳細は [Usage・Usage Attribution・Cost
 | MWL で不要タグを除外 | indexed 量を削減（カーディナリティ課金では構成メトリクスの ingested 分が別途発生） |
 | HMI 有効化 | 履歴分が indexed として別途計上 |
 
-コスト削減の実践は [コスト最適化](../../04_応用編/cost-optimization.md)、[よくある失敗とアンチパターン](../../04_応用編/common-pitfalls.md) を参照。
+コスト削減の実践は [コスト最適化](../../04_応用編/01-cost-optimization.md)、[よくある失敗とアンチパターン](../../04_応用編/12-common-pitfalls.md) を参照。
 
 ## 参照元
 

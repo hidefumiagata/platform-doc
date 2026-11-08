@@ -53,7 +53,7 @@ sources:
   - https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/Pk6NgIT5vjpU7e4mgA7suw
   - https://www.servicenow.com/docs/r/australia/platform-administration/table-administration-and-data-management/c_ExportData.html
   - https://www.servicenow.com/docs/r/australia/platform-administration/table-administration-and-data-management/export-list-data.html
-  - https://www.servicenow.com/docs/r/washingtondc/platform-administration/table-administration-and-data-management/c_ExportLimits.html
+  - https://www.servicenow.com/docs/r/australia/platform-administration/table-administration-and-data-management/c_ExportLimits.html
   - https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/S8On7RRV~4I9h_6NFFJOtQ
   - https://www.servicenow.com/docs/r/australia/integrate-applications/t_BreakUpALargeExport.html
   - https://www.servicenow.com/docs/r/australia/integrate-applications/t_CallURLExportProgrammatically.html
@@ -69,6 +69,9 @@ sources:
   - https://www.servicenow.com/docs/r/australia/integrate-applications/system-export-sets/parallel-exports.html
   - https://www.servicenow.com/community/developer-forum/import-sets-there-are-states-like-quot-skipped-quot-and-quot/m-p/2014767
   - https://www.servicenow.com/community/in-other-news/export-sets-the-forgotten-ones/ba-p/3445606
+  - https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/Ampy4HaQa~UfFefswyH93g
+  - https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/zPq6nGGKlv0j1i8C8~siCA
+  - https://www.servicenow.com/community/developer-blog/validating-the-order-of-execution-for-transform-map-scripts/ba-p/2289521
 ---
 
 # データインポート/エクスポート（Import Sets・Transform Map・Export Sets・IntegrationHub ETL）
@@ -255,7 +258,7 @@ Data Source フォームの共通フィールドは次のとおり [出典](http
 | Format | 備考 |
 |---|---|
 | CSV | 文字コードは Properties フィールド（例：`charset=utf-8`）またはプロパティ `glide.import.csv.charset`（既定 WINDOWS-1252）で指定 |
-| Excel (XLSX) | Excel 2007 以降の推奨形式。既定の XML ベース形式（.xlsx）のみ対応（「Strict Open XML Document」で保存したファイルは非対応という趣旨の注記あり） |
+| Excel (XLSX) | Excel 2007 以降の既定形式。性能面から、レガシーの XLS ではなく可能な限り XLSX を使うよう推奨されている [出典](https://www.servicenow.com/docs/r/integrate-applications/system-import-sets/r_FileTypeDataSource.html)。Data source fields の Format 欄には「Only the default XML-based file format (.xlsx) is supported, unless saved as "Strict Open XML Document."」とあり、既定の XML ベース形式（.xlsx）のみ対応、Strict Open XML Document 形式は例外扱いという趣旨の注記がある [出典](https://www.servicenow.com/docs/r/australia/integrate-applications/system-import-sets/r_DataSourceFileTypeFields.html) |
 | Excel (XLS) | レガシー形式。1900 年日付システムが必須（1904 年日付システムでは日付が 4 年早くずれる） |
 | XML | Xpath for each row で行となるノードを指定。`//` の使用はできるだけ避け、ルート要素を指定すると 1 行になる点に注意 |
 | JSON | Path for each row で行となる JSON オブジェクトを指定（JSON オブジェクトには `//`） |
@@ -436,6 +439,19 @@ Transform Map は、Import set のフィールドと既存テーブル（例：I
 | `log` | Function | インポートログ（`log.info()`、`log.warn()`） |
 | `action` | String | `insert` または `update`。**Coalesce フィールドでない場合のみ利用可** |
 
+### 3.4 Mapping options（マッピング方法：Auto map matching fields / Mapping Assist）
+
+Table Transform Map でフィールドを対応付ける方法には、次の 2 つの補助機能と手動の Field map 作成（3.3）がある。1 つのインポートで複数の方法を併用できる [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/Ampy4HaQa~UfFefswyH93g)。
+
+| 方法 | 起動場所 | 動作・用途 |
+|---|---|---|
+| **Auto map matching fields**（同名フィールドの自動マッピング） | Table Transform Map フォームの関連リンク **Auto Map Matching Fields** | Import set のフィールド名と Target table のフィールド名が一致するものを自動で Field map にする。公式は「最も簡単なマッピング方法（the simplest mapping method）」としている。実行後、対応が正しいか確認する。誤って対応付けられた場合は Mapping Assist で修正する |
+| **Mapping Assist**（マッピング支援ユーティリティ） | 同ページには起動場所が書かれていない。Table Transform Map フォームの関連リンク **Mapping Assist** から開くのが一般的である【経験則】 | Import set のフィールドと Target table のフィールドを視覚的な UI で対応付ける。1 つの Source field を複数の Target field に対応付けることもできる。自動マッピングの誤りを直すときや、名前が一致しない場合に使う |
+
+- **変換の実行:** すべてのフィールドの対応付けが済んだら、Transform Map フォームの関連リンク **Transform** をクリックし、Target table へのデータ変換を開始する [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/Ampy4HaQa~UfFefswyH93g)。
+- **日付書式:** 同ページによると、Date format のマッピングで日付書式を変換できる。24 時間表記を扱うには `HH:mm:ss` を含むカスタム書式を使う。24 時間表記から 12 時間表記に変換すると、12:00〜23:59 が 00:00〜11:59 として書式化されることがある [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/Ampy4HaQa~UfFefswyH93g)。
+- 自動マッピング後は、不要な対応（例：暗号化パスワード）が含まれていないかを確認する（3.1 の考慮事項）。
+
 ---
 
 ## 4. Coalesce（コアレス）
@@ -512,9 +528,9 @@ Transform Map のスクリプトには 2 種類ある [出典](https://www.servi
 | `target` | GlideRecord | 挿入中の Target レコード（例：`target.incident_state = "active";`） |
 | `map` | GlideRecord | 使用中の Transform Map（`name`、`sys_id`、`source_table`、`target_table`、`order`） |
 | `log` | Function | `log.info()` / `log.warn()` / `log.error()` |
-| `action` | String | `"insert"` または `"update"` |
-| `ignore` | Boolean | true で現在の処理をスキップ／中止。**onStart では変換処理全体を中止**、**onBefore では現在の行のみスキップ** |
-| `error` | Boolean | true で現在の処理を中止し Import Set Log にエラーを記録 |
+| `action` | String | `"insert"` または `"update"`（公式表では型が Function と表記されているが、値は `"insert"`／`"update"` の文字列であり、Field map script variables の表記（String）とも一致するため String とした） |
+| `ignore` | Boolean | true で現在の処理をスキップ／中止。**onStart では変換処理全体を中止**、**onBefore では現在の行のみスキップ**（その行の onAfter は実行される）、onForeignInsert では関連レコードの作成をスキップ、onChoiceCreate では Choice 値の作成をスキップ |
+| `error` | Boolean | true で現在の処理を中止し Import Set Log にエラーを記録。イベントで効果が異なる：**onStart では変換処理全体を中止**（`ignore` と同じ効果）、**onBefore／onAfter では現在の Import set の変換全体を中止**（現在の行だけではない）、**onForeignInsert／onChoiceCreate では行全体を reject**（その行のデータは保存されない）、**onComplete では完了後に Import set の状態を error にする** [出典](https://www.servicenow.com/docs/r/t2jQMKLZFp9AGt3V12O7mQ/R2ARiQQcmFmP4rFpLKJSDw) |
 | `error_message` | String | エラー時に SOAP 応答へ付与するメッセージ |
 | `status_message` | String | SOAP 応答へ付与するステータスメッセージ（Import set row の Comment にマップ） |
 
@@ -538,17 +554,22 @@ sequenceDiagram
   participant T as Target table
   IS->>TM: onStart（1回）
   loop 各行
+    TM->>T: Coalesce 判定（一致レコード検索 → action = insert / update 決定）
     TM->>TM: onBefore
-    TM->>TM: Field map（Source script / Coalesce 判定）
+    TM->>TM: Field map（Source script）
     TM->>TM: onForeignInsert / onChoiceCreate（必要時）
-    TM->>TM: Explicit transform map script
+    TM->>TM: Explicit transform map script（Run script）
     TM->>T: insert / update（Run business rules に従う）
     TM->>TM: onAfter
   end
   TM->>TM: onComplete（1回）
 ```
 
-上図は公式ドキュメントのイベント定義（onBefore＝変換前、Explicit script＝コピー後・DB 書き込み前、onAfter＝保存後）から構成した順序である。Field map と onForeignInsert/onChoiceCreate の厳密な前後関係は公式ページでは図示されておらず【推定】である [出典](https://www.servicenow.com/docs/r/t2jQMKLZFp9AGt3V12O7mQ/R2ARiQQcmFmP4rFpLKJSDw) [出典](https://www.servicenow.com/docs/r/australia/integrate-applications/system-import-sets/c_MapExplicitTransformMapScripts.html)。
+上図は公式ドキュメントのイベント定義（onBefore＝変換前、Explicit script＝コピー後・DB 書き込み前、onAfter＝保存後）から構成した順序である [出典](https://www.servicenow.com/docs/r/t2jQMKLZFp9AGt3V12O7mQ/R2ARiQQcmFmP4rFpLKJSDw) [出典](https://www.servicenow.com/docs/r/australia/integrate-applications/system-import-sets/c_MapExplicitTransformMapScripts.html)。
+
+- **Coalesce 判定を onBefore より前に置く根拠:** 公式の変数表では onBefore で `action`（`insert`／`update`）が利用でき（5.2）、`action` は Coalesce の突合結果で決まる。公式の「更新のみ」パターン（4.1、5.3 のコード例）も onBefore で `action == 'insert'` を判定している。したがって Coalesce 判定は onBefore の前に済んでいる。なお Field map script の `action` は Coalesce フィールドでない場合のみ利用可（3.3）で、これも Coalesce フィールドが先に評価されることと整合する [出典](https://www.servicenow.com/docs/r/australia/integrate-applications/system-import-sets/r_TransformationScriptVariables.html) [出典](https://www.servicenow.com/docs/r/australia/integrate-applications/system-import-sets/r_FieldMapScriptVars.html)。
+- 【第三者情報】ServiceNow Community の検証記事は、実際にスクリプトを仕込んで順序を確かめ、onStart → onBefore（各行で他の処理より前に実行）→ Field map scripts → Run script → onAfter → onComplete と結論づけている。この記事は Coalesce と onForeignInsert/onChoiceCreate の位置には触れていない [出典](https://www.servicenow.com/community/developer-blog/validating-the-order-of-execution-for-transform-map-scripts/ba-p/2289521)。
+- onForeignInsert/onChoiceCreate が Field map 処理と Run script の間のどこで発生するか、その厳密な位置は公式ページでは図示されておらず【推定】である。
 
 ### 5.5 スクリプトのパフォーマンス上の注意
 
@@ -924,7 +945,8 @@ Easy import は、取り込みたい列だけを扱う簡易インポートで�
 
 - 手順：対象リストから Import template（インポートテンプレート）をダウンロード → 行を追加（新規）または編集（更新）→ テンプレートを取り込む。Excel テンプレートでは選択した参照フィールドをドロップダウンリストとして表示できる。
 - 検証は 2 段階：**Client-side validation**（テンプレート内に保存、不正セルを強調表示）と **Server-side validation**（インスタンス側、インポートを一時停止しエラー表示）。
-- 更新用テンプレートは現在のリストフィルターに一致するレコードを 1 行 1 レコードで出力し、XLSX が推奨（XLS はレガシー）。取り込まれるのは**最初のページのみ**、更新テンプレートの Updated by は常にシステム管理者で上書きされ、**sys_id 列を含めてはならない**、と公式に記載されている [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/Pk6NgIT5vjpU7e4mgA7suw)。
+- 更新用テンプレートは、現在のリストフィルターに一致するレコードを 1 行 1 レコードで出力する。公式には「The template only imports records on the first page of the template」とあり、取り込まれるのは**テンプレートの最初のページ（first page）にあるレコードのみ**で、他のページは取り込まれない。更新テンプレートの Updated by 欄には常にシステム管理者ユーザー（admin ロール）が表示される [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/Pk6NgIT5vjpU7e4mgA7suw)。
+- **sys_id 列の扱い（Server-side validation の条件）:** **Insert template（新規用）は sys_id 列を含んではならない**。**Update template（更新用）は sys_id 列を含む必要がある**（既存レコードとの突合に使う）[出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/zPq6nGGKlv0j1i8C8~siCA)。
 
 Easy import のプロパティ [出典](https://www.servicenow.com/docs/r/australia/integrate-applications/easy-import/easy-import-properties.html)：
 
@@ -1018,7 +1040,7 @@ Web service import set は Import set table に Web サービスインターフ�
 
 ### 13.4 Export limits（エクスポート上限）
 
-エクスポート件数の上限は「形式別プロパティ → `glide.ui.export.limit` → 既定値」の順で決まる。プロパティは System Properties > Import Export で設定する [出典](https://www.servicenow.com/docs/r/washingtondc/platform-administration/table-administration-and-data-management/c_ExportLimits.html)（Washington DC 版ページで確認。最新版でも同等の記載が検索結果で確認された）。
+エクスポート件数の上限は「形式別プロパティ → `glide.ui.export.limit` → 既定値」の順で決まる。プロパティは System Properties > Import Export で設定する [出典](https://www.servicenow.com/docs/r/australia/platform-administration/table-administration-and-data-management/c_ExportLimits.html)。
 
 | 形式 | 形式別プロパティ | 既定値 |
 |---|---|---|
@@ -1027,7 +1049,7 @@ Web service import set は Import set table に Web サービスインターフ�
 | XLSX | `glide.xlsx.export.limit` | 10,000 レコード |
 | XLS | `glide.excel.export.limit` | 10,000 レコード |
 | JSON | `glide.json.export.limit` | 10,000 レコード |
-| （共通） | `glide.ui.export.limit` | 10,000（形式別未設定時に適用） |
+| （共通） | `glide.ui.export.limit` | 形式別プロパティが未設定のときに適用。形式別プロパティも本プロパティも未設定なら、形式ごとの既定値 10,000 レコードが適用される |
 | PDF 行数 | `glide.pdf.max_rows` | 1,000 行（0〜5,000。5,000 超を設定すると 1,000 になる） |
 | PDF 詳細ページ | `glide.pdf.max_detail_pages` | 250（0〜250） |
 | PDF 列数 | `glide.pdf.max_columns` | 25 列 |
@@ -1233,7 +1255,7 @@ Parallel export は出力データを複数チャンクに分割し並列処理�
 
 ## 参照元
 
-公式ドキュメント（Australia 版を中心に、一部 Brazil／Zurich／Yokohama／Washington DC 版。取得日：2026-11-02）
+公式ドキュメント（Australia 版を中心に、一部 Brazil／Zurich／Yokohama 版。取得日：2026-11-02）
 
 - Import sets（ランディング）: https://www.servicenow.com/docs/r/australia/integrate-applications/system-import-sets/import-sets-landing-page.html
 - Import sets key concepts: https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/I1J3ifzWRL7k5C8oZuGVMw
@@ -1246,6 +1268,7 @@ Parallel export は出力データを複数チャンクに分割し並列処理�
 - Transform maps: https://www.servicenow.com/docs/r/australia/integrate-applications/system-import-sets/c_CreatingNewTransformMaps.html
 - Create a transform map（Brazil）: https://www.servicenow.com/docs/r/integrate-applications/system-import-sets/t_CreateATransformMap.html
 - Create a field map: https://www.servicenow.com/docs/r/australia/integrate-applications/system-import-sets/t_CreatingAFieldMap.html
+- Mapping options（Australia）: https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/Ampy4HaQa~UfFefswyH93g
 - Field map script variables: https://www.servicenow.com/docs/r/australia/integrate-applications/system-import-sets/r_FieldMapScriptVars.html
 - Transformation script variables: https://www.servicenow.com/docs/r/australia/integrate-applications/system-import-sets/r_TransformationScriptVariables.html
 - Map with transformation event scripts（Australia、ポルトガル語版）: https://www.servicenow.com/docs/r/t2jQMKLZFp9AGt3V12O7mQ/R2ARiQQcmFmP4rFpLKJSDw
@@ -1279,10 +1302,11 @@ Parallel export は出力データを複数チャンクに分割し並列処理�
 - Easy import: https://www.servicenow.com/docs/r/australia/integrate-applications/easy-import/c_EasyImport.html
 - Easy import properties: https://www.servicenow.com/docs/r/australia/integrate-applications/easy-import/easy-import-properties.html
 - Update a record in the template: https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/Pk6NgIT5vjpU7e4mgA7suw
+- Easy import template validation: https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/zPq6nGGKlv0j1i8C8~siCA
 - Exporting data（Australia）: https://www.servicenow.com/docs/r/australia/platform-administration/table-administration-and-data-management/c_ExportData.html
 - Exporting data（Brazil）: https://www.servicenow.com/docs/r/platform-administration/table-administration-and-data-management/c_ExportData.html
 - Export data from a list: https://www.servicenow.com/docs/r/australia/platform-administration/table-administration-and-data-management/export-list-data.html
-- Export limits（Washington DC）: https://www.servicenow.com/docs/r/washingtondc/platform-administration/table-administration-and-data-management/c_ExportLimits.html
+- Export limits: https://www.servicenow.com/docs/r/australia/platform-administration/table-administration-and-data-management/c_ExportLimits.html
 - Export directly from a URL: https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/S8On7RRV~4I9h_6NFFJOtQ
 - Break up a large export: https://www.servicenow.com/docs/r/australia/integrate-applications/t_BreakUpALargeExport.html
 - Call URL export programmatically: https://www.servicenow.com/docs/r/australia/integrate-applications/t_CallURLExportProgrammatically.html
@@ -1301,3 +1325,4 @@ ServiceNow Community（【第三者情報】）
 
 - Import sets - there are states like "Skipped" and "Ignored": https://www.servicenow.com/community/developer-forum/import-sets-there-are-states-like-quot-skipped-quot-and-quot/m-p/2014767
 - Export Sets: the forgotten ones: https://www.servicenow.com/community/in-other-news/export-sets-the-forgotten-ones/ba-p/3445606
+- Validating the order of execution for transform map scripts: https://www.servicenow.com/community/developer-blog/validating-the-order-of-execution-for-transform-map-scripts/ba-p/2289521

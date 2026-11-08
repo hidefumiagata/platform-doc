@@ -845,7 +845,7 @@ Group by の上限：
 | 4 | 5 | 625 |
 
 - 上位値の合計は Facet 数によらず 1,000 が上限。デフォルトは各ディメンション 10、4 つ目のみ 5。[出典](https://docs.datadoghq.com/monitors/types/log/)
-- 長期・高頻度の監視や Index しないログの監視には、ログベースメトリクスに対するメトリクスモニターを使う設計がある（Generate Metrics は取り込みストリームを対象とし、ログベースメトリクスは 15 か月保持されるため）。設計の実践は [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md) と [ログ管理の実践](../../04_応用編/log-management-practices.md) を参照。
+- 長期・高頻度の監視や Index しないログの監視には、ログベースメトリクスに対するメトリクスモニターを使う設計がある（Generate Metrics は取り込みストリームを対象とし、ログベースメトリクスは 15 か月保持されるため）。設計の実践は [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md) と [ログ管理の実践](../../04_応用編/06-log-management-practices.md) を参照。
 
 ## 検索・集計 API
 
@@ -986,14 +986,14 @@ Log Management の検索・分析機能（Log Explorer、Facets、Patterns、Tra
 | Flex Logs Storage | 100 万イベント保存 / 月 | $0.05 / $0.06 / $0.075 | $0.0625 / $0.075 / $0.09375 | `Include Flex Logs` で検索可能。Monitor・Watchdog は非対応 |
 | Flex Logs Compute | インスタンス時間 / 月 | 料金ページは「Contact Us for Pricing」 | 同左 | Flex Logs のクエリ性能・同時実行数 |
 
-（公式料金ページ https://www.datadoghq.com/pricing/list/ 、2026-11-03 取得。USD。料金ページの「Datadog Site」セレクタで US/EU1 と AP1 を切り替えた掲載値。3 / 7 / 30 日保持の Indexing、Flex Logs Starter などの全価格は正本の [製品別料金表](../../03_導入編/pricing-by-product.md) を参照）
+（公式料金ページ https://www.datadoghq.com/pricing/list/ 、2026-11-03 取得。USD。料金ページの「Datadog Site」セレクタで US/EU1 と AP1 を切り替えた掲載値。3 / 7 / 30 日保持の Indexing、Flex Logs Starter などの全価格は正本の [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照）
 
 - **ログベースメトリクス**は個別課金されず、**カスタムメトリクス**としてインフラプランのカスタムメトリクス割当を消費する（パーセンタイルを含む）。Group by するタグの組み合わせ数（カーディナリティ）がカスタムメトリクス数に直結する。[出典](https://docs.datadoghq.com/logs/log_configuration/logs_to_metrics/)、[出典](https://www.datadoghq.com/pricing/?product=log-management)
 - **Log Monitor** は Standard Index 済みログを評価するため、Log Monitor 用に Index するログの件数が Indexing 課金に効く。Index しないログを監視するにはログベースメトリクス（カスタムメトリクス課金）との比較で設計する。
 - **Rehydration（Historical Views）** で Index されたイベントは、契約した Indexing 単価（選択した保持期間）で課金される。Rehydration のスキャン自体の課金は [Indexes・保持・アーカイブ](./log-indexes-retention-archives.md) を参照。
 - Notebooks の Analysis Features（旧 Log Workspaces）の独立した課金項目は公式料金ページで確認できず。
 - 自然言語クエリ（NLQ）が AI 関連のクレジット等を消費するかは公開情報では確認できず。
-- 課金の計算方法は [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、削減策は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+- 課金の計算方法は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、削減策は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ## 設計・運用上の注意点
 
@@ -1015,7 +1015,7 @@ Log Management の検索・分析機能（Log Explorer、Facets、Patterns、Tra
 | 14 | ワイルドカード・引用符付き検索は大量データで遅い。`service` / `host` 等の選択的な条件と組み合わせる | 公式推奨 [出典](https://docs.datadoghq.com/logs/explorer/search_syntax/) |
 | 15 | CSV は値がサニタイズされる（改行除去、数式文字へのクォート付与など）。原文が必要な場合は API や Archives を使う | 公式仕様 [出典](https://docs.datadoghq.com/logs/explorer/export/) |
 
-- ログ管理全体の運用知見は [ログ管理の実践](../../04_応用編/log-management-practices.md)、よくある失敗は [よくある失敗とアンチパターン](../../04_応用編/common-pitfalls.md) を参照。
+- ログ管理全体の運用知見は [ログ管理の実践](../../04_応用編/06-log-management-practices.md)、よくある失敗は [よくある失敗とアンチパターン](../../04_応用編/12-common-pitfalls.md) を参照。
 
 ## 関連ファイル
 
@@ -1032,7 +1032,7 @@ Log Management の検索・分析機能（Log Explorer、Facets、Patterns、Tra
 | [Watchdog](../platform/watchdog.md) | Watchdog 全般 |
 | [組織・ユーザー・権限管理](../platform/account-and-access-management.md) | ロール、Restriction Query |
 | [Cloud SIEM](../security/cloud-siem.md) | ログを使った検知ルール |
-| [製品別料金表](../../03_導入編/pricing-by-product.md) | 料金の正本 |
+| [製品別料金表](../../03_導入編/02-pricing-by-product.md) | 料金の正本 |
 
 ## 参照元
 

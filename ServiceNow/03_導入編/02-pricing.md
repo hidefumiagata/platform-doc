@@ -27,8 +27,13 @@ sources:
   - https://www.servicenow.com/docs/r/platform-administration/subscriptions-overview-v2.html
   - https://www.servicenow.com/docs/r/platform-administration/monitoring-now-assist-usage.html
   - https://www.servicenow.com/docs/r/washingtondc/impact/impact-packages.html
+  - https://www.servicenow.com/docs/r/australia/impact/impact-packages.html
   - https://www.infotech.com/software-reviews/research/servicenow-bundles-ai-into-every-product-and-bets-that-context-is-the-missing-piece
   - https://redresscompliance.com/servicenow-price-benchmarks-by-spend-tier-2026
+  - https://redresscompliance.com/servicenow-discount-benchmarks-what-enterprises-actually-achieve.html
+  - https://www.servicenow.com/docs/r/XRgEFx7nPN6ciT_BBIvnbg/YQiwIh0UNsqUGKnKcD1BQg
+  - https://www.marketbeat.com/earnings/reports/2025-4-23-servicenow-inc-stock
+  - https://www.investing.com/news/transcripts/earnings-call-transcript-servicenow-beats-q2-2025-estimates-stock-dips-93CH-4149489
   - https://costbench.com/software/help-desk/servicenow
   - https://www.constellationr.com/insights/news/servicenow-offers-us-government-discounts-high-70-itsm
   - https://www.carahsoft.com/servicenow/gsa-onegov
@@ -95,8 +100,8 @@ ServiceNow の価格は製品ごとに異なる課金単位（license metric）�
 
 | 変数 | 価格への影響 | 確度 |
 |---|---|---|
-| tier（Foundation / Advanced / Prime、旧 Standard / Pro / Enterprise） | 上位 tier ほど単価が高い。旧体系では Standard→Enterprise で約2〜2.25倍 | 【推定】 |
-| 数量（seat band） | 数量帯ごとに単価が段階的に下がる。報告されている段差は約 1,000 / 5,000 / 15,000 subscriber | 【推定】 |
+| tier（Foundation / Advanced / Prime、旧 Standard / Pro / Enterprise） | 上位 tier ほど単価が高い。旧体系では Standard→Enterprise で約2〜2.4倍（§3.3 の Redress 数量帯別単価。G-Cloud 旧価格〔§3.1〕では 2.25倍） | 【推定】 |
+| 数量（seat band） | 数量帯ごとに単価が段階的に下がる（数量帯の例は §3.3 の Redress の帯：1〜99 / 100〜499 / 500〜999 / 1,000〜2,499 / 2,500 以上 Fulfiller）。Vendr は「fulfiller・requester 数が多い組織では数量割引が一般的」と述べるのみで、しきい値は公表していない（Vendr の規模区分は従業員数 500〜2,500 / 2,500 以上 の企業規模） | 【推定】 |
 | 契約年数 | 3年契約が一般的。複数年・前払いで単価が下がる | 【第三者情報】 |
 | 製品バンドル | ITSM + ITOM（ServiceOps）、ESM 等の組み合わせで割引が増える | 【第三者情報】 |
 | 契約時期 | 四半期末（3・6・9・12月）、特に12月の会計年度末が有利とされる | 【経験則】 |
@@ -117,7 +122,7 @@ ServiceNow は製品とパッケージを **Foundation（ファウンデーシ�
 |---|---|---|
 | 発効日 | 2026-04-09（旧5 tier を新3 tier に置換） | 【第三者情報】[Community](https://www.servicenow.com/community/upgrades-and-patching-forum/servicenow-ai-native-licensing-in-2026-a-practical-guide-to/m-p/3565858) |
 | 旧 SKU の販売終了（End of Sale） | 2026-07-01。以降の更新見積は新 tier で作成。契約期間中の旧 SKU は更新まで有効 | 【第三者情報】[Redress](https://redresscompliance.com/servicenow-2026-pricing-tiers-pillar) |
-| AI の扱い | Now Assist、Moveworks レイヤー（EmployeeWorks）、Workflow Data Fabric、AI Control Tower を全 tier に同梱 | 公式 [docs](https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/ai-native-sku-overview.html) / 【第三者情報】 |
+| AI の扱い | Now Assist、Moveworks レイヤー（EmployeeWorks）、Workflow Data Fabric Foundation、RaptorDB Standard、AI Control Tower を全 tier に同梱（Workflow Data Fabric Advanced は有償アップグレード。下記 Brazil 注記参照） | 公式 [docs](https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/ai-native-sku-overview.html) / 【第三者情報】 |
 | AI の課金 | tier ごとに assist プールを同梱し、超過分は従量（consumption）課金 | 【第三者情報】[Community](https://www.servicenow.com/community/upgrades-and-patching-forum/servicenow-ai-native-licensing-in-2026-a-practical-guide-to/m-p/3565858) |
 | リリースとの関係 | 新 tier の展開は顧客のアップグレードサイクルとは独立 | 公式 [docs](https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/ai-native-sku-overview.html) |
 | 製品ライン情報 | 公式ドキュメントは最新の製品ライン情報として KB 記事 `KB3160245` を参照させている | 公式 [docs](https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/ai-native-sku-overview.html) |
@@ -133,7 +138,7 @@ tier ごとの機能差の詳細は [エディション比較](03-edition-compar
 
 | 製品ライン | tier | 価格に影響する特記事項 | 出典 |
 |---|---|---|---|
-| ITSM | Foundation / Advanced / Prime | Foundation＝Incident（基本）、Request、Asset、Cost。Advanced＝Problem、Change、Major Incident、On-Call、Walk-up、Platform Analytics Advanced、Process Mining 等を追加し **旧 ITSM Professional の新しい基準**。Prime＝DevOps Change Velocity と最大 assist 配分、カスタム AI スキル/エージェント構築。Virtual Agent は会話数無制限 | 【第三者情報】[Community（ITSM）](https://www.servicenow.com/community/itsm-articles/itsm-licensing-in-april-2026-foundation-advanced-and-prime-in/ta-p/3544380) |
+| ITSM | Foundation / Advanced / Prime | Foundation＝Incident（基本）、Request、Asset、Cost ＋ Virtual Agent、Predictive Intelligence、Now Assist for ITSM（すぐ使える標準構成のレベル）。Advanced＝Problem、Change、Major Incident、On-Call、Walk-up、Platform Analytics Advanced、Process Mining 等を追加し、**旧 ITSM Professional の大半を使っている場合に評価すべき新しい基準**（"Advanced is the new baseline to evaluate"）。Prime＝DevOps Change Velocity、最大 assist 配分、カスタム AI スキル/エージェント構築。新モデルでは Virtual Agent は会話数無制限（"Virtual Agent now has unlimited conversations"。記事は新モデル全体の変更として記載。tier 別の条件や契約差は記事の推奨どおりアカウントチームに確認） | 【第三者情報】[Community（ITSM）](https://www.servicenow.com/community/itsm-articles/itsm-licensing-in-april-2026-foundation-advanced-and-prime-in/ta-p/3544380) |
 | ITOM | Advanced / Prime（**Foundation なし**） | 課金単位は SU。Prime は Event Management、Metric Intelligence、Health Log Analytics 等を追加し、Workflow Data Fabric クレジットと GenAI assist 配分がおおむね2倍 | 【第三者情報】[Community（ITOM）](https://www.servicenow.com/community/architect-articles/navigating-the-april-2026-servicenow-itom-licensing-model/ta-p/3555121) |
 | ServiceOps（ITSM + ITOM） | Advanced / Prime | 統一クレジットメーター：**1 Credit = 1 ITOM SU、10 Credits = 1 ITSM Fulfiller User**。true-up と更新サイクルを一本化 | 同上 |
 | ESM Foundation | Foundation | ITSM Foundation + コアビジネススイートを per-user メトリクスで | 【第三者情報】[Community（ITSM）](https://www.servicenow.com/community/itsm-articles/itsm-licensing-in-april-2026-foundation-advanced-and-prime-in/ta-p/3544380) |
@@ -146,13 +151,15 @@ tier ごとの機能差の詳細は [エディション比較](03-edition-compar
 
 | 旧 tier | 新 tier（報告ベース） | 更新時の価格影響（報告ベース） |
 |---|---|---|
-| Standard | Foundation | おおむね横ばい（broadly flat） |
-| Pro（Professional） | Foundation または Advanced | おおむね横ばい |
-| Pro Plus（Now Assist 付き） | Foundation または Advanced | 0〜15% 増 |
+| Standard | Foundation | 「8 to 12 percent」記事：おおむね横ばい（broadly flat）／「2026 pricing tiers」記事：同梱された Now Assist の費用分だけ基本価格が上昇（"Base rose to fund bundled Now Assist"）。**同じアドバイザリーの記事間で記述が食い違う** |
+| Pro（Professional） | Foundation または Advanced（Redress）／旧 Professional の大半を使っているなら Advanced が評価の基準（Community） | おおむね横ばい（「8 to 12 percent」記事）。「2026 pricing tiers」記事は「どのワークフローが上位 tier に移ったかを確認せよ」と注記 |
+| Pro Plus（Now Assist 付き） | Foundation または Advanced | 0〜15% 増（「8 to 12 percent」記事） |
 | Enterprise | Advanced | 公開情報では幅を確認できず |
 | Enterprise Plus | Prime | 公開情報では幅を確認できず |
 
-【推定】【第三者情報】出典：[Redress Compliance「2026 pricing tiers」（2026-06-24公開・2026-08-16更新）](https://redresscompliance.com/servicenow-2026-pricing-tiers-pillar)、[Redress Compliance「8 to 12 percent」（2026-09-04公開）](https://redresscompliance.com/servicenow-8-to-12-percent-unit-price-increase-pushback)（取得日 2026-11-02）
+【推定】【第三者情報】出典：[Redress Compliance「2026 pricing tiers」（2026-06-24公開・2026-08-16更新）](https://redresscompliance.com/servicenow-2026-pricing-tiers-pillar)、[Redress Compliance「8 to 12 percent」（2026-09-04公開）](https://redresscompliance.com/servicenow-8-to-12-percent-unit-price-increase-pushback)、[Community（ITSM）](https://www.servicenow.com/community/itsm-articles/itsm-licensing-in-april-2026-foundation-advanced-and-prime-in/ta-p/3544380)（取得日 2026-11-02）
+
+> **注意（機能喪失のリスク）：** Community 記事によれば、ITSM Foundation には Problem Management、Change Management、Major Incident Management が含まれない（§2.2）。旧 ITSM Standard / Professional でこれらのプロセスを使っている場合、Foundation へマッピングすると機能を失うため、実質的には Advanced が必要になる。「横ばい」という価格影響は Foundation へのマッピングを前提にした値であり、Advanced が必要な場合は更新額が増える可能性がある。【推定】
 
 - 同アドバイザリーは、マッピングは「機械的ではない」（新 tier はモジュールの深さではなく AI 能力で区切られているため）と注意している。【第三者情報】
 - 別のアドバイザリーは「旧 tier の据え置き（grandfathering）はなく、全顧客が次回更新時に移行する」と記述し、ベンダー提示のマッピングは交渉の出発点にすぎないとしている。【第三者情報】[出典](https://nownegotiations.pages.dev/servicenow-new-commercial-model)
@@ -171,7 +178,8 @@ tier ごとの機能差の詳細は [エディション比較](03-edition-compar
 - 2026-04 以前の旧体系（`v3` 等）の SKU であり、Foundation / Advanced / Prime の価格ではない。
 - 価格表には「Base Price GBP」とのみあり、**課金期間（月額か年額か）が明記されていない**。Virtual Agent パック（月4,000会話）が £1,666.40 であること等から月額表記と解するのが自然だが、公開情報では確定できず。【推定】
 - 英国公共部門向けの掲載価格であり、民間・日本の価格とは異なる。
-- PDF のテキスト抽出時に表の列配置が崩れるため、SKU 名と価格が同じ行で対応付けられたものだけを掲載する。
+- 文書の1ページ目の見出しは「SCC ServiceNow Products & Pricing for G Cloud 13」（副題「G-Cloud 14 - ServiceNow Pricing」）で、各ページのフッターに「G-Cloud 1May2019」が残っている。旧フレームワーク向け資料の流用の可能性があり、価格の時点は確定できない。
+- PDF のテキスト抽出時に表の列配置が崩れるため、SKU 名と価格が同じ行で対応付けられたものだけを掲載する。ただし、同じ行で対応付けても列ずれの影響を受ける可能性がある（例：HRSD Enterprise `PROD17238` は同じ行が £4.00、上から順に読むと £12.80 となり、Enterprise が Professional〔£8.00〕より安いという不自然な結果になるため本表には掲載しない）。
 
 | SKU | 製品（旧体系） | 課金単位 | Base Price（GBP） |
 |---|---|---|---|
@@ -189,10 +197,16 @@ tier ごとの機能差の詳細は [エディション比較](03-edition-compar
 | `PROD16953` | Strategic Portfolio Management Professional - SPM User | SPM User | £100.00 |
 | `PROD17143` | Customer Service Management Standard - Fulfiller User v6 | Fulfiller User | £100.00 |
 | `PROD17145` | Customer Service Management Professional With App Engine 100 - Fulfiller User v6 | Fulfiller User | £180.00 |
-| `PROD17237` | HR Service Delivery Professional - HR User v4 | HR User | £8.00 |
+| `PROD17237` | HR Service Delivery Professional - HR User v4 | HR User | £8.00（列対応は要確認） |
 | `PROD13076` | App Engine - Unrestricted User | Unrestricted User | £16.00 |
 | `PROD15370` | Field Service - Contractor User | Contractor User | £28.00 |
 | `PROD17366` | Healthcare & Life Sciences - Fulfiller User | Fulfiller User | £240.00 |
+| `PROD16743` | Security Operations Standard - SIR - Unrestricted User | Unrestricted User | £1.80 |
+| `PROD12821` | Security Operations Standard - VR - Devices | Devices | £1.40 |
+| `PROD12019` | Integrated Risk Management Standard - IRM User | IRM User | £4.00 |
+| `PROD14208` | Integrated Risk Management Standard - IRM Operator | IRM Operator | £80.00 |
+| `PROD15033` | Software Asset Management Professional - Subscription Unit | Subscription Unit | £6.40 |
+| `PROD16047` | Hardware Asset Management Professional - Subscription Unit v2 | Subscription Unit | £3.20 |
 
 【推定】出典：[G-Cloud 14 SCC ServiceNow Pricing（ファイル名日付 2025-06-30）](https://assets.applytosupply.digitalmarketplace.service.gov.uk/g-cloud-14/documents/92465/204661809116859-pricing-document-2025-06-30-1349.pdf)（取得日 2026-11-02）
 
@@ -256,19 +270,21 @@ tier ごとの機能差の詳細は [エディション比較](03-edition-compar
 
 （取得日 2026-11-02）
 
-ServiceNow の決算説明では、Pro Plus を含む案件が上位20件中15件（2025年Q1）、Plus 製品が上位20件中18件（2025年Q2）と報告されており、AI 付き上位 SKU への誘導が営業上の重点であったことがうかがえる。【第三者情報】（決算説明会の報道・トランスクリプトに基づく）
+ServiceNow の決算説明では、Pro Plus を含む案件が上位20件中15件（2025年Q1）、Plus 製品が上位20件中18件（2025年Q2）と報告されており、AI 付き上位 SKU への誘導が営業上の重点であったことがうかがえる。【第三者情報】出典：[Q1 2025 決算説明会トランスクリプト（2025-04-23、MarketBeat）](https://www.marketbeat.com/earnings/reports/2025-4-23-servicenow-inc-stock)（"Pro Plus products were included in 15 of our top 20 deals"）、[Q2 2025 決算説明会トランスクリプト（2025-07-23、Investing.com）](https://www.investing.com/news/transcripts/earnings-call-transcript-servicenow-beats-q2-2025-estimates-stock-dips-93CH-4149489)（"Plus products were included in 18 of the top 20 deals"）（取得日 2026-11-02）
 
-### 3.6 その他の製品（ITOM、CSM、HRSD、SecOps、IRM、SPM、App Engine）
+### 3.6 その他の製品（ITOM、ITAM、CSM、HRSD、SecOps、IRM、SPM、App Engine）
 
 ITSM 以外の製品について、民間価格の信頼できる推定値は公開情報ではほとんど確認できなかった。確認できたのは次のとおり。
 
 | 製品 | 課金単位 | 推定値・参考値 | 出典 |
 |---|---|---|---|
 | ITOM | Subscription Unit（SU）。管理対象リソースを規定比率で換算 | G-Cloud 旧 SKU で £9.60〜£30.40/SU（期間不明） | §3.1 |
+| SAM（Software Asset Management） | Subscription Unit（SU） | G-Cloud 旧 Professional SU £6.40（期間不明）。民間価格は確認できず | §3.1 |
+| HAM（Hardware Asset Management） | Subscription Unit（SU） | G-Cloud 旧 Professional SU v2 £3.20（期間不明）。民間価格は確認できず | §3.1 |
 | CSM | Fulfiller（+ Portal Visit、高負荷時は従量） | G-Cloud 旧 Standard Fulfiller £100 | §3.1、[Vendr](https://www.vendr.com/marketplace/ServiceNow) |
-| HRSD | HR User（従業員数）+ HR エージェント | G-Cloud 旧 Professional HR User £8.00 | §3.1 |
-| SecOps | セキュリティアナリスト単位、Unrestricted User、Device 等（従量課金の場合あり） | 民間価格は公開情報では確認できず | [Vendr](https://www.vendr.com/marketplace/ServiceNow) |
-| IRM | IRM User / IRM Operator | 民間価格は公開情報では確認できず | §3.1（SKU 構造のみ） |
+| HRSD | HR User（従業員数）+ HR エージェント | G-Cloud 旧 Professional HR User £8.00（列対応は要確認） | §3.1 |
+| SecOps | セキュリティアナリスト単位、Unrestricted User、Device 等（従量課金の場合あり） | G-Cloud 旧 Standard で SIR Unrestricted User £1.80、VR Device £1.40（期間不明）。民間価格は確認できず | §3.1、[Vendr](https://www.vendr.com/marketplace/ServiceNow) |
+| IRM | IRM User / IRM Operator | G-Cloud 旧 Standard IRM User £4.00 / IRM Operator £80.00（期間不明）。民間価格は確認できず | §3.1 |
 | SPM | SPM User | G-Cloud 旧 Standard £60 / Professional £100 | §3.1 |
 | App Engine | Fulfiller / Unrestricted User | G-Cloud 旧 Unrestricted £16 | §3.1 |
 
@@ -287,6 +303,8 @@ ServiceNow の日本円建て単価は公開情報ではほぼ確認できない
 | Fulfiller 1,000名規模の年間ライセンス | 5〜10億円 | 同上 |
 
 【推定】（取得日 2026-11-02）
+
+> **注意（同一記事内の桁の食い違い）：** 「1,000名で年5〜10億円」は1ユーザーあたり年50〜100万円に相当し、同じ記事の「年10〜30万円/ユーザー」とは桁が異なる。§5.3 の「約2,000名規模でライセンス5年3〜10億円」（＝1名あたり年3〜10万円程度）とも整合しない。どの値も前提が不明なため、**いずれも単独では見積・予算の根拠に使わないこと**。【推定】
 
 #### 歴史的な日本円の公表価格（参考）
 
@@ -322,7 +340,7 @@ ServiceNow の日本円建て単価は公開情報ではほぼ確認できない
 |---|---|
 | 年間契約額の中央値 | $129,976 |
 | 平均交渉割引（対見積） | 8% |
-| 更新時値上げ（購入者報告） | 1年更新で 20%、3年更新で 12%。ライン項目単位で 20〜90% 増の報告も |
+| 更新時値上げ（購入者報告） | 更新時値上げは 10〜90% の報告。一般的には1年更新で約 20%、3年更新で約 12%（同ページは別箇所で「ライン項目単位で 20〜90% 増の例」とも記載） |
 | 契約上の注意 | 期中のダウングレード不可、自動更新 |
 
 【推定】出典：[CostBench（2026-06-09 検証）](https://costbench.com/software/help-desk/servicenow)（取得日 2026-11-02）。同ページは Reddit 投稿等も根拠に含み、ページ内で数値の不整合（導入費用比率が 50〜100% と 50〜150% の2通り等）がある。
@@ -332,9 +350,8 @@ ServiceNow の日本円建て単価は公開情報ではほぼ確認できない
 | 項目 | 報告値 | 出典 |
 |---|---|---|
 | 定価からの達成割引（2025〜2026年の成約案件） | 25〜45%（上限は規模・複数年・有力な代替案が必要） | [Redress（2026-09-04）](https://redresscompliance.com/servicenow-8-to-12-percent-unit-price-increase-pushback) |
-| モジュール別の交渉による値下げ幅 | ITSM 15〜35%、HRSD 25〜40%、CSM 20〜30%（同記事 FAQ では ITSM 40〜50%、ITOM 35〜55%、HRSD 55〜70% と記載が不一致） | 同上 |
+| モジュール別の交渉による値下げ幅 | ITSM 15〜35%、HRSD 25〜40%、CSM 20〜30%（同記事の根拠〔evidence〕節）。同記事の本文では ITSM 40〜50%・HRSD 55〜70%（定価比）、FAQ では ITSM 40〜50%・ITOM 35〜55%・HRSD 55〜70% と記載が不一致 | 同上 |
 | ITSM Pro/Enterprise の定価比割引（3年 ACV） | 28〜48% | [Redress（discount benchmarks）](https://redresscompliance.com/servicenow-discount-benchmarks-what-enterprises-actually-achieve.html) |
-| 年間支出 $5M 以上の複数年大型契約 | 20〜40% | アドバイザリー系サイト（検索結果の要約） |
 | Vendr 経由の平均削減率 | 8.1% | [Vendr](https://www.vendr.com/marketplace/ServiceNow) |
 
 【推定】（取得日 2026-11-02）
@@ -343,12 +360,12 @@ ServiceNow の日本円建て単価は公開情報ではほぼ確認できない
 
 同じアドバイザリー企業は、ACV 規模ごとの割引中央値と上位25%（top quartile）を公開している。**契約規模が大きいほど割引率が高い**傾向が明確である。
 
-| ACV 帯（USD） | 割引中央値 | 上位25% | 次の段階に進むための要因（報告ベース） |
-|---|---|---|---|
-| 50万未満 | 8〜12% | 20% | 書面の競合提案 |
-| 50万〜200万 | 15〜22% | 28% | 事業部ごとの契約を1つの契約書に統合 |
-| 200万〜500万 | 27% | 43% | 550件超（平均 ACV 220万）に基づく。現実的な目標は 34〜38% |
-| 500万超 | 30〜40% | 45% 以上 | 割引率より構造（uplift 上限、予約容量、数量削減権）が重要 |
+| ACV 帯（USD） | 割引中央値 | 上位25% | 次の段階に進むための要因（報告ベース） | 備考 |
+|---|---|---|---|---|
+| 50万未満 | 8〜12% | 20% | 書面の競合提案＋3年契約 | 同記事の導入部は中央値を 8% とも記載 |
+| 50万〜200万 | 15〜22% | 28% | 事業部ごとの契約を1つの契約書に統合、Fulfiller 下限数のコミット | — |
+| 200万〜500万 | 27% | 43% | 名前を出したリファレンス顧客になること、Q4 クローズ、複数モジュールのコミット | 550件超（平均 ACV 220万）に基づく。現実的な目標は 34〜38% |
+| 500万超 | 30〜40% | 45% 以上 | ELA 構造（uplift 上限、予約容量、数量削減権）。割引率より構造が重要 | — |
 
 【推定】出典：[Redress Compliance「Price benchmarks by spend tier 2026」（2026-08-20）](https://redresscompliance.com/servicenow-price-benchmarks-by-spend-tier-2026)（取得日 2026-11-02）
 
@@ -359,8 +376,8 @@ ServiceNow の日本円建て単価は公開情報ではほぼ確認できない
 | 注文書のデフォルト uplift | 年 7〜12%（複利） | [Redress（spend tier）](https://redresscompliance.com/servicenow-price-benchmarks-by-spend-tier-2026) |
 | 更新時の初回提示 | 15〜25%（最終的に 10% 前後で決着することが多い） | 同上 |
 | 「年3%上限」の落とし穴 | 複利で3年累計約 9.3% | 同上 |
-| ACV $5M で uplift 7%（上限なし）の3年影響 | 約 +$1.05M（3% 上限なら約 +$455K、CPI 連動 2.5% なら約 +$378K） | 同上 |
-| 契約期間 | 3年が標準。2年は 3〜5ポイント不利。5年は uplift 0〜3% 上限と年 10〜15% の数量削減権がある場合のみ検討価値 | 同上 |
+| ACV $5M で uplift 7%（上限なし）の3年影響 | 約 +$1.05M（出典値。2年目 +$350K・3年目 +$724.5K〔$5M×(1.07²−1)〕で計算すると約 +$1.07M。出典本文の内訳「2年目 350K・3年目 375K」も合計と一致しない）。3% 上限なら約 +$455K、CPI 連動 2.5% なら約 +$378K（いずれも同じ方法で検算一致） | 同上 |
+| 契約期間 | 3年が標準。2年は約 3〜5ポイント不利（"price two years about 3 to 5 points worse"）。5年は uplift 0〜3% 上限と年 10〜15% の数量削減権がある場合のみ検討価値 | 同上 |
 | 時期 | ServiceNow の会計年度末（12月）の Q4 クローズで 3〜5ポイント有利。ただし最終3週間に交渉を持ち込まれると逆に 5〜8ポイント失うとの指摘 | 同上、[Vendr](https://www.vendr.com/marketplace/ServiceNow) |
 | AI 上位 SKU の値上げ例 | 旧 ITSM Pro の AI プレミアム単価が $150→$180/Fulfiller/月に上がり、1,500 Fulfiller で年約 $540K 増 | [Redress（spend tier）](https://redresscompliance.com/servicenow-price-benchmarks-by-spend-tier-2026) |
 
@@ -374,15 +391,17 @@ ServiceNow の日本円建て単価は公開情報ではほぼ確認できない
 
 #### 事例A：Enterprise 1,200 Fulfiller の更新（アドバイザリーの仮想事例）
 
-| シナリオ | 年間費用（USD） |
-|---|---|
-| 現状（1,200 Fulfiller × $110/月） | $1,584,000 |
-| 数量据え置きで 10% 割引 | $1,425,600 |
-| 未使用ライセンス整理後、500〜999帯の単価で再見積 | $1,243,440 |
-| 未使用整理後、$110 単価を維持 | $1,023,840 |
-| 単価維持＋180 seat を Professional に格下げ | $948,240 |
+| シナリオ | 年間費用（USD） | 計算式 |
+|---|---|---|
+| 現状（1,200 Fulfiller × $110/月） | $1,584,000 | 1,200 × $110 × 12 |
+| 数量据え置きで 10% 割引 | $1,425,600 | $1,584,000 × 0.9 |
+| 未使用ライセンス整理後、500〜999帯の単価で再見積 | $1,243,440 | 732 × $135 × 12 ＋ 240 × $20 × 12 |
+| 未使用整理後、$110 単価を維持 | $1,023,840 | 732 × $110 × 12 ＋ 240 × $20 × 12（＝$57,600） |
+| 単価維持＋180 seat を Professional に格下げ | $948,240 | $1,023,840 − 180 × $35 × 12 |
 
-【推定】出典：[Redress Compliance](https://redresscompliance.com/how-much-is-servicenow-2026)（取得日 2026-11-02）。同記事は承認者ライセンスを $20/月と仮定した仮想事例と明記。
+数量の前提：1,200 名のうち、承認のみを行う 240 名を承認者ライセンス（$20/月と仮定）に移し、軽量な stakeholder 144 名・非アクティブ 60 名・テスト/管理用 24 アカウントを除外して、Fulfiller を 732 名とする。格下げは Enterprise と Professional の単価差を $35/月と仮定。
+
+【推定】出典：[Redress Compliance](https://redresscompliance.com/how-much-is-servicenow-2026)（取得日 2026-11-02）。同記事は承認者ライセンスを $20/月と仮定した仮想事例と明記している。また、数量を減らしたことで上位の数量帯から外れ、帯単価（$135）で再見積されると、$110 を維持した場合より年 $219,600 増える（$1,243,440 − $1,023,840）点を、単価維持を交渉すべき理由として挙げている。
 
 **示唆：** ヘッドラインの割引率交渉（10%）よりも、**未使用ライセンスの整理（shelfware 削減）と tier の適正化**のほうが削減効果が大きい（▲40%）。【推定】
 
@@ -391,13 +410,13 @@ ServiceNow の日本円建て単価は公開情報ではほぼ確認できない
 - 期中に Fulfiller を追加した顧客が、既存のコミット単価ではなく新規単価で見積られ、**単価が 8〜12% 高くなる**事象が報告されている。
 - 期中追加分を主契約の終了日に揃える co-termination により、拡張費用の 3〜8% 相当が上乗せされる場合がある。
 - 400 seat 追加時に単価を $100 → $90/月にできれば、3年間で約 $144,000 の差になる（試算）。
-- 「40% 割引 + 年 9% の上限なし値上げ」は、3年目には実効割引が約 25% まで目減りする。
+- 「40% 割引 + 年 9% の上限なし値上げ」では実効割引が目減りする。出典は「約 25%」と記載しているが、検算すると3年目（値上げ2回後：0.6 × 1.09² ≒ 0.713）で約 29%、4年目相当（値上げ3回後：0.6 × 1.09³ ≒ 0.777）で約 22% となり、出典値はどちらの前提とも一致しない。
 
 【推定】出典：[Redress Compliance（2026-09-04）](https://redresscompliance.com/servicenow-8-to-12-percent-unit-price-increase-pushback)（取得日 2026-11-02）
 
 #### 事例C：2026年 tier 移行時の更新
 
-- Standard / Pro 顧客はおおむね横ばい、Pro Plus 顧客は 0〜15% 増、Enterprise Plus は Prime へ。
+- Standard / Pro 顧客はおおむね横ばい、Pro Plus 顧客は 0〜15% 増、Enterprise Plus は Prime へ（「8 to 12 percent」記事）。ただし同アドバイザリーの別記事は Standard の基本価格が Now Assist 同梱分だけ上昇したとしており、Problem / Change を使う旧 Standard / Pro 顧客は Advanced が必要になり得る（§2.3）。
 - 全ユーザーを Prime に揃えた結果、請求額が約3分の1増え、10社中6社では付加価値が得られなかった（アドバイザリーの 30〜40件の更新ベンチマーク）。
 - AI 従量の超過が、エージェント・Now Assist 稼働後に tier 費用の 15〜30% に達した例がある。
 - 開発・検証などのサブプロダクション環境も本番と同じ assist プールを消費する（旧体系では開発インスタンスに追加費用はなかった）。
@@ -414,7 +433,7 @@ ServiceNow の日本円建て単価は公開情報ではほぼ確認できない
 | ITSM Pro 単体へのアップグレード | 40% | Pro Unrestricted User 定価 | 2026-09-30 まで（**本ファイル作成時点で期限切れ**） |
 
 - 新規・既存を問わず全連邦機関が対象。Carahsoft の GSA Schedule およびその連邦リセラー経由で提供される。
-- SKU 例：`PROD17257`（ITSM Pro Unrestricted User、FedRAMP GCC）、`PROD17415`（ITSM Pro Unrestricted User、FedRAMP IL5/NSC）。
+- 70% 割引バンドルの SKU：`SNITSMPROPLUS`（ServiceNow ITSM + ProPlus (GenAI) Unrestricted User、FedRAMP GCC）、`SNITSMPROPLUSNSC`（同、FedRAMP IL5/NSC）。いずれも有効期限 2028-09-30。40% アップグレードの SKU は Carahsoft のページでは確認できず。
 - 報道は、このバンドルが AI 機能（Pro Plus＝Now Assist）の普及加速を目的としたものと説明している。
 
 【第三者情報】【推定】出典：[Constellation Research（2025-09-04）](https://www.constellationr.com/insights/news/servicenow-offers-us-government-discounts-high-70-itsm)、[Carahsoft GSA OneGov](https://www.carahsoft.com/servicenow/gsa-onegov)（取得日 2026-11-02）
@@ -430,7 +449,7 @@ ServiceNow の日本円建て単価は公開情報ではほぼ確認できない
 | 1 | tier マッピング | 各旧 entitlement を、実利用をカバーする**最も低い新 tier** に割り当てる。ベンダー提示のマッピングを前提にしない | [Now Advisory](https://nownegotiations.pages.dev/servicenow-new-commercial-model) |
 | 2 | Prime の範囲限定 | Prime はエージェントを構築・運用するチームに限定し、他は Foundation / Advanced に置く | [Redress](https://redresscompliance.com/servicenow-2026-pricing-tiers-pillar) |
 | 3 | 数量の実態合わせ | Fulfiller / Requester 数を実際の更新行動に基づいて再集計し、組織再編・売却分を除外 | [Now Advisory](https://nownegotiations.pages.dev/servicenow-new-commercial-model) |
-| 4 | 更新時値上げの上限 | 年間 uplift を「米国 CPI と 4% の低い方」などの**明示数値**で上限設定し、定価ではなく実効単価に適用。4% 上限なら3年複利で約12.5%、5〜7% なら15〜21% | [Redress](https://redresscompliance.com/servicenow-8-to-12-percent-unit-price-increase-pushback) |
+| 4 | 更新時値上げの上限 | 年間 uplift を「米国 CPI と 4% の低い方」などの**明示数値**で上限設定し、定価ではなく実効単価に適用。4% 上限なら3年複利で約12.5%、5〜7% なら約16〜23%（1.05³≒1.158、1.07³≒1.225。出典は15〜21%と記載）。Now Advisory は「上限付き uplift は初日のヘッドライン割引1〜2ポイントより通常価値がある」と指摘 | [Redress](https://redresscompliance.com/servicenow-8-to-12-percent-unit-price-increase-pushback)、[Now Advisory](https://nownegotiations.pages.dev/servicenow-new-commercial-model) |
 | 5 | 期中追加単価の固定 | 数量帯別の Fulfiller 単価を注文書に明記し、期中追加はコミット済み帯の単価で | 同上 |
 | 6 | true-down 権 | 年最大 15% の数量削減と比例減額 | 同上 |
 | 7 | AI プールと超過単価 | assist プールのサイズと超過単価を、想定利用量モデルに紐づけて**書面で**合意。将来の Prime 拡張単価のロック、移行時の価格保護 | [Redress](https://redresscompliance.com/servicenow-2026-pricing-tiers-pillar) |
@@ -458,7 +477,7 @@ ServiceNow の TCO は、サブスクリプション費用だけでなく、導�
 | | アドオン・パック | Virtual Agent / Integration Hub / Portal Visit / AI Search のパック、Performance Analytics（ACV 比率型）等 | 製品 ACV の 20〜30% 程度の比率型 SKU が存在（§3.1） |
 | | AI 従量超過 | assist プール超過分 | tier 費用の 15〜30% に達した例（§4.3） |
 | | 追加インスタンス・環境 | 追加のサブプロダクション環境、RaptorDB Professional 等の上位オプション | 公開情報では確認できず |
-| | 更新時の値上げ | 上限なしの場合、年 7〜12% 程度 | §4.4 |
+| | 更新時の値上げ | 上限なしの場合、年 7〜12% 程度 | §4.2 |
 | ②導入（初期） | 導入パートナー費用 | 要件定義・設計・構築・テスト・移行 | 年間ライセンス額の 3〜5倍（第一年度）との海外推定 |
 | | データ移行・連携構築 | 旧ツールからの移行、IntegrationHub/REST 連携 | 案件依存 |
 | | トレーニング・定着化 | 管理者・エージェント・利用者教育 | 案件依存 |
@@ -466,7 +485,7 @@ ServiceNow の TCO は、サブスクリプション費用だけでなく、導�
 | | パートナー保守・改修 | 設定変更・機能追加が都度有償になりやすい | 案件依存 |
 | | アップグレード対応 | 年2回のファミリーリリースへの追随、回帰テスト | [アップグレード管理](13-upgrade-management.md) 参照 |
 | | プレミアムサポート | 標準サポートを超える支援 | ライセンスの約 20% との推定 |
-| | ServiceNow Impact（成功支援パッケージ） | Guided / Total / Integrated Success。CSM（Customer Success Manager）、アーキテクト、アクセラレーター等を提供 | 定価は年間サブスクリプション料の Guided 10%、Total 30% との報告（§5.6） |
+| | ServiceNow Impact（成功支援パッケージ） | Guided / Total / Integrated Success。強化された技術サポート、厳選コンテンツ、（Total 以上）Customer Success Executive・Platform Architect 等の専任チーム、アクセラレーター等を提供 | 定価は年間サブスクリプション料の Guided 10%、Total 30% との報告（§5.6） |
 | ④その他 | 社内人件費・機会費用 | 業務部門の要件出し・テスト参加 | 案件依存 |
 
 【推定】出典：[InvGate（2026-10-07、Motadata・Desk365・CostBench の推定を引用）](https://blog.invgate.com/servicenow-pricing)、[G-Cloud 14 価格表](https://assets.applytosupply.digitalmarketplace.service.gov.uk/g-cloud-14/documents/92465/204661809116859-pricing-document-2025-06-30-1349.pdf)、[Redress](https://redresscompliance.com/servicenow-2026-pricing-tiers-pillar)（取得日 2026-11-02）
@@ -533,7 +552,7 @@ flowchart LR
 | 運用要員（CCoE、5年） | 1〜3億円 |
 | **5年 TCO 合計** | **6〜21億円** |
 
-【推定】出典：[Aurant Technologies（2026-06-25）](https://aurant-technologies.com/blog/servicenow-itsm-introduction-guide/)（取得日 2026-11-02）。同記事は別箇所で「3年でライセンス費が2〜3倍になり得る」とも述べており、上表には値上げ・拡張分が反映されていない可能性がある。
+【推定】出典：[Aurant Technologies（2026-06-25）](https://aurant-technologies.com/blog/servicenow-itsm-introduction-guide/)（取得日 2026-11-02）。同記事は実装パートナー費用の節で保守費を「年額1〜3億円」としており、表の「5年保守・改修 1〜3億円」（5年合計）と最大5倍食い違う。また別箇所で「3年でライセンス費が2〜3倍になり得る」とも述べており、上表には値上げ・拡張分が反映されていない可能性がある。
 
 ### 5.4 TCO 試算テンプレート
 
@@ -565,7 +584,7 @@ TCO(5年) = 5年サブスクリプション + 初期導入 + 年間運用 × 5
 | 年間運用 | CoE 3名相当 + 保守を年 $300,000 と仮定 | 5年で $1,500,000 |
 | **5年 TCO（uplift 4% の場合）** | | **約 $3.9M** |
 
-【推定】単価は §3.3、導入比率は §5.2 の第三者推定に基づく仮定値。uplift 上限の有無だけで5年ライセンスが約 $164,000（約10%）変わる点が、§4.4 の「uplift 上限は割引率の1〜2ポイントより価値がある」という指摘の根拠になる。[出典](https://nownegotiations.pages.dev/servicenow-new-commercial-model)
+【推定】単価は §3.3、導入比率は §5.2 の第三者推定に基づく仮定値。uplift 上限の有無だけで5年ライセンスが約 $164,000（約10%）変わる点は、Now Advisory の「上限付き uplift は初日のヘッドライン割引1〜2ポイントより通常価値がある（"usually worth more than an extra point or two of headline discount"）」という指摘【第三者情報】を裏付ける。[出典](https://nownegotiations.pages.dev/servicenow-new-commercial-model)
 
 #### ベンダー委託の ROI 調査（Forrester TEI）に見るコスト構成
 
@@ -585,11 +604,11 @@ ServiceNow が委託した Forrester の TEI（Total Economic Impact）調査は
 | サブプロダクションの AI 消費 | テスト、プロンプト調整、クローン環境のスケジュールジョブが本番と同じ assist プールを消費する | 【第三者情報】[Community](https://www.servicenow.com/community/upgrades-and-patching-forum/servicenow-ai-native-licensing-in-2026-a-practical-guide-to/m-p/3565858) |
 | データ品質と AI コスト | CMDB / CSDM の品質が低いとエージェントが再試行・ループし assist 消費が増える。ナレッジ品質が低いと検索が繰り返される | 【第三者情報】同上 |
 | 主な AI 消費源 | Virtual Agent の未一致会話の Now Assist フォールバック、Workspace の要約自動生成、Now Assist Skill Kit のカスタムスキル | 【第三者情報】同上 |
-| 未使用パックの失効 | Virtual Agent 会話は月次、Integration Hub トランザクションは年次で失効し返金なし | §3.1（G-Cloud 価格表） |
+| 未使用パックの失効 | 旧体系（2026-04 以前の SKU）の場合、Virtual Agent 会話パックは月次で失効（新 tier では Virtual Agent が会話数無制限とされ、パック自体が不要になる可能性がある。§2.2）。Integration Hub トランザクションは年次で失効し返金なし | §3.1（G-Cloud 価格表） |
 | 期中追加の単価 | 期中追加が新規単価・co-termination で割高になる | 【推定】§4.3 |
 | 機能の tier 移動 | 例：DevOps Change Velocity が Prime 専用へ移動。使っている機能が上位 tier に移ると更新時に費用増 | 【第三者情報】§2.3 |
 | ポータル訪問上限 | CSM Advanced は 2,000 訪問/fulfiller/月の上限。外部顧客ポータルの成長で追加パックが必要 | 【第三者情報】§2.2 |
-| カスタマイズの技術的負債 | 過度なカスタマイズはアップグレード費用を押し上げる | [カスタマイズと技術的負債](../04_応用編/02-customization-technical-debt.md) 参照 |
+| カスタマイズの技術的負債 | 過度なカスタマイズはアップグレード費用を押し上げる | [アップグレードの教訓](../04_応用編/04-upgrade-lessons.md)、[スクリプティングのベストプラクティス](../04_応用編/07-scripting-best-practices.md) 参照 |
 
 ### 5.6 ServiceNow Impact（成功支援パッケージ）の費用
 
@@ -597,8 +616,8 @@ ServiceNow Impact は、ライセンスとは別に購入する顧客成功支�
 
 | パッケージ | 主な内容（公式） | 推定価格【推定】 |
 |---|---|---|
-| Guided | プレミアムなデジタル体験、強化された技術サポート、厳選コンテンツ、Customer Success Manager（CSM）。アクセラレーターは同時に1つ | 年間サブスクリプション料の 10% |
-| Total | 専任チーム（Customer Success Executive、Platform Architect、CSM、Support Account Manager）、個別推奨、予防ツール。アクセラレーター同時7つ（Architecture・Strategy・Technical 各2、Optimization 1） | 年間サブスクリプション料の 30% |
+| Guided | プレミアムなデジタル体験（Premium digital experience）、強化された技術サポート、厳選コンテンツ。アクセラレーターは同時に1つ | 年間サブスクリプション料の 10% |
+| Total | 専任チーム（Impact Squad Team：Customer Success Executive、Platform Architect、Customer Success Manager、Support Account Manager の 4 ロール。Australia 版 Impact packages ページによる。Washington DC 版は 4 人目が空欄だった）、個別推奨、予防ツール。アクセラレーター同時7つ（Architecture・Strategy・Technical 各2、Optimization 1） | 年間サブスクリプション料の 30% |
 | Integrated Success | Total の全内容 ＋ プログラム推進・設計・アーキテクチャ・技術実装の専門家支援（Engineering Manager、Business Process Consultant、Solution Architect） | 公開情報では確認できず |
 
 - 公式ドキュメントは「アドオンパッケージは SKU ごと・年単位で別途価格設定される」とし、契約条件は ServiceNow の Impact 法務スケジュール（`https://www.servicenow.com/legal/servicenow-impact.html`）を参照させている。[出典](https://www.servicenow.com/docs/r/washingtondc/impact/impact-packages.html)（取得日 2026-11-02）
@@ -606,7 +625,7 @@ ServiceNow Impact は、ライセンスとは別に購入する顧客成功支�
 
 ### 5.7 利用状況の可視化（Subscription Management）
 
-ServiceNow インスタンスの Subscription Management（サブスクリプション管理）は、購入済み利用権（entitlement）と実際の割当・消費を突き合わせ、過剰購入（shelfware）と超過（over-consumption）の両方を把握するための公式機能であり、TCO 管理の基礎データになる。
+ServiceNow インスタンスの Subscription Management（サブスクリプション管理）は、購入済み利用権（entitlement）と実際の割当・消費を突き合わせ、過剰購入（shelfware）と過剰割当（over-allocation）の両方を把握するための公式機能であり、TCO 管理の基礎データになる。
 
 | 項目 | 内容（公式ドキュメント） |
 |---|---|
@@ -614,7 +633,7 @@ ServiceNow インスタンスの Subscription Management（サブスクリプシ
 | 必要ロール | `usage_admin`、`sn_sub_man.admin`、または `admin` |
 | サブスクリプション種別 | per-user / capacity / unrestricted user / unlimited / display only（display only は計測対象外） |
 | 割当 | per-user は（手動割当をしていない管理者には）ロールに基づき自動割当。capacity・unrestricted・unlimited はインスタンス上で自動割当 |
-| ステータス（Status 列） | Compliant（割当 < 購入）／Near capacity（割当が閾値超え、既定 90%、Settings タブで変更）／Even（割当 = 購入）／Over-consumed（割当 > 購入） |
+| ステータス（Status 列） | Compliant（割当 < 購入）／Near capacity（割当が閾値超え、既定 90%、Settings タブで変更）／Even（割当 = 購入）／Over-allocated（割当 > 購入）／Account-level only（割当ステータスを算出しない。Creator Plus 製品のみ） |
 | レポート | Insights（過剰割当・未使用の利用権、テーブル `sn_sub_man_st_subscription_insights`）、未マッピングのカスタムテーブル（`ua_custom_table_inventory`）、未マッピングのカスタムアプリ |
 | カスタムテーブル | 作成したカスタムテーブル・アプリはいずれかの製品サブスクリプションにマッピングが必要（App Engine の利用権消費に関係） |
 
@@ -668,7 +687,7 @@ AI（Now Assist / assist）の消費は、同じく Subscription Management 内�
 
 - ServiceNow の公式定価（rate card）。全製品・全 tier。
 - Foundation / Advanced / Prime の tier 別価格（Foundation と Prime の第三者推定のみ存在、Advanced は確認できず）。
-- assist の1アクションあたり消費量、tier ごとの assist プールサイズ、超過単価。
+- ITOM の新体系における SU 換算比の公式確認（2026-04-09 発効版 SU Overview の PDF 本文は未確認。第三者転記では Container 1:3→1:10、Unresolved Monitored Object 1:1→1:4 に変更。[ITOM 概要 5.4](../02_リファレンス/itom/itom-overview.md#54-su-比率managed-it-resource-type-と比率) 参照）。
 - ITOM の新体系における SU 換算比（旧体系の 1:1〔サーバー〕、4:1 等が継続するか）は Community でも未回答。
 - 日本円建ての公式・準公式単価、および日本における企業名入りの価格交渉事例。
 - G-Cloud 14 価格表の課金期間（月額か年額か）の明示。
@@ -694,6 +713,12 @@ AI（Now Assist / assist）の消費は、同じく Subscription Management 内�
 - Product subscriptions overview（Subscription Management）: https://www.servicenow.com/docs/r/platform-administration/subscriptions-overview-v2.html
 - Monitoring Now Assist usage in Subscription Management: https://www.servicenow.com/docs/r/platform-administration/monitoring-now-assist-usage.html
 - Impact packages: https://www.servicenow.com/docs/r/washingtondc/impact/impact-packages.html
+- Impact packages（Australia）: https://www.servicenow.com/docs/r/australia/impact/impact-packages.html
+
+### 決算説明会トランスクリプト
+
+- ServiceNow Q1 2025 Earnings Call Transcript（2025-04-23、MarketBeat）: https://www.marketbeat.com/earnings/reports/2025-4-23-servicenow-inc-stock
+- ServiceNow Q2 2025 Earnings Call Transcript（2025-07-23、Investing.com）: https://www.investing.com/news/transcripts/earnings-call-transcript-servicenow-beats-q2-2025-estimates-stock-dips-93CH-4149489
 
 ### 公共調達の公開価格表・公共部門事例
 

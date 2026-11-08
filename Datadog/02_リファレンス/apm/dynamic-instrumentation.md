@@ -54,7 +54,7 @@ Dynamic Instrumentation（ダイナミック インスツルメンテーショ�
 [出典](https://docs.datadoghq.com/dynamic_instrumentation/) / [出典](https://docs.datadoghq.com/tracing/live_debugger/)
 
 - 旧来の DI ドキュメントでは「log probe（ログプローブ）」として DI の一機能だったログ・スナップショット取得は、現行仕様では **Live Debugger の logpoint** に移っている。DI の画面では「Dynamic log instrumentations are supported in Live Debugger」と案内され、DI でログ型の計装は作成しない。[出典](https://docs.datadoghq.com/dynamic_instrumentation/)
-- Datadog は 2021-11-04 に、本番環境でコードレベルの可観測性を提供するライブデバッグソリューション Ozcode の買収完了を発表した（同社の「Ozcode's Live Debugger」にも言及）。[出典](https://www.datadoghq.com/about/latest-news/press-releases/datadog-completes-acquisition-of-ozcode/) / [出典](https://www.datadoghq.com/blog/datadog-acquires-ozcode/)。現行の Live Debugger がこの買収を源流とすることは公式に明記されていない【推定】（[what-is-datadog.md](../../01_入門編/what-is-datadog.md) の買収年表を参照）。Live Debugger は DASH 2024（2024-06）でベータとして発表された（当時の発表は Exception Replay や AI 生成テストを含む構想として紹介）。[出典](https://www.datadoghq.com/ja/about/latest-news/press-releases/datadog-live-debugger-dash-2024-06/)（2024-06-28 公開）
+- Datadog は 2021-11-04 に、本番環境でコードレベルの可観測性を提供するライブデバッグソリューション Ozcode の買収完了を発表した（同社の「Ozcode's Live Debugger」にも言及）。[出典](https://www.datadoghq.com/about/latest-news/press-releases/datadog-completes-acquisition-of-ozcode/) / [出典](https://www.datadoghq.com/blog/datadog-acquires-ozcode/)。現行の Live Debugger がこの買収を源流とすることは公式に明記されていない【推定】（[01-what-is-datadog.md](../../01_入門編/01-what-is-datadog.md) の買収年表を参照）。Live Debugger は DASH 2024（2024-06）でベータとして発表された（当時の発表は Exception Replay や AI 生成テストを含む構想として紹介）。[出典](https://www.datadoghq.com/ja/about/latest-news/press-releases/datadog-live-debugger-dash-2024-06/)（2024-06-28 公開）
 - 現行（2026-11-02 時点）の Live Debugger ドキュメントには Preview 表記がない（Bits Live Debugger と MCP の `live-debugger` ツールセットのみ【Preview】）。[出典](https://docs.datadoghq.com/tracing/live_debugger/)
 
 本ファイルの範囲外（詳細はリンク先）：
@@ -569,7 +569,7 @@ Sensitive Data Scanner 画面（Organization Settings > Sensitive Data Scanner�
 - 公式ブログは「Live Debugger は debugging activity の監査証跡（audit trail）を保持する」と述べている。[出典](https://www.datadoghq.com/blog/live-debugger/)（2026-08-27 公開）
 - Audit Trail では DI のプローブ作成・変更・削除、Live Debugger の Redaction Settings 変更などのイベントを検索できる（イベント名とクエリは [Audit Trail](../platform/audit-trail.md) を参照）。
 
-セキュリティ・コンプライアンス観点の全体設計は [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md) を参照。
+セキュリティ・コンプライアンス観点の全体設計は [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md) を参照。
 
 ---
 
@@ -726,7 +726,7 @@ DD_CODE_ORIGIN_FOR_SPANS_ENABLED=false
 
 [出典](https://www.datadoghq.com/pricing/)（取得日 2026-11-02）/ [出典](https://docs.datadoghq.com/tracing/trace_pipeline/trace_retention/) / [出典](https://docs.datadoghq.com/tracing/live_debugger/bits-live-debugger/)
 
-- APM 各プランの単価（ホスト単価、年契約／月契約／オンデマンド）とスパンの割当量は、料金の正本である [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。課金計算の仕組みは [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、ログ課金の最適化は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+- APM 各プランの単価（ホスト単価、年契約／月契約／オンデマンド）とスパンの割当量は、料金の正本である [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照。課金計算の仕組みは [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、ログ課金の最適化は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 - 専用ログインデックスの保持期間を短めにする、Capture Variables を必要時のみ使う、logpoint を調査後すぐ無効化する、といった運用でログ量を抑えられる【経験則】。
 
 ---
@@ -743,7 +743,7 @@ DD_CODE_ORIGIN_FOR_SPANS_ENABLED=false
 | 恒久化の判断 | DI の動的スパン・タグで有用と分かった計装は、長期的にはコードによるカスタム計装へ移すかを検討する（DI は無効化するまで残るため棚卸しが必要） | 【経験則】 |
 | オーバーヘッド | Datadog は「本番で安全に使える」と説明しているが、定量的なオーバーヘッド値は公開情報では確認できず。高頻度メソッドへの Capture Variables なし logpoint や動的メトリクス（レート制限なし）は呼び出し回数に比例してデータ量が増える | 公式記述＋【推定】 |
 
-APM 運用全般のベストプラクティスは [APM 運用の実践](../../04_応用編/apm-practices.md) を参照。
+APM 運用全般のベストプラクティスは [APM 運用の実践](../../04_応用編/05-apm-practices.md) を参照。
 
 ---
 
@@ -801,4 +801,4 @@ APM 運用全般のベストプラクティスは [APM 運用の実践](../../04
 - [APM の概念とインジェスト制御](./apm-concepts-and-ingestion.md) / [APM インスツルメンテーション](./apm-instrumentation.md) / [APM 画面と分析機能](./apm-ui-and-analysis.md) / [Error Tracking](./error-tracking.md) / [Continuous Profiler](./continuous-profiler.md)
 - [Fleet Automation と Remote Configuration](../platform/fleet-automation.md) / [Datadog Agent](../platform/agent.md) / [Agent 設定リファレンス](../platform/agent-configuration.md) / [組織・ユーザー・権限管理](../platform/account-and-access-management.md) / [Audit Trail](../platform/audit-trail.md) / [Datadog Sites](../platform/datadog-sites.md)
 - [Sensitive Data Scanner](../security/sensitive-data-scanner.md) / [Indexes・保持・アーカイブ](../logs/log-indexes-retention-archives.md) / [Bits AI と AI 機能](../ai/bits-ai.md)
-- [製品別料金表](../../03_導入編/pricing-by-product.md) / [課金計算の仕組み](../../03_導入編/billing-mechanics.md) / [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md) / [APM 運用の実践](../../04_応用編/apm-practices.md) / [コスト最適化](../../04_応用編/cost-optimization.md)
+- [製品別料金表](../../03_導入編/02-pricing-by-product.md) / [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) / [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md) / [APM 運用の実践](../../04_応用編/05-apm-practices.md) / [コスト最適化](../../04_応用編/01-cost-optimization.md)

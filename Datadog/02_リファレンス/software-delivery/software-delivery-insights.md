@@ -1003,7 +1003,7 @@ API リファレンス上、全エンドポイントが Preview 表記。[出典
 
 ## 課金への影響
 
-料金は 2026-11-02 時点の公式料金ページの定価（USD）。正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、課金計算の詳細は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+料金は 2026-11-02 時点の公式料金ページの定価（USD）。正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、課金計算の詳細は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 
 | 機能 | 課金単位 | 年契約 | 月契約 | オンデマンド |
 |---|---|---|---|---|
@@ -1035,7 +1035,7 @@ API リファレンス上、全エンドポイントが Preview 表記。[出典
 - [APM 画面と分析機能](../apm/apm-ui-and-analysis.md) — Deployment Tracking、Faulty Deployment Detection
 - [Incident Management](../service-management/incident-management.md)
 - [Terraform と IaC](../platform/terraform-and-iac.md)
-- [製品別料金表](../../03_導入編/pricing-by-product.md)
+- [製品別料金表](../../03_導入編/02-pricing-by-product.md)
 
 ## 参照元
 

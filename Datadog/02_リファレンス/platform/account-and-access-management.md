@@ -57,7 +57,7 @@ Datadog のアクセス管理は、**Organization（組織、org）** を最上�
 
 複数の組織をまたぐ構成としては、**マルチオーガニゼーション（親子org）**、**Organization Groups**（複数orgのポリシー一元管理）、**Cross-Organization Visibility**（org間のデータ参照）がある（[2](#2-組織トポロジシングルorgとマルチorg)・[3](#3-マルチオーガニゼーション親子org)）。
 
-API キー・アプリケーションキー・PAT 等の鍵管理の詳細は [API とキー管理](./api-and-keys.md)、操作の監査ログは [Audit Trail](./audit-trail.md)、大規模・マルチorgの運用ノウハウは [大規模・マルチorg運用](../../04_応用編/large-scale-and-multi-org.md) を参照。
+API キー・アプリケーションキー・PAT 等の鍵管理の詳細は [API とキー管理](./api-and-keys.md)、操作の監査ログは [Audit Trail](./audit-trail.md)、大規模・マルチorgの運用ノウハウは [大規模・マルチorg運用](../../04_応用編/15-large-scale-and-multi-org.md) を参照。
 
 ```mermaid
 flowchart TB
@@ -1031,7 +1031,7 @@ resource "datadog_restriction_policy" "dash" {
 | 粒度 | **org 全体のみ**（トークン・API キー・ユーザー・エンドポイント単位は不可） |
 | 形式 | IPv4 / IPv6 アドレスと CIDR、エントリごとにメモ |
 | 権限 | `org_management` |
-| プラン | ドキュメント：Pro+ または Enterprise プランで利用可、それ以外はサポートに依頼（[出典](https://docs.datadoghq.com/account_management/org_settings/ip_allowlist/)）。一方、料金ページ（Infrastructure の機能比較表）では **Enterprise 列のみ**に掲載（[製品別料金表](../../03_導入編/pricing-by-product.md) の読み取り）。ドキュメントと料金ページで記載が食い違うため、契約前に Datadog に確認 |
+| プラン | ドキュメント：Pro+ または Enterprise プランで利用可、それ以外はサポートに依頼（[出典](https://docs.datadoghq.com/account_management/org_settings/ip_allowlist/)）。一方、料金ページ（Infrastructure の機能比較表）では **Enterprise 列のみ**に掲載（[製品別料金表](../../03_導入編/02-pricing-by-product.md) の読み取り）。ドキュメントと料金ページで記載が食い違うため、契約前に Datadog に確認 |
 | ロックアウト防止 | 有効化・変更時、**現在の IP を含むエントリが最低 1 つ必要**。エントリは最低 1 件必要 |
 | 継承 | 親子 org 間で**継承されない**（org ごとに設定） |
 | 管理 | UI：Organization Settings > Security > IP Allowlist（Add IP → Confirm → バナーの Enable）。API：状態確認・切替・一覧・追加・メモ編集・削除・**全置換（API のみ）**。Terraform：`datadog_ip_allowlist` |
@@ -1244,14 +1244,14 @@ Organization Settings > Security > Public Sharing で、共有ダッシュボー
 
 ## 課金への影響
 
-アクセス管理機能そのものはホスト等の従量課金とは別に**個別の料金項目を持たない**ものが多いが、プランにより利用可否・上限が異なる。料金の数値は [製品別料金表（料金の正本）](../../03_導入編/pricing-by-product.md) に従う。
+アクセス管理機能そのものはホスト等の従量課金とは別に**個別の料金項目を持たない**ものが多いが、プランにより利用可否・上限が異なる。料金の数値は [製品別料金表（料金の正本）](../../03_導入編/02-pricing-by-product.md) に従う。
 
 | 機能 | 課金・プラン上の扱い（2026-11-02 時点） |
 |---|---|
 | ユーザー数 | 料金ページ上「Unlimited User Accounts」（ユーザー課金なし） |
 | SAML SSO | 料金ページ上、Infrastructure の全プラン列で提供 |
 | SCIM | ドキュメント上 Infrastructure Pro / Enterprise / Startup プラン（料金ページの比較表では Basic 列にもチェックがあり、記述が揺れている） |
-| Multiple SAML Providers、Governance Console、Email Domain Allowlist | ドキュメント上 Enterprise 向け（Governance Console は Enterprise でもサポートへの依頼が必要。Domain Allowlist は非 Enterprise も申請可）。料金ページの機能比較表でも Enterprise 列のみ（[製品別料金表](../../03_導入編/pricing-by-product.md)） |
+| Multiple SAML Providers、Governance Console、Email Domain Allowlist | ドキュメント上 Enterprise 向け（Governance Console は Enterprise でもサポートへの依頼が必要。Domain Allowlist は非 Enterprise も申請可）。料金ページの機能比較表でも Enterprise 列のみ（[製品別料金表](../../03_導入編/02-pricing-by-product.md)） |
 | IP Allowlist | ドキュメント上 Pro+ / Enterprise（他プランはサポートに依頼）。料金ページの機能比較表では **Enterprise 列のみ**で、ドキュメントと食い違う |
 | Data Access Control | データセット数：Basic / Pro 10、Enterprise 100（料金ページ）。ドキュメント上、Enterprise でテレメトリタイプを Restricted にした場合は最大 1,000 |
 | Cross-Organization Visibility | 接続による追加料金なし（データは複製されない）。接続数：Basic / Pro 5、Enterprise 100（料金ページ） |
@@ -1260,9 +1260,9 @@ Organization Settings > Security > Public Sharing で、共有ダッシュボー
 | Custom Roles | 公式のプラン条件は確認できず（第三者情報では Enterprise）【第三者情報】 |
 | Audit Trail（権限変更の監査） | 別製品として課金（料金ページ「Per % of spend, per month」）。詳細は [Audit Trail](./audit-trail.md) と料金正本 |
 
-Infrastructure のプラン構成（Basic / Pro / Enterprise / DevSecOps）と価格は [エディション・プラン](../../03_導入編/editions-and-plans.md) と [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
+Infrastructure のプラン構成（Basic / Pro / Enterprise / DevSecOps）と価格は [エディション・プラン](../../03_導入編/04-editions-and-plans.md) と [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照。
 
-> 注：料金ページの機能比較表の読み取りは [製品別料金表](../../03_導入編/pricing-by-product.md) に従う（Multiple SAML Providers / IP Allowlist / Email Domain Allowlist / Governance Console は Enterprise 列のみ）。IP Allowlist はドキュメント（Pro+ / Enterprise）と料金ページ（Enterprise のみ）で記載が異なるため、契約前に Datadog 営業に確認すること。
+> 注：料金ページの機能比較表の読み取りは [製品別料金表](../../03_導入編/02-pricing-by-product.md) に従う（Multiple SAML Providers / IP Allowlist / Email Domain Allowlist / Governance Console は Enterprise 列のみ）。IP Allowlist はドキュメント（Pro+ / Enterprise）と料金ページ（Enterprise のみ）で記載が異なるため、契約前に Datadog 営業に確認すること。
 
 ---
 
@@ -1284,13 +1284,13 @@ Infrastructure のプラン構成（Basic / Pro / Enterprise / DevSecOps）と�
 | 「誰でも参加可」の Team | アクセス制御の付与先に使えないため、権限付与に使う Team は招待制にする | 公式仕様 |
 | モニターと機微データ | Data Access Control 下でもモニターは全データで評価されるため、機微データに対するモニター作成権限を管理 | 公式推奨 |
 
-実践的な権限設計・定着の進め方は [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md)、[運用設計](../../03_導入編/operations-design.md)、[大規模・マルチorg運用](../../04_応用編/large-scale-and-multi-org.md)、[組織への定着](../../04_応用編/organizational-adoption.md)、[Monitoring as Code](../../04_応用編/monitoring-as-code.md) を参照。
+実践的な権限設計・定着の進め方は [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md)、[運用設計](../../03_導入編/13-operations-design.md)、[大規模・マルチorg運用](../../04_応用編/15-large-scale-and-multi-org.md)、[組織への定着](../../04_応用編/14-organizational-adoption.md)、[Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) を参照。
 
 ---
 
 ## 関連ファイル
 
-- [Datadog とは](../../01_入門編/what-is-datadog.md) / [必須概念](../../01_入門編/core-concepts.md) / [画面構成とナビゲーション](../../01_入門編/ui-navigation.md)
+- [Datadog とは](../../01_入門編/01-what-is-datadog.md) / [必須概念](../../01_入門編/05-core-concepts.md) / [画面構成とナビゲーション](../../01_入門編/06-ui-navigation.md)
 - [API とキー管理](./api-and-keys.md)（API キー、アプリケーションキー、PAT、SAT、スコープ）
 - [Audit Trail](./audit-trail.md)（ロール・ユーザー変更の監査）
 - [Terraform と IaC](./terraform-and-iac.md)（`datadog_role`、`datadog_team`、`datadog_restriction_policy` 等）
@@ -1301,8 +1301,8 @@ Infrastructure のプラン構成（Basic / Pro / Enterprise / DevSecOps）と�
 - [Indexes・保持・アーカイブ](../logs/log-indexes-retention-archives.md) / [Log Pipelines と処理](../logs/log-pipelines-and-processing.md)
 - [Sensitive Data Scanner](../security/sensitive-data-scanner.md)
 - [On-Call](../service-management/on-call.md) / [Incident Management](../service-management/incident-management.md)
-- [エディション・プラン](../../03_導入編/editions-and-plans.md) / [製品別料金表](../../03_導入編/pricing-by-product.md)
-- [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md) / [大規模・マルチorg運用](../../04_応用編/large-scale-and-multi-org.md)
+- [エディション・プラン](../../03_導入編/04-editions-and-plans.md) / [製品別料金表](../../03_導入編/02-pricing-by-product.md)
+- [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md) / [大規模・マルチorg運用](../../04_応用編/15-large-scale-and-multi-org.md)
 
 ---
 

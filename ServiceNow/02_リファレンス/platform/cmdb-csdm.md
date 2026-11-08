@@ -17,6 +17,7 @@ sources:
   - https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/Q5J8vrX3tTDtGnnBzK3D5g
   - https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/r_ReconciliationRulesPrinciples.html
   - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/GugIpMta2oqoDRjUBhXKtA
+  - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/jxrD6PCdv0ukwjyQbQUeew
   - https://www.servicenow.com/docs/r/zZBaGIzc7EPkA0ySnMn5eg/9kszPvN3lBQhrk0AYuuHJg
   - https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/overview-cmdb-health.html
   - https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/r_CMDBHealthMetrics.html
@@ -101,10 +102,11 @@ graph TD
   SVC --> TSVC["cmdb_ci_service_technical<br/>Technology Management Service"]
   SVC --> AUTO["cmdb_ci_service_auto<br/>Service Instance"]
   CI --> BAPP["cmdb_ci_business_app<br/>Business Application"]
-  CI --> VMI["cmdb_ci_vm_instance<br/>Virtual Machine Instance"]
+  CI --> VMO["cmdb_ci_vm_object<br/>Virtual Machine Object"]
+  VMO --> VMI["cmdb_ci_vm_instance<br/>Virtual Machine Instance"]
 ```
 
-> 公式ドキュメントで親子関係を確認できたのは、`cmdb_ci` → `cmdb_ci_database`、`cmdb_ci` → `cmdb_ci_computer` → `cmdb_ci_server` → `cmdb_ci_unix_server`（CMDB schema model）、`cmdb_ci_service` → `cmdb_ci_service_auto` / `cmdb_ci_service_business` / `cmdb_ci_service_technical`（CSDM ドキュメントと CSDM 5 ホワイトペーパー）である。図中の `cmdb` → `cmdb_ci`、`cmdb_ci_hardware` → `cmdb_ci_computer`、`cmdb_ci_server` → `cmdb_ci_win_server` / `cmdb_ci_linux_server` などは【経験則】。正確な親子関係は各インスタンスの CI Class Manager で確認すること。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/c_ConfigurationManagementDatabase.html) [出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/common-service-data-model-csdm/sell-consume-domain.html)
+> 公式ドキュメントで親子関係を確認できたのは、`cmdb_ci` → `cmdb_ci_database`、`cmdb_ci` → `cmdb_ci_computer` → `cmdb_ci_server` → `cmdb_ci_unix_server`（CMDB schema model）、`cmdb_ci_service` → `cmdb_ci_service_auto` / `cmdb_ci_service_business` / `cmdb_ci_service_technical`（CSDM ドキュメントと CSDM 5 ホワイトペーパー）、`cmdb_ci_hardware` → `cmdb_ci_computer`（Computer は "An extension of the Hardware table"）、`cmdb_ci_vm_object` → `cmdb_ci_vm_instance`（`cmdb_ci_vm_object` は "Base class for all VM objects"）（CMDB tables descriptions）である。図中の `cmdb` → `cmdb_ci`、`cmdb_ci` → `cmdb_ci_vm_object`、`cmdb_ci_server` → `cmdb_ci_win_server` / `cmdb_ci_linux_server` などは【経験則】。正確な親子関係は各インスタンスの CI Class Manager で確認すること。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/c_ConfigurationManagementDatabase.html) [出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/common-service-data-model-csdm/sell-consume-domain.html) [出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/1GLrH0vZKHQqi0lHfIjuTw)
 
 ### 1.3 主要 CI クラス
 
@@ -147,7 +149,7 @@ CMDB 階層に属さない（`cmdb_ci` を継承しない）が、`cmdb_ci` を�
 | `cmdb_read` | CMDB テーブルを直接読み取るのに必要 |
 | `sn_cmdb_user` | CMDB Workspace の CMDB User ペルソナ。CI Health カード等の参照に最低限必要 |
 | `sn_cmdb_editor` | CMDB Editor。CMDB レコードの参照・更新。Australia で、従来 `itil` が必要だったテーブルへのアクセスが付与された |
-| `sn_cmdb_admin` | CMDB Admin。従来 `admin` / `itil_admin` が必要だったテーブルへのアクセスが付与された。CMDB Workspace の Save / Delete / More Actions は Admin のみ |
+| `sn_cmdb_admin` | CMDB Admin。従来 `admin` / `itil_admin` が必要だったテーブルへのアクセスが付与された。CMDB Workspace の CI レコードページで Save と More Actions > Delete を使えるのは CMDB Admin のみ |
 | `itil` / `itil_admin` / `asset` | いずれかで Configuration モジュールにアクセス可能 |
 | `app_service_admin` / `app_service_user` | Service Instance（Application Service）の管理・参照 |
 | `sn_incident_read` / `sn_change_read` | CMDB Workspace で関連インシデント・変更を表示するのに必要 |
@@ -317,8 +319,9 @@ flowchart TD
 | 概要 | 従来型。管理者が識別ルールを手動で作成・保守する | データペイロード取り込み時に識別ルールを自動更新し、識別プロセスを動的に改善する。ルールの手動作成・保守を不要にする |
 | 導入 | — | Australia で導入（Zurich Patch 11 にバックポートされたとのコミュニティ情報あり【第三者情報】） |
 | 対象 | 全クラス | Hardware [`cmdb_ci_hardware`] とその子孫クラスのみ。特定の子孫クラスを除外でき、除外クラスは Static IRE を使う |
-| 動作モード | — | Simulation（シミュレーション）で比較評価 → Committed（確定）モードで Dynamic IRE のみが動作し Static IRE は停止。確定後も Static IRE に戻せる |
+| 動作モード | — | Simulation（シミュレーション）で比較評価 → Committed（確定）モードで Dynamic IRE のみが動作し Static IRE は停止。シミュレーションの比較結果は CMDB IRE Output Comparison Items [`cmdb_ire_output_comparison_item`] テーブルに格納される。有効/無効はシステムプロパティ `glide.identification_engine.dynamic_ire_enabled` で制御する |
 | 推奨手順 | — | 非本番インスタンスでシミュレーションモードから試す。シミュレーションは Hardware の Identification Rule > Simulate Dynamic IRE から実行（`sn_cmdb_user` ロールが必要） |
+| Static IRE への戻し方 | — | 確定後も戻せる。CI Class Manager > Hierarchy > Hardware > Identification Rule を開き、Dynamic IRE セクションの **Change to IRE** ボタンを選択する |
 | 調整との関係 | — | Dynamic IRE を有効にしても Dynamic Reconciliation は有効にならない（識別のみに影響）【第三者情報】 |
 
 出典：[Dynamic IRE（Australia）](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/GugIpMta2oqoDRjUBhXKtA)、[Exploring IRE（Australia）](https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/exploring-ire.html)、[CMDB release notes（Australia）](https://www.servicenow.com/docs/r/australia/release-notes/cmdb-rn.html)、[What is CMDB Dynamic IRE in Australia release（Community）](https://www.servicenow.com/community/in-other-news/what-is-cmdb-dynamic-ire-in-australia-release/ba-p/3555166)
@@ -439,6 +442,7 @@ REST API の一般仕様は [Web Services / REST API](./web-services-api.md)、I
 ### 3.11 De-duplication task と Reclassification task
 
 - **De-duplication task（重複排除タスク）**：重複 CI をグループ化してレビュー・修復するタスク。Australia では、特定のルックアップテーブル/関連テーブルに対し IRE が自動で重複排除タスクを作成できるようになった。また重複排除時に関連テーブルの更新が完了するよう、ワークフロー（ビジネスルール実行やエラー無視など）を無効化する設定が追加された（2026-03 EA）。ServiceNow Otto for CMDB v3.0 の **De-duplication task resolution assistant** スキルは、メイン CI などの修復オプションを事前選択する。[出典](https://www.servicenow.com/docs/r/australia/release-notes/cmdb-rn.html)
+  - 名称の注記：現在公開されている Australia の CMDB リリースノートは、Brazil での名称統一後の表記（ServiceNow Otto for CMDB）で更新されている。一方、Australia 版の製品ドキュメント（2026-03 更新）では同じスキルを **Now Assist for CMDB** の De-duplication task resolution assistant スキル（Duplicate CI Remediator (Now Assist) オプション、必要ロール `cmdb_dedup_admin`、ストアアプリ Now Assist for CMDB の有効化で自動有効化）として説明しており、Australia GA 時点の名称は Now Assist for CMDB だったと読める。リリースノートが改名後にいつ書き換えられたかは公開情報では確認できず。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/jxrD6PCdv0ukwjyQbQUeew)
 - **Reclassification task（再分類タスク）**：一致した CI のクラス変更が必要で、自動再分類が無効な場合に手動レビュー用に作成される。既定は自動再分類。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/Tp6i8sdHn0E7ZgtQKtrhtw)
 
 > **Brazil での変更:** Now Assist / Moveworks の AI 体験は **ServiceNow Otto** に名称統一され、重複 CI の修復機能は ServiceNow Otto（Duplicate CI Remediator）として提供される。ビュー `sn_getwell_cis_processed_via_ire` は非推奨となり削除予定。[出典](https://www.servicenow.com/docs/r/release-notes/cmdb-rn.html)
@@ -460,7 +464,7 @@ REST API の一般仕様は [Web Services / REST API](./web-services-api.md)、I
 | Correctness | Staleness（陳腐化） | 適用される Staleness rule の Effective Duration 内に更新されていない CI の割合。基本の既定値は `cmdb_ci` に対して **60 日**で、クラス固有ルールが上書き |
 | Completeness（完全性） | Required（必須） | System Dictionary で必須（mandatory）とされたフィールドが未入力の CI の割合 |
 | Completeness | Recommended（推奨） | 推奨フィールドが未入力の CI の割合。**既定では推奨フィールドは定義されていない**（CI Class Manager の Health で設定） |
-| Compliance（コンプライアンス） | Audit（監査） | 直近の監査実行に基づき、すべての監査に合格すべき CI の割合。監査を有効化する必要がある |
+| Compliance（コンプライアンス） | Audit（監査） | テンプレート監査・スクリプト監査で定義された期待値と、指定フィールドの実際の値を比較する。直近の完了した監査実行（Last run date 基準）の結果を使い、その CI に対するすべての監査に準拠していなければ不合格となる。すなわち、直近の監査実行で実際の値が期待値と一致しなかった（監査に不合格だった）CI の割合を測る。結果を出すには compliance タイプの監査を作成・有効化する必要がある |
 | Relationships（関係） | Duplicate relationships | 親・子・タイプ・ポートが同一の関係 |
 | Relationships | Orphan relationships | 親 CI、子 CI、またはその両方が欠けた関係 |
 | Relationships | Stale relationships | 親または子の CI が stale な関係 |
@@ -547,7 +551,7 @@ REST API の一般仕様は [Web Services / REST API](./web-services-api.md)、I
 
 - **CI Form**（既定。プロパティ `sn_cmdb_ws.explore_ci.record.enabled` で制御）：属性、関係、タグ、サービス、CMDB Health、CMDB 360、関連リスト、アクティビティを編集可能なセクションで表示。更新時は IRE ルールが適用される。
 - **CI details pane**（上記プロパティが `false` の場合）：CI Timeline（直近 14 日）、CI Health、Details、Activity、Infrastructure Relationships、Service Relationships。
-- **ボタン**：Open Dependency View、View CMDB 360 Data、Save、More Actions（Create Change、Create Incident、Delete）。Save / More Actions / Delete は CMDB Admin のみ。
+- **ボタン**：Open Dependency View、View CMDB 360 Data、Save、More Actions（Create Change、Create Incident、Delete）。Save と More Actions > Delete は CMDB Admin（`sn_cmdb_admin`）のみ。Create Change / Create Incident は「適切なロールを持つユーザー」が使えるとされ、必要ロールは明記されていない。
 
 **制約：** CMDB Workspace はドメインセパレーション（[ドメインセパレーション](./domain-separation.md)）をサポートしない。アクティビティが閾値（History 200、Incidents 100、Requests 50、Total Events 200）を超えると CI Timeline が読み込めない。UI Builder でカスタマイズできる（[Workspace と UI Builder](./workspaces-ui-builder.md)）。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/exploring-cmdb-workspace.html)
 
@@ -832,7 +836,7 @@ Design & Planning ドメインは、エンタープライズアーキテクト�
 
 | エンティティ | テーブル | 説明 |
 |---|---|---|
-| Business Capability（ビジネスケイパビリティ） | `cmdb_ci_business_capability` | 組織がビジネスモデルを運営するのに必要な高レベルの能力。アプリケーション実装の指針となる。最大 6 階層までネスト可能（親 1.0、リーフ 2.0〜6.0）。循環する親子関係は不可 |
+| Business Capability（ビジネスケイパビリティ） | `cmdb_ci_business_capability` | 組織がビジネスモデルを運営するのに必要な高レベルの能力。アプリケーション実装の指針となる。最大 6 階層までネスト可能（親 1.0、リーフ 2.0〜6.0）。6 階層を超える階層が必要な場合は、構造を複数のビジネスケイパビリティに分割する。循環する親子関係は不可 |
 | Business Application（ビジネスアプリケーション） | `cmdb_ci_business_app` | ビジネスケイパビリティを支える、購入または内製のアプリケーション。アプリケーションの台帳・ポートフォリオ・メタデータを保持する概念データで、運用 CI ではない |
 | Information Object（情報オブジェクト） | `cmdb_ci_information_object` | ビジネスアプリケーションとそれを支えるデータベースの間でやり取りされるデータの記述。PII、PCI DSS、HIPAA などの機微データ区分を含む |
 
@@ -843,6 +847,7 @@ Design & Planning ドメインは、エンタープライズアーキテクト�
 | Business Capability | `Provided By::Provides` | Business Application |
 | Business Capability | `Provided By::Provides` | Business Service（Service Consumption） |
 | Business Application | `Uses::Used By` | Information Object |
+| Business Application | 参照属性（reference attribute） | Business Application（親子のビジネスアプリケーション階層） |
 | Business Application | `Contains::Contained By` | Agile Development Component（Build & Integration、任意） |
 | Business Application | `Consumes::Consumed By` | Service Instance（Service Delivery） |
 
@@ -872,13 +877,13 @@ Service Delivery ドメインは、エンドツーエンドの提供基盤、技
 | エンティティ | テーブル | Service Classification | 説明 |
 |---|---|---|---|
 | Technology Management Service（旧 Technical service） | `cmdb_ci_service_technical` | Technical Service | ビジネスが提供・消費する技術の提供者を表す、運用的・提供者視点の 1 階層のリーフサービス。Incident / Problem / Change で使用。サービスオーナーに紐づき、通常 1 つ以上のビジネスサービスの下に位置する |
-| Technology Management Offering（旧 Technical service offering） | `service_offering` | Technical Service | 場所、環境、価格、可用性、サポートグループ、技術承認グループ、パッケージ等で細分化したサービスオプション。親サービスから派生。**運用中の Technology Management Service は少なくとも 1 つの Offering を持つ必要がある** |
+| Technology Management Offering（旧 Technical service offering） | `service_offering` | Technical Service | 場所、環境、価格、可用性、サポートグループ、技術承認グループ、パッケージ等で細分化したサービスオプション。親サービスから派生。Technology Management Service は少なくとも 1 つの Offering を持つべきとされる（推奨。原文は "should"）。1 サービスが複数の Offering を持つこともある |
 | Dynamic CI Group（動的 CI グループ） | `cmdb_ci_query_based_service` | Technical Service | CMDB Groups のクエリ（Query Builder の保存クエリ、エンコードクエリ、手動指定）結果の CI の集合（例：デトロイトの全 Web サーバー）。CI のみを含められ、他のグループは含められない |
 | Service Instance（旧 Application Service） | `cmdb_ci_service_auto`（基底） | Application Service | デプロイされたシステム/アプリケーションスタックの論理表現。通常、デプロイ環境（本番/検証等）や地域ごとに作成。マップ、変更履歴、監視に使用 |
-| Mapped Application Service | `cmdb_ci_service_discovered` | — | Service Mapping または手動で作成した Service Instance |
-| Query-based Service Instance | `cmdb_ci_query_based_service` | — | Dynamic CI Group から作成した Service Instance |
-| Tag-based Service Instance | `cmdb_ci_service_by_tags` | — | タグから作成した Service Instance（Zurich のドキュメント内に `cmdb_ci_service_tags` という表記もあるが、CSDM 5 ホワイトペーパーの Figure 15 は `cmdb_ci_service_by_tags`） |
-| Calculated Application Service | `cmdb_ci_service_calculated` | — | 計算型の Application Service（ホワイトペーパー Figure 15） |
+| Mapped Application Service | `cmdb_ci_service_discovered` | Application Service（親を継承） | Service Mapping または手動で作成した Service Instance |
+| Query-based Service Instance | `cmdb_ci_query_based_service` | Application Service（同じテーブルを Dynamic CI Group として使う場合は Technical Service。ドキュメントは「service instance または technology management service の該当するほう」で分類するとしている。5.4 参照） | Dynamic CI Group から作成した Service Instance |
+| Tag-based Service Instance | `cmdb_ci_service_by_tags` | Application Service（親を継承） | タグから作成した Service Instance（Zurich のドキュメント内に `cmdb_ci_service_tags` という表記もあるが、CSDM 5 ホワイトペーパーの Figure 15 は `cmdb_ci_service_by_tags`） |
+| Calculated Application Service | `cmdb_ci_service_calculated` | Application Service（親を継承） | 計算型の Application Service（ホワイトペーパー Figure 15） |
 | Data Service Instance | `cmdb_ci_data_service_instance` | — | `cmdb_ci_service_auto` を拡張（CSDM 5 で追加） |
 | Network Service Instance | `cmdb_ci_network_service_instance` | — | 同上 |
 | Operational Process Service Instance | `cmdb_ci_operational_process_service_instance` | — | 同上 |
@@ -895,7 +900,7 @@ Service Delivery ドメインは、エンドツーエンドの提供基盤、技
 
 | 親 | 関係タイプ | 子 |
 |---|---|---|
-| Service Instance | `Contains::Contained by` | SDLC Component（任意） |
+| SDLC Component（任意） | `Contains::Contained by` | Service Instance |
 | Business Application | `Consumes::Consumed by` | Service Instance |
 | Service Instance | `Depends on::Used by` / `Sends Data To` | Service Instance |
 | Service Instance | `Depends on::Used by` | Application |
@@ -908,7 +913,7 @@ Service Delivery ドメインは、エンドツーエンドの提供基盤、技
 
 出典：[Service Delivery domain（Zurich）](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/t6w6O0jNKpKNIBSyO0AISg)
 
-> 上表の SDLC Component と Service Instance の関係は Service Delivery ドメインのページの記載（Service Instance が SDLC Component を含む）に従う。Build & Integration ドメインのページでは同じ関係が「Agile Development Component ↔ Service Instance：`Contains::Contained By`」とだけ記載され、親子の向きは明記されていない。
+> SDLC Component と Service Instance の関係は、Service Delivery ドメインのページ（原文 "SDLC component Contains::Contained by Service instance (optional to use this item)."）、Build & Integration ドメインのページともに、SDLC（Agile Development）Component を親、Service Instance を子として記載している（5.3 の図、6.4 と同じ向き）。
 
 **Dynamic CI Group の利用上の注意：** Technology Management Offering を個々の CI に関連付ける代わりに Dynamic CI Group を使うと、Offering から Dynamic CI Group への 1 本の関係で必要な可視性が得られる。Dynamic CI Group を通じて関連付けられた各 CI は、1 つの Technical Service / Technical Service Offering にのみ関連付けられる。また、すべての Technology Management Offering がアプリケーションやインフラ CI に関連付けられている必要はない。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/common-service-data-model-csdm/csdm-implement-walk-stage.html)
 
@@ -1026,7 +1031,7 @@ ServiceNow は CSDM を一度に全部実装するのではなく、5 つのス�
 
 > Information Object（`cmdb_ci_information_object`）は、ビジネス要件によっては Fly より前のステージで実装してもよい。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/common-service-data-model-csdm/csdm-implementation-stages.html)
 >
-> Australia の「Implementing the CSDM framework in stages」ページは各ステージの目的のみを記載し、テーブルの一覧は各ステージ別ページとホワイトペーパーにある。Fly の Service Portfolio は Run ステージの「Business Service Portfolio」としてホワイトペーパーに記載されている。
+> Australia の「Implementing the CSDM framework in stages」ページは各ステージの目的のみを記載し、テーブルの一覧は各ステージ別ページとホワイトペーパーにある。Service Portfolio は、ホワイトペーパーでは Run ステージ（Business Service Portfolio）に含まれる。
 
 **各ステージの価値（ホワイトペーパーの要約）：**
 
@@ -1145,6 +1150,7 @@ CSDM のデータモデル自体（ドメイン・テーブル）について Br
 - Identification rules（Zurich）: https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/mSofZSSfuuQiOMMcHdmR2w
 - Identification and Reconciliation engine (IRE)（Zurich）: https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/Q5J8vrX3tTDtGnnBzK3D5g
 - Dynamic IRE（Australia）: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/GugIpMta2oqoDRjUBhXKtA
+- Resolving de-duplication tasks with Now Assist（Australia）: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/jxrD6PCdv0ukwjyQbQUeew
 - Reconciliation rules（Australia）: https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/r_ReconciliationRulesPrinciples.html
 - Identification and Reconciliation API: https://www.servicenow.com/docs/r/zZBaGIzc7EPkA0ySnMn5eg/9kszPvN3lBQhrk0AYuuHJg
 - CMDB 360/Multisource CMDB（Xanadu）: https://www.servicenow.com/docs/r/xanadu/servicenow-platform/configuration-management-database-cmdb/multisource-cmdb-d66650e19265.html

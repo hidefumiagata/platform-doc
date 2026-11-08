@@ -35,6 +35,16 @@ sources:
   - https://www.servicenow.com/docs/r/store-release-notes/store-rn-itam-sam-ai-prime.html
   - https://www.servicenow.com/docs/r/7GoNY9eeDRD0FzxldbEmXw/O5uIxtKPMjqwTRi8fnZ7hg
   - https://www.servicenow.com/community/sam-blog/list-of-servicenow-sam-tables/ba-p/2283573
+  - https://www.servicenow.com/docs/r/it-asset-management/software-asset-management/sam-normalization.html
+  - https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/ai-native-sku-overview.html
+  - https://www.servicenow.com/community/sam-forum/does-all-the-publisher-packs-6-will-be-activated-and-installed/m-p/3140164
+  - https://www.servicenow.com/community/sam-forum/oob-read-only-role-for-sam-tables-software-models-amp/m-p/3559163
+  - https://www.servicenow.com/community/sam-forum/removal-candidates-are-getting-created-with-empty-fields/m-p/3188015
+  - https://www.servicenow.com/community/cloud-cost-management-forum/what-role-is-appropriate-for-an-executive-that-wants-to-see-ccm/m-p/3121703
+  - https://www.servicenow.com/community/sam-forum/difference-between-software-asset-management-foundation-and/td-p/1343114
+  - https://www.servicenow.com/community/cloud-cost-management-blog/what-s-new-in-vancouver-for-cloud-cost-management/ba-p/2675161
+  - https://www.servicenow.com/community/itam-blog/what-s-new-in-asset-management-for-it-and-beyond/ba-p/2284917
+  - https://www.servicenow.com/community/sam-blog/cloud-cost-simulator/ba-p/2284905
 ---
 
 # Software Asset Management（ソフトウェア資産管理）
@@ -61,25 +71,28 @@ ServiceNow の SAM には、プラットフォームに含まれる基本機能�
 
 | 区分 | プラグイン / アプリ | 概要 |
 |---|---|---|
-| SAM Foundation（Basic Software Asset Management） | `com.snc.sams` | 基本的な SAM 機能。公式ドキュメント（Australia リリースノート）では「Basic Software Asset Management」として foundation capabilities を提供すると記載され、有効化後に `sn_sam_workspace`（Software Asset Workspace）を有効化してセットアップを完了する。Kingston 以前の「SAM plugin」を置き換えたもの【第三者情報】（ServiceNow Community の回答）。 |
+| SAM Foundation（Basic Software Asset Management） | `com.snc.sams` | 基本的な SAM 機能。公式ドキュメント（Australia リリースノート）では「Basic Software Asset Management」として foundation capabilities を提供すると記載され、有効化後に `sn_sam_workspace`（Software Asset Workspace）を有効化してセットアップを完了する。Kingston でリリースされ、旧「SAM plugin」（`com.snc.software_asset_management`）を置き換えた【第三者情報】（ServiceNow 社員による Community の回答。[出典](https://www.servicenow.com/community/sam-forum/difference-between-software-asset-management-foundation-and/td-p/1343114)）。 |
 | SAM Professional（SAM Pro） | `com.snc.samp`（コア）、`com.sn_samp_master`（全 SAM Pro プラグイン一括）、`com.sn_samp_master_ws`（全 SAM Pro プラグイン + Software Asset Workspace） | 正規化、自動調整、パブリッシャーパック、回収、レポート等のフル機能。 |
-| SAM Enterprise | （SKU。SaaS License Management、Software Spend Detection、Contract and Renewal Management 等を含む上位エディション） | Australia では「Contract Management Pro との連携は SAM Enterprise ユーザーのみ」と明記。SaaS License Management 17.2.0（2026-04）以降は「SAM Pro または SAM Enterprise が必要」と記載。 |
+| SAM Enterprise | （SKU。SKU に含まれる機能の内訳は公開情報では確認できず） | Australia では「Contract Management Pro との連携は SAM Enterprise ユーザーのみ」と明記。SaaS License Management 17.2.0（2026-04）以降は「SAM Pro または SAM Enterprise のエンタイトルメントが必要」と記載。Cloud Cost Management（旧 Cloud Insights）は SAM Enterprise に含まれる、とする ServiceNow の Community ブログ記事がある【第三者情報】（[出典](https://www.servicenow.com/community/cloud-cost-management-blog/what-s-new-in-vancouver-for-cloud-cost-management/ba-p/2675161)）。 |
 | SAM AI Advanced / SAM AI Prime | Store アプリ（2026-04 に 1.0.4 初版） | AI 機能のアドオン。SAM AI Prime は「SAM Enterprise の全機能 + AI 機能」と説明されている。 |
 
 [出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/hxV2ryD~iqdV~Fv8cjqTjw) [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/uB4a21~doMDVVaXwOU0dow) [出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itam-sam-ai-prime.html)
 
+- **プラグインのインストールと利用権の区別**：SaaS License Management（`sn_sam_saas_int`）と Software Spend Detection（`com.sn_sam_spend`）のプラグインは、SAM Professional を有効化するとインストールされる（後述「SAM Professional のプラグイン一覧」）。ただしこれはプラグインとしてインストールされることを示すにすぎず、SKU 上の利用権とは別である。SaaS License Management は 2026-04 以降のバージョン（Australia 向け 17.2.0 以降）で SAM Pro または SAM Enterprise のエンタイトルメントが必要。[出典](https://www.servicenow.com/docs/r/w3Hg5id41C9xrkzqBsUMhA/VBamTjSy9iBPBn_vrxHQBg) [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/uB4a21~doMDVVaXwOU0dow)
 - SAM Foundation と SAM Pro の最大の差は「正規化とライセンスポジション算出の自動化」にあり、Foundation ではディスカバリー済みインストールの正規化を手作業で行う必要がある、という説明が Community で繰り返されている【第三者情報】。ただし Store アプリ「Software Asset Management」2.0.0（2025-02）で、SAM Foundations でも共通メトリック（Per User / Per Device / Per Core / Per Processor）が使えるようになった。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/Rnudf1~03LaAf06FQR94OA)
-- **2026-04 の製品ティア変更**：Australia のリリースノート（2026-04）は「ServiceNow product tiers として Foundation、Advanced、Prime の3ティアを導入」と記載している。AI 機能の観点で Foundation（AI スキルと定型 AI エージェント）→ Advanced（エージェント型ワークフロー）→ Prime（自律型 AI ワークフォース）と段階化された。SAM の旧 Pro/Enterprise と新ティアの正式な対応表は公開情報では確認できず。ライセンス全般は [ライセンスモデル](../../03_導入編/01-licensing-model.md) と [エディション比較](../../03_導入編/03-edition-comparison.md) を参照。[出典](https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/ai-native-sku-overview.html)
+- **2026-04 の製品ティア変更**：Australia の SAM リリースノート（2026-04）は、ServiceNow AI Platform に3つのライセンスティアを導入したと記載し、各ティアを次のように説明している：**Foundation**（AI basics to deliver insights：インサイトを提供する基本的な AI）、**Advanced**（AI to boost productivity across relevant use cases：関連ユースケース全体で生産性を高める AI）、**Prime**（Act autonomously with all AI assets, and create your own：すべての AI アセットで自律的に動作し、独自の AI も作成できる）。ライセンスに応じて利用できるアプリ機能、生成 AI スキル、エージェント型ワークフロー、AI エージェントが変わる。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/hxV2ryD~iqdV~Fv8cjqTjw) ティアの詳細は ServiceNow product tiers ページ（Brazil 版）を参照。[出典](https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/ai-native-sku-overview.html) SAM の旧 Pro/Enterprise と新ティアの正式な対応表は公開情報では確認できず。ライセンス全般は [ライセンスモデル](../../03_導入編/01-licensing-model.md) と [エディション比較](../../03_導入編/03-edition-comparison.md) を参照。
 
 ### SAM Professional のプラグイン一覧
 
-SAM Professional を有効化するとインストールされるプラグインは以下のとおり（公式ドキュメント「Components installed with Software Asset Management Professional」より）。
+SAM Professional を有効化するとインストールされるプラグインは以下のとおり（公式ドキュメント「Components installed with Software Asset Management Professional」より。表の行として挙げられたものに加え、本文で言及される `com.snc.samp` と `com.sn_samp_workbench` も含めた）。
 
 | プラグイン名 | プラグイン ID |
 |---|---|
+| Software Asset Management Professional | `com.snc.samp` |
+| Software Asset Management UI Components | `com.sn_samp_workbench` |
 | Activate all Software Asset Management Professional plugins including Software Asset Workspace | `com.sn_samp_master_ws` |
-| Activate all Software Asset Management Professional plugins | `com.sn_samp_master` |
-| Software Asset Workspace | `com.sn_sam_workspace`（Store アプリ ID は `sn_sam_workspace`） |
+| Activate all Software Asset Management Professional plugins | `com.sn_samp_master`（公式ページでは pre-Xanadu 向けと記載） |
+| Software Asset Workspace | `com.sn_sam_workspace`（Store アプリ ID は `sn_sam_workspace`）（pre-Xanadu の ID。Xanadu 以降は `com.sn_samp_master_ws` から読み込まれる） |
 | Integration: Microsoft SCCM 2012 v2 Software Usage | `com.snc.samp_usage_sccm` |
 | Integration: Microsoft SCCM 2016 Software Usage | `com.snc.samp.usage_sccm_2016` |
 | Orchestration: Client Software Distribution | `com.snc.orchestration.client_sf_distribution` |
@@ -300,7 +313,7 @@ SAM は `cmdb_sam_sw_install`（Software Installation）テーブルに格納さ
 |---|---|
 | 実行タイミング | 日次のスケジュールジョブが正規化コンテンツとパターン更新を取得し、コンテンツルールに従って Discovery Model を正規化する（頻度は変更可能）。正規化ルール変更時は、影響を受ける Normalized / Partially Normalized のモデルが再正規化される。 |
 | Normalization status（正規化ステータス） | `Normalized`、`Partially Normalized`、`Publisher Normalized`、`Match Not Found`、`Manually Normalized`、`New` |
-| 手動正規化 | 製品タイプを変更すると `Manually Normalized` になる。Revert で `Match Not Found` に戻せるが、Manually Normalized とパターンルールで正規化されたモデルは revert 不可。 |
+| 手動正規化 / Revert | 手動正規化は Normalization status が `Partially Normalized` / `Publisher Normalized` / `Match Not Found` の Discovery Model に対して行い、ステータスは `Manually Normalized` になる。Revert（正規化の取り消し）は `Normalized` / `Partially Normalized` / `Publisher Normalized` のモデルの正規化値を削除して `Match Not Found` に戻すもので、`Manually Normalized` のモデルとパターン正規化ルールで正規化されたモデルは Revert できない。[出典](https://www.servicenow.com/docs/r/it-asset-management/software-asset-management/sam-normalization.html) |
 | Normalization suggestion | 更新コンテンツが手動正規化と異なる場合に提案が生成され、承認／却下できる。 |
 | Pattern normalization rule | 自社定義のパターン正規化ルール。Australia GA で拡張された（Expanded pattern-based normalization rule）。 |
 | Wide-net normalization | Content Service チームが選んだ対象製品に適用される広範な正規化。 |
@@ -446,7 +459,7 @@ SAM は `cmdb_sam_sw_install`（Software Installation）テーブルに格納さ
 | Citrix | Citrix パック + ディスカバリースケジュール | Concurrent User、Per Device、Per Processor、Per User、Per User/Device |
 | Adobe | Adobe パック | Per Device、Per User、User Subscription |
 | CrowdStrike | `sn_sam_saas_int` 15.0.8 以降 + `sn_itam_samp` 2.1.0 以降 | Reserved Hourly Average Sensor（28日間の時間単位平均）、Sensor Subscription（4週間の週次平均） |
-| Concurrent Licenses | `sn_samp_eng_app` + OpenLM / Open iT 連携 | Floating、Token、Network（いずれもピーク時チェックアウト数で消費） |
+| Concurrent Licenses | `com.sn_samp_eng_app` + OpenLM / Open iT 連携 | Floating、Token、Network（いずれもピーク時チェックアウト数で消費） |
 | Consumption | SaaS License Management | SaaS Consumption |
 | Subscription | SaaS License Management | User Subscription |
 
@@ -511,8 +524,21 @@ flowchart TD
 
 ### Remediation（是正）のカテゴリ
 
-調整結果は、以下の是正カテゴリで権利の過不足を示す：`Rights not in use`（未使用の権利）、`Rights not allocated`（未割り当ての権利）、`Rights needed`（不足権利）、`Reclaimable rights`（回収可能な権利）、`Unlicensed rights`（未ライセンス）。
-[出典](https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/sW11X9AzruabBLe5sfYRTA)
+SAM Foundation（Basic Software Asset Management）の調整結果は、以下の是正カテゴリで権利の過不足を示す：`Rights not in use`（未使用の権利）、`Rights not allocated`（未割り当ての権利）、`Rights needed`（不足権利）、`Reclaimable rights`（回収可能な権利）、`Unlicensed rights`（未ライセンス）。
+[出典](https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/sW11X9AzruabBLe5sfYRTA)（SAM Foundation プラグイン向けページ）
+
+Software Model Results の Remediation Options（是正オプション）は、公式ページ「View software model results」（Yokohama 版。ページ上で SAM Pro 向けと明記はされていないが、`sam_user` ロールが必要）では Remediation action（是正アクション）として以下の値が挙げられ、アクションごとに表示される数量フィールドが異なる。Australia 版で同じ値かどうかは公開情報では確認できず。
+
+| Remediation action（是正アクション） | 表示される数量フィールド |
+|---|---|
+| Purchase Rights（権利の購入） | `Rights needed`（不足権利） |
+| Remove Allocations（割り当ての解除） | `Rights not in use`（未使用の権利） |
+| Create Allocations（割り当ての作成） | `Rights not allocated`（未割り当ての権利） |
+| Remove Unallocated Installs（未割り当てインストールの削除。Oracle Database のオプションでは利用不可） | `Reclaimable rights`（回収可能な権利） |
+| Remove Unlicensed Installs（未ライセンスインストールの削除。Oracle Database のオプションでは利用不可） | `Unlicensed rights`（未ライセンス） |
+| Remove Unlicensed Installs - Cloud（クラウドインストールがある場合のみ） | 公開情報では確認できず |
+
+[出典](https://www.servicenow.com/docs/bundle/yokohama-it-asset-management/page/product/software-asset-management2/task/t_ViewSWModelResults.html)
 
 ### License usage ビュー
 
@@ -553,10 +579,12 @@ flowchart TD
 
 | Justification | 承認 |
 |---|---|
-| Low Usage（低利用） | ユーザーの承認が必要（まだ必要かを確認）。 |
-| Unallocated（未割り当て） | ユーザーの承認、ユーザーが保持を希望したらソフトウェアマネージャーの承認。 |
+| Low Usage（低利用） | ユーザーに削除の承認／却下を求め、ユーザーが継続利用を希望した場合はマネージャー（manager）の承認へ回る。 |
+| Unallocated（未割り当て） | ユーザーに削除の承認／却下を求め、ユーザーが継続利用を希望した場合はソフトウェアマネージャー（software manager）の承認へ回る。 |
 | Unlicensed（未ライセンス） | 承認なしで自動実行（「Unauthorized Software Use」通知）。 |
 | Restricted Software（禁止ソフトウェア） | 承認なしで自動実行（「Unauthorized Software Use」通知）。 |
+
+[出典](https://www.servicenow.com/docs/r/1zMxrAxr2iK81FYv03BwFA/5IomUwdHuahRQ0OEkm_QXA)
 
 #### Removal candidate の状態
 
@@ -636,7 +664,8 @@ SAP パブリッシャーパックは、以下のテーブルをインストー�
 | SaaS License Connections | Integration Hub と Workflow Studio によるローコードのカスタム連携。パブリック API を持つ任意の SaaS に対応。 | パブリック API 次第。削除ロジックを Workflow Studio で構築。 |
 | SSO Integration | Okta、Microsoft Entra ID 等の SSO プロバイダー経由でログイン状況を分析、非アクティブユーザー検出、アプリ・ユーザー一覧取得、重複ソフトウェアの発見。 | Azure（Entra ID）と Okta の直接割り当てに対応。**グループベースの削除は自動化されない**（グループから外すと他アプリに影響しうるため、プロバイダー側で手動削除してから Close Complete）。 |
 | Hybrid SaaS integrations | Adobe Cloud、Microsoft 365。サブスクリプションとソフトウェアインストールを比較してコンプライアンスを算出。 | 連携に依存。 |
-| Child aliases | 1つのアプリに複数の連携プロファイル（例：Cisco Webex、Confluence Cloud、Jira）。 | — |
+
+- Child aliases：1つのアプリに複数の連携プロファイルを関連付ける機能（例：Cisco Webex、Confluence Cloud、Jira）。連携方式ではない。
 
 [出典](https://www.servicenow.com/docs/r/1zMxrAxr2iK81FYv03BwFA/GUrp83wFviY2HaCB0HwUGQ) [出典](https://www.servicenow.com/docs/r/yokohama/it-asset-management/saas-license-management/reclaiming-user-subscriptions-saas.html)
 
@@ -662,7 +691,7 @@ Microsoft 365、Adobe Cloud、Zoom Workplace、Salesforce CRM（Sales Cloud、Se
 | バージョン | 日付 | ファミリー | 主な内容 |
 |---|---|---|---|
 | 17.2.0 | 2026-04 | Australia | SAM Pro または SAM Enterprise が必要に |
-| 17.4.0 | 2026-06 | Australia | ACC-V（Agent Client Collector）による SaaS 利用監視、SaaS Detection Report、DocuSign・Calendly・GraphQL・Adobe データ拡張 |
+| 17.4.0 | 2026-06 | Australia | ACC-VC（Agent Client Collector の URL 監視データ）による SaaS 利用監視、SaaS Detection Report、DocuSign・Calendly・GraphQL・Adobe データ拡張 |
 | 17.4.1 | 2026-07 | Australia | Jira / Confluence Cloud の OAuth スコープ対応 |
 | 17.5.0 | 2026-08 | Australia | AI による SaaS ジョブ失敗ログ要約、Microsoft 365 ジョブ重複防止 |
 | 17.6.0 | 2026-09 | Australia | Smartsheet のシートタイプ別レポート、Entra ID SSO 回収の拡張、Okta 回収オプション |
@@ -687,11 +716,12 @@ Microsoft 365、Adobe Cloud、Zoom Workplace、Salesforce CRM（Sales Cloud、Se
 
 ### Cloud Cost Management の概要
 
-**Cloud Cost Management（CCM、旧 Cloud Insights、アプリ ID `sn_clin`）** は、パブリッククラウドの請求・利用データを取り込み、支出の可視化、予算管理、適正化（rightsizing）、未使用リソースや業務時間外リソースの停止などのコスト最適化アクションを自動化するアプリケーションである。公式ドキュメントでは IT Asset Management の一部として掲載されている。対応クラウドは AWS、Microsoft Azure、Google Cloud。テーブルは `sn_clin_core_*` 系（例：`sn_clin_core_recommendation`、`sn_clin_core_budget_policy`、`sn_clin_core_rs_recommendation_base`）。
+**Cloud Cost Management（CCM、旧 Cloud Insights、アプリ ID `sn_clin`）** は（Cloud Insights からの改名時期は公開情報では確認できず。Vancouver リリース時の ServiceNow Community ブログでは既に「previously known as Cloud Insights」と記載されている【第三者情報】。[出典](https://www.servicenow.com/community/cloud-cost-management-blog/what-s-new-in-vancouver-for-cloud-cost-management/ba-p/2675161)）、パブリッククラウドの請求・利用データを取り込み、支出の可視化、予算管理、適正化（rightsizing）、未使用リソースや業務時間外リソースの停止などのコスト最適化アクションを自動化するアプリケーションである。公式ドキュメントでは IT Asset Management の一部として掲載されている。対応クラウドは AWS、Microsoft Azure、Google Cloud。テーブルは `sn_clin_core_*` 系（例：`sn_clin_core_recommendation`、`sn_clin_core_budget_policy`、`sn_clin_core_rs_recommendation_base`）。
 [出典](https://www.servicenow.com/docs/r/zurich/it-asset-management/cloud-cost-management/rs-cloudin.html) [出典](https://www.servicenow.com/community/cloud-cost-management-articles/cloud-cost-management-path-to-value/ta-p/3060830) [出典](https://www.servicenow.com/community/sam-blog/list-of-servicenow-sam-tables/ba-p/2283573)
 
 - クラウドリソースの発見・プロビジョニング（Cloud Discovery、Cloud Provisioning and Governance）は ITOM の領域であり、[Cloud Management](../itom/cloud-management.md) を参照。
-- CCM の製品パッケージ上の位置付け（どの SAM / ITOM SKU に含まれるか）は公開情報では確認できず。Cloud Cost Simulator は「SAM Enterprise のお客様が利用可能」とする ServiceNow Community 記事がある【第三者情報】。
+- CCM の製品パッケージ上の位置付けは公式ドキュメントでは確認できず。Vancouver 時点の ServiceNow Community ブログは「CCM は単独 SKU として購入可能になったが、引き続き SAM Enterprise エディションにも含まれる」と説明している【第三者情報】。[出典](https://www.servicenow.com/community/cloud-cost-management-blog/what-s-new-in-vancouver-for-cloud-cost-management/ba-p/2675161)
+- Cloud Cost Simulator（Tokyo で導入）は、フル機能の利用に「Cloud Insights を含む SAM の Enterprise 版が必要」とする ServiceNow Community ブログ記事がある【第三者情報】。[出典](https://www.servicenow.com/community/itam-blog/what-s-new-in-asset-management-for-it-and-beyond/ba-p/2284917) [出典](https://www.servicenow.com/community/sam-blog/cloud-cost-simulator/ba-p/2284905)
 
 ### インストールと前提条件
 
@@ -839,7 +869,7 @@ SAM のスケジュールジョブは名前が「SAM」で始まる（Scheduled 
 
 | 時期 | 新機能・変更 |
 |---|---|
-| EA（2026-03） | GitHub 連携の拡張、粒度の細かい管理者ロール（`sam_admin`、`sam_integrator`） |
+| EA（2026-03） | GitHub 連携の拡張、既存の `sam_admin`・`sam_integrator` などの粒度の細かい管理者ロールで、`admin` なしに管理設定作業を行えるようになった |
 | 2026-04 | 製品ティア Foundation / Advanced / Prime、AI エンタイトルメント抽出、SaaS トラブルシューティング、Microsoft 365 ライセンス割り当てエージェント、Contract Management Pro 連携（Enterprise のみ）、Troubleshoot ボタン |
 | GA（2026-05） | OpenLM 連携拡張、SPP 向け ML 正規化、SAP ABAP の OAuth 2.0、Oracle WebLogic Suite、パターン正規化ルール拡張、SQL Server Enterprise Server+CAL ルール、ライフサイクルレポート Playbook、Microsoft インフラ統合レポート、CrowdStrike Product Workload Mapping の Delete ボタン、License operations に製品ワークロードマッピング・エンジニアリングアプリ一覧 |
 | 2026-06 | エンタイトルメントインポートエラーの AI 修正提案と重複検出、ACC-VC による SaaS 利用監視、SaaS Detection Report |
@@ -861,7 +891,7 @@ SAM のスケジュールジョブは名前が「SAM」で始まる（Scheduled 
 - [Discovery](../itom/discovery.md) / [Service Graph Connectors](../itom/service-graph-connectors.md) — ソフトウェアインストールの収集
 - [Cloud Management](../itom/cloud-management.md) — クラウドリソースの発見・ガバナンス
 - [CMDB と CSDM](../platform/cmdb-csdm.md) — CI とデータ品質
-- [Agile Development・APM・EAM](../spm/agile-apm-eam.md) — APM（Technology Portfolio Management、ソフトウェアライフサイクルリスク）
+- [Agile Development・APM・EAM](../spm/agile-apm-eam.md) — APM（Technology Lifecycle Management（旧 Technology Portfolio Management）、ソフトウェアライフサイクルリスク）
 - [Security Operations](../secops/security-operations.md) — Vulnerability Response（Software Exposure Assessment）
 - [ライセンスコスト最適化](../../04_応用編/06-license-cost-optimization.md) — ServiceNow 自体のライセンス最適化
 
@@ -869,6 +899,7 @@ SAM のスケジュールジョブは名前が「SAM」で始まる（Scheduled 
 
 - Software Asset Management overview（Australia）: https://www.servicenow.com/docs/r/australia/it-asset-management/software-asset-management/c_SAMOverview.html
 - Software Asset Management release notes（Australia）: https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/hxV2ryD~iqdV~Fv8cjqTjw
+- View software model results（Yokohama、Remediation action の値）: https://www.servicenow.com/docs/bundle/yokohama-it-asset-management/page/product/software-asset-management2/task/t_ViewSWModelResults.html
 - Brazil vs Australia Software Asset Management release notes: https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-softwareassetmanagement-release-notes.html
 - Software Asset Management（Store アプリ）release notes: https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/Rnudf1~03LaAf06FQR94OA
 - Components installed with Software Asset Management Professional（Xanadu）: https://www.servicenow.com/docs/r/w3Hg5id41C9xrkzqBsUMhA/VBamTjSy9iBPBn_vrxHQBg
@@ -900,3 +931,8 @@ SAM のスケジュールジョブは名前が「SAM」で始まる（Scheduled 
 - 【第三者情報】OOB Read-Only Role for SAM Tables（ServiceNow Community）: https://www.servicenow.com/community/sam-forum/oob-read-only-role-for-sam-tables-software-models-amp/m-p/3559163
 - 【第三者情報】Removal candidates created with empty fields（ServiceNow Community）: https://www.servicenow.com/community/sam-forum/removal-candidates-are-getting-created-with-empty-fields/m-p/3188015
 - 【第三者情報】CCM role for executives（ServiceNow Community）: https://www.servicenow.com/community/cloud-cost-management-forum/what-role-is-appropriate-for-an-executive-that-wants-to-see-ccm/m-p/3121703
+- Software normalization: https://www.servicenow.com/docs/r/it-asset-management/software-asset-management/sam-normalization.html
+- 【第三者情報】Difference between SAM Foundation and SAM plugin（ServiceNow Community）: https://www.servicenow.com/community/sam-forum/difference-between-software-asset-management-foundation-and/td-p/1343114
+- 【第三者情報】What's new in Vancouver for Cloud Cost Management（ServiceNow Community blog）: https://www.servicenow.com/community/cloud-cost-management-blog/what-s-new-in-vancouver-for-cloud-cost-management/ba-p/2675161
+- 【第三者情報】What's new in Asset Management for IT and beyond（ServiceNow Community ITAM blog）: https://www.servicenow.com/community/itam-blog/what-s-new-in-asset-management-for-it-and-beyond/ba-p/2284917
+- 【第三者情報】Cloud Cost Simulator（ServiceNow Community SAM blog）: https://www.servicenow.com/community/sam-blog/cloud-cost-simulator/ba-p/2284905

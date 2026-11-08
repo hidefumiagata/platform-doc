@@ -10,12 +10,15 @@ sources:
   - https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/veB~Wy6qL437vAeOgO~r5w
   - https://www.servicenow.com/docs/r/XRgEFx7nPN6ciT_BBIvnbg/Ij4VOnq78uF2Hf1Sc_Jy3A
   - https://www.servicenow.com/docs/r/intelligent-experiences/now-assist-guardian.html
-  - https://www.servicenow.com/docs/r/zurich/platform-security/data-privacy-classic/configure-now-assist-data-privacy.html
+  - https://www.servicenow.com/docs/r/australia/platform-security/data-privacy-classic/configure-now-assist-data-privacy.html
+  - https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/hlv0Eq~iNgpBeuOvfRRy6Q
   - https://www.servicenow.com/docs/r/LJrmaT7RuHYvraJ6TwMDCA/MkFUlXNTbXaXUbLR7_pSiw
   - https://www.servicenow.com/docs/r/LJrmaT7RuHYvraJ6TwMDCA/3aSpelqKxFQ82Gt~BavCpw
   - https://www.servicenow.com/docs/r/australia/release-notes/now-assist-rn.html
   - https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-nowassist-release-notes.html
   - https://www.servicenow.com/docs/r/intelligent-experiences/ai-control-tower/aict-value-tab.html
+  - https://www.servicenow.com/docs/r/XRgEFx7nPN6ciT_BBIvnbg/il8XRx8Z7rNr_oZulavtdw
+  - https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/MerGjMF3IzmPSHhTwJ1YYA
   - https://www.servicenow.com/docs/r/intelligent-experiences/ai-control-tower/exploring-ai-control-tower.html
   - https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/usage-and-adoption.html
   - https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/skill-usage.html
@@ -77,11 +80,13 @@ ServiceNow の AI CoE 系 Community 記事「Agentic AI Adoption Playbook for No
 
 ```mermaid
 flowchart LR
-  D[Discover<br/>オーナー付きUC 3件以上<br/>C-level スポンサー] --> P[Plan<br/>ビジネスケース承認<br/>KPI 2-3個とベースライン]
+  D[Discover<br/>オーナー付きUC 3件以上<br/>C-level スポンサー] --> P[Plan<br/>ビジネスケース承認<br/>成功指標の合意<br/>KPI とベースライン（有効化前）]
   P --> B[Build and Deploy<br/>本番稼働<br/>Adoption 70%以上]
   B --> E[Expand<br/>隣接UCへ拡大<br/>3-5件をパイプライン化]
   E -->|新規UC| D
 ```
+
+> KPI を「2〜3 個」に絞る推奨は、同記事の Plan フェーズの移行条件ではなく、別セクション「Just bought Now Assist?」に書かれている（6.1 節）。
 
 同記事の 7 つの準備度（7 Pillars）は、Executive Sponsorship、Governance and Compliance、Data Quality and Architecture、Platform and Technical Readiness、People and Skills、Change Management、Value Measurement and Expansion である。Platform and Technical Readiness の例として「Pro Plus または Enterprise Plus のライセンス、Yokohama Patch 6 以降、エージェントスキル用の Next Experience ワークスペース」が挙げられている（ライセンス名は 2026-04 の Foundation / Advanced / Prime 移行前の表記）。[出典](https://www.servicenow.com/community/ceg-ai-coe-articles/agentic-ai-adoption-playbook-for-now-assist-on-servicenow/ta-p/3507085)
 
@@ -111,7 +116,7 @@ ServiceNow 上でこの 3 要因に対応するのが、本ファイルの第 2 
 
 複数の ServiceNow 社員執筆記事が、最初のユースケースとして **フルフィラー（担当者）向けの低負荷スキル** を推奨している。
 
-- AI CoE のプレイブックは「大量かつ他システムへの依存が少ないもの」を最良の出発点とし、**インシデント要約 → Resolution notes（解決メモ）生成 → Virtual Agent** の順で進めることを推奨する。AI Search とナレッジ記事生成は **ナレッジベース品質が十分な場合** に検討する（AI Search の品質がナレッジ品質に依存するため）。[出典](https://www.servicenow.com/community/ceg-ai-coe-articles/agentic-ai-adoption-playbook-for-now-assist-on-servicenow/ta-p/3507085)
+- AI CoE のプレイブックは「大量かつ他システムへの依存が少ないもの」を最良の出発点とし、低負荷のものから有効化するとしている（Build and Deploy の Activity 3「Activate Low-Lift First」）。具体的には、**インシデント要約と AI Search の 2〜4 週間パイロット** の後に、**Resolution notes（解決メモ）生成と Virtual Agent** へ進む流れを示す。ただし AI Search と Virtual Agent の品質はナレッジベースの成熟度に直結するため、ナレッジ品質の課題は Discover 段階で洗い出す（Pillar 3：Data Quality and Architecture）。[出典](https://www.servicenow.com/community/ceg-ai-coe-articles/agentic-ai-adoption-playbook-for-now-assist-on-servicenow/ta-p/3507085)
 - 5-Pillar Framework も Quick win としてインシデント要約と Resolution notes 生成を挙げる。[出典](https://www.servicenow.com/community/now-assist-articles/5-pillar-framework-to-scaling-now-assist-adoption/ta-p/3442714)
 
 要約系スキルが最初に向く理由は、(1) 1 回あたりの Assist 消費が小さい（要約は 1 Assist の例。第 4 章）、(2) 人がレビューしてから使う（Human-in-the-loop）ためリスクが低い、(3) 既存の画面（Workspace / Now Assist パネル）に組み込まれ利用者教育が少なくて済む、の 3 点である。【経験則】
@@ -224,19 +229,19 @@ AI エージェントが CI・サービス・担当グループを参照して�
 
 ### 3.4 送信データの最小化（Data Privacy for Now Assist）
 
-LLM に送るデータから個人情報等をマスキングする設定は、データ品質と同時に設計する。公式ドキュメント（Configuring Data Privacy for Now Assist）の要点は以下である。[出典](https://www.servicenow.com/docs/r/zurich/platform-security/data-privacy-classic/configure-now-assist-data-privacy.html)
+LLM に送るデータから個人情報等をマスキングする設定は、データ品質と同時に設計する。公式ドキュメント（Configuring Data Privacy for Now Assist）（Australia 版）の要点は以下である。[出典](https://www.servicenow.com/docs/r/australia/platform-security/data-privacy-classic/configure-now-assist-data-privacy.html)
 
 | 項目 | 内容 |
 |---|---|
-| 必要ロール | `now_assist_data_privacy_admin`（Data Discovery パターン作成には `data_discovery_admin`） |
+| 必要ロール | `now_assist_data_privacy_admin`（本ページが明記する唯一のロール）。正規表現の Data Discovery パターンを新規作成・構成する場合は、別ページ「Configure Data Discovery patterns」（Australia）が `data_discovery_admin` を必要ロールとしている [出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/hlv0Eq~iNgpBeuOvfRRy6Q) |
 | 前提アプリ | Data Privacy (Classic) [`com.glide.data_privacy`]、Data Privacy [`sn_dp_store_app`]、Data Discovery [`sn_data_discovery`]、Data Discovery APIs [`com.glide.data_discovery`]。最新の Generative AI Controller を入れると `sn_dp_store_app` が自動インストールされ、残りも導入される |
 | メニュー | All > Data Privacy (Classic) > Privacy Policy Advanced Configuration |
 | 手順 | ポリシーを新規作成 → Data Channel に **Now Assist** を選択 → Active = true → Select Data Patterns で正規表現パターン（Data Discovery パターン）を選択 → 保存 |
 | 制約 | **1 つの Data Channel で有効にできるポリシーは 1 つだけ**。新ポリシーを有効にするには同チャネルの他ポリシーを Active = false にする |
 | 動作 | Now Assist チャネルでは、データが GenAI Controller に送られる前に匿名化される |
-| 旧方式 | Xanadu までは Sensitive Data Handler。Yokohama 以降は Data Privacy for Now Assist に移行し、既存の正規表現はアップグレード時に移行される |
+| 旧方式 | 以前の Sensitive Data Handler の正規表現は、アップグレード時に移行される（移行したリリースは公開情報では確認できず） |
 
-> マスキングの目的は **LLM への送信を防ぐこと** であり、最終応答でエンドユーザーから隠すことではない（双方向マスキングで応答時に復元される）。この点を個人情報保護のレビューで誤解されないよう説明する。【第三者情報】（検索結果に示された公式ドキュメントの記述に基づく。原文ページは上記出典を参照）
+> 公式ドキュメント（Exploring Data Privacy for ServiceNow Otto, Australia）によれば、マスキングは **双方向マスキング（two-way masking）** である。プロンプトでは機微データがプレースホルダーや匿名化データに置き換えられて LLM に送られ、LLM の応答を受け取った後に元のテキストへ戻される。これにより、エンドユーザーには正確な応答が返り、機微データは LLM に渡らない。[出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/MerGjMF3IzmPSHhTwJ1YYA) したがって、マスキングの目的は LLM への送信を防ぐことであり、最終応答でエンドユーザーから隠すことではない。この点を個人情報保護のレビューで誤解されないよう説明する。【経験則】
 
 ---
 
@@ -330,18 +335,18 @@ ServiceNow のプロダクトマネージャー記事は、消費見積りを 6 
 
 Australia のリリースノートは、プラグインのインストール・更新時に自動有効化されるよう構成されたスキルを既定で有効にするかを管理者が制御でき、個々のスキルを有効化・無効化できる、と説明している。[出典](https://www.servicenow.com/docs/r/australia/release-notes/now-assist-rn.html)
 
-**教訓：** パッチ適用・プラグイン更新のたびに、AI Admin Hub のスキル一覧で「意図せず有効になったスキル」がないかを確認する作業を、アップグレード手順に組み込む。不要なスキルは明示的に無効化しておくと、以後の自動有効化の対象外になる。【経験則】（上記公式の条件に基づく） アップグレード手順全般は [アップグレードの教訓](04-upgrade-lessons.md) を参照。
+**教訓：** パッチ適用・プラグイン更新のたびに、AI Admin Hub のスキル一覧で「意図せず有効になったスキル」がないかを確認する作業を、アップグレード手順に組み込む。一度も有効化していないスキルは、そのままでは自動有効化の対象になる。自動有効化を防ぐには、公式の除外条件（一度有効化してから無効化する、またはロールを調整する）を満たしておくか、Australia（2026-08）で追加された AI Admin Hub の既定有効化の制御を使う。【経験則】（上記公式の条件に基づく） アップグレード手順全般は [アップグレードの教訓](04-upgrade-lessons.md) を参照。
 
 ### 4.7 監視ツール
 
-| ツール | メニュー位置 | 用途 |
-|---|---|---|
-| Subscription Management の Now Assist usage | Admin > Subscription Management > Subscriptions > Now Assist usage（Account level entitlements） | 契約単位の購入数・消費数・残数、インスタンス別・ドメイン別・スキル別の消費、利用履歴 |
-| Now Assist Analytics | All > Now Assist Admin > Analytics（または Performance）。AI Admin Hub 名称のインスタンスでは同ハブ配下 | 利用・採用、スキル性能、カスタムスキル、Guardian、検索分析 |
-| AI Agent Analytics | AI Agent Studio 内の Assist Consumption タブ | インスタンス単位のエージェント型ワークフロー消費（ほぼリアルタイム） |
-| AI Admin Hub の使用量アラート | AI Admin Hub（Australia, 2026-08 追加） | スキル単位で Assist 消費・実行回数の上限ルールを設定し、アラートフィードで管理 |
+| ツール | メニュー位置 | 用途 | 出典 |
+|---|---|---|---|
+| Subscription Management の Now Assist usage | Admin > Subscription Management > Subscriptions > Now Assist usage（Account level entitlements） | 契約単位の購入数・消費数・残数、インスタンス別・ドメイン別・スキル別の消費、利用履歴 | [公式](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/veB~Wy6qL437vAeOgO~r5w) |
+| Now Assist Analytics | All > Now Assist Admin > Performance（Australia Patch 5 / Zurich Patch 12 以降は AI Admin Hub 配下） | 利用・採用、スキル性能、カスタムスキル、Guardian、検索分析 | [Community（ServiceNow 社員）](https://www.servicenow.com/community/servicenow-otto-articles/tracking-now-assist-usage-measuring-roi-and-adoption-australia/ta-p/3500172) |
+| AI Agent Analytics | AI Agent Studio 内の Assist Consumption タブ | インスタンス単位のエージェント型ワークフロー消費（ほぼリアルタイム） | [6-Step Framework（ServiceNow 社員）の Baseline 節](https://www.servicenow.com/community/now-assist-articles/a-6-step-framework-for-now-assist-consumption-forecasting/ta-p/3493141) |
+| AI Admin Hub の使用量アラート | AI Admin Hub（Australia, 2026-08 追加） | スキル単位で Assist 消費・実行回数の上限ルールを設定し、アラートフィードで管理 | [Australia リリースノート](https://www.servicenow.com/docs/r/australia/release-notes/now-assist-rn.html) |
 
-出典：[Subscription Management（公式）](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/veB~Wy6qL437vAeOgO~r5w) / [Best Practices（ServiceNow 社員）](https://www.servicenow.com/community/servicenow-otto-articles/best-practices-in-managing-ai-agents-skills-and-assists-in/ta-p/3569710) / [Australia リリースノート](https://www.servicenow.com/docs/r/australia/release-notes/now-assist-rn.html)
+出典：[Subscription Management（公式）](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/veB~Wy6qL437vAeOgO~r5w) / [Tracking Now Assist Usage（ServiceNow 社員）](https://www.servicenow.com/community/servicenow-otto-articles/tracking-now-assist-usage-measuring-roi-and-adoption-australia/ta-p/3500172) / [6-Step Framework（ServiceNow 社員）](https://www.servicenow.com/community/now-assist-articles/a-6-step-framework-for-now-assist-consumption-forecasting/ta-p/3493141) / [Australia リリースノート](https://www.servicenow.com/docs/r/australia/release-notes/now-assist-rn.html)。AI Agent Analytics という名称自体は [Best Practices（ServiceNow 社員）](https://www.servicenow.com/community/servicenow-otto-articles/best-practices-in-managing-ai-agents-skills-and-assists-in/ta-p/3569710) にも登場する。
 
 **Subscription Management の Now Assist usage の仕様（公式）：** [出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/veB~Wy6qL437vAeOgO~r5w)
 
@@ -359,7 +364,7 @@ Australia のリリースノートは、プラグインのインストール・�
 
 画面説明：左のナビゲーターでフィルタ「subscription management」を入力し、Subscription Management 配下（Import Entitlement Data、Subscription Management、All Subscriptions、Issues、Insights、Settings）が表示されている。上部タブは Overview / Subscriptions / Issues / Insights / Settings で、Subscriptions タブが選択されている。左ペインのツリーは「Instance level entitlements > All entitlements」と「Account level entitlements > Now Assist usage」で、Now Assist usage が選択されている。右側に見出し「Now Assist usage」と説明文「View a summary of your Now Assist entitlements and track Now Assist usage across all your instances.」、その下の「Account-level summary」に **Total purchased**（例：100,00…）、**Total used assists**（例：0。下部に View details リンク）、**Available assists**（例：100,00…）の 3 枚のカードが並ぶ。
 
-出典：[Tracking Now Assist Usage: Measuring ROI and Adoption（ServiceNow Community, Dexter Chan, ServiceNow 社員, 2026-03-17 公開 / 2026-09-25 更新）](https://www.servicenow.com/community/servicenow-otto-articles/tracking-now-assist-usage-measuring-roi-and-adoption-australia/ta-p/3500172)（取得日：2026-11-04）
+出典：[Tracking Now Assist Usage: Measuring ROI and Adoption（ServiceNow Community, Dexter Chan, ServiceNow 社員, 2026-03-17 公開 / 2026-09-25 更新）](https://www.servicenow.com/community/servicenow-otto-articles/tracking-now-assist-usage-measuring-roi-and-adoption-australia/ta-p/3500172)（取得日：2026-11-02）
 
 ### 4.8 主要テーブル（消費の追跡・監査）
 
@@ -401,7 +406,7 @@ ServiceNow 社員の記事は、消費とエージェント実行を追跡する
 
 画面説明：ダッシュボード名「Cumulative assists & forecast」の編集モード。左の折れ線グラフは縦軸が累積 Assist（0〜100,000）、横軸が日付（May 11〜Jul 30）。水色の実線が実績の累積値（Cumulative Assists - VC）、赤線がトレンド、水色の点線が予測（Forecast Cumulative Assists）、その周囲の水色の帯が予測範囲（Forecast Range）で、水平の点線「More than 50000」が閾値を示し、予測線が 7 月中旬に閾値を超える見込みが読み取れる。右の設定パネルには Data source（Cumulative Assists - VC）、Metric（DAILY）、Group by、Date range（Set absolute period オン、Period start 05/11/2026、Period end 07/30/2026）、Additional settings（Show forecast オン、Configure forecast リンク、Show forecast range オン）が表示されている。
 
-出典：[Build an assists and agentic assists forecasting dashboard（ServiceNow Community, Victor Chen, ServiceNow 社員, 2026-06-24 公開 / 2026-07-15 更新）](https://www.servicenow.com/community/now-assist-articles/build-an-assists-forecasting-dashboard/ta-p/3562989)（取得日：2026-11-04）
+出典：[Build an assists and agentic assists forecasting dashboard（ServiceNow Community, Victor Chen, ServiceNow 社員, 2026-06-24 公開 / 2026-07-15 更新）](https://www.servicenow.com/community/now-assist-articles/build-an-assists-forecasting-dashboard/ta-p/3562989)（取得日：2026-11-02）
 
 ### 4.10 暴走の抑制：レート制限・キルスイッチ・再帰チェック
 
@@ -434,8 +439,6 @@ ServiceNow 社員の記事は、消費とエージェント実行を追跡する
 |---|---|
 | `recursive_check.create_max_executions` / `recursive_check.create_time_window` | 50 回 / 15 分 |
 | `recursive_check.update_max_executions` / `recursive_check.update_time_window` | 5 回 / 15 分 |
-
-> 第三者報道によれば、Knowledge 2026（2026-05）で暴走エージェントの停止（キルスイッチ）を含む AI Control Tower の強化が発表された。【第三者情報】[出典](https://fortune.com/2026/05/05/servicenow-knowledge-2026-autonomous-workforce-microsoft-nvidia-ai-announcements/)
 
 ### 4.11 消費管理の運用サイクル
 
@@ -486,7 +489,7 @@ Now Assist の初期設定（AI Admin Hub / 旧 Now Assist Admin）で、組織�
 | 判断事項 | 論点 |
 |---|---|
 | モデル改善のためのデータ共有 | ServiceNow とデータを共有するか（インスタンスごとにオプトアウトの手続き） |
-| データオーバーフロー（バースティング） | ピーク時に別データセンターで処理するか。オプトアウトすると遅延・容量超過エラーの可能性。無効化できるのは Data Steward ロールのみ |
+| データオーバーフロー（バースティング） | ピーク時に ServiceNow データセンターから **Microsoft Azure のデータセンター** へバーストして処理するか（第三者クラウドでの処理となるため、データ所在・委託先審査の論点。5.8 節と下記「Australia の変更」も参照）。オプトアウトすると遅延・容量超過エラーの可能性。無効化できるのは Data Steward ロールのみ |
 | モデルプロバイダー | Now LLM Service、またはサードパーティ LLM（Azure OpenAI、Google Gemini、AWS 上の Anthropic Claude 等） |
 | データルーティング | 国内／リージョン内処理の要否 |
 | フォールバック | 選択したプロバイダーが未対応の AI システムの扱い |
@@ -519,7 +522,7 @@ Now Assist の初期設定（AI Admin Hub / 旧 Now Assist Admin）で、組織�
 
 画面説明：見出し「Prompt Injection」の下に Date range（例：10/01/2024 - 01/22/2024）と「Filter upto 10 skills」（例：Code Generation、CSM Incident Summarization、Flow Generation、HRSD Usecases ほか 7 スキル）のフィルタがある。上段の 3 枚のカードは **Guardrail-related latency**（例：0.961ms、期間平均）、**Percentage flagged as prompt injection**（例：5.09%）、**Total prompt injection occurrences**（例：1150、推移の折れ線付き）。下段は「Prompt injection occurrences by skill」の週別棒グラフで、Chat Summarization、Flow Generation、Code Generation、CSM Incident Summarization、HRSD Case Summarization、HRSD Incident Summarization、Resolution Notes Generation ごとの件数を色分けして示す。数値はデモデータである。
 
-出典：[Tracking Now Assist Usage: Measuring ROI and Adoption（ServiceNow Community, Dexter Chan, ServiceNow 社員）](https://www.servicenow.com/community/servicenow-otto-articles/tracking-now-assist-usage-measuring-roi-and-adoption-australia/ta-p/3500172)（取得日：2026-11-04）
+出典：[Tracking Now Assist Usage: Measuring ROI and Adoption（ServiceNow Community, Dexter Chan, ServiceNow 社員）](https://www.servicenow.com/community/servicenow-otto-articles/tracking-now-assist-usage-measuring-roi-and-adoption-australia/ta-p/3500172)（取得日：2026-11-02）
 
 ### 5.4 AI エージェントの実行ID・アクセス制御・監督モード
 
@@ -564,9 +567,9 @@ AI Agent Advisor は効果の高いユースケースを提示し、自動評価
 
 **導入上の要点：**
 
-- 第三者の分析によれば、外部（他社）エージェントに対する統制は、Now Platform ネイティブのエージェントより浅く、テレメトリ収集と事後のポリシー評価が中心とされる。【第三者情報】（検索結果の独立分析に基づく。参照元は [AI Control Tower 製品ページ](https://www.servicenow.com/products/ai-control-tower.html) と併読のこと）
-- AI Control Tower の Value ダッシュボードは **managed（管理対象）として登録された AI 資産** のみを集計する（第 6 章）。台帳登録を運用プロセスに組み込まないと価値が過小評価される。
-- 2026-04 以降のパッケージでは AI Control Tower が各ティアに同梱されたと第三者は説明している。【第三者情報】[出典](https://www.servicenow.com/community/upgrades-and-patching-forum/servicenow-ai-native-licensing-in-2026-a-practical-guide-to/m-p/3565858)
+- AI Control Tower の Value ダッシュボードは、2026-03 リリース以降 **managed（管理対象）の AI 資産** のみを集計する（6.3 節）。[出典](https://www.servicenow.com/docs/r/XRgEFx7nPN6ciT_BBIvnbg/il8XRx8Z7rNr_oZulavtdw) 資産を managed にする手順を運用プロセスに組み込まないと、価値が過小評価される。【経験則】
+- 2026-04 以降のパッケージでは AI Control Tower が各ティアに同梱されたと第三者は説明している。Fortune（2026-05-05）も、ServiceNow が AI Control Tower の全機能をアドオン販売ではなく全製品・全パッケージに既定で組み込むと発表した、と報じている。【第三者情報】[出典](https://www.servicenow.com/community/upgrades-and-patching-forum/servicenow-ai-native-licensing-in-2026-a-practical-guide-to/m-p/3565858) / [出典](https://fortune.com/2026/05/05/servicenow-knowledge-2026-autonomous-workforce-microsoft-nvidia-ai-announcements/)
+- 第三者報道によれば、Knowledge 2026（2026-05）で AI Control Tower の強化（AI エージェントの継続的な発見、リスクのスコア化、最小権限アクセスの強制）が発表された。【第三者情報】[出典](https://fortune.com/2026/05/05/servicenow-knowledge-2026-autonomous-workforce-microsoft-nvidia-ai-announcements/)
 
 AI CoE と CoE 全般の運営は [ガバナンスとCoEの実践](09-governance-coe-practice.md) を参照。
 
@@ -601,7 +604,7 @@ AI CoE のプレイブックは **2〜3 個の KPI を定義し、有効化前�
 
 ### 6.2 Now Assist Analytics
 
-Now Assist Analytics はストアアプリで、Now Assist のサブスクリプション以外の追加ライセンスは不要である。メニューは All > Now Assist Admin > Analytics（Performance）。ストアアプリは最新に保つことが推奨されている。[出典](https://www.servicenow.com/community/servicenow-otto-articles/tracking-now-assist-usage-measuring-roi-and-adoption-australia/ta-p/3500172) / [公式：Usage and adoption](https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/usage-and-adoption.html) / [公式：Skills performance](https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/skill-usage.html)
+Now Assist Analytics はストアアプリで、Now Assist のサブスクリプション以外の追加ライセンスは不要である。メニューは All > Now Assist Admin > Performance（Australia Patch 5 / Zurich Patch 12 以降は AI Admin Hub 配下）。ストアアプリは最新に保つことが推奨されている。[出典](https://www.servicenow.com/community/servicenow-otto-articles/tracking-now-assist-usage-measuring-roi-and-adoption-australia/ta-p/3500172) / [公式：Usage and adoption](https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/usage-and-adoption.html) / [公式：Skills performance](https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/skill-usage.html)
 
 | ダッシュボード | 主な内容 |
 |---|---|
@@ -613,7 +616,7 @@ Now Assist Analytics はストアアプリで、Now Assist のサブスクリプ
 | Prompt Injection（Guardian） | ガードレール遅延、検出割合、スキル別件数（図3） |
 | User Search Analyzer | Genius 結果付きクエリ、エンゲージメント、応答時間、KB・カタログのソース、上位クエリ |
 | Context Menu | 利用、受容分布、スキル別利用、フィードバック |
-| 廃止 | Self-Service Performance（Assistant Analytics Hub に置換）、Value（AI Control Tower に移動）。いずれも Zurich で廃止 |
+| 廃止 | Self-Service Performance（Assistant Analytics Hub に置換）、Value（Zurich で廃止。出典記事は後継を明記していない。AI 価値の可視化には AI Control Tower の Value タブ［6.3 節］が使える【経験則】）。いずれも Zurich で廃止 |
 
 ![Now Assist Analytics の Usage and Adoption ダッシュボード（Usage Summary タブ）。Total Now Assist actions、Daily Now Assist actions、Average daily unique users、Daily unique users の 4 枚のカードが並ぶ](../assets/images/10-ai-adoption-lessons/now-assist-usage-adoption-dashboard.png)
 
@@ -621,7 +624,7 @@ Now Assist Analytics はストアアプリで、Now Assist のサブスクリプ
 
 画面説明：左上に「Usage Summary」「Adoption」の 2 タブがあり、Usage Summary が選択されている。フィルタは「Last 30 days」「Channels」「Products」。4 枚のカードは、**Total Now Assist actions**（例：11417、推移の面グラフ付き）、**Daily Now Assist actions**（日別アクション数の折れ線）、**Average daily unique users engaging with Now Assist**（例：1120、面グラフ付き）、**Daily unique users engaging with Now Assist**（日別ユニークユーザーの折れ線）。数値はデモデータである。Adoption タブでは部門別の利用状況を確認できる。
 
-出典：[Tracking Now Assist Usage: Measuring ROI and Adoption（ServiceNow Community, Dexter Chan, ServiceNow 社員）](https://www.servicenow.com/community/servicenow-otto-articles/tracking-now-assist-usage-measuring-roi-and-adoption-australia/ta-p/3500172)（取得日：2026-11-04）
+出典：[Tracking Now Assist Usage: Measuring ROI and Adoption（ServiceNow Community, Dexter Chan, ServiceNow 社員）](https://www.servicenow.com/community/servicenow-otto-articles/tracking-now-assist-usage-measuring-roi-and-adoption-australia/ta-p/3500172)（取得日：2026-11-02）
 
 **カスタマイズの注意：** OOTB ダッシュボードを直接編集するとアップグレード時に問題が起きるため、複製してから編集することが Community で推奨されている。【第三者情報】（Community 投稿に基づく。[Now Assist Analytics のカスタマイズに関する記事](https://www.servicenow.com/community/servicenow-ai-platform-blog/crafting-clarity-customizing-now-assist-analytics/ba-p/3369745)）
 
@@ -640,7 +643,7 @@ Now Assist Analytics はストアアプリで、Now Assist のサブスクリプ
 
 - 指標は各 AI 資産に紐づく **Value template（価値テンプレート）** に基づいて計算される。
 - クリエイタースキルの価値指標は本番と非本番を合算する。
-- 検索結果で確認した公式ドキュメントの注記によれば、2026-03 リリース以降、Value ダッシュボードは選択期間内の **managed（管理対象）AI 資産** のみを集計する。
+- Australia 版の同ページの注記によれば、2026-03 リリース以降、Value ダッシュボードは選択期間内の **managed（管理対象）AI 資産** についてのみ、インサイトと価値計算を表示する。unmanaged の資産を集計に含めるには managed に再構成する必要がある。一度 managed にしてから unmanaged に戻した資産は、unmanaged に変更した日までの値だけが計算される。[出典](https://www.servicenow.com/docs/r/XRgEFx7nPN6ciT_BBIvnbg/il8XRx8Z7rNr_oZulavtdw)
 
 **教訓：** Value タブの「時間削減」は価値テンプレートの前提（1 アクションあたり削減分数など）に依存する推定値である。経営報告に使う前に、テンプレートの前提を業務部門と合意し、6.1 節の実測 KPI（MTTR 等）と突き合わせる。【経験則】 なお、公式ページは計算式・時給単価などの具体的な前提を記載していない（公開情報では確認できず）。
 
@@ -687,7 +690,7 @@ ServiceNow 社員の記事は、運用で使う指標を次のように定義し
 | KPMG UK | Now Assist ITSM、カスタム AI エージェント | 3 か月で 5% の ROI。「完璧を待たずに動いた」ことと、焦点を絞った実行・ガバナンスを教訓に挙げる | [Community（ServiceNow 社員, 2026-01-27）](https://www.servicenow.com/community/ceg-ai-coe-blog/real-results-real-customers-ai-transformation-stories-that/ba-p/3476261) |
 | Eaton | AI エージェント | 数値は非公開。ライブプロトタイプと ServiceNow の AI CoE（PACE）の支援が実装を加速 | 同上 |
 | 大規模医療機関（匿名） | ITSM（Sentiment Analysis） | 月 990 時間の回収（効率比 29:1）の試算 | [Community（ServiceNow 社員）](https://www.servicenow.com/community/now-assist-articles/a-6-step-framework-for-now-assist-consumption-forecasting/ta-p/3493141) |
-| ServiceNow（社内、L1 IT Service Desk AI Specialist） | 自律型エージェント | 担当 IT ケースの解決が人より 99% 速い（Knowledge 2026 での発表） | 【第三者情報】[報道](https://fortune.com/2026/05/05/servicenow-knowledge-2026-autonomous-workforce-microsoft-nvidia-ai-announcements/) |
+| ServiceNow（社内、IT Service Desk の AI Specialist） | 自律型エージェント | 担当 IT ケースの解決が人より 99% 速い（Knowledge 2026 での発表） | 【第三者情報】[報道](https://fortune.com/2026/05/05/servicenow-knowledge-2026-autonomous-workforce-microsoft-nvidia-ai-announcements/) |
 
 > 事例ページの一部（Now on Now、Kainos 等）は本調査時に直接取得できず（HTTP 403）、検索結果に表示された同ページの記述で確認した。数値を顧客提案に引用する場合は、原ページを開いて再確認すること。
 
@@ -714,13 +717,13 @@ ServiceNow 社員の記事は、運用で使う指標を次のように定義し
 | 5 | スケジュール型スキルを OOTB のまま全件・高頻度実行 | 同じレコードを繰り返し処理しプールを浪費 | 差分対象・低頻度化 | 4.4 節 |
 | 6 | サブプロで本番と同じ設定・クローンデータのまま検証 | 本番の枠を開発が消費、分析が汚れる | 日付フィルタ、頻度削減、使用ログのクローン除外、サブプロにもアラート | 4.5 節 |
 | 7 | Create と Update のトリガーを条件なしで併用 | エージェントの無限ループ | 処理済みフラグ、`sn_aia.continuous_tool_execution_limit`、キルスイッチ、再帰チェック | 2.4 節、4.10 節 |
-| 8 | パッチ後の自動有効化に気付かない | 想定外のスキルが動き消費・リスク増 | パッチ手順にスキル一覧確認を追加、不要スキルは明示的に無効化 | 4.6 節 |
+| 8 | パッチ後の自動有効化に気付かない | 想定外のスキルが動き消費・リスク増 | パッチ手順にスキル一覧確認を追加、公式の除外条件か AI Admin Hub の既定有効化の制御で自動有効化を防ぐ | 4.6 節 |
 | 9 | Guardian を「既定で有効だから安心」と放置 | ログ記録のみでブロックされていない／カスタムスキルが対象外 | ログで誤検知率を把握後にブロック、カスタムスキルを個別設定 | 5.3 節 |
 | 10 | AI user を安易に使う | エージェント経由の権限昇格 | 既定は Dynamic user、AI user は CoE レビュー、重要ツールは Supervised | 5.4 節 |
 | 11 | モデル・プロンプト変更を評価なしで本番反映 | 精度の劣化に気付かない | 同一データセットで前後比較、評価をリリースゲート化 | 5.5 節 |
 | 12 | Value タブの推定時間をそのまま ROI として報告 | 前提が合意されておらず信頼性を問われる | 価値テンプレートの前提合意、実測 KPI との突合、資産を managed に登録 | 6.3 節 |
 
-導入プロジェクト一般の失敗パターンは [導入失敗パターンと対策](01-implementation-failure-patterns.md)、利用定着の進め方は [定着化と組織変革](13-adoption-change-management.md) を参照。
+導入プロジェクトの進め方全般は [コンサルティング・プレイブック](14-consulting-playbook.md)、利用定着の進め方は [定着化と組織変革](13-adoption-change-management.md) を参照。
 
 ---
 
@@ -753,6 +756,7 @@ ServiceNow 社員の記事が示す 8 週間のロードマップを、本ファ
 - Foundation / Advanced / Prime 各ティアに同梱される Assist 数、追加 Assist の単価、超過時の扱い（公式には非公開。第三者推定のみ）。
 - 公式な Assist 単価表（Now Assist FAQ / rate card）の最新版の本文（本ファイルの単価表は ServiceNow 社員の Community 記事 2026-02 時点の値）。
 - AI Control Tower Value タブの価値計算式・時給などの前提値。
+- 外部（他社）AI エージェントに対する AI Control Tower の統制の深さ（Now Platform ネイティブのエージェントとの差）。
 - Brazil における Now Assist / AI Agents の機能差分の網羅的な一覧。
 - 日本企業による Now Assist / AI Agents の定量効果の公開事例。
 - ナレッジ記事の推奨文字数・見出し構成・画像の扱いなど、Now Assist 向けの記事粒度に関する公式ガイダンス。
@@ -777,12 +781,15 @@ ServiceNow 社員の記事が示す 8 週間のロードマップを、本ファ
 - Monitoring Now Assist usage in Subscription Management：https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/veB~Wy6qL437vAeOgO~r5w
 - Knowledge Base readiness for Now Assist on the ServiceNow AI Platform（Australia）：https://www.servicenow.com/docs/r/XRgEFx7nPN6ciT_BBIvnbg/Ij4VOnq78uF2Hf1Sc_Jy3A
 - Now Assist Guardian（Brazil）：https://www.servicenow.com/docs/r/intelligent-experiences/now-assist-guardian.html
-- Configuring Data Privacy for Now Assist（Zurich）：https://www.servicenow.com/docs/r/zurich/platform-security/data-privacy-classic/configure-now-assist-data-privacy.html
+- Configuring Data Privacy for Now Assist（Australia）：https://www.servicenow.com/docs/r/australia/platform-security/data-privacy-classic/configure-now-assist-data-privacy.html
+- Configure Data Discovery patterns（Australia、`data_discovery_admin`）：https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/hlv0Eq~iNgpBeuOvfRRy6Q
 - Implement access control in Now Assist AI agents（Australia）：https://www.servicenow.com/docs/r/LJrmaT7RuHYvraJ6TwMDCA/MkFUlXNTbXaXUbLR7_pSiw
 - Now Assist skills, agents, and agentic workflows on by default（Australia）：https://www.servicenow.com/docs/r/LJrmaT7RuHYvraJ6TwMDCA/3aSpelqKxFQ82Gt~BavCpw
 - Now Assist release notes（Australia）：https://www.servicenow.com/docs/r/australia/release-notes/now-assist-rn.html
 - Combined Now Assist release notes for upgrades from Yokohama to Brazil：https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-nowassist-release-notes.html
 - Value tab in AI Control Tower（Brazil）：https://www.servicenow.com/docs/r/intelligent-experiences/ai-control-tower/aict-value-tab.html
+- Value tab in AI Control Tower（Australia、managed 資産の注記あり）：https://www.servicenow.com/docs/r/XRgEFx7nPN6ciT_BBIvnbg/il8XRx8Z7rNr_oZulavtdw
+- Exploring Data Privacy for ServiceNow Otto（Australia、双方向マスキング）：https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/MerGjMF3IzmPSHhTwJ1YYA
 - Exploring AI Control Tower (legacy)（Brazil）：https://www.servicenow.com/docs/r/intelligent-experiences/ai-control-tower/exploring-ai-control-tower.html
 - Usage and adoption：https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/usage-and-adoption.html
 - Skills performance：https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/skill-usage.html
@@ -815,4 +822,4 @@ ServiceNow 社員の記事が示す 8 週間のロードマップを、本ファ
 - RapDev「Not Every ServiceNow AI Problem Needs an AI Agent」（2026-07-30）：https://www.rapdev.io/blog/not-every-servicenow-ai-problem-needs-an-ai-agent
 - Fortune「ServiceNow Knowledge 2026」（2026-05-05）：https://fortune.com/2026/05/05/servicenow-knowledge-2026-autonomous-workforce-microsoft-nvidia-ai-announcements/
 
-（各 URL の取得日：2026-11-04）
+（各 URL の取得日：2026-11-02）

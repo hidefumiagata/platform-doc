@@ -21,6 +21,7 @@ sources:
   - https://www.servicenow.com/docs/r/australia/it-operations-management/discovery/r_DiscoveryProperties.html
   - https://www.servicenow.com/docs/r/australia/it-operations-management/discovery/c_DiscoveryStatus.html
   - https://www.servicenow.com/docs/r/australia/it-operations-management/discovery/cloud-discovery-wizard.html
+  - https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-discovery-workspace/install-cloud-ops-wrksp.html
   - https://www.servicenow.com/docs/r/australia/it-operations-management/discovery/discovery-admin-workspace-diagnostics.html
   - https://www.servicenow.com/docs/r/australia/it-operations-management/discovery/c_DiscoveryErrorMessages.html
   - https://www.servicenow.com/docs/r/australia/it-operations-management/agent-client-collector/acc-concept.html
@@ -85,7 +86,7 @@ Discovery アプリケーション内の水平ディスカバリーには以下�
 | Cloud discovery（クラウドディスカバリー） | AWS や Azure 等のクラウドリソースを発見する |
 | Serverless discovery（サーバーレスディスカバリー） | ホストを先に発見せずにアプリケーションを発見する。パターンに依存する |
 
-Discovery schedule の **Discover** フィールドで選べる種類（Configuration items、IP addresses、Networks、Service、Serverless、Cloud application、Cloud resources、Certificates）は「[5.2 Discover の種類](#52-discover-フィールドの種類)」を参照。
+Discovery schedule の **Discover** フィールドで選べる種類（Configuration items、IP addresses、Networks、Service、Serverless、Cloud application、Cloud resources、Certificates）は「[5.2 Discover フィールドの種類](#52-discover-フィールドの種類)」を参照。
 
 ### 1.3 構成要素
 
@@ -154,7 +155,7 @@ Discovery と組み合わせて使う主な Store アプリ／プラグインは
 | Visibility Content | `sn_pattern_design` | Tokyo までのファミリーリリースに含まれていたパターンの更新版 |
 | Pattern Designer (NG version) | `com.snc.ng.pattern.designer` | パターンの作成・編集・デバッグ |
 | Discovery Admin Workspace | `sn_disco_workspace` | Discovery 運用のワークスペース |
-| Cloud Discovery Workspace | `sn_cloud_ops_ws` | クラウドディスカバリー用ワークスペース |
+| Cloud Discovery Workspace | `sn_cloud_ops_ws` | クラウドディスカバリー用ワークスペース（deprecated。新規有効化不可、後継は Discovery Admin Workspace）[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-discovery-workspace/install-cloud-ops-wrksp.html) |
 | Performance Analytics Content Pack for Cloud Resources | `sn_disco_cd` | クラウドリソースの集計ビュー |
 | Agent Client Collector Framework | `sn_agent` | ACC の管理（インスタンス・MID Server 側） |
 | Agent Client Collector for Visibility Content | `sn_acc_vis_content` | エージェントベースのインフラディスカバリーと SAM メトリクス収集 |
@@ -171,7 +172,7 @@ Discovery と組み合わせて使う主な Store アプリ／プラグインは
 | `pd_admin` | Pattern Designer でのパターン作成・変更 | [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/discovery-and-service-mapping-patterns/t_CreatePatternPatDef.html) |
 | `agent_admin` | Global IP Exclusion、IP 範囲除外、gMSA 構成などで `discovery_admin` と並んで指定されるロール | [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/discovery/global-exlude-list.html) |
 | `credential_admin` / `connection_admin` | Credential alias の作成手順で「読み取りのみ」として指定 | [出典](https://www.servicenow.com/docs/r/australia/platform-security/connections-and-credentials/discovery-credential-alias.html) |
-| `sn_cloud_ops_ws.cloud_ops_admin` | Cloud Discovery Workspace の管理者ロール | [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/discovery/t_IdentifyCauseNoSenDefEM.html) |
+| `sn_cloud_ops_ws.cloud_ops_admin` | Cloud Discovery Workspace の管理者ロール（インストール時に自動追加）。なお Cloud Discovery Workspace は公式に deprecated（非推奨）で新規有効化不可となっており、Discovery Admin Workspace の利用が推奨される | [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-discovery-workspace/install-cloud-ops-wrksp.html) |
 | `agent_client_collector_admin` / `agent_client_collector_integration` / `agent_client_collector_user` | ACC の管理・REST API・参照（[8.7](#87-acc-のロール) 参照） | [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/agent-client-collector/acc-users.html) |
 
 `discovery_admin` が内包するロール（contains roles）の一覧は、Australia の公開ドキュメントでは確認できなかった。
@@ -542,7 +543,8 @@ Solaris - Serial Number プローブには Oracle の SNEEP ツールのイン�
 - カスタマイズしたプローブ・センサーはアップグレードされない。カスタマイズをテキストに退避し、プローブ・センサーを更新後に再適用する（Align versions of customized probes and sensors）。プローブとセンサーのメジャーバージョンが不一致の場合、センサーは処理を停止する（[10.4](#104-よくあるエラーメッセージ)）。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/discovery/r_Probes.html) [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/discovery/c_DiscoveryErrorMessages.html)
 - SSH の特権コマンドは、プローブパラメーター `must_sudo`（既定 false）を true にしたプローブで sudo を使う。対象側で `/etc/sudoers` を visudo で設定する必要がある。[出典](https://www.servicenow.com/docs/r/australia/platform-security/connections-and-credentials/r_SSHCredentialsForm.html)
 - `glide.discovery.use_probe_results_cache`（既定 false、以前のリリースでは true）を有効にすると、前回から結果が変わったときのみセンサー処理する。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/discovery/r_DiscoveryProperties.html)
-- カスタムプローブは Discovery Definition > Probes で作成し、対応するセンサーを Discovery Definition > Sensors で作成したうえで、対象分類子（例：CI Classification > Windows）の Triggers probes 関連リストに追加して起動させる。新規の収集要件は、公式にはパターン（[4.](#4-patterns)）での実装が推奨される方向である。【第三者情報】[出典](https://www.servicenow.com/community/itom-articles/servicenow-discovery-how-windows-ci-discovery-works-using-probes/ta-p/3440105)
+- カスタムプローブは Discovery Definition > Probes で作成し、対応するセンサーを Discovery Definition > Sensors で作成したうえで、対象分類子（例：CI Classification > Windows）の Triggers probes 関連リストに追加して起動させる。【第三者情報】[出典](https://www.servicenow.com/community/itom-articles/servicenow-discovery-how-windows-ci-discovery-works-using-probes/ta-p/3440105)
+- 公式ドキュメントでは、各リリースでパターンが多くのプローブ・センサーを置き換えており、プローブ・センサーの情報はパターン未使用の顧客やカスタムプローブを維持する顧客向けと位置付けられている。新規の収集要件はパターン（[4.](#4-patterns)）で実装するのが基本となる。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/discovery/c_DiscoveryProbesAndSensors.html) [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/discovery/c-UsingPatternsForHorizontalDiscovery.html)
 
 ![Probe フォーム（カスタム Windows プローブの例）](../../assets/images/discovery/probe-form-custom-windows-probe.png)
 
@@ -1042,7 +1044,7 @@ AWS のディスカバリー手法：Cloud metadata discovery、Cloud OS-level d
 
 - **前提**：MID Server 利用時は登録・検証済み MID Server（本番では少なくとも2台推奨）、エージェントホストから MID Server への検証済み接続、ACC リスナーのポートへの到達性。MID-less の場合は MID-less ACC の手順に従う。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/agent-client-collector/acc-sys-requirements.html)
 - **必要プラグイン（ACC-VC）**：Agent Client Collector for Visibility Content、Agent Client Collector Framework、Discovery [`com.snc.discovery`]。
-- **最小要件**：ACC-F は 1 GB RAM・300 MB ディスク・1 CPU コア、ACC-M / ACC-VC は 1 GB RAM・1 GB ディスク・1 CPU コア。対応 OS は x86-64 のみ（ACC-F v3.1.1 で Apple Silicon の ARM64 をネイティブ対応。詳細は KB1172387）。
+- **最小要件**：ACC-F は 1 GB RAM・300 MB ディスク・1 CPU コア、ACC-M / ACC-VC は 1 GB RAM・1 GB ディスク・1 CPU コア。対応 CPU アーキテクチャは原則 x86-64 のみで、例外として ACC-F v3.1.1 以降は macOS（Apple Silicon）の ARM64 をネイティブ対応する（x86-64 以外の最新情報は KB1172387）。
 - **接続**：エージェントは MID Server に HTTP/S（WebSocket over TLS）で常時接続し、1台の MID Server が複数エージェントを扱う。1エージェントは同時に1台の MID Server に接続し、必要に応じて切り替える（フェイルオーバー）。1台あたりの最大エージェント数は MID Server プロパティ `sn_agent.mid.max_allowed_agents`（既定 4,000）。ACC-VC では既定 1 GiB の MID Server で 700 エージェント、8 GiB で 8,000 エージェント、8 GiB の MID Server 5 台で最大 40,000 エージェントの例が示されている。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/agent-client-collector/acc-installation.html) [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/agent-client-collector/how-acc-v-works.html)
 - エージェントは Ruby 3.3.2 同梱、既定ユーザーはローカルユーザー `servicenow`。Linux でシリアル番号取得に `sudo dmidecode`、TCP 接続とプロセスの対応付けに `sudo ss` が必要など、機能ごとに必要権限が異なる。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/agent-client-collector/acc-installation.html)
 - MID Server 接続の設定は単一行コマンド `acc gateway mid -a <api-key> -b wss://<MID>:8800` の形式で行う（例示値。`acc.yml` を更新）。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/agent-client-collector/configure-acc-with-mid.html)
@@ -1161,7 +1163,7 @@ Devices 関連リスト（`discovery_device_history`）はスキャンした全�
 | Updated CI | 探索プローブ／パターン後、または Device Complete ビジネスルール後 | 追加情報で更新 |
 | Unclassified / Classified | Shazzam 後（credential-less、Discover=IP Addresses） | 既存 CI と一致しなかった／一致した |
 | Active, Windows Cluster VIP | Windows - Classify 後 | Windows クラスタ VIP として更新 |
-| Classified, but not disabled | 分類後 | 一致した分類子自体が無効 |
+| Classified, but not disabled | 分類後 | 一致した分類子自体が無効（値の表記は公式ドキュメントの原文どおり。名称と意味が逆に読めるが、公式表記は "not disabled"） |
 | Classified, couldn't identify | 識別後 | CI を作成も一致もできなかった |
 | Identified, not updating CI | 識別後 | CI は特定したが更新しないと判断 |
 
@@ -1255,13 +1257,13 @@ Error Framework のエラーには重要度（Severity）と状態（State）が
 | Closed | 解決済み |
 | Ignored | 認識済みで、アクティブなビューから抑止 |
 
-Closed / Ignored のレコードは7日間、エラーインスタンスのレコードは90日間保持される。エラーアクション（Error actions）では、エラーインスタンスの状態変更（Open / Ignored / Resolved）、対象 IP の Global IP Exclusion への追加、対象デバイス／スケジュールの Discovery 再試行、是正メッセージの表示ができる。[出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/NcS2hmKcIEcf83C060fNmw)
+Closed / Ignored のレコードは7日間、エラーインスタンスのレコードは90日間保持される。エラーアクション（Error actions）では、エラーインスタンスの状態変更（Open / Ignored / Resolved）、対象 IP の Global IP Exclusion への追加、対象デバイス／スケジュールの Discovery 再試行、是正メッセージの表示ができる。なお、公式ページでは State の値は Closed、状態変更アクションの表記は Resolved となっており、記載が揺れている（14章参照）。[出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/NcS2hmKcIEcf83C060fNmw)
 
 要件：Brazil、または Australia Patch 3 以降、DAW v1.17.0 以降、`discovery_admin`。AI Insights には ServiceNow Otto for Error Framework（`com.sn_ef_gen_ai`、Australia Patch 3 以降）と ServiceNow Otto（`sn_genai_platform`）が必要。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/discovery/disco-start-issue-resolve.html)
 
 | refined code（開始・分類失敗でよく出るもの） | 原因 |
 |---|---|
-| SN-DISC-5602 | Windows の MID Server が稼働していない |
+| SN-DISC-5602 | MID Server が Windows ホスト上で動作していない（原文 "MID Server isn't running on Windows."。Windows デバイスのディスカバリーには Windows ホスト上の MID Server が必要） |
 | SN-DISC-1007 | SSH 接続失敗 |
 | SN-DISC-3486 | 前のプローブが失敗したためプローブをスキップ |
 | SN-DISC-3888 | Discovery の ECC Queue が欠落または空 |
@@ -1371,7 +1373,7 @@ Discovery プロパティは Discovery Definition > Properties で編集する�
 | `glide.discovery.use_cmdb_identifiers` | — | CMDB 識別子の使用（Geneva 以前からのアップグレード時に追加） |
 | `glide.discovery.timeline.max_entries` | — | タイムラインの最大エントリー |
 | `glide.discovery.enable_ssm` | — | AWS SSM エージェントによるディスカバリー |
-| `com.snc.use_external_credentials` | true | 外部資格情報ストアの利用 |
+| `com.snc.use_external_credentials` | true（公式プロパティ一覧の記載。実際の外部ストア利用には External Credential Storage プラグインの有効化が必要、[6.8](#68-外部資格情報ストア) 参照） | 外部資格情報ストアの利用（Allows the use of external storage of credentials） |
 | `sn_disco_workspace.enable_error_framework` | true（既定で有効） | DAW の Error Framework |
 
 ネットワーク関連（`glide.discovery.bgp_router_disable`、`glide.discovery.network_owner_method`、`glide.discovery.physical_interface_types` 等）、ソフトウェア関連（`glide.discovery.enable.software_simplify` 等）、ファイル追跡（`glide.discovery.file_tracking.*`）、証明書（`glide.discovery.certs.*`）、性能メトリクス（`glide.discovery.perf.metrics.*`）、キュー優先度（`glide.queue.discovery.*`）なども同ページに定義されている。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/discovery/r_DiscoveryProperties.html)
@@ -1388,7 +1390,7 @@ Australia の Discovery の AI 機能は、いずれも **ServiceNow Otto for IT
 |---|---|
 | Pattern diagnostic agentic workflow | パターンベースで欠落した CI 属性を調査。ギャップ特定、ログ解析、根本原因、修正提案を ServiceNow Otto パネルで行う。Pattern diagnostic agent と EF Remediation Agent を使用。ロール `discovery_admin`、AI Search の有効化を推奨、`glide.discovery.save_pattern_log` を true にしておく |
 | AI Insights for discovery errors | DAW Diagnostics で最も影響の大きいエラー（Highest impact）と、1件の解決で最も多くの発生が消えるエラー（Highest leverage）を提示 |
-| 証明書管理・ファイアウォールルール要求の AI | Certificate Inventory and Management、Firewall Audits and Reporting の AI 機能 |
+| 証明書管理・ファイアウォールルール要求への生成 AI | 同ページの導入文で「manage certificates, and request firewall rules using automation and generative AI」と触れているのみで、機能表には詳細の記載なし |
 
 出典：[AI in Discovery](https://www.servicenow.com/docs/r/australia/it-operations-management/discovery/exploring-ai-in-discovery.html)、[Pattern Diagnostic agentic workflow](https://www.servicenow.com/docs/r/australia/it-operations-management/discovery/pattern-diagnostic-agentic-workflow.html)
 
@@ -1429,13 +1431,14 @@ Brazil（リリースノート上は「Brazil Early Availability」として記�
 | Brazil の「遅いパターンテーブルの日次スナップショット」 | リリースノートの概要記述のみで、詳細仕様は公開情報では確認できず |
 | Australia の Discovery 新機能の扱い | 「Combined Discovery release notes（Australia → Brazil）」は Australia 欄を「No updates」としているが、ITOM Visibility リリースノート（Australia）は DAW 機能拡張・PowerShell 7 対応・Discovery のコード署名強制などを挙げており、リリースノート間で記載粒度が異なる。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-discovery-release-notes.html) |
 | ACC の最大エージェント数プロパティ名 | Installation ページの要約は `snagent.mid.maxallowedagents`、本文は `sn_agent.mid.max_allowed_agents`（既定 4,000）と表記揺れ。後者が正と推定【推定】 |
+| Error Framework の状態値 | 同一ページ内で、State の値は Open / Closed / Ignored、エラーアクションの状態変更は Open / Ignored / Resolved と表記が揺れている（Closed と Resolved は同じ解決済み状態を指すと推定【推定】）。[出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/NcS2hmKcIEcf83C060fNmw) |
 | Discovery の価格 | 公式の定価は非公開。[価格情報](../../03_導入編/02-pricing.md) を参照 |
 
 ---
 
 ## 参照元
 
-すべて 2026-11-02 に確認。
+公式ドキュメントは 2026-11-02、コミュニティ記事（画像）は 2026-11-03 に確認。Cloud Discovery Workspace の非推奨化、ACC の ARM64 対応、Device history の値表記、`com.snc.use_external_credentials` の既定値は 2026-11-04 に再確認。
 
 **Discovery（Australia）**
 - https://www.servicenow.com/docs/r/australia/it-operations-management/discovery/r-discovery.html
@@ -1560,6 +1563,7 @@ Brazil（リリースノート上は「Brazil Early Availability」として記�
 - https://www.servicenow.com/docs/r/australia/platform-security/connections-and-credentials/c_SNMPCredentials.html
 - https://www.servicenow.com/docs/r/australia/platform-security/connections-and-credentials/r_CloudManagementCredentialsForm.html
 - https://www.servicenow.com/docs/r/australia/platform-security/connections-and-credentials/c_ExternalCredentialStorage.html
+- https://www.servicenow.com/docs/r/australia/it-operations-management/cloud-discovery-workspace/install-cloud-ops-wrksp.html
 - https://www.servicenow.com/docs/r/australia/platform-security/connections-and-credentials/r_CredentialTroubleshooting.html
 
 **リリースノート**

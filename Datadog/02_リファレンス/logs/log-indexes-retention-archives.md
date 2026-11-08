@@ -363,7 +363,7 @@ Index の作成・編集画面で **Configure Storage Tier and Retention** を�
 | 機能 | Flex Logs での対応 |
 |---|---|
 | Log Explorer | 時刻選択の横の **Include Flex Logs** トグルを ON にすると Flex の結果も含まれる。ファセット検索・テキスト検索は通常どおり |
-| Dashboards | 対応（Compute への影響に注意）。ダッシュボードの「Include Flex Logs」設定は [画面構成とナビゲーション](../../01_入門編/ui-navigation.md) を参照 |
+| Dashboards | 対応（Compute への影響に注意）。ダッシュボードの「Include Flex Logs」設定は [画面構成とナビゲーション](../../01_入門編/06-ui-navigation.md) を参照 |
 | Monitors | **非対応**（Monitor のクエリは Flex Logs に対して実行できない） |
 | Watchdog（Insights） | **非対応** |
 
@@ -471,7 +471,7 @@ Log Archives は、取り込んだログ（インデックス化の有無を問�
 
 [出典](https://docs.datadoghq.com/logs/log_configuration/archives/)。各クラウド連携の設定は [AWS Integration](../platform/aws-integration.md)、[Azure Integration](../platform/azure-integration.md)、[Google Cloud Integration](../platform/gcp-integration.md) を参照。
 
-- バケットのネットワークアクセスを IP で制限している場合は、IP ranges 一覧の **webhooks** の IP を許可リストに追加する。[出典](https://docs.datadoghq.com/logs/log_configuration/archives/) 接続要件は [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md) を参照。
+- バケットのネットワークアクセスを IP で制限している場合は、IP ranges 一覧の **webhooks** の IP を許可リストに追加する。[出典](https://docs.datadoghq.com/logs/log_configuration/archives/) 接続要件は [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md) を参照。
 
 ### アーカイブのフィルターと順序
 
@@ -871,7 +871,7 @@ BYOC Logs（Bring Your Own Cloud Logs、製品ページ上の名称は **BYOC Lo
 
 ## 課金への影響
 
-Log Management の保持・転送に関わる課金単位は次のとおり。料金の数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md) であり、本節は公式料金ページの値（**2026-11-02 時点**、USD、**US/EU1 の価格**）を引用する。課金計算の詳細は [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、削減策は [コスト最適化](../../04_応用編/cost-optimization.md) と [ログ管理の実践](../../04_応用編/log-management-practices.md) を参照。
+Log Management の保持・転送に関わる課金単位は次のとおり。料金の数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md) であり、本節は公式料金ページの値（**2026-11-02 時点**、USD、**US/EU1 の価格**）を引用する。課金計算の詳細は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、削減策は [コスト最適化](../../04_応用編/01-cost-optimization.md) と [ログ管理の実践](../../04_応用編/06-log-management-practices.md) を参照。
 
 | 品目 | 課金単位 | US/EU1 年契約 | US/EU1 月契約 | US/EU1 オンデマンド |
 |---|---|---|---|---|
@@ -888,9 +888,9 @@ Log Management の保持・転送に関わる課金単位は次のとおり。�
 | Log Forwarding to Custom Destinations | 転送 GB（非圧縮）/ 宛先 / 月 | $0.25 | $0.25 | $0.25 |
 | Rehydration | スキャンした圧縮 GB | $0.10（料金ページ記載） | — | — |
 
-[出典](https://www.datadoghq.com/pricing/list/)、[出典](https://www.datadoghq.com/pricing/?product=log-management)（2026-11-02 取得。Archive Search 行は [製品別料金表 §7.1](../../03_導入編/pricing-by-product.md) の値（2026-11-03 取得）に合わせた）
+[出典](https://www.datadoghq.com/pricing/list/)、[出典](https://www.datadoghq.com/pricing/?product=log-management)（2026-11-02 取得。Archive Search 行は [製品別料金表 §7.1](../../03_導入編/02-pricing-by-product.md) の値（2026-11-03 取得）に合わせた）
 
-> **サイト差異:** AP1 は価格が異なる（例：Ingestion $0.125/GB、Indexed Logs 保持 15 日 $2.125、Flex Logs Storage $0.0625、Flex Logs Starter $0.75、Archive Search $0.0625/GB、Log Forwarding $0.3125/GB。いずれも年契約）。Archive Search は US-FED サイトでは提供されない。詳細は [製品別料金表 §7.1](../../03_導入編/pricing-by-product.md) を参照。
+> **サイト差異:** AP1 は価格が異なる（例：Ingestion $0.125/GB、Indexed Logs 保持 15 日 $2.125、Flex Logs Storage $0.0625、Flex Logs Starter $0.75、Archive Search $0.0625/GB、Log Forwarding $0.3125/GB。いずれも年契約）。Archive Search は US-FED サイトでは提供されない。詳細は [製品別料金表 §7.1](../../03_導入編/02-pricing-by-product.md) を参照。
 
 課金の仕組みに関する公式の注記は次のとおり。
 
@@ -911,7 +911,7 @@ Log Management の保持・転送に関わる課金単位は次のとおり。�
 
 ### コスト設計上の要点
 
-公式の設計ガイド（Datadog Architecture Center）が示す要点を整理する。具体的な運用ノウハウは [ログ管理の実践](../../04_応用編/log-management-practices.md) を参照。[出典](https://www.datadoghq.com/architecture/a-guide-to-log-management-indexing-strategies-with-datadog/)（2024-10-09 公開。料金・機能はその後変わっている可能性がある）
+公式の設計ガイド（Datadog Architecture Center）が示す要点を整理する。具体的な運用ノウハウは [ログ管理の実践](../../04_応用編/06-log-management-practices.md) を参照。[出典](https://www.datadoghq.com/architecture/a-guide-to-log-management-indexing-strategies-with-datadog/)（2024-10-09 公開。料金・機能はその後変わっている可能性がある）
 
 | 観点 | 公式の推奨例 |
 |---|---|
@@ -932,11 +932,11 @@ Log Management の保持・転送に関わる課金単位は次のとおり。�
 - [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md)
 - [組織・ユーザー・権限管理](../platform/account-and-access-management.md)
 - [Datadog Sites（サイト）](../platform/datadog-sites.md)
-- [製品別料金表](../../03_導入編/pricing-by-product.md)
-- [課金計算の仕組み](../../03_導入編/billing-mechanics.md)
-- [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md)
-- [ログ管理の実践](../../04_応用編/log-management-practices.md)
-- [コスト最適化](../../04_応用編/cost-optimization.md)
+- [製品別料金表](../../03_導入編/02-pricing-by-product.md)
+- [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)
+- [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md)
+- [ログ管理の実践](../../04_応用編/06-log-management-practices.md)
+- [コスト最適化](../../04_応用編/01-cost-optimization.md)
 
 ## 参照元
 

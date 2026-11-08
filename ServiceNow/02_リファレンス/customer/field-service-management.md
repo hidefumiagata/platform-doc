@@ -35,11 +35,36 @@ sources:
   - https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/8Opj89enYEhE3iXyItKsYg
   - https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/B6YjKrRc5qBsU~hpD5dRfA
   - https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/KJM7wXzfvqGoM5KPZsyzfA
+  - https://www.servicenow.com/docs/r/35dlqBTUtpT5W39aSiHI6w/EfP6Yg2Wuw6fsjpUTasO6Q
+  - https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/EC8Hq2ThCc0PkD3aupKChw
   - https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-fieldservicemanagement-release-notes.html
   - https://www.servicenow.com/docs/r/u1slaAtcFiiXFQcd9RcR_A/wdbsvp_i9gm6MgiFjZaoSw
   - https://www.servicenow.com/docs/r/ja-JP/api-reference/rest-apis/work-order-mgmt-api.html
   - https://www.servicenow.com/community/fsm-blog/servicenow-ai-platform-zurich-release-smarter-scheduling/ba-p/3300528
   - https://www.servicenow.com/community/field-service-management-forum/fsm-package-plugins-and-functionalities-standard-professional/m-p/3411597
+  - https://www.servicenow.com/community/csm-forum/automatic-qualification-of-work-orders/m-p/3007543
+  - https://www.servicenow.com/docs/r/5M2H7PAkXUuakbtz~5Kfeg/2eIAKcTImgEphY338~GlhQ
+  - https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/vHeRvBPXAQoVZMkZxx9P0g
+  - https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/7a5Fh10ARrNdhXjj7hCMLQ
+  - https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/7V4IBug1~4ETV5c5UsPJ7g
+  - https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/EPt5SRN1AxbzZiHb~kEXcw
+  - https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/G6tO7xq4rleNPoZYGXIrrw
+  - https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/JmozSSgU3bFJXYy7KpRaQQ
+  - https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/rMzAvHiEuPotR81_j8QClg
+  - https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/tbvgvFAfIdfra2~68KBjIQ
+  - https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/yJ2s6BS2AFiPuRnsylGIDA
+  - https://www.servicenow.com/docs/r/field-service-management/appointment-booking.html
+  - https://www.servicenow.com/docs/r/field-service-management/customer-experience.html
+  - https://www.servicenow.com/docs/r/field-service-management/field-service-scheduling/map-overlay-dispatcher.html
+  - https://www.servicenow.com/docs/r/field-service-management/field-service-scheduling/time-zones-dispatcher.html
+  - https://www.servicenow.com/docs/r/field-service-management/field-service-scheduling/view-optimization-run-summaries.html
+  - https://www.servicenow.com/docs/r/field-service-management/field-service-scheduling/activity-stream-csp.html
+  - https://www.servicenow.com/docs/r/field-service-management/work-order-management/request-inventory-fsm-contractor-mobile-app.html
+  - https://www.servicenow.com/docs/r/IVKDA~MgX_6UMb0D9l5eLg/F6PdP138yxVfPh8GFBTn0Q
+  - https://www.servicenow.com/docs/r/OxLLTMwXG2tKQ2SIp7HnZg/EAsQMXHubFIocnQO0na9bg
+  - https://www.servicenow.com/docs/r/OxLLTMwXG2tKQ2SIp7HnZg/mKuqiZSsVE5Y5lVcChoW4g
+  - https://www.servicenow.com/docs/r/washingtondc/service-management-for-the-enterprise/r_InstallWServMgmtCore.html
+  - https://www.servicenow.com/docs/r/x1i_kSm8n8WIoB0Vo0nN5Q/sJMrGH5cTNUNccQKSSHYqg
 ---
 
 # Field Service Management（フィールドサービス管理）
@@ -89,7 +114,21 @@ flowchart LR
   - Territory API による予約可能枠の取得（連絡先・住所を指定せずに可能）
   - Schedule Optimization の Run summary（目的・制約・移動手段・割り当て結果の表示）
   - FSM 機能・アクティベーション用プラグインの ServiceNow Store 経由提供
-- Australia から、Field Service Territory Planning、Advanced Capacity and Reservations management、Capacity and Reservations Management、Service Locations Support、Technician driven sales with Field Service が ServiceNow Store アプリへ移行した。Australia 以降へのアップグレード時は Store アプリが自動インストールされる。[出典](https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/8Opj89enYEhE3iXyItKsYg)
+- Australia の Field Service Management リリースノート（Australia 版、2026-03-12 更新）によると、Australia リリース以降、次のアプリケーションが ServiceNow Store に移行した。インスタンスを Australia 以降にアップグレードすると、これらの Store アプリケーションは自動的にインストールされる。[出典](https://www.servicenow.com/docs/r/35dlqBTUtpT5W39aSiHI6w/EfP6Yg2Wuw6fsjpUTasO6Q)（参照したページは日本語・ドイツ語のローカライズ版。英語ラベルは各プラグイン名から再構成）
+  - Advanced Appointment Booking（`com.snc.advanced_appointment_booking`）
+  - Field Service Contractor Management（`com.snc.fsm_contractor_management`）
+  - Field Service Marketplace（`com.snc.fsm_marketplace`）
+  - Field Service Territory Planning（`com.snc.fsm_territory_planning`）
+  - Field Service Advanced Capacity and Reservations Management（`com.snc.fsm_advanced_capacity_management`）
+  - Field Service Capacity and Reservations Management（`com.snc.fsm_capacity_management`）
+  - Field Service with Service Locations support（`com.snc.fsm_service_locations`）
+  - Technician driven sales with Field Service（`com.snc.fsm_technician_sales`）
+  - Schedule Optimization（`com.snc_schedule_optimization`）
+  - Field Service Quality Management、Field Service Mobile Agent（ID 記載なし）
+  - Map Integrations for Field Service（`com.snc.app_fsm_map_integr`）、Beans.ai プラグイン（`com.sn_beans_ai_spoke`）
+  - Intelligent Task Recommendations（`sn_fsm_task_rec`、`sn_task_recommend`）、FSM Scheduling Automations（`sn_fsm_sched_flws`）、Application Common Configuration（`sn_app_cmn_config`。Dispatcher Workspace の構成要素）
+- 同リリースノートは、Store へ移行した機能の**旧プラグイン 20 件を将来の非推奨予定**として列挙している。対象は `com.snc.advanced_appointment_booking`、`com.snc.fsm_marketplace`、`com.snc.marketplace_core`、`com.snc.fsm_task_recommendations`、`com.snc.sn_app_fsm_scheduling_flows`、`com.snc.task_recommendations`、`com.snc.app_cmn_config`、`com.snc.fsm_capacity_management`、`com.snc.fsm_territory_planning`、`com.snc.fsm_service_locations`、`com.snc.sales_mobile_cmn`、`com.snc.fsm_technician_sales`、`com.snc.territory_planning`、`com.sn_fsm_mobile`、`com.sn_fsm_quality`、`com.sn_quality`、`com.snc.fsm_contractor_management`、`com.sn_beans_ai_spoke`、`com.snc.app_fsm_map_integr`、`com.snc_schedule_optimization`。本ファイルの表でこれらの ID を挙げている箇所は、旧プラグインとしての ID であり、今後は対応する Store アプリ（上記一覧）を使う前提で読むこと。[出典](https://www.servicenow.com/docs/r/35dlqBTUtpT5W39aSiHI6w/EfP6Yg2Wuw6fsjpUTasO6Q)（日本語ローカライズ版で確認）
+- 統合リリースノート（Zurich → Australia）の Highlights も「FSM の機能とアクティベーション用プラグインが ServiceNow Store アプリケーション経由で提供される」と述べている。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/KJM7wXzfvqGoM5KPZsyzfA)
 
 > **Brazil での変更:** Brazil の統合リリースノート（Australia → Brazil）では、FSM 関連の Store アプリ（Schedule Optimization v1.2 / v2.0、Dispatcher Workspace v11.0、FSM Configurable Dispatcher Workspace Bundle v11.0 / v11.1、Field Service Mobile v3.1、Appointment Booking v1.1、Proxy Actions v1.0、Manager Workforce v2.0、Shift Scheduling v8.0、Scheduling AI Agent Collections v2.0、Field Service Questionnaires with Smart Assessments v4.0）の新機能が列挙されている。詳細は各節の「Brazil での変更」と「## Brazil での変更点まとめ」を参照。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-fieldservicemanagement-release-notes.html)
 
@@ -107,13 +146,13 @@ flowchart LR
 |---|---|---|
 | Field Service Management | `com.snc.work_management` | 主プラグイン |
 | Automatic Assignment | `com.snc.automatic_assignment` | 自動割り当て |
-| Field Service Mobile | `com.sn_fsm_mobile` | モバイル |
+| Field Service Mobile | `com.sn_fsm_mobile` | モバイル（Store アプリへ移行、旧プラグインは将来非推奨予定）（出典ページ上、下の置換先では `sn_fsm_mobile` と表記揺れあり。インスタンスで要確認） |
 | FSM Agent Workspace | `com.snc.agent_workspace.fsm` | 非推奨。`com.snc.uib.fsm_agent_workspace` に置換 |
 | Field Service Management Demo Data | `com.snc.work_management.demo` | デモデータ（CI テーブル・リレーションが追加される点に注意） |
 | Field Service -- Questionnaire | `com.snc.wm_questionnaire` | 作業指示／タスク用アンケート |
-| Field Service Management Mobile | `com.snc.work_management_m` | 非推奨。`sn_fsm_mobile` に置換 |
+| Field Service Management Mobile | `com.snc.work_management_m` | 非推奨。`sn_fsm_mobile` に置換（出典ページの表記どおり。上の `com.sn_fsm_mobile` と同一アプリを指すと考えられる【推定】） |
 | Field Service Map | `com.snc.fsm_map` | 非推奨。`com.snc.uib.fsm_dispatcher_workspace` に置換 |
-| Central Dispatch | `com.snc.central_dispatch` | 非推奨。`sn_fsm_disp_wrkspc` に置換 |
+| Central Dispatch | `com.snc.central_dispatch` | 非推奨。`sn_fsm_disp_wrkspc` に置換（出典ページの表記どおり。`sn_fsm_disp_wrkspc` は Dispatcher Workspace Store アプリのスコープ名、`com.snc.uib.fsm_dispatcher_workspace` は FSM Configurable Dispatcher Workspace のプラグイン ID と考えられる【推定】） |
 | Time Recording Core | `com.snc.wm_time_recording` | タイムカード／時間記録（CSM・FSM 共通） |
 | Time Recording for Field Service | `com.snc.time_recording_fsm` | |
 | Field Service -- Signature Pad | `com.snc.wo_signature_pad` | 署名取得 |
@@ -135,11 +174,11 @@ Australia の「Additional plugins for Field Service Management」に列挙さ�
 | Performance Analytics - Content Pack - FSM | `com.snc.work_management_pa` | 本番は別ライセンスの可能性 |
 | Field Service with Project Management | `com.snc.wm_ppm` | PPM 連携（追加ライセンスの可能性） |
 | Field Service with Project Management Demo | `com.snc.wm_ppm_demo` | デモ |
-| Field Service with Service Locations support | `com.snc.fsm_service_locations` | 作業指示から新しいサービスロケーション作成 |
+| Field Service with Service Locations support | `com.snc.fsm_service_locations` | 作業指示から新しいサービスロケーション作成（Store アプリへ移行、旧プラグインは将来非推奨予定） |
 | Field Service Management - Customer Experience | `com.snc.fsm_customer_experience` | 顧客への SMS 通知、技術者の移動追跡 |
-| Field Service Contractor Management | `com.snc.fsm_contractor_management` | 外部委託業者ポータル（Service Contractor Base も有効化） |
+| Field Service Contractor Management | `com.snc.fsm_contractor_management` | 外部委託業者ポータル（Service Contractor Base も有効化）（Store アプリへ移行、旧プラグインは将来非推奨予定） |
 | Predictive Intelligence for FSM | `com.snc.fsm_ml` | 本番は別ライセンスの可能性 |
-| Field Service Capacity and Reservations Management | `com.snc.fsm_capacity_management` | キャパシティ管理（別ライセンスの可能性） |
+| Field Service Capacity and Reservations Management | `com.snc.fsm_capacity_management` | キャパシティ管理（別ライセンスの可能性）（Store アプリへ移行、旧プラグインは将来非推奨予定） |
 | sn-fsm-components | `com.sn_fsm_components` | UIB Central Dispatch 用コンポーネント |
 | FSM Configurable Dispatcher Workspace | `com.snc.uib.fsm_dispatcher_workspace` | Dispatcher 用ページ（CSM Configurable Workspace 上） |
 | FSM Configurable Workspace | `com.snc.uib.fsm_agent_workspace` | FSM 用リスト・フォーム（Configurable Workspace） |
@@ -147,9 +186,9 @@ Australia の「Additional plugins for Field Service Management」に列挙さ�
 | FSM Virtual Conferencing Integration | `com.snc.fsm_vci` | リモート支援 |
 | FSM Access Hours Management | `com.snc.fsm_access_hours` | タスクごとのアクセス可能時間を考慮 |
 | Field Service Multi-Day Task Scheduling | `com.snc.fsm_multiday_tasks` | 複数日タスク |
-| FSM Intelligent Task Recommendations | `com.snc.fsm_task_recommendations` | 空き枠を埋めるタスク推奨 |
+| FSM Intelligent Task Recommendations | `com.snc.fsm_task_recommendations` | 空き枠を埋めるタスク推奨（Store アプリへ移行、旧プラグインは将来非推奨予定） |
 | Field Service Crew Operations | `com.snc.fsm_crew_scheduling` | クルー（チーム）運用 |
-| Field Service Territory Planning | `com.snc.fsm_territory_planning` | 最適テリトリーの絞り込み |
+| Field Service Territory Planning | `com.snc.fsm_territory_planning` | 最適テリトリーの絞り込み（Store アプリへ移行、旧プラグインは将来非推奨予定） |
 | Field Service Advanced Parts Sourcing | `com.snc.fsm_advanced_parts_sourcing` | 複数部品の要求・ソーシング |
 | Template Management for Field Service | `com.snc.fsm_template_management` | 高度な作業指示テンプレート |
 | Customer Service Install Base Management | `sn_install_base` | Install base とケース・作業指示の紐付け |
@@ -163,18 +202,19 @@ Australia の「Additional plugins for Field Service Management」に列挙さ�
 | Smart Assessment for Field Service Questionnaire | `sn_fsm_smart_asmt` | AI アセスメント（別サブスクリプション） |
 | Sidebar for Field Service Mobile Agent | `sn_fsm_sidebar` | モバイルの Sidebar（会話）機能 |
 
+「Store アプリへ移行、旧プラグインは将来非推奨予定」の注記は Australia の FSM リリースノートに基づく。[出典](https://www.servicenow.com/docs/r/35dlqBTUtpT5W39aSiHI6w/EfP6Yg2Wuw6fsjpUTasO6Q)
+
 ---
 
 ## パッケージ構成（Standard / Professional / Enterprise）
 
-FSM のパッケージ別機能一覧は公式製品ページの構成変更により現時点で公開ページから確認しづらい。ServiceNow Community の 2026-02 の回答では以下の整理が紹介されている。【第三者情報】[出典](https://www.servicenow.com/community/field-service-management-forum/fsm-package-plugins-and-functionalities-standard-professional/m-p/3411597)
+FSM の Standard / Professional / Enterprise 各パッケージにどの機能・プラグインが含まれるかは、**公開情報では確認できず**。ServiceNow Community の 2026-02 の回答に機能一覧の表が貼られているが、貼り付け時に列構造が崩れており、各機能がどのパッケージに属するかは判別できない。[出典](https://www.servicenow.com/community/field-service-management-forum/fsm-package-plugins-and-functionalities-standard-professional/m-p/3411597)
 
-| パッケージ | 含まれる主な機能（Community 投稿の整理） |
-|---|---|
-| Standard | Dispatcher Workspace、Dynamic Scheduling、Field Service Mobile、Asset Management、Planned Maintenance、Inventory Management、Cost Management、Field Service Contractor Management |
-| Professional（Standard に追加） | Territory Planning、Capacity and Reservations Management、Crew Operations、Task Bundling、Multi-Day Task Scheduling、Continual Improvement Management、Performance Analytics、Predictive Intelligence、Virtual Agent |
-| Enterprise（Professional に追加） | Now Assist for FSM、Process Mining、Workforce Optimization |
-| 有償アドオン | Schedule Optimization、Field Service Marketplace（Professional へのアドオン） |
+- Community 投稿に機能名として登場するもの（パッケージとの対応は判別不能）：Dispatcher Workspace、Dynamic Scheduling、Field Service Mobile、Asset Management、Planned Maintenance、Inventory Management、Cost Management、Field Service Contractor Management、Territory Planning、Capacity and Reservations Management、Crew Operations、Task Bundling、Multi-Day Task Scheduling、Continual Improvement Management、Performance Analytics、Predictive Intelligence、Virtual Agent、Now Assist for FSM、Process Mining、Workforce Optimization など。
+- 同投稿で明示されているのは次の 2 点のみ。【第三者情報】
+  - Schedule Optimization と Field Service Marketplace は Professional に追加する有償アドオンである。
+  - Now Assist はコアパッケージに含まれない。
+- パッケージごとの割り当ては、ServiceNow の NowCreate 等で提供される capability matrix（パッケージ別機能表）や営業担当で確認すること。
 
 - Schedule Optimization は公式ドキュメント上も「ServiceNow AI Platform とは別のサブスクリプションが必要」と明記されている。[出典](https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/BJqHAmjI_ehGlMT5jaUKeQ)
 - プラグイン単位のエンタイトルメント表は公開されておらず、ServiceNow の営業担当／ソリューションコンサルタントへの確認が必要とされる。【第三者情報】ライセンス全般は [ライセンスモデル](../../03_導入編/01-licensing-model.md)、[エディション比較](../../03_導入編/03-edition-comparison.md) を参照。
@@ -197,7 +237,7 @@ Australia で FSM と共にインストールされるロール。[出典](https
 | Field Service Management Task Initiator | `wm_task_initiator` | 作業指示とタスクがともに Draft のときにタスク・部品要求を作成／削除／変更 | `wm_initiator` |
 | Field Service Management Manager（マネージャー） | `wm_manager` | エージェントのスキル、タイムカード、勤務スケジュール、個人イベントの管理 | `wm_agent`、`fsm_skill_admin`、`timecard_manager`、`agent_schedule_manager` |
 | Field Service Management Approver User（承認者） | `wm_approver_user` | Qualification／割り当て前の作業指示の承認 | `approver_user`、`cmdb_read` |
-| Field Service Management Basic | `wm_basic` | 作業指示の作成と自分が作成した作業指示のフォロー。全 FSM ロール共通の基本アクセス | `wm_read`、`task_activity_writer`、`service_fullfiller`、`inventory_user` ほか |
+| Field Service Management Basic | `wm_basic` | 作業指示の作成と自分が作成した作業指示のフォロー。全 FSM ロール共通の基本アクセス | `wm_read`、`task_activity_writer`、`service_fullfiller`（公式ページの表記どおり）、`inventory_user` ほか |
 | Field Service Management Read | `wm_read` | 作業指示・タスクの参照のみ | `cmdb_read`、`sn_apptmnt_booking.appointment_booking_user` |
 | Field Service Management Location Agent | `wm_location_agent` | サービス組織スコープのエージェント（Work Management and Service Organization プラグインが必要） | `wm_location_security` |
 | Field Service Management Location Manager | `wm_location_assignment_manager` | 自サービス組織内の作業指示・タスク作成と割り当て | `wm_location_security`、`fsm_skill_user` |
@@ -208,7 +248,7 @@ Australia で FSM と共にインストールされるロール。[出典](https
 | ロール | 用途 | 出典 |
 |---|---|---|
 | `sn_fsm_planned_wm.planned_work_admin` | Planned Work Management の管理・スケジュールのオンデマンド実行 | [出典](https://www.servicenow.com/docs/r/x1i_kSm8n8WIoB0Vo0nN5Q/oM5swH10b5cP4YE1ezIV~Q) |
-| `sn_fsm_planned_wm.planned_work_read` | 計画作業テーブルの参照 | 【第三者情報】検索結果要約に基づく。公式ページ本文では未確認 |
+| `sn_fsm_planned_wm.planned_work_read` | Planned Work Management の全テーブルの参照（Install base work plans では Customer / Consumer service agent への付与を案内） | [出典](https://www.servicenow.com/docs/r/5M2H7PAkXUuakbtz~5Kfeg/2eIAKcTImgEphY338~GlhQ)（Zurich 版） |
 | `sn_tmf_api.work_order_integrator` | Work Order Management API（TM Forum 準拠）の利用 | [出典](https://www.servicenow.com/docs/r/ja-JP/api-reference/rest-apis/work-order-mgmt-api.html) |
 | `sn_customerservice_agent` / `sn_customerservice_manager` | CSM 連携時、Case に紐づく作業指示・予約の作成と参照 | [出典](https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/B6YjKrRc5qBsU~hpD5dRfA) |
 
@@ -314,21 +354,34 @@ FSM 標準のクライアントスクリプト「Hide End Date Fields」は、Re
 | Closed Complete（完了） | 仕様どおり完了 |
 | Closed Incomplete（未完了で終了） | 仕様どおりに完了できなかった |
 | Canceled（取消） | 取消 |
+| Waiting for Approval（承認待ち）※ | 承認有効時、**Ready for Approval** で遷移 |
+| Scheduled（スケジュール済み）※ | Use scheduled status 有効時のみ。Ready for Dispatch／Qualified と Assigned の間に入る |
 
-- Qualification を有効化後に無効化すると、Awaiting Qualification、Draft、Qualified の作業指示はすべて Ready for Dispatch に設定される。[出典](https://www.servicenow.com/docs/r/x1i_kSm8n8WIoB0Vo0nN5Q/B4VySCEcbyGDA~9~YBTjCg)（Zurich 版。Australia 版の同ページは取得できず）
+[出典](https://www.servicenow.com/docs/r/x1i_kSm8n8WIoB0Vo0nN5Q/B4VySCEcbyGDA~9~YBTjCg)（Zurich 版。Australia 版の同ページは取得できず）
+
+※ Waiting for Approval と Scheduled は Work order states ページの表には記載がない。Waiting for Approval は [Create a work order](https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/PiJiL7VCGY_nfmQh1EeF~g)、Scheduled は同ページの State フィールド説明と [Global domain configurations](https://www.servicenow.com/docs/r/wB8P7abKjWIA9pPecYV7dA/88RTV9~qpOv8ZX4VPIrGLA) に基づく。
+
+- Qualification 無効化時の挙動は、出典ページによって表現が異なる。
+  - Work order states ページ（Zurich）：Qualification を有効化した後に無効化すると、Draft・Awaiting Qualification・Qualified の作業指示はすべて Ready for Dispatch に設定される。[出典](https://www.servicenow.com/docs/r/x1i_kSm8n8WIoB0Vo0nN5Q/B4VySCEcbyGDA~9~YBTjCg)
+  - Global domain configurations ページ（Australia）：Qualification を無効にすると、Awaiting Qualification の作業指示は自動的に Qualified になる。[出典](https://www.servicenow.com/docs/r/wB8P7abKjWIA9pPecYV7dA/88RTV9~qpOv8ZX4VPIrGLA)
+  - 両者の関係（リリース差か、対象状態の違いか）は公開情報では確認できず。実際の挙動はインスタンスで確認すること。
 - Approval（承認）が有効な場合は **Ready for Approval** で Waiting for Approval に遷移する。Qualification 必須時は **Ready for Qualification**（Awaiting Qualification へ遷移、タスクがなければ作成）、承認も Qualification も無効の場合は **Ready for Dispatch** ボタンが表示される。[出典](https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/PiJiL7VCGY_nfmQh1EeF~g)
-- タスクの状態変化は `wm_task` の Business rule「Roll Up Changes」により親の作業指示へロールアップされる。【第三者情報】（検索結果の要約に基づく。該当ページ本文は未確認）
+- `wm_task` の Business rule「Roll Up Changes」は、作業指示タスクの変更に基づいて親の作業指示の状態を更新する（タスクの状態変化を親へロールアップ）。特定レコードで止めたい場合は Business rule に条件を追加できる。[出典](https://www.servicenow.com/docs/r/OxLLTMwXG2tKQ2SIp7HnZg/EAsQMXHubFIocnQO0na9bg)（Business rules installed with Field Service Management、Australia 版。参照したのは pt-BR ローカライズ版）
 
 ```mermaid
 stateDiagram-v2
   [*] --> Draft
   Draft --> WaitingForApproval: Ready for Approval（承認有効時）
-  WaitingForApproval --> AwaitingQualification
+  WaitingForApproval --> AwaitingQualification: 承認後（Qualification有効時）
+  WaitingForApproval --> ReadyForDispatch: 承認後（Qualification無効時）
   Draft --> AwaitingQualification: Ready for Qualification（Qualification有効時）
   AwaitingQualification --> Qualified
   Draft --> ReadyForDispatch: Ready for Dispatch（承認・Qualification無効時）
   Qualified --> Assigned
   ReadyForDispatch --> Assigned
+  Qualified --> Scheduled: Use scheduled status 有効時
+  ReadyForDispatch --> Scheduled: Use scheduled status 有効時
+  Scheduled --> Assigned
   Assigned --> Accepted
   Accepted --> WorkInProgress
   WorkInProgress --> ClosedComplete
@@ -354,8 +407,8 @@ Field Service の Configuration 画面（**Field Service > Administration > Conf
 
 | 設定 | 内容 |
 |---|---|
-| Process lifecycle | 既定は Task-driven（タスク駆動）。Request-driven（依頼駆動）は原則サポート対象外 |
-| Qualification required for new requests | 次状態に進む前に Qualification を必須化。無効時、Awaiting Qualification の作業指示は自動的に Qualified 扱い |
+| Process lifecycle | 既定は Task-driven（タスク駆動）。Request-driven（依頼駆動）は Xanadu 以降サポート対象外（Request-driven に変更できるのは `maint` ロールを持つユーザーのみ） |
+| Qualification required for new requests | 次状態に進む前に Qualification を必須化。無効時、Awaiting Qualification の作業指示は自動的に Qualified になる（Work order states ページとの表現の違いは「Work order の状態」節を参照） |
 | Agent の受諾／拒否 | 割り当てられたエージェントにタスクの Accept / Reject を要求 |
 | 移動時間の追跡 | 移動時間をタイムカードで記録 |
 | On-site arrival check-in | 「On-site arrival」サブステートとジオフェンスで到着時の位置を取得（オフライン時などのバイパス可） |
@@ -373,7 +426,7 @@ Field Service の Configuration 画面（**Field Service > Administration > Conf
 | 設定 | 内容 |
 |---|---|
 | Task assignment method | Auto-assign / Workflow / Manual（Dispatcher）/ Dynamic Scheduling |
-| Use scheduled status | 「Pending dispatch」と「Assigned」の間に Scheduled 状態を追加 |
+| Use scheduled status | 作業指示・作業指示タスクの Ready for Dispatch（タスクでは Pending dispatch）と Assigned の間に Scheduled 状態を追加 |
 | Use dispatch queue | Dispatch group による手動割り当て（Task-driven 必須） |
 | Restrict vendor groups | 外部ベンダーグループ選択を Dispatch group に限定 |
 | Preferred assignment group | 内部／外部グループの優先（Contractor Management 有効時のみ表示） |
@@ -471,7 +524,7 @@ stateDiagram-v2
 
 ### Dispatcher Workspace
 
-Dispatcher Workspace は、フィールドサービスエージェントへの作業の割り振りとパフォーマンス監視のための構成可能なスケジューリングアプリケーションであり、Dispatcher Dashboard とともに CSM/FSM Configurable Workspace の一部として提供される。旧 Central Dispatch（`com.snc.central_dispatch`）と Field Service Map（`com.snc.fsm_map`）は非推奨で、Dispatcher Workspace（`sn_fsm_disp_wrkspc` / `com.snc.uib.fsm_dispatcher_workspace`）に置き換えられている。[出典](https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/F7iO5eTgr7XmyhXn1IVBSA)、[出典](https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/Mooa7OsLxjPDuo~kp3EO4Q)
+Dispatcher Workspace は、フィールドサービスエージェントへの作業の割り振りとパフォーマンス監視のための構成可能なスケジューリングアプリケーションであり、Dispatcher Dashboard とともに CSM/FSM Configurable Workspace の一部として提供される。旧 Central Dispatch（`com.snc.central_dispatch`）と Field Service Map（`com.snc.fsm_map`）は非推奨で、Dispatcher Workspace（`sn_fsm_disp_wrkspc` / `com.snc.uib.fsm_dispatcher_workspace`。前者は Store アプリのスコープ名、後者は FSM Configurable Dispatcher Workspace のプラグイン ID と考えられる【推定】）に置き換えられている。[出典](https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/F7iO5eTgr7XmyhXn1IVBSA)、[出典](https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/Mooa7OsLxjPDuo~kp3EO4Q)
 
 | 画面・機能 | 内容 |
 |---|---|
@@ -497,8 +550,8 @@ Dispatcher Workspace は、フィールドサービスエージェントへの�
 
 ### Australia / Zurich の Dispatcher Workspace 強化点
 
-- 地図上で複数タイムゾーンを表示し、セグメント化した時刻インジケーターで技術者ごとのタイムゾーンを確認できる。日付を切り替えてもカレンダー上の位置を維持する。【第三者情報】（検索結果要約。リリースノート該当箇所本文は未確認）
-- Activity stream から Work order task に Work notes / Comments を追加できる。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/KJM7wXzfvqGoM5KPZsyzfA)
+- Time zones in Dispatcher Workspace：**Show multiple time zone rows** を有効にし、**Select time zones for calendar** に複数のタイムゾーンを指定すると、カレンダーに最大 3 つのタイムゾーンを積み重ねて表示できる。別設定の **Resource time indicators** を有効にすると、技術者のスケジュールをタイムゾーンでずらさずに揃えて表示し、技術者ごとのタイムゾーンをセグメント化した時刻インジケーターで示す。[出典](https://www.servicenow.com/docs/r/field-service-management/field-service-scheduling/time-zones-dispatcher.html)（Brazil 版ページ）
+- Activity stream から Work order task に Work notes / Comments を追加できる。Dispatcher Workspace でタスクカードの情報アイコンを選択し、コンテキストサイドパネル（CSP）の Activity タブから操作する。必要ロールは `wm_dispatcher`。**Stacked view** で Work notes と Comments を 1 つのビューに重ねて表示でき、タスク要約スキルが有効なユーザーには Now Assist による **Summarize** ボタンが表示される。導入リリースは公開情報では確認できず（参照したのは Brazil 版ページ）。[出典](https://www.servicenow.com/docs/r/field-service-management/field-service-scheduling/activity-stream-csp.html)
 - Zurich では、複数タイムゾーンの並列表示、リスト／レコードビューからの割り当て、グループ外技術者の一時追加が紹介されている。[出典](https://www.servicenow.com/community/fsm-blog/servicenow-ai-platform-zurich-release-smarter-scheduling/ba-p/3300528)
 - Google Maps：Google が 2025-03-01 に Places API / Directions API / Distance Matrix API をレガシー化したため、Zurich と Dispatcher Workspace 8.0 以降は Places API (New) と Routes API を使用する。Google Cloud Platform Console で両 API を有効化する必要がある（アップグレードタスク）。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/KJM7wXzfvqGoM5KPZsyzfA)
 
@@ -531,7 +584,7 @@ Dispatcher Workspace は、フィールドサービスエージェントへの�
 | Manual Scheduling（手動） | ドラッグ＆ドロップで割り当て | 少人数・少タスク。誤りが起きやすい |
 | Auto Assignment（自動割り当て） | Automatic Assignment プラグインによるルールベース割り当て（スキル・ロケーション・優先度等） | 単純な割り当てルール |
 | Dynamic Scheduling（動的スケジューリング） | 着信タスクを 1 件ずつ、空き・スキル・位置を確認して割り当て。重要度の低いタスクの入れ替え（Un-assignment）可。インターバル自動実行または Auto Assign で手動実行 | 定常的・頻繁に変わるスケジュール |
-| Schedule Optimization（スケジュール最適化） | チーム全体を対象とするポリシーエンジン。全エージェントの割り当て済み・未割り当てタスクを分析し、エージェント間の入れ替えも含めて移動時間削減と負荷平準化。約 15 分ごと、または Dispatcher Workspace からオンデマンド。Intraday Optimization でリアルタイム再最適化 | 大規模・複雑な制約。別サブスクリプション |
+| Schedule Optimization（スケジュール最適化） | チーム全体を対象とするポリシーエンジン。全エージェントの割り当て済み・未割り当てタスクを分析し、エージェント間の入れ替えも含めて移動時間削減と負荷平準化。最短 15 分間隔で実行（Intraday optimization の既定は 60 分）、または Dispatcher Workspace からオンデマンド実行。Intraday Optimization でリアルタイム再最適化 | 大規模・複雑な制約。別サブスクリプション |
 | Intelligent Task Recommendations | エージェントのカレンダーの空き枠を推奨タスクで埋める | 稼働率向上 |
 | Route Optimization | 単一エージェントの移動時間最小化（エージェント間の入れ替えはしない） | 個人ルートの効率化 |
 
@@ -562,7 +615,7 @@ Dispatcher Workspace は、フィールドサービスエージェントへの�
 
 ### Schedule Optimization
 
-- プラグイン：Schedule Optimization（`com.snc_schedule_optimization`）。必要ロール `admin`。前提プラグイン：Predictive Intelligence（`com.glide.platform_ml`）、Field Service Management（`com.snc.work_management`）、Map Integrations for Field Service（`com.snc.app_fsm_map_integr`）。
+- プラグイン：Schedule Optimization（`com.snc_schedule_optimization`。Store アプリへ移行、旧プラグインは将来非推奨予定）。必要ロール `admin`。前提プラグイン：Predictive Intelligence（`com.glide.platform_ml`）、Field Service Management（`com.snc.work_management`）、Map Integrations for Field Service（`com.snc.app_fsm_map_integr`。同じく Store アプリへ移行、旧プラグインは将来非推奨予定）。Store 移行と非推奨予定は [出典](https://www.servicenow.com/docs/r/35dlqBTUtpT5W39aSiHI6w/EfP6Yg2Wuw6fsjpUTasO6Q)
 - ライセンス：ServiceNow AI Platform とは別のサブスクリプションが必要。購入後もプラグインが表示されない場合は Now Support の Service Catalog から依頼する。
 - 次の手順は「Schedule Optimization 用ポリシーの作成」。
 
@@ -574,11 +627,12 @@ Dispatcher Workspace は、フィールドサービスエージェントへの�
 | Objective（目的） | 最適化が尊重しようとするソフトターゲット（例：移動時間最小化、割り当て数最大化）。Weight が高いものを優先 |
 | Qualifier（対象範囲） | 最適化に含める技術者の範囲。種別は Assignment group または Territory。Field Service Territory モデル有効時は自動的に Territory に固定 |
 | Run summary | 実行状況と結果（Australia で目的・制約・移動手段・割り当て結果を表示）。考慮／除外された Qualifier、除外された技術者を確認。必要な技術者がいないタスクは最適化から除外されて Run summary に記録 |
-| Intraday / Prioritized events optimization | P1 タスク追加、取消、休暇申請、遅延等のリアルタイムイベントに応じてスケジュールを再調整（Zurich で導入） |
-| Resource efficiency | スキルやコストなど設定可能な基準でジョブを割り当て（Zurich で導入） |
+| Intraday optimization | 一定間隔（既定 60 分、最短 15 分）で実行されるイベントベースの最適化。取消、技術者の遅刻・病欠、PTO、新しい高優先タスクなどを受けてグループ／テリトリー単位でタスクを再割り当て。スケジュールロックされたタスクは対象外。実行中はエージェントのスケジュールを手動更新できない |
+| Prioritized event optimization | 重要イベントに対し次回の Intraday 実行を待たず即時に、影響を受ける技術者・タスクのみを再最適化。Zurich のリリースノートのハイライトに「P1 タスク、取消、PTO 申請、遅延などのリアルタイムイベントに応じて技術者のスケジュールを即時調整」とある（Zurich で導入） |
+| Resource efficiency | スキルやコストなど設定可能な基準でジョブを割り当て。【第三者情報】Zurich リリース紹介の Community ブログに基づく。公式リリースノートでの記載は確認できず |
 | Enable capacity constraint | 非推奨（Schedule Optimization では適用されない） |
 
-[出典](https://www.servicenow.com/docs/r/field-service-management/field-service-scheduling/view-optimization-run-summaries.html)、[出典](https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/7a5Fh10ARrNdhXjj7hCMLQ)、[出典](https://www.servicenow.com/docs/r/u1slaAtcFiiXFQcd9RcR_A/wdbsvp_i9gm6MgiFjZaoSw)
+[出典](https://www.servicenow.com/docs/r/field-service-management/field-service-scheduling/view-optimization-run-summaries.html)、[出典](https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/7a5Fh10ARrNdhXjj7hCMLQ)、Intraday / Prioritized event optimization は [出典](https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/EC8Hq2ThCc0PkD3aupKChw)（Australia 版）、Zurich での導入は [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/KJM7wXzfvqGoM5KPZsyzfA)（統合リリースノートの Zurich Highlights）、Resource efficiency は [出典](https://www.servicenow.com/community/fsm-blog/servicenow-ai-platform-zurich-release-smarter-scheduling/ba-p/3300528)
 
 ![Schedule Optimization：Resource efficiency の紹介画面](../../assets/images/field-service-management/zurich-schedule-optimization.png)
 
@@ -594,16 +648,16 @@ Dispatcher Workspace は、フィールドサービスエージェントへの�
 
 | 機能 | プラグイン | 概要 |
 |---|---|---|
-| Appointment Booking（訪問予約） | `com.snc.appointment_booking`（Advanced Appointment Booking `com.snc.advanced_appointment_booking`） | テリトリー／グループの容量と予約に基づき予約可能枠を表示。Australia で Territory API による予約枠取得 |
-| Capacity and Reservations Management | `com.snc.fsm_capacity_management` | グループ・エージェントのタスク容量管理（時間またはタスク数）。Australia から Store アプリ |
-| Territory Planning | `com.snc.fsm_territory_planning` | 作業指示／タスクに最適なテリトリーを絞り込み。Australia から Store アプリ |
+| Appointment Booking（訪問予約） | `com.snc.appointment_booking`（Advanced Appointment Booking `com.snc.advanced_appointment_booking`。Store アプリへ移行、旧プラグインは将来非推奨予定） | テリトリー／グループの容量と予約に基づき予約可能枠を表示。Australia で Territory API による予約枠取得 |
+| Capacity and Reservations Management | `com.snc.fsm_capacity_management` | グループ・エージェントのタスク容量管理（時間またはタスク数）。Australia から Store アプリ（アップグレード時に自動インストール。旧プラグインは将来非推奨予定。前述「Australia でのリリース位置づけ」参照） |
+| Territory Planning | `com.snc.fsm_territory_planning` | 作業指示／タスクに最適なテリトリーを絞り込み。Australia から Store アプリ（同上。旧プラグインは将来非推奨予定） |
 | Crew Operations | `com.snc.fsm_crew_scheduling` | 同じリソースの組を繰り返しタスクに割り当て（クルー） |
 | Multi-Day Task Scheduling | `com.snc.fsm_multiday_tasks` | 複数日にまたがるタスクを全期間空いているエージェント／クルーへ |
 | Access Hours Management | `com.snc.fsm_access_hours` | タスクごとのアクセス可能時間を考慮 |
-| Contractor Management | `com.snc.fsm_contractor_management` | 外部委託業者向けポータルと Field Service Contractor モバイルアプリ |
-| Field Service Marketplace | `com.snc.fsm_marketplace` | ディスパッチャーがタスクを専用マーケットプレイスに掲示し、業者が見積と空きを提示 |
+| Contractor Management | `com.snc.fsm_contractor_management` | 外部委託業者向けポータルと Field Service Contractor モバイルアプリ（Store アプリへ移行、旧プラグインは将来非推奨予定） |
+| Field Service Marketplace | `com.snc.fsm_marketplace` | ディスパッチャーがタスクを専用マーケットプレイスに掲示し、業者が見積と空きを提示（Store アプリへ移行、旧プラグインは将来非推奨予定） |
 
-[出典](https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/8Opj89enYEhE3iXyItKsYg)、Appointment Booking・Marketplace は [出典](https://www.servicenow.com/docs/r/field-service-management/appointment-booking.html)（Marketplace の ID は検索結果要約に基づく【第三者情報】）
+[出典](https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/8Opj89enYEhE3iXyItKsYg)、Appointment Booking・Marketplace は [出典](https://www.servicenow.com/docs/r/field-service-management/appointment-booking.html)、Store 移行と Marketplace の ID（`com.snc.fsm_marketplace`）は [出典](https://www.servicenow.com/docs/r/35dlqBTUtpT5W39aSiHI6w/EfP6Yg2Wuw6fsjpUTasO6Q)（Australia の FSM リリースノート）
 
 > **Brazil での変更:** Appointment Booking v1.1 で「Arrive-by」予約は技術者が終業前に作業を終えられる枠のみ表示（過剰予約の抑制）。Shift Scheduling v8.0 で休憩・昼食をタスクに埋め込み、「Auto-status breaks」で自動／手動の状態変更を制御（変更は Work notes に記録）。Manager Workforce v2.0 で昼食休憩をスケジュールに埋め込み・編集可能。Scheduling AI Agent Collections v2.0 で AI エージェントがシフト・スケジュールの更新／削除に対応（リリースノート上の名称は「ServiceNow Otto」）。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-fieldservicemanagement-release-notes.html)
 
@@ -662,7 +716,9 @@ Dispatcher Workspace は、フィールドサービスエージェントへの�
 
 [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/DR_4yitr1C6eQTYphOPkSA)
 
-> **Brazil での変更:** Field Service Mobile v3.1（Brazil リリースノート上の表記）で、技術者は休憩の早期開始、組織の上限までの延長、早期終了が可能になり、スケジュールに実際の休憩時刻が反映される。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-fieldservicemanagement-release-notes.html)
+版番号は Store リリースノートの表記どおり（31.0.4 の後に 30.1.8 が公開されている。複数の版系列が並行して保守されている可能性がある【推定】）。
+
+> **Brazil での変更:** Field Service Mobile v3.1（Brazil リリースノート上の表記）で、技術者は休憩の早期開始、組織の上限までの延長、早期終了が可能になり、スケジュールに実際の休憩時刻が反映される。Brazil リリースノートの「v3.1」と Store リリースノートの 29〜31 系の版番号との対応は公開情報では確認できず。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-fieldservicemanagement-release-notes.html)
 
 ---
 
@@ -762,7 +818,7 @@ FSM の計画保守は **Planned Work Management** で実装され、保守プ�
 
 - アプリケーション ID：`com.snc.fsm_planned_work_management`。アクティブ化で Template Management for Field Service（`com.snc.fsm_template_management`）、Planned Maintenance（`com.snc.planned_maintenance`）、Field Service Management（`com.snc.work_management`）、CSM and FSM Configurable Workspace Foundation（`com.snc.uib.cwf_workspace`）も有効化される。[出典](https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/3RKzB8cFXCLdzoU22O0s_g)
 - メニュー：**All > Field Service Management > Planned Work Management > Plans**。[出典](https://www.servicenow.com/docs/r/x1i_kSm8n8WIoB0Vo0nN5Q/oM5swH10b5cP4YE1ezIV~Q)
-- 旧来の SM Planned Maintenance（`sm_maint_plan`、`sm_schedule`）も存在し、`plan_maint_admin` は `wm_admin` に含まれる。【第三者情報】（検索結果要約に基づく）
+- 旧来の SM Planned Maintenance（`sm_maint_plan`、`sm_schedule`）も存在し、`plan_maint_admin` は `wm_admin` に含まれる。[出典](https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/PbhKPGS1q480hefjocJiKA)（`plan_maint_admin` の含有。旧来テーブル名 `sm_maint_plan` / `sm_schedule` は公式ページ本文では確認できず【推定】）
 
 ### テーブル
 
@@ -866,13 +922,11 @@ Telecommunication Open APIs アプリ（ServiceNow Store）が提供する TMF �
 
 ## Now Assist for Field Service Management（AI）
 
-- Work order task summarization（タスク要約）スキル：タスクの事前構成入力（Description、Short description、Work notes、Additional comments）からクロージャーサマリーを生成。任意の状態のタスクで生成可能。有効化には Close complete / Close incomplete 状態の「Generate closure notes」UI アクションを有効にする必要がある。
-- Now Assist Admin console で入力テーブル・関連リスト・フィールドを状態別（New / WIP / Closed）の入力テンプレートとして構成できる（スキルをコピーしてプロンプト編集）。
-- モデルプロバイダー：Australia 版ドキュメントでは Now LLM Service が唯一のプロバイダーと記載。リリースにより Azure OpenAI / Google Gemini / Anthropic Claude on AWS 等の選択肢が示されているページもあるため、利用リリースで確認が必要。
-
-[出典](https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/qR8ZhgsCk_rte9rBwVUYoQ)、[出典](https://www.servicenow.com/docs/r/x1i_kSm8n8WIoB0Vo0nN5Q/kFegiqyYOvlypTsGN6GVaQ)
-
-- 2026-07-16 の Now Assist Suite リリースでは、エージェント向け DocIntel エージェントによる部品デブリーフ（Parts debrief）自動化が含まれる。【第三者情報】（検索結果要約に基づく）[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/vHeRvBPXAQoVZMkZxx9P0g)
+- Work order task summarization（タスク要約）スキル：タスクの事前構成入力（既定の入力テーブルは `wm_task`。Description、Short description、Work notes、Additional comments など）からクロージャーサマリーを生成する。Now Assist for FSM のスキルには Sidebar discussion summarization、Work order task summarization、KB generation がある。[出典](https://www.servicenow.com/docs/r/IVKDA~MgX_6UMb0D9l5eLg/F6PdP138yxVfPh8GFBTn0Q)（Skill inputs for Now Assist for FSM、Yokohama 版）
+- Now Assist Admin console（**Now Assist Skills** タブ → Customer ワークフローの FSM）でスキルを有効化・コピーし、入力テーブル・関連リスト・フィールドを状態別（New / Work in Progress / Closed）の入力テンプレートとして構成できる。既定では、レコードの状態に応じて Now LLM Service が使う入力テンプレートが決まる。[出典](https://www.servicenow.com/docs/r/OxLLTMwXG2tKQ2SIp7HnZg/mKuqiZSsVE5Y5lVcChoW4g)（Customize a Now Assist for FSM work order task summarization skill、Australia 版。参照したのは pt-BR ローカライズ版）
+- 「任意の状態のタスクで生成可能」「有効化には Close complete / Close incomplete の Generate closure notes UI アクションの有効化が必要」という記述は、従来参照していた Australia 版ページ（`qR8ZhgsCk_rte9rBwVUYoQ`）が 2026-11-04 時点で 404 となり、再確認できなかった。
+- モデルプロバイダー：Australia 版のカスタマイズページは生成主体として Now LLM Service のみに言及している。Azure OpenAI など他のプロバイダーを FSM スキルで選択できるかどうかは公開情報では確認できず。一般論は [Now Assist と AI Agents](../platform/now-assist-ai-agents.md) を参照。
+- 2026-07-16 の Now Assist Suite リリースノートでは、Now Assist for Field Service Management（FSM）10.0.1（Suite 28.11.20260716）と FSM - Advanced / FSM - Foundation 2.0.1（Suite 29.3.20260716、Australia Patch 3）に「Parts Debrief automation in NAP and NAVA」（Now Assist パネルと Now Assist in Virtual Agent での部品デブリーフの自動化。空の Work notes、無効な部品使用、数量の正規化、エラーケースの処理）が含まれる。同リリースノートには DocIntel 系エージェントの「Vision AI Agent」への改称も記載されているが、部品デブリーフとは別項目である。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/vHeRvBPXAQoVZMkZxx9P0g)
 
 AI 機能全般は [Now Assist と AI Agents](../platform/now-assist-ai-agents.md)、[Predictive Intelligence と AI Search](../platform/predictive-intelligence-ai-search.md) を参照。
 
@@ -926,7 +980,10 @@ Australia → Brazil の統合リリースノートに記載された FSM 関連
 - Transfer order 関連のテーブル名（`alm_transfer_order` / `alm_transfer_order_line`）と状態値は FSM 公式ページ本文では確認できず。
 - Dispatcher Workspace を開くメニューパスは公式ページ本文から確認できず（スクリーンショット上は CSM/FSM Configurable Workspace 内のタブ）。
 - Now Assist for FSM の全スキル一覧（Australia 版）はページ取得に失敗したため未確認。
-- FSM のパッケージ別機能表の公式最新版は公開ページで確認できず（Community 情報で代替）。
+- FSM のパッケージ（Standard / Professional / Enterprise）別の機能割り当ては公開情報では確認できず（Community 投稿の表は列構造が崩れており判別不能）。
+- Now Assist for FSM の Work order task summarization が任意の状態で生成可能か、および「Generate closure notes」UI アクションの有効化要件は、Australia 版ページが 404 のため再確認できず。FSM スキルで選択可能なモデルプロバイダーも公開情報では確認できず。
+- Schedule Optimization の Resource efficiency が導入されたリリースは、公式リリースノートでは確認できず（Community ブログのみ）。
+- Qualification 無効化時の作業指示状態の扱い（Ready for Dispatch か Qualified か）は、公式ページ間で表現が異なり確定できず。
 - 価格は公式に公開されておらず、本ファイルでは扱わない（[価格情報](../../03_導入編/02-pricing.md) 参照）。
 
 ---
@@ -972,13 +1029,18 @@ Australia → Brazil の統合リリースノートに記載された FSM 関連
 - Planned Work Management system properties（Zurich）: https://www.servicenow.com/docs/r/x1i_kSm8n8WIoB0Vo0nN5Q/FkbFGHMQDDAdDE2OKikvzw
 - Learn about triggers for work schedules（Australia）: https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/0u5r0Rp5277p~U0TEIFDDQ
 - Run a planned work schedule on demand（Zurich）: https://www.servicenow.com/docs/r/x1i_kSm8n8WIoB0Vo0nN5Q/oM5swH10b5cP4YE1ezIV~Q
-- Install base work plans: https://www.servicenow.com/docs/r/5M2H7PAkXUuakbtz~5Kfeg/2eIAKcTImgEphY338~GlhQ
+- Install base work plans（Zurich）: https://www.servicenow.com/docs/r/5M2H7PAkXUuakbtz~5Kfeg/2eIAKcTImgEphY338~GlhQ
 - Integration with Customer Service Management（Australia）: https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/B6YjKrRc5qBsU~hpD5dRfA
 - Activate Incident Management for Field Service（Australia）: https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/tbvgvFAfIdfra2~68KBjIQ
 - Install Playbooks for Field Service Management（Australia）: https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/rMzAvHiEuPotR81_j8QClg
 - Work Order Management API: https://www.servicenow.com/docs/r/ja-JP/api-reference/rest-apis/work-order-mgmt-api.html
-- Customize a Now Assist for FSM work order task summarization skill（Australia）: https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/qR8ZhgsCk_rte9rBwVUYoQ
-- Skill inputs for Now Assist for FSM（Zurich）: https://www.servicenow.com/docs/r/x1i_kSm8n8WIoB0Vo0nN5Q/kFegiqyYOvlypTsGN6GVaQ
+- Customize a Now Assist for FSM work order task summarization skill（Australia、pt-BR 版）: https://www.servicenow.com/docs/r/OxLLTMwXG2tKQ2SIp7HnZg/mKuqiZSsVE5Y5lVcChoW4g
+- Skill inputs for Now Assist for FSM（Yokohama）: https://www.servicenow.com/docs/r/IVKDA~MgX_6UMb0D9l5eLg/F6PdP138yxVfPh8GFBTn0Q
+- Business rules installed with Field Service Management（Australia、pt-BR 版）: https://www.servicenow.com/docs/r/OxLLTMwXG2tKQ2SIp7HnZg/EAsQMXHubFIocnQO0na9bg
+- Field Service Management release notes（Australia、Store 移行アプリ一覧）: https://www.servicenow.com/docs/r/35dlqBTUtpT5W39aSiHI6w/EfP6Yg2Wuw6fsjpUTasO6Q
+- Optimizing technician schedules at set intervals throughout the day（Australia）: https://www.servicenow.com/docs/r/DBkKvgbNn2vmEpXdLk9O2w/EC8Hq2ThCc0PkD3aupKChw
+- Time zones in Dispatcher Workspace（Brazil）: https://www.servicenow.com/docs/r/field-service-management/field-service-scheduling/time-zones-dispatcher.html
+- Add work notes or comments with the activity stream（Brazil）: https://www.servicenow.com/docs/r/field-service-management/field-service-scheduling/activity-stream-csp.html
 - July 16 2026 Now Assist Suite release notes: https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/vHeRvBPXAQoVZMkZxx9P0g
 - Combined FSM release notes Zurich → Australia: https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/KJM7wXzfvqGoM5KPZsyzfA
 - Combined FSM release notes Australia → Brazil: https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-fieldservicemanagement-release-notes.html

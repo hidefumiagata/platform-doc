@@ -61,11 +61,11 @@ Cloud Cost Management の特徴は次のとおり。
 | Kubernetes 監視、Kubernetes Autoscaling | [コンテナ・Kubernetes 監視](container-and-kubernetes-monitoring.md) |
 | データ転送コスト配賦に必要な CNM | [Cloud Network Monitoring](cloud-network-monitoring.md) |
 | モニター全般、通知 | [Monitors](../platform/monitors.md)、[通知と Downtime](../platform/notifications-and-downtimes.md) |
-| タグの基本・Unified Service Tagging | [Tagging](../platform/tagging.md)、[タグ戦略の実践](../../04_応用編/tagging-strategy.md) |
+| タグの基本・Unified Service Tagging | [Tagging](../platform/tagging.md)、[タグ戦略の実践](../../04_応用編/02-tagging-strategy.md) |
 | Reference Tables | [Notebooks・DDSQL・Reference Tables](../platform/notebooks-and-data-tools.md) |
 | Terraform リソース | [Terraform と IaC](../platform/terraform-and-iac.md) |
-| 料金（数値の正本） | [製品別料金表](../../03_導入編/pricing-by-product.md) |
-| コスト最適化の実践 | [コスト最適化](../../04_応用編/cost-optimization.md) |
+| 料金（数値の正本） | [製品別料金表](../../03_導入編/02-pricing-by-product.md) |
+| コスト最適化の実践 | [コスト最適化](../../04_応用編/01-cost-optimization.md) |
 
 ---
 
@@ -1288,7 +1288,7 @@ Datadog Costs は、Datadog への日次の支出を CCM のコストデータ�
 | 政府向けサイト | `app.ddog-gov.com`（US1-FED）と `us2.ddog-gov.com` では、AWS CUR 検証用エンドポイントが FIPS 検証済みではない旨が公式に記載されている。[出典](https://docs.datadoghq.com/cloud_cost_management/setup/aws/) |
 | US3 | Azure Native Integration 利用時も CCM 用に App Registration の作成が必要。Recommendations の Azure Resource Collection は US3 では Azure Native Integration でも可。[出典](https://docs.datadoghq.com/cloud_cost_management/setup/azure/)、[出典](https://docs.datadoghq.com/cloud_cost_management/recommendations/) |
 | 提供地域 | 公式料金ページの FAQ は「Cloud Cost Management is available in all EU- and US-hosted accounts.」（EU・US ホストの全アカウントで提供）とのみ記載。AP1 / AP2 での提供可否は料金ページ FAQ では明示されていないため、契約前に営業へ確認する。[出典](https://www.datadoghq.com/pricing/?product=cloud-cost-management) |
-| 価格 | AP1 は US/EU1 と価格が異なる（Pro 年契約 $6.25 など）。「課金への影響」節と [製品別料金表](../../03_導入編/pricing-by-product.md) を参照 |
+| 価格 | AP1 は US/EU1 と価格が異なる（Pro 年契約 $6.25 など）。「課金への影響」節と [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照 |
 | AP1 / AP2 / EU1 / US5 の機能差 | 上記以外の CCM 機能のサイト固有の制限は、公開情報では確認できず |
 | データ保存場所 | 取り込んだコストデータは各 Datadog サイトに保存される前提だが、CCM 固有の記述は公開情報では確認できず。サイト全般は [Datadog Sites](../platform/datadog-sites.md) |
 
@@ -1348,7 +1348,7 @@ Datadog Costs は、Datadog への日次の支出を CCM のコストデータ�
 
 ## 課金への影響
 
-Cloud Cost Management の課金単位は「**取り込んだクラウド / SaaS 支出 $1,000 あたり / 月**」で、無料の Datadog Cost Visibility（Datadog コストのみ）と、有料の Pro・Enterprise の 3 プランがある。料金の数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。
+Cloud Cost Management の課金単位は「**取り込んだクラウド / SaaS 支出 $1,000 あたり / 月**」で、無料の Datadog Cost Visibility（Datadog コストのみ）と、有料の Pro・Enterprise の 3 プランがある。料金の数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)。
 
 | プラン | 年契約（Billed Annually） | 月契約（Billed Month-to-month） | オンデマンド（Billed On-demand） |
 |---|---|---|---|
@@ -1358,7 +1358,7 @@ Cloud Cost Management の課金単位は「**取り込んだクラウド / SaaS 
 
 （単位: USD / クラウド・SaaS 支出 $1,000 あたり / 月。US/EU1 価格。2026-11-02 時点、[公式料金一覧](https://www.datadoghq.com/pricing/list/)、[公式料金ページ](https://www.datadoghq.com/pricing/?product=cloud-cost-management)）
 
-> **サイト差異:** AP1 は価格が異なる（Pro: 年契約 $6.25 / 月契約 $7.50 / オンデマンド $9、Enterprise: $12.50 / $15 / $18.75）。詳細は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。料金ページ FAQ では提供地域を「EU・US ホストの全アカウント」としており、AP1 等での提供は営業に確認する。
+> **サイト差異:** AP1 は価格が異なる（Pro: 年契約 $6.25 / 月契約 $7.50 / オンデマンド $9、Enterprise: $12.50 / $15 / $18.75）。詳細は [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照。料金ページ FAQ では提供地域を「EU・US ホストの全アカウント」としており、AP1 等での提供は営業に確認する。
 
 ### プラン別の機能差
 
@@ -1388,7 +1388,7 @@ Cloud Cost Management の課金単位は「**取り込んだクラウド / SaaS 
 
 > 注記（料金体系の変遷）: 第三者の料金追跡サイトによると、CCM の料金は 2026 年 3 月 30 日〜6 月 29 日の間に「ホスト単価（$7.50/ホスト/月）の単一プラン」から「支出額ベースの 3 階層（無料の Datadog Cost Visibility、Pro、Enterprise）」に変更された【第三者情報】（[出典](https://pricingsaas.com/companies/datadog.cloud-cost-management/diffs/2026Q2)、2026-07-02 確認）。旧体系を前提にした古い記事に注意する。
 
-料金体系全般は [料金体系の全体像](../../03_導入編/pricing-overview.md)、計算方法は [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、見積りは [コスト見積り手法](../../03_導入編/cost-estimation.md) を参照。
+料金体系全般は [料金体系の全体像](../../03_導入編/01-pricing-overview.md)、計算方法は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、見積りは [コスト見積り手法](../../03_導入編/05-cost-estimation.md) を参照。
 
 ---
 

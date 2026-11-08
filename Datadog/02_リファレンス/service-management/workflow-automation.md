@@ -292,7 +292,7 @@ Workflow Automation の Security トリガーは、Cloud SIEM などの Security
 
 > **課金:** 公式料金ページでは、Workload Protection や DevSecOps Pro / Enterprise の欄で Workflows が「Free when triggered from security findings and signals」（Security Finding / Signal 起点の実行は無料）と記載されている（2026-11-04 時点）。詳細は [課金への影響](#課金への影響) を参照。
 
-セキュリティ用途の詳細は [Cloud SIEM](../security/cloud-siem.md)、[セキュリティ運用の実践](../../04_応用編/security-operations-practices.md) を参照。
+セキュリティ用途の詳細は [Cloud SIEM](../security/cloud-siem.md)、[セキュリティ運用の実践](../../04_応用編/11-security-operations-practices.md) を参照。
 
 ### Catalog トリガー
 
@@ -653,7 +653,7 @@ Workflow Automation の Private Actions は、Kubernetes クラスター、社�
 | ホスト | Linux または Windows で **Datadog Agent 7.81.0 以降** |
 | Kubernetes | **Datadog Operator v1.28.0 以降**、または **Datadog Helm chart 3.231.6 以降** |
 | Remote Configuration | 組織で有効化されていること（[Fleet Automation と Remote Configuration](../platform/fleet-automation.md)） |
-| ネットワーク | Datadog への HTTPS 接続（アウトバウンド）。具体的なエンドポイント一覧は該当ページに記載なし（[ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md)） |
+| ネットワーク | Datadog への HTTPS 接続（アウトバウンド）。具体的なエンドポイント一覧は該当ページに記載なし（[ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md)） |
 
 [出典](https://docs.datadoghq.com/actions/private_actions/set_up_agent_based/)
 
@@ -876,7 +876,7 @@ Workflow Automation API（v2）のエンドポイントは次のとおり。Appl
 | GET | `/api/v2/workflows/{workflow_id}/instances/{instance_id}` | 実行インスタンス取得 |
 | PUT | `/api/v2/workflows/{workflow_id}/instances/{instance_id}/cancel` | 実行インスタンスのキャンセル |
 
-接続の作成・管理は Action Connection API（`/api/latest/action-connection`）で行う。Terraform による管理は [Terraform と IaC](../platform/terraform-and-iac.md)、[Monitoring as Code](../../04_応用編/monitoring-as-code.md) を参照（Workflow 用 Terraform リソースの詳細は本ファイルでは扱わない）。
+接続の作成・管理は Action Connection API（`/api/latest/action-connection`）で行う。Terraform による管理は [Terraform と IaC](../platform/terraform-and-iac.md)、[Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) を参照（Workflow 用 Terraform リソースの詳細は本ファイルでは扱わない）。
 
 ### Datadog MCP Server の workflows ツールセット
 
@@ -1000,7 +1000,7 @@ Workflow Automation の課金単位は **ワークフロー実行数（Workflow 
 
 （2026-11-02 時点、公式料金ページの US/EU1 定価、USD。[出典](https://www.datadoghq.com/pricing/list/)）
 
-> **サイト差異:** 基準サイト AP1 では価格が異なり、100 Workflow Executions / 月あたり年契約 **$12.50** / 月契約 **$15** / オンデマンド **$17.50**（[製品別料金表](../../03_導入編/pricing-by-product.md) の 13 章を参照）。
+> **サイト差異:** 基準サイト AP1 では価格が異なり、100 Workflow Executions / 月あたり年契約 **$12.50** / 月契約 **$15** / オンデマンド **$17.50**（[製品別料金表](../../03_導入編/02-pricing-by-product.md) の 13 章を参照）。
 
 課金に関する公式記載の要点:
 
@@ -1021,7 +1021,7 @@ Workflow Automation の課金単位は **ワークフロー実行数（Workflow 
 - PAR そのものの料金行は公式料金表に掲載されていない（PAR 単体の課金は公開情報では確認できず）。Agent 組み込み型 PAR は Datadog Agent の一部として動作する。
 - Monitor トリガーのワークフローは、フラッピングするモニターやグループ数の多いマルチアラートで実行数が膨らみやすい。【経験則】`datadog.workflows.executions.started` のモニター化と、ワークフロー先頭での Rate Limit / 条件分岐による早期終了でコストを制御する。
 
-料金の正本・他製品との組み合わせは [製品別料金表](../../03_導入編/pricing-by-product.md)、課金の仕組みは [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、App Builder の料金（公開アプリ単位）は [App Builder](./app-builder.md) を参照。
+料金の正本・他製品との組み合わせは [製品別料金表](../../03_導入編/02-pricing-by-product.md)、課金の仕組みは [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、App Builder の料金（公開アプリ単位）は [App Builder](./app-builder.md) を参照。
 
 ## サイト（リージョン）ごとの差異
 
@@ -1053,7 +1053,7 @@ Workflow Automation の代表的な構成パターンを、公式ドキュメン
 | AI 調査の自動起動 | Monitor | Bits Investigation 実行 → 結果を Slack に投稿 | [MCP Tools](https://docs.datadoghq.com/actions/workflows/mcp_tools/) |
 | 定期メンテナンス | Schedule（Service Account） | 定期レポート、不要リソース確認 | [Trigger](https://docs.datadoghq.com/actions/workflows/trigger/) |
 
-アラート設計との組み合わせは [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md)、運用設計上の位置づけは [運用設計](../../03_導入編/operations-design.md) を参照。
+アラート設計との組み合わせは [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md)、運用設計上の位置づけは [運用設計](../../03_導入編/13-operations-design.md) を参照。
 
 ### 設計上の注意点
 

@@ -56,8 +56,8 @@ APM のトレースパイプラインは「アプリ → Ingestion Sampling Rule
 | Remote Configuration の有効化 | [Fleet Automation と Remote Configuration](../platform/fleet-automation.md) |
 | Unified Service Tagging（`env` / `service` / `version`） | [Tagging（タグ）](../platform/tagging.md) |
 | OpenTelemetry 連携全般 | [OpenTelemetry サポート](../platform/opentelemetry.md) |
-| APM 料金の正本 | [製品別料金表](../../03_導入編/pricing-by-product.md) |
-| サンプリング設計・コスト最適化の実践知見 | [APM 運用の実践](../../04_応用編/apm-practices.md)、[コスト最適化](../../04_応用編/cost-optimization.md) |
+| APM 料金の正本 | [製品別料金表](../../03_導入編/02-pricing-by-product.md) |
+| サンプリング設計・コスト最適化の実践知見 | [APM 運用の実践](../../04_応用編/05-apm-practices.md)、[コスト最適化](../../04_応用編/01-cost-optimization.md) |
 
 ---
 
@@ -403,7 +403,7 @@ OpenTelemetry（OTel）でトレースを送る場合、Datadog Agent の自動�
 - Probabilistic sampler は SDK が付けたサンプリング優先度を無視するため、Head-based sampling と両立しない。Error / Rare sampler は、Probabilistic sampler が捨てたスパンを拾う場合がある。
 - Trace Metrics を 100% のトラフィックから計算するには、Collector では `span_metrics` connector（または Datadog Connector）をサンプリングプロセッサー（`tail_sampling` 等）より**前**に置く。Agent の OTLP 取り込みでは Agent が Trace Metrics を計算する。[出典](https://docs.datadoghq.com/tracing/metrics/metrics_namespace/)
 
-詳細は [OpenTelemetry サポート](../platform/opentelemetry.md) と [OpenTelemetry 活用戦略](../../04_応用編/opentelemetry-strategy.md) を参照。
+詳細は [OpenTelemetry サポート](../platform/opentelemetry.md) と [OpenTelemetry 活用戦略](../../04_応用編/10-opentelemetry-strategy.md) を参照。
 
 ---
 
@@ -972,7 +972,7 @@ Datadog APM の各データの保持期間は以下のとおり。
 
 > **補足:** 閲覧したトレースはアカウント存続期間中保持されるため、インシデント調査等で重要なトレースは保持期間内に開いておくと後から参照できる。【経験則】
 
-データ保持全般は [Datadog Sites（サイト）](../platform/datadog-sites.md)、[セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md) も参照。
+データ保持全般は [Datadog Sites（サイト）](../platform/datadog-sites.md)、[セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md) も参照。
 
 ---
 
@@ -1056,7 +1056,7 @@ Datadog APM には、以下のデータ量ガイドラインがある。超え�
 
 ## 課金への影響
 
-Datadog APM の課金は、**APM ホスト**（または Fargate タスク、サーバーレス呼び出し）単位の基本料金と、割当を超えた **Ingested Spans（GB）** および **Indexed Spans（100 万件）** の従量料金で構成される。料金の数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、計算方法は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+Datadog APM の課金は、**APM ホスト**（または Fargate タスク、サーバーレス呼び出し）単位の基本料金と、割当を超えた **Ingested Spans（GB）** および **Indexed Spans（100 万件）** の従量料金で構成される。料金の数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、計算方法は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 
 ### 課金単位と割当（2026-11-02 時点）
 
@@ -1091,19 +1091,19 @@ Datadog APM の課金は、**APM ホスト**（または Fargate タスク、サ
 | APM ホスト | APM を導入しトレースを送信するホスト。毎時計測し、月の上位 1% の時間を除外した値（9 番目に高い時間値、2 月は 8 番目）で課金（High watermark プラン） |
 | Kubernetes | Pod ではなくノード単位。pause コンテナは除外。コンテナごとに Agent を置く構成では各コンテナがホストとして数えられる |
 | Fargate | 5 分間隔で計測し、タスクの平均稼働数で課金。課金ドキュメントでは同時実行タスクあたり $6 / 月、Indexed Spans 195,000 件・Ingested Spans 30 GB を含むと記載 |
-| AWS Lambda（Serverless Functions APM） | 料金ページでは、トレース対象呼び出し 100 万回あたり Ingested Spans 50 GB（超過 $0.10/GB）・Indexed Spans 30 万件を含むと記載（正本 [製品別料金表](../../03_導入編/pricing-by-product.md) はこの値を正とする）。課金ドキュメントの計算例は 100 万呼び出しあたり Indexed Spans 150,000 件としており、料金ページと食い違う |
+| AWS Lambda（Serverless Functions APM） | 料金ページでは、トレース対象呼び出し 100 万回あたり Ingested Spans 50 GB（超過 $0.10/GB）・Indexed Spans 30 万件を含むと記載（正本 [製品別料金表](../../03_導入編/02-pricing-by-product.md) はこの値を正とする）。課金ドキュメントの計算例は 100 万呼び出しあたり Indexed Spans 150,000 件としており、料金ページと食い違う |
 
 [出典](https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/) [出典](https://www.datadoghq.com/pricing/?product=serverless)（Fargate の「30GB of Ingested Spans and Indexed Spans allotment to 195k」、Lambda の「50GB Ingested Spans per 1M traced invocations」「300 thousand Indexed Spans per 1M traced invocations」。取得日 2026-11-04）
 
 > **注意:** 課金ドキュメントには Fargate について「20 タスクで 130 万件の Indexed Spans が含まれる」とする計算例もあり、タスクあたり約 65,000 件に相当して 195,000 件の記載と一致しない。また Adaptive Sampling ページの割当式は Fargate タスクあたり 10 GB としており、課金ドキュメントの 30 GB と異なる。料金一覧ページ（/pricing/list/）では Serverless Application APM（$6 / トレース対象アプリケーションインスタンス、年契約）と Serverless Functions APM（$10 / 100 万トレース対象呼び出し、年契約）が掲載されている。Fargate / サーバーレスの割当は契約時に Datadog へ確認すること。
 
-詳細な見積り手法は [コスト見積り手法](../../03_導入編/cost-estimation.md)、削減策は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+詳細な見積り手法は [コスト見積り手法](../../03_導入編/05-cost-estimation.md)、削減策は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ---
 
 ## 設計上の要点（まとめ）
 
-Datadog APM のインジェスト・保持設計で押さえるべき点を、本ファイルの公式情報から整理する。実践的なノウハウは [APM 運用の実践](../../04_応用編/apm-practices.md) と [よくある失敗とアンチパターン](../../04_応用編/common-pitfalls.md) を参照。
+Datadog APM のインジェスト・保持設計で押さえるべき点を、本ファイルの公式情報から整理する。実践的なノウハウは [APM 運用の実践](../../04_応用編/05-apm-practices.md) と [よくある失敗とアンチパターン](../../04_応用編/12-common-pitfalls.md) を参照。
 
 | 論点 | 要点 |
 |---|---|

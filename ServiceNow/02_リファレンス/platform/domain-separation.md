@@ -27,6 +27,10 @@ sources:
   - https://www.servicenow.com/docs/r/zurich/platform-security/tenant-domain-migration-tool.html
   - https://www.servicenow.com/docs/r/zurich/platform-security/servicenow-ai-platform-security/domain-separation-center.html
   - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-domainseparation-release-notes.html
+  - https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/wDM7KfGusyXJhxqShBc8cg
+  - https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/0XZatCCIrKdtYhhZ3iSj7A
+  - https://www.servicenow.com/docs/r/yokohama/delta-xanadu-yokohama/yokohama-xanadu-domainseparation-release-notes.html
+  - https://www.servicenow.com/docs/r/zurich/delta-washingtondc-zurich/zurich-washingtondc-domainseparation-release-notes.html
   - https://www.servicenow.com/community/now-platform-blog/8-best-practices-for-supporting-domain-separation/ba-p/2286278
 ---
 
@@ -136,7 +140,7 @@ Domain Separation に関係するプラグインは次のとおり。
 | Domain Separation | `com.snc.pa.domain_support`（公式ドキュメント記載どおり） | 公式の「Domain separation plugin」ページは、Domain Extensions Installer の後にこの ID の Domain Separation を有効化すると記載。Domain reference picker の前提プラグインとしても同 ID が記載されている | [plugin](https://www.servicenow.com/docs/r/platform-security/domain-sep-plugin.html) |
 | Domain Support | `com.glide.domain` | 既にこのプラグインが有効な場合、Domain Extensions Installer／Domain Extensions の内容は既存実装との衝突回避のためインストールされない | [Request](https://www.servicenow.com/docs/r/oJu9n0q6rU~F9UHAnNCt5w/de_7ezFo_xfmGY89kUFsIw) |
 | MSP Extensions | 公開情報では ID 確認できず | `task.task_for` フィールド、Group の `type`（Security/Support/Visibility）を追加 | [Installed with](https://www.servicenow.com/docs/r/platform-security/r_InstalledWithDomainSeparation.html) |
-| Post-Production Domain Separation Activation Utility | `com.glide.domain.activation_utility` | 本番稼働後のインスタンスに Domain Separation を導入するためのユーティリティ（Yokohama で導入。後述 2.4） | [Utility](https://www.servicenow.com/docs/r/oJu9n0q6rU~F9UHAnNCt5w/Nm0oneI9R3EaMMDZnTKfkA) |
+| Post-Production Domain Separation Activation Utility | `com.glide.domain.activation_utility` | 本番稼働後のインスタンスに Domain Separation を導入するためのユーティリティ（Yokohama で導入。後述 2.4） | [Utility](https://www.servicenow.com/docs/r/oJu9n0q6rU~F9UHAnNCt5w/Nm0oneI9R3EaMMDZnTKfkA)、[RN](https://www.servicenow.com/docs/r/yokohama/delta-xanadu-yokohama/yokohama-xanadu-domainseparation-release-notes.html) |
 | Domain Migration Tool | `com.glide.domain.migration_tool` | 特定テナントをドメイン分離インスタンスから専用インスタンスへ移行（後述 8.6） | [Migration](https://www.servicenow.com/docs/r/zurich/platform-security/tenant-domain-migration-tool.html) |
 | Domain Separation AI Agent | 公開情報では ID 確認できず | AI Agent for Domain Visibility Management（Australia 新機能。後述 8.8） | [RN](https://www.servicenow.com/docs/access?context=domain-separation-rn&version=australia&pubname=australia-release-notes&ft:locale=en-US) |
 | Service Catalog - Domain Separation | `com.glideapp.servicecatalog.domain_separation` | Service Catalog の Domain Separation 対応 | [Catalog](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/tTZqEeVCqk1_0K6_HeyV9A) |
@@ -160,21 +164,21 @@ Domain separation plugin ページは次のように記載している。[出典
 
 ### 2.3 有効化の依頼手順（Request domain separation）
 
-Domain Separation プラグインは管理者が自分で有効化するのではなく、ServiceNow に有効化を依頼する。手順は次のとおり（Australia 版の手順として公開されているもの）。[出典](https://www.servicenow.com/docs/r/1nuU0tTksWZZbL8T4WKSDg/i98rrg3yAEYUd8V6pWYktA)
+Domain Separation プラグインは管理者が自分で有効化するのではなく、ServiceNow に有効化を依頼する。手順は次のとおり（Australia 版「Request domain separation」、2026-03-12 更新。対象は Domain Support - Domain Extensions Installer プラグイン、必要ロールは `admin`）。[出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/wDM7KfGusyXJhxqShBc8cg)
 
 1. **All > System Applications > All Available Applications > All** に移動する。
 2. **Request plugin** を選択し、Now Support の Activate Plugin フォームを開く。
-3. プラグイン名を選ぶ（一覧にない場合や OEM／オンプレミスの場合は「一覧にないプラグイン」のチェックを入れて名称を入力）。
-4. メンテナンス日時を選び、**Submit** する。
-5. メンテナンスウィンドウ後にインストールされる。Application Manager の **Installed** タブで確認する。
+3. **What is your target instance** で対象インスタンスを、**Which plugin would you like to activate** でプラグインを選ぶ（一覧にない場合や OEM／オンプレミスの場合は「Plugin I'm looking for is not listed」チェックボックスをオンにして名称を入力）。
+4. **Select Maintenance Date and Time** で有効化する日時を選び、**Submit** する。
+5. メンテナンスウィンドウ中にインストールされる。Application Manager の **Installed** タブで確認する。
 
-> 旧リリース（Washington DC 版）では「米国太平洋時間で1営業日2回のバッチで有効化」とされていたが、新しい版では依頼者が選ぶメンテナンスウィンドウ方式に変わっている。[出典](https://www.servicenow.com/docs/r/oJu9n0q6rU~F9UHAnNCt5w/de_7ezFo_xfmGY89kUFsIw)
+> アカウントマネージャー経由で依頼した場合、通常は「数日以内（within a few days）」に有効化されると Australia 版に記載されている（同出典）。旧リリース版では「米国太平洋時間で1営業日2回のバッチで有効化」とされていた（[出典](https://www.servicenow.com/docs/r/oJu9n0q6rU~F9UHAnNCt5w/de_7ezFo_xfmGY89kUFsIw)）が、Australia 版にはこのバッチ有効化の記述はなく、依頼者がメンテナンス日時を選ぶ方式になっている。Brazil 版も同じ手順である（[出典](https://www.servicenow.com/docs/r/q0JUS4fl39QNjim0ATT18w/_l2_WFrafREEU5DZj4RW5w)）。
 
 有効化によって次が有効になる（公式記載）: Domain テーブルに基づくドメイン分離、ドメインごとのポリシーを持てる委任管理、すべてのレコードが最初は global に置かれること、現在のユーザーのドメインによって他ドメインのレコードの見え方・操作可否が決まること。[出典](https://www.servicenow.com/docs/r/platform-security/domain-sep-plugin.html)
 
 ### 2.4 Post-Production Domain Separation Activation Utility
 
-Post-Production Domain Separation Activation Utility（`com.glide.domain.activation_utility`、Yokohama で導入）は、稼働中（post-production）の環境で Domain Separation を有効化するためのユーティリティである。[出典](https://www.servicenow.com/docs/r/oJu9n0q6rU~F9UHAnNCt5w/Nm0oneI9R3EaMMDZnTKfkA)
+Post-Production Domain Separation Activation Utility（`com.glide.domain.activation_utility`、Yokohama で導入）は、稼働中（post-production）の環境で Domain Separation を有効化するためのユーティリティである。[出典](https://www.servicenow.com/docs/r/oJu9n0q6rU~F9UHAnNCt5w/Nm0oneI9R3EaMMDZnTKfkA)、[導入リリース](https://www.servicenow.com/docs/r/yokohama/delta-xanadu-yokohama/yokohama-xanadu-domainseparation-release-notes.html)
 
 | 機能 | 内容 |
 |---|---|
@@ -190,6 +194,8 @@ Post-Production Domain Separation Activation Utility（`com.glide.domain.activat
 Domain Separation の有効化で追加・変更される主な要素は次のとおり。[出典](https://www.servicenow.com/docs/r/platform-security/r_InstalledWithDomainSeparation.html)
 
 **ロール**
+
+> 注記: Installed with domain separation ページに記載のロールは `domain_admin` のみである。`domain_expand_scope` は Domain scope ページに記載されたロールで、参考として併記する（3.4 節）。
 
 | ロール | 説明 |
 |---|---|
@@ -255,9 +261,9 @@ sequenceDiagram
 
 ### 3.2 レコードのドメインの決まり方（Domain assignment）
 
-新規レコードの `sys_domain` は、次のうち **最初に該当したもの** で決まる。[出典](https://www.servicenow.com/docs/access?context=c_DomainAssignment&version=australia&pubname=australia-platform-security&ft:locale=en-US)
+新規レコードの `sys_domain` には、次のいずれかの方法で割り当てられたドメインが入る（原文の要旨: The value of the sys_domain field contains the domain assigned to the record by any of the following）。**公式ドキュメントは評価の優先順位を明記していない**。明記されている順序のルールはフォールバックだけで、他のどの条件にも該当しない場合、レコードは作成ユーザーのドメインを自動的に継承する（If no other domain conditions apply, a record automatically inherits the domain of the user who creates it）。下表の「#」は公式ページの掲載順であり、優先順位ではない。[出典](https://www.servicenow.com/docs/access?context=c_DomainAssignment&version=australia&pubname=australia-platform-security&ft:locale=en-US)
 
-| 優先順 | 決定要素 | 説明 |
+| # | 決定要素 | 説明 |
 |---|---|---|
 | 1 | ユーザーの Company | ユーザーを Company に割り当てると、その Company のドメインに属し、作成するレコードもそのドメインを継承する |
 | 2 | 作成時に動く Business rule | 管理者が `sys_domain` を設定する Business rule を作成できる（テーブルに `sys_domain` 列が必要） |
@@ -265,7 +271,7 @@ sequenceDiagram
 | 4 | フォームテンプレート | テンプレートに `sys_domain` フィールドを含めてドメインを選択しておく |
 | 5 | 親レコードのドメイン | 関連レコードは親のドメインを継承（例: Change task は Change request のドメイン、Problem は親 Incident のドメイン） |
 | 6 | User レコードに割り当てたドメイン | — |
-| 7 | 作成ユーザーのドメイン | 他のどれにも該当しない場合のフォールバック |
+| 7 | 作成ユーザーのドメイン | 他のどれにも該当しない場合のフォールバック（公式に明記された唯一の順序ルール） |
 
 **Company とドメインの関係**（[出典](https://www.servicenow.com/docs/access?context=c_DomainScope&version=australia&pubname=australia-platform-security&ft:locale=en-US)）:
 
@@ -351,7 +357,7 @@ Domain scope（ドメインスコープ）は、ユーザーが何にアクセ�
 5. ドメインが空または global のままなら `task_for`（caller／requested_for）からユーザーのドメインを設定し、なければ Default にするフォールバックを追加する。
 6. `Domain - Cascade Domain - Task` に倣い、ドメイン変更時に関連レコード（Workflow context／history、承認、SLA、添付、メール、メトリクス）を更新する Business rule を作成する（Default ドメインからレコードを移すときによく発火する）。
 
-**ドメイン分離してはいけないテーブル**（[出典](https://www.servicenow.com/docs/access?context=c_DomainAssignment&version=australia&pubname=australia-platform-security&ft:locale=en-US)）:
+**ドメイン分離できないテーブル（システムが防止）**: 次のテーブルは、システムによってドメイン分離が防止されている（原文の要旨: The system prevents the following tables from being domain separated）。運用上の推奨ではなく、技術的に分離できない。[出典](https://www.servicenow.com/docs/access?context=c_DomainAssignment&version=australia&pubname=australia-platform-security&ft:locale=en-US)
 
 | テーブル | 名称 |
 |---|---|
@@ -362,7 +368,7 @@ Domain scope（ドメインスコープ）は、ユーザーが何にアクセ�
 | `sys_dictionary` | Dictionary Entry |
 | `sys_dictionary_override` | Dictionary Entry Override |
 
-> ServiceNow は `sys_` 接頭辞を持つプラットフォームテーブル全般のドメイン分離を推奨していない（予期しない結果になるため）。【第三者情報】`sys_domain` を追加するだけでは不十分なテーブルについては KB0662346「Tips for Domain Separating 'NON Out of Box Domain separated' Tables」が参照先として紹介されている（[出典](https://www.servicenow.com/community/now-platform-articles/platform-domain-separation-knowledge-amp-troubleshooting/ta-p/2426446)）。
+> 上表の「分離できない（システムが防止）」とは別に、推奨レベルの注意として、ServiceNow は `sys_` 接頭辞を持つプラットフォームテーブル全般のドメイン分離を推奨していない（予期しない結果になるため）。【第三者情報】`sys_domain` を追加するだけでは不十分なテーブルについては KB0662346「Tips for Domain Separating 'NON Out of Box Domain separated' Tables」が参照先として紹介されている（[出典](https://www.servicenow.com/community/now-platform-articles/platform-domain-separation-knowledge-amp-troubleshooting/ta-p/2426446)）。
 
 ### 3.6 UI 分離と Choice list
 
@@ -480,7 +486,7 @@ Domain Separation のクエリ方式には domain paths、spooling、numbering �
 
 ドメイン階層の変更（re-parenting）は、多数のドメイン対応テーブルに対して更新処理を連鎖させる。
 
-- 既定では、Domain レコードの変更（再親子付けなど）でドメイン分離テーブルのレコードを補正するジョブが起動する。**Domain Job Manager** を使うと、複数のドメイン変更をキューに入れ、1つのバックグラウンドジョブとして順に実行できる（Australia の管理ページに記載）。[出典](https://www.servicenow.com/docs/access?context=c_DomainSeparationAdministration&version=australia&pubname=australia-platform-security&ft:locale=en-US)
+- 既定では、Domain レコードの変更（再親子付けなど）でドメイン分離テーブルのレコードを補正するジョブが起動する。**Domain Job Manager** を使うと、複数のドメイン変更をキューに入れ、1つのバックグラウンドジョブとして順に実行できる（Zurich で導入。Australia の管理ページに記載）。[導入リリース](https://www.servicenow.com/docs/r/zurich/delta-washingtondc-zurich/zurich-washingtondc-domainseparation-release-notes.html)、[出典](https://www.servicenow.com/docs/access?context=c_DomainSeparationAdministration&version=australia&pubname=australia-platform-security&ft:locale=en-US)
 - Domain Job Management ページ（Brazil 版）の詳細: 対応ジョブ種別は **Hierarchy change** のみ。状態は Active（実行）と Paused（保留）。Paused のジョブは既定で **1時間後に自動再開**し、チェックボックスで自動再開を無効化して手動再開にできる。**View Job Progress** ボタンで Job Type、Status、Progress を確認できる。[出典](https://www.servicenow.com/docs/r/q0JUS4fl39QNjim0ATT18w/lbaahW14AZ6oslGmzKZliA)
 - 【第三者情報】階層変更は必要なときだけ小さなバッチで行い、各バッチ完了を `syslog_domain` の「DWR execution completed」と `domain_work_request` レコードの State 3（Processed）で確認するよう推奨されている（[出典](https://www.servicenow.com/community/now-platform-blog/8-best-practices-for-supporting-domain-separation/ba-p/2286278)、2018年）。
 
@@ -506,7 +512,7 @@ Domain Separation のクエリ方式には domain paths、spooling、numbering �
 |---|---|---|---|---|
 | Parent/child（親子） | ドメイン⇔ドメイン | データとプロセスの両方 | 親は子のデータをすべて参照できる。プロセスは親から子へ流れる | 基本 |
 | Contains domains（包含） | ドメイン⇔ドメイン（多対多） | **データのみ**（プロセスには影響しない） | 親子階層と独立。Domain picker で制御される。DB クエリに条件を追加するため大量データで性能低下の恐れ | 例外的に使用 |
-| Visibility domains（可視性） | ユーザー／グループ⇒ドメイン | **データのみ** | User・Group レコードの関連リストで明示付与。階層や Domain picker に依存せず常時有効。可視性ドメインの子ドメインも見える。ACL に基づき権利が与えられる | 控えめに使用（公式は過度の使用を非推奨） |
+| Visibility domains（可視性） | ユーザー／グループ⇒ドメイン | **データのみ** | User・Group レコードの関連リストで明示付与。階層や Domain picker に依存せず常時有効。可視性ドメインの子ドメインも見える。ACL に基づき権利が与えられる | 控えめに使用（意図しない完全なアクセスを許しうるため。原文: Use sparingly, as Visibility can allow complete access that you may not intend） |
 
 **Contains の例**: ユーザーのホームドメインが A で、A が B と C を包含（contains）している場合、A・B・C はピアとなり、ユーザーは A にいる間 A・B・C のデータを参照できる。Domain picker を B に切り替えると B のデータのみになる。
 
@@ -543,9 +549,9 @@ Domain picker は、ユーザーがセッションのドメイン（Session scop
 | UI | 設定 | 出典 |
 |---|---|---|
 | Core UI | ヘッダーで Domain picker を表示すると Domain selector が既定で有効。Reference picker は `glide.ui.domain_reference_picker.enabled` を `true` で追加（Domain Separation プラグインが前提）。Reference picker を有効にすると一覧から global の選択肢が消える | [Core UI](https://www.servicenow.com/docs/r/8yND1KuvF7tjP~F577YThQ/j_jAnv7xteAqYYkkAX2vOg) |
-| Next Experience | Unified Navigation の Scope picker（スコープ選択アイコン）内に Domain picker が表示される。Domain Separation へのアクセス権を持つユーザーのみ表示。既定では `itil` ロールおよび `itil` を含むロール（admin 等）が利用可能 | 【第三者情報を含む】[検索結果要約](https://www.servicenow.com/docs/r/ja-JP/platform-user-interface/next-experience-pickers.html) |
-| アクセス制限（両 UI） | `sys_properties` に `glide.ui.polaris.domain_picker.role` を追加し、カンマ区切りのロール（例: `admin,itil`）を設定。公式は admin のみに制限することを推奨 | [Restrict](https://www.servicenow.com/docs/r/GypxAX2jEErwkCxugICKdg/j21_~Yi3buFnvpSbO376lQ) |
-| キーボードショートカット | `glide.ui.keyboard.shortcuts.polaris.domain_separation_picker.enabled` を `true`、キーの組み合わせ（例 ctrl+alt+d）を設定 | 【第三者情報】検索結果要約（公式ページ本文は未確認） |
+| Next Experience | Unified Navigation の Scope picker（スコープ選択アイコン）内に Domain picker が表示される。Domain Separation へのアクセス権を持つユーザーのみ表示。既定では `itil` ロールおよび `itil` を含むロール（admin 等）が利用可能 | [Pickers（Xanadu）](https://www.servicenow.com/docs/r/B5UZKOeMGcpyrvR2CNl5Dw/TLQtlpn8CnSf2CtGjqDGuQ)、[Restrict](https://www.servicenow.com/docs/r/GypxAX2jEErwkCxugICKdg/j21_~Yi3buFnvpSbO376lQ) |
+| アクセス制限 | `sys_properties` に `glide.ui.polaris.domain_picker.role` を追加し、カンマ区切りのロール（例: `admin,itil`）を設定。公式は admin のみに制限することを推奨。公式ページ冒頭は「Core UI と Next Experience」の制限と述べるが、手順は Next Experience のピッカー用プロパティ（`polaris`）の設定であり、Core UI 側の Domain selector は「Enable domain selection menus in Core UI」で別途扱われる | [Restrict](https://www.servicenow.com/docs/r/GypxAX2jEErwkCxugICKdg/j21_~Yi3buFnvpSbO376lQ) |
+| キーボードショートカット（Next Experience） | 既定では無効。管理者が `glide.ui.keyboard.shortcuts.polaris.domain_separation_picker.enabled`（値 `true`）と `glide.ui.keyboard.shortcuts.polaris.domain_separation_picker.key_combo`（キーの組み合わせ。例 Ctrl+Alt+D）の2つのシステムプロパティを作成する | [Pickers（Xanadu）](https://www.servicenow.com/docs/r/B5UZKOeMGcpyrvR2CNl5Dw/TLQtlpn8CnSf2CtGjqDGuQ) |
 
 > 【第三者情報】`glide.ui.polaris.domain_picker.role` を設定しても admin が制限されないとのコミュニティ報告（2023年）がある（[出典](https://www.servicenow.com/community/csm-forum/restrict-the-domain-picker-at-admin-level/m-p/2480825)）。
 
@@ -570,9 +576,15 @@ Domain Separation の主要なユースケースは、SP（MSP）が1インス�
 
 ### 6.2 SP 向け「80/15/5」アプローチ
 
-公式ドキュメントは、過剰なカスタマイズとパフォーマンス低下を避けるため「80/15/5 アプローチ」に従って Domain picker（ドメインごとの設定）を賢く使うよう推奨している。検索で確認できた範囲では、80%以上を Standard（全顧客共通）、15%程度を Parametric（パラメータ化）、5%未満を Configuration（ドメイン固有設定）とし、変更要望がグローバルにすべきか設定可能なプロパティにすべきかを判断する考え方である。[出典](https://www.servicenow.com/docs/r/zurich/platform-security/servicenow-ai-platform-security/bp-terms-conditions.html)
+Australia 版の公式ページ「Configuring domain separation with the domain picker」（2026-03-12 更新）は、カスタマイズしすぎてインスタンスの性能に影響しないよう、Domain picker を賢く使い「80/15/5 アプローチ」を守るよう推奨している（原文の要旨: You need to use an "80-15-5" approach in configuring your domains to avoid too large a margin for customization）。推奨される構成比は次のとおり。[出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/0XZatCCIrKdtYhhZ3iSj7A)
 
-> 80/15/5 の正式な定義文は、取得できた公式ページ本文では確認できず（検索スニペットに基づく）【推定】。
+| 区分 | 推奨比率 | 意味 |
+|---|---|---|
+| Standard | 80%以上 | 全顧客（ドメイン）共通の標準設定 |
+| Parametric | 15%以上 | パラメータ（設定可能なプロパティ等）で顧客ごとに変える部分 |
+| Configuration | 5%未満 | ドメイン固有の設定（オーバーライド等） |
+
+> 各区分の「意味」列は本ナレッジによる解釈であり、公式ページは区分名と比率のみを示している【推定】。
 
 ### 6.3 管理者ロールの分担
 
@@ -614,7 +626,8 @@ Configuration that can be delegated to internal or external customers（Zurich �
 | 大量ドメインの一括投入 | インテグレーションや Import set で大量のドメインを一括作成しない | 【第三者情報】[Community](https://www.servicenow.com/community/now-platform-blog/8-best-practices-for-supporting-domain-separation/ba-p/2286278) |
 | 階層変更 | 必要時のみ、小バッチで | 同上 |
 | Default ドメイン | 「Default」という名前のドメインを1つ作り Default に設定。中身を定期的にトリアージ | [公式](https://www.servicenow.com/docs/r/platform-security/bp-domain-sep-hierarchies.html) |
-| Contains／Visibility | 例外的にのみ使用。OR 条件が増えクエリが遅くなる。可能なら階層の見直しやユーザーの移動で解決 | [公式](https://www.servicenow.com/docs/r/platform-security/bp-domain-sep-hierarchies.html) |
+| Contains | 例外的にのみ使用。DB クエリに OR 条件を加え、大規模なドメイン・データでは性能に影響する。可能なら階層の見直しやユーザーの移動で解決 | [公式](https://www.servicenow.com/docs/r/platform-security/bp-domain-sep-hierarchies.html) |
+| Visibility | 意図しない広範な（完全な）アクセスを与えうるため控えめに使う（セキュリティ上の理由）。なお大規模 MSP では Visibility クエリも性能課題になっていた（Australia で改善、下記注記） | [公式](https://www.servicenow.com/docs/r/platform-security/bp-domain-sep-hierarchies.html)、[Australia RN](https://www.servicenow.com/docs/access?context=domain-separation-rn&version=australia&pubname=australia-release-notes&ft:locale=en-US) |
 | クエリ方式 | domain paths を使用 | [公式](https://www.servicenow.com/docs/access?context=bp-domain-query-method&version=australia&pubname=australia-platform-security&ft:locale=en-US) |
 | SQL デバッグ | 遅い場合は SQL debug、または System Diagnostics > Stats > Slow Queries（`sys_query_pattern`）で OR 条件過多・インデックス不足を確認 | 【第三者情報】[Community](https://www.servicenow.com/community/now-platform-blog/8-best-practices-for-supporting-domain-separation/ba-p/2286278) |
 | スクリプト | `sys_domain_path` を使わず `sys_domain` で判定 | [公式](https://www.servicenow.com/docs/access?context=bp-domain-query-method&version=australia&pubname=australia-platform-security&ft:locale=en-US) |
@@ -782,7 +795,7 @@ Domain Migration Tool（`com.glide.domain.migration_tool`）は、ドメイン�
 
 ### 8.7 Delete by domain
 
-ドメイン単位でのデータ削除は管理タスク「Delete by domain」として提供されている（手順詳細は公式ページ参照）。[出典](https://www.servicenow.com/docs/access?context=c_DomainSeparationAdministration&version=australia&pubname=australia-platform-security&ft:locale=en-US)
+ドメイン単位でのデータ削除は管理タスク「Delete by domain」として提供されている（Zurich で導入。リリースノートは「Domain Admin がドメイン単位で削除し、ドメイン管理を効率化しストレージのオーバーヘッドを削減できる」と記載。[導入リリース](https://www.servicenow.com/docs/r/zurich/delta-washingtondc-zurich/zurich-washingtondc-domainseparation-release-notes.html)。手順詳細は公式ページ参照）。[出典](https://www.servicenow.com/docs/access?context=c_DomainSeparationAdministration&version=australia&pubname=australia-platform-security&ft:locale=en-US)
 
 ### 8.8 AI Agent for Domain Visibility Management（Australia 新機能）
 
@@ -811,11 +824,11 @@ AI エージェント全般は [Now Assist と AI Agents](now-assist-ai-agents.m
 | 1 | **一度有効化すると無効化はできても削除できない**。有効化前に ServiceNow の担当者に相談する | [公式](https://www.servicenow.com/docs/access?context=c_DomainSeparation&version=australia&pubname=australia-platform-security&ft:locale=en-US) |
 | 2 | 管理オーバーヘッドが増える | 同上 |
 | 3 | 一部のプロパティ・データ・プロセスは global 固定（例: ログインの「Remember me」はドメイン単位にできない） | 同上 |
-| 4 | ACL、Script Include、System Property、Security Exclusion/Inclusion List、Dictionary、Dictionary Override はドメイン分離できない。`sys_` 系テーブル全般も非推奨 | [公式](https://www.servicenow.com/docs/access?context=c_DomainAssignment&version=australia&pubname=australia-platform-security&ft:locale=en-US) |
+| 4 | ACL、Script Include、System Property、Security Exclusion/Inclusion List、Dictionary、Dictionary Override はシステムによりドメイン分離が防止されている（技術的に分離できない）。`sys_` 系テーブル全般も非推奨 | [公式](https://www.servicenow.com/docs/access?context=c_DomainAssignment&version=australia&pubname=australia-platform-security&ft:locale=en-US) |
 | 5 | 本番稼働後の有効化は、既存レコードが global になる・再割り当てでデータ破損リスク・ダウンタイムが必要など、リスクが大きい | [公式](https://www.servicenow.com/docs/r/platform-security/domain-sep-plugin.html) |
 | 6 | すべてのアプリがドメイン分離に対応しているわけではない（Service Portal、App Engine Studio、Field Encryption などは No support） | [公式](https://www.servicenow.com/docs/access?context=domain-separated-apps&version=australia&pubname=australia-platform-security&ft:locale=en-US) |
 | 7 | Choice field、Business rule など他顧客に影響する設定は顧客に委任できない。ベースシステムでは顧客管理者が付与できるロールを制限できない | [公式](https://www.servicenow.com/docs/r/zurich/platform-security/servicenow-ai-platform-security/ds-before-you-begin.html) |
-| 8 | Contains／Visibility はクエリ条件を増やし性能に影響 | [公式](https://www.servicenow.com/docs/r/platform-security/bp-domain-sep-hierarchies.html) |
+| 8 | Contains は DB クエリに OR 条件を加え性能に影響する。Visibility は意図しない広範なアクセスを与えうるため控えめに使う（大規模 MSP では Visibility クエリも性能課題になっていたが Australia で改善。6.5 参照） | [公式](https://www.servicenow.com/docs/r/platform-security/bp-domain-sep-hierarchies.html)、[Australia RN](https://www.servicenow.com/docs/access?context=domain-separation-rn&version=australia&pubname=australia-release-notes&ft:locale=en-US) |
 | 9 | `sys_domain_path` はスクリプトで使用不可（値が変わる） | [公式](https://www.servicenow.com/docs/access?context=bp-domain-query-method&version=australia&pubname=australia-platform-security&ft:locale=en-US) |
 | 10 | 利用中のインスタンスでドメイン間のデータ移動をしない。階層変更は大量の更新処理を伴う | [公式](https://www.servicenow.com/docs/r/platform-security/bp-domain-sep-hierarchies.html) |
 | 11 | Default ドメイン未設定だとドメインなしの Task/User が global に入り全員から見える | 同上 |
@@ -840,7 +853,8 @@ AI エージェント全般は [Now Assist と AI Agents](now-assist-ai-agents.m
 | Fuji | 新規有効化で `glide.sys.domain.use_record_domain_for_data` が既定 true | [公式](https://www.servicenow.com/docs/r/GypxAX2jEErwkCxugICKdg/0rpQRISDpnpRznW37gNvPg) |
 | Madrid | 以降に有効化した場合、アクセスできないドメインの参照表示値を非表示 | [公式](https://www.servicenow.com/docs/access?context=c_DomainScope&version=australia&pubname=australia-platform-security&ft:locale=en-US) |
 | New York | Service Catalog がドメインサポートを持つ（それ以前は User criteria による Effective domain） | [公式](https://www.servicenow.com/docs/r/platform-security/bp-domain-levels.html) |
-| Yokohama | Post-Production Domain Separation Activation Utility（`com.glide.domain.activation_utility`） | 検索結果要約（Combined release notes） |
+| Yokohama | Post-Production Domain Separation Activation Utility（`com.glide.domain.activation_utility`） | [公式](https://www.servicenow.com/docs/r/yokohama/delta-xanadu-yokohama/yokohama-xanadu-domainseparation-release-notes.html) |
+| Zurich | Delete by domain（ドメイン単位の削除。ストレージ削減）、Domain job manager（Domain テーブルへの変更を順次キューに入れ、1つのバックグラウンドジョブにバッチ化） | [公式](https://www.servicenow.com/docs/r/zurich/delta-washingtondc-zurich/zurich-washingtondc-domainseparation-release-notes.html) |
 | Australia | AI Agent for Domain Visibility Management、Global Domain Upgraded Process Overrides Report、Domain Visibility Performance Improvements for Large MSPs、Dot-Walk Scoping Bypass Compliance、Java 21 Runtime Support | [公式](https://www.servicenow.com/docs/access?context=domain-separation-rn&version=australia&pubname=australia-release-notes&ft:locale=en-US) |
 
 > **Brazil での変更:** Zurich→Brazil の統合リリースノート（2026-10-08 更新）では、Brazil の新機能・変更表は「No updates for this release」とされている。同ページには有効化プラグイン `com.glide.domain.activation_utility`、必要ロールとして「Domain Separation Admin」「Domain Policy Admin」などの記載があるが、ページ自体に AI 生成コンテンツである旨の注記があり、ロール名（技術名）は公開情報では確認できず。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-domainseparation-release-notes.html)
@@ -873,7 +887,6 @@ AI エージェント全般は [Now Assist と AI Agents](now-assist-ai-agents.m
 - `domain` テーブルと `sys_domain` テーブルの継承関係。
 - `domain_contains`、`sys_user_group_visibility` の公式なテーブル定義（第三者情報で確認）。
 - Visibility 性能改善の「ドメインコレクションサイズ閾値」のプロパティ名。
-- 80/15/5 アプローチの公式な定義文（検索スニペットのみ）。
 - Brazil の統合リリースノートに記載された「Domain Separation Admin」「Domain Policy Admin」ロールの技術名。
 - 公式ドキュメントのスクリーンショット（公式ページの図はポータル上で取得できず、Community および第三者ブログの画像を使用）。
 
@@ -890,7 +903,8 @@ AI エージェント全般は [Now Assist と AI Agents](now-assist-ai-agents.m
 - How a database query works with domain separation: https://www.servicenow.com/docs/access?context=bp-db-query-with-ds&version=australia&pubname=australia-platform-security&ft:locale=en-US
 - Domain separation administration: https://www.servicenow.com/docs/access?context=c_DomainSeparationAdministration&version=australia&pubname=australia-platform-security&ft:locale=en-US
 - Domain Separation release notes（Australia）: https://www.servicenow.com/docs/access?context=domain-separation-rn&version=australia&pubname=australia-release-notes&ft:locale=en-US
-- Request domain separation: https://www.servicenow.com/docs/r/1nuU0tTksWZZbL8T4WKSDg/i98rrg3yAEYUd8V6pWYktA
+- Request domain separation（Australia、2026-03-12 更新）: https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/wDM7KfGusyXJhxqShBc8cg
+- Configuring domain separation with the domain picker（Australia、2026-03-12 更新）: https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/0XZatCCIrKdtYhhZ3iSj7A
 
 **ServiceNow 公式ドキュメント（他リリース版）**
 - Domain separation plugin（Brazil）: https://www.servicenow.com/docs/r/platform-security/domain-sep-plugin.html
@@ -915,6 +929,10 @@ AI エージェント全般は [Now Assist と AI Agents](now-assist-ai-agents.m
 - Enable domain selection menus in Core UI: https://www.servicenow.com/docs/r/8yND1KuvF7tjP~F577YThQ/j_jAnv7xteAqYYkkAX2vOg
 - Restrict access to the domain picker（Yokohama）: https://www.servicenow.com/docs/r/GypxAX2jEErwkCxugICKdg/j21_~Yi3buFnvpSbO376lQ
 - Exploring Next Experience pickers: https://www.servicenow.com/docs/r/ja-JP/platform-user-interface/next-experience-pickers.html
+- Exploring Next Experience pickers（Xanadu）: https://www.servicenow.com/docs/r/B5UZKOeMGcpyrvR2CNl5Dw/TLQtlpn8CnSf2CtGjqDGuQ
+- Request domain separation（Brazil）: https://www.servicenow.com/docs/r/q0JUS4fl39QNjim0ATT18w/_l2_WFrafREEU5DZj4RW5w
+- Combined Domain Separation release notes（Xanadu→Yokohama）: https://www.servicenow.com/docs/r/yokohama/delta-xanadu-yokohama/yokohama-xanadu-domainseparation-release-notes.html
+- Combined Domain Separation release notes（Washington DC→Zurich）: https://www.servicenow.com/docs/r/zurich/delta-washingtondc-zurich/zurich-washingtondc-domainseparation-release-notes.html
 - Domain separation and Service Catalog: https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/tTZqEeVCqk1_0K6_HeyV9A
 - Domain separation（CMDB IRE、Zurich）: https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/tyaXQ2ZDl6xBAa2UbiB5aw
 - Domain separation in Cloud Provisioning and Governance - considerations for service providers: https://www.servicenow.com/docs/r/Tm19yM2Ui3~uN9XFBacppg/75P0nGTig6npTw7HESD3Mg

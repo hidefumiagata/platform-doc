@@ -42,7 +42,7 @@ Datadog Site（サイト。データセンター／リージョンに相当）�
 
 > **サイト一覧の更新について:** 執筆規約では 7 サイト（US1/US3/US5/EU1/AP1/AP2/US1-FED）を挙げているが、2026-11-02 時点の公式サイト一覧には **UK1（英国）** と **US2-FED（米国政府向け第 2 サイト）** も載っており、全 9 サイトである。本ファイルでは 9 サイトすべてを扱う。[出典](https://docs.datadoghq.com/getting_started/site/)
 
-Datadog 全体のアーキテクチャ（Agent → インテーク → バックエンドという流れ）は [Datadogのアーキテクチャ概観](../../01_入門編/architecture-overview.md) を参照。ネットワーク設計（プロキシ、FW 許可リスト、PrivateLink 設計）の詳細は [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md)、サイト選定の判断プロセスは [要件定義とアーキテクチャ設計](../../03_導入編/requirements-and-architecture-design.md) を参照。
+Datadog 全体のアーキテクチャ（Agent → インテーク → バックエンドという流れ）は [Datadogのアーキテクチャ概観](../../01_入門編/03-architecture-overview.md) を参照。ネットワーク設計（プロキシ、FW 許可リスト、PrivateLink 設計）の詳細は [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md)、サイト選定の判断プロセスは [要件定義とアーキテクチャ設計](../../03_導入編/09-requirements-and-architecture-design.md) を参照。
 
 ---
 
@@ -123,7 +123,7 @@ Datadog 公式ドキュメント「Getting Started with Datadog Sites」に載�
 - **FIPS Agent:** FIPS Agent は FIPS 140-2 検証済み暗号モジュール（Certificate #4282）を使う Datadog Agent の一種である。公式ドキュメントでは、US1/US3/US5/EU1/AP1/AP2/UK1 について「not supported for your selected Datadog site」と表示される。つまり FIPS Agent は政府向けサイト専用であり、対応製品（Metrics・Logs・APM traces・APM profiles・Processes など）には Agent 7.65.0 以降が必要である。[出典](https://docs.datadoghq.com/agent/configuration/fips-compliance/)
 - **ログアーカイブの注意:** Log Archives（ログアーカイブ）でログを顧客側のストレージへ送ると、そのログは Datadog GovCloud 環境の外に出る。公式ドキュメントは「GovCloud 環境の外に出たログについて Datadog は責任を負わない」と警告している。また S3 の FIPS エンドポイントを使う場合、ドット（`.`）を含むバケット名は使えない。[出典](https://docs.datadoghq.com/logs/log_configuration/archives/)
 - **AWS インテグレーション:** US1-FED / US2-FED では、Datadog は専用アカウントから商用 AWS アカウントの IAM ロールを引き受ける。GovCloud アカウントと商用アカウントでは、入力する Datadog 側のアカウント ID が異なる。US2-FED では AWS / Azure などのインテグレーションが org で有効になっていないことがあり、その場合は `support@ddog-gov.com` に例外申請する。[出典](https://docs.datadoghq.com/integrations/guide/aws-manual-setup/)
-- 認証・コンプライアンス全般（FedRAMP・ISO・SOC 2・HIPAA・PCI など）は [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md) を参照。
+- 認証・コンプライアンス全般（FedRAMP・ISO・SOC 2・HIPAA・PCI など）は [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md) を参照。
 
 ---
 
@@ -206,7 +206,7 @@ Datadog の各種エンドポイントは「`<サービス接頭辞>.<site パ�
 
 - Agent 7.67.0 以降は、Datadog サイトを FQDN（末尾にドットを付けた形、例: `trace.agent.datadoghq.com.`）に変換して DNS 問い合わせ回数を減らす。Agent 7.72.0 以降では `convert_dd_site_fqdn.enabled: false` または `DD_CONVERT_DD_SITE_FQDN_ENABLED=false` でこの動作を無効にできる。[出典](https://docs.datadoghq.com/agent/configuration/network/)
 - Agent のインストール用ドメイン（`install.datadoghq.com`、`yum.datadoghq.com`、`apt.datadoghq.com`、`keys.datadoghq.com`、`windows-agent.datadoghq.com`）はサイトに関係なく共通である。[出典](https://docs.datadoghq.com/agent/configuration/network/)
-- エンドポイントのより詳しい一覧とポート要件は [Agent 設定リファレンス](agent-configuration.md) と [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md) を参照。
+- エンドポイントのより詳しい一覧とポート要件は [Agent 設定リファレンス](agent-configuration.md) と [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md) を参照。
 
 ### API エンドポイント（全サイト）
 
@@ -294,7 +294,7 @@ Datadog へインターネットを経由せずに送信する方式は、サイ
 - **Azure Private Link（US3）:** `westus2` の Private Link Service に、Logs・API・Metrics・Containers・Process・Profiling・Traces・Remote Configuration・Database Monitoring のエンドポイントがある。[出典](https://docs.datadoghq.com/agent/guide/azure-private-link/)
 - 日本の AWS（東京リージョン）から AP1 を使う場合は、同一リージョンの PrivateLink を構成できる。Classmethod の記事は、インターネット経由（$0.09/GB）と PrivateLink 経由（$0.01/GB）で AWS 側のデータ転送料が約 89% 違うと試算している。この金額は記事執筆時点の AWS 料金に基づく。【第三者情報】[出典](https://dev.classmethod.jp/articles/how-to-choose-datadog-site/)（2025-07-07 公開）
 
-PrivateLink の設計（DNS、Transit Gateway、クロスリージョン）の詳細は [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md) を参照。
+PrivateLink の設計（DNS、Transit Gateway、クロスリージョン）の詳細は [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md) を参照。
 
 ---
 
@@ -419,7 +419,7 @@ Datadog は「サイトのセキュリティ要件によって、サイトごと
 | 異なるサイトへの子 org 作成 | 親 org と異なるサイトに子 org を作成できるかどうかは、公開情報では確認できず | — |
 | API キー・アプリケーションキー | org（＝サイト）単位。他サイトでは無効 | [出典](https://docs.datadoghq.com/account_management/api-app-keys/) |
 
-マルチ org 運用の設計は [大規模・マルチorg運用](../../04_応用編/large-scale-and-multi-org.md) を参照。
+マルチ org 運用の設計は [大規模・マルチorg運用](../../04_応用編/15-large-scale-and-multi-org.md) を参照。
 
 ---
 
@@ -434,7 +434,7 @@ Datadog は「サイトのセキュリティ要件によって、サイトごと
 | ダッシュボードやモニターなどの設定を別サイトへ移せるか | **移せる**。新しいサイトに org を作り、datadog-sync-cli で設定リソースをコピーする。 | 公式（GitHub）[出典](https://github.com/DataDog/datadog-sync-cli) |
 | 移行期間中に両方のサイトへ同時に送れるか | **送れる**。Agent の Dual Shipping（`additional_endpoints`）で新旧両方のサイトに送信できる。 | 公式 [出典](https://docs.datadoghq.com/agent/configuration/dual-shipping/) |
 
-> **AP1 選定時の注意:** 日本拠点の企業が US1 で始めて、後から「データを国内に置く必要がある」と分かった場合は、AP1 に新しい org を作って移行プロジェクトを実施することになる（過去データは引き継げない）。サイトは導入初期の要件定義で決めておくべき項目である。【経験則】判断基準は [要件定義とアーキテクチャ設計](../../03_導入編/requirements-and-architecture-design.md) を参照。
+> **AP1 選定時の注意:** 日本拠点の企業が US1 で始めて、後から「データを国内に置く必要がある」と分かった場合は、AP1 に新しい org を作って移行プロジェクトを実施することになる（過去データは引き継げない）。サイトは導入初期の要件定義で決めておくべき項目である。【経験則】判断基準は [要件定義とアーキテクチャ設計](../../03_導入編/09-requirements-and-architecture-design.md) を参照。
 
 ### サイト移行の進め方（新サイトに org を作り直す方式）
 
@@ -462,7 +462,7 @@ flowchart LR
 
 **事例（第三者）:** Wolt は Datadog の US サイトから EU サイトへの移行を公開している。DogMover と datadog-sync-cli で 500 件超のアラート、160 のダッシュボード、20 のインテグレーションを移し、Agent の Dual Shipping と Terraform を組み合わせた。教訓として、取り込んでいるデータとインテグレーションの事前棚卸し、両サイトでのダッシュボード比較、No Data アラートの設定を挙げている。過去データを移したかどうかは記事に書かれていない。【第三者情報】[出典](https://careers.wolt.com/blog/tech/datadog-migration-wolt)（2022-09-14 公開。2 年以上前の記事のため、ツールや仕様が現在と違う可能性がある）
 
-他社製品から Datadog への移行は [他製品からの移行](../../03_導入編/migration-from-other-tools.md) を参照。
+他社製品から Datadog への移行は [他製品からの移行](../../03_導入編/14-migration-from-other-tools.md) を参照。
 
 ---
 
@@ -491,7 +491,7 @@ Datadog Disaster Recovery（DDR）は、クラウドプロバイダーのリー�
 
 ## サイト選定の観点
 
-サイト選定の主な観点を下表にまとめる。詳しい判断プロセスは [要件定義とアーキテクチャ設計](../../03_導入編/requirements-and-architecture-design.md) を参照。
+サイト選定の主な観点を下表にまとめる。詳しい判断プロセスは [要件定義とアーキテクチャ設計](../../03_導入編/09-requirements-and-architecture-design.md) を参照。
 
 | 観点 | 確認内容 | 補足 |
 |---|---|---|
@@ -558,7 +558,7 @@ Datadog の公式料金ページには**リージョン（サイト）選択**�
 
 - 上表から読み取れる傾向として、**AP1 は US／EU1 のおおむね 1.25 倍、AP2 と UK1 はおおむね 1.2 倍**の単価設定である。US1-FED は、掲載されている SKU では AP1 と同じ単価（US の 1.25 倍）である。ただし APM Pro のように、US1-FED では提供されない SKU がある。Audit Trail（利用額の 2%〜）のように、サイトに関係なく同じ料金体系の SKU もある。
 - AP1 と US1 の Infrastructure Pro の差（年契約 $18.75 と $15）は、Classmethod の記事（2025-07-07 公開）でも指摘されている。
-- 料金の数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md) である。本ファイルの数値はサイト間の比較のために引用したもので、正本と食い違う場合は正本と公式料金ページを優先する。料金体系の全体像は [料金体系の全体像](../../03_導入編/pricing-overview.md)、契約形態の違いは [購入経路と契約](../../03_導入編/procurement-and-contracts.md) を参照。
+- 料金の数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md) である。本ファイルの数値はサイト間の比較のために引用したもので、正本と食い違う場合は正本と公式料金ページを優先する。料金体系の全体像は [料金体系の全体像](../../03_導入編/01-pricing-overview.md)、契約形態の違いは [購入経路と契約](../../03_導入編/06-procurement-and-contracts.md) を参照。
 - **Dual Shipping とコスト:** 移行や DR のために複数の org（サイト）へ送ると、それぞれの org で使用量が計上され、課金に影響する可能性がある。公式ドキュメントは影響について Datadog サポートに問い合わせるよう案内している。[出典](https://docs.datadoghq.com/agent/configuration/dual-shipping/)
 - **クラウド側の転送料金:** 監視対象とサイトのリージョンが離れていると、クラウド事業者側でインターネット向け転送料金がかかる。同じリージョンでプライベート接続を使えば削減できる場合がある（前述「プライベート接続」）。
 - 値引き率や Enterprise 契約の条件がサイトごとに違うかどうかは、公開情報では確認できず。

@@ -78,8 +78,8 @@ sources:
 | APM のライブラリ導入、Single Step Instrumentation | [APM インスツルメンテーション](../apm/apm-instrumentation.md) |
 | DogStatsD とカスタムメトリクス | [Custom Metrics と DogStatsD](custom-metrics-and-dogstatsd.md) |
 | AWS Lambda など Serverless | [Serverless Monitoring](../infrastructure/serverless.md) |
-| Kubernetes 監視の実務ノウハウ | [Kubernetes 監視の実践](../../04_応用編/kubernetes-monitoring-practices.md) |
-| Agent の展開設計（導入計画） | [Agent 展開設計](../../03_導入編/agent-rollout-design.md) |
+| Kubernetes 監視の実務ノウハウ | [Kubernetes 監視の実践](../../04_応用編/07-kubernetes-monitoring-practices.md) |
+| Agent の展開設計（導入計画） | [Agent 展開設計](../../03_導入編/10-agent-rollout-design.md) |
 
 ---
 
@@ -370,7 +370,7 @@ Datadog Operator は Kubernetes Operator パターンで Datadog Agent を展開
 | `DatadogCSIDriver` | `v1alpha1` | CSI Driver の管理（[14](#14-datadog-csi-driver)） | 有効（`datadogCSIDriver.enabled: true`） |
 | `DatadogBYOCCluster` / `DatadogObservabilityPipelinesWorker` | `v1alpha1` | Observability Pipelines Worker 等の管理（Operator v1.32.0 以降が必要） | 無効 |
 
-- Monitor / SLO / Dashboard を CRD で管理する方式（GitOps）は [Monitoring as Code](../../04_応用編/monitoring-as-code.md) と [Terraform と IaC](terraform-and-iac.md) も参照。
+- Monitor / SLO / Dashboard を CRD で管理する方式（GitOps）は [Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) と [Terraform と IaC](terraform-and-iac.md) も参照。
 - Operator chart の主な既定値: `replicaCount: 1`、`logLevel: "info"`、`metricsPort: 8383`、`installCRDs: true`、`remoteConfiguration.enabled: false`、`introspection.enabled: false`。[出典](https://github.com/DataDog/helm-charts/blob/main/charts/datadog-operator/values.yaml)
 
 ### 4.3 DatadogAgentProfile（DAP）
@@ -1400,9 +1400,9 @@ Agent 共通のトラブルシューティング（status / flare / debug モー
 
 ## 課金への影響
 
-コンテナ/Kubernetes 向け Agent 自体は無償で、課金は Agent が監視する対象（ホスト、コンテナ、Fargate タスクなど）と有効化した製品に応じて発生する。以下の金額は公式料金ページの定価（2026-11-02 時点、USD）。料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、課金計算の詳細は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+コンテナ/Kubernetes 向け Agent 自体は無償で、課金は Agent が監視する対象（ホスト、コンテナ、Fargate タスクなど）と有効化した製品に応じて発生する。以下の金額は公式料金ページの定価（2026-11-02 時点、USD）。料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、課金計算の詳細は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 
-> **サイト差異:** 以下の金額は US / EU1 の定価である。AP1（日本）は掲載値ベースで約 1.25 倍、AP2 は約 1.20 倍になる。AP1 の例は次のとおり。Infrastructure Pro は年契約 $18.75 / 月契約・オンデマンド $22.50。コンテナは前払い $1.25 / コンテナ・月、オンデマンド $0.0025 / コンテナ・時。Serverless Apps は $3.75 / $5 / $5.40。Kubernetes Autoscaling は $3.75 / $4.50 / $5.40。正確な値は [製品別料金表](../../03_導入編/pricing-by-product.md) の AP1 列を参照。
+> **サイト差異:** 以下の金額は US / EU1 の定価である。AP1（日本）は掲載値ベースで約 1.25 倍、AP2 は約 1.20 倍になる。AP1 の例は次のとおり。Infrastructure Pro は年契約 $18.75 / 月契約・オンデマンド $22.50。コンテナは前払い $1.25 / コンテナ・月、オンデマンド $0.0025 / コンテナ・時。Serverless Apps は $3.75 / $5 / $5.40。Kubernetes Autoscaling は $3.75 / $4.50 / $5.40。正確な値は [製品別料金表](../../03_導入編/02-pricing-by-product.md) の AP1 列を参照。
 
 ### コンテナ（Kubernetes / Docker / ECS on EC2）
 
@@ -1439,7 +1439,7 @@ Agent 共通のトラブルシューティング（status / flare / debug モー
 | Workload Protection / Cloud Security のコンテナ | コンテナ・時またはコンテナ・月 | [Workload Protection](../security/workload-protection.md)、[Cloud Security](../security/cloud-security.md) |
 
 - 収集対象の除外設定（[9.7](#97-コンテナの収集対象の制御)）でメトリクスやログの収集は減らせるが、`kubernetes.containers.running` など件数系メトリクスは常に全コンテナを数える。除外設定がコンテナ課金の計測に与える影響は公開情報では確認できず。
-- コスト最適化の実践は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+- コスト最適化の実践は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ---
 

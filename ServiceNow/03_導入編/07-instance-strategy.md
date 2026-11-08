@@ -14,6 +14,12 @@ sources:
   - https://www.servicenow.com/docs/r/australia/platform-administration/exploring-instance-clone.html
   - https://www.servicenow.com/docs/r/australia/platform-administration/clone-options.html
   - https://www.servicenow.com/docs/r/australia/platform-administration/clone-terminology.html
+  - https://www.servicenow.com/docs/r/australia/platform-administration/clone-states.html
+  - https://www.servicenow.com/docs/r/australia/platform-administration/cancel-clone-cac.html
+  - https://www.servicenow.com/docs/r/australia/application-development/releaseops/exploring-release-ops.html
+  - https://www.servicenow.com/docs/r/australia/platform-administration/Clone-UI.html
+  - https://www.servicenow.com/docs/r/australia/platform-administration/upgrade-management/um-clone-explore.html
+  - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-cloneadminconsole-release-notes.html
   - https://www.servicenow.com/docs/r/australia/platform-administration/clone-duration-optimization.html
   - https://www.servicenow.com/docs/r/australia/platform-administration/clone-exclusions-guidelines.html
   - https://www.servicenow.com/docs/r/australia/platform-administration/clone-update-sets-example.html
@@ -24,14 +30,31 @@ sources:
   - https://www.servicenow.com/docs/r/australia/application-development/developer-sandboxes/exploring-sandboxes.html
   - https://www.servicenow.com/docs/r/australia/application-development/developer-sandboxes/dev-sbx-installing.html
   - https://www.servicenow.com/docs/r/australia/application-development/developer-sandboxes/dev-sbx-supported-features.html
+  - https://www.servicenow.com/docs/r/australia/release-notes/developer-sandboxes-rn.html
   - https://www.servicenow.com/docs/r/release-notes/developer-sandboxes-rn-static.html
+  - https://www.servicenow.com/docs/r/zurich/delta-yokohama-zurich/zurich-yokohama-developersandboxes-release-notes.html
   - https://www.servicenow.com/docs/r/australia/servicenow-platform/instance-data-replication-idr/exploring-instance-data-replication.html
   - https://www.servicenow.com/docs/r/australia/servicenow-platform/instance-data-replication-idr/request-instance-data-replication.html
   - https://www.servicenow.com/docs/r/australia/servicenow-platform/instance-data-replication-idr/prepare-instance-data-replication.html
   - https://www.servicenow.com/docs/r/australia/servicenow-platform/instance-data-replication-idr/instance-data-replication-roles.html
+  - https://www.servicenow.com/docs/r/australia/servicenow-platform/instance-data-replication-idr/bidirectional-replication.html
+  - https://www.servicenow.com/docs/r/australia/servicenow-platform/instance-data-replication-idr/scheduled-replication.html
+  - https://www.servicenow.com/docs/r/australia/servicenow-platform/instance-data-replication-idr/data-privacy-consumers-idr.html
+  - https://www.servicenow.com/docs/r/australia/release-notes/instance-data-replication-rn.html
   - https://www.servicenow.com/docs/r/australia/impact/accelerator-and-initiative-list/multi-instance-topologies.html
+  - https://www.servicenow.com/products/entitlements.html
   - https://www.servicenow.com/community/architect-articles/multi-instance-architecture-yes-no-when/ta-p/2330584
   - https://www.servicenow.com/community/architect-articles/consolidating-production-instances/ta-p/2330477
+  - https://www.servicenow.com/community/incident-management-forum/differences-between-non-production-and-sub-production-instances/m-p/2413712
+  - https://www.servicenow.com/community/upgrades-and-patching-forum/how-to-request-a-new-sub-production-instance-for-the-production/m-p/312643
+  - https://www.servicenow.com/community/itsm-articles/instance-rename-policy-for-production-and-sub-production/ta-p/2315873
+  - https://www.servicenow.com/community/servicenow-ai-platform-blog/renaming-a-servicenow-instance-considerations-for-a-change-in/ba-p/3289486
+  - https://www.servicenow.com/community/in-other-news/retire-an-instance-service-catalog-on-now-support-hi-has-been/ba-p/2291166
+  - https://www.servicenow.com/community/now-platform-articles/instance-data-replication-and-its-configuration-plugins-version/ta-p/2323579
+  - https://subscription.packtpub.com/book/cloud-and-networking/9781803245294/8/ch08lvl1sec41/designing-your-servicenow-landscape
+  - https://itsmnegotiations.pages.dev/blog/servicenow-sandbox-and-non-production-instance-costs
+  - https://redresscompliance.com/servicenow-multi-instance-guide.html
+  - https://www.synechron.com/white-papers/managing-a-multi-instance-service-now-strategy
 ---
 
 # インスタンス戦略と環境（Instance Strategy and Environments）
@@ -66,7 +89,7 @@ ServiceNow の契約では、本番インスタンス（Production instance）�
 | Production（本番） | 実業務の運用。エンドユーザー・フルフィラーが日常的に利用 | 契約上のライセンス（ユーザー数・パッケージ）が適用される本体。Clone の Target にしない運用が推奨（4.6 節） |
 | Non-production / Sub-production（非本番） | 開発・テスト・検証・トレーニング | 本番業務に使ってはならない。Community 回答では「本番が持つ Advanced High Availability（AHA）構成のフル版を含まない」とされる【第三者情報】 |
 | Personal Developer Instance（PDI） | 個人学習・検証（developer.servicenow.com で無償取得） | 契約外。顧客データを置かない。制御されたベースライン構成を持たない（Developer Sandboxes との違い）[出典](https://www.servicenow.com/docs/r/australia/application-development/developer-sandboxes/exploring-sandboxes.html) |
-| Developer Sandbox | 1 台の非本番インスタンス上に作る分離された開発環境（5.5 節） | 有償オプション（Brazil で非本番 1 台あたり 4 個の無償枠が追加） |
+| Developer Sandbox | 1 台の非本番インスタンス上に作る分離された開発環境（5.5 節） | 有償オプション（Australia 時点。Brazil の変更は 5.5 節参照） |
 
 > 何台の非本番が含まれるかは **契約（Order Form）ごとに異なり、公開情報では一律の数は確認できず**。書籍では「本番 1＋非本番 2 の 3 環境が一般的」「注文規模により合計 2〜5 台」と説明されている。[出典（Packt: ServiceNow for Architects and Project Leaders, Ch.6）](https://subscription.packtpub.com/book/cloud-and-networking/9781803245294/8/ch08lvl1sec41/designing-your-servicenow-landscape)【第三者情報】
 
@@ -171,7 +194,7 @@ flowchart LR
 
 ### 3.3 インスタンスの廃止（Retire）
 
-不要になったインスタンスは Now Support の Service Catalog から廃止を申請できる（2020 年の公式 Community 告知）。[出典](https://www.servicenow.com/community/in-other-news/retire-an-instance-service-catalog-on-now-support-hi-has-been/ba-p/2291166)
+不要になったインスタンスは Now Support の Service Catalog から廃止を申請できる。以下は 2020 年の ServiceNow 社員（ServiceNow Employee バッジ）による Community 投稿に基づく情報である。手順の詳細は同投稿が案内する KB0827597 を、現行手順は Now Support で確認すること。[出典](https://www.servicenow.com/community/in-other-news/retire-an-instance-service-catalog-on-now-support-hi-has-been/ba-p/2291166)
 
 - 経路：Now Support → Service Catalog → Instance Management → `Retire an Instance`。Customer Administrator / Partner Administrator のみ利用可。
 - 日時を指定して申請すると Change request が作成され、計画開始前であればキャンセル・再スケジュールが可能。
@@ -191,7 +214,7 @@ flowchart LR
 | データ源 | Source の直近の日次バックアップ（最大 36 時間前）。On-demand backup も選択可 |
 | 開始 | 予定日時になってから準備（バックアップ選択を含む）を開始 |
 | バージョン | 異なるファミリー間でも可。**Target は Source のバージョンになる**（例：Zurich→Yokohama の Clone で Target は Zurich） |
-| UI | Australia から `Clone Admin Console` が既定。旧 `clone_instance.do` は Clone Admin Console へリダイレクト。Australia 以前の履歴は Clone History（`clone_instance`）テーブルで参照 |
+| UI | Australia では旧 `clone_instance.do` にアクセスすると `Clone Admin Console` へリダイレクトされる（実質的に Clone Admin Console に一本化）。Australia 以前の履歴は Clone History（`clone_instance`）テーブルで参照 |
 | ロール | Source：`clone_admin`（申請・キャンセル・スケジュール・Clone Profile 管理）。Target：`oauth_admin`（一回限りの OAuth 設定）。`soap`（Basic 認証時） |
 
 [出典](https://www.servicenow.com/docs/r/australia/platform-administration/exploring-instance-clone.html)
@@ -229,11 +252,11 @@ Clone Admin Console の申請オプション `Clone frequency` では、`None`�
 
 | フェーズ | 作業 | 根拠 |
 |---|---|---|
-| 計画 | Clone 日程を開発チーム・テストチーム・連携先に周知。Clone Admin Console の予約カレンダーで ServiceNow のメンテナンス時間帯との衝突を避ける | [出典](https://www.servicenow.com/docs/r/xanadu/platform-administration/Clone-UI.html) |
+| 計画 | Clone 日程を開発チーム・テストチーム・連携先に周知。Clone Admin Console の予約カレンダーで ServiceNow のメンテナンス時間帯との衝突を避ける | [出典](https://www.servicenow.com/docs/r/australia/platform-administration/Clone-UI.html) |
 | 事前 | Target の In-progress Update Set をエクスポート、またはバッチ化して Source に Retrieve（Commit しない）し日次バックアップに含める（On-demand backup でも可） | [出典](https://www.servicenow.com/docs/r/australia/platform-administration/clone-update-sets-example.html) |
 | 事前 | Clone オプション `No. of days of In-progress Global Update Sets to be preserved` は直近 90 日の **グローバル** In-progress Update Set のみ保持し、スコープ付きは保持しない | [出典](https://www.servicenow.com/docs/r/australia/platform-administration/clone-options.html) |
 | 事前 | 開発中のスコープアプリは Source Control へコミットまたは Publish して退避 | [アップデートセットとクローン 11.3 節](../02_リファレンス/platform/update-sets-cloning.md) |
-| 事前 | Developer Sandboxes の作業は手動で保存（Clone 後に自動再作成されない） | [出典](https://www.servicenow.com/docs/r/australia/application-development/developer-sandboxes/dev-sbx-supported-features.html) |
+| 事前 | Developer Sandboxes の作業は手動で保存（公式 supported-features ページは「Clone 後に自動再作成されない」としている。Australia の Dev Sandboxes CC プラグインとの関係は 5.5 節） | [出典](https://www.servicenow.com/docs/r/australia/application-development/developer-sandboxes/dev-sbx-supported-features.html) |
 | 事前 | Preserver・Exclusion・Cleanup script を Source 側で見直す（Preserver は Source で定義） | 4.5 節 |
 | 事後 | メール無効化、スケジュールジョブ、MID Server、連携先 URL・資格情報、SSO、ユーザー/ロールを確認 | 【経験則】 |
 
@@ -270,7 +293,7 @@ Clone 設計の中心は「何を本番から持ってこないか（Exclusion�
 本番の個人情報を非本番に持ち込まないことは公式のセキュリティ要件でもある（「非本番のテストデータにマスキングされていない本番 PII が含まれないことを確認し、Clone 時にデータマスキングまたは匿名化を使う」）。[出典](https://www.servicenow.com/docs/r/australia/application-development/moving-applications-between-instances.html)
 
 - Data Privacy プラグイン（`sn_dp_store_app`）を Source で有効化すると PostClone script がインストールされ、Clone 後に Target 上で匿名化ポリシーに基づく Data privacy job が実行される。利用者は匿名化後のデータしか見られない。[出典](https://www.servicenow.com/docs/r/australia/platform-security/data-privacy-classic/dp-clone.html)
-- 設定：`data_privacy_admin` に昇格 → `System Security > Data Privacy > Anonymization` → `Create new policy` → データクラスを選び `Activate the policy during cloning` を選択 → ポリシー順序を指定 → 公開 → 匿名化ジョブをスケジュール → Data privacy admin として Clone を申請。必要ロール：`data_privacy_clone_processor`、`data_privacy_admin`、`admin`。Target 側では `dp_federated_job` と `dp_job` で進捗を監視する。[出典](https://www.servicenow.com/docs/r/australia/platform-security/data-privacy-classic/dps-configure-data-anonymization-clone.html)
+- 設定：`data_privacy_admin` に昇格 → `System Security > Data Privacy > Anonymization` → `Create new policy` → データクラスを選び `Activate the policy during cloning` を選択 → ポリシー順序を指定 → 公開 → Data privacy 構成をバックアップ（Back up data privacy configurations）→ 匿名化ジョブをスケジュール → Data privacy admin として Clone を申請。必要ロール：`data_privacy_clone_processor`、`data_privacy_admin`、`admin`。Target 側では `dp_federated_job` と `dp_job` で進捗を監視する。[出典](https://www.servicenow.com/docs/r/australia/platform-security/data-privacy-classic/dps-configure-data-anonymization-clone.html)
 - Data privacy のテーブル（`dp_*`）は既定で Clone Data Preservers に含まれ、Exclude に追加しようとすると警告が出る。**セルフホスト（オンプレミス）インスタンスでは Data privacy clone は利用できない**。[出典](https://www.servicenow.com/docs/r/australia/platform-security/data-privacy-classic/dp-clone.html)
 - Data Privacy のライセンス要否は公開情報では確認できず（契約・エンタイトルメントで確認）。セキュリティ全般は [セキュリティとコンプライアンス](10-security-compliance.md) を参照。
 
@@ -281,8 +304,8 @@ Clone 設計の中心は「何を本番から持ってこないか（Exclusion�
 
 ### 4.7 失敗時の戻し方
 
-- **キャンセル**：Node Repoint ステージまでキャンセル可能で、Target は Clone 前の状態のまま残る。
-- **ロールバック**：直近の Clone のみ、Clone 後 **7 日以内**（シャード化インスタンスは 2 日以内）。`clone_admin` で Clone Admin Console から実行し、State は `Rollback requested` → `Rolled back`／`Rollback failure`。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/roll-back-a-cac-clone.html)
+- **キャンセル**：Node Repoint ステージまでキャンセル可能で、Target は Clone 前の状態のまま残る（State は `Canceled`）。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/cancel-clone-cac.html)
+- **ロールバック**：直近の Clone のみ、Clone 後 **7 日以内**（シャード化インスタンスは 2 日以内）。`clone_admin` で Clone Admin Console から実行する。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/roll-back-a-cac-clone.html) State は `Rollback requested` → `Rolling back` → `Rolled back`／`Rollback failure` と遷移する。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/clone-states.html)
 - 実務上は「ロールバックがあるから大丈夫」ではなく、WIP 退避（4.4 節）を前提に計画する。【経験則】
 
 > **Brazil での変更:** Clone Admin Console の OAuth 2.0 Target 認証が強化（一回限りの Target 登録、申請ごとのトークン自動生成と有効期限）され、Instance Overview がタブ化された。詳細は [アップデートセットとクローン 14 章](../02_リファレンス/platform/update-sets-cloning.md)。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-cloneadminconsole-release-notes.html)
@@ -306,7 +329,7 @@ ServiceNow 公式（Australia）は、デプロイの管理方式として **Rel
 
 - Update Set 方式はスコープの混入（scope contamination）や依存関係の欠落といった問題が起きやすい、と公式自身が注意している。[出典](https://www.servicenow.com/docs/r/australia/application-development/management-options.html)
 - カスタムスコープアプリについては **Source Control（Git）＋ Application Repository が推奨**、Update Set も承認された移送手段とされる。[出典](https://www.servicenow.com/docs/r/australia/application-development/get-started-deployment.html)
-- ReleaseOps は規制環境・オンプレミスでは非サポート。詳細（Release、Deployment request、Playbook、ロール）は [アップデートセットとクローン 12 章](../02_リファレンス/platform/update-sets-cloning.md)、アプリ開発全般は [アプリケーション開発](../02_リファレンス/platform/app-development.md) を参照。
+- ReleaseOps は規制環境・オンプレミスでは非サポート。[出典](https://www.servicenow.com/docs/r/australia/application-development/releaseops/exploring-release-ops.html) 詳細（Release、Deployment request、Playbook、ロール）は [アップデートセットとクローン 12 章](../02_リファレンス/platform/update-sets-cloning.md)、アプリ開発全般は [アプリケーション開発](../02_リファレンス/platform/app-development.md) を参照。
 
 ### 5.2 方式選定の考え方
 
@@ -369,14 +392,15 @@ flowchart TD
 | 項目 | 内容 | 出典 |
 |---|---|---|
 | 提供形態 | 有償。10 個単位のパックで販売、1 インスタンスあたり最低 1 パック。各 Sandbox は専用の app node で動くため 10 個購入で 10 ノード追加 | [出典](https://www.servicenow.com/docs/r/australia/application-development/developer-sandboxes/dev-sbx-installing.html) |
-| 対象インスタンス | 非本番インスタンス（ADCv3 が前提。未対応なら設定時にアップグレード）。プラグインは本番または Clone の Source にも導入し、Clone 時にエンタイトルメントを維持する | 同上 |
+| 対象インスタンス | **Yokohama 以降**で稼働する非本番インスタンス（ADCv3 が前提。未対応なら設定時にアップグレード）。プラグインは本番または Clone の Source にも導入し、Clone 時にエンタイトルメントを維持する | 同上 |
 | 導入申請 | 調達完了後、Now Support にケースを起票（インスタンス名とライセンス数を指定）。Sandbox はインスタンス固有で移動不可 | 同上 |
 | 上限 | 1 インスタンスあたり最大 30 Sandbox | [出典](https://www.servicenow.com/docs/r/australia/application-development/developer-sandboxes/dev-sbx-supported-features.html) |
 | SSO | ベースインスタンスで `glide.sso.acr.enable` = false、`glide.authenticate.multisso.enabled` = true を設定。Vanity URL でも SSO 可 | [出典](https://www.servicenow.com/docs/r/australia/application-development/developer-sandboxes/dev-sbx-installing.html) |
-| 対応機能 | Update Set、レガシー Source Control（Sandbox ごとに Git ブランチ）、ServiceNow IDE、Workflow Studio、アプリ/プラグインの個別インストール、Build Agent。受信連携は Sandbox 固有 URL に合わせて手動変更が必要 | [出典](https://www.servicenow.com/docs/r/australia/application-development/developer-sandboxes/dev-sbx-supported-features.html) |
+| 対応機能 | Update Set、レガシー Source Control（Sandbox ごとに Git ブランチ）、ServiceNow IDE、Workflow Studio、アプリ/プラグインの個別インストール。受信連携は Sandbox 固有 URL に合わせて手動変更が必要。Build Agent は Australia リリースノートで対応が告知されている | [出典](https://www.servicenow.com/docs/r/australia/application-development/developer-sandboxes/dev-sbx-supported-features.html)、Build Agent：[出典](https://www.servicenow.com/docs/r/australia/release-notes/developer-sandboxes-rn.html) |
 | アップグレード時 | Update Set を自動でベースにバックアップし、Sandbox を基本状態で再作成（作業は復元が必要） | 同上 |
-| Clone 時 | **Sandbox は自動再作成されない**。事前に作業を保存し、Clone 後に手動で戻す | 同上 |
-| 非対応 | セルフホストは既定で非対応（独自のネットワーク/ルーティング構成が必要）。UI/Worker ノード構成のインスタンスは非対応 | 同上 |
+| Clone 時 | supported-features ページは「**Sandbox は Clone 後に自動再作成されない**。再作成できるよう Clone 前に作業を保存する」としている。一方、Australia では Clone Preserver 用の新プラグイン **Dev Sandboxes CC（`com.glide.dsb.cc`）** が追加され、Clone 時に Sandbox の設定（settings）が保持されるとリリースノートは説明している。両ページの関係（何が保持され、何が保持されないか）は公式には整理されていないため、事前保存を前提にしつつ、実際の保持範囲を非本番で検証すること | 同上、[出典（Australia RN）](https://www.servicenow.com/docs/r/australia/release-notes/developer-sandboxes-rn.html) |
+| セルフホスト／非対応 | セルフホスト（オンプレミス）については公式内で表現が揺れている。installing ページは「既定で非対応（独自のネットワーク/ルーティング構成で対応可能）」、supported-features ページは「サポートされる。ただしネットワーク構成・必要ノードの追加・Sandbox の有効化は顧客責任で、License management はオンプレミスでは非対応」としている。UI/Worker ノード構成のインスタンスは非対応 | [出典（installing）](https://www.servicenow.com/docs/r/australia/application-development/developer-sandboxes/dev-sbx-installing.html)、[出典（supported-features）](https://www.servicenow.com/docs/r/australia/application-development/developer-sandboxes/dev-sbx-supported-features.html) |
+| 導入リリース | 公開情報では確認できず。前提は Yokohama 以降で、Zurich で Sandbox Management ダッシュボードや Sandbox の割当・廃止などの機能が追加されている | [出典](https://www.servicenow.com/docs/r/australia/application-development/developer-sandboxes/dev-sbx-installing.html)、[出典（Yokohama→Zurich 統合 RN）](https://www.servicenow.com/docs/r/zurich/delta-yokohama-zurich/zurich-yokohama-developersandboxes-release-notes.html) |
 | 利用者 | Delegated developer（Sandbox を申請）、Admin（割当・廃止、変更を共有インスタンスへ Clone）、Sandbox manager（admin なしでライフサイクル管理）、Sandbox user | [出典](https://www.servicenow.com/docs/r/australia/application-development/developer-sandboxes/exploring-sandboxes.html) |
 
 **標準ワークフロー（公式）**：Sandbox manager / admin が Sandbox を割り当て → 開発者が分離環境で変更・テスト → 共有の上流インスタンス（TEST/QA など）へ Source Control（推奨）または Update Set でプッシュ → admin が TEST/QA からベースインスタンスへ Clone し、次の Sandbox のベースラインを更新する。[出典](https://www.servicenow.com/docs/r/australia/application-development/developer-sandboxes/exploring-sandboxes.html)
@@ -388,11 +412,11 @@ flowchart TD
 - 画面説明：上部に「Sandbox Management」の見出しと説明文。「Instance overview」セクションに 3 枚のタイル（Total sandboxes＝3、Available sandboxes＝0（赤字）、Allocated sandboxes＝3）と右上の `Allocate sandbox` ボタン。下の「Sandboxes」一覧には Sandbox 名、Status（Running）、Data utilization（例：3.1 GB）、Owner、Last accessed、Allocated on の列が並ぶ。空き枠の有無とデータ使用量を一目で確認できる。
 - 出典：ServiceNow Docs「Exploring Developer Sandboxes」（Australia） https://www.servicenow.com/docs/r/australia/application-development/developer-sandboxes/exploring-sandboxes.html （取得日：2026-11-03）。画像の著作権は ServiceNow, Inc. に帰属。
 
-> **Australia での変更:** Build Agent が Sandbox で利用可能に、アップグレード時の Sandbox 再作成と Update Set 自動バックアップ、Sandbox を含むインスタンスの Clone 時の保持を支援する新プラグイン、共有テーブルにスキーマ変更（列追加等）を行うとそのテーブルが当該 Sandbox で分離テーブルになる変更（2026-04）など。[出典](https://www.servicenow.com/docs/r/australia/release-notes/developer-sandboxes-rn.html)
+> **Australia での変更:** Build Agent が Sandbox で利用可能に、アップグレード時の Sandbox 再作成と Update Set 自動バックアップ、Clone Preserver 用の新プラグイン Dev Sandboxes CC（`com.glide.dsb.cc`。Clone 時に Sandbox の設定を保持）、共有テーブルにスキーマ変更（列追加等）を行うとそのテーブルが当該 Sandbox で分離テーブルになる変更（2026-04）など。[出典](https://www.servicenow.com/docs/r/australia/release-notes/developer-sandboxes-rn.html)
 
-> **Brazil での変更:** Developer Sandbox License Management（`com.glide.dsb.licensing`）プラグインにより、AEMC の Developer Sandbox Management タブから購入済みパックを非本番インスタンスへ**サポートケースなしで自己割当**できるようになった（1 パック 10 個、1 非本番インスタンスに最大 3 パック）。新テーブル `sys_dsb_instance_allocation`、新ロール `sn_dsb_commons.sandbox_license_admin` が追加。さらに**すべての非本番インスタンスに 4 個の無償 Sandbox** が付与され、購入分と合わせて 1 インスタンス最大 34 個となる（2026-10 リリース）。[出典](https://www.servicenow.com/docs/r/release-notes/developer-sandboxes-rn-static.html)
+> **Brazil での変更:** Developer Sandbox License Management（`com.glide.dsb.licensing`）プラグインにより、AEMC の Developer Sandbox Management タブから購入済みパックを非本番インスタンスへ**サポートケースなしで自己割当**できるようになった（1 パック 10 個、1 非本番インスタンスに最大 3 パック）。このプラグインは**ライセンス割当に使う本番インスタンス（controller instance）1 台にのみ導入**し、そこから各非本番インスタンスへパックを割り当てる（非本番側に導入するものではない）。新テーブル `sys_dsb_instance_allocation`、新ロール `sn_dsb_commons.sandbox_license_admin` が追加。さらに**すべての非本番インスタンスに 4 個の無償 Sandbox** が付与され、購入分と合わせて 1 インスタンス最大 34 個となる（2026-10 リリース）。[出典](https://www.servicenow.com/docs/r/release-notes/developer-sandboxes-rn-static.html)
 
-**環境戦略への影響**【推定】：並行開発のために DEV インスタンスを追加購入する代わりに、1 台の DEV 上で Sandbox を使う選択肢ができた。ただし Clone 時に Sandbox が消える点から、DEV の Clone 計画（4.3 節）と Sandbox 利用ルールをセットで設計する必要がある。
+**環境戦略への影響**【推定】：並行開発のために DEV インスタンスを追加購入する代わりに、1 台の DEV 上で Sandbox を使う選択肢ができた。ただし Clone 時に Sandbox が自動再作成されない（Australia の Dev Sandboxes CC で保持される範囲は要検証）点から、DEV の Clone 計画（4.3 節）と Sandbox 利用ルールをセットで設計する必要がある。
 
 ---
 
@@ -409,13 +433,13 @@ flowchart TD
 - 画面説明：左の水色枠「Producer instance」内に「Replication set 1」があり、その中に「Table 1」「Table 2」（Specific fields selected to replicate＝複製するフィールドを選択）がある。中央の「IDR」枠には「Transform (optional)」と「Adaptor (optional)」が縦に並び、矢印は右の紫色枠「Consumer instance 1」「Consumer instance 2」に分岐する。各 Consumer にも「Replication set 1」と「Table 1」「Table 2」（Specific fields mapped to producer table fields＝プロデューサーのフィールドにマッピング）がある。テーブル全体ではなくフィールド単位で選び、変換・アダプタを任意で挟んで複数 Consumer に配る仕組みであることが分かる。
 - 出典：ServiceNow Docs「Exploring Instance Data Replication」（Australia）Figure 1 https://www.servicenow.com/docs/r/australia/servicenow-platform/instance-data-replication-idr/exploring-instance-data-replication.html （取得日：2026-11-03）。画像の著作権は ServiceNow, Inc. に帰属。
 
-| IDR を使う場面（公式） | IDR を使わない場面（公式） |
+| 主な機能（公式） | IDR を避けるべき使い方（公式） |
 |---|---|
-| インスタンス間のデータ整合の維持 | **インスタンスの Clone（→ Instance Clone を使う）** |
-| 同一企業の組織間、または別会社間でのデータ同期 | 大容量添付の定常的な複製 |
+| 1 つ以上の他インスタンスへのデータの自動複製 | **インスタンスの Clone（→ Instance Clone を使う）** |
+| 同一企業の組織間、または別会社間でのデータ同期 | 大容量添付の定常的な複製（10 MB を超える添付が定常的にある場合は、複製遅延（lag time）が想定を超えないよう監視する） |
 | クラッシュ時に送信中だったデータの回復 | CMDB テーブルの継続（Continuous）複製（→ Scheduled か条件で件数を絞る） |
-| ローカライズ（通貨・タイムゾーン変換） | 暗号化フィールド・パスワードフィールドの複製 |
-| 複製後の通知・検証（Business Rule） | アーカイブ済みレコードの同期 |
+
+暗号化フィールドの複製不可、アーカイブの非同期などの制約は 6.5 節の表を参照。
 
 [出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/instance-data-replication-idr/exploring-instance-data-replication.html)。また Community 記事は「構成・設定（メタデータ）は複製されない」「連携・データエクスポート用途には向かない」と整理している。[出典](https://www.servicenow.com/community/now-platform-articles/instance-data-replication-and-its-configuration-plugins-version/ta-p/2323579)【第三者情報】
 
@@ -426,7 +450,7 @@ flowchart TD
 | 項目 | 内容 |
 |---|---|
 | ライセンス | **別サブスクリプション**が必要。アカウント担当経由で購入し、ServiceNow 担当者がプラグインを有効化（本番・非本番とも、通常数日以内）。非本番での無償評価は `All > System Applications > All Available Applications > All` → `Request plugin`（Now Support の Activate Plugin フォーム）から申請可能 |
-| プラグイン | `com.glide.idr`。依存：`com.snc.db.data_replicate`、`com.glide.transform`、`com.glide.kmf`（New York 以降でサポート） |
+| プラグイン | `com.glide.idr`。依存：`com.snc.db.data_replicate`、`com.glide.transform`、`com.glide.kmf`（IDR 購入時に ServiceNow が有効化）。IDR は New York 以降でサポート |
 | 稼働環境 | **ServiceNow データセンターのみ**（オンプレミス／セルフホストは非サポート） |
 | ロール | `idr_admin`（全 IDR テーブルへの管理アクセス）、`idr_read`（参照）、`idr_rest`（診断リクエストに必要。前 2 者に含まれる）。既定でグループへの割当なし |
 
@@ -527,6 +551,7 @@ ServiceNow 社員（アーキテクト）による Community 記事は、複数�
 
 | コスト要因 | 内容 |
 |---|---|
+| 本番インスタンス | 追加の本番環境は「Additional Production Environment」（製品コード例：`PROD00827`、`PROD10629`）という独立したエンタイトルメント製品として購入が必要（価格は非公開）[出典](https://www.servicenow.com/products/entitlements.html) |
 | ライセンス | フルフィラーが複数インスタンスに入るとアカウント（＝ライセンス）が重複する（7.1 節ルール 3） |
 | 非本番 | 本番ごとに DEV/TEST が必要になり、環境数が掛け算で増える【経験則】 |
 | 連携 | インスタンス間連携（IDR は別サブスクリプション）、周辺ツールの接続先が増える |
@@ -597,8 +622,10 @@ ServiceNow 公式ドキュメント（Australia）— アプリケーション�
 - https://www.servicenow.com/docs/r/australia/application-development/management-options.html
 - https://www.servicenow.com/docs/r/australia/application-development/standard-operating-procedure-for-deployment.html
 - https://www.servicenow.com/docs/r/australia/application-development/get-started-deployment.html
+- https://www.servicenow.com/docs/r/australia/application-development/releaseops/exploring-release-ops.html
 
 ServiceNow 公式ドキュメント（Australia）— Developer Sandboxes
+- https://www.servicenow.com/docs/r/zurich/delta-yokohama-zurich/zurich-yokohama-developersandboxes-release-notes.html （Yokohama→Zurich 統合 RN）
 - https://www.servicenow.com/docs/r/australia/application-development/developer-sandboxes/exploring-sandboxes.html
 - https://www.servicenow.com/docs/r/australia/application-development/developer-sandboxes/dev-sbx-installing.html
 - https://www.servicenow.com/docs/r/australia/application-development/developer-sandboxes/dev-sbx-supported-features.html
@@ -613,8 +640,10 @@ ServiceNow 公式ドキュメント — Instance Clone
 - https://www.servicenow.com/docs/r/australia/platform-administration/clone-exclusions-guidelines.html
 - https://www.servicenow.com/docs/r/australia/platform-administration/clone-update-sets-example.html
 - https://www.servicenow.com/docs/r/australia/platform-administration/roll-back-a-cac-clone.html
+- https://www.servicenow.com/docs/r/australia/platform-administration/cancel-clone-cac.html
+- https://www.servicenow.com/docs/r/australia/platform-administration/clone-states.html
 - https://www.servicenow.com/docs/r/australia/platform-administration/upgrade-management/um-clone-explore.html
-- https://www.servicenow.com/docs/r/xanadu/platform-administration/Clone-UI.html
+- https://www.servicenow.com/docs/r/australia/platform-administration/Clone-UI.html
 - https://www.servicenow.com/docs/r/SbrhqYG7UKQCk7uYwvgVBA/UL3TFHge3FAe6fcxyD_KVQ （Request a clone、Xanadu）
 - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-cloneadminconsole-release-notes.html
 - https://www.servicenow.com/docs/r/platform-security/instance-security-hardening-settings/sc-disallow-target-cloning.html
@@ -638,7 +667,7 @@ ServiceNow 公式ドキュメント（Australia）— Impact
 - https://www.servicenow.com/docs/r/australia/impact/accelerator-and-initiative-list/multi-instance-topologies.html
 
 ServiceNow 公式サイト
-- https://www.servicenow.com/products/entitlements.html （Additional Non-Production Instance。検索結果抜粋で確認）
+- https://www.servicenow.com/products/entitlements.html （Additional Non-Production Instance／Additional Production Environment。検索結果抜粋で確認）
 
 ServiceNow Community
 - https://www.servicenow.com/community/architect-articles/multi-instance-architecture-yes-no-when/ta-p/2330584

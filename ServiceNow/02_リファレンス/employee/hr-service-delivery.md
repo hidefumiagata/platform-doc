@@ -3,7 +3,7 @@ title: HR Service Delivery（HRサービスデリバリー）
 category: reference
 domain: employee
 release: Australia
-last_verified: 2026-11-03
+last_verified: 2026-11-02
 summary: ServiceNow HR Service Delivery（HRSD）の構成要素である HR Case / HR Profile、COE（Center of Excellence）、HR Service、Lifecycle Events（オンボーディング/オフボーディング）、Employee Journey Management（Journey designer / Journey Accelerator）、Employee Document Management、Agent Workspace for HR Case Management、HR データ保護のセキュリティモデル（スコープロール、COE Security Policy、Client roles）を Australia リリース基準で網羅したリファレンス。
 keywords: [HR Service Delivery, HRSD, 人事サービス, HR case, HRケース, sn_hr_core_case, sn_hr_le_case, HR profile, sn_hr_core_profile, COE, Center of Excellence, sn_hr_core_coe, HR service, sn_hr_core_service, fulfillment type, HR criteria, client roles, hrsm, hrsp, Lifecycle Events, ライフサイクルイベント, onboarding, オンボーディング, offboarding, オフボーディング, activity set, sn_hr_le_activity_set, Employee Journey Management, EJM, Journey designer, sn_jny, Journey Accelerator, sn_ja, Employee Document Management, EDM, sn_hr_ef, retention policy, legal hold, purge, Agent Workspace for HR Case Management, sn_hr_agent_ws, COE Security Policy, sn_hr_core_coe_security_policy, COE Security Diagnostics, sn_hr_core.admin, sn_hr_core.basic, sn_hr_core.case_writer, secure_info_reader, Otto for HRSD, Now Assist for HRSD, Recommended Actions for HRSD, com.sn_hr_core, com.sn_hr_lifecycle_events, com.sn_hr_lifecycle_ent, com.sn_employee_document_management]
 sources:
@@ -23,6 +23,9 @@ sources:
   - https://www.servicenow.com/docs/r/employee-service-management/agent-workspace-for-hr-case-management/agent-ws-hr-case-mgmt-landing-page.html
   - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-agentworkspaceforhrcasemanagement-release-notes.html
   - https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-caseandknowledgemanagement-release-notes.html
+  - https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/fb7tGYg5G_SE~_0omQvyQQ
+  - https://www.servicenow.com/docs/r/australia/employee-service-management/hr-service-delivery/components-installed-with-case-and-knowledge-management.html
+  - https://www.servicenow.com/docs/r/etYGEBUVr6RQYKLnfpRuhw/dVBgTlYShbEwZbmf3XhZzg
 ---
 
 # HR Service Delivery（HRサービスデリバリー）
@@ -82,7 +85,7 @@ HR Service Delivery は単一のプラグインではなく、複数のアプリ
 |---|---|---|
 | Human Resources Scoped App: Core | `com.sn_hr_core` | Case and Knowledge Management の本体。スコープ `sn_hr_core` [出典](https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/uSzIrGA~ufNQaVSg0yBQ2Q) |
 | Lifecycle Events | `com.sn_hr_lifecycle_events` | ライフサイクルイベントの基本機能。スコープ `sn_hr_le` [出典](https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/8VXuBSPr2aok3gD2XvxTrA) |
-| Lifecycle Events for Enterprise | `com.sn_hr_lifecycle_ent` | 部門横断のオンボーディング/トランジション（Enterprise Onboarding and Transitions）。Orlando 以降、上記と 2 プラグイン構成 |
+| Lifecycle Events for Enterprise | `com.sn_hr_lifecycle_ent` | 部門横断のオンボーディング/トランジション（Enterprise Onboarding and Transitions）[出典](https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/8VXuBSPr2aok3gD2XvxTrA)。Orlando 以降、上記と 2 プラグイン構成になった【第三者情報】（Community フォーラム）[出典](https://www.servicenow.com/community/hrsd-forum/hr-lifecycle-event-engine-vs-enterprise-onboarding-and/m-p/1337378) |
 | Employee Document Management | `com.sn_employee_document_management` | スコープ `sn_hr_ef` [出典](https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/CtXije81liOoBMQ9ayyrHQ) |
 | Agent Workspace for HR Case Management | `com.sn_hr_agent_ws`（スコープ `sn_hr_agent_ws`） | ServiceNow Store からリクエストしてインストール [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-agentworkspaceforhrcasemanagement-release-notes.html) [出典](https://www.servicenow.com/docs/r/SogDT~k7ktsbe1ZYegnaLg/tv9fLeIetBZXUOoFUHPGdA) |
 | Journey designer | スコープ `sn_jny` | Store アプリ。Journey Accelerator（`sn_ja`）も同時にインストールされる [出典](https://www.servicenow.com/docs/r/H8yQl2SqBqnT6LbpTm28UQ/CNHAg8sQcFCXOy6JVDWoqw) |
@@ -103,7 +106,9 @@ HRSD のパッケージは公式ドキュメント上では「HR Service Deliver
 | 対象 | 変更内容 | 出典 |
 |---|---|---|
 | Recommended Actions for HRSD | **新規アプリ**。HR エージェントにリアルタイムのガイダンスとリソースを提示し、ケース解決を迅速化 | [出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/nbfXJFOWvjjo5rTkxuIJxA) |
-| Case and Knowledge Management | **Granular admin roles（粒度の細かい管理者ロール）による HR データへのアクセス制限**。HR 管理者が COE Security Policy に基づき HR ケースにアクセスできるユーザーと、アクセスを制限しているポリシーを確認可能（COE Security Diagnostics） | [出典](https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/hiooP_AjEwf6imWhMtRCVQ) |
+| Case and Knowledge Management | **Granular roles（粒度の細かいロール）**：Case and Knowledge Management の granular admin roles により HR データのセキュリティを強化 | [出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/fb7tGYg5G_SE~_0omQvyQQ) |
+| 同上 | **COE Security Diagnostics（新規）**：HR 管理者が COE Security Policy に基づき HR ケースにアクセスできるユーザーと、ユーザーのアクセスを制限している COE ポリシーを確認できる（10.5 節） | [出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/fb7tGYg5G_SE~_0omQvyQQ) [出典](https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/hiooP_AjEwf6imWhMtRCVQ) |
+| 同上 | **ER Consolidated List in HR Agent Workspace**：Employee relations ダッシュボードで ER ケースの関連テーブルをまとめて表示 | [出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/fb7tGYg5G_SE~_0omQvyQQ) |
 | Agent Workspace for HR Case Management | CCaaS（Contact Center as a Service）連携：認定済みの事前構築連携により、CCaaS プロバイダーの音声・コールバックを HR Agent Workspace で処理し、通話後のラップアップ時間を確保（Interaction Controls Component, ICC） | [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-agentworkspaceforhrcasemanagement-release-notes.html) |
 | 同上 | Recommended Actions for HRSD：ケース文脈に基づき KB 記事・類似ケースを推奨し、承認が必要な場合のみ承認追加を提案 | 同上 |
 | 同上 | Case creation configuration：ケース作成時に Subject person（対象者）と Opened for（依頼対象者）の HR プロファイルを確認可能 | 同上 |
@@ -155,25 +160,25 @@ flowchart TD
 
 ### 2.2 COE（ケース）テーブル一覧
 
-`sn_hr_core_case` を拡張する COE テーブルは以下のとおり（Australia の「Components installed with Case and Knowledge Management」より）。[出典](https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/uSzIrGA~ufNQaVSg0yBQ2Q) [出典](https://www.servicenow.com/docs/r/employee-service-management/hr-service-delivery/hr-coe-security-policies.html)
+`sn_hr_core_case` を拡張する COE テーブルは以下のとおり（Australia の「Components installed with Case and Knowledge Management」英語版より。ラベルは英語版の表記どおり）。[出典](https://www.servicenow.com/docs/r/australia/employee-service-management/hr-service-delivery/components-installed-with-case-and-knowledge-management.html) [出典](https://www.servicenow.com/docs/r/employee-service-management/hr-service-delivery/hr-coe-security-policies.html)
 
-| ラベル | テーブル名 | 備考 |
+| ラベル（英語版表記） | テーブル名 | 備考 |
 |---|---|---|
 | HR Case | `sn_hr_core_case` | 親テーブル |
-| HR Case: Benefits（福利厚生） | `sn_hr_core_case_benefits` | |
-| HR Case: Compensation（報酬） | `sn_hr_core_case_compensation` | |
-| HR Case: Corporate Communications（社内広報） | `sn_hr_core_case_corporate_communcations` | テーブル名のスペル（communcations）は製品のまま |
-| HR Case: Employee Relations（従業員関係） | `sn_hr_core_case_relations` | 旧来テーブル。Rome 以降導入顧客は非推奨（Employee Relations 機能 `sn_hr_er_case` に置換） |
-| HR Case: Ethics（倫理） | `sn_hr_core_case_ethics` | Rome 以降導入顧客は非推奨扱い |
-| HR Case: Global Mobility（海外赴任・異動） | `sn_hr_core_case_global_mobility` | |
-| HR Case: Investigation（調査） | `sn_hr_core_case_investigation` | Rome 以降導入顧客は非推奨 |
-| HR Case: Payroll（給与） | `sn_hr_core_case_payroll` | |
-| HR Case: Performance（パフォーマンス） | `sn_hr_core_case_performance` | Rome 以降導入顧客は非推奨 |
-| HR Case: Talent Management（タレントマネジメント） | `sn_hr_core_case_talent_management` | |
-| HR Case: Total Rewards（総報酬） | `sn_hr_core_case_total_rewards` | |
-| HR Case: Workforce Admin（人事管理） | `sn_hr_core_case_workforce_admin` | |
+| HR Benefits Case（福利厚生） | `sn_hr_core_case_benefits` | |
+| HR Compensation（報酬） | `sn_hr_core_case_compensation` | |
+| HR Corporate Communications Case（社内広報） | `sn_hr_core_case_corporate_communcations` | テーブル名のスペル（communcations）は製品のまま |
+| HR Employee Relations Case（従業員関係） | `sn_hr_core_case_relations` | 旧来テーブル。Rome 以降導入顧客は非推奨（Employee Relations 機能 `sn_hr_er_case` に置換） |
+| HR Ethics Case（倫理） | `sn_hr_core_case_ethics` | Rome 以降導入顧客は非推奨扱い |
+| HR Global Mobility Case（海外赴任・異動） | `sn_hr_core_case_global_mobility` | |
+| HR Investigations Case（調査） | `sn_hr_core_case_investigation` | 英語版ではアスタリスク（非推奨）付き。Rome 以降導入顧客は非推奨 |
+| HR Payroll Case（給与） | `sn_hr_core_case_payroll` | |
+| HR Performance Case（パフォーマンス） | `sn_hr_core_case_performance` | 英語版ではアスタリスク（非推奨）付き。Rome 以降導入顧客は非推奨 |
+| HR Talent Management Case（タレントマネジメント） | `sn_hr_core_case_talent_management` | |
+| HR Total Rewards Case（総報酬） | `sn_hr_core_case_total_rewards` | |
+| HR Workforce Administrator（人事管理） | `sn_hr_core_case_workforce_admin` | |
 | HRIT Operations Case（HR IT 運用） | `sn_hr_core_case_operations` | |
-| HR Lifecycle Event Case | `sn_hr_le_case` | Lifecycle Events で生成されるケース |
+| HR Lifecycle Events Case | `sn_hr_le_case` | Lifecycle Events で生成されるケース |
 | Employee Relations Case | `sn_hr_er_case` | Employee Relations 機能のケース |
 
 - 非推奨の旧テーブル（Allegation 系 `sn_hr_er_allegation`、`sn_hr_core_allegation_type` 等を含む）は、既存利用顧客には影響しないとされている。[出典](https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/uSzIrGA~ufNQaVSg0yBQ2Q)
@@ -261,16 +266,16 @@ Agent Workspace の HR ケースフォームで表示される主要項目は以
 
 ### 3.2 HR Case の State（状態）
 
-HR Case の `state` は `task.state` を継承し、`sn_hr_core_case` 用の辞書オーバーライドで既定値が **Draft（1）** に設定されている。公式ドキュメントで HR ケースの状態値一覧表は公開情報では確認できず、以下の値は Community フォーラムの記述に基づく。【第三者情報】[出典](https://www.servicenow.com/community/hrsd-forum/hr-case-always-set-to-quot-draft-quot-state/m-p/1302538) [出典](https://www.servicenow.com/community/hrsd-forum/adding-a-new-choice-to-state-on-hr-case-table-that-will-be/td-p/1311136/page/2)
+HR Case の `state` は `task.state` を継承し、`sn_hr_core_case` 用の辞書オーバーライドで既定値が **Draft（1）** に設定されている。各状態の意味は公式「Work an HR case」（Australia）に記載されているが、状態の**値（数値）**の一覧表は公式ドキュメントでは確認できず、以下の値は Community フォーラムの記述に基づく。【第三者情報】[出典（状態の意味）](https://www.servicenow.com/docs/r/etYGEBUVr6RQYKLnfpRuhw/dVBgTlYShbEwZbmf3XhZzg) [出典](https://www.servicenow.com/community/hrsd-forum/hr-case-always-set-to-quot-draft-quot-state/m-p/1302538) [出典](https://www.servicenow.com/community/hrsd-forum/adding-a-new-choice-to-state-on-hr-case-table-that-will-be/td-p/1311136/page/2) [出典](https://www.servicenow.com/community/hrsd-forum/status-of-the-hr-case-changing-to-resolved-even-after-we-updated/m-p/2402096) [出典](https://www.servicenow.com/community/hrsd-forum/automatic-resumption-of-hr-case-from-suspended-to-work-in/m-p/2506616)
 
 | State（英語） | 日本語 | 値 | 備考 |
 |---|---|---|---|
-| Draft | ドラフト | 1 | `sn_hr_core_case` の既定値 |
-| Ready | 準備完了 | 10 | |
-| Awaiting Approval | 承認待ち | 11 | |
-| Work in Progress | 作業中 | 18 | |
-| Suspended | 一時停止 | 公開情報では確認できず | |
-| Awaiting Acceptance | ユーザー受け入れ待ち | 公開情報では確認できず | HR サービスの Case options で「user acceptance status をスキップ」可能 |
+| Draft | ドラフト | 1 | `sn_hr_core_case` の既定値。公式定義は「ケースが最初に開かれたときの既定状態」 |
+| Ready | 準備完了 | 10 | ケースが作業可能な状態 |
+| Awaiting Approval | 承認待ち | 11 | 次の状態に進む前に承認が必要 |
+| Work in Progress | 作業中 | 18 | ケースが割り当てられ作業中 |
+| Suspended | 一時停止 | 24（Community 記述） | 公式定義は「SLA 違反を一時的に防ぐために使う状態」。SLA 期間内にクローズできない場合に使い、Resume で再開する。Community には `state = '24'` で一時停止ケースを抽出するスクリプト例がある |
+| Awaiting Acceptance | ユーザー受け入れ待ち | 20（Community 記述） | 公式定義は「Opened for（依頼対象者）が HR ケースを承諾しないと先に進めない状態」。HR サービスの Case options で「user acceptance status をスキップ」可能 |
 | Closed Complete | 完了クローズ | 3 | 既定のクローズ状態（default close state） |
 | Closed Incomplete | 未完了クローズ | 4（Community 記述） | |
 | Cancelled | 取消 | 7（Community 記述） | |
@@ -284,9 +289,9 @@ HR Case の `state` は `task.state` を継承し、`sn_hr_core_case` 用の辞�
 - **従業員セルフサービス:** Employee Center（またはHR Service Portal）の HR カタログアイテム（Record producer）から起票。HR サービスの `Record producer` フィールドで紐づける。1 つの HR サービスに複数の Record producer を設定しないことがベストプラクティス。[出典](https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/achhqXR9G6bsraCC8si8yQ)
 - **エージェントによる起票:** Agent Workspace の New Case、または Core UI の HR Case Management > Create New Case。HR サービスの `HR criteria` により、エージェントが代理起票できる対象者を制限できる（例：401(k) 申請を米国従業員に限定）。セルフサービスでは HR criteria はカタログの表示制御には使われない。
 - **HR プロファイルから:** Related Links の Create New Case。
-- **一括作成:** Bulk Case Creation（Agent Workspace の Configurable 版でサポート、スケジュールジョブ「Bulk Case Creation」は 6 時間ごとに実行）。[出典](https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/uSzIrGA~ufNQaVSg0yBQ2Q)
+- **一括作成:** Bulk Case Creation（Agent Workspace の Configurable 版でサポート、スケジュールジョブ「Bulk case creation」は 6 時間ごとに実行）。[出典](https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/uSzIrGA~ufNQaVSg0yBQ2Q)
 - **チャネル:** Virtual Agent、チャット、電話（CCaaS 連携は Australia で追加）、メール、グローバル検索。[出典](https://www.servicenow.com/docs/r/employee-service-management/agent-workspace-for-hr-case-management/agent-ws-hr-case-mgmt-use.html)
-- **API:** Table API（`/api/now/table/sn_hr_core_case`）によるケース作成・更新は一般的に利用されるが、HR ロールと COE ポリシーの制約を受ける。【第三者情報】
+- **API:** Table API（`/api/now/table/sn_hr_core_case`）によるケース作成・更新は一般的に利用されるが、HRSD は既定で保護されているため、連携ユーザーには HR ロールが必要で COE ポリシーの制約も受ける。【第三者情報】（Community フォーラム）[出典](https://www.servicenow.com/community/hrsd-forum/hrsd-oob-rest-apis-to-create-hr-case/td-p/3409560/page/2) [出典](https://www.servicenow.com/community/hrsd-forum/rest-api-to-get-hr-cases/m-p/3036276)
 
 ### 3.4 自動クローズとスケジュールジョブ
 
@@ -294,10 +299,10 @@ Case and Knowledge Management がインストールするスケジュールジ�
 
 | ジョブ名 | 内容 | 頻度 |
 |---|---|---|
-| Auto Close Case | Fulfillment type が Service activity / Lifecycle event の HR サービスについて、設定に基づき HR ケースを自動クローズ | 日次 |
-| Bulk Case Creation | 一括ケース作成 | 6 時間ごと |
-| Daily HR Task | HR タスクのパラメータに基づくリマインダー通知 | 日次 |
-| Migrate HR E-Signature Tasks | HR タスクテンプレートと未完了タスクを新しい e-signature タスクタイプへ移行し、旧来の credential / e-signature / signing-document タスクタイプを無効化 | オンデマンド |
+| Auto-close case | Fulfillment type が Service activity / Lifecycle event の HR サービスについて、設定に基づき HR ケースを自動クローズ | 日次 |
+| Bulk case creation | 一括ケース作成 | 6 時間ごと |
+| HR Daily Job | HR タスクのパラメータに基づくリマインダー通知 | 日次 |
+| Migrate HR e-signature tasks | HR タスクテンプレートと未完了タスクを新しい e-signature タスクタイプへ移行し、旧来の credential / e-signature / signing-document タスクタイプを無効化 | オンデマンド |
 | Update Client Roles | HR 条件テーブルに基づき、雇用開始/終了する HR プロファイルのロール割り当てを更新。`hradmin` ユーザーで実行（削除した場合は `sn_hr_core.admin` を持つ別ユーザーを割り当てる） | 日次 |
 
 HR サービス側の自動クローズ関連設定（`Auto close case`、`Close when`、`Auto close offset`（最大 90 日））は 5.2 節を参照。
@@ -350,10 +355,10 @@ flowchart LR
 
 ### 5.2 HR Service Configuration フォーム
 
-- **メニュー:** All > HR Administration（Australia ドキュメント上は HR Management）> HR Services > HR Service Configuration
+- **メニュー:** All > HR Administration > HR Services > HR Service Configuration
 - **必要ロール:** `sn_hr_core.admin`
 
-[出典](https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/achhqXR9G6bsraCC8si8yQ)
+[出典](https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/achhqXR9G6bsraCC8si8yQ) [出典（英語版）](https://www.servicenow.com/docs/r/australia/employee-service-management/hr-service-delivery/configure-hr-service.html)
 
 | フィールド（英語） | 日本語 | 説明 |
 |---|---|---|
@@ -731,7 +736,7 @@ flowchart TD
   C -->|該当ポリシーで不合格| X2[当該 COE のケース不可]
   C -->|合格 or ポリシーなし| F{フィールドセキュリティ<br/>Add field security in HR}
   F --> OK[閲覧/更新]
-  U -.-> O[Opened for / Opened by /<br/>Watch list / 従業員本人アクセス<br/>はポリシーに関係なく適用]
+  U -.-> O[Opened for / Opened by /<br/>Watch list / Collaborators<br/>はポリシーに関係なく適用]
 ```
 
 | 層 | 仕組み |
@@ -755,26 +760,26 @@ flowchart TD
 
 ### 10.3 HR ロール一覧（Case and Knowledge Management）
 
-Australia の Case and Knowledge Management がインストールする 19 ロール。[出典](https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/uSzIrGA~ufNQaVSg0yBQ2Q)
+Australia の Case and Knowledge Management がインストールする 19 ロール（ロール表示名は英語版の表記）。[出典](https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/uSzIrGA~ufNQaVSg0yBQ2Q) [出典（英語版）](https://www.servicenow.com/docs/r/australia/employee-service-management/hr-service-delivery/components-installed-with-case-and-knowledge-management.html)
 
 | ロール | 技術名 | 説明 | 含むロール |
 |---|---|---|---|
-| Case and Knowledge Management Administrator（HR Administrator） | `sn_hr_core.admin` | Case and Knowledge Management の全構成。HR ロールの割当は本ロールのみ可能 | `approval_admin`、`assignment_rule_admin`、`knowledge_manager`、`link_generator_writer`、`schedule_admin`、`sn_cd.content_admin`、`sn_hr_core.content_writer`、`sn_hr_core.manager`、`sn_hr_integrations.admin`、`sn_hr_le.admin`、`sn_hr_pa.admin`（PA コンテンツパック有効時）、`sn_hr_sp.admin`、`sn_hr_sp.hrsp_employee`、`sn_templated_snip.template_snippet_admin`、`template_editor_global` |
-| HR Manager | `sn_hr_core.manager` | 全 HR ケース・プロファイル・機密情報 | `approver_user`、`catalog`、`catalog_admin`、`skill_admin`、`sn_hr_core.basic`、`sn_hr_core.secure_info_writer`、`sn_templated_snip.template_snippet_writer`、`survey_admin` |
-| HR Basic | `sn_hr_core.basic` | HR スタッフの日常業務 | `document_management_user`、`skill_user`、`sn_hr_core.case_writer`、`sn_hr_core.kb_writer`、`sn_hr_core.profile_writer`、`survey_reader`、`sn_hr_core.report_creator` |
-| HR Case Reader | `sn_hr_core.case_reader` | 全 HR ケースの参照 | なし |
-| HR Case Writer | `sn_hr_core.case_writer` | 全 HR ケースの書き込み | `sn_hr_core.case_reader`、`sn_templated_snip.template_snippet_reader` |
-| HR Profile Reader | `sn_hr_core.profile_reader` | 全 HR プロファイルの参照 | なし |
-| HR Profile Writer | `sn_hr_core.profile_writer` | 全 HR プロファイルの書き込み（`sys_user` への書き込みも付与） | `sn_hr_core.profile_reader` |
-| Secure HR Info Reader | `sn_hr_core.secure_info_reader` | 全 HR ケース、基本プロファイル、機密ユーザーデータの参照 | `sn_hr_core.profile_reader` |
-| Secure HR Info Writer | `sn_hr_core.secure_info_writer` | 同上の書き込み | `sn_hr_core.profile_writer`、`sn_hr_core.secure_info_reader` |
-| HR Content Reader / Writer | `sn_hr_core.content_reader` / `sn_hr_core.content_writer` | テーブルレコードとコンテンツの参照 / CRUD | Writer は Reader を含む |
-| HR KB Writer | `sn_hr_core.kb_writer` | HR ナレッジ記事の作成 | なし |
-| HR Report Creator | `sn_hr_core.report_creator` | HR Basic ユーザーが HR ケース/タスクでレポート作成 | なし |
+| Case and Knowledge Management administrator（HR Administrator） | `sn_hr_core.admin` | Case and Knowledge Management の全構成。HR ロールの割当は本ロールのみ可能 | `approval_admin`、`assignment_rule_admin`、`knowledge_manager`、`link_generator_writer`、`schedule_admin`、`sn_cd.content_admin`、`sn_hr_core.content_writer`、`sn_hr_core.manager`、`sn_hr_integrations.admin`、`sn_hr_le.admin`、`sn_hr_pa.admin`（PA コンテンツパック有効時）、`sn_hr_sp.admin`、`sn_hr_sp.hrsp_employee`、`sn_templated_snip.template_snippet_admin`、`template_editor_global` |
+| HR manager | `sn_hr_core.manager` | 全 HR ケース・プロファイル・機密情報 | `approver_user`、`catalog`、`catalog_admin`、`skill_admin`、`sn_hr_core.basic`、`sn_hr_core.secure_info_writer`、`sn_templated_snip.template_snippet_writer`、`survey_admin` |
+| HR agent（HR Basic） | `sn_hr_core.basic` | HR スタッフの日常業務 | `document_management_user`、`skill_user`、`sn_hr_core.case_writer`、`sn_hr_core.kb_writer`、`sn_hr_core.profile_writer`、`survey_reader`、`sn_hr_core.report_creator` |
+| HR case reader | `sn_hr_core.case_reader` | 全 HR ケースの参照 | なし |
+| HR case writer | `sn_hr_core.case_writer` | 全 HR ケースの書き込み | `sn_hr_core.case_reader`、`sn_templated_snip.template_snippet_reader` |
+| HR profile reader | `sn_hr_core.profile_reader` | 全 HR プロファイルの参照 | なし |
+| HR profile writer | `sn_hr_core.profile_writer` | 全 HR プロファイルの書き込み（`sys_user` への書き込みも付与） | `sn_hr_core.profile_reader` |
+| HR secure information reader | `sn_hr_core.secure_info_reader` | 全 HR ケース、基本プロファイル、機密ユーザーデータの参照 | `sn_hr_core.profile_reader` |
+| HR secure information writer | `sn_hr_core.secure_info_writer` | 同上の書き込み | `sn_hr_core.profile_writer`、`sn_hr_core.secure_info_reader` |
+| HR content reader / HR content writer | `sn_hr_core.content_reader` / `sn_hr_core.content_writer` | テーブルレコードとコンテンツの参照 / CRUD | Writer は Reader を含む |
+| HR knowledge writer | `sn_hr_core.kb_writer` | HR ナレッジ記事の作成 | なし |
+| HR report creator | `sn_hr_core.report_creator` | HR Basic ユーザーが HR ケース/タスクでレポート作成 | なし |
 | HR Performance Analytics Admin | `sn_hr_pa.admin` | HR PA コンテンツパック・PA プロパティ管理 | なし |
-| Alumni / Contingent Worker / Contractor / Full-time Employee / New Hire | `sn_hr_core.hrsm_alumni` / `hrsm_contingent` / `hrsm_contractor` / `hrsm_employee` / `hrsm_new_hire` | 従業員種別ごとのクライアントロール | なし |
+| Alumni employee / Contingent employee / Contractor employee / Full-time employee / New hire employee | `sn_hr_core.hrsm_alumni` / `hrsm_contingent` / `hrsm_contractor` / `hrsm_employee` / `hrsm_new_hire` | 従業員種別ごとのクライアントロール | なし |
 
-※ドイツ語版ページを英訳参照したため一部の技術名で大文字小文字が崩れて表示されていた。上表は ServiceNow のロール命名規則（小文字）に正規化している。
+※ロール名・ラベル・テーブル名は英語版ページ（Australia, en-US）で照合済み（2026-11-02）。英語版の Roles installed 表には上記のほか、アプリケーションアクセス定義として `sn_hr_core.basic_case_writer`（HR Basic ペルソナをアプリケーションに付与するためのアクセサ定義）と `sn_hr_core.restricted_caller`（保護された HR Core API を呼び出せるアプリケーションスコープを制御）も掲載されている。[出典](https://www.servicenow.com/docs/r/australia/employee-service-management/hr-service-delivery/components-installed-with-case-and-knowledge-management.html)
 
 ### 10.4 COE Security Policy
 
@@ -784,7 +789,7 @@ Australia の Case and Knowledge Management がインストールする 19 ロ�
 - COE Security Policy は**ケース作成には影響しない**。作成後の参照・更新を制御する。
 - ケースを別 HR サービスに再分類すると、ポリシー次第でユーザーがアクセスを失う場合がある。
 - 構成手順：①COE 配下の全 HR サービスまたは特定 HR サービスを選択（未選択サービスは case reader が引き続きアクセス可能）、②Read/Write アクセスを持つグループを指定、③必要に応じて条件ビルダーで対象レコードを絞り込み（条件はパフォーマンスに影響するため慎重に）。
-- メニュー：HR Administration > COE ACL Configuration（Community 記述）。【第三者情報】
+- メニュー：All > HR Administration > COE Security Configuration（必要ロール：`admin`、`sn_hr_er.admin`）。[出典](https://www.servicenow.com/docs/r/australia/employee-service-management/hr-service-delivery/hr-create-coe-security-policy.html) 公式の概念ページではこの仕組みを「COE ACL Configuration」とも呼んでおり、旧リリースの Community 投稿では「HR Administration > COE ACL Configuration」というメニュー名も見られる。【第三者情報】[出典](https://www.servicenow.com/docs/r/australia/employee-service-management/hr-service-delivery/hr-coe-security-policies.html) [出典](https://www.servicenow.com/community/hrsd-forum/coe-acl-configuration/td-p/1320245)
 
 ![COE Security Policy form（COE セキュリティポリシーの新規作成フォーム）](../../assets/images/hr-service-delivery/coe-security-policy-form.png)
 
@@ -801,14 +806,14 @@ Australia の Case and Knowledge Management がインストールする 19 ロ�
 
 **COE Security Diagnostics（COE セキュリティ診断）** は、HR 従業員について COE Security Policy がどのように評価されるかを HR 管理者が確認するツールである。[出典](https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/hiooP_AjEwf6imWhMtRCVQ)
 
-- **メニュー:** All > HR Administration > COE Security Diagnostics
+- **メニュー:** All > HR Administration > COE Security Diagnostics（Australia 英語版ドキュメントの表記。ドイツ語版では「Sicherheitsdiagnose des Kompetenzzentrums」と訳されている）[出典（英語版）](https://www.servicenow.com/docs/r/australia/employee-service-management/hr-service-delivery/coe-diagnostics-tool.html)
 - **必要ロール:** `sn_hr_core.admin`（評価対象ケースへのアクセス権も必要）
 - **入力:** HR Case（分析対象ケース）、User（対象 HR 従業員）、Operation（Read / Write）→ **Diagnose**
 - **出力:** アクセス結果（読める/読めない/書ける/書けない＋理由）と、評価されたポリシーごとの Policy name、HR Service match、Condition match（空条件は全件一致）、Group match、Matched group、Result
 
 | Result | 意味 |
 |---|---|
-| Skipped | ケースがサービスにも条件にも一致しない |
+| Skipped | ケースが HR サービスまたは条件のいずれかに一致しない（どちらか一方でも不一致なら Skipped） |
 | Failed | サービスと条件は一致するが、ユーザーがいずれのグループにも属さない |
 | Passed | サービスと条件が一致し、ユーザーがグループに属する |
 
@@ -818,7 +823,7 @@ Australia の Case and Knowledge Management がインストールする 19 ロ�
 - **Write ポリシーは Read アクセスの評価にも使われる。**
 - 要件を満たすポリシーが見つかった時点で評価は終了する。
 
-制約：COE ポリシーの評価分析用であり、ケースへの総合的なアクセス判定ではない。**Opened for、Opened by、Watch list、従業員アクセスはポリシーに関係なく適用される**。完全なアクセス分析には Access Analyzer を使う。FAQ は KB2757698。
+制約：COE ポリシーの評価分析用であり、ケースへの総合的なアクセス判定ではない。**Opened for、Opened by、Watch list、Collaborators（コラボレーター）はセキュリティポリシーに関係なく HR ケースにアクセスできる**（公式ドキュメントの記載。本ツールはこれらの経路を評価しない）。完全なアクセス分析には Access Analyzer を使う。FAQ は KB2757698。
 
 ### 10.6 管理者ロール運用の推奨事項
 
@@ -865,7 +870,7 @@ HR Administration > Properties の「**If true, ACLs check if the user is being 
 | `sn_hr_sp.hrsp_*` | HR Service Portal（Employee Center）へのアクセス（ポータルに入れない場合はこのロールを確認） |
 
 - 条件となるユーザー種別：Alumni（Alumni Center 導入時のみ）、Contingent worker、Vendor/contractor、Employee、Employment type、Location、New hire、Only new hires、Office employee、Remote employee。
-- **Client Role Assignment Rules（クライアントロール割当ルール）** モジュールのルールで自動割当・再割当し、日次ジョブ「Update Client Roles」が雇用開始/終了に応じて更新する。HR プロファイルの雇用開始日・雇用形態の入力が割当のトリガーとなる【第三者情報】。
+- **Client Role Assignment Rules（クライアントロール割当ルール）** モジュールのルールで自動割当・再割当し、日次ジョブ「Update Client Roles」が雇用開始/終了に応じて更新する。ルールのテーブル条件は HR プロファイル（`sn_hr_core_profile`）上にのみ構築される。例として、基本システムは Employment type（雇用形態）が所定の種別で、かつ Employment start date（雇用開始日）が今日より後のユーザーに New Hire ロールを自動割当し、Update Client Roles ジョブが雇用開始日に達したかどうかを確認する。したがって HR プロファイルの雇用開始日・雇用形態の値が割当の判定材料になる。[出典](https://www.servicenow.com/docs/r/australia/employee-service-management/hr-service-delivery/t_ClientRoleAssignRules.html)
 - クライアントロールは**ライセンス計測に利用される**。全従業員をライセンス対象にするか、特定ロケーション/グループのみに HR サービスを提供するかを制御できる。
 
 [出典](https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/NrOozT2FwXu44bz~baDvDg) [出典](https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/uSzIrGA~ufNQaVSg0yBQ2Q)
@@ -892,7 +897,7 @@ Now Assist for HR Service Delivery は、HRSD に生成 AI をもたらすアプ
 
 - 2026 年に Now Assist・Moveworks・AI Experience のブランドは **ServiceNow Otto** に統一され、製品内ラベル・アイコン・ドキュメントの名称が変更された。英語版ドキュメントでは「ServiceNow Otto for HR Service Delivery (HRSD)」の名称が使われている。[出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-now-assist.html)
 - Australia の新機能：Generate onboarding ramp-up plan（7.5 節）、新しいワークスペース体験（旧体験も当リリースではサポート継続）。
-- HRSD 向け生成 AI の利用には上位パッケージ（Pro Plus / Enterprise Plus 等）が必要とされる。【第三者情報】
+- Now Assist（Otto）for HR の利用には HR Service Delivery の Professional Plus（Pro Plus）または Enterprise Plus のサブスクリプションが必要とされている。また機能ごとに要件が異なり、HRSD Enterprise Plus のみを要件とする機能もある。【第三者情報】（ServiceNow 社員による Community 記事。公式の製品ドキュメント上のパッケージ対照表は公開情報では確認できず）[出典](https://www.servicenow.com/community/hrsd-articles/now-assist-for-hr-quick-start-guide/ta-p/3050741) [出典](https://www.servicenow.com/community/hrsd-articles/resolve-hr-cases-via-agentic-ai-resource-guide/ta-p/3450049) [出典](https://www.servicenow.com/community/hrsd-blog/march-2026-store-release-deep-dive-blog-hrsd/ba-p/3506473)
 - 詳細は [Now Assist と AI Agents](../platform/now-assist-ai-agents.md) を参照。
 
 ### 11.2 周辺アプリ（参照のみ）
@@ -965,6 +970,13 @@ Now Assist for HR Service Delivery は、HRSD に生成 AI をもたらすアプ
 - Setting up Agent Workspace for HR Case Management（Zurich）: https://www.servicenow.com/docs/r/SogDT~k7ktsbe1ZYegnaLg/tv9fLeIetBZXUOoFUHPGdA
 - Now Assist for ITSM Store release notes（Otto 名称変更）: https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-now-assist.html
 - HR Service Delivery release notes（Quebec, `sn_hr_core.deprecated_workflows`）: https://docs.servicenow.com/bundle/quebec-release-notes/page/release-notes/hr-service-delivery/workplace-safety-mgmt-rn.html
+- Components installed with Case and Knowledge Management（Australia, 英語版）: https://www.servicenow.com/docs/r/australia/employee-service-management/hr-service-delivery/components-installed-with-case-and-knowledge-management.html
+- Work an HR case（Australia, 状態の定義）: https://www.servicenow.com/docs/r/etYGEBUVr6RQYKLnfpRuhw/dVBgTlYShbEwZbmf3XhZzg
+- Configure an HR service（Australia, 英語版）: https://www.servicenow.com/docs/r/australia/employee-service-management/hr-service-delivery/configure-hr-service.html
+- Use COE Security Diagnostics（Australia, 英語版）: https://www.servicenow.com/docs/r/australia/employee-service-management/hr-service-delivery/coe-diagnostics-tool.html
+- Create a COE security policy（Australia, 英語版）: https://www.servicenow.com/docs/r/australia/employee-service-management/hr-service-delivery/hr-create-coe-security-policy.html
+- Configuring HR Service Delivery COE security policies（Australia, 英語版）: https://www.servicenow.com/docs/r/australia/employee-service-management/hr-service-delivery/hr-coe-security-policies.html
+- Client role assignment rules（Australia, 英語版）: https://www.servicenow.com/docs/r/australia/employee-service-management/hr-service-delivery/t_ClientRoleAssignRules.html
 
 ServiceNow Community（【第三者情報】を含む）
 
@@ -984,3 +996,12 @@ ServiceNow Community（【第三者情報】を含む）
 - How to configure the landing page of Configurable HR agent workspace: https://www.servicenow.com/community/developer-forum/how-to-configure-the-landing-page-of-configurable-hr-agent/m-p/2857412
 - Impact of removing sn_hr_core.admin role from admin: https://www.servicenow.com/community/itsm-forum/impact-of-removing-sn-hr-core-admin-role-from-admin/td-p/3511131
 - Differences between ServiceNow HRSD Standard, Professional and Enterprise License: https://www.servicenow.com/community/hrsd-forum/differences-between-servicenow-hrsd-standard-professional-and/m-p/2574722
+- Status of the HR case changing to Resolved（HR ケース State 値一覧）: https://www.servicenow.com/community/hrsd-forum/status-of-the-hr-case-changing-to-resolved-even-after-we-updated/m-p/2402096
+- Automatic resumption of HR case from suspended to work in progress（`state = '24'`）: https://www.servicenow.com/community/hrsd-forum/automatic-resumption-of-hr-case-from-suspended-to-work-in/m-p/2506616
+- HR Lifecycle Event Engine vs Enterprise Onboarding and Transition: https://www.servicenow.com/community/hrsd-forum/hr-lifecycle-event-engine-vs-enterprise-onboarding-and/m-p/1337378
+- COE ACL Configuration（フォーラム）: https://www.servicenow.com/community/hrsd-forum/coe-acl-configuration/td-p/1320245
+- HRSD OOB REST APIs to create HR case: https://www.servicenow.com/community/hrsd-forum/hrsd-oob-rest-apis-to-create-hr-case/td-p/3409560/page/2
+- REST API to get HR Cases: https://www.servicenow.com/community/hrsd-forum/rest-api-to-get-hr-cases/m-p/3036276
+- Now Assist for HR quick start guide: https://www.servicenow.com/community/hrsd-articles/now-assist-for-hr-quick-start-guide/ta-p/3050741
+- Resolve HR cases via Agentic AI resource guide: https://www.servicenow.com/community/hrsd-articles/resolve-hr-cases-via-agentic-ai-resource-guide/ta-p/3450049
+- March 2026 Store release deep dive blog (HRSD): https://www.servicenow.com/community/hrsd-blog/march-2026-store-release-deep-dive-blog-hrsd/ba-p/3506473

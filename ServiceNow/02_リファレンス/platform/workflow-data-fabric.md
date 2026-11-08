@@ -29,6 +29,15 @@ sources:
   - https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/SdQ0itUWCLe9rs6C6FFZDQ
   - https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/4WKARrd73Zvn~5GtywUirQ
   - https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/xHBrb3S2PWA1wHwt~djp~g
+  - https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/gZD6FRvF7SxnR2insXSNHQ
+  - https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/FAiLHznoli3ADa~yxmkhOg
+  - https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/v5paVBqYriUV760tVMW1dw
+  - https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/1wOKVSNRNv~5PeYcvTaCkQ
+  - https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/wgpo_3jNRkjLF8eMP5u6Ow
+  - https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/HP44Hi8pPkdc6YYqRIdWQQ
+  - https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/lM8VFd~DvIYmg8Sln_LfRw
+  - https://www.servicenow.com/docs/r/integrate-applications/now-assist-for-workflow-data-fabric-landing.html
+  - https://www.servicenow.com/docs/r/integrate-applications/integration-hub/stream-connect-apache-kafka.html
 ---
 
 # Workflow Data Fabric（ワークフローデータファブリック）
@@ -60,12 +69,13 @@ Workflow Data Fabric は 2024 年秋に発表され、その後ストアアプ�
 | Yokohama Patch 5 | Databricks、BigQuery、Oracle、Snowflake、Redshift、SAP ECC、SAP S/4HANA の Primary connector が利用可能に（最小互換バージョン） | [Primary connectors](https://www.servicenow.com/docs/r/integrate-applications/primary-connectors-zcc.html) |
 | 2025-05（Knowledge 2025） | data.world の買収合意を発表（データカタログ／ガバナンス。ナレッジグラフベース）。**Workflow Data Network**（Snowflake、Databricks、SAP、Workday 等のパートナーエコシステム）を発表 | [TechCrunch](https://techcrunch.com/2025/05/07/servicenow-acquires-data-world-two-months-after-acquiring-moveworks)、[Constellation Research](https://www.constellationr.com/insights/news/servicenow-launches-workflow-data-network-acquires-dataworld) |
 | 2025-08 | Zero Copy Connectors 2.0.0 で「Workflow Data Fabric の一部」と位置付け。Workflow Data Fabric Hub 2.0.1 の初期機能セット | [ZCC release notes](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/SdQ0itUWCLe9rs6C6FFZDQ)、[Hub release notes](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/4WKARrd73Zvn~5GtywUirQ) |
-| 2026-01 | ZCC 2.1.0: Amazon S3 Tables、Teradata の Primary connector を追加。Primary JDBC connector に接続プール。Zurich Patch 4 以上が必要 | [ZCC release notes](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/SdQ0itUWCLe9rs6C6FFZDQ) |
+| 2026-01 | ZCC 2.1.0: Amazon S3、Teradata の Primary connector を追加（release notes の表記）。Primary JDBC connector に接続プール。Zurich Patch 4 以上が必要。※Primary connectors ページは「Amazon S3 Tables」の最小互換を Zurich Patch 9 としている。2.1.0 の「Amazon S3」との関係は公開情報では確認できず | [ZCC release notes](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/SdQ0itUWCLe9rs6C6FFZDQ) |
 | 2026-03 | ZCC 3.0.3: Snowflake／Oracle／Databricks の OAuth 認証対応、Cloudera Impala（Preview）を Primary に追加、Iceberg を Community から Primary（Preview）へ。Australia 互換 | 同上 |
 | 2026-04 | ZCC 3.1.0: サブスクリプション階層 **ZCC - Primary** と **ZCC - Advanced** を導入 | 同上 |
+| 2026-05 | ZCC 2.2.0: 新しい subscription profiles を追加（release notes の記載は「New subscription profiles are now included」のみ。2.x 系における 3.1.0 の階層導入に対応する更新と推定【推定】）。同月に ZCC 1.0.4 も公開（説明は ZCC の一般的な概要のみ） | [ZCC release notes](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/SdQ0itUWCLe9rs6C6FFZDQ) |
 | 2026-05-05 | **Australia GA**。WDF Home、Connect Hub、Data Catalog（ServiceNow 版）、Data Workbench を Australia 文書に収載。Knowledge 2026 で ServiceNow Otto を発表 | [WDF Home](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/NzLy7Im_P_XRxPy7CTErNw) |
 | 2026-05 | Data Product アプリ 1.0.9 で **Data Products / Data Interfaces が初の GA**（Australia Patch 1 以上） | [Data Product release notes](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/xHBrb3S2PWA1wHwt~djp~g) |
-| 2026-09 | Hub 3.3.2: コネクタへの Preview ラベル、AI-Native SKU の導入、ZCC アプリを Foundation／Advanced 階層に分割。Hub 4.0.3: REST ベースの Zero Copy connector と個人認証（personal auth）を追加（Australia／Brazil 互換） | [Hub release notes](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/4WKARrd73Zvn~5GtywUirQ) |
+| 2026-09 | Hub 3.3.2: コネクタへの Preview ラベル、AI-Native SKU の導入、ZCC アプリを Foundation／Advanced 階層に分割。Hub 4.0.3: REST ベースの Zero Copy connector と個人認証（personal auth）を追加（Australia／Brazil 互換。ただし Australia ではファミリーリリース側の変更を含む Australia Patch 6 以上が前提。release notes の「Family release changes available in AP6, Brazil」の記載による） | [Hub release notes](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/4WKARrd73Zvn~5GtywUirQ) |
 | 2026-09〜10 | ZCC 3.2.3: MySQL、PostgreSQL を Community → Primary。ZCC 4.0.1: Microsoft SQL Server を Community → Primary。ZCC 3.1.6: Australia へのバックポート | [ZCC release notes](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/SdQ0itUWCLe9rs6C6FFZDQ) |
 
 > **注意:** WDF の機能は **ファミリーリリース（Australia、Brazil）とは独立した ServiceNow Store アプリ**として頻繁に更新される。機能の有無は「ファミリーリリース＋パッチ」だけでなく「各ストアアプリのバージョン」で判断する必要がある。
@@ -90,7 +100,7 @@ Australia の Workflow Data Fabric ランディングページは、WDF に含�
 | Automation Center | 複数ベンダーの自動化のライフサイクルを一元的に統制し、リアルタイムダッシュボードで監視 | [process-automation-rpa-mining.md](process-automation-rpa-mining.md) |
 | Boomi（Boomi API Management） | パートナーシップによる API のフルライフサイクル管理（Boomi が直接サポート） | — |
 
-同ページは「関連する ServiceNow アプリケーション・機能」として、Instance Data Replication（IDR）、Inbound Email Actions、Workflow Studio、Actions、Exports、Imports、Classic Orchestration を挙げている。これらは WDF の製品群には含まれないが、データ連携の選択肢として比較対象になる（§11 参照）。
+同ページは「関連する ServiceNow アプリケーション・機能」として、Instance Data Replication（IDR）、Inbound email actions（受信メールアクション）、Unified workflow authoring（統合ワークフローオーサリング：ワークフローの作成・設定・監視を単一ページに統合し、playbook・flow・action・decision table・integration を 1 つの設計環境にまとめる。設計環境としては Workflow Studio に相当すると推定【推定】）、Building actions（アクションの構築）、Exports、Imports、Classic Orchestration の 7 件を挙げている。これらは WDF の製品群には含まれないが、データ連携の選択肢として比較対象になる（§11 参照）。
 
 **Knowledge Graph と RaptorDB の位置付け:** 2024-10 の発表時点では、WDF は「RaptorDB Pro 上で稼働し、Knowledge Graph を含む」と説明された [出典](https://s205.q4cdn.com/537566246/files/doc_news/ServiceNow-introduces-Workflow-Data-Fabric-forging-a-new-generation-of-AI-fueled-productivity-for-the-enterprise-10-23-2024-traffic-2024.pdf)。一方、Australia のドキュメントでは Knowledge Graph は「Intelligent Experiences（AI）」側、RaptorDB は「ServiceNow AI Platform Capabilities」側に収載されており、WDF ランディングページの構成要素表には含まれていない。本ファイルでは WDF と密接に連携する隣接コンポーネントとして §9、§10 で扱う。
 
@@ -103,7 +113,7 @@ Workflow Data Fabric の論理構成を、公式ドキュメントの記述（WD
 ```mermaid
 flowchart LR
   subgraph EXT["外部システム（データはここに残る）"]
-    DW["データウェアハウス / データレイク<br/>Snowflake, Databricks, BigQuery,<br/>Redshift, Teradata, Iceberg, S3 Tables"]
+    DW["データウェアハウス / データレイク<br/>Snowflake, Databricks, BigQuery,<br/>Redshift, Teradata, Iceberg, Amazon S3 Tables,<br/>Microsoft OneLake, Cloudera Hive / Impala"]
     DB["データベース<br/>Oracle, SQL Server, MySQL, PostgreSQL"]
     ERP["ERP<br/>SAP ECC, S/4HANA, Workday 等"]
     SN2["別の ServiceNow インスタンス"]
@@ -179,7 +189,7 @@ Australia の「Workflow Data Fabric key terms」ページに定義された用�
 | Workflow Data Fabric | システム横断で企業データに接続し、メタデータと安定した契約でコンテキストを付与し、ワークフロー・アナリティクス・AI エージェントに提供する統合データレイヤー |
 | Workflow Data Fabric Home Page | Now Assist for WDF を搭載した AI ガイド付きの入口。カタログの自然言語検索、再利用か新規作成かの助言、Connect Hub 等への誘導を行う |
 | Data product（データプロダクト） | 1 つ以上の Data Interface から構成される、統制された再利用可能なパッケージ。出荷、請求書、プロジェクトなどのビジネス概念を表す。メタデータ、ドキュメント、オーナーシップ、アクセス制御を含み、Data Catalog に公開される |
-| Data interface（データインターフェース） | 利用者がデータにアクセスする際のスキーマを定める、安定した統制済みデータ契約。単一テーブル、JOIN、複数ソースの UNION を表現でき、後方互換性を強制して利用者を破壊的変更から守る |
+| Data interface（データインターフェース） | 利用者がデータにアクセスする際のスキーマを定める、安定した統制済みデータ契約。単一テーブル、JOIN、複数ソースの UNION を表現でき、後方互換性を強制して利用者を破壊的変更から守る。※後方互換性の強制は key terms 上の設計方針である。Data Product 1.0.9（初の GA、2026-05）時点では後方互換なスキーマ進化（backward-compatible schema evolution）は「coming soon」とされている。現状は、公開済み Interface を編集しても（1.1.1）Interface 名と既存フィールド名を変更できない、という形で互換性が保たれている（§7.1、§7.4） |
 | Data fabric table（データファブリックテーブル） | 外部データオブジェクトの ServiceNow 上の射影（projection）。物理的にコピーせずに、ServiceNow に格納されているかのように外部データを扱える |
 | Data Workbench | データ管理者が Data Interface と Data Product を作成し、マッピングと ACL を定義し、本番へ公開・昇格する画面 |
 | Metadata crawler（メタデータクローラー） | 接続済みデータソースに対して実行され、スキーマを発見し、リネージを構築し、Data Catalog のガバナンスメタデータを投入する自動スキャナー（他ページでは metadata collector と表記） |
@@ -201,7 +211,7 @@ Australia では **ServiceNow WDF Unified Hub**（`sn_wdf_unified_hub`）プラ�
 | ロール（タイトル [名前]） | 責務 | 包含ロール（Contains roles） |
 |---|---|---|
 | Connection Admin（接続管理者）[`connection_admin`] | 接続の作成・管理、資格情報の設定、メタデータコレクタの構成、Data Steward への接続アクセス付与 | `df_data_steward`、`external_app_install_admin`、`agent_admin`、`credential_admin`、`web_service_admin`、`sn_nowassist_wdf.creator_admin` |
-| Data Steward（データスチュワード）[`df_data_steward`] | すべての Data Product と Data Interface の作成・所有。スキーマ設計、ガバナンス、メタデータ管理、後方互換性の担保、データ契約のライフサイクル管理 | `sn_nowassist_wdf.creator_admin`、`wdf_consumer` |
+| Data Steward（データスチュワード）[`df_data_steward`] | すべての Data Product と Data Interface の作成・所有。スキーマ設計、ガバナンス、メタデータ管理、後方互換性の担保、データ契約のライフサイクル管理（※後方互換なスキーマ進化の機能は Data Product 1.0.9 GA 時点で「coming soon」。§7.1 参照） | `sn_nowassist_wdf.creator_admin`、`wdf_consumer` |
 | WDF Builder（WDF ビルダー）[`wdf_builder`] | コネクタ、spoke、MCP サーバーを作成して接続レイヤーを拡張する。データ契約は所有・変更しない | `wdf_consumer`、`sn_nowassist_wdf.creator_admin`、`connection_admin`、`template_editor_global`、`action_designer`、`sn_appclient.app_client_user`、`sn_g_app_creator.app_creator` |
 | WDF Operator（WDF オペレーター）[`wdf_operator`] | Data Interface 経由で統制済みデータを消費する決定論的（deterministic）／エージェント型のワークフローを構築する。契約の消費者であり所有者ではない | `fd_read`、`now.assist.creator`、`flow_designer`、`sn_nowassist_wdf.creator_admin`、`sn_mcp_client.viewer`、`wdf_consumer` |
 | WDF Consumer（WDF コンシューマー）[`wdf_consumer`] | Data Catalog で Data Product を発見・評価し、アクセスを申請し、ワークフロー・分析・AI エージェント・API を通じて統制済みデータを利用する | `sn_nowassist_wdf.creator_admin` |
@@ -292,7 +302,7 @@ Zero Copy Connectors の入手経路は以下のとおりである（Zurich の�
 
 構成手順は、(1) `sn_data_fabric` の有効化、(2) Now Support Service Catalog で Zero Copy Connectors を申請、(3) Connection administrator（接続管理者）の作成、(4) データソース管理者と協力して外部ソースへのアクセスを許可、の 4 ステップである [出典](https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/wgpo_3jNRkjLF8eMP5u6Ow)。
 
-> **Australia での変更（パッケージ分割）:** Australia Patch 1 で、Primary connector のみを含む新プラグイン **Zero Copy Connectors Primary（`sn_zcc_primary`）** が追加され、Store の階層が **ZCC - Primary** と **ZCC - Advanced**（Primary と Community のすべてを含む）に分かれたことが、公式ドキュメントの検索結果要約で確認できる（ZCC release notes 3.1.0、2026-04 と整合）[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/SdQ0itUWCLe9rs6C6FFZDQ)。その後 Hub 3.3.2（2026-09）のリリースノートでは「ZCC アプリを Foundation / Advanced 階層に分割」「AI-Native SKU を導入」と表記されている [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/4WKARrd73Zvn~5GtywUirQ)。階層名は文書・時期により「Primary / Advanced」と「Foundation / Advanced」が混在するため、契約時に最新の SKU 名を確認すること。
+> **パッケージ分割（2026-04 以降）:** ZCC release notes 3.1.0（2026-04）によれば、サブスクリプション階層として **ZCC - Primary**（本番品質で完全サポートの Primary connector をすべて含む）と **ZCC - Advanced**（Primary と Community のすべてを含む）の 2 つが導入された [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/SdQ0itUWCLe9rs6C6FFZDQ)。この階層に対応するプラグイン ID（例: `sn_zcc_primary`）と、それが追加されたパッチ（Australia Patch 1 など）は、検索結果の要約にしか現れない。公式ドキュメント本文では確認できなかった【推定】（§16）。その後 Hub 3.3.2（2026-09）のリリースノートでは「ZCC アプリを Foundation / Advanced 階層に分割」「AI-Native SKU を導入」と表記されている [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/4WKARrd73Zvn~5GtywUirQ)。階層名は文書・時期により「Primary / Advanced」と「Foundation / Advanced」が混在するため、契約時に最新の SKU 名を確認すること。
 
 ### 5.3 ロール（Zero Copy / Workflow Data Fabric Hub）
 
@@ -345,31 +355,33 @@ Zero Copy のコネクタには 2 種類がある [出典](https://www.serviceno
 
 ### 5.6 Primary connector 一覧
 
-公式の Primary connectors ページ（Brazil 版、2026-09-10 更新）に掲載された一覧を示す。「最小互換」列が Australia 以前のものは Australia でも利用可能である [出典](https://www.servicenow.com/docs/r/integrate-applications/primary-connectors-zcc.html)。
+公式の Primary connectors ページ（Brazil 版、2026-09-10 更新）に掲載された一覧を示す（2026-11 確認時点で 19 件）。「最小互換」列が Australia 以前のものは Australia でも利用可能である [出典](https://www.servicenow.com/docs/r/integrate-applications/primary-connectors-zcc.html)。
 
-| コネクタ | データソース | アクセス | 最小互換バージョン |
-|---|---|---|---|
-| Databricks | Databricks データ分析プラットフォーム | 読み取り専用 | Yokohama Patch 5 |
-| Google BigQuery | BigQuery データウェアハウス | 読み取り専用 | Yokohama Patch 5 |
-| Oracle | Oracle データベース | 読み取り専用 | Yokohama Patch 5 |
-| Snowflake | 外部 Snowflake アカウント | 読み取り専用 | Yokohama Patch 5 |
-| Amazon Redshift | Redshift データウェアハウス | 読み取り専用 | Yokohama Patch 5 |
-| SAP ECC | SAP ECC システム | 読み取り専用 | Yokohama Patch 5 |
-| SAP S/4HANA | SAP S/4HANA システム | 読み取り専用 | Yokohama Patch 5 |
-| Teradata | Teradata | 読み取り専用 | Zurich Patch 4 |
-| ServiceNow Remote Instance | 別の ServiceNow インスタンス | 読み取り専用 | Zurich Patch 4 |
-| Amazon S3 Tables | Amazon S3 Tables | 読み取り専用 | Zurich Patch 9 |
-| Apache Iceberg | Iceberg 形式のデータ | 読み取り専用 | Zurich Patch 9 |
-| Cloudera Impala | Cloudera Impala | 読み取り専用 | Australia |
-| MySQL | MySQL インスタンス | 記載なし | Australia Patch 6 |
-| PostgreSQL | PostgreSQL インスタンス | 記載なし | Australia Patch 6 |
-| Acumatica | Acumatica アカウント（ERP） | 記載なし | Australia Patch 6 |
-| Oracle HCM（Discovery） | Oracle HCM アカウント（人事データ） | 記載なし | Australia Patch 6 |
-| Microsoft SQL Server | Microsoft SQL Server インスタンス | 記載なし | Australia Patch 6 |
+| コネクタ | データソース | アクセス | 最小互換バージョン | 備考 |
+|---|---|---|---|---|
+| Databricks | Databricks データ分析プラットフォーム | 読み取り専用 | Yokohama Patch 5 | Primary connectors ページに Preview 表示の明記なし |
+| Google BigQuery | BigQuery データウェアハウス | 読み取り専用 | Yokohama Patch 5 | 同上 |
+| Oracle | Oracle データベース | 読み取り専用 | Yokohama Patch 5 | 同上 |
+| Snowflake | 外部 Snowflake アカウント | 読み取り専用 | Yokohama Patch 5 | 同上 |
+| Amazon Redshift | Redshift データウェアハウス | 読み取り専用 | Yokohama Patch 5 | 同上 |
+| SAP ECC | SAP ECC システム | 読み取り専用 | Yokohama Patch 5 | 同上 |
+| SAP S/4HANA | SAP S/4HANA システム | 読み取り専用 | Yokohama Patch 5 | 同上 |
+| Teradata | Teradata | 読み取り専用 | Zurich Patch 4 | 同上（ZCC 2.1.0 で追加） |
+| ServiceNow Remote Instance | 別の ServiceNow インスタンス | 読み取り専用 | Zurich Patch 4 | 同上 |
+| Amazon S3 Tables | Amazon S3 Tables | 読み取り専用 | Zurich Patch 9 | 同上。ZCC 2.1.0（Zurich Patch 4 以上）で追加された「Amazon S3」との関係は公開情報では確認できず |
+| Apache Iceberg | Iceberg 形式のデータ | 読み取り専用 | Zurich Patch 9 | 3.0.3 時点で Preview（ZCC release notes。Community から Primary へ移行） |
+| Cloudera Hive | Cloudera Hive | 読み取り専用 | Australia | Primary connectors ページに Preview 表示の明記なし。ZCC release notes には追加時期の記載なし |
+| Cloudera Impala | Cloudera Impala | 読み取り専用 | Australia | 3.0.3 時点で Preview（ZCC release notes） |
+| Microsoft OneLake | Microsoft OneLake | 読み取り専用 | Australia | Primary connectors ページに Preview 表示の明記なし。ZCC release notes には追加時期の記載なし |
+| MySQL | MySQL インスタンス | 記載なし | Australia Patch 6 | Primary connectors ページに Preview 表示の明記なし |
+| PostgreSQL | PostgreSQL インスタンス | 記載なし | Australia Patch 6 | 同上 |
+| Acumatica | Acumatica アカウント（ERP） | 記載なし | Australia Patch 6 | 同上 |
+| Oracle HCM（Discovery） | Oracle HCM アカウント（人事データ） | 記載なし | Australia Patch 6 | 同上 |
+| Microsoft SQL Server | Microsoft SQL Server インスタンス | 記載なし | Australia Patch 6 | 同上 |
 
 - MySQL、PostgreSQL（ZCC 3.2.3、2026-09）と Microsoft SQL Server（ZCC 4.0.1、2026-10）は **Community から Primary に昇格** したコネクタである [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/SdQ0itUWCLe9rs6C6FFZDQ)。昇格前の SQL Server は Community connector として提供されていた（Yokohama 文書）[出典](https://www.servicenow.com/docs/r/mGE8r5NBpLYtmri_sFVECw/1GcxDNNlCIf9ILodPkbBZw)。
 - Zero Copy Connectors（data fabric table）経由の外部データアクセスは **読み取り専用** である。外部データへの書き込み（作成・更新）が必要な場合は、Zero Copy Connector for ERP（§6）、Integration Hub（§11）、Remote Table（スクリプト）を検討する。
-- 認証: ZCC 3.0.3（2026-03）で Snowflake、Oracle、Databricks の **OAuth** 認証に対応した。Hub 4.0.3（2026-09）で **個人認証（personal auth）** と **REST ベースの Zero Copy connector** が追加された [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/4WKARrd73Zvn~5GtywUirQ)。
+- 認証: ZCC 3.0.3（2026-03）で Snowflake、Oracle、Databricks の **OAuth** 認証に対応した。Hub 4.0.3（2026-09）で **個人認証（personal auth）** と **REST ベースの Zero Copy connector** が追加された。いずれも release notes に「Family release changes available in AP6, Brazil」と注記されており、Australia では Australia Patch 6 以上（Brazil では標準）が前提となる [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/4WKARrd73Zvn~5GtywUirQ)。
 - コネクタごとのネットワーク要件（IP 許可リスト、MID Server の要否、Private Link 等）は公開情報では確認できず。Community 記事で「Zero Copy Architecture & Networking」という動画が紹介されているのみである [出典](https://www.servicenow.com/community/workflow-data-fabric-articles/zero-copy-connectors/ta-p/3550002)。
 
 ### 5.7 ゼロコピー接続の作成
@@ -523,9 +535,11 @@ data fabric table 同士、または data fabric table とローカルテーブ�
 | Workflow Data Fabric Hub | 2.1.0 / 1.1.0 | 2025-10 | data fabric table 編集時に INT / BIGINT 列の参照が失われる不具合を修正 |
 | Workflow Data Fabric Hub | 2.2.1 | 2026-01 | Zurich Patch 4 以上との互換リリース |
 | Workflow Data Fabric Hub | 3.0.1 / 3.1.0 | 2026-03 / 04 | Australia（Patch 1）互換リリース |
+| Workflow Data Fabric Hub | 3.2.0 / 2.2.2 | 2026-07 | 大量のスキーマ・テーブルを取得して UI に表示する際の性能問題を修正 |
 | Workflow Data Fabric Hub | 3.2.2 | 2026-08 | Now Assist 依存を削除。ZCC Hub UI App がライセンス不要に |
 | Workflow Data Fabric Hub | 3.3.2 | 2026-09 | Preview ラベル、AI-Native SKU、ZCC の Foundation / Advanced 分割（Australia） |
-| Workflow Data Fabric Hub | 4.0.3 | 2026-09 | REST ベース Zero Copy connector、個人認証（Australia / Brazil） |
+| Workflow Data Fabric Hub | 4.0.3 | 2026-09 | REST ベース Zero Copy connector、個人認証（Australia / Brazil。Australia ではファミリーリリース側の変更を含む Patch 6 以上が前提） |
+| Zero Copy Connectors | 2.2.0 / 1.0.4 | 2026-05 | 2.2.0: 新しい subscription profiles を追加。1.0.4: 説明は ZCC の概要のみ |
 | Zero Copy Connectors | 2.0.0〜4.0.1 | 2025-08〜2026-10 | §1 の沿革表を参照 |
 
 [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/4WKARrd73Zvn~5GtywUirQ)、[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/SdQ0itUWCLe9rs6C6FFZDQ)
@@ -582,7 +596,7 @@ flowchart LR
   REQ --> USE["フロー / AI Agents / 分析 / API"]
 ```
 
-Data Interface がサポートするパターンとして、単一テーブル、JOIN、UNION、双方向同期（bi-directional sync）、集計（aggregation）が WDF Home の利点表に挙げられている [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/NzLy7Im_P_XRxPy7CTErNw)。ただし Data Product アプリ 1.0.9 の GA 機能として明記されているのは「DBView による UNION と JOIN」であり、スキーママッピングと変換、遅延バインディング（late binding）は「coming soon」とされている [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/xHBrb3S2PWA1wHwt~djp~g)。
+Data Interface がサポートするパターンとして、単一テーブル、JOIN、UNION、双方向同期（bi-directional sync）、集計（aggregation）が WDF Home の利点表に挙げられている [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/NzLy7Im_P_XRxPy7CTErNw)。ただし Data Product アプリ 1.0.9 の GA 機能として明記されているのは「DBView による UNION と JOIN」であり、スキーママッピングと変換、遅延バインディング（late binding）、後方互換なスキーマ進化（backward-compatible schema evolution）は「coming soon」とされている [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/xHBrb3S2PWA1wHwt~djp~g)。key terms の「Data Interface は後方互換性を強制する」という定義（§4.3）は、設計上の狙いとして読む必要がある。1.1.1 時点で実装されているのは、公開済み Interface を編集しても Interface 名と既存フィールド名は変更できない、という制約による互換性の維持である（§7.4）。
 
 ### 7.2 データプロダクト関連の 4 つの画面
 
@@ -773,7 +787,7 @@ Australia の公式ドキュメントは 2 つのティアを比較している�
 
 - 2024-10 の WDF 発表では、WDF は「Now Platform と新たに導入された高性能 DB **RaptorDB Pro** を基盤とする」と説明された [出典](https://s205.q4cdn.com/537566246/files/doc_news/ServiceNow-introduces-Workflow-Data-Fabric-forging-a-new-generation-of-AI-fueled-productivity-for-the-enterprise-10-23-2024-traffic-2024.pdf)。2025-05 の Workflow Data Network も「RaptorDB Pro を基盤とする」と報じられている【第三者情報】[出典](https://www.constellationr.com/insights/news/servicenow-launches-workflow-data-network-acquires-dataworld)。
 - 一方、Zero Copy Connectors、data fabric table、Data Products の公式ドキュメント（前提条件・依存アプリ）には **RaptorDB が必須であるという記載は見当たらない**。Zero Copy 機能が MariaDB 上のインスタンスで利用可能かどうかは公開情報では明示されていないため、導入前にアカウントチームに確認すること。
-- RaptorDB Professional の **SQL API**（Live Connect: ODBC / JDBC による読み取り専用 SQL アクセス）は、ServiceNow のデータを外部 BI・分析ツールから参照する「逆方向」の経路であり、外部データを ServiceNow から参照する Zero Copy と対をなす [出典](https://www.servicenow.com/docs/r/servicenow-platform/raptordb.html)。
+- RaptorDB Professional の **SQL API**（Australia 文書の比較表での表記。Brazil 文書では同等機能が **Live Connect**（ODBC / JDBC による読み取り専用 SQL アクセス）として記載されている）は、ServiceNow のデータを外部 BI・分析ツールから参照する「逆方向」の経路であり、外部データを ServiceNow から参照する Zero Copy と対をなす [出典（Australia 比較表）](https://www.servicenow.com/docs/r/ZUQIWHvhWUsSoHqqH5PGGw/5Qd2YfoK8IS79fmQigCt0Q)、[出典（Brazil の RaptorDB ページ）](https://www.servicenow.com/docs/r/servicenow-platform/raptordb.html)。
 
 ### 10.4 RaptorDB への移行に関する留意点
 
@@ -816,7 +830,7 @@ Integration Hub は WDF の構成要素の一つであり、WDF は Integration 
 | Remote Table | なし（スクリプトで取得） | 双方向 | リアルタイム | 可（スクリプト） | 少量の外部データをスクリプトで参照・操作 | [scripting-server-side.md](scripting-server-side.md)（スクリプト全般） |
 | Instance Data Replication（IDR） | あり | ServiceNow → ServiceNow | 公開情報では確認できず | — | プロデューサーインスタンスから 1 つ以上のコンシューマーインスタンスへデータ更新を複製 | 本ファイル §2（関連機能） |
 | Service Graph Connectors | あり | 外部 → CMDB | バッチ | — | CMDB への CI 取り込み（IRE 経由） | [../itom/service-graph-connectors.md](../itom/service-graph-connectors.md) |
-| RaptorDB Professional SQL API（Live Connect） | なし | ServiceNow → 外部（参照） | リアルタイム | 不可（読み取り専用） | 外部 BI ツールから ServiceNow データを SQL で参照 | 本ファイル §10 |
+| RaptorDB Professional SQL API（Australia 文書の表記。Brazil 文書では Live Connect） | なし | ServiceNow → 外部（参照） | リアルタイム | 不可（読み取り専用） | 外部 BI ツールから ServiceNow データを SQL で参照 | 本ファイル §10 |
 
 各方式の出典は本文中の各節を参照。Integration Hub、Import Set、Remote Table、IDR の詳細仕様は各リンク先ファイルに委ねる。
 
@@ -827,7 +841,7 @@ Stream Connect for Apache Kafka は、ServiceNow の **Hermes Messaging Service*
 ### 11.4 Workflow Data Fabric と Integration Hub の契約上の関係
 
 - Australia の WDF ランディングページは、Integration Hub について「別途サブスクリプションが必要（A separate subscription is required）」と記載している [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/v2AEWzRgQcJgifdwavT4Pg)。
-- 一方、ServiceNow の WDF 価格ページ（検索結果要約）および WDF Foundation の契約概要 PDF（2026-04-09 発効）では、**WDF Foundation に Integration Hub Enterprise、Now Assist for Spokes、External Content Connectors、RPA Hub 等のエンタイトルメントが含まれる** と記載されている（ページ本体は取得時 HTTP 403 で直接閲覧できず、検索結果の要約で確認）[出典](https://www.servicenow.com/platform/workflow-data-fabric/pricing.html)、[出典](https://www.servicenow.com/content/dam/servicenow-assets/public/en-us/doc-type/legal/wdf-foundation-overview.pdf)。
+- 一方、ServiceNow の WDF 価格ページ（検索結果要約）および WDF Foundation の契約概要 PDF（2026-04-09 発効）では、**WDF Foundation に Integration Hub Enterprise、Now Assist for Spokes、External Content Connectors、RPA Hub 等のエンタイトルメントが含まれる** と記載されている【推定】（ページ本体は HTTP 403 で直接閲覧できなかった（取得日 2026-11-03）。検索エンジンの要約に基づく）[出典](https://www.servicenow.com/platform/workflow-data-fabric/pricing.html)、[出典](https://www.servicenow.com/content/dam/servicenow-assets/public/en-us/doc-type/legal/wdf-foundation-overview.pdf)。
 - 両者は「Integration Hub は ITSM 等のスイートとは別に購入が必要で、その購入手段の一つが WDF パッケージである」と解釈すれば整合するが【推定】、実際の契約範囲は見積・契約書で確認すること。ライセンス全般は [platform-licensing-packaging.md](platform-licensing-packaging.md)、[../../03_導入編/01-licensing-model.md](../../03_導入編/01-licensing-model.md) を参照。
 
 ---
@@ -840,8 +854,8 @@ Workflow Data Fabric のパッケージについて、公開情報から確認�
 
 | 項目 | 内容 | 確度 |
 |---|---|---|
-| WDF Foundation | Integration Hub Enterprise、Otto（Now Assist）for Spokes、External Content Connectors、RPA Hub、Automation Center、Zero Copy Connectors（**Primary connector のみ**）、Data Catalog、AI Data Explorer を含む | 公式価格ページの検索結果要約（本体は 403 で未閲覧） |
-| WDF Advanced | 「複雑なデータ環境向け」。API Access Volume、Platform Analytics Advanced 等を含むとされるが全項目は未確認 | 同上 |
+| WDF Foundation | 【推定】Integration Hub Enterprise、Otto（Now Assist）for Spokes、External Content Connectors、RPA Hub、Automation Center、Zero Copy Connectors（**Primary connector のみ**）、Data Catalog、AI Data Explorer を含む | 【推定】公式価格ページと契約概要 PDF の本体は閲覧できていない（HTTP 403、取得日 2026-11-03）。検索エンジンの要約に基づく |
+| WDF Advanced | 【推定】「複雑なデータ環境向け」。API Access Volume、Platform Analytics Advanced 等を含むとされるが、全項目は確認できていない | 【推定】同上（HTTP 403、取得日 2026-11-03。検索エンジンの要約に基づく） |
 | Data Products の本番利用 | WDF Foundation または Advanced SKU が必要（サブプロダクション・開発は無償） | 公式（Data Product release notes） |
 | Workflow Data Fabric Hub アプリ | 本番・非本番とも無償。Hub 3.2.2 以降、ZCC Hub UI App はライセンス不要 | 公式（Configuring WDF Hub、Hub release notes） |
 | ZCC 階層 | ZCC - Primary（ServiceNow 構築の本番品質コネクタ）／ZCC - Advanced（Primary＋Community 全部）。のちに Foundation / Advanced と表記 | 公式（ZCC / Hub release notes） |
@@ -885,7 +899,7 @@ Store リスティングによれば、WDF Tokenization は WDF の全消費を�
 | 利用制限 | in-country SKU では一部モデルプロバイダ・AI 機能が利用不可。FedRAMP、NSC DOD IL5、Australia IRAP-Protected、セルフホスト等の制限環境では一部 AI 機能が利用不可。一部機能は特定リージョンのみ |
 | データ取り扱い | アプリデータは中央の ServiceNow 環境（別リージョン、Microsoft Azure 等のサードパーティクラウドの可能性あり）に送信される。入出力・編集内容は ServiceNow の技術改善に使われる（オプトアウト可） |
 
-> **名称の経緯:** 2026-05-05（Knowledge 2026）に ServiceNow は Now Assist、Moveworks、AI Experience を統合した **ServiceNow Otto** を発表した [出典](https://www.eagletribune.com/region/servicenow-otto-creates-the-unified-ai-experience-for-the-enterprise/article_aaecf144-5d1c-50b0-8a7a-e478389730c5.html)。Australia の WDF 文書では「Now Assist for WDF」と「ServiceNow Otto for WDF」の両表記が混在し、Brazil の文書では「ServiceNow Otto」に統一されている。AI 機能全般は [now-assist-ai-agents.md](now-assist-ai-agents.md) を参照。
+> **名称の経緯:** 2026-05-05（Knowledge 2026）に ServiceNow は Now Assist、Moveworks、AI Experience を統合した **ServiceNow Otto** を発表した [出典](https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-Otto-creates-the-unified-AI-experience-for-the-enterprise/default.aspx)。Australia の WDF 文書では「Now Assist for WDF」と「ServiceNow Otto for WDF」の両表記が混在し、Brazil の文書では「ServiceNow Otto」に統一されている。AI 機能全般は [now-assist-ai-agents.md](now-assist-ai-agents.md) を参照。
 
 ---
 
@@ -896,8 +910,8 @@ Store リスティングによれば、WDF Tokenization は WDF の全消費を�
 | 領域 | 変更内容 | 出典 |
 |---|---|---|
 | 名称 | WDF 文書で AI アシスタントを「ServiceNow Otto」と表記。WDF Home の入口として「ServiceNow Otto for WDF」が明記される | [WDF Home（Brazil）](https://www.servicenow.com/docs/r/integrate-applications/wdf.html) |
-| Primary connector | MySQL、PostgreSQL、Acumatica、Oracle HCM（Discovery）、Microsoft SQL Server が Primary に（最小互換 Australia Patch 6） | [Primary connectors](https://www.servicenow.com/docs/r/integrate-applications/primary-connectors-zcc.html) |
-| Hub 4.0.3 | REST ベースの Zero Copy connector、Zero Copy connector の個人認証（Australia / Brazil 互換） | [Hub release notes](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/4WKARrd73Zvn~5GtywUirQ) |
+| Primary connector | MySQL、PostgreSQL、Acumatica、Oracle HCM（Discovery）、Microsoft SQL Server が Primary に（最小互換 Australia Patch 6）。Brazil 版ページには最小互換 Australia（パッチ指定なし）の Cloudera Hive、Cloudera Impala、Microsoft OneLake も掲載（全 19 件） | [Primary connectors](https://www.servicenow.com/docs/r/integrate-applications/primary-connectors-zcc.html) |
+| Hub 4.0.3 | REST ベースの Zero Copy connector、Zero Copy connector の個人認証（Australia / Brazil 互換。Australia ではファミリーリリース側の変更を含む Australia Patch 6 以上が前提。release notes の「Family release changes available in AP6, Brazil」の記載による） | [Hub release notes](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/4WKARrd73Zvn~5GtywUirQ) |
 | Knowledge Graph | WDF テーブルが Enterprise Graph に含まれる旨を明記 | [WDF in Knowledge Graph](https://www.servicenow.com/docs/r/ja-JP/intelligent-experiences/knowledge-graph/workflow-data-fabric-in-knowledge-graph.html) |
 | RaptorDB | RaptorDB Professional V2、Live Archive、Live Connect（ODBC / JDBC） | [RaptorDB](https://www.servicenow.com/docs/r/servicenow-platform/raptordb.html) |
 | 利用量計測 | Subscription Management で token ratio（`capability_id` / `exchange_value`）を確認 | [Monitoring WDF capability use](https://www.servicenow.com/docs/r/platform-administration/monitoring-wdf-capability-use.html) |
@@ -937,6 +951,9 @@ Store リスティングによれば、WDF Tokenization は WDF の全消費を�
 - コネクタごとのネットワーク要件（IP 許可リスト、Private Link、MID Server の要否）、1 クエリあたりの行数上限・タイムアウト
 - Zero Copy Connectors が RaptorDB 必須かどうか（MariaDB インスタンスでの利用可否）
 - WDF Advanced パッケージの全構成と、機能別のクレジット消費レート
+- ZCC - Primary / ZCC - Advanced 階層に対応するプラグイン ID（検索結果要約に現れる `sn_zcc_primary` など）と、その追加パッチ
+- Primary connector の Cloudera Hive と Microsoft OneLake（いずれも最小互換 Australia）が追加された ZCC のバージョンと時期（ZCC release notes に記載なし）
+- ZCC 2.1.0 で追加された「Amazon S3」コネクタと、Primary connectors ページの「Amazon S3 Tables」（最小互換 Zurich Patch 9）の関係
 - Knowledge Graph の Australia 版ページ本文（本ファイルは Zurich 版と Brazil 版で記載）
 - Zero Copy Connector for ERP の SAP 側前提条件（RFC ユーザー権限等）とロール一覧
 - メタデータコレクタの対応ソース一覧の公式ドキュメント上の記載（Store リスティングのみで確認）
@@ -1001,6 +1018,7 @@ Store リスティングによれば、WDF Tokenization は WDF の全消費を�
 - WDF 発表（2024-10-23）: https://s205.q4cdn.com/537566246/files/doc_news/ServiceNow-introduces-Workflow-Data-Fabric-forging-a-new-generation-of-AI-fueled-productivity-for-the-enterprise-10-23-2024-traffic-2024.pdf
 - RaptorDB Pro 発表（2024-09-10）: https://www.businesswire.com/news/home/20240910738918/en/5708684/ServiceNow-Announces-Powerful-Data-Enhancements-to-Unlock-Value-With-Ultra-Scale-and-Performance
 - RaptorDB 製品ページ: https://www.servicenow.com/au/products/raptordb.html
+- ServiceNow Otto 発表プレスリリース（2026-05-05）: https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-Otto-creates-the-unified-AI-experience-for-the-enterprise/default.aspx
 - WDF 価格・パッケージページ（取得時 403、検索結果要約で参照）: https://www.servicenow.com/platform/workflow-data-fabric/pricing.html
 - WDF Foundation Overview（取得時 403、検索結果要約で参照）: https://www.servicenow.com/content/dam/servicenow-assets/public/en-us/doc-type/legal/wdf-foundation-overview.pdf
 - ServiceNow Store（Data Catalog Metadata Collectors）: https://store.servicenow.com/store/app/48a1bd23976447d0c8c33ef11153afc7
@@ -1019,5 +1037,4 @@ Store リスティングによれば、WDF Tokenization は WDF の全消費を�
 - The Register（RaptorDB / Xanadu）: https://www.theregister.com/2024/09/10/servicenow_xanadu_postgres_raptordb/
 - TechCrunch（data.world 買収）: https://techcrunch.com/2025/05/07/servicenow-acquires-data-world-two-months-after-acquiring-moveworks
 - Constellation Research（Workflow Data Network）: https://www.constellationr.com/insights/news/servicenow-launches-workflow-data-network-acquires-dataworld
-- ServiceNow Otto 発表報道（2026-05-05）: https://www.eagletribune.com/region/servicenow-otto-creates-the-unified-ai-experience-for-the-enterprise/article_aaecf144-5d1c-50b0-8a7a-e478389730c5.html
 - UK G-Cloud 15 価格文書（Fabric Credits）: https://assets.applytosupply.digitalmarketplace.service.gov.uk/g-cloud-15/documents/92331/724835305645807-pricing-document-2026-01-30-1039.pdf

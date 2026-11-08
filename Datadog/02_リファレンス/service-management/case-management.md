@@ -858,11 +858,11 @@ Work Management（旧称：Case Management）**自体は追加料金なし**で 
 - Case Management GA 時の公式ブログ：「available to Datadog customers at no additional charge」。[出典](https://www.datadoghq.com/blog/track-issues-datadog-case-management/)（2023-04-18 公開）
 - 公式料金一覧ページ（`/pricing/list/`）にも Work Management／Case Management の課金行はない（取得日 2026-11-02）。[出典](https://www.datadoghq.com/pricing/list/)
 
-ただし、Work Management と組み合わせる**周辺機能は別途課金**される。公式料金一覧ページ（取得日 2026-11-02、US サイト表示）の定価は以下。数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。
+ただし、Work Management と組み合わせる**周辺機能は別途課金**される。公式料金一覧ページ（取得日 2026-11-02、US サイト表示）の定価は以下。数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)。
 
 | 組み合わせる機能 | 課金単位 | 年契約（Billed Annually） | 月契約（Billed Month-to-month） | オンデマンド | Work Management との関係 |
 |---|---|---|---|---|---|
-| Workflow Automation | 100 Workflow 実行あたり／月 | $10 | $12 | $14 | Automation Rules・Workflow からの作成／更新はワークフロー実行として計上されると考えるのが安全【推定】（Automation Rules 起動分を課金対象外とする記述は公開情報では確認できず）。なお、セキュリティ Finding・Signal を起点とする Workflow 実行は無料（詳細は [製品別料金表](../../03_導入編/pricing-by-product.md)） |
+| Workflow Automation | 100 Workflow 実行あたり／月 | $10 | $12 | $14 | Automation Rules・Workflow からの作成／更新はワークフロー実行として計上されると考えるのが安全【推定】（Automation Rules 起動分を課金対象外とする記述は公開情報では確認できず）。なお、セキュリティ Finding・Signal を起点とする Workflow 実行は無料（詳細は [製品別料金表](../../03_導入編/02-pricing-by-product.md)） |
 | Event Management | 相関パターンで評価されたイベントあたり／月 | $0.10 | $0.12 | $0.14 | 相関による Work Item 自動作成の前提。**Datadog 生成イベント（Monitor アラート、Error Tracking、Incidents 等）は無料**で、課金対象はカスタムソリューションや他ツールから取り込んだサードパーティイベントのみ（取得日 2026-11-02、[出典](https://www.datadoghq.com/pricing/?product=event-management)） |
 | On-Call | シートあたり／月 | $20 | $24 | $29 | Work Item からのページング |
 | Incident Management | シートあたり／月 | $30 | $36 | $43.20 | Work Item からのインシデント宣言・自動エスカレーション |
@@ -870,7 +870,7 @@ Work Management（旧称：Case Management）**自体は追加料金なし**で 
 
 - 料金はサイトにより異なる可能性がある（料金ページはサイト選択式）。Government サイトの料金は公開情報では確認できず。
 - Error Tracking、Cloud SIEM、Sensitive Data Scanner など Work Item の発生源となる製品もそれぞれの課金体系に従う。
-- 料金体系全体は [料金体系の全体像](../../03_導入編/pricing-overview.md)、[課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+- 料金体系全体は [料金体系の全体像](../../03_導入編/01-pricing-overview.md)、[課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 
 ## 運用上の注意（ドキュメント記載事項）
 
@@ -887,7 +887,7 @@ Work Management（旧称：Case Management）**自体は追加料金なし**で 
 | Granular Access Control | Monitors 等による自動作成はアクセス設定に関係なく行われる |
 | Custom Agents の権限 | エージェントは割り当てたユーザーの権限で動作するため、割り当て者の権限範囲に注意 |
 
-アラート設計全般は [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md)、運用設計は [運用設計](../../03_導入編/operations-design.md) を参照。
+アラート設計全般は [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md)、運用設計は [運用設計](../../03_導入編/13-operations-design.md) を参照。
 
 ## 関連ファイル
 
@@ -906,7 +906,7 @@ Work Management（旧称：Case Management）**自体は追加料金なし**で 
 - [Watchdog](../platform/watchdog.md)
 - [Bits AI と AI 機能](../ai/bits-ai.md)
 - [組織・ユーザー・権限管理](../platform/account-and-access-management.md)
-- [製品別料金表](../../03_導入編/pricing-by-product.md)
+- [製品別料金表](../../03_導入編/02-pricing-by-product.md)
 
 ## 参照元
 

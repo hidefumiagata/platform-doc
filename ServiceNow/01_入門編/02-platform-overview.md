@@ -13,6 +13,8 @@ sources:
   - https://s205.q4cdn.com/537566246/files/doc_news/ServiceNow-Unveils-the-New-ServiceNow-AI-Platform-to-Put-Any-AI-Any-Agent-Any-Model-to-Work-Across-the-Enterprise-2025.pdf
   - https://newsroom.servicenow.com/press-releases/details/2025/ServiceNow-Launches-AI-Control-Tower-a-Centralized-Command-Center-to-Govern-Manage-Secure-and-Realize-Value-From-Any-AI-Agent-Model-and-Workflow/
   - https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/KufA2mI6WfAIsf2ymqoWdg
+  - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/Y2xXhemBwzVfFxRYypu~OA
+  - https://www.sec.gov/Archives/edgar/data/0001373715/000137371526000056/now-20260331.htm
   - https://www.servicenow.com/docs/r/8_SIK58xmFJIEc2bL5YTYg/iD2im0ZC56onMtNgXRDJXg
   - https://www.servicenow.com/docs/r/7GoNY9eeDRD0FzxldbEmXw/OlI5rYTxJ6XUksEmE_Lerg
   - https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/BfkValYqIHzALsrccdn~cQ
@@ -22,6 +24,11 @@ sources:
   - https://itbrief.co.uk/story/servicenow-unveils-agentic-ai-platform-built-for-trust-and-scale
   - https://www.servicenow.com/community/developer-articles/servicenow-datacenters/ta-p/2330303
   - https://www.servicenow.com/community/enterprise-architecture-forum/ai-in-servicenow-the-complete-guide-2026/m-p/3611990
+  - https://newsroom.servicenow.com/press-releases/details/2025/ServiceNows-latest-platform-release-adds-to-thousands-of-AI-agents-across-CRM-HR-IT-and-more-for-faster-smarter-workflows-and-maximum-business-impact-03-12-2025-traffic/default.aspx
+  - https://newsroom.servicenow.com/press-releases/details/2024/ServiceNow-adds-powerful-new-solutions-to-the-Now-Platform-to-transform-the-employee-experience-and-simplify-work-across-the-enterprise-05-08-2024-traffic/default.aspx
+  - https://newsroom.servicenow.com/press-releases/details/2024/ServiceNow-announces-powerful-data-enhancements-to-unlock-value-with-ultra-scale-and-performance-09-10-2024-traffic/default.aspx
+  - https://www.servicenow.com/docs/r/servicenow-platform/raptordb.html
+  - https://www.servicenow.com/docs/r/api-reference/server-api-reference/c_GlideRecordScopedAPI.html
 ---
 
 # Now Platform（ServiceNow AI Platform）の全体像
@@ -54,7 +61,7 @@ ServiceNow のプラットフォーム名称は、ServiceNow AI Platform に至�
 
 | 時期 | 名称 | 備考 |
 |---|---|---|
-| 〜2010 年代後半 | ServiceNow Platform / Glide（内部フレームワーク名） | サーバーサイド API が `GlideRecord` など「Glide」接頭辞を持つのはこの名残 |
+| 〜2010 年代後半 | ServiceNow Platform / Glide（内部フレームワーク名） | サーバーサイド API が `GlideRecord` など「Glide」接頭辞を持つのはこの名残【推定】（時期・呼称・由来の説明は公開情報では確認できず。`GlideRecord` API が現存すること自体は [GlideRecord - Scoped（ServiceNow Docs）](https://www.servicenow.com/docs/r/api-reference/server-api-reference/c_GlideRecordScopedAPI.html) で確認できる） |
 | 2017 年頃〜2025 年 5 月 | **Now Platform** | リリースノートや製品資料で長く使われた名称 |
 | 2025 年 5 月（Knowledge 2025）〜 | **ServiceNow AI Platform** | 「AI、データ、ワークフローを一つにまとめた再設計」として発表 |
 
@@ -108,7 +115,7 @@ ServiceNow AI Platform の「単一データモデル」とは、すべての製
 |---|---|---|
 | すべてはテーブルとレコード | 画面に表示されるデータも、設定（スクリプト、フロー、ACL）も、テーブルのレコードとして保存される | `incident`、`sys_script`（Business Rule）、`sys_security_acl` |
 | `sys_id` による一意識別 | すべてのレコードは 32 文字の一意キー `sys_id` を持ち、テーブル間の参照に使われる | 参照フィールドは相手レコードの `sys_id` を保持する |
-| テーブル継承（Table extension） | 親テーブルの項目を子テーブルが引き継ぐ。業務チケットは `task` テーブルを親とする | `task` → `incident`、`problem`、`change_request`、`sc_req_item`、`hr_case`（HRSD）など |
+| テーブル継承（Table extension） | 親テーブルの項目を子テーブルが引き継ぐ。業務チケットは `task` テーブルを親とする | `task` → `incident`、`problem`、`change_request`、`sc_req_item`、`sn_hr_core_case`（HR Service Delivery の HR ケース）など |
 | 共通マスタの共有 | ユーザー、グループ、所在地、部署、会社などのマスタは全製品で共有される | `sys_user`、`sys_user_group`、`cmn_location`、`cmn_department`、`core_company` |
 | CMDB と CSDM | IT 資産・サービスの構成情報を `cmdb_ci` 配下のクラス階層で管理し、CSDM（Common Service Data Model）でサービスとの関係を標準化する | `cmdb_ci` → `cmdb_ci_server`、`cmdb_ci_service` など |
 
@@ -125,7 +132,7 @@ ServiceNow AI Platform の「単一データモデル」とは、すべての製
 
 - すべての顧客インスタンスは、ServiceNow が開発する**同一のプラットフォーム・ソフトウェア**（ファミリーリリース＋パッチ）を実行している。顧客ごとに異なる製品版を個別開発しているのではない。
 - 顧客固有の設定・カスタマイズは、プラットフォームのソースコードを書き換えるのではなく、**インスタンスのテーブルにメタデータ（レコード）として保存**される（例：Business Rule は `sys_script` テーブルのレコード）。そのため、アップグレードでプラットフォームのコードを入れ替えても、顧客の設定はデータとして残る。
-- ただし、顧客がベースシステム（out-of-box）のレコードを直接変更すると、アップグレード時にその変更箇所が「スキップ」扱いとなり、レビューが必要になる。これが「カスタマイズは技術的負債になりやすい」と言われる理由である。詳細は [アップグレード管理](../03_導入編/13-upgrade-management.md) と [カスタマイズと技術的負債](../04_応用編/02-customization-technical-debt.md) を参照。
+- ただし、顧客がベースシステム（out-of-box）のレコードを直接変更すると、アップグレード時にその変更箇所が「スキップ」扱いとなり、レビューが必要になる。これが「カスタマイズは技術的負債になりやすい」と言われる理由である。詳細は [アップグレード管理](../03_導入編/13-upgrade-management.md) 、[アップグレードの教訓](../04_応用編/04-upgrade-lessons.md)、[ガバナンスと CoE の実践](../04_応用編/09-governance-coe-practice.md) を参照。
 
 なお近年は、Now Assist、Workflow Studio などの多くのアプリケーションが **ServiceNow Store 経由で、ファミリーリリースとは独立して更新** される。例えば Workflow Studio は Washington DC Patch 3 以降、Workflow Studio を更新すると Flow Designer、Playbook、Decision Builder など依存アプリも自動更新される。[出典](https://www.servicenow.com/docs/r/Iru_OmfY8svQHlgM89Nuiw/2Rckx3Xvsd7mXL3x3C912Q) したがって「単一コードベース」は「プラットフォーム（コア）が全顧客で共通」という意味であり、「インスタンス上のすべてのアプリが常に同じバージョン」という意味ではない点に注意する。
 
@@ -164,6 +171,8 @@ ServiceNow は自社のアーキテクチャを **multi-instance（マルチイ�
 | 障害の影響 | 共有基盤の障害が全顧客に波及しうる | 原則として当該インスタンスに限定される |
 | 分離・回復 | 顧客単位の復元・移設は難しい | インスタンス単位でバックアップ・復元・データセンター切替が可能 |
 
+上表のうち、マルチテナント列の全項目と、「障害の影響」「分離・回復」行は【経験則】（ベンダー比較で一般に語られる整理）。ServiceNow 列の「データベース」「アプリケーション層」は 10-K、「分離・回復」のうちインスタンス単位の DR・メンテナンスは Blueprint 白書（下記）、データセンター切替は AHA の公式ドキュメント（3.4 節）に基づく。
+
 - ServiceNow の 10-K（FY2025）は「各顧客に専用のアプリケーション層とデータベースを提供するマルチインスタンス・アーキテクチャを運用している」と明記している。[出典](https://www.sec.gov/Archives/edgar/data/1373715/000137371526000007/now-20251231.htm)
 - 公式ドキュメントも「サービスは、一つのインスタンスを複数ユーザーで動かすのではなく、マルチインスタンス方式で提供される」と説明している。[出典](https://www.servicenow.com/docs/r/zurich/platform-administration/how-now-platform-works.html)
 - Blueprint 白書は、マルチインスタンスによる顧客分離を「独立したスケーリング、メンテナンス、ディザスタリカバリのための、テナントごとに分離されたデータベースを持つ専用環境」と説明している。[出典](https://s205.q4cdn.com/916135447/files/doc_downloads/2026/ServiceNow-s-Blueprint-for-Agentic-Business-The-Technical-Foundation.pdf)
@@ -183,13 +192,15 @@ ServiceNow は自社のアーキテクチャを **multi-instance（マルチイ�
 | Application node（アプリケーションノード） | Java ベースのアプリケーションサーバー。各インスタンスに最低 2 ノード。スレッドプールと DB 接続プールを持つ | 【第三者情報】 |
 | ノード種別 | 標準は全ワークロードを処理する Generic。要求に応じて対話処理用 UI ノードとバッチ処理用 Worker ノードに分けることもある | 【第三者情報】 |
 | Database（データベース） | インスタンス専用。プライマリ DB はインスタンス全体の共有資源であり、性能ボトルネックになりやすい | 10-K（専用 DB）＋【第三者情報】 |
-| RaptorDB / RaptorDB Pro | ServiceNow の高性能データベース。トランザクション処理と分析処理を同じデータで実行する HTAP エンジン | 公式 |
-| Hermes Messaging Service | Kafka ベースのメッセージング基盤。StreamConnect、IDR（Instance Data Replication）などを有効化すると利用される | 公式 |
+| RaptorDB / RaptorDB Pro | ServiceNow の高性能データベース。トランザクション処理と分析処理を同じデータで実行する HTAP エンジン。プレスリリース（2024-09-10）の「RaptorDB Pro」は、公式ドキュメント上の **RaptorDB Professional**（有償の上位版。標準は RaptorDB Standard）に当たる。詳細は [インスタンスアーキテクチャ](../02_リファレンス/platform/instance-architecture.md) | 公式（10-K：高性能 DB／Blueprint 白書：HTAP／[RaptorDB（公式 Docs）](https://www.servicenow.com/docs/r/servicenow-platform/raptordb.html)／[2024-09-10 プレスリリース](https://newsroom.servicenow.com/press-releases/details/2024/ServiceNow-announces-powerful-data-enhancements-to-unlock-value-with-ultra-scale-and-performance-09-10-2024-traffic/default.aspx)） |
+| Hermes Messaging Service | Apache Kafka 上に構築された、マルチテナント・マルチクラスタのデータ転送・キューイングサービス。Stream Connect、Log Export Service（LES）、IDR（Instance Data Replication）などで利用される | 公式（ServiceNow Docs） |
 
 - ファイアウォール→ADC→複数アプリケーションノード→データベースというリクエスト経路、および各インスタンスに最低 2 つのアプリケーションノードがある点は、ServiceNow Community の開発者ブログによる。【第三者情報】[出典](https://www.servicenow.com/community/developer-blog/designing-for-performance-part-1/ba-p/3177582)
 - Generic／UI／Worker ノードの区別は Community 記事による。【第三者情報】[出典](https://www.servicenow.com/community/developer-articles/understanding-application-nodes/ta-p/2586823)
 - RaptorDB は 10-K で「スケールの大きいワークロードを管理するための高性能データベース」とされ、Blueprint 白書では HTAP エンジンとして説明されている。[出典](https://s205.q4cdn.com/916135447/files/doc_downloads/2026/ServiceNow-s-Blueprint-for-Agentic-Business-The-Technical-Foundation.pdf)
-- 既存インスタンスのデータベースが MySQL/MariaDB 系か RaptorDB かといった個別インスタンスの DB 製品の内訳は、公開情報では確認できず。
+- Hermes Messaging Service は Apache Kafka 上に構築され、ServiceNow がホストする Kafka クラスタを使ってインスタンスと Kafka 環境の間で大量のイベントを非同期にやり取りする。利用機能として Stream Connect、Log Export Service、Instance Data Replication（Utah より前に作成したレプリケーションセットを Hermes 対応にアップグレードした場合）、Workflow Studio（Flow Designer）からのデータエクスポートが挙げられている（Australia 版ドキュメント）。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/Y2xXhemBwzVfFxRYypu~OA)
+- RaptorDB は Postgres ベースのデータベースで、2024-05-08 の Knowledge 2024 プレスリリースで「Project RaptorDB」として発表された。[出典](https://newsroom.servicenow.com/press-releases/details/2024/ServiceNow-adds-powerful-new-solutions-to-the-Now-Platform-to-transform-the-employee-experience-and-simplify-work-across-the-enterprise-05-08-2024-traffic/default.aspx) 2024-09-10 の発表では、RaptorDB Standard は新規顧客に即時提供、既存顧客には翌年（2025 年）後半から提供、RaptorDB Pro は新規・既存顧客に即時提供とされた。つまり既存顧客の DB は、従来のデータベースから RaptorDB Standard へ順次移行していく途上にある。[出典](https://newsroom.servicenow.com/press-releases/details/2024/ServiceNow-announces-powerful-data-enhancements-to-unlock-value-with-ultra-scale-and-performance-09-10-2024-traffic/default.aspx)
+- 個々のインスタンスの移行状況（どのインスタンスが従来 DB で、どれが RaptorDB か）は、公開情報では確認できず。
 
 ### 3.4 データセンターと高可用性
 
@@ -204,6 +215,8 @@ ServiceNow AI Platform のインスタンスは、**地理的に離れた 2 つ�
 **図 1：ServiceNow のデータセンター配置（2018 年時点の Community 記事掲載図）**
 世界地図上に、青い丸で「8 Datacenter Pairs（8 つのデータセンターペア）」、緑の三角で「6 Support Centers（6 つのサポートセンター）」を示した図。ラベルは CANADA、U.S.、U.S. FEDERAL、BRAZIL、EMEA、SWITZERLAND、ASIA、AUSTRALIA で、各地域に 2 つずつの青丸（＝ペア）が置かれている。同記事は、ペアの両データセンターが常時稼働し、本番データはペアの両方に保存され、プライマリ DB（読み書き）からセカンダリ DB（読み取り専用）へ非同期で継続的にレプリケーションされると説明している。**2018 年時点の情報であり、現在のデータセンター数・所在地とは異なる**（現在の所在地域は上記 10-K を参照）。【第三者情報】
 出典：https://www.servicenow.com/community/developer-articles/servicenow-datacenters/ta-p/2330303 （取得日：2026-11-02）
+
+> **「両データセンターが常時稼働」と「Active／Standby」の関係:** 2018 年の Community 記事にある「ペアの両データセンターが常時稼働」は、両データセンターのインフラ（サーバー・DB）が常に動いていることを指す。個々のインスタンスで見ると、ペアの一方が Active（読み書きを処理）、もう一方が Standby（読み取り専用レプリカを保持）となる。本ナレッジでは、現行の公式ドキュメントが説明する AHA の Active／Standby 構成を正とする（7.2 の図 4 も同じ前提）。[出典](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/KufA2mI6WfAIsf2ymqoWdg)
 
 - 現在のデータセンターペアの数・所在都市の一覧は、公開情報では確認できず。日本リージョン（国内データセンター）の扱いは [日本市場における導入](../03_導入編/15-japan-market.md) を参照。
 
@@ -246,13 +259,13 @@ ServiceNow AI Platform は、サブスクリプション契約で提供される
 
 ### 4.2 リリースとアップグレード
 
-ServiceNow AI Platform は年 2 回、都市名をアルファベット順に付けたファミリーリリースを提供する。
+ServiceNow AI Platform は年 2 回、名前をアルファベット順に付けたファミリーリリースを提供する。Zurich までは都市名、Australia からは国名が使われている（詳細は [リリースサイクルとバージョン](07-release-cycle.md)）。
 
 | リリース | EA（Early Availability） | GA（General Availability） | 備考 |
 |---|---|---|---|
-| Zurich | 2025 年 | 2025 年 | 前リリース |
+| Zurich | 2025-07-31 | 2025-09（Patch 1 = 2025-09-10） | 前リリース。最後の都市名ファミリー |
 | **Australia**（本ナレッジの基準） | 2026-03-12 | **2026-05-05** | Xanadu／Yokohama／Zurich からのアップグレードパスあり |
-| Brazil | 2026-09-24 | 2026 年第 4 四半期 | Yokohama／Zurich／Australia からのアップグレードパスあり |
+| Brazil | 2026-09-24 | 2026-11-05【推定】（Brazil Patch 2 が「Available」で公開された日。公式表に GA 行の明記はない。[出典](https://www.servicenow.com/docs/r/brazil/release-notes/available-versions.html)） | Yokohama／Zurich／Australia からのアップグレードパスあり |
 
 [出典（Australia）](https://www.servicenow.com/docs/r/8_SIK58xmFJIEc2bL5YTYg/iD2im0ZC56onMtNgXRDJXg) ／ [出典（Brazil）](https://www.servicenow.com/docs/r/7GoNY9eeDRD0FzxldbEmXw/OlI5rYTxJ6XUksEmE_Lerg)
 
@@ -328,6 +341,7 @@ ServiceNow は 2026 年の Knowledge 2026 および技術白書で、ServiceNow 
 
 - 業界メディアの Knowledge 2026 報道では、4 本柱は Sense／Decide／Act／**Secure** と表記され、その上位に会話型インターフェース **Otto** が置かれている。Decide の中核として **Context Engine** が「関係、ポリシー、過去の判断を結びつけ、エージェントが何をすべきか分かるようにする」と説明されている。【第三者情報】[出典](https://nojitter.com/ai-automation/servicenow-ai-platform-any-agent-any-system)
 - 白書・報道ともに、Armis（サイバーフィジカル資産の可視化）と Veza（アイデンティティ・アクセスガバナンス）の買収による機能拡張に言及している。白書作成時点では両買収は規制当局の承認等を条件としていた。[出典](https://s205.q4cdn.com/916135447/files/doc_downloads/2026/ServiceNow-s-Blueprint-for-Agentic-Business-The-Technical-Foundation.pdf)
+- その後、Veza の買収は 2026-03-02、Armis の買収（現金対価 約 78 億ドル。報道では約 77.5 億ドル）は 2026-04-20 に完了した。ServiceNow の Form 10-Q（2026 年第 1 四半期）が Veza の取得（Note 5）と Armis の取得（Note 19 Subsequent Events）を記載している。[出典](https://www.sec.gov/Archives/edgar/data/0001373715/000137371526000056/now-20260331.htm) ／ 【第三者情報】[出典](https://www.itpro.com/business/acquisition/servicenow-wraps-up-usd7-75-billion-armis-acquisition)
 
 ### 6.3 主要な AI・データ・自動化コンポーネント
 
@@ -336,8 +350,8 @@ ServiceNow AI Platform に組み込まれている主な AI・データ・自動
 | コンポーネント | 概要 | 登場時期 | 詳細 |
 |---|---|---|---|
 | **Now Assist** | プラットフォーム統合の生成 AI 機能群（要約、生成、会話、検索） | 2023-09（Vancouver で GA） | [Now Assist と AI Agents](../02_リファレンス/platform/now-assist-ai-agents.md) |
-| **AI Agents** | 目的を与えると計画・実行する自律型エージェント。既製エージェント、他社アプリ組み込みエージェント、独自作成が可能 | 公開情報で GA リリースの特定はできず | 同上 |
-| **AI Agent Orchestrator / AI Agent Studio** | 複数エージェントの協調、およびエージェントの作成・テスト・評価環境 | Australia で Studio が再設計 | 同上 |
+| **AI Agents** | 目的を与えると計画・実行する自律型エージェント。既製エージェント、他社アプリ組み込みエージェント、独自作成が可能 | 2024-09（Xanadu）で発表、2025-03 の Yokohama で GA（AI Agent Orchestrator・AI Agent Studio も同時に GA） | 同上 |
+| **AI Agent Orchestrator / AI Agent Studio** | 複数エージェントの協調、およびエージェントの作成・テスト・評価環境 | Yokohama（2025-03）で GA。Australia で Studio を再設計 | 同上 |
 | **AI Control Tower** | ServiceNow 製・他社製の AI エージェント、モデル、ワークフローを一元的に統制・管理・保護する司令塔 | 2025-05（Knowledge 2025 で GA） | 同上 |
 | **AI Agent Fabric** | エージェント間・エージェントとツール間の通信層。MCP（Model Context Protocol）、A2A（Agent2Agent）に対応 | 2025-05 発表（早期採用者向け、2025 年第 3 四半期 GA 予定と発表） | 同上 |
 | **Action Fabric / MCP Server** | Claude、Copilot など外部 AI エージェントが ServiceNow 上でガバナンスされたアクションを実行するための仕組み。MCP サーバーは GA | 2026-05（Knowledge 2026）【第三者情報】 | 同上 |
@@ -346,7 +360,7 @@ ServiceNow AI Platform に組み込まれている主な AI・データ・自動
 | **Virtual Agent** | チャットボット・会話型 AI | — | [Virtual Agent と会話型AI](../02_リファレンス/platform/virtual-agent.md) |
 | **Workflow Data Fabric** | 外部システムのデータをデータ移動なしで利用・更新できるデータ層。Zero Copy Connectors、IntegrationHub、ストリーミング（Kafka）等を含む | 2024-10 発表 | [Workflow Data Fabric](../02_リファレンス/platform/workflow-data-fabric.md) |
 | **Zero Copy Connectors** | Snowflake、Databricks 等の外部データをレプリケーションせずにフェデレーテッドクエリで参照 | 2024-10 発表 | 同上 |
-| **RaptorDB / RaptorDB Pro** | トランザクションと分析を同じライブデータで処理する HTAP データベース | 2024-09 発表 | [インスタンスアーキテクチャ](../02_リファレンス/platform/instance-architecture.md) |
+| **RaptorDB / RaptorDB Pro** | トランザクションと分析を同じライブデータで処理する HTAP データベース | 2024-05（Knowledge 2024 で Project RaptorDB として発表）、2024-09 に RaptorDB Standard／Pro を発表 | [インスタンスアーキテクチャ](../02_リファレンス/platform/instance-architecture.md) |
 | **Workflow Studio / Flow Designer / Playbooks** | ノーコード／ローコードのワークフロー自動化 | Workflow Studio は Washington DC（2024-03） | [Workflow Studio / Flow Designer](../02_リファレンス/platform/flow-designer-workflow-studio.md) |
 | **IntegrationHub** | スポーク（Spoke）による外部システム連携 | — | [IntegrationHub](../02_リファレンス/platform/integrationhub.md) |
 | **RPA Hub / Process Mining / Document Intelligence** | デスクトップ操作の自動化、プロセス分析、文書からのデータ抽出 | — | [プロセス自動化](../02_リファレンス/platform/process-automation-rpa-mining.md) |
@@ -357,7 +371,9 @@ ServiceNow AI Platform に組み込まれている主な AI・データ・自動
 - AI Control Tower・AI Agent Fabric（Knowledge 2025）：[出典](https://newsroom.servicenow.com/press-releases/details/2025/ServiceNow-Launches-AI-Control-Tower-a-Centralized-Command-Center-to-Govern-Manage-Secure-and-Realize-Value-From-Any-AI-Agent-Model-and-Workflow/)
 - Workflow Data Fabric の機能拡充（240 以上のスポーク／コネクタ、ゼロコピー、Apache Kafka ストリーミング、SharePoint・Confluence 等の非構造化データ連携、100 社以上のパートナーが参加する Workflow Data Network）：【第三者情報】[出典](https://itbrief.co.uk/story/servicenow-unveils-agentic-ai-platform-built-for-trust-and-scale)
 - Workflow Data Fabric・Zero Copy の発表（2024-10）：[出典](https://s205.q4cdn.com/537566246/files/doc_news/ServiceNow-introduces-Workflow-Data-Fabric-forging-a-new-generation-of-AI-fueled-productivity-for-the-enterprise-10-23-2024-traffic-2024.pdf)
-- RaptorDB の発表（2024-09）：[出典](https://s205.q4cdn.com/537566246/files/doc_news/ServiceNow-announces-powerful-data-enhancements-to-unlock-value-with-ultra-scale-and-performance-09-10-2024-traffic-2024.pdf)
+- AI Agents・AI Agent Orchestrator・AI Agent Studio の GA（Yokohama、2025-03-12。「本日発表した機能はすべて一般提供済み」）：[出典](https://newsroom.servicenow.com/press-releases/details/2025/ServiceNows-latest-platform-release-adds-to-thousands-of-AI-agents-across-CRM-HR-IT-and-more-for-faster-smarter-workflows-and-maximum-business-impact-03-12-2025-traffic/default.aspx)
+- Project RaptorDB の発表（Knowledge 2024、2024-05-08）：[出典](https://newsroom.servicenow.com/press-releases/details/2024/ServiceNow-adds-powerful-new-solutions-to-the-Now-Platform-to-transform-the-employee-experience-and-simplify-work-across-the-enterprise-05-08-2024-traffic/default.aspx)
+- RaptorDB Standard／Pro の発表（2024-09-10）：[出典](https://s205.q4cdn.com/537566246/files/doc_news/ServiceNow-announces-powerful-data-enhancements-to-unlock-value-with-ultra-scale-and-performance-09-10-2024-traffic-2024.pdf)
 - Action Fabric・Otto・Context Engine（Knowledge 2026）：【第三者情報】[出典](https://nojitter.com/ai-automation/servicenow-ai-platform-any-agent-any-system)
 - Australia の Otto、AI Agent Studio、Build Agent、Protected Platform：[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/BfkValYqIHzALsrccdn~cQ)
 - ServiceNow が MCP と A2A のプロダクションサポートを追加したのは 2025 年 5 月と白書に記載：[出典](https://s205.q4cdn.com/916135447/files/doc_downloads/2026/ServiceNow-s-Blueprint-for-Agentic-Business-The-Technical-Foundation.pdf)
@@ -374,13 +390,13 @@ ServiceNow AI Platform は、自社製に閉じない「オープン性」を打
 
 ### 6.5 AI のライセンス階層（Australia）
 
-Australia リリースでは、ServiceNow AI Platform の AI ネイティブ体験として、3 つのライセンス階層（product tiers）が提供される。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/BfkValYqIHzALsrccdn~cQ)
+Australia リリースでは、ServiceNow AI Platform の AI ネイティブ体験として、3 つのライセンス階層（product tiers）が提供される。上位の階層は下位の階層に AI 機能・エージェント・ガバナンス機能を積み増す。[出典](https://www.servicenow.com/docs/r/australia/intelligent-experiences/ai-native-sku-overview.html)
 
-| 階層 | 概要 |
-|---|---|
-| Foundation | インサイト（情報提供）のための AI エージェントとスキル |
-| Advanced | 関連ユースケースで生産性を高める AI エージェントとスキル |
-| Prime | すべての AI エージェントとスキルによる自律的アクション、および独自エージェント作成 |
+| 階層 | 焦点（公式 Docs の英語表記） | 概要 |
+|---|---|---|
+| Foundation | AI skills, routine AI agents | AI による洞察と定型的な自動化。定型的なパターン認識・分類によるタスク単位の支援 |
+| Advanced | Agentic workflows | 複雑なプロセスの文脈を統合するエージェント型ワークフロー。人と並走しながらワークフローの工程全体を自動化する |
+| Prime | Autonomous AI workforce | 独立した AI スペシャリストが判断と実行を自律的に行う。自然言語の指示から独自エージェントを作成できる |
 
 - それ以前は、AI エージェントは Pro Plus／Enterprise Plus のライセンス階層で提供され、サブスクリプションと従量課金を組み合わせていたと報じられている。【第三者情報】[出典](https://itbrief.co.uk/story/servicenow-unveils-agentic-ai-platform-built-for-trust-and-scale)
 - 階層ごとの具体的な対象製品・SKU は [ライセンスモデル](../03_導入編/01-licensing-model.md) と [エディション比較](../03_導入編/03-edition-comparison.md) を参照。
@@ -480,6 +496,8 @@ flowchart TB
     B2 <--> EXT
 ```
 
+**図 3：ServiceNow AI Platform の論理アーキテクチャ（本ナレッジ作成の概念図）**
+
 **図 3 の読み方（文章による説明）**
 
 1. **Experience（体験層）**：社員・顧客・エージェント（担当者）・管理者は、Next Experience の Workspace、Employee Center などのポータル、Now Mobile、Virtual Agent や Otto などの会話型 UI から ServiceNow を使う。Knowledge 2026 以降は、外部の AI エージェントも MCP 経由で ServiceNow のアクションを呼び出せる。
@@ -518,6 +536,9 @@ flowchart LR
     DC1 <-.AHA transfer（Active/Standby 切替）.-> DC2
 ```
 
+**図 4：インスタンスの物理構成（概略、本ナレッジ作成の概念図）**
+利用者・連携システムからの HTTPS リクエストがファイアウォールと ADC を経て、Active 側データセンター A の複数のアプリケーションノードに振り分けられ、各ノードはプライマリ DB（読み書き）を使う。プライマリ DB は Standby 側データセンター B のセカンダリ DB（読み取り専用レプリカ）へ非同期でレプリケーションされ、AHA transfer により Active と Standby を入れ替えられる。
+
 - 社内ネットワーク内のシステム（オンプレミスのサーバー、Active Directory 等）との連携では、顧客側に **MID Server（Management, Instrumentation, and Discovery Server）** を設置し、MID Server からインスタンスへ HTTPS で接続する方式が一般的である。[MID Server](../02_リファレンス/platform/mid-server.md) を参照。
 - 公式ドキュメントは、Workflow Data Fabric が MID Server を介してインスタンスと外部サービスをつなぎ、一方向・双方向の連携やメールベースの接続を支えると説明している。[出典](https://www.servicenow.com/docs/r/zurich/platform-administration/how-now-platform-works.html)
 
@@ -544,9 +565,8 @@ flowchart LR
 以下は本ファイル作成時点（2026-11-02）の公開情報では確認できなかった。
 
 - 「single code base（単一コードベース）」という語を用いた ServiceNow 公式の記述（公式には「one platform architecture」「single architecture」）。
-- 現在のデータセンターペアの総数と所在都市の一覧（2018 年時点では 8 ペア。2020 年の公式ブログでは 11 ペアとの記述もあるとされるが未確認）。
-- 個々のインスタンスのデータベース製品の内訳（RaptorDB への移行状況を含む）。
-- AI Agents の GA リリースの特定。
+- 現在のデータセンターペアの総数と所在都市の一覧（2018 年時点の Community 記事では 8 ペア。現在の総数は公開情報では確認できず）。
+- 個々のインスタンスのデータベース製品の内訳（インスタンスごとの RaptorDB への移行状況）。
 - Brazil リリースにおける、プラットフォーム全体像（データモデル、マルチインスタンス方式、ホスティング形態）に関わる変更。
 - 「Now Platform」名称の正確な使用開始時期。
 
@@ -562,13 +582,21 @@ flowchart LR
 - ServiceNow Launches AI Control Tower（2025-05-06）：https://newsroom.servicenow.com/press-releases/details/2025/ServiceNow-Launches-AI-Control-Tower-a-Centralized-Command-Center-to-Govern-Manage-Secure-and-Realize-Value-From-Any-AI-Agent-Model-and-Workflow/
 - ServiceNow introduces Workflow Data Fabric（2024-10-23）：https://s205.q4cdn.com/537566246/files/doc_news/ServiceNow-introduces-Workflow-Data-Fabric-forging-a-new-generation-of-AI-fueled-productivity-for-the-enterprise-10-23-2024-traffic-2024.pdf
 - ServiceNow announces powerful data enhancements（RaptorDB、2024-09-10）：https://s205.q4cdn.com/537566246/files/doc_news/ServiceNow-announces-powerful-data-enhancements-to-unlock-value-with-ultra-scale-and-performance-09-10-2024-traffic-2024.pdf
+- ServiceNow announces powerful data enhancements（RaptorDB、2024-09-10、Newsroom 版）：https://newsroom.servicenow.com/press-releases/details/2024/ServiceNow-announces-powerful-data-enhancements-to-unlock-value-with-ultra-scale-and-performance-09-10-2024-traffic/default.aspx
+- ServiceNow adds powerful new solutions to the Now Platform（Knowledge 2024、Project RaptorDB、2024-05-08）：https://newsroom.servicenow.com/press-releases/details/2024/ServiceNow-adds-powerful-new-solutions-to-the-Now-Platform-to-transform-the-employee-experience-and-simplify-work-across-the-enterprise-05-08-2024-traffic/default.aspx
+- ServiceNow's latest platform release adds to thousands of AI agents（Yokohama、2025-03-12）：https://newsroom.servicenow.com/press-releases/details/2025/ServiceNows-latest-platform-release-adds-to-thousands-of-AI-agents-across-CRM-HR-IT-and-more-for-faster-smarter-workflows-and-maximum-business-impact-03-12-2025-traffic/default.aspx
+- RaptorDB Professional（ServiceNow Docs）：https://www.servicenow.com/docs/r/servicenow-platform/raptordb.html
+- GlideRecord - Scoped（ServiceNow Docs、API リファレンス）：https://www.servicenow.com/docs/r/api-reference/server-api-reference/c_GlideRecordScopedAPI.html
 - Now Assist / Vancouver リリース（2023-09-20）：https://www.businesswire.com/news/home/20230920980105/en
 - Advanced High Availability transfer with Hermes（ServiceNow Docs）：https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/KufA2mI6WfAIsf2ymqoWdg
 - Multi-instance Management（ServiceNow Docs）：https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/7WiCOw4QPgr0WdpeF9LClg
 - Learn about the Australia release（ServiceNow Docs）：https://www.servicenow.com/docs/r/8_SIK58xmFJIEc2bL5YTYg/iD2im0ZC56onMtNgXRDJXg
 - Learn about the Brazil release（ServiceNow Docs）：https://www.servicenow.com/docs/r/7GoNY9eeDRD0FzxldbEmXw/OlI5rYTxJ6XUksEmE_Lerg
 - New features and products in Australia（ServiceNow Docs）：https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/BfkValYqIHzALsrccdn~cQ
+- ServiceNow product tiers（ServiceNow Docs、Australia）：https://www.servicenow.com/docs/r/australia/intelligent-experiences/ai-native-sku-overview.html
 - ServiceNow AI Platform capabilities release notes（Australia）：https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/IP6UgARAIlIjQdhsbLZdKg
+- Exploring Hermes Messaging Service（ServiceNow Docs、Australia）：https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/Y2xXhemBwzVfFxRYypu~OA
+- ServiceNow, Inc. Form 10-Q（2026 年第 1 四半期、Veza・Armis 取得）：https://www.sec.gov/Archives/edgar/data/0001373715/000137371526000056/now-20260331.htm
 - Workflow Studio release notes（ServiceNow Docs）：https://www.servicenow.com/docs/r/Iru_OmfY8svQHlgM89Nuiw/2Rckx3Xvsd7mXL3x3C912Q
 - One unified AI platform, ready for anything（ServiceNow ブログ、2025）：https://www.servicenow.com/blogs/2025/unified-ai-platform-ready-anything
 - Knowledge 2026 through the IT lens（ServiceNow Workflow）：https://www.servicenow.com/workflow/enterprise-it/knowledge-2026-through-it-lens.html
@@ -583,6 +611,7 @@ ServiceNow Community
 第三者情報
 - No Jitter「ServiceNow AI Platform: Any agent, any system」（2026-05-05）：https://nojitter.com/ai-automation/servicenow-ai-platform-any-agent-any-system
 - IT Brief UK「ServiceNow unveils agentic AI platform built for trust and scale」（2025-05-06）：https://itbrief.co.uk/story/servicenow-unveils-agentic-ai-platform-built-for-trust-and-scale
+- ITPro「ServiceNow wraps up $7.75 billion Armis acquisition」（2026-04）：https://www.itpro.com/business/acquisition/servicenow-wraps-up-usd7-75-billion-armis-acquisition
 - Diginomica「Multi-tenant or multi-instance? ServiceNow exposes the debate」（2016-05-27）：https://diginomica.com/2016/05/27/multi-tenant-or-multi-instance-servicenow-exposes-the-debate/
 - LEADERS Magazine「Bill McDermott, ServiceNow」（2022）：https://leadersmag.com/issues/2022.1_Jan/PDFs/LEADERS-Bill-McDermott-ServiceNow.pdf
 - Apps Run The World「ServiceNow」：https://www.appsruntheworld.com/apps-top-500-software-vendors/servicenow/

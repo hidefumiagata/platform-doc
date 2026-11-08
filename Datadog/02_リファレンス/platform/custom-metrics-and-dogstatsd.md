@@ -45,7 +45,7 @@ Datadog の **Custom Metrics（カスタムメトリクス）** は、Datadog �
 
 | トピック | 本ファイル | 詳細ファイル |
 |---|---|---|
-| カスタムメトリクスの定義・課金カウント方法 | ○（詳細） | 料金の数値は [製品別料金表](../../03_導入編/pricing-by-product.md)、課金計算の一般論は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) |
+| カスタムメトリクスの定義・課金カウント方法 | ○（詳細） | 料金の数値は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、課金計算の一般論は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) |
 | メトリクス種別（COUNT / RATE / GAUGE / SET / HISTOGRAM / DISTRIBUTION）の意味、ロールアップ、Metrics Summary、Metrics without Limits の画面操作、Historical Metrics Ingestion | 要点のみ | [Metrics（メトリクス）](./metrics.md) |
 | DogStatsD プロトコル・設定・クライアント・Origin Detection・サンプリング | ○（詳細） | — |
 | Agent 本体・`datadog.yaml` の全般設定 | 要点のみ | [Datadog Agent](./agent.md)、[Agent 設定リファレンス](./agent-configuration.md) |
@@ -53,7 +53,7 @@ Datadog の **Custom Metrics（カスタムメトリクス）** は、Datadog �
 | HTTP API での送信 | ○ | API キー管理は [API とキー管理](./api-and-keys.md) |
 | ログ／スパン／RUM からのメトリクス生成 | ○（メトリクス観点） | [Log Pipelines と処理](../logs/log-pipelines-and-processing.md)、[APM の概念とインジェスト制御](../apm/apm-concepts-and-ingestion.md)、[RUM（ブラウザ）](../dem/rum-browser.md) |
 | OpenTelemetry 由来のメトリクス | リンクのみ | [OpenTelemetry サポート](./opentelemetry.md) |
-| タグ設計・コスト最適化の実践 | リンクのみ | [タグ戦略の実践](../../04_応用編/tagging-strategy.md)、[コスト最適化](../../04_応用編/cost-optimization.md) |
+| タグ設計・コスト最適化の実践 | リンクのみ | [タグ戦略の実践](../../04_応用編/02-tagging-strategy.md)、[コスト最適化](../../04_応用編/01-cost-optimization.md) |
 
 ### 全体のデータフロー
 
@@ -325,7 +325,7 @@ Metric Name Pricing は、カスタムメトリクスを「一意なメトリク
 
 [出典](https://docs.datadoghq.com/account_management/billing/metric_name_pricing/)
 
-> カーディナリティ課金と Metric Name Pricing の比較・どちらが有利かの判断は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) と [コスト見積り手法](../../03_導入編/cost-estimation.md) を参照。
+> カーディナリティ課金と Metric Name Pricing の比較・どちらが有利かの判断は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) と [コスト見積り手法](../../03_導入編/05-cost-estimation.md) を参照。
 
 ## DogStatsD
 
@@ -1057,9 +1057,9 @@ RUM ベースメトリクスは、Sessions / Views について「クエリに�
 
 [出典](https://www.datadoghq.com/pricing/list/)、[出典](https://docs.datadoghq.com/account_management/billing/custom_metrics/)、[出典](https://docs.datadoghq.com/account_management/billing/metric_name_pricing/)
 
-> **サイト差異:** 価格はサイトによって異なる。AP1 は 100 カスタムメトリクスあたり $6.25、Ingested は $0.125。AP2・UK1 は $6 / $0.12、US1-FED は $6.25 / $0.125。詳細は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
+> **サイト差異:** 価格はサイトによって異なる。AP1 は 100 カスタムメトリクスあたり $6.25、Ingested は $0.125。AP2・UK1 は $6 / $0.12、US1-FED は $6.25 / $0.125。詳細は [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照。
 
-- 料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。数値に差異がある場合はそちらを優先する。
+- 料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)。数値に差異がある場合はそちらを優先する。
 - 課金ドキュメント上、indexed 超過分の単価は「契約で指定された額」と記載されており、上表の $5（AP1 は $6.25）は公式料金ページ（list）の掲載定価。既存顧客の割当・単価は最新の契約に従う。
 - カスタムメトリクス数を左右する主な要因：
 
@@ -1074,7 +1074,7 @@ RUM ベースメトリクスは、Sessions / Views について「クエリに�
 | 生成メトリクスの group by | 組み合わせ数が増える | unbounded 属性を使わない |
 | サンプリング・送信頻度 | カーディナリティ課金には影響しない（Metric Name Pricing では API 経由の点数に影響しうる） | — |
 
-コスト削減の実践は [コスト最適化](../../04_応用編/cost-optimization.md)、[タグ戦略の実践](../../04_応用編/tagging-strategy.md)、失敗例は [よくある失敗とアンチパターン](../../04_応用編/common-pitfalls.md) を参照。チーム別のコスト按分は [Usage・Usage Attribution・Cost Visibility](./usage-and-cost-attribution.md) を参照。
+コスト削減の実践は [コスト最適化](../../04_応用編/01-cost-optimization.md)、[タグ戦略の実践](../../04_応用編/02-tagging-strategy.md)、失敗例は [よくある失敗とアンチパターン](../../04_応用編/12-common-pitfalls.md) を参照。チーム別のコスト按分は [Usage・Usage Attribution・Cost Visibility](./usage-and-cost-attribution.md) を参照。
 
 ## 参照元
 

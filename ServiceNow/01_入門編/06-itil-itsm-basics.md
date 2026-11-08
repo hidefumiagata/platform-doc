@@ -8,6 +8,7 @@ summary: ITIL 4 の基本構造（SVS・サービスバリューチェーン・3
 keywords: [ITIL, ITIL 4, ITIL Version 5, ITSM, IT Service Management, ITサービスマネジメント, Incident Management, インシデント管理, Problem Management, 問題管理, Change Management, Change enablement, 変更管理, Request Management, Service Request Management, サービス要求管理, Service Catalog, サービスカタログ, CMDB, Service Configuration Management, 構成管理, Knowledge Management, ナレッジ管理, Service Level Management, SLA, OLA, サービスレベル管理, Service Operations Workspace, itil ロール, incident, problem, change_request, sc_request, sc_req_item, sc_task, cmdb_ci, kb_knowledge, contract_sla, task_sla]
 sources:
   - https://www.servicenow.com/docs/bundle/zurich-it-service-management/page/product/it-service-management/reference/r_ITServiceManagement.html
+  - https://www.servicenow.com/docs/r/australia/it-service-management/r_ITServiceManagement.html
   - https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/c_IncidentManagement.html
   - https://www.servicenow.com/docs/r/zurich/it-service-management/incident-management/incident-management-process.html
   - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/wx13CEpLt~8B1elAmArNyw
@@ -24,18 +25,22 @@ sources:
   - https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/nyIbTOXlbANhjPInqJAriQ
   - https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/53GCX9rHh5tNwFMLsT~3YA
   - https://www.servicenow.com/docs/r/servicenow-platform/knowledge-management/r_KnowledgeWorkflows.html
-  - https://www.servicenow.com/docs/bundle/zurich-it-service-management/page/product/service-level-management/concept/service-level-management-concepts.html
+  - https://www.servicenow.com/docs/r/australia/it-service-management/service-level-management/service-level-management-concepts.html
   - https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/bhljRzZsOOYk8M_F9ekPTQ
   - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/E7DwpgD4A4~yCX7ab8fDFA
   - https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/25qrl_cqlBpZ4BR44nhlkw
   - https://www.servicenow.com/docs/r/release-notes/it-service-management-rn-landing.html
   - https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-prime.html
+  - https://www.servicenow.com/products/problem-management.html
+  - https://www.servicenow.com/content/dam/servicenow-assets/public/en-us/doc-type/resource-center/data-sheet/problem-management-data-sheet.pdf
+  - https://investor.servicenow.com/news/news-details/2026/ServiceNow-Otto-creates-the-unified-AI-experience-for-the-enterprise/default.aspx
   - https://www.servicenow.com/community/itsm-blog/itsm-101-what-is-itsm-and-why-do-you-need-it/ba-p/2267094
   - https://www.servicenow.com/community/itsm-blog/managing-incident-priority/ba-p/2294101
   - https://www.servicenow.com/community/new-customers-policy-risk-forum/is-servicenow-itsm-module-itil4-certified-for-organisations-if/m-p/2934962
   - https://itsm.tools/34-itil-4-management-practices/
   - https://itsm.tools/the-itil-4-service-value-system-explained/
   - https://itsm.tools/itil-version-5-explained/
+  - https://www.itil.org.uk/blog/itil-version-5-a-complete-guide
   - https://peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1/itil-5-foundation-version-50-4154
 ---
 
@@ -72,11 +77,14 @@ ITIL の歴史上の主要な版は次のとおり。
 |---|---|---|---|
 | ITIL v3 / ITIL 2011 | 2007 / 2011 | サービスライフサイクル（戦略・設計・移行・運用・継続的改善）中心。「プロセス」という用語を使用 | 【第三者情報】 |
 | **ITIL 4** | 2019 | Service Value System（SVS）と 34 の management practices。「プロセス」ではなく「プラクティス」 | 【第三者情報】 |
-| ITIL (Version 5) | 2026（Foundation は 2026-02 前後に公開。情報源により 1 月末〜2 月 12 日と幅あり） | デジタル「プロダクト」とサービスの管理へ範囲を拡大、AI Governance を追加 | 【第三者情報】 |
+| ITIL (Version 5) | 2026（Foundation (Version 5) は 2026-02-12 から提供開始。研修会社の解説による） | デジタル「プロダクト」とサービスの管理へ範囲を拡大、拡張モジュールとして AI Governance を追加 | 【第三者情報】 |
 
-[出典](https://itsm.tools/itil-version-5-explained/)、[出典](https://peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1/itil-5-foundation-version-50-4154)
+[出典](https://itsm.tools/itil-version-5-explained/)、[出典](https://www.itil.org.uk/blog/itil-version-5-a-complete-guide)、[出典](https://peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1/itil-5-foundation-version-50-4154)
 
-> **ITIL (Version 5) について:** ITIL (Version 5) は 2026 年に PeopleCert から公開された。第三者の解説によれば、ITIL 4 の guiding principles・four dimensions・34 の management practices の名称は引き継がれ、service value chain は「digital product and service lifecycle」に置き換えられている。ITIL 4 と ITIL (Version 5) は少なくとも 12 か月併存するとされ、ITIL 4 の廃止日は公表されていない。【第三者情報】[出典](https://itsm.tools/itil-version-5-explained/)
+> **ITIL (Version 5) について:** ITIL (Version 5) は 2026 年に PeopleCert から公開された。PeopleCert の Foundation (Version 5) ページは、guiding principles、four dimensions（2.4 参照）、ITIL management practices、governance・value chain activities をシラバスに含めている。[出典](https://peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1/itil-5-foundation-version-50-4154)
+> ITSM.tools の解説（2026-02-15）によれば、34 の management practices は維持され、新たに「digital product and service lifecycle」（value chain として実行されると説明）が導入され、AI Governance が拡張モジュールとして加わる。【第三者情報】[出典](https://itsm.tools/itil-version-5-explained/)
+> PeopleCert 認定研修機関（ATO）の講座を扱う研修会社の解説によれば、Foundation (Version 5) は 2026-02-12 から提供開始され、ITIL 4 と ITIL (Version 5) は「定められた移行期間」併存する。ITIL 4 の廃止日は同解説では示されていない。【第三者情報】[出典](https://www.itil.org.uk/blog/itil-version-5-a-complete-guide)
+> 移行期間の長さと ITIL 4 の廃止日は、PeopleCert の公式発表としては公開情報で確認できず。
 > ServiceNow の製品ドキュメントが ITIL (Version 5) への対応を表明した記述は、本調査時点（2026-11-02）の公開情報では確認できず。現場の会話・提案書では引き続き **ITIL 4 の用語**で語られることが多いため【経験則】、本ファイルは ITIL 4 を基準に説明する。
 
 ### 1.3 ServiceNow と ITIL の関係
@@ -86,7 +94,8 @@ ServiceNow ITSM は ITIL に沿って設計されている。具体的な根拠�
 - ServiceNow 公式ブログは「ServiceNow プラットフォームは ITIL と整合し、その採用を支援するよう設計されている」と説明している。[出典](https://www.servicenow.com/community/itsm-blog/itsm-101-what-is-itsm-and-why-do-you-need-it/ba-p/2267094)
 - Change Management の公式ドキュメントは、Standard／Emergency／Normal の 3 種類の変更を「ITIL が説明する 3 種類のサービス変更」として実装していると明記している。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/change-management/c_ITILChangeManagement.html)
 - Problem Management の公式ドキュメントは、同アプリケーションが「インシデントを引き起こす課題の根本原因を発見し修正する ITIL プロセスをサポートする」と記述している。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/c_ProblemManagement.html)
-- 標準のロール名 `itil`、`itil_admin` や、ビジネスルール名（例：`SNC - ITIL - Resolve Related Incidents`）に ITIL の名称が残っている。[出典](https://www.servicenow.com/docs/r/yokohama/it-service-management/problem-management/c_ProblemManagementProcess.html)
+- 標準のロール名 `itil`、`itil_admin` に ITIL の名称が残っている（CMDB の公式ドキュメントが Configuration モジュールへのアクセスに必要なロールとして `asset`、`itil`、`itil_admin` を挙げている）。[出典](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/nyIbTOXlbANhjPInqJAriQ)
+- ビジネスルール名（例：`SNC - ITIL - Resolve Related Incidents`）にも ITIL の名称が残っている。[出典](https://www.servicenow.com/docs/r/yokohama/it-service-management/problem-management/c_ProblemManagementProcess.html)
 
 **注意点（ITIL 認証について）:** BMC や ManageEngine などの他社 ITSM ツールは Pink Elephant 社の **PinkVERIFY**（ITIL 適合性のツール評価）取得を公表しているが、ServiceNow ITSM が PinkVERIFY ITIL 4 認証を取得しているという公式発表は、公開情報では確認できず。ServiceNow Community でも「ServiceNow ITSM モジュールはどの組織からも認証されていないと思う」という回答があるが、これはユーザー投稿であり公式見解ではない。【第三者情報】[出典](https://www.servicenow.com/community/new-customers-policy-risk-forum/is-servicenow-itsm-module-itil4-certified-for-organisations-if/m-p/2934962)
 RFP で「ITIL 準拠の証明」を求められた場合は、認証の有無ではなく、ITIL プラクティスとモジュールの対応（本ファイル第 3 章）で説明するのが一般的である。【経験則】
@@ -153,7 +162,7 @@ flowchart LR
 | Obtain/build | 取得／構築 | Procurement、App Engine、DevOps |
 | Deliver and support | 提供およびサポート | Incident / Problem / Request Management、Service Operations Workspace |
 
-> ITIL (Version 5) では service value chain が digital product and service lifecycle に置き換えられ、「design and transition」が 2 つの活動に分割されたと解説されている。【第三者情報】[出典](https://itsm.tools/itil-version-5-explained/)
+> ITIL (Version 5) では digital product and service lifecycle が導入され（lifecycle は value chain として実行されると説明）、「design and transition」が 2 つの活動に分割されたと解説されている。【第三者情報】[出典](https://itsm.tools/itil-version-5-explained/)
 
 ### 2.4 Four dimensions（4 つの側面）
 
@@ -198,13 +207,13 @@ ITIL 4 は 34 のプラクティスを 3 分類で定義している（14 + 17 +
 | Service level management（サービスレベル管理） | Service Level Management（SLM） | `contract_sla`, `task_sla` | `sla_admin`, `sla_manager` | [SLAとスケジュール](../02_リファレンス/platform/sla-schedules.md)、[ITSMのSLM](../02_リファレンス/itsm/service-level-management-itsm.md) |
 | Service desk（サービスデスク） | Service Operations Workspace、Service Portal / Employee Center、Virtual Agent、Walk-up Experience | （各タスクテーブルを横断） | `sn_service_desk_agent` など | [Workspace と UI Builder](../02_リファレンス/platform/workspaces-ui-builder.md)、[Service Portal と Employee Center](../02_リファレンス/platform/portals-employee-center.md) |
 
-出典：アプリケーション一覧は [IT Service Management ランディングページ](https://www.servicenow.com/docs/bundle/zurich-it-service-management/page/product/it-service-management/reference/r_ITServiceManagement.html)、Incident のロールは [Components installed with ITSM Roles — Incident Management](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/sIfYKCUFDcCKDH05o3XXNA)、Request のテーブルは [Request Management architecture](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/57sZCFMepzfRqczlrJWdrg)、CMDB のロールは [Overview of CMDB](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/nyIbTOXlbANhjPInqJAriQ)、SLM のテーブルとロールは [Service Level Management concepts](https://www.servicenow.com/docs/bundle/zurich-it-service-management/page/product/service-level-management/concept/service-level-management-concepts.html)。
+出典：アプリケーション一覧は [IT Service Management ランディングページ（Zurich 版。Australia 版では同じ一覧を未確認）](https://www.servicenow.com/docs/bundle/zurich-it-service-management/page/product/it-service-management/reference/r_ITServiceManagement.html)、Incident のロールは [Components installed with ITSM Roles — Incident Management](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/sIfYKCUFDcCKDH05o3XXNA)、Request のテーブルは [Request Management architecture](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/57sZCFMepzfRqczlrJWdrg)、CMDB のロールは [Overview of CMDB](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/nyIbTOXlbANhjPInqJAriQ)、SLM のテーブルとロールは [Service Level Management concepts](https://www.servicenow.com/docs/r/australia/it-service-management/service-level-management/service-level-management-concepts.html)。
 
-> **確度に関する注記:** 上表のうち、本調査で参照した公式ページ上で名称を確認できたのは、テーブル `incident`、`sc_request`、`sc_req_item`、`sc_task`、`contract_sla`、`cmdb_ci_service_business`／`service_offering`（4.6 参照）と、ロール `itil`、`itil_admin`、`sn_incident_read`、`sn_incident_write`、`incident_manager`、`sn_service_desk_agent`、`sn_problem_write`／`sn_change_write`／`sn_request_write`（`sn_service_desk_agent` の包含ロールとして記載）、`cmdb_read`、`sla_admin`、`sla_manager` である。それ以外（`problem`、`problem_task`、`change_request`、`change_task`、`sc_cat_item`、`sc_category`、`cmdb_ci`、`cmdb_rel_ci`、`kb_knowledge`、`kb_knowledge_base`、`task_sla`、`catalog_admin`、`change_manager`、`sn_cmdb_editor`、`sn_cmdb_admin`、`knowledge` 系ロール）は広く知られた標準名だが、本ファイルの出典ページ上では個別に確認していない。【経験則】詳細は各リファレンスファイルを参照のこと。
+> **確度に関する注記:** 上表のうち、本調査で参照した公式ページ上で名称を確認できたのは、テーブル `incident`、`sc_request`、`sc_req_item`、`sc_task`、`contract_sla`、`cmdb_ci_service_business`／`service_offering`（4.6 参照）と、ロール `itil`、`itil_admin`、`sn_incident_read`、`sn_incident_write`、`incident_manager`、`sn_incident_admin`、`sn_service_desk_agent`、`sn_problem_write`／`sn_change_write`／`sn_request_write`（`sn_service_desk_agent` の包含ロールとして記載）、`sn_request_admin`（6.1 の Simplified IT Service Management リリースノート v3.2.3 に記載）、`cmdb_read`、`sla_admin`、`sla_manager` である。それ以外（`problem`、`problem_task`、`change_request`、`change_task`、`sc_cat_item`、`sc_category`、`cmdb_ci`、`cmdb_rel_ci`、`kb_knowledge`、`kb_knowledge_base`、`task_sla`、`catalog_admin`、`change_manager`、`sn_cmdb_editor`、`sn_cmdb_admin`、`knowledge` 系ロール）は広く知られた標準名だが、本ファイルの出典ページ上では個別に確認していない。【経験則】詳細は各リファレンスファイルを参照のこと。
 
 ### 3.2 その他のプラクティスの対応（参考）
 
-本ファイルの主対象外だが、ITIL 4 の他のプラクティスにも ServiceNow 製品が対応する。対応付けは公式の 1 対 1 対応表ではなく、ITSM ランディングページ等の製品説明からの整理である。【推定】[出典](https://www.servicenow.com/docs/bundle/zurich-it-service-management/page/product/it-service-management/reference/r_ITServiceManagement.html)
+本ファイルの主対象外だが、ITIL 4 の他のプラクティスにも ServiceNow 製品が対応する。対応付けは公式の 1 対 1 対応表ではなく、ITSM ランディングページ（Zurich 版）等の製品説明からの整理である。【推定】[出典](https://www.servicenow.com/docs/bundle/zurich-it-service-management/page/product/it-service-management/reference/r_ITServiceManagement.html)
 
 | ITIL 4 プラクティス | 対応する ServiceNow 製品・機能（例） | 詳細ファイル |
 |---|---|---|
@@ -218,8 +227,8 @@ ITIL 4 は 34 のプラクティスを 3 分類で定義している（14 + 17 +
 | Portfolio management | Strategic Portfolio Management、Service Portfolio Management | [Strategic Portfolio Management](../02_リファレンス/spm/strategic-portfolio-management.md) |
 | Information security management | Security Operations | [Security Operations](../02_リファレンス/secops/security-operations.md) |
 | Risk management | Integrated Risk Management | [Integrated Risk Management](../02_リファレンス/irm/integrated-risk-management.md) |
-| Workforce and talent management | Workforce Optimization for ITSM | [ITSM Pro/Enterprise 固有機能](../02_リファレンス/itsm/itsm-pro-features.md) |
-| Service validation and testing | Automated Test Framework（プラットフォームのテスト用） | [ATF](../02_リファレンス/platform/automated-test-framework.md) |
+| Workforce and talent management | Workforce Optimization for ITSM | [Workforce Optimization](../02_リファレンス/itsm/workforce-optimization.md) |
+| Service validation and testing | Automated Test Framework（プラットフォームのテスト用）、Test Management 2.0（手動テスト管理） | [ATF](../02_リファレンス/platform/automated-test-framework.md)、[Test Management 2.0](../02_リファレンス/spm/test-management.md) |
 
 > **Brazil での変更:** Brazil の ITSM リリースノートは、Workforce Optimization for ITSM について「Brazil ではサポートされるが、将来のリリースで非推奨（deprecated）になる」と記載している（代替製品・時期は記載なし）。[出典](https://www.servicenow.com/docs/r/release-notes/it-service-management-rn-landing.html)
 
@@ -229,7 +238,7 @@ ITIL 4 は 34 のプラクティスを 3 分類で定義している（14 + 17 +
 
 ### 4.1 共通の土台：Task テーブルと `itil` ロール
 
-ServiceNow の ITSM レコード（インシデント、問題、変更、カタログタスクなど）は、いずれも **Task（`task`）テーブル**を拡張したテーブルに格納される。このため、番号（Number）、State（状態）、Assignment group（割り当てグループ）、Assigned to（担当者）、Short description（概要）、Work notes（作業メモ）、Additional comments（追加コメント）といった共通フィールドを共有し、SLA・承認・通知・アクティビティ履歴を共通の仕組みで扱える。Problem Management の公式ドキュメントも、問題（problem）と問題タスクを「task レコード」として説明している。[出典](https://www.servicenow.com/docs/r/yokohama/it-service-management/problem-management/c_ProblemManagementProcess.html)
+ServiceNow の ITSM レコード（インシデント、問題、変更、カタログタスクなど）は、いずれも **Task（`task`）テーブル**を拡張したテーブルに格納される。このため、番号（Number）、State（状態）、Assignment group（割り当てグループ）、Assigned to（担当者）、Short description（簡単な説明）、Work notes（作業メモ）、Additional comments（追加コメント）といった共通フィールドを共有し、SLA・承認・通知・アクティビティ履歴を共通の仕組みで扱える。Problem Management の公式ドキュメントも、問題（problem）と問題タスクを「task レコード」として説明している。[出典](https://www.servicenow.com/docs/r/yokohama/it-service-management/problem-management/c_ProblemManagementProcess.html)
 タスクテーブルの継承の詳細は [必須の基本概念](04-core-concepts.md) と [データモデルとSystem Dictionary](../02_リファレンス/platform/data-model-dictionary.md) を参照。
 
 `itil` ロールは、ITSM の **fulfiller（処理担当者）** 向けの代表的なロールである。例えば `incident_manager` ロールは `itil` を包含し、CMDB の Configuration モジュールへのアクセスには `asset`、`itil`、`itil_admin` 等のロールが必要とされる。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/sIfYKCUFDcCKDH05o3XXNA)、[出典](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/nyIbTOXlbANhjPInqJAriQ)
@@ -250,7 +259,7 @@ ServiceNow の ITSM レコード（インシデント、問題、変更、カタ
 **プロセスの流れ（公式ドキュメント「Exploring Incident Management」より）:** [出典](https://www.servicenow.com/docs/r/zurich/it-service-management/incident-management/incident-management-process.html)
 
 1. **Identification（識別）:** メール、SMS、電話、チャット、Walk-up（対面窓口）、アプリケーションなどから報告を受け、サービスデスクがインシデントかリクエストかを判断する。
-2. **Logging（記録）:** Caller（報告者）、Service（ビジネスサービス）、Configuration item（構成アイテム）、Contact type（連絡方法）を記録し、Category（カテゴリ）と Subcategory（サブカテゴリ）で分類し、Impact（影響度）と Urgency（緊急度）から Priority（優先度）を決める。優先度は SLA の応答目標の基になる。
+2. **Logging（記録）:** Caller（発信者）、Service（ビジネスサービス）、Configuration item（構成アイテム）、Contact type（連絡方法）を記録し、Category（カテゴリ）と Subcategory（サブカテゴリ）で分類し、Impact（影響度）と Urgency（緊急度）から Priority（優先度）を決める。優先度は SLA の応答目標の基になる。
 3. **Response（対応）:** 初期診断 → 必要に応じて上位サポートへエスカレーション → 調査・診断 → 修正の適用 → 解決と回復（SLA 内でサービス回復を確認）→ クローズ。
 
 **状態（State）:** インシデントのライフサイクル公式ページ（Australia）は次の状態を説明している。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/wx13CEpLt~8B1elAmArNyw)
@@ -265,7 +274,7 @@ ServiceNow の ITSM レコード（インシデント、問題、変更、カタ
 | Canceled（キャンセル） | 重複、不要、またはインシデントではないと判断された |
 
 - On Hold reason が Awaiting Caller の場合は Additional comments が必須になり、Caller が更新すると保留理由がクリアされ State が In Progress に戻る。On Hold は Closed になるまで複数回設定できる。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/wx13CEpLt~8B1elAmArNyw)
-- State の内部値（例：New = 1、Closed = 7 など）は公式ページ上では確認できず、Community では値の例が示されているものの、インスタンスによって差異の報告もある。実装時は `sys_choice` で確認すること。【第三者情報】
+- State の内部値は上記の公式ページでは示されていない。一般的な既定値は New = 1、In Progress = 2、On Hold = 3、Resolved = 6、Closed = 7、Canceled = 8 とされる。【経験則】カスタマイズで変わることがあるため、実装時は `sys_choice`（`incident` テーブルの `state` 要素）で確認すること。
 
 ```mermaid
 stateDiagram-v2
@@ -323,7 +332,8 @@ stateDiagram-v2
 | ServiceNow テーブル | `incident` | `problem`（作業単位は `problem_task`） |
 
 **状態（Madrid 以降のベストプラクティス状態モデル）:** 現在の基本ライフサイクルは **Problem Management Best Practice – Madrid – State Model** プラグイン（`com.snc.best_practice.problem.madrid.state_model`）で提供される。[出典](https://www.servicenow.com/community/itsm-blog/problem-management-what-s-new-in-xanadu/ba-p/3039910)
-この状態モデルの状態は一般に **New → Assess → Root Cause Analysis → Fix in Progress → Resolved → Closed** と説明される（状態の一覧そのものは Community・第三者情報による）。【第三者情報】
+この状態モデルの状態は **New → Assess → Root Cause Analysis → Fix in Progress → Resolved → Closed** の 6 つである。ServiceNow 公式の Problem Management 製品ページ・データシートは、この 6 状態を標準（out-of-the-box）でサポートすると説明している。[出典](https://www.servicenow.com/products/problem-management.html)、[出典](https://www.servicenow.com/content/dam/servicenow-assets/public/en-us/doc-type/resource-center/data-sheet/problem-management-data-sheet.pdf)
+なお、Australia の製品ドキュメント（servicenow.com/docs）上で 6 状態を列挙したページは、本調査では取得できなかった。
 公式ドキュメントでは、Root Cause Analysis で根本原因分析用の problem task を作成し、原因と修正案を問題に記録したうえで「Fix」を選ぶと Fix in Progress に、「Re-analyze」を選ぶと Root Cause Analysis に戻ると説明されている。[出典](https://www.servicenow.com/docs/r/it-service-management/problem-management/investigate-root-cause.html)
 
 ```mermaid
@@ -357,6 +367,9 @@ stateDiagram-v2
 
 **ServiceNow Change Management の位置付け:** Change Management は「すべての変更のライフサイクルを統制する体系的なアプローチ」を提供し、IT サービスへの影響を最小限に抑えながら有益な変更を行うことを目的とする。Vulnerability Response プラグインとも統合される。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/change-management/c_ITILChangeManagement.html)
 
+> **注記（レガシーな状態モデル）:** 以下の 2 つの表は、従来の Change type 別状態モデルの説明である。公式ドキュメントは「Quebec リリース以降、change states の機能は Change models（変更モデル）に置き換えられた」と明記しており、Quebec 以降は Change models が状態遷移を定義し、新規の構成では Change models を使う。下記の Type 別の進み方は、Quebec より前に作成された変更要求や Change models に未移行の変更要求に当てはまる。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/change-management/c_ChangeStateModel.html)
+> 状態名と値（-5〜4）は Change models でも共通して使われることが多いが、Change models 上の状態定義は各モデルの設定で確認すること。【経験則】
+
 **変更の 3 種類（Change type）:** [出典](https://www.servicenow.com/docs/r/australia/it-service-management/change-management/c_ChangeStateModel.html)
 
 | Type | 説明 | 状態の進み方 |
@@ -376,7 +389,7 @@ stateDiagram-v2
 | Implement | -1 | 計画開始日を迎え作業中 |
 | Review | 0 | 作業完了。実施後レビュー（PIR）を行う。この状態ではキャンセル不可 |
 | Closed | 3 | レビュー完了 |
-| Canceled | 4 | Closed 以外のどの状態からもキャンセル可能 |
+| Canceled | 4 | 不要になった変更はキャンセルできる。ただし Review と Closed の状態からはキャンセルできない |
 
 - Change type を変更できるのは New 状態で承認レコードが存在しない場合のみ。Normal は Assess から、Emergency は Authorize から New に戻すことができ、ワークフローが再始動し保留中の承認はキャンセルされる。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/change-management/c_ChangeStateModel.html)
 - 公式ドキュメントは、Quebec 以降は **Change models（変更モデル）** が状態の扱いを置き換えたことにも触れている。変更モデル、承認ポリシー（Change approval policies）、CAB Workbench の詳細は [Change Management](../02_リファレンス/itsm/change-management.md) を参照。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/change-management/c_ChangeStateModel.html)
@@ -416,6 +429,18 @@ flowchart TD
 
 - 公式ドキュメントは、Record producer を使って `sc_request`／`sc_req_item`／`sc_task`（およびその拡張テーブル）にレコードを作成しないこと、これらとカート関連テーブルに「before」ビジネスルールを避けることを推奨している。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/57sZCFMepzfRqczlrJWdrg)
 - カタログの設計（カタログアイテム、変数、Order guide、Record producer）は [サービスカタログ](../02_リファレンス/platform/service-catalog.md)、ポータルは [Service Portal と Employee Center](../02_リファレンス/platform/portals-employee-center.md) を参照。
+
+**Service catalogue management（サービスカタログ管理）との関係:** ITIL 4 では、Service request management が「依頼を処理する」プラクティスであるのに対し、Service catalogue management は「利用可能なサービスとその提供内容の一貫した情報を提供する」プラクティスとして別に定義されている。【第三者情報】[出典](https://itsm.tools/34-itil-4-management-practices/)
+ServiceNow では Service Catalog（サービスカタログ）がこの役割を担い、Request Management はカタログアイテムを定義済みのフローで充足する。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/request-management/c_RequestManagement.html)
+カタログの主な構成要素は次のとおり（テーブル名・ロール名は 3.1 の確度注記のとおり本ファイルの出典ページ上では未確認の標準名）。【経験則】
+
+| 要素 | 位置付け | 関連テーブル・ロール |
+|---|---|---|
+| Catalog item（カタログアイテム） | 依頼できる個々のサービス・製品。注文すると RITM（`sc_req_item`）が作られる | `sc_cat_item` |
+| Category（カテゴリ） | カタログアイテムを分類・表示する単位 | `sc_category` |
+| Order guide（オーダーガイド） | 複数のカタログアイテムを 1 回の質問・注文にまとめる（例：入社時の一括申請） | — |
+| Record producer（レコードプロデューサー） | カタログの画面から、インシデントなど任意のタスクテーブルのレコードを作る。前述のとおり `sc_request` 等の作成には使わない | — |
+| カタログの管理 | カタログ・カテゴリ・アイテムの作成と保守 | `catalog_admin` |
 
 詳細は [Request Management](../02_リファレンス/itsm/request-management.md) を参照。
 
@@ -457,7 +482,7 @@ CI の自動収集（Discovery、Service Graph Connectors）や CSDM の詳細�
 
 **ITSM プラクティスとの連携:**
 
-- Incident：解決時の手順をナレッジ化し、類似インシデントで記事を推奨する（Australia の ITSM ストアアプリでは、フルフィラー向けナレッジ推奨が提供される）。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/25qrl_cqlBpZ4BR44nhlkw)
+- Incident：解決時の手順をナレッジ化し、類似インシデントで記事を推奨する（Australia 向けの **Simplified IT Service Management**（ストアアプリ）v2.0.1 では、フルフィラー向けに解決手順・ナレッジ記事の AI 推奨が提供される。コア ITSM の標準機能とは限らない）。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/25qrl_cqlBpZ4BR44nhlkw)
 - Problem：Known error 記事として回避策を公開し、Known Error Portal で検索可能にする。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/c_ProblemManagement.html)
 - Self-service：Service Portal／Employee Center で利用者が自己解決する。
 
@@ -467,8 +492,8 @@ CI の自動収集（Discovery、Service Graph Connectors）や CSDM の詳細�
 
 **ITIL 4 での目的:** Service level management は、サービスレベルに関するビジネスベースの目標を設定し、それに対するサービス提供を適切に評価・監視・管理するプラクティスである。【第三者情報】[出典](https://itsm.tools/34-itil-4-management-practices/)
 
-**ServiceNow SLM の仕組み:** ServiceNow では **SLA Definition（SLA 定義、`contract_sla`）** が SLA を生成する条件を定める。主なパラメーターは、対象タスクテーブル、期間（Duration）、スケジュール（営業時間）、および開始（Start）・一時停止（Pause）・停止（Stop）・リセット（Reset）の条件である。条件に合致すると対象タスクに **Task SLA** レコードが作成され、SLA の進捗を追跡する。1 つのタスクに複数の Task SLA が付くことがある。[出典](https://www.servicenow.com/docs/bundle/zurich-it-service-management/page/product/service-level-management/concept/service-level-management-concepts.html)
-Task SLA のテーブル名 `task_sla` は Community 回答に基づく（上記公式ページでは明示されていない）。【第三者情報】
+**ServiceNow SLM の仕組み:** ServiceNow では **SLA Definition（SLA 定義、`contract_sla`）** が SLA を生成する条件を定める。主なパラメーターは、対象タスクテーブル、期間（Duration）、スケジュール（営業時間）、および開始（Start）・一時停止（Pause）・停止（Stop）・リセット（Reset）の条件である。条件に合致すると対象タスクに **Task SLA** レコードが作成され、SLA の進捗を追跡する。1 つのタスクに複数の Task SLA が付くことがある。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/service-level-management/service-level-management-concepts.html)
+Task SLA のテーブル名 `task_sla` は広く知られた標準名だが、上記公式ページでは明示されていない（3.1 の確度注記と同じ扱い）。【経験則】
 
 **SLA の種類:** [出典](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/bhljRzZsOOYk8M_F9ekPTQ)
 
@@ -478,7 +503,7 @@ Task SLA のテーブル名 `task_sla` は Community 回答に基づく（上記
 | OLA（Operational Level Agreement） | 運用レベル合意 | 同一組織内のチーム間の合意 |
 | Underpinning contract | 支援契約 | サービス提供を支える外部ベンダーとの契約 |
 
-**主なロール:** [出典](https://www.servicenow.com/docs/bundle/zurich-it-service-management/page/product/service-level-management/concept/service-level-management-concepts.html)
+**主なロール:** [出典](https://www.servicenow.com/docs/r/australia/it-service-management/service-level-management/service-level-management-concepts.html)
 
 | ロール | 権限 |
 |---|---|
@@ -487,14 +512,14 @@ Task SLA のテーブル名 `task_sla` は Community 回答に基づく（上記
 
 **インシデントとの関係:** インシデントの Priority は SLA の応答目標の基になる（4.2 参照）。典型的には「P1 は 15 分以内に応答、4 時間以内に解決」のように、優先度ごとに Response（応答）SLA と Resolution（解決）SLA を定義する。【経験則】
 
-> **ITIL の SLM と ServiceNow の「SLA」機能の違い:** ITIL の Service level management は、顧客との合意形成、サービスレビュー、改善までを含む広いプラクティスである。ServiceNow の SLA 機能は、その中の「タスク単位の時間目標の計測」を担う仕組みである。サービス単位のコミットメント（可用性など）は Service Portfolio Management の Service offering とその SLA コミットメントで表現する。【推定】[出典](https://www.servicenow.com/docs/bundle/zurich-it-service-management/page/product/service-level-management/concept/service-level-management-concepts.html)
+> **ITIL の SLM と ServiceNow の「SLA」機能の違い:** ITIL の Service level management は、顧客との合意形成、サービスレビュー、改善までを含む広いプラクティスである。ServiceNow の SLA 機能は、その中の「タスク単位の時間目標の計測」を担う仕組みである。サービス単位のコミットメント（可用性など）は Service Portfolio Management の Service offering とその SLA コミットメントで表現する。【推定】[出典](https://www.servicenow.com/docs/r/australia/it-service-management/service-level-management/service-level-management-concepts.html)
 
 詳細は [SLAとスケジュール](../02_リファレンス/platform/sla-schedules.md)、[ITSMにおけるサービスレベル管理とサービスポートフォリオ](../02_リファレンス/itsm/service-level-management-itsm.md) を参照。
 
 ### 4.9 Service desk（サービスデスク）
 
 ITIL 4 の Service desk は、インシデントの解決やサービス要求のための需要を受け付ける単一窓口（SPOC）である。【第三者情報】[出典](https://itsm.tools/34-itil-4-management-practices/)
-ServiceNow には「Service Desk」という独立アプリケーションはなく、次の機能の組み合わせで実現する。【推定】
+ServiceNow には「Service Desk」という独立アプリケーションはなく、次の機能の組み合わせで実現する。【推定】下表の出典は Zurich 版の ITSM ランディングページであり、Australia 版で同じ一覧は未確認。
 
 | 機能 | 役割 | 出典 |
 |---|---|---|
@@ -543,9 +568,15 @@ flowchart LR
 
 ### 6.1 Australia の主なトピック
 
-- **ITSM ストアアプリケーション:** Australia の ITSM リリースノートには、ServiceNow Store で配布される IT Service Management アプリケーションのバージョン別の変更が掲載されている。生成 AI によるインシデント要約・解決手順・ナレッジ推奨、Employee Slate／Employee Center での簡素化されたリクエスト、Incident（`sn_incident_admin`）・Request（`sn_request_admin`）・Change の**ガイド付き管理者構成（guided configuration）**などが含まれる。Problem Management や Major Incident Management などの高度なプロセスは Service Operations Workspace Admin Center で構成する。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/25qrl_cqlBpZ4BR44nhlkw)
+- **Simplified IT Service Management（ストアアプリ）:** Australia 向けに ServiceNow Store で配布される **Simplified IT Service Management** アプリケーションのリリースノート（v2.0.1〜3.2.3）には、次のような変更が掲載されている。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/25qrl_cqlBpZ4BR44nhlkw)
+  - v2.0.1：生成 AI によるインシデント・チャットの要約、解決手順とナレッジ記事の AI 推奨、Employee Center による簡素化された従業員体験、自然言語から ITSM ワークフローを構成する AI エージェント。
+  - v3.0.2：Employee Slate での会話型の従業員体験。Problem Management や Major Incident Management などの高度なワークフローは Service Operations Workspace（SOW）Admin Center へ誘導して構成する。
+  - v3.1.1：受信メール構成のガイド付き設定。インシデント・リクエストの通知の主チャネルを Employee Slate にする。
+  - v3.2.3：Employee Slate での簡素化されたリクエスト。Incident（`sn_incident_admin`）・Request（`sn_request_admin`）と Change のフォーム・リストを Configuration Console で構成する**ガイド付き管理者構成（guided configuration）**。
+  - **注意:** これらは Simplified IT Service Management ストアアプリの機能であり、コア ITSM（ITSM Standard）や ITSM Pro の標準機能とは限らない。対象アプリとライセンスは [ITSM 概要とパッケージ](../02_リファレンス/itsm/itsm-overview.md) を参照。
 - **エージェント型 AI:** Australia の Incident Management ドキュメントには、インシデントとインシデントタスクの管理・解決・クローズを自律的に行うエージェント型 AI ワークフローが記載されている。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/c_IncidentManagement.html)
-- **ブランド名の変更:** 2026 年 5 月の Knowledge 2026 で発表された **ServiceNow Otto** へのブランド統合に伴い、ITSM 関連ストアアプリでは Now Assist 等の表記が ServiceNow Otto に置き換えられている（ITSM - Prime のリリースノートでは 2026 年 8 月のバージョンで記載）。ドキュメントや画面では新旧の名称が混在しうる。[出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-prime.html)
+- **ブランド名の変更:** ServiceNow は 2026-05-05、ラスベガスで開催した年次イベント Knowledge 2026 で **ServiceNow Otto** を発表した。公式プレスリリースは、Otto を Now Assist、Moveworks、AI Experience の知能を統合したエンタープライズ向けの統一 AI 体験と説明している。[出典](https://investor.servicenow.com/news/news-details/2026/ServiceNow-Otto-creates-the-unified-AI-experience-for-the-enterprise/default.aspx)
+  これに伴い、ITSM 関連ストアアプリでは Now Assist 等の表記が ServiceNow Otto に置き換えられている（ITSM - Prime のリリースノートでは 2026 年 8 月のバージョン v2.3.3／2.2.5／2.1.4 で記載）。ドキュメントや画面では新旧の名称が混在しうる。[出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-prime.html)
   AI 機能の詳細は [Now Assist と AI Agents](../02_リファレンス/platform/now-assist-ai-agents.md) を参照。
 
 > **Brazil での変更:** Brazil の ITSM リリースノートでは、ServiceNow Otto for ITSM（ITSM にエージェント型 AI をもたらす機能）、Incident Management、On-Call Scheduling が強化対象として挙げられ、ITSM MCP Server（MCP クライアントをインシデント管理・変更管理に接続）や L1 IT Service Desk AI Specialist も掲載されている。Workforce Optimization for ITSM は将来のリリースで非推奨予定とされる。[出典](https://www.servicenow.com/docs/r/release-notes/it-service-management-rn-landing.html)
@@ -587,7 +618,8 @@ AI・自動化が進んでも、インシデント／問題／変更／リクエ
 
 ServiceNow 公式ドキュメント（servicenow.com/docs）
 
-- IT Service Management（ランディング）：https://www.servicenow.com/docs/bundle/zurich-it-service-management/page/product/it-service-management/reference/r_ITServiceManagement.html
+- IT Service Management（ランディング、Zurich 版。アプリケーション一覧の出典。Australia 版のランディングページはアプリケーション一覧を別ページに分けた構成で、同じ一覧は Australia 版では未確認）：https://www.servicenow.com/docs/bundle/zurich-it-service-management/page/product/it-service-management/reference/r_ITServiceManagement.html
+- IT Service Management（ランディング、Australia 版）：https://www.servicenow.com/docs/r/australia/it-service-management/r_ITServiceManagement.html
 - Incident Management（Australia）：https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/c_IncidentManagement.html
 - Exploring Incident Management：https://www.servicenow.com/docs/r/zurich/it-service-management/incident-management/incident-management-process.html
 - Life cycle of an Incident（Australia）：https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/wx13CEpLt~8B1elAmArNyw
@@ -604,11 +636,17 @@ ServiceNow 公式ドキュメント（servicenow.com/docs）
 - Applying the CSDM guidelines to Service Portfolio Management：https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/E7DwpgD4A4~yCX7ab8fDFA
 - Exploring Knowledge Management：https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/53GCX9rHh5tNwFMLsT~3YA
 - Knowledge workflows：https://www.servicenow.com/docs/r/servicenow-platform/knowledge-management/r_KnowledgeWorkflows.html
-- Service Level Management concepts：https://www.servicenow.com/docs/bundle/zurich-it-service-management/page/product/service-level-management/concept/service-level-management-concepts.html
+- Service Level Management concepts（Australia）：https://www.servicenow.com/docs/r/australia/it-service-management/service-level-management/service-level-management-concepts.html
 - Service Level Agreement API - ServiceNow Fluent：https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/bhljRzZsOOYk8M_F9ekPTQ
-- IT Service Management release notes（Australia, ITSM ストアアプリ）：https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/25qrl_cqlBpZ4BR44nhlkw
+- Simplified IT Service Management release notes（Australia, ストアアプリ v2.0.1〜3.2.3）：https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/25qrl_cqlBpZ4BR44nhlkw
 - IT Service Management release notes（Brazil）：https://www.servicenow.com/docs/r/release-notes/it-service-management-rn-landing.html
 - ITSM - Prime release notes：https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-prime.html
+
+ServiceNow 公式サイト・プレスリリース
+
+- Problem Management（製品ページ）：https://www.servicenow.com/products/problem-management.html
+- Problem Management data sheet：https://www.servicenow.com/content/dam/servicenow-assets/public/en-us/doc-type/resource-center/data-sheet/problem-management-data-sheet.pdf
+- ServiceNow Otto creates the unified AI experience for the enterprise（2026-05-05）：https://investor.servicenow.com/news/news-details/2026/ServiceNow-Otto-creates-the-unified-AI-experience-for-the-enterprise/default.aspx
 
 ServiceNow Community
 
@@ -622,4 +660,5 @@ ITIL 関連（第三者・認定機関）
 - PeopleCert, ITIL Foundation (Version 5)：https://peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1/itil-5-foundation-version-50-4154
 - ITSM.tools, ITIL 4 Management Practices Explained：https://itsm.tools/34-itil-4-management-practices/
 - ITSM.tools, The ITIL 4 Service Value System Explained：https://itsm.tools/the-itil-4-service-value-system-explained/
-- ITSM.tools, ITIL (Version 5) Explained：https://itsm.tools/itil-version-5-explained/
+- ITSM.tools, ITIL (Version 5) Explained（2026-02-15）：https://itsm.tools/itil-version-5-explained/
+- ITIL.org.uk（Pentagon Training Limited 運営の研修サイト）, ITIL Version 5: A Complete Guide：https://www.itil.org.uk/blog/itil-version-5-a-complete-guide

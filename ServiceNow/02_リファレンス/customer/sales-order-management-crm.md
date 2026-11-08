@@ -18,10 +18,14 @@ sources:
   - https://www.servicenow.com/docs/r/HGDW_sLOfs0QXhKu64QAng/wGjur4X158hwN5xNicuCOA
   - https://www.servicenow.com/docs/r/HGDW_sLOfs0QXhKu64QAng/0kxhm8z7Cc1~YggPk3AxCw
   - https://www.servicenow.com/docs/r/order-management/order-mgt-state-values.html
+  - https://www.servicenow.com/docs/r/AWjfoG0XNF6COBtQI5zL~A/uvqYzgQ1BQneSc2Rv85Xyw
   - https://www.servicenow.com/docs/r/order-management/explore-order-management.html
   - https://www.servicenow.com/docs/r/order-management/ai-capabilities-sales-crm.html
   - https://www.servicenow.com/docs/r/MVRCUFVyKWd7vUoUukbW6g/MuxayA2cbNmLa9QPMk6l6w
   - https://www.sec.gov/Archives/edgar/data/1373715/000137371525000309/now-20250930.htm
+  - https://www.servicenow.com/docs/r/IgYhkFXjkqOTLI_WLJDH4Q/V_5~8NSSXXcbtRKllPZNfw
+  - https://www.servicenow.com/docs/r/IgYhkFXjkqOTLI_WLJDH4Q/ION8Q_0JiQwBVnyugUsO~A
+  - https://www.servicenow.com/docs/r/HGDW_sLOfs0QXhKu64QAng/IAkrdLQgzS3QhQI44ec7eA
 ---
 
 # Sales and Order Management（CRM）／Sales Customer Relationship Management（Sales CRM）
@@ -51,7 +55,7 @@ sources:
 | 2025-05-30 | Logik.io Inc. の買収完了 | SEC 10-Q（FY2025 Q3）によれば購入対価総額は約 5.06 億ドル（大半が株式）[出典](https://www.sec.gov/Archives/edgar/data/1373715/000137371525000309/now-20250930.htm) |
 | 2025-09-30 | 「Autonomous CRM」構想（AI Experience 発表と同時）| Lead、Sales、CPQ、Field Service、Customer Service を対象【第三者情報】[出典](https://www.nojitter.com/ai-automation/servicenow-unveils-ai-experience-focus-on-crm) |
 | Australia（2026-05 GA） | SOM → **Sales CRM** に改称、Now Assist → **ServiceNow Otto** に改称 | 機能・設定に変更なし [出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/dNq9KmmolOIubViVcWolZQ) |
-| 2026-05（Knowledge 2026） | Autonomous CRM for Sales／for Service／CPQ、Autonomous CRM for Industries を発表 | 【第三者情報】[出典](https://www.techzine.eu/news/applications/141051/servicenow-expands-autonomous-workforce-to-nearly-all-business-roles/) |
+| 2026-05-05（Knowledge 2026） | Day 1 基調講演で Autonomous CRM for Sales、Autonomous CRM for Service、Configure, Price, Quote（CPQ）を CRM スイートとして発表。業界向けの Autonomous CRM for Industries も提示 | 公式ブログ・プレスリリース [出典](https://www.servicenow.com/uk/blogs/2026/knowledge-2026-welcome-agentic-business) [出典](https://www.businesswire.com/news/home/20260505237676/en/)。業界向けは第 12.1 節参照 |
 | Brazil | Lead to Cash Core → CRM Core、Sales and Services API Core → CRM API Core | [出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-crmcore-release-notes.html) |
 
 ---
@@ -89,6 +93,8 @@ Sales CRM の公式「Exploring」ページ（Australia）は、アプリケー�
 | | Lead to Cash Core | Sales CRM ワークフロー、エンティティ設定・マッピングの基盤（Brazil で CRM Core に改称） |
 | Business Portal | Customer self-service for Sales CRM | B2B 顧客が受注・請求・見積依頼を作成・管理し、問題を登録 |
 
+Sales Forecasting、Sales Territory Management、Customer Engagement Sequences、Buying Group、Activity Management、Partner Relationship Management のプラグイン ID・ロール・リリース別変更は第 4.5 節を参照。
+
 ### 2.2 Australia で新規追加・強化されたアプリケーション
 
 Australia の Sales CRM リリースノートは、各アプリケーションのステータスを以下のように示している。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/dNq9KmmolOIubViVcWolZQ)
@@ -99,7 +105,7 @@ Australia の Sales CRM リリースノートは、各アプリケーション�
 | Advanced Approval Management | 新規 |
 | Advanced Approval Management AI（MCP 互換クライアントから自然言語で見積承認） | 新規 |
 | Buying Group | 新規 |
-| CPQ（Configure, Price, Quote） | 更新 |
+| CPQ（Configure, Price, Quote） | （ステータス記載なし。属性ベースの構成エンジンとして説明されるのみ。Australia の新機能は CPQ リリースノート＝第 6.3 節参照） |
 | Customer Engagement Sequences | 強化 |
 | Customer Self-Service（Business Portal） | 強化 |
 | Lead Management／Opportunity Management／Order Management／Quote Management | 強化 |
@@ -198,7 +204,121 @@ Lead Management（リード管理）は、見込み客（リード）を作成�
 - Lead の API 処理はスクリプトインクルード `LeadAPIProcessUtilOOB`（スコープ付き）で提供され、`sn_lead_mgmt_core` プラグインと `lead_integrator` ロールが前提となる。[出典](https://www.servicenow.com/docs/r/api-reference/server-api-reference/LeadAPIProcessUtilOOBAPI.html)
 - AI 機能として **Sales Development AI Agents**（`com.sn_sd_ai_agents`）によるエージェント型のリード育成がある（第 9 章）。[出典](https://www.servicenow.com/docs/r/order-management/ai-capabilities-sales-crm.html)
 
-> **Brazil での変更:** Lead Management は Brazil で新機能なし（Yokohama→Brazil の差分としてはタスクをタッチポイントに紐づけ、リード転換までのエンゲージメントを追跡する機能が挙げられている）。Activity Management では、CRM Touchpoints の responsibility read/write granular ロールが追加され、テリトリーメンバーや商談チームメンバーが参照できるタッチポイントを制限できる。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-leadmanagement-release-notes.html) [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-activitymanagement-release-notes.html)
+> **Brazil での変更:** Lead Management は Brazil で新機能なし（Yokohama→Brazil の差分としてはタスクをタッチポイントに紐づけ、リード転換までのエンゲージメントを追跡する機能が挙げられている）。なお Zurich→Brazil 差分ページに記載のある CRM Touchpoints の responsibility read/write granular ロールは、Australia→Brazil 差分ページでは Australia の新機能として掲載されている（第 4.5.5 節）。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-leadmanagement-release-notes.html) [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-activitymanagement-release-notes.html) [出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-activitymanagement-release-notes.html)
+
+### 4.5 その他の Sales Automation アプリ
+
+Sales Automation 領域の Lead／Opportunity 以外のアプリケーションについて、公開ドキュメントで確認できたアプリケーション ID・ロール・テーブルと Australia／Brazil の変更をまとめる。各アプリは ServiceNow Store から申請して導入する。確認できなかった項目は「公開情報では確認できず」と記す（第 15 章にも列挙）。
+
+#### 4.5.1 Sales Forecasting（売上予測）
+
+Sales Forecasting は、商談とパイプライン分析のデータから将来の販売量・売上を予測するアプリケーションである。[出典](https://www.servicenow.com/docs/r/HGDW_sLOfs0QXhKu64QAng/U9CULp~XGP85wEC7DeLRFA)
+
+| 項目 | 内容 |
+|---|---|
+| プラグイン | `com.snc_sales_forecasting`（依存: `com.snc_app-l2c-core`、`com.snc_app-prd-pm`、`com.snc_app_l2c_oppty_mgmt`、`com.snc_app-tmt-core`）。ノルマ（Quota）管理は `com.sn_sales_quota_application`（営業チーム階層の担当者にノルマ目標を割り当て）[出典](https://www.servicenow.com/docs/r/HGDW_sLOfs0QXhKu64QAng/U9CULp~XGP85wEC7DeLRFA) |
+| 予測カテゴリ（Forecast category） | Commit、Strong Upside、Upside、Pipeline（パイプラインの確度段階）。新規商談の Forecast Category の既定値は Pipeline [出典](https://www.servicenow.com/docs/r/HGDW_sLOfs0QXhKu64QAng/rVjDbfjWj21HxQajBWaTBA) |
+| 予測モデル（Forecast model） | 1 つまたは 2 つの階層（例：テリトリーと製品ファミリー）を含められる。Hierarchy Forecast は商談合計から算出される値、Final Forecast はマネージャー／営業担当が手動調整（Owner Adjusted Value と理由を入力）した値。調整は一次・二次階層を通じてロールアップされる [出典](https://www.servicenow.com/docs/r/HGDW_sLOfs0QXhKu64QAng/rVjDbfjWj21HxQajBWaTBA) |
+| 提出（Submission） | モデルで Submission Required が選択されている場合のみ Submit Forecast が表示され、提出後の値は変更不可（当該提出ウィンドウ内であれば再オープン・再提出が可能）[出典](https://www.servicenow.com/docs/r/HGDW_sLOfs0QXhKu64QAng/rVjDbfjWj21HxQajBWaTBA) |
+| 可視性 | Forecast Admin、Forecast Analyst、最上位グループのオーナーは全グループ・チームを参照でき、営業担当・マネージャーは自分以下の階層／テリトリーのみ参照できる [出典](https://www.servicenow.com/docs/r/HGDW_sLOfs0QXhKu64QAng/rVjDbfjWj21HxQajBWaTBA) |
+| テーブル | 公開情報では確認できず |
+
+**Sales Forecasting のロール**（Zurich 版 Configure ページで確認。Australia 版ページにはロール表の記載なし）[出典](https://www.servicenow.com/docs/r/IgYhkFXjkqOTLI_WLJDH4Q/V_5~8NSSXXcbtRKllPZNfw)
+
+| ロール名 | 概要 |
+|---|---|
+| `sn_sales_forecast.forecast_admin` | 階層・営業チームの設定、予測設定と予測計算の開始、予測カテゴリ選択肢・予測モデルの作成・編集 |
+| `sn_sales_forecast.forecast_analyst` | 全予測項目、予測カテゴリ、予測モデル、関連商談の参照 |
+| `sn_sales_forecast.forecast_viewer` | 自分と配下の予測データの参照 |
+| `sn_sales_forecast.adjustment_viewer`／`adjustment_writer` | 調整レコードの参照（自分と配下）／編集（自分所有分） |
+| `sn_sales_forecast.submission_viewer`／`submission_writer` | 提出レコードの参照（自分と配下）／編集（自分所有分） |
+| `sn_quota_core.quota_admin` | 営業チーム・個人のノルマの作成・インポート・編集・削除 |
+| `sn_quota_core.quota_manager` | グループのノルマの編集 |
+| `sn_quota_core.quota_owner` | 自分に割り当てられたノルマの参照 |
+
+**リリース別変更** [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/L0Kl0Upl99UYOblvcIsLWA) [出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-salesforecasting-release-notes.html)
+
+| リリース | 変更 |
+|---|---|
+| Zurich | 予測調整（Modify forecast adjustments）、最終予測の提出とロック（Submit final forecast）、地域別のテリトリー階層設定 |
+| Australia | リアルタイムのロールアップ再計算、Forecast Owner／Rollup Owner の設定、**最大 10 個の予測モデル**、1 モデル内での週次・月次・四半期の複数期間ロールアップ、製品ファミリーを二次階層とする予測、商談・商談明細レベルでの予測（base forecast source）、予測の再提出、ダッシュボード列のカスタマイズ |
+| Brazil | 更新なし（Australia→Brazil 差分ページ） |
+
+#### 4.5.2 Sales Territory Management（販売テリトリー管理）
+
+Sales Territory Management は、アカウント、消費者（Consumer）、リード、商談を地域・製品・業種のセグメント（テリトリー）に分け、条件に基づいて振り分けるアプリケーションである。[出典](https://www.servicenow.com/docs/r/order-management/explore-sales-territory-management.html)
+
+| 項目 | 内容 |
+|---|---|
+| プラグイン | `com.sn_sales_territory`（基盤の Territory Planning を拡張するテリトリーテーブル・API、Responsibility Framework 経由で CRM エンティティへのアクセスを与えるロール、割り当てルールを非同期実行する Sales CRM Tracker を提供）。依存: CRM Territory Extensions（`com.sn_tp_crm_extn`）、Sales Common（`com.sn_l2c_sales_common`）、Lead to Cash Core（`com.snc.l2c_core`）[出典](https://www.servicenow.com/docs/r/IgYhkFXjkqOTLI_WLJDH4Q/ION8Q_0JiQwBVnyugUsO~A)（Zurich 版） |
+| 割り当て方式 | 管理者が **Run Assignment** で条件に基づき自動配分するか、Primary territory（主テリトリー）を手動更新する。割り当てルールのアルゴリズムは Sales CRM Tracker で非同期実行される [出典](https://www.servicenow.com/docs/r/IgYhkFXjkqOTLI_WLJDH4Q/ION8Q_0JiQwBVnyugUsO~A) |
+| ロール（表示名） | Sales Territory Admin（テリトリーと CRM エンティティの管理・参照）、Sales Territory Viewer（テリトリーの参照）、Sales Territory Manager（テリトリー階層のメンバーとその役割の管理）[出典](https://www.servicenow.com/docs/r/order-management/explore-sales-territory-management.html)、Sales Territory Member（Australia で追加。Lead／Opportunity／Account／Consumer に紐づくテリトリーの参照）。ロールの技術名（`sys_user_role` 上の名前）は公開情報では確認できず |
+| テーブル | 公開情報では確認できず（FSM の Territory Planning とは別製品である点に注意） |
+
+| リリース | 変更 |
+|---|---|
+| Australia | プラグイン有効化で **Sales Territory Member** ロールが導入され、割り当てられたテリトリー内での販売活動（所有・責任の明確化、テリトリーに基づく CRM レコード割り当て）を支援 [出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/b~38ubF9gJVEnHSrSqmKaQ) |
+| Brazil | 更新なし [出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-salesterritorymanagement-release-notes.html) |
+
+#### 4.5.3 Customer Engagement Sequences（顧客エンゲージメントシーケンス）
+
+Customer Engagement Sequences は、関係の各段階でリード・顧客にチャネル横断で働きかける自動・手動活動のプレイブックである。シーケンスは Workflow Studio のアクティビティピッカーで構成する。[出典](https://www.servicenow.com/docs/r/australia/order-management/som-exploring.html) [出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-customerengagementsequences-release-notes.html)
+
+| 項目 | 内容 |
+|---|---|
+| プラグイン | `com.sn_crm_sequence`。メールベースのシーケンスで相手の返信を検知するには User Mailbox Integration（`com.glide.email.user_mailbox.integration`）が必要 |
+| ロール | シーケンスの作成・管理を system admin 以外に委ねるには delegated developer ロールを割り当てる（具体的なロール名は公開情報では確認できず） |
+| テーブル | 公開情報では確認できず |
+| Australia | Workflow Studio のアクティビティピッカーで Schedule call アクティビティに「Schedule call - Deprecated」ラベルが表示されるようになった。既存シーケンスは動作するが、実行時に Callback number フィールドのクリック発信アイコンが表示されないため、新しい Schedule call アクティビティへの更新が必要 |
+| Brazil | **Lead nurturing email sequence**（メールアドレスを持つリードへのメール送信とフォローアップを自動化。サンプルシーケンス付き。返信がなければ 2 回の架電にエスカレーションし、どのチャネルでも反応がなければリードの作業メモを更新） |
+
+[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-customerengagementsequences-release-notes.html)
+
+#### 4.5.4 Buying Group（購買グループ）
+
+Buying Group は、製品ファミリーの購入に関与する顧客側の関係者を表し、商談の前・中・後を通じて保持される。[出典](https://www.servicenow.com/docs/r/australia/order-management/som-exploring.html)
+
+| 項目 | 内容 |
+|---|---|
+| Australia（新規） | アカウント内で製品ファミリー／ソリューションごとに別々の購買グループを作成、異なる役割を持つメンバーの追加、1 つの商談への複数購買グループの関連付け |
+| Brazil | 更新なし |
+| アプリケーション ID・ロール・テーブル | 公開情報では確認できず |
+
+[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-buyinggroup-release-notes.html)
+
+#### 4.5.5 Activity Management（活動管理）
+
+Activity Management は、メール、会議、電話、デモなどの顧客とのやり取りを計画・実行・記録・追跡するアプリケーションで、Australia で新規提供された。CRM Outlook Add-in と CRM Touchpoints の 2 つの Store アプリで構成される。[出典](https://www.servicenow.com/docs/r/7GoNY9eeDRD0FzxldbEmXw/NtzgsWoKkT0B9nKyzrSBoA) [出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-activitymanagement-release-notes.html)
+
+| 項目 | 内容 |
+|---|---|
+| プラグイン | CRM Outlook Add-in（`com.sn_crm_outlook`）、CRM Touchpoints（`com.sn_crm_touchpoint`）。Activity Management でメール機能を使うには User Mailbox Integration（`com.glide.email.user_mailbox.integration`）も必要 [出典](https://www.servicenow.com/docs/r/XzDjF8RvmMBEjp6Jeus6wg/siAe2Avu3MWycgHv5DzolQ) |
+| CRM Outlook Add-in | Outlook からメールを既存のリード・商談・アカウント・連絡先に関連付け、一致がなければメールから新規リード・連絡先を作成。AI Search による関連レコード推奨、スレッド内メールの自動関連付け |
+| CRM Touchpoints | メール・電話・オンライン／対面会議・ソーシャルのエンゲージメントをリード・商談・アカウント・連絡先に記録。既定のタッチポイント種別（discovery、demo、customer business review）以外の種別を定義でき、主要チャネルや所要時間などを計測 |
+| ロール | `sn_crm_touchpoint.admin`、`sn_crm_touchpoint.touchpoint_writer`（Lead／Opportunity の包含ロールとして確認、第 4.3・5.4 節）。Australia で CRM Touchpoints responsibility read granular／write granular ロール（表示名）が追加され、テリトリーメンバーや商談チームメンバーが参照できるタッチポイントをレコード単位で絞り込める（技術名は公開情報では確認できず） |
+| AI | AI sales activity association（`com.sn_act_assoc_agent`）が受信した営業メールを適切な CRM レコードに関連付ける（第 9.2 節） |
+| テーブル | 公開情報では確認できず |
+| Brazil | 更新なし（Australia→Brazil 差分ページ） |
+
+#### 4.5.6 Partner Relationship Management（PRM、パートナー関係管理）
+
+Partner Relationship Management は、企業がチャネルパートナーを採用・関与させて自社製品・サービスを販売するためのアプリケーションである。[出典](https://www.servicenow.com/docs/r/australia/order-management/som-exploring.html)
+
+| 項目 | 内容 |
+|---|---|
+| プラグイン | `com.snc.partner_relationship_management`。[出典](https://www.servicenow.com/docs/r/HGDW_sLOfs0QXhKu64QAng/IAkrdLQgzS3QhQI44ec7eA)。Deal Registration（案件登録）は別プラグイン `com.snc.deal_registration_management`（Zurich 版の Roles and components of Deal Registration Management ページ）[出典](https://www.servicenow.com/docs/r/IgYhkFXjkqOTLI_WLJDH4Q/AZ_bpg4xUrssRMAYKYiVLg) |
+| 機能ロール | `sn_prm.enterprise_partner_admin`（パートナー企業の管理者）、`sn_prm.enterprise_partner_rel_manager`（パートナー階層に紐づくケースを管理する社内担当）、`sn_prm.enterprise_partner_agent`（パートナーケースを解決する社内担当）、`sn_prm.external_partner_manager`／`sn_prm.external_partner_associate`（ポータルでケースを報告するパートナー側担当） |
+| 粒度ロール | `sn_prm.channel_partner_writer`、`sn_prm.partner_program_writer`、`sn_prm.partner_program_rel_writer`、`sn_prm.partner_data_viewer`（チャネルパートナー・パートナープログラム・プログラム関係テーブルの参照）、`sn_prm.partner_ui`（PRM モジュール表示用。他ロールへ手動で継承させる）、`sn_prm.program_segment writer`（原文どおりスペースを含む。誤記の可能性があり実機で要確認） |
+| テーブル | `sn_prm_program_segment_mapping`（Program segment mapping）。チャネルパートナー・パートナープログラム等のテーブル技術名は公開情報では確認できず |
+
+[出典](https://www.servicenow.com/docs/r/HGDW_sLOfs0QXhKu64QAng/IAkrdLQgzS3QhQI44ec7eA)
+
+| リリース | 変更 |
+|---|---|
+| Australia | Deal registration の Advanced Approval Framework 対応（案件属性に基づくルール、低リスク案件の自動承認）、Deal registration タスク管理（Flow Designer で自動作成ルール）、Quote Management for Channel Partners（`com.snc.partner_relationship_management_qm`）、Partner ポータルでの見積作成（`com.sn_quote_self_service`）、Opportunity Management for Channel Partners（`com.snc.partner_relationship_management_oppty`） |
+| Brazil | **Register a deal with AI**（Deal Registration AI エージェントが案件の受付・検証・レコード作成を支援）、**Partner criteria for deals**（案件作成時にパートナーがアクセスできるアカウント・消費者を制御するフィルタールール） |
+
+[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-partnerrelationshipmanagement-release-notes.html)
 
 ---
 
@@ -477,12 +597,14 @@ Pricing Management（アプリケーション `sn_csm_pricing`）は、価格表
 | `sn_csm_pricing.pricelist_writer` | 価格エンティティの参照・書き込み・削除（削除は Draft 状態のみ） |
 | `sn_csm_pricing.pricelist_viewer` | 価格表、価格表明細、コストブック、コストブック明細の参照 |
 | `sales_agreement_pricelist_writer` | Sales Agreement 用価格表・明細のみ書き込み可。Sales Agreement Writer が継承 |
-| `sn_csm_pricing.pricing_integrator` | 価格計算 API の呼び出し |
-| `sn_csm_pricing.pricing_integrator_internal` | 内部統合用（詳細は公開情報では確認できず） |
+| `sn_csm_pricing.pricing_integrator` | Pricing REST API 経由で価格機能にアクセスする（advanced configurator 使用時に必要） |
+| `sn_csm_pricing.pricing_integrator_internal` | CPQ Configurator から Pricing REST API 経由で価格機能にアクセスする。API レート制限の対象外 |
+
+> 注: `sn_csm_pricing_pricelist_administrator`、`sn_csm_pricing_pricelist_manager`、`sales_agreement_pricelist_writer` の 3 ロールは、公式 Components ページ上でスコーププレフィックスの区切りがドットでない、またはプレフィックスがない形で記載されている（原文どおり）。実機の `sys_user_role` で正確な名称を確認すること。
 
 - インストール時に導入が明示されているテーブルは Pricing Plan（`sn_csm_pricing_pricing_plan`）のみで、価格表・価格表明細の物理テーブル名は公開の Components ページでは確認できず。
 - 価格計算 API: `POST /api/sn_csm_pricing/{api_version}/pricingengine/computePrice`（要 `sn_csm_pricing.pricing_integrator`）。外部 ID で照会する場合はリクエスト設定に `"use_external_code": true` を指定する。[出典](https://www.servicenow.com/docs/r/zurich/api-reference/rest-apis/csm-pricing-api.html)
-- Australia の Order Management では **Delta pricing on orders（受注の差分価格）** が新機能として追加された（詳細は Product Catalog Management／Pricing Management のリリースノート参照）。[出典](https://www.servicenow.com/docs/r/release-notes/order-management-rn.html)
+- Australia の Order Management では、価格関連の新機能として **Delta pricing on orders（受注の差分価格）**、**Price and quantity ramps on order line items（受注明細の価格・数量ランプ）**、**Derived pricing on order line items（受注明細の派生価格）** が追加された（第 8.6 節）。Delta pricing は、MACD・更新時に既存の製品・契約・購入との差分から価格・数量の変化を算出し、契約種別（contract type）・契約明細種別（contract line type）が空の場合は受注・明細のアクションに基づき既定値を設定する。[出典](https://www.servicenow.com/docs/r/AWjfoG0XNF6COBtQI5zL~A/uvqYzgQ1BQneSc2Rv85Xyw)
 
 ### 7.3 Sales Agreement Management（販売契約管理）
 
@@ -503,12 +625,12 @@ Sales Agreement Management は、品目・数量・価格・条件・有効期�
 
 ### 8.1 概要とバリアント
 
-Order Management（受注管理）は、エンタープライズ顧客からの製品・サービス受注の捕捉・管理・フルフィルメントを行う。エンリッチメントフロー、ジェパディ（遅延リスク）管理ルール、オーケストレーションワークフロー、販売後の解約・一時停止・再開をサポートする。[出典](https://www.servicenow.com/docs/r/release-notes/order-management-rn.html)
+Order Management（受注管理）は、エンタープライズ顧客からの製品・サービス受注の捕捉・管理・フルフィルメントを行う。エンリッチメントフロー、ジェパディ（遅延リスク）管理ルール、オーケストレーションワークフロー、販売後の解約・一時停止・再開をサポートする。[出典](https://www.servicenow.com/docs/r/release-notes/order-management-rn.html)（Brazil 版リリースノートの記述）
 
 | バリアント | スコープ | 用途 |
 |---|---|---|
 | 業界非依存版 | `sn_ind_tmt_orm` | 小売、EC、一般的な B2B 受注 |
-| Telecommunications, Media, and Technology（TMT）版 | `sn_om_tmt` | 通信固有ワークフロー、TM Forum API 準拠、ネットワーク在庫連携。**TSM または TPSM のサブスクリプションが必要** |
+| Telecommunications, Media, and Technology（TMT）版 | `sn_om_tmt` | 通信固有ワークフロー、TM Forum API 準拠、ネットワーク在庫連携。公式ドキュメントは、TSM（Telecommunications Service Management）または TPSM（Technology Provider Service Management）のサブスクリプションにより業界固有の製品・サービス向けワークフローを利用できると記載している（TMT 版の利用にサブスクリプションが必須かどうかは公開情報では確認できず） |
 
 [出典](https://www.servicenow.com/docs/r/order-management/explore-order-management.html)
 
@@ -600,8 +722,9 @@ Order Management（受注管理）は、エンタープライズ顧客からの�
 | `sn_fallout_mgmt.fallout_manager` | フォールアウト | フォールアウトレコードの作成・参照・割り当て・編集 | — |
 | `sn_fallout_mgmt.fallout_agent` | フォールアウト | フォールアウトの参照、状態更新、作業メモ | — |
 
-- `order_approver` と `order_viewer` は **Order Management Business Stakeholder** ロールに含まれる。公式ドキュメントは Business Stakeholder ロールが有償となる場合がある旨を示している。ライセンス区分の詳細は [ライセンスモデル](../../03_導入編/01-licensing-model.md) を参照。[出典](https://www.servicenow.com/docs/r/IgYhkFXjkqOTLI_WLJDH4Q/NqsBFDV1J50g2oOc~AIx1g)
+- `order_approver` と `order_viewer` は **Order Management Business Stakeholder** ロールに含まれる。公式ドキュメントは、Business Stakeholder ロールには費用が発生する（"which has a fee associated with it"）と記載している。ライセンス区分の詳細は [ライセンスモデル](../../03_導入編/01-licensing-model.md) を参照。[出典](https://www.servicenow.com/docs/r/IgYhkFXjkqOTLI_WLJDH4Q/NqsBFDV1J50g2oOc~AIx1g)
 - フルフィルメント系ロール名は文書により `fulfilment`（英綴り）と `fulfillment`（米綴り）が混在している（例：`fulfilment_writer` と `fulfillment_writer`、`order_fulfillment_agent` と `order-fulfillment_agent`）。実機の `sys_user_role` で正確な名称を確認すること。
+- `order_viewer` の包含ロールは Order Management の Components ページ上 `sn_csm_pricing.pricing_list_viewer` と記載されているが、Pricing Management の Components ページで定義されているのは `sn_csm_pricing.pricelist_viewer`（第 7.2 節）であり、ドキュメントの表記揺れの可能性がある。実機の `sys_user_role` で確認すること。
 
 ### 8.5 Customer Order と Order Line Item の状態値
 
@@ -657,8 +780,23 @@ stateDiagram-v2
 
 | リリース | 変更 |
 |---|---|
-| Australia | Delta pricing on orders（受注の差分価格）が新規。Now Assist による受注更新管理。CPQ Configurator が Sales CRM トランザクション内で構成・価格設定を担う [出典](https://www.servicenow.com/docs/r/release-notes/order-management-rn.html) |
-| Brazil（v16.4.1、2026-10） | 下記参照 |
+| Australia | 下表参照 |
+| Brazil（v16.4.1、2026-10） | 下記「Brazil での変更」参照 [出典](https://www.servicenow.com/docs/r/release-notes/order-management-rn.html) |
+
+**Australia の Order Management 新機能・変更**（Yokohama→Australia 統合リリースノートに基づく）[出典](https://www.servicenow.com/docs/r/AWjfoG0XNF6COBtQI5zL~A/uvqYzgQ1BQneSc2Rv85Xyw)
+
+| 機能 | 区分 | 内容 |
+|---|---|---|
+| Order line milestones（受注明細マイルストーン） | 新規 | フルフィルメントのマイルストーンを設定して受注仕様にマッピング。受注明細作成時に自動生成され、手動で到達済みにできる。明細上で状態を追跡し、タスクに紐づけ可能 |
+| Derived pricing on order line items（受注明細の派生価格） | 新規 | 価格ルールの応答と元のオファー明細に基づき、システム生成明細を自動で追加・更新・削除。価格の整合性維持のため、システム生成明細の編集・コピーは制限される |
+| Order header tasks（受注ヘッダータスク） | 新規 | 受注および上位受注明細のレベルでタスクを作成・追跡。分解前から履行後まで、オンボーディング、コンプライアンスレビュー、承認追跡などに利用 |
+| Customer entities on Order（受注の顧客エンティティ） | 新規 | 受注ごとに Deal Type（Direct／Indirect）と Route to Market を保持し、見積から受注まで取引構造を一貫させる |
+| Delta pricing on orders（受注の差分価格） | 新規 | MACD・更新時に既存製品・契約・購入との差分から価格・数量変化を算出。契約種別・契約明細種別が空なら既定値を設定。ヘッダー／明細フィールド、価格調整ルール識別子・条件を追加し、受注・製品インスタンス・受注コピーのフローでマッピング |
+| Price and quantity ramps on order line items（価格・数量ランプ） | 新規 | 1 つの受注内で価格・数量の計画的な時系列変化をモデル化し、複数受注を不要にする（詳細は Product Catalog Management／Pricing Management リリースノート） |
+| Manage order updates with ServiceNow Otto | 新規 | 会話型 AI による受注のトリアージと、配送先住所や複数明細の数量変更などのガイド付き更新 |
+| Managing in-flight orders for site projects | 変更 | SPM との連携でサイトプロジェクトのインフライト受注に対応し、プログラム／サブプロジェクト階層を維持 |
+
+このほか、定期（recurring）・エンタイトルメント受注で契約開始・終了日と期間の検証が行われ、一回限り（one-time）の受注では契約日付の入力がブロックされる。[出典](https://www.servicenow.com/docs/r/AWjfoG0XNF6COBtQI5zL~A/uvqYzgQ1BQneSc2Rv85Xyw)
 
 > **Brazil での変更:** Order Management v16.4.1（2026 年 10 月）で、(1) **Buyer Organization（購買組織）向けの受注作成** が追加され、`Buyer Organization` と `Buyer Organization Member` の 2 フィールドが追加された。(2) **Order capture AI agent** が追加され、完了した見積・Excel 添付・メール文書から受注を自動作成する。Order Assist Agent は Catalog AI Search で製品を照合し、Zoom の議事録から詳細を抽出し、納品場所ごとに受注を分割し、自然言語での明細作成・再処理・見積データ保持に対応する。[出典](https://www.servicenow.com/docs/r/release-notes/order-management-rn.html)
 
@@ -758,10 +896,10 @@ ServiceNow は CRM を「顧客接点の記録（System of Record）」ではな
 | フロント〜バックオフィスの統合 | Sales CRM は「フロント・ミドル・バックオフィスのチームを 1 つのプラットフォームで統合する」ことを目的とする | 公式 [出典](https://www.servicenow.com/docs/r/australia/order-management/som-exploring.html) |
 | Sell・Fulfill・Service の単一プラットフォーム化 | Logik.ai 買収時、ServiceNow は「販売、フルフィルメント、サービスを単一プラットフォームで行う能力をさらに強化する」とコメント | 【第三者情報】[出典](https://techstrong.ai/agentic-ai/servicenow-continues-ma-tear-with-acquisition-of-logik-ai) |
 | CPQ の獲得 | 2025-04 発表、2025-05-30 完了の Logik.io Inc. 買収（購入対価約 5.06 億ドル）。Logik.ai は直販・パートナー・D2B・消費者セルフサービスの CPQ、大量見積に耐えるコンポーザブル基盤を持ち、Salesforce・Oracle・Adobe と技術提携していた | SEC 提出書類（公式）[出典](https://www.sec.gov/Archives/edgar/data/1373715/000137371525000309/now-20250930.htm)、【第三者情報】[出典](https://www.constellationr.com/insights/news/servicenow-acquires-logikai-it-steps-crm-efforts) |
-| CRM 非依存の CPQ | Transaction Manager／Quote Experience は CRM 非依存で、他社 CRM（Salesforce 等）にも組み込める。既存 Salesforce ユーザーに対する「CPQ から入る」導入経路を残している | 公式 [出典](https://www.servicenow.com/docs/r/order-management/quoting-experiences-overview.html) |
+| CRM 非依存の CPQ | Transaction Manager は CRM 非依存で取引データの System of Record として機能する（CPQ リリースノート）。Quote Experience はモジュラー構成で、他社 CRM（Salesforce 等）やパートナーポータルにも組み込める（Quote Experience overview）。【推定】これにより、既存 Salesforce ユーザーに対して「CPQ から入る」導入経路を残している | 公式 [出典](https://www.servicenow.com/docs/r/35dlqBTUtpT5W39aSiHI6w/gNAuVaKaDC6FAYRBRd5SBg) [出典](https://www.servicenow.com/docs/r/order-management/quoting-experiences-overview.html)。導入経路の解釈は【推定】 |
 | Autonomous CRM | 2025-09 に「従来型 CRM を AI ネイティブな System of Action に置き換える」Autonomous CRM を提示。対象は Lead、Sales、CPQ、Field Service、Customer Service | 【第三者情報】[出典](https://www.nojitter.com/ai-automation/servicenow-unveils-ai-experience-focus-on-crm) |
-| Knowledge 2026 | Autonomous CRM for Sales、Autonomous CRM for Service、CPQ、Autonomous CRM for Industries（金融、医療、製造、通信、小売、ハイテク、公共等）を発表。Otto を AI の「フロントドア」と位置づけ | 【第三者情報】[出典](https://www.techzine.eu/news/applications/141051/servicenow-expands-autonomous-workforce-to-nearly-all-business-roles/) |
-| ブランド整理 | Australia で SOM → Sales CRM、Now Assist → ServiceNow Otto へ改称 | 公式 [出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/dNq9KmmolOIubViVcWolZQ) |
+| Knowledge 2026（2026-05-05） | Day 1 基調講演で Autonomous CRM for Sales、Autonomous CRM for Service、Configure, Price, Quote を CRM スイートとして発表。業界向けの Autonomous CRM for Industries は、金融サービス、医療、製造、通信、小売、テック、公共などの規制要件・データモデルに AI を根付かせると ServiceNow は説明している | 公式 [出典](https://www.servicenow.com/uk/blogs/2026/knowledge-2026-welcome-agentic-business) [出典](https://www.businesswire.com/news/home/20260505237676/en/) [出典](https://www.servicenow.com/workflow/crm/autonomous-crm-built-finish-work.html)。業界別機能の展開計画（金融、通信、医療、製造、公共、小売など）は【第三者情報】[出典](https://www.techtarget.com/enterprise-software/news/366642658/ServiceNows-Autonomous-CRM-takes-aim-at-Salesforce) |
+| ブランド整理 | Australia で SOM → Sales CRM、Now Assist → ServiceNow Otto へ改称（公式）。Forrester は Knowledge 2026 のレポートで、Customer Service Management も **Service CRM** に改称されたと報じており、Sales CRM／Service CRM の 2 本柱に整理された形になる。ただし公式ドキュメント（CRM ランディングページ等）は 2026-11 時点でも「Customer Service Management（CSM）」の名称を使っており、公式の改称告知は確認できず | 公式 [出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/dNq9KmmolOIubViVcWolZQ) [出典](https://www.servicenow.com/docs/r/customer-relationship-management/customer-relationship-mgmt-landing.html)、Service CRM は【第三者情報】[出典](https://www.forrester.com/blogs/context-is-the-new-competitive-edge-takeaways-from-servicenow-knowledge-2026/) |
 | 業界特化 | 受注管理は TMT 由来（`sn_ind_tmt_orm`）。製造・ハイテク・医療機器など複雑な構成を持つ業界を CPQ のターゲットとする | 公式 [出典](https://www.servicenow.com/docs/r/order-management/explore-order-management.html)、【第三者情報】[出典](https://erp.today/servicenow-acquires-logik-ai-to-supercharge-ai-powered-crm-capabilities/) |
 
 ### 12.2 Customer 領域のポートフォリオ上の位置づけ
@@ -772,7 +910,7 @@ flowchart TB
     SALES["Sales CRM<br/>Lead / Opportunity / Forecast / Territory"]
     CPQ["CPQ<br/>Configurator / Quote Experience / Pricing"]
     OM["Order Management<br/>Decomposition / Orchestration / Fallout"]
-    CSM["Customer Service Management<br/>Case / Order & Invoice Case"]
+    CSM["Customer Service Management<br/>（報道上の新称: Service CRM）<br/>Case / Order & Invoice Case"]
     FSM["Field Service Management<br/>Work Order"]
     IND["Industry Solutions<br/>TMT / Manufacturing / FS ..."]
   end
@@ -795,8 +933,8 @@ flowchart TB
 
 - Sales CRM のライセンス（SKU 構成、エディション、価格）は公開情報では確認できず。製品ページは ServiceNow の営業担当経由の見積を前提としている。
 - AI 機能は Foundation／Advanced／Prime の 3 階層で提供される（第 9.3 節）。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/dNq9KmmolOIubViVcWolZQ)
-- Order Management の TMT 版（`sn_om_tmt`）は TSM（Telecommunications Service Management）または TPSM のサブスクリプションが前提。[出典](https://www.servicenow.com/docs/r/order-management/explore-order-management.html)
-- `order_approver`／`order_viewer` を含む **Order Management Business Stakeholder** ロールは有償となる場合がある。[出典](https://www.servicenow.com/docs/r/IgYhkFXjkqOTLI_WLJDH4Q/NqsBFDV1J50g2oOc~AIx1g)
+- Order Management の TMT 版（`sn_om_tmt`）について、公式ドキュメントは TSM（Telecommunications Service Management）または TPSM（Technology Provider Service Management）のサブスクリプションにより業界固有の製品・サービス向けワークフローを利用できると記載している。TMT 版の利用にサブスクリプションが必須かどうかは公開情報では確認できず。[出典](https://www.servicenow.com/docs/r/order-management/explore-order-management.html)
+- `order_approver`／`order_viewer` を含む **Order Management Business Stakeholder** ロールについて、公式ドキュメントは費用が発生する（"which has a fee associated with it"）と記載している。[出典](https://www.servicenow.com/docs/r/IgYhkFXjkqOTLI_WLJDH4Q/NqsBFDV1J50g2oOc~AIx1g)
 - 各アプリは主に **ServiceNow Store** から導入する（Order Management、Opportunity Management、Quote Management 等）。
 
 一般的なライセンス体系は [ライセンスモデル](../../03_導入編/01-licensing-model.md)、[価格情報](../../03_導入編/02-pricing.md)、[エディション比較](../../03_導入編/03-edition-comparison.md) を参照。
@@ -830,6 +968,11 @@ flowchart TB
 - Sales CRM の SKU・エディション・価格、AI 機能ごとの Foundation／Advanced／Prime の割り当て。
 - Autonomous CRM for Sales／CPQ の正式な GA 日付。
 - Customer Order 状態値の Australia 版ページ（本書の状態値は Brazil 版ページに基づく）。
+- Order Management の TMT 版（`sn_om_tmt`）の利用に TSM／TPSM サブスクリプションが必須かどうか。
+- Sales Forecasting、Sales Territory Management、Customer Engagement Sequences、Buying Group、Activity Management のテーブル名（Components ページを公開 URL で取得できず）。
+- Sales Territory Management のロール技術名（表示名のみ確認）、CRM Touchpoints responsibility granular ロールの技術名、Customer Engagement Sequences の delegated developer ロール名、Buying Group のアプリケーション ID・ロール。
+- Sales Forecasting ロールの Australia 版での記載（Zurich 版 Configure ページに基づく）。
+- PRM のチャネルパートナー・パートナープログラム等のテーブル技術名。
 
 ---
 
@@ -865,7 +1008,9 @@ flowchart TB
 - Components installed with Order Management（Australia）: https://www.servicenow.com/docs/r/XzDjF8RvmMBEjp6Jeus6wg/PvVax_bY2YaG7IZ0M5TV2A
 - Explore Order Management: https://www.servicenow.com/docs/r/order-management/explore-order-management.html
 - Customer order states: https://www.servicenow.com/docs/r/order-management/order-mgt-state-values.html
-- Order Management release notes: https://www.servicenow.com/docs/r/release-notes/order-management-rn.html
+- Order Management release notes（2026-11 時点で Brazil v16.4.1 版を表示）: https://www.servicenow.com/docs/r/release-notes/order-management-rn.html
+- Combined Order Management release notes for upgrades from Yokohama to Australia: https://www.servicenow.com/docs/r/AWjfoG0XNF6COBtQI5zL~A/uvqYzgQ1BQneSc2Rv85Xyw
+- Customer Relationship Management landing（CRM 製品一覧）: https://www.servicenow.com/docs/r/customer-relationship-management/customer-relationship-mgmt-landing.html
 - OrderUtil - Scoped: https://www.servicenow.com/docs/r/eJIqiaxRKVcMaR8XQU6_oA/nTwp9xcxvRzaGkkKIzghhQ
 - AI capabilities in Sales CRM: https://www.servicenow.com/docs/r/order-management/ai-capabilities-sales-crm.html
 - Exploring Now Assist for CPQ: https://www.servicenow.com/docs/r/order-management/explore-now-assist-cpq.html
@@ -876,6 +1021,28 @@ flowchart TB
 - Activity Management release notes Zurich→Brazil: https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-activitymanagement-release-notes.html
 - Sales Agreement release notes Yokohama→Brazil: https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-salesagreement-release-notes.html
 - Sales CRM Mobile release notes Zurich→Brazil: https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-salescrmmobile-release-notes.html
+- Configure Sales Forecasting（Australia）: https://www.servicenow.com/docs/r/HGDW_sLOfs0QXhKu64QAng/U9CULp~XGP85wEC7DeLRFA
+- Configure Sales Forecasting（Zurich、ロール表）: https://www.servicenow.com/docs/r/IgYhkFXjkqOTLI_WLJDH4Q/V_5~8NSSXXcbtRKllPZNfw
+- Using Sales Forecasting（Australia）: https://www.servicenow.com/docs/r/HGDW_sLOfs0QXhKu64QAng/rVjDbfjWj21HxQajBWaTBA
+- Combined Sales Forecasting release notes Zurich→Australia: https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/L0Kl0Upl99UYOblvcIsLWA
+- Sales Forecasting release notes Australia→Brazil: https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-salesforecasting-release-notes.html
+- Explore Sales Territory Management: https://www.servicenow.com/docs/r/order-management/explore-sales-territory-management.html
+- Configuring Sales Territory Management（Zurich）: https://www.servicenow.com/docs/r/IgYhkFXjkqOTLI_WLJDH4Q/ION8Q_0JiQwBVnyugUsO~A
+- Sales Territory Management release notes（Australia）: https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/b~38ubF9gJVEnHSrSqmKaQ
+- Sales Territory Management release notes Australia→Brazil: https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-salesterritorymanagement-release-notes.html
+- Customer Engagement Sequences release notes Australia→Brazil: https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-customerengagementsequences-release-notes.html
+- Buying Group release notes Australia→Brazil: https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-buyinggroup-release-notes.html
+- Activity Management release notes: https://www.servicenow.com/docs/r/7GoNY9eeDRD0FzxldbEmXw/NtzgsWoKkT0B9nKyzrSBoA
+- Activity Management release notes Australia→Brazil: https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-activitymanagement-release-notes.html
+- Configuring Activity Management: https://www.servicenow.com/docs/r/XzDjF8RvmMBEjp6Jeus6wg/siAe2Avu3MWycgHv5DzolQ
+- Roles and components of Partner Relationship Management（Australia）: https://www.servicenow.com/docs/r/HGDW_sLOfs0QXhKu64QAng/IAkrdLQgzS3QhQI44ec7eA
+- Roles and components of Deal Registration Management（Zurich）: https://www.servicenow.com/docs/r/IgYhkFXjkqOTLI_WLJDH4Q/AZ_bpg4xUrssRMAYKYiVLg
+- Partner Relationship Management release notes Australia→Brazil: https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-partnerrelationshipmanagement-release-notes.html
+
+### 公式ブログ・プレスリリース
+- ServiceNow Blog「Knowledge 2026 Day 1 keynote: Welcome to agentic business」: https://www.servicenow.com/uk/blogs/2026/knowledge-2026-welcome-agentic-business
+- ServiceNow プレスリリース（2026-05-05、Business Wire）: https://www.businesswire.com/news/home/20260505237676/en/
+- ServiceNow Workflow「The CRM built to finish the work」: https://www.servicenow.com/workflow/crm/autonomous-crm-built-finish-work.html
 
 ### 公式提出書類・コミュニティ
 - ServiceNow, Inc. Form 10-Q（FY2025 Q3、Logik.io 買収）: https://www.sec.gov/Archives/edgar/data/1373715/000137371525000309/now-20250930.htm
@@ -886,5 +1053,6 @@ flowchart TB
 - Techstrong.ai「ServiceNow continues M&A tear with acquisition of Logik.ai」: https://techstrong.ai/agentic-ai/servicenow-continues-ma-tear-with-acquisition-of-logik-ai
 - ERP Today「ServiceNow Acquires Logik.ai to Supercharge AI-Powered CRM Capabilities」: https://erp.today/servicenow-acquires-logik-ai-to-supercharge-ai-powered-crm-capabilities/
 - No Jitter「ServiceNow Deepens Focus on CRM」（2025-09-30）: https://www.nojitter.com/ai-automation/servicenow-unveils-ai-experience-focus-on-crm
-- Techzine「ServiceNow expands autonomous workforce to nearly all business roles」（Knowledge 2026）: https://www.techzine.eu/news/applications/141051/servicenow-expands-autonomous-workforce-to-nearly-all-business-roles/
+- TechTarget「ServiceNow's Autonomous CRM takes aim at Salesforce」（2026-05）: https://www.techtarget.com/enterprise-software/news/366642658/ServiceNows-Autonomous-CRM-takes-aim-at-Salesforce
+- Forrester「Context Is The New Competitive Edge: Takeaways From ServiceNow Knowledge 2026」（2026-05-14、Service CRM への改称報道）: https://www.forrester.com/blogs/context-is-the-new-competitive-edge-takeaways-from-servicenow-knowledge-2026/
 - Cyntexa「ServiceNow Sales and Order Management: Everything You Need to Know」（図 1・図 2 の出典）: https://cyntexa.com/blog/servicenow-sales-order-management-everything-you-need-to-know/

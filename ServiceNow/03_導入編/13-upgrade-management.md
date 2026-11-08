@@ -34,6 +34,7 @@ sources:
   - https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/0tWbXFlWkp7KUDnxYTXyYw
   - https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/xXfUwXmjfWTN6kkch7SipQ
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/Duxqu3iZslJuJA~wlgOsCA
+  - https://www.servicenow.com/docs/r/9Lur8HBNLjdzEcjznSAFzA/GkQ6locmEFTg07jV61_0Gg
   - https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/KQTgtnxs64N2fBR9c4XQnw
   - https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/CNAreEmHlN9r9ufdNYlA4g
   - https://www.servicenow.com/docs/r/AWjfoG0XNF6COBtQI5zL~A/5kWZi6GtCFRXkVwFKOxebQ
@@ -74,7 +75,7 @@ ServiceNow は SaaS だが、**インスタンスのバージョンを上げる�
 - 導入時のテスト計画・Go-Live は [テストと本番稼働](11-testing-golive.md)
 - 環境構成（Dev/Test/Prod）は [インスタンス戦略と環境](07-instance-strategy.md)
 - 運用体制・変更管理は [運用とガバナンス](12-operations-governance.md)
-- 失敗事例と教訓は [アップグレードの教訓](../04_応用編/04-upgrade-lessons.md)、カスタマイズの負債は [カスタマイズと技術的負債](../04_応用編/02-customization-technical-debt.md)
+- 失敗事例と教訓は [アップグレードの教訓](../04_応用編/04-upgrade-lessons.md)、カスタマイズの負債は [カスタマイズと技術的負債](../04_応用編/02-customization-technical-debt.md)、スクリプトの品質は [スクリプティングのベストプラクティス](../04_応用編/07-scripting-best-practices.md)、ガバナンスは [ガバナンスと CoE の実践](../04_応用編/09-governance-coe-practice.md) を参照
 
 ---
 
@@ -86,8 +87,8 @@ ServiceNow 公式ドキュメントは、移行元と移行先のファミリー
 
 | 用語 | 定義 | 例 | ロールバック |
 |---|---|---|---|
-| **Upgrade（アップグレード）** | 別ファミリーのリリースへ移行する | Zurich Patch 13 → Australia Patch 5a | 汎用的なロールバック手段は無い |
-| **Update（アップデート）** | 同一ファミリー内で Patch / Hotfix 間を移行する | Australia Patch 3 → Australia Patch 5a | 可能（既定 10 日以内、後述） |
+| **Upgrade（アップグレード）** | 別ファミリーのリリースへ移行する | Zurich Patch 13 → Australia Patch 5b | 汎用的なロールバック手段は無い |
+| **Update（アップデート）** | 同一ファミリー内で Patch / Hotfix 間を移行する | Australia Patch 3 → Australia Patch 5b | 可能（既定 10 日以内、後述） |
 
 各ファミリーは Feature（新機能＋既存修正）、Patch（問題修正のみ、原則新機能なし）、Hotfix（特定問題の修正。以前の修正を含むとは限らない）で構成される。[出典](https://www.servicenow.com/docs/r/release-notes/upgrade.html)
 
@@ -147,7 +148,7 @@ sequenceDiagram
 
 ### 2.1 年2回のファミリーリリースと顧客の選択
 
-ServiceNow のファミリーリリースは年2回である。2026 年は Australia（2026-03-12 EA、2026-05-05 GA）と Brazil（2026-09 EA）。リリース日程・N/N-1 サポートポリシー・EOL の詳細は [リリースサイクルとバージョン](../01_入門編/07-release-cycle.md) を参照。[出典](https://www.servicenow.com/docs/r/australia/release-notes/available-versions.html)
+ServiceNow のファミリーリリースは年2回である。2026 年は Australia（2026-03-12 EA、2026-05-05 GA）と Brazil（2026-09-24 EA。2026-11-05 に Brazil Patch 2 が Available となり、同日 GA とみられる【推定】）。EA 日付の出典は公式「Available patches and hotfixes」ページである（[出典](https://www.servicenow.com/docs/r/australia/release-notes/available-versions.html)）。このページには GA 日付が載っていない。GA 日付は、第三者情報と Patch 2 の公開日（2026-05-05）が一致することから判断したもので、根拠は [リリースサイクルとバージョン](../01_入門編/07-release-cycle.md) にまとめてある。【第三者情報】【推定】リリース日程・N/N-1 サポートポリシー・EOL の詳細も同ファイルを参照。
 
 顧客側のアップグレード方針は、概ね次の 2 パターンに分かれる。【経験則】
 
@@ -167,7 +168,7 @@ ServiceNow の **Patching Program** は、四半期ごとにファミリー別�
 |---|---|---|
 | 定期パッチの時期 | 各四半期の **最初の月** にインスタンスをパッチ適用する | [Community（社員記事）](https://www.servicenow.com/community/upgrades-and-patching-articles/latest-patching-targets/ta-p/2485121) |
 | セキュリティパッチ | 脅威の緩和が必要な場合、四半期の 2 か月目・3 か月目にも実施されうる | 同上 |
-| 2026 Q4 の Patch target | Australia Patch 5a W44（KB3228435）、Zurich Patch 12 W44（KB3228357）、Yokohama Patch 13 Hotfix 5a W39（KB3159478） | [公式](https://www.servicenow.com/docs/r/australia/release-notes/available-versions.html) |
+| 2026 Q4 の Patch target | Australia Patch 5b W44（KB3228436）、Zurich Patch 5a W44（KB3228388。Zurich の表記は公式ページの原文どおり）、Yokohama Patch 13 Hotfix 5a W45（KB3230085）。2026-11-05 更新の公式ページによる。target はパッチ適用前に変更されうる | [公式](https://www.servicenow.com/docs/r/australia/release-notes/available-versions.html) |
 | Target の変更 | 「パッチ適用前に変更されることがある」「どうしても必要な場合のみ変更」 | 同上 |
 | 連絡手段 | ServiceNow が **Parent Change Request（親 CHG）** を作成して連絡・追跡する。Now Support の **Instances > Instances Dashboard** でインスタンスを開き、親 CHG にコメントで質問・相談できる | [Community（社員記事）](https://www.servicenow.com/community/onboarding-hub-articles/getting-started-with-servicenow-patching-and-eol-programs/ta-p/3114925) |
 | 状況確認 | Patching Dashboard / EOL Dashboard（Now Support） | 同上 |
@@ -202,7 +203,7 @@ ServiceNow のアップグレード支援機能は、リリースごとに名称
 | **Upgrade Console** | ServiceNow Store アプリ（既定で有効）。Overview タブと Guided Upgrade タブを持つ | ツールへのハブ、**Guided upgrade（ガイド付きアップグレード）** | [公式](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/b8xBw9Kx_m6ywoaK~SOCDg) / [公式](https://www.servicenow.com/docs/r/AWjfoG0XNF6COBtQI5zL~A/5kWZi6GtCFRXkVwFKOxebQ) |
 | **Upgrade Management** | Admin Center 内のメニュー区分名（Upgrade History 等の格納先）。Yokohama では Guided Setup の名称として使われた | — | [公式](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/62QiF9EWBhogBZIgvjkfcQ) / [Community](https://www.servicenow.com/community/admin-experience-blogs/yokohama-simplifying-servicenow-upgrades-with-the-upgrade/ba-p/3178602) |
 
-> 注意: 公式ブログ（2026-07、ServiceNow 社員）は「Yokohama では "Upgrade Management"、Xanadu 以降は "Upgrade Console"」と命名の違いに触れ、自インスタンスの名称を確認するよう勧めている。[出典](https://www.servicenow.com/community/servicenow-ai-platform-blog/upgrades-don-t-have-to-start-from-scratch-every-time/ba-p/3567920)【第三者情報】（社員ブログ）
+> 注意: 公式ブログ（2026-07、ServiceNow 社員）は「Yokohama では "Upgrade Management"、Xanadu 以降は "Upgrade Console"」と命名の違いに触れ、自インスタンスの名称を確認するよう勧めている。[出典](https://www.servicenow.com/community/servicenow-ai-platform-blog/upgrades-don-t-have-to-start-from-scratch-every-time/ba-p/3567920)【第三者情報】（社員ブログ）ただし Xanadu は Yokohama より**前**のリリースなので、このブログの記述は時系列が合わない。名称の推移は公式リリースノートを優先すること。公式リリースノートでは、Yokohama で「Upgrade Management Console experience」が追加され、Zurich で「Additional way to access Upgrade Management」として **Admin メニューの Admin Home から Upgrade Console に到達できる** ようになった。同じリリースノート内でも Upgrade Console と Upgrade Management の両方の名称が使われている。[出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/CNAreEmHlN9r9ufdNYlA4g) / [出典](https://www.servicenow.com/docs/r/AWjfoG0XNF6COBtQI5zL~A/5kWZi6GtCFRXkVwFKOxebQ) / [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-upgradeconsole-release-notes.html)
 
 ### 3.2 メニュー位置（Australia）
 
@@ -552,6 +553,16 @@ Skipped records はファイル種別の重要度で優先度付けされる。[
 | 4 | Form Sections、Choice Sets など |
 | 5（最低） | その他すべて |
 
+上の表は **Upgrade History Task**（Skipped Record VTB のタスク）の Priority である。同じ公式ページの **Old Resolution Details**（7.5 節）の Priority は、**コンテンツ種別** に基づく別の基準を使う。二つを混同しないこと。[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/zQqGJnQ~SmZnHToAkJ~H_Q)
+
+| Priority（Old Resolution Details） | 対象 |
+|---|---|
+| 1（最高） | XML コンテンツ |
+| 2 | `script` または `script_plain` |
+| 3 | HTML コンテンツ |
+| 4 | `sys_ui_form_section`、`sys_ui_related_list`、`sys_choice_set` |
+| 5（最低） | その他 |
+
 > 実務では Priority 1〜2（UI page / UI macro / Business Rule / ACL / Script Include 等のスクリプト系）を必ず個別レビューし、Priority 4〜5（フォームレイアウト、選択肢、リスト列等）は一括 Retain するなど、優先度に応じてレビューの深さを変える。【経験則】
 
 ### 7.3 処置の種類（Retain / Merge / Revert）
@@ -591,7 +602,16 @@ flowchart TD
 
 Guided upgrade の「Review predicted skipped records」ステップでは、予測 Disposition として **Insert、Update、Reverted、Skip、Skip (Manual Merge)、Skip (Apply Once)** が表示される。**Regenerate Preview** で再予測でき、必要に応じて Skipped record rules を作成する。[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/pIeVzBlBTf6o70VhCu37Tw)
 
-各 Disposition の厳密な定義（特に Skip (Manual Merge) と Skip (Apply Once) の違い）は、本調査で参照した Australia のページには記載がなかった（公開情報では確認できず）。
+各予測 Disposition の公式定義（Australia）は次のとおり。[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/pIeVzBlBTf6o70VhCu37Tw)
+
+| 予測 Disposition | 定義 |
+|---|---|
+| **Insert** | 新しいレコードが挿入される見込み |
+| **Update** | このレコードが更新される見込み |
+| **Reverted** | このレコードはベースバージョンに戻されており、次回アップグレードではスキップされない |
+| **Skip** | カスタマイズを保護するため、このレコードは変更されない |
+| **Skip (Manual Merge)** | 更新に手動での対応（マージ）が必要なため、このレコードは変更されない |
+| **Skip (Apply Once)** | apply once フォルダの XML ファイルによる更新がすでに適用済みのため、スキップされる見込み |
 
 ### 7.5 Skipped Record VTB（ビジュアルタスクボード）
 
@@ -624,7 +644,7 @@ Upgrade History のレコードの **Skipped Record VTB** 関連リンクから�
 | 条件 | 条件ビルダー（ノーコード）またはスクリプト。複雑な条件は Client Callable Script Include で `table_sysid` 形式の配列を返し、Sys ID is one of で参照する | [Community](https://www.servicenow.com/community/upgrades-and-patching-articles/exploring-upgrade-center-skipped-record-rules/ta-p/2864060)【第三者情報】 |
 | Action | Keep My Modifications（Always Retain）、Revert and Keep Inactive、Assign Skipped Records to User、Assign Tags to Skipped Records | 同上【第三者情報】 |
 | OOTB ルール | 4 件の非アクティブなサンプルルールが同梱される（Vancouver 時点）。一方、社員ブログは「Xanadu 以降 OOTB の Skipped Record Rules は既定で有効で、ベース変更を含むレコードを自動解消しうる」と述べており、記述が食い違う。**自インスタンスで Active を確認すること** | [Community](https://www.servicenow.com/community/upgrades-and-patching-articles/exploring-upgrade-center-skipped-record-rules/ta-p/2864060) / [社員ブログ](https://www.servicenow.com/community/servicenow-ai-platform-blog/upgrades-don-t-have-to-start-from-scratch-every-time/ba-p/3567920)【第三者情報】 |
-| 自動実行 | アクティブなルールはアップグレード（リリース・Patch・Hotfix）時に自動実行される。結果予測は Upgrade Preview の Predicted skipped list カードで確認できる | [公式](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/d0NgOMHeEPl_83wzDWbpfw) |
+| 自動実行 | アクティブなルールはアップグレード処理中に Skipped records に対して自動実行される [公式](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/d0NgOMHeEPl_83wzDWbpfw)。対象がリリース・Patch・Hotfix のいずれでもよいことは Community 記事（MVP、社員ではない）による【第三者情報】[Community](https://www.servicenow.com/community/upgrades-and-patching-articles/exploring-upgrade-center-skipped-record-rules/ta-p/2864060)。結果の予測は Upgrade Preview の Predicted skipped list カードで確認できる [公式](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/UzrPMuClbnXi6KazXAtMDw) | 各記述の末尾を参照 |
 | 手動実行 | **All > Upgrade Center > Administration > Skipped Record Rules Editor** で個別ルールに **Run Now**。または System Upgrades フォームの **Run skipped Record Rules** で全アクティブルールを実行（個別選択不可）。**最新のアップグレードに対してのみ** 実行される | 同上 |
 | 結果確認 | Upgrade Monitor の Upgrade Summary | 同上 |
 | 制約 | **Upgrade Plan と同時に使えない**（Upgrade Plan 使用時はルールが自動適用されない） | [公式](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/UzrPMuClbnXi6KazXAtMDw) |
@@ -639,7 +659,7 @@ Upgrade History のレコードの **Skipped Record VTB** 関連リンクから�
 
 ### 8.1 概要
 
-**Upgrade Plan** は、アップグレード時のアプリケーション・プラグインのインストールを自動化し、**Skipped records の処置や Update Set の取り込みといった post-upgrade 作業を、他のインスタンスで再生（replay）する** 機能である。手作業とダウンタイムの削減を目的とする。メニューは **All > Upgrade Center > Upgrade Plan**。[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/mBfk3GkslXoukJ4QXerM9Q)
+**Upgrade Plan** は、アップグレード時のアプリケーション・プラグインのインストールを自動化し、**post-upgrade 作業を他のインスタンスで再生（replay）する** 機能である。再生の対象はアプリ・プラグインのインストールと、Skipped records の処置（`glide.upgrade.plan.include.skips = true` の場合のみ）である。Yokohama 以降、このプロパティの既定値は `false` なので、**既定では Skipped records の処置はプランに含まれない**。既定の設定では、Skipped records の処置は Update Set で移送する（Guided upgrade の **Create upgrade update sets** などを使う）。手作業とダウンタイムの削減を目的とする。メニューは **All > Upgrade Center > Upgrade Plan**。[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/mBfk3GkslXoukJ4QXerM9Q)
 
 | 用語 | 内容 |
 |---|---|
@@ -685,8 +705,8 @@ flowchart LR
 | 対象 | 扱い |
 |---|---|
 | アプリ・プラグイン | インストールが追跡・再生される（ライフサイクル項目のため App Repository には公開されない） |
-| Skipped records | プランに取り込まれる。個別選択は不可。レビュー済みかどうかに関わらず取り込まれる |
-| カスタマイズ | `glide.upgrade.plan.include.skips = true` の場合のみ含まれる（既定 `false`。Yokohama 以降、既定では含まれない）。プラン項目ビューでは見えないため各テーブルで確認する |
+| Skipped records | `glide.upgrade.plan.include.skips = true` の場合のみ取り込まれる（既定 `false`。Yokohama 以降、既定では含まれない）。取り込まれる場合は、レビュー済みかどうかに関わらず全件が含まれ、個別に選ぶことはできない |
+| カスタマイズ | Skipped records と同じく、`glide.upgrade.plan.include.skips = true` の場合のみ含まれる（既定 `false`）。プラン項目ビューには表示されないので、各テーブルで確認する |
 | テーブル変更 | バッチブートストラップで最適化される |
 
 制約: [出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/mBfk3GkslXoukJ4QXerM9Q)
@@ -707,7 +727,7 @@ Yokohama で「プラン作成時に Skipped records とカスタマイズを含
 
 | 観点 | Update Set 方式 | Upgrade Plan 方式 |
 |---|---|---|
-| Skipped 処置の移送 | Update Set をエクスポート / インポート / コミット | プランとして App Repository 経由で再生 |
+| Skipped 処置の移送 | Update Set をエクスポート / インポート / コミット（Guided upgrade の Create upgrade update sets で記録） | プランとして App Repository 経由で再生（`glide.upgrade.plan.include.skips` が有効な場合のみ。既定は無効のため Update Set で移送する） |
 | アプリ・プラグイン導入 | 各インスタンスで手作業 | 追跡・自動再生 |
 | テーブル変更 | 通常処理 | バッチ最適化 |
 | Skipped record rules | 併用可 | 併用不可 |
@@ -784,7 +804,7 @@ Australia の Post-upgrade ステップ（必要ロール `upgrade_admin`、Pre-
 | Zurich | Choose an upgrade plan ステップ、Preview application upgrades の強化、Store application upgrades と Sync Now、Resume upgrade、本番 4 フェーズ／非本番 3 フェーズの Guided upgrade。本番の「Ready your environment」ステップ削除 | [公式](https://www.servicenow.com/docs/r/AWjfoG0XNF6COBtQI5zL~A/5kWZi6GtCFRXkVwFKOxebQ) |
 | Australia | **Bulk application update console**（複数アプリの一括更新）、**App version compatibility support**（互換性マトリクスに基づく関連アプリの自動更新）、**ATF Troubleshooting agent access**（非本番の Conduct post-testing から利用）。Upgrade Center 自体は Zurich・Australia とも変更なし | [公式](https://www.servicenow.com/docs/r/AWjfoG0XNF6COBtQI5zL~A/5kWZi6GtCFRXkVwFKOxebQ) / [公式](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/CNAreEmHlN9r9ufdNYlA4g) |
 
-> 社員ブログによれば、Upgrade Console のエージェント機能（アプリ互換性の true-up、予測スキップ）は Australia 上の **バージョン 3.x** が必要で、2026-04-01 に EA、Knowledge26 で GA 予定とされていた。ATF Troubleshooting Agent には Creator Pro Plus サブスクリプション、Generative AI Controller プラグイン、Now Assist for Creator、Zurich 以降が必要とされる。【第三者情報】[出典](https://www.servicenow.com/community/servicenow-ai-platform-blog/upgrades-don-t-have-to-start-from-scratch-every-time/ba-p/3567920)
+> 社員ブログによれば、Upgrade Console のエージェント機能（アプリ互換性の true-up、予測スキップ）は Australia 上の **バージョン 3.x** が必要で、2026-04-01 に EA、Knowledge26（2026-05）で GA 予定とされていた。その後 GA になったかどうか、バージョン 3.x がいま提供されているかどうかは、公開情報では確認できず（2026-11 時点）。使う前に ServiceNow Store で Upgrade Console のバージョンとリリースノートを確認すること。ATF Troubleshooting Agent には Creator Pro Plus サブスクリプション、Generative AI Controller プラグイン、Now Assist for Creator、Zurich 以降が必要とされる。【第三者情報】[出典](https://www.servicenow.com/community/servicenow-ai-platform-blog/upgrades-don-t-have-to-start-from-scratch-every-time/ba-p/3567920)
 
 ---
 
@@ -808,7 +828,7 @@ Patch（Update）でも Skipped records は発生する。Upgrade History で確
 | 項目 | 内容 |
 |---|---|
 | ロールバック可否 | **ファミリーアップグレードには汎用的なロールバック手段は無い**。Update（Patch → Patch、Patch → Hotfix）はロールバック可能 |
-| ロールバック期限 | 既定 **10 日**。プロパティ `glide.rollback.expiration_days` で変更可能 |
+| ロールバック期限 | 既定 **10 日**。公式「ServiceNow upgrades」ページはプロパティ `glide.rollback.expiration_days` で変更可能と記載する。ただし公式「Rollback context properties」ページには接尾辞なしの同名プロパティはなく、アップグレード用は `glide.rollback.expiration_days_upgrade`（既定 10 日）である（[出典](https://www.servicenow.com/docs/r/washingtondc/platform-administration/table-administration-and-data-management/rollback-context-properties.html)）。実機の System Properties で実在するプロパティ名を確認すること（詳細は [サービス継続性と DR](19-service-continuity-dr.md)） |
 | 依頼方法 | Customer Service and Support に連絡 |
 | バックアップからの復元 | ダウンタイムとデータ損失を伴うため最終手段。ServiceNow は任意の時点への復元が可能 |
 | オンデマンドバックアップ | 提供されない。毎日、非ピーク時間帯に ServiceNow のスケジュールでバックアップされる |
@@ -880,7 +900,7 @@ flowchart TD
 ### 11.4 ATF をアップグレードに使う際の注意
 
 - ATF は **本番では実行しない**（テストデータの作成・ロールバックが本番データに影響しうる）。[出典](https://www.servicenow.com/docs/r/zurich/release-notes/upgrade-tools.html)
-- Quick start tests が変更されたアップグレードでは、コピー元の変更がテストフォーム上の通知でテスト設計者に知らされる。コピーした自社テストへの反映要否を確認する。【第三者情報】（ATF 公式ドキュメント要約、[ATF リファレンス](../02_リファレンス/platform/automated-test-framework.md)）
+- Quick start tests が変更されたアップグレードでは、コピー元の変更がテストフォーム上の通知でテスト設計者に知らされる。テスト設計者は **Revert Copy to Base System** UI アクションで、コピーを更新後のバージョンに戻すことができる。コピーした自社テストへの反映要否を確認する。[出典](https://www.servicenow.com/docs/r/9Lur8HBNLjdzEcjznSAFzA/GkQ6locmEFTg07jV61_0Gg)（ATF の製品仕様は [ATF リファレンス](../02_リファレンス/platform/automated-test-framework.md) を参照）
 - UI テストはフォームレイアウト変更・Next Experience の変更で壊れやすい。サーバーサイドテスト（レコード操作・スクリプト検証）を中心に組み、UI テストは主要画面に絞る。【経験則】
 - テストが失敗したら、まず同じ領域の Skipped records（特に Retain したもの）を確認する。ベース側の修正を取り込まなかったことが原因であることが多い。【経験則】
 - ATF の導入期の使い方・テスト計画は [テストと本番稼働](11-testing-golive.md) の ATF 章を参照。
@@ -927,7 +947,7 @@ flowchart TD
 | Skipped Record Rules の整備 | 定型的に Retain する領域をルール化する（範囲は限定的に） |
 | Instance Scan | ベストプラクティス違反（ベース改変、ハードコード等）を定期検出する（[テストと本番稼働](11-testing-golive.md) 参照） |
 
-失敗パターンと教訓は [アップグレードの教訓](../04_応用編/04-upgrade-lessons.md)、技術的負債の管理は [カスタマイズと技術的負債](../04_応用編/02-customization-technical-debt.md) を参照。
+失敗パターンと教訓は [アップグレードの教訓](../04_応用編/04-upgrade-lessons.md) を参照。技術的負債の管理は [カスタマイズと技術的負債](../04_応用編/02-customization-technical-debt.md) を参照。スクリプトの品質は [スクリプティングのベストプラクティス](../04_応用編/07-scripting-best-practices.md)、ガバナンスは [ガバナンスと CoE の実践](../04_応用編/09-governance-coe-practice.md) も参照。
 
 ---
 
@@ -1033,6 +1053,7 @@ Brazil GA 後は Brazil = N、Australia = N-1 となるため、Zurich 以前の
 - Implement instance upgrade activities on a sub-prod instance（Zurich）: https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/0tWbXFlWkp7KUDnxYTXyYw
 - Implement post-upgrade activities on a non-prod instance（Australia）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/amhplLagV4oakmPoL5gmAw
 - ATF Test Generator and Cloud Runner tool in Upgrade Console（Australia）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/Duxqu3iZslJuJA~wlgOsCA
+- Quick start tests（ATF、Australia）: https://www.servicenow.com/docs/r/9Lur8HBNLjdzEcjznSAFzA/GkQ6locmEFTg07jV61_0Gg
 - Combined Upgrade Center release notes（Xanadu → Australia）: https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/CNAreEmHlN9r9ufdNYlA4g
 - Combined Upgrade Console release notes（Yokohama → Australia）: https://www.servicenow.com/docs/r/AWjfoG0XNF6COBtQI5zL~A/5kWZi6GtCFRXkVwFKOxebQ
 - Combined Upgrade Console release notes（Zurich → Brazil）: https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-upgradeconsole-release-notes.html

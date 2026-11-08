@@ -5,7 +5,7 @@ domain: platform
 release: Australia
 last_verified: 2026-11-02
 summary: ServiceNow のローコード自動化環境 Workflow Studio（旧 Flow Designer・Process Automation Designer・Decision Builder を統合）の仕様を網羅する。Flow／Subflow／Action／Trigger／Data pill／Flow logic／Playbooks／Decision tables の構成要素、ロール、システムプロパティ、上限値、実行コンテキスト（execution details・状態値・reporting level）、Flow debugger、FlowAPI、レガシー Workflow Editor との違いに答える。
-keywords: [Workflow Studio, Flow Designer, フローデザイナー, ワークフロースタジオ, Flow, フロー, Subflow, サブフロー, Action, アクション, Trigger, トリガー, Data pill, データピル, Flow logic, Flow variables, Playbooks, プレイブック, Process Automation Designer, PAD, Decision table, デシジョンテーブル, Decision Builder, Legacy Workflow, Workflow Editor, wf_workflow, sys_flow_context, sys_flow_log, sys_pd_process_definition, sys_pd_context, sys_decision, flow_designer, action_designer, flow_operator, flow_admin, FlowAPI, sn_fd, ScriptableFlowRunner, sn_dt.DecisionTableAPI, sn_pad.PDAutomationProvider, execution details, Flow debugger, com.snc.process_flow.reporting.level, sn_flow_designer.max_actions, Run As, Flow roles]
+keywords: [Workflow Studio, Flow Designer, フローデザイナー, ワークフロースタジオ, Flow, フロー, Subflow, サブフロー, Action, アクション, Trigger, トリガー, Data pill, データピル, Flow logic, Flow variables, Playbooks, プレイブック, Process Automation Designer, PAD, Decision table, デシジョンテーブル, Decision Builder, Legacy Workflow, Workflow Editor, wf_workflow, sys_flow_context, sys_flow_context_chunk, sys_flow_report_doc, sys_flow_plan_context_binding, retention, 保持期間, sys_flow_log, sys_pd_process_definition, sys_pd_context, sys_decision, flow_designer, action_designer, flow_operator, flow_admin, FlowAPI, sn_fd, ScriptableFlowRunner, sn_dt.DecisionTableAPI, sn_pad.PDAutomationProvider, execution details, Flow debugger, com.snc.process_flow.reporting.level, sn_flow_designer.max_actions, Run As, Flow roles]
 sources:
   - https://www.servicenow.com/docs/r/build-workflows
   - https://www.servicenow.com/docs/r/build-workflows/workflow-studio/workflow-studio.html
@@ -27,6 +27,7 @@ sources:
   - https://www.servicenow.com/docs/r/build-workflows/workflow-studio/user-access-flow-designer.html
   - https://www.servicenow.com/docs/r/build-workflows/workflow-studio/flow-designer-system-properties.html
   - https://www.servicenow.com/docs/r/build-workflows/workflow-studio/flow-execution-details.html
+  - https://www.servicenow.com/docs/r/build-workflows/workflow-studio/flow-reporting.html
   - https://www.servicenow.com/docs/r/build-workflows/workflow-studio/flow-troubleshooting-scenarios.html
   - https://www.servicenow.com/docs/r/build-workflows/workflow-studio/flow-designer-reference.html
   - https://www.servicenow.com/docs/r/QG7EzyJSIJf6bo5K1OVTbw/n34SkDxnSs7Mbd8OVmEGow
@@ -45,12 +46,14 @@ sources:
   - https://www.servicenow.com/docs/r/build-workflows/legacy-workflow/c_TroubleshootWorkflows.html
   - https://www.servicenow.com/docs/r/build-workflows/workflow-activities/c_WorkflowActivities.html
   - https://www.servicenow.com/docs/r/api-reference/server-api-reference/ScriptableFlowAPI.html
+  - https://www.servicenow.com/docs/r/api-reference/server-api-reference/ScriptableFlowRunnerScopedAPI.html
   - https://www.servicenow.com/docs/r/api-reference/server-api-reference/DecisionTableAPI.html
   - https://www.servicenow.com/docs/r/api-reference/server-api-reference/PDAutomationProviderBothAPI.html
   - https://www.servicenow.com/docs/r/australia/release-notes/flow-designer-rn.html
   - https://www.servicenow.com/docs/r/brazil/release-notes/flow-designer-rn.html
   - https://www.servicenow.com/docs/r/zurich/release-notes/flow-designer-rn.html
   - https://www.servicenow.com/docs/r/yokohama/release-notes/flow-designer-rn.html
+  - https://www.servicenow.com/docs/r/yokohama/delta-vancouver-xanadu/xanadu-vancouver-nowassistforcreator-release-notes.html
   - https://www.servicenow.com/community/in-other-news/yokohama-release-new-feature-flow-debugger-walkthrough/ba-p/3171821
   - https://www.servicenow.com/community/workflow-automation-forum/flow-designer-sys-context-table/m-p/3100580
   - https://www.servicenow.com/community/developer-forum/flow-debuging-troubles-in-washington-dc-workflow-studio/m-p/2952214
@@ -93,7 +96,8 @@ Workflow Studio は、従来個別アプリケーションだった以下のビ�
 - RPA / Process Mining：[process-automation-rpa-mining.md](./process-automation-rpa-mining.md)
 - AI Agents / Now Assist：[now-assist-ai-agents.md](./now-assist-ai-agents.md)
 - ドメインセパレーション：[domain-separation.md](./domain-separation.md)
-- 技術的負債とカスタマイズ方針：[../../04_応用編/02-customization-technical-debt.md](../../04_応用編/02-customization-technical-debt.md)
+- アップグレードの教訓（技術的負債）：[../../04_応用編/04-upgrade-lessons.md](../../04_応用編/04-upgrade-lessons.md)
+- ガバナンス・CoE（カスタマイズ方針）：[../../04_応用編/09-governance-coe-practice.md](../../04_応用編/09-governance-coe-practice.md)
 
 ---
 
@@ -164,7 +168,7 @@ Yokohama（2025-05）で、自動化の内容に関する質問に答えると P
 | 構成要素 | 説明 |
 |---|---|
 | Trigger（トリガー） | Flow を起動する条件。条件を満たすたびに Flow が実行される。Trigger は常に同じ形の入力データを提供する |
-| Actions and flow logic（アクションとフローロジック） | Trigger の後に続く処理の並び。既定で 1 Flow あたり **最大 50 Action**（`sn_flow_designer.max_actions` で変更可能） |
+| Actions and flow logic（アクションとフローロジック） | Trigger の後に続く処理の並び。既定で 1 Flow あたり **最大 50 Action**（`sn_flow_designer.max_actions` で変更可能。推奨値の整理は 15 章を参照） |
 | Data panel（データパネル） | Flow の実行中に収集・生成されるデータ（Data pill）を一覧表示する右側パネル |
 | Flow variables（フロー変数） | Flow 全体でデータを設定・取得する変数。Data panel に Data pill として表示される |
 | Stages（ステージ） | リクエスト・Flow・Subflow の現在段階をエンドユーザーに伝える（例：RITM の Stage 表示） |
@@ -288,7 +292,7 @@ stateDiagram-v2
 | 競合 | 置き換える既存の自動化（Flow、Business Rule、Workflow、Integration Hub）は無効化してから Workflow Studio に移行する |
 | 待機 | `gs.sleep()` はスレッドをブロックするため使わない。特定時刻はスケジュールトリガー、一時停止は `Wait for a duration` / `Wait for condition` を使う |
 | 並列分岐 | 互いに依存する並列分岐を作らない。Subflow を呼んで結果を返す形にする |
-| ループ | For Each / Do Until は 1,000 回以内に（`sn_flow_designer.max_iterations` 既定 1,000、変更は非推奨）。Look Up Records には最大件数を設定。ネストした各ループにそれぞれ上限が適用される。大量データはバッチ化 |
+| ループ | For Each / Do Until は 1,000 回以内に設計する（ガイドライン上の推奨）。Look Up Records には最大件数を設定。ネストした各ループにそれぞれ上限が適用される。大量データはバッチ化。なお、システムプロパティ `sn_flow_designer.max_iterations`（既定 1,000）が反復回数を強制する対象は **Do the following until と Go back to flow logic** であり（6.1・15 章）、For Each の件数は Look Up Records の上限（`sn_flow_designer.action_picker_limit` 既定 1,000）などで制御する |
 | スクリプト内ループ | 上限がないため、カウンタは `var` でスコープし（`for (var i=0; i<length; i++)`）、有効な終了条件を確保する |
 | 再帰 | Flow は自分自身を直接呼べない。間接再帰（A → B → A）は 3 回まで（`com.glide.hub.flow_engine.indirect_recursion_limit` 既定 3）。代わりに Do Until を使う |
 | 実行モード | 既定で非同期（バックグラウンド）実行。QuickAPI は高速だがデバッグ情報が少ない |
@@ -530,7 +534,7 @@ Flow と Subflow の使い分け：[出典](https://www.servicenow.com/docs/r/bu
 | エラー処理が 10 項目を超える | Subflow |
 | Subflow の出力で他の Flow の自動化を起動する | Subflow |
 
-- **25 Action 以上の Flow は Subflow に分割**することが推奨される（`sn_flow_designer.max_actions` の上限は既定 50 だが、性能上は 25 が推奨）。[出典](https://www.servicenow.com/docs/r/QG7EzyJSIJf6bo5K1OVTbw/n34SkDxnSs7Mbd8OVmEGow)
+- **25 Action 以上の Flow は Subflow に分割**することが推奨される（`sn_flow_designer.max_actions` の上限は既定 50 だが、性能上は 25 が推奨。上限値・推奨値の関係は 15 章を参照）。[出典](https://www.servicenow.com/docs/r/QG7EzyJSIJf6bo5K1OVTbw/n34SkDxnSs7Mbd8OVmEGow)
 - **Dynamic Flow** は名前に反して Flow の種類ではなく Flow logic の一種である。[出典](https://www.servicenow.com/docs/r/build-workflows/workflow-studio/when-to-use-flow-types.html)
 
 ### 5.2 入力と出力
@@ -689,13 +693,36 @@ Flow は既定でバックグラウンド（非同期）で実行され、実行
 
 | テーブル | 内容 | 確度 |
 |---|---|---|
-| `sys_flow_context` | Flow / Subflow / Action の実行コンテキスト（状態、所要時間、ログ） | 【経験則】（公式ページでは「Open Context Record」として言及され、テーブル名は本調査で未確認） |
-| `sys_flow_log` | フローエンジンのログ（`com.glide.hub.flow_engine.log_level` 以上のメッセージ） | 公式 [出典](https://www.servicenow.com/docs/r/build-workflows/workflow-studio/flow-designer-system-properties.html) |
+| `sys_flow_context` | Workflow Studio のすべてのコンテキストレコードと関連する process plan を格納する親テーブル（Execution details の「Open Context Record」で開くレコード） | 公式 [出典](https://www.servicenow.com/docs/r/build-workflows/workflow-studio/flow-reporting.html) |
+| `sys_flow_log` | フローエンジンのログ（`com.glide.hub.flow_engine.log_level` 以上のメッセージ）。Log（`syslog`）テーブルから複製されたログエントリ | 公式 [出典](https://www.servicenow.com/docs/r/build-workflows/workflow-studio/flow-designer-system-properties.html) [出典](https://www.servicenow.com/docs/r/build-workflows/workflow-studio/flow-reporting.html) |
 | `sys_complex_object` | Flow が生成する複合データ定義。アップデートセットに含める必要あり | 公式 [出典](https://www.servicenow.com/docs/r/build-workflows/workflow-studio/flows.html) |
 | `sys_hub_flow` | Flow / Subflow の定義 | 【経験則】 |
 | `sys_hub_action_type_definition` | Custom action の定義 | 【経験則】 |
 | `sys_hub_trigger_instance` | Flow に設定されたトリガーのインスタンス | 【経験則】 |
 | `sys_trigger` | スケジュールジョブ。Flow Engine Event Handler ジョブが滞留すると Flow が Queued のまま進まない事例がある | 【第三者情報】[出典](https://www.servicenow.com/community/workflow-automation-forum/flow-designer-sys-context-table/m-p/3100580) |
+
+#### 実行詳細の保持期間（Flow execution details retention）
+
+公式「Flow execution details retention」は、Flow の実行コンテキストと実行詳細を格納するテーブルと、それぞれの保持期間（Retention）を以下のように定めている。[出典](https://www.servicenow.com/docs/r/build-workflows/workflow-studio/flow-reporting.html)
+
+| テーブル | 内容 | 保持期間・削除タイミング |
+|---|---|---|
+| `sys_flow_context` | すべてのコンテキストレコードと関連する process plan を格納する親テーブル | 完了（Completed）した Flow は **2 週間**、Error／Cancelled 状態の Flow は **6 週間** |
+| `sys_flow_context_chunk` | 実行中の Flow・Action のコンテキストレコードと実行時データ（子テーブル） | Flow の実行が止まった時点で削除され、archive テーブル（`sys_flow_context_chunk_archive`）にエントリが書き込まれる |
+| `sys_flow_context_chunk_archive` | 実行が止まった Flow・Action のコンテキストレコードと実行時データ（子テーブル） | 親のコンテキストレコードの削除時に削除。完了（Completed）した Flow は **2 週間**、Error／Cancelled 状態の Flow は **6 週間** |
+| `sys_flow_report_doc` | 実行詳細のレポーティングデータを持つコンテキストレコードへの参照を格納する親テーブル（関連する chunk／archive テーブルを持つ） | 親のコンテキストレコードが `sys_flow_context` から削除された時点で削除 |
+| `sys_flow_report_doc_chunk` | 実行中の Flow・Action のレポーティングデータと実行詳細 | Flow の実行が止まった時点で削除され、archive テーブル（`sys_flow_report_doc_chunk_archive`）にエントリが書き込まれる |
+| `sys_flow_report_doc_chunk_archive` | 実行が止まった Flow・Action のレポーティングデータと実行詳細 | 親のコンテキストレコードが `sys_flow_context_chunk_archive` から削除された時点で削除。完了した Flow は **2 週間**、Error／Cancelled 状態の Flow は **6 週間** |
+| `sys_json_chunk` | San Diego より前のリリースで作成された Flow・Action のコンパイル済み process plan | 親レコードの削除時に削除 |
+| `sys_flow_plan_context_binding` | 各コンテキストレコードの一意の識別子と、それを開始したトリガーを格納 | 作成から **12 か月** 後に削除 |
+| `sys_flow_log` | Log（`syslog`）テーブルから複製されたログエントリ | **28 日** 後、テーブルのローテーション時、またはコンテキストレコードの削除時のいずれか早いタイミング |
+
+注意点：
+
+- **Flow Context レコードの保持を無効化したり保持期間を延長したりすると、インスタンスの性能に悪影響を与えうる。** 保持するコンテキストが増えるほど、Flow の性能や新しい Flow 機能の利用にも影響する。
+- **保持ポリシーにより `sys_flow_plan_context_binding` の一意の識別子が削除された Flow は、再実行される可能性がある。**
+
+[出典](https://www.servicenow.com/docs/r/build-workflows/workflow-studio/flow-reporting.html)
 
 ### 8.2 Flow の実行状態（state）
 
@@ -788,7 +815,8 @@ Execution details は Workflow Studio の **Operations** タブで Flow 実行�
 | `fd_read_operations_all` | reporting level が許す範囲のすべての詳細（`fd_read_operations` を含む） |
 
 - 読み取り専用ロールと書き込みロールを同一ユーザーに組み合わせない。
-- Flow が特権ロール（例：System）で実行された場合、その詳細を見るにはユーザーも同じロールが必要。フィールド暗号化のロールも同様。
+- **reporting level が Full／Trace でも、レコード値などの構成情報・実行時情報を見られるのは `fd_read_operations_all` を持つユーザーのみ。** このロールがないユーザーには各項目の状態と所要時間だけが表示される。
+- ユーザーは Flow の実行コンテキストに対応する特権ロールを持つ必要がある。**System として実行された Flow の実行詳細を見るには `admin` ロールが必要。** フィールド暗号化にアクセスできるロールで実行された Flow は、閲覧者もそのロールが必要。
 - レコードからフローコンテキストを開く UI アクション等は、アプリケーション固有ロール（例：`itil`）を要する場合がある。
 
 [出典](https://www.servicenow.com/docs/r/build-workflows/workflow-studio/flow-execution-details.html) [出典](https://www.servicenow.com/docs/r/build-workflows/workflow-studio/user-access-flow-designer.html)
@@ -865,7 +893,7 @@ ServiceNow Community の解説記事による操作手順は以下のとおり�
 | ステップが権限不足で失敗 | Run As が起動ユーザーで、そのユーザーの権限が不足していないか（Flow roles の付与を検討） | 公式（2.4）／【第三者情報】 |
 | 実行詳細が空 | reporting level が Off（テスト以外は記録されない、後から変更しても過去分は見えない） | 公式（8.3） |
 | 同一テーブルの複数 Flow の実行順が不定 | トリガー条件の重複 | 公式（3.4） |
-| ループが途中で止まる | `sn_flow_designer.max_iterations`（1,000）到達 | 公式（6.1） |
+| ループが途中で止まる | Do the following until／Go back to flow logic の場合は `sn_flow_designer.max_iterations`（1,000）到達。For Each の対象件数が想定より少ない場合は Look Up Records の最大件数設定や `sn_flow_designer.action_picker_limit`（1,000、超過分は無視）を確認 | 公式（6.1・15 章） |
 | 再帰で停止 | `com.glide.hub.flow_engine.indirect_recursion_limit`（3）到達、For each unique change による自己更新 | 公式 |
 
 ログ関連プロパティ：`com.glide.hub.flow_engine.log_level`（既定 `WARN`、`sys_flow_log` に書く最小レベル）、`com.glide.hub.flow_engine.listener_trace.threshold`（既定 `ERROR`、フローログにコピーするシステムログの最小レベル）。[出典](https://www.servicenow.com/docs/r/build-workflows/workflow-studio/flow-designer-system-properties.html)
@@ -902,7 +930,18 @@ ATF による Flow の自動テストは [automated-test-framework.md](./automat
 | `hasApprovals(scopedFlowName)` | Ask for Approval の有無を `ALWAYS` / `CONDITIONALLY` / `NO` / `UNKNOWN` で返す |
 | `getRunner()` | `ScriptableFlowRunner` ビルダーを返す |
 
-- 公式ドキュメントは、多くの execute / start 系メソッドが **`ScriptableFlowRunner`（ドメインセパレーション対応）** に置き換えられたと記載している。ビルダーは `flow()` / `action()` / `inForeground()` / `inBackground()` / `inDomain()` / `withInputs()` / `run()` を持ち、`run()` の結果オブジェクトは `getContextId()` / `getOutputs()` 等を持つ。
+- 公式ドキュメントは、多くの execute / start 系メソッドが **`ScriptableFlowRunner`（ドメインセパレーション対応）** に置き換えられたと記載している。[出典](https://www.servicenow.com/docs/r/api-reference/server-api-reference/ScriptableFlowAPI.html)
+- `ScriptableFlowRunner` の公式メソッドは以下のとおり。[出典](https://www.servicenow.com/docs/r/api-reference/server-api-reference/ScriptableFlowRunnerScopedAPI.html)
+
+| 分類 | メソッド | 説明 |
+|---|---|---|
+| 実行対象の種別 | `action(scopedActionName)` / `datastream(scopedDatastreamName)` / `flow(scopedFlowName)` / `subflow(scopedSubflowName)` | 実行する Action・Data Stream action・Flow・Subflow を `スコープ名.内部名` で指定 |
+| 入力 | `addInput(name, value)` / `withInputs(inputs)` / `validateInputs(Boolean)` | 入力を 1 件／まとめて追加（同名は上書き）。`validateInputs` は既定 true で、想定外の入力値でエラーを投げる |
+| 実行モード | `inBackground()` / `inForeground()` | 非同期／同期実行。`inForeground()` は Wait 条件のステップをサポートしない |
+| 高速実行 | `quick()` / `asUser()` / `withRoles()` | `quick()` は実行詳細・コンテキストレコードを作らない大量処理向け実行。`asUser()` / `withRoles()` は quick 実行をトリガーユーザーとして／Flow properties のロールで実行 |
+| その他 | `inDomain(domainId)` / `timeout(ms)` / `withConnectionAliasOverride(parentAlias, overrideAlias)` | ドメイン指定、タイムアウト（ミリ秒）、Connection & Credential alias の差し替え |
+| 実行 | `run()` | 実行して `ScriptableFlowRunnerResult` を返す。結果は `getContextId()` / `getOutputs()` / `getDomainId()` / `getFlowObjectName()` / `getFlowObjectType()` / `getDate()` / `debug()` 等を持つ |
+
 - Flow API 呼び出しの既定実行時間は `com.glide.hub.flow_api.default_execution_time`（既定 30000 ミリ秒）。REST トランザクションクォータ（既定 60 秒で停止）の上限を受ける。[出典](https://www.servicenow.com/docs/r/build-workflows/workflow-studio/flow-designer-system-properties.html)
 - QuickAPI のフォアグラウンド実行は呼び出しユーザーのセッションで、バックグラウンド実行は System ユーザーとしてバックグラウンドスレッドで実行される。高速だがデバッグ情報が少ない。[出典](https://www.servicenow.com/docs/r/QG7EzyJSIJf6bo5K1OVTbw/n34SkDxnSs7Mbd8OVmEGow)
 
@@ -926,7 +965,7 @@ ATF による Flow の自動テストは [automated-test-framework.md](./automat
 })();
 ```
 
-> 上記の `.subflow()` メソッドは公式ページ本文（本調査で取得した範囲）では `flow()` / `action()` のみ例示されており、`subflow()` の存在は【経験則】である。正確なシグネチャは Workflow Studio の `Create code snippet` で生成されるコードを確認すること。
+> `subflow()` は `ScriptableFlowRunner` の公式メソッドである（実行対象の種別指定には、ほかに `action()` / `datastream()` / `flow()` がある）。[出典](https://www.servicenow.com/docs/r/api-reference/server-api-reference/ScriptableFlowRunnerScopedAPI.html)
 
 スクリプト全般は [scripting-server-side.md](./scripting-server-side.md) を参照。
 
@@ -1170,13 +1209,13 @@ Delegated development：Playbooks の Delegated developer には `delegated_deve
 var dt = new sn_dt.DecisionTableAPI();
 var inputs = new Object();
 inputs['u_priority'] = '1';          // 入力名は Decision table の入力定義に合わせる
-var answer = dt.getDecision('<decision table sys_id>', inputs);
-if (answer) {
-    gs.info(answer.getValue('u_assignment_group')); // 結果列（answer element）
+var response = dt.getDecision('<decision table sys_id>', inputs);
+if (response) {
+    gs.info(response.result_elements.u_assignment_group); // 結果列（result element）
 }
 ```
 
-> 上記の戻り値アクセス方法は【経験則】。結果の取得方法はテーブル構成（単一結果か multi-result か）で異なるため、公式 API リファレンスのサンプルを確認すること。
+> 上記は公式 API リファレンスのサンプルに準拠した形である。`getDecision()` は一致した Answer レコード（GlideRecord 形式）を返し、結果列の値は `result_elements` プロパティから読む。入力を渡さない場合は最初の既定回答を返し、既定回答も一致回答もない場合はエラーを返す。`getDecisions()` は Answer レコードの配列を返すため、`response[0].result_elements.u_user` のように要素ごとに読む。複数回答をサポートする Decision table では、各回答が `result_elements` に列挙される。[出典](https://www.servicenow.com/docs/r/api-reference/server-api-reference/DecisionTableAPI.html)
 
 関連テーブル：
 
@@ -1186,8 +1225,8 @@ if (answer) {
 | `sys_decision_input` | Decision Inputs |
 | `sys_decision_question` | Decisions（行／質問） |
 | `sys_decision_multi_result_element` | Result Elements（結果列） |
-| `sys_decision_multi_result` | 複数結果の回答レコード |
-| `sys_decision_question_list` | Decision Builder で作成したテーブルの Conditions |
+| `sys_decision_multi_result` | 回答（Answer）レコードを格納するテーブルと考えられる（`getAnswers()` の出力例に `"table"` 値として登場するのみで、公式の説明はない）【推定】 |
+| `sys_decision_question_list` | Decision（`getAll()`／`getDecisionTable()` の `conditions` の格納先。Decision Builder で作成・編集した Decision table の条件を格納） |
 | `sn_decision_table_decision_condition` | Decision Conditions |
 | `sys_choice` | Choices |
 
@@ -1233,7 +1272,7 @@ if (answer) {
 - Playbook でも、別々の Business Rule・Flow・Workflow を 1 つの playbook に置き換え、置き換えたロジックを無効化することが推奨されている。[出典](https://www.servicenow.com/docs/r/build-workflows/workflow-studio/creating-managing-playbooks.html)
 - 段階移行では `Call a workflow` で Flow から既存 Workflow を呼び出し、徐々に置き換える方法がとれる。【経験則】
 - レガシー Workflow を Flow に自動変換する公式ツールの有無は、本調査では公開情報で確認できず。
-- アップグレード時の技術的負債としての扱いは [../../04_応用編/02-customization-technical-debt.md](../../04_応用編/02-customization-technical-debt.md) と [../../03_導入編/13-upgrade-management.md](../../03_導入編/13-upgrade-management.md) を参照。
+- アップグレード時の技術的負債としての扱いは [../../04_応用編/04-upgrade-lessons.md](../../04_応用編/04-upgrade-lessons.md) と [../../03_導入編/13-upgrade-management.md](../../03_導入編/13-upgrade-management.md) を参照。
 
 ---
 
@@ -1243,7 +1282,7 @@ if (answer) {
 
 | ロール | 付与される権限 |
 |---|---|
-| `flow_admin` | すべての Flow・Subflow・Action コンテンツへの限定的管理者アクセス。`flow_designer`、`flow_operator`、`action_designer`、`flow_designer_scripting`、`connection_admin`、`flow_report_viewer` などを含む |
+| `flow_admin` | すべての Flow・Subflow・Action コンテンツへの限定的管理者アクセス。`flow_designer`、`flow_operator`、`flow_write_enabled`、`action_designer`、`action_category_creator`、`action_write_enabled`、`flow_designer_scripting`、`connection_admin`、`flow_report_viewer` を含む |
 | `flow_designer` | Flow デザイン環境で Flow / Subflow を作成・編集。`flow_operator` と `trigger_designer` を含む |
 | `flow_designer_scripting` | 入力値を設定・変更するインラインスクリプトを書ける |
 | `flow_operator` | 実行詳細・ダッシュボード・ログを参照。Flow の作成・変更・テストは不可 |
@@ -1252,7 +1291,7 @@ if (answer) {
 | `action_designer` | Action デザイン環境で Action を作成・編集（任意のアプリケーションスコープの Action を含む） |
 | `action_category_creator` | Action / Subflow のカテゴリを作成（`action_designer` が必要） |
 | `fd_read` | Flow・Subflow・Action の構成と実行詳細の読み取り専用。`fd_read_flows`、`fd_read_actions`、`fd_read_operations` を含む |
-| `fd_read_flows` | Flow / Subflow の構成と実行詳細の読み取り専用 |
+| `fd_read_flows` | Flow / Subflow の構成と実行詳細の読み取り専用。`fd_read_operations` を含む |
 | `fd_read_actions` | Action 構成の読み取り専用 |
 | `fd_read_operations` | 基本的な実行詳細（状態・所要時間）のみ |
 | `fd_read_operations_all` | reporting level の範囲で生成されたすべての実行詳細（`fd_read_operations` を含む） |
@@ -1291,11 +1330,11 @@ Workflow Studio の Flow に関する主なシステムプロパティ（`sys_pr
 
 | プロパティ | 既定値 | 説明 |
 |---|---|---|
-| `sn_flow_designer.max_actions` | 50 | 1 Flow / Subflow あたりの最大 Action 数（公式は 100 以下を推奨、ガイドラインでは 25 超で Subflow 分割を推奨） |
+| `sn_flow_designer.max_actions` | 50 | 1 Flow / Subflow あたりの最大 Action 数。値を引き上げる場合も **100 以下** に抑えることが推奨される（プロパティページ：「ServiceNow recommends limiting flows to 100 actions」、引き上げ時は性能影響を考慮）。性能上は **25 を超えたら Subflow に分割** する（一般ガイドライン、5.1） |
 | `sn_flow_designer.max_action_steps` | 20 | 1 Action あたりの最大ステップ数 |
 | `sn_flow_designer.max_action_vars` | 20 | 1 Action あたりの最大入力数 |
 | `sn_flow_designer.max_script_variables` | 20 | Script step の最大入出力変数数 |
-| `sn_flow_designer.max_iterations` | 1000 | ループの最大反復数（実行中の Flow には影響しない） |
+| `sn_flow_designer.max_iterations` | 1000 | ループ（Do the following until、Go back to flow logic）の最大反復数（変更は実行中の Flow には影響しない） |
 | `sn_flow_designer.max_decision_branches` | 100 | Make a decision の最大分岐数 |
 | `sn_flow_designer.action_picker_limit` | 1000 | Look up 系アクション/ステップが返す最大レコード数（超過分は無視） |
 | `sn_flow_designer.trigger_picker_limit` | 1000 | トリガー検索クエリの最大件数 |
@@ -1338,7 +1377,7 @@ Workflow Studio の Flow に関する主なシステムプロパティ（`sys_pr
 
 | 機能 | リリース | 内容 |
 |---|---|---|
-| Flow generation（テキストからの Flow 生成） | Vancouver 以降【経験則】 | Now Assist で自然言語から Flow を生成（Flow 作成時の「Now Assist で作成」） |
+| Flow generation（テキストからの Flow 生成） | 導入リリースは公開情報では確認できず（Washington DC で「Preview and rebuild flow outlines when creating a flow with Now Assist」、Xanadu で Data pill 値の生成・ハッシュタグによるテーブル参照・テキスト指示の注釈表示が追加） | Now Assist for Creator の flow generation skill で自然言語から Flow を生成（Flow 作成時の「Now Assist で作成」）[出典](https://www.servicenow.com/docs/r/yokohama/delta-vancouver-xanadu/xanadu-vancouver-nowassistforcreator-release-notes.html) |
 | Flows from images | Yokohama（2025-05） | 画像から Flow / Subflow を生成し、プレビューを修正・再生成 |
 | Flow summaries | Yokohama（2025-05） | 生成 AI で Flow / Subflow の内容を要約 |
 | Flows in app generation | Yokohama（2025-05） | Now Assist for app generation でアプリ作成時に Flow を作成・拡張 |
@@ -1356,7 +1395,7 @@ Workflow Studio の Flow に関する主なシステムプロパティ（`sys_pr
 
 ---
 
-## 17. リリース別の主な変更（Yokohama〜Brazil）
+## 17. リリース別の主な変更（Washington DC〜Brazil）
 
 | リリース | 主な変更 |
 |---|---|
@@ -1376,13 +1415,14 @@ Workflow Studio の Flow に関する主なシステムプロパティ（`sys_pr
 
 以下は公開情報（本調査で取得できた範囲）では確認できなかった。
 
-- Flow / Action 定義および実行コンテキストのテーブル名（`sys_hub_flow`、`sys_hub_action_type_definition`、`sys_flow_context` 等）の公式記載（本書では【経験則】として記載）。
+- Flow / Action 定義のテーブル名（`sys_hub_flow`、`sys_hub_action_type_definition`、`sys_hub_trigger_instance`）の公式記載（本書では【経験則】として記載）。実行コンテキスト系テーブル（`sys_flow_context` 等）は公式「Flow execution details retention」で確認済み（8.1）。
 - Action の Step 種類の公式一覧、Transform functions の関数一覧。
 - Playbook の Start rule の選択肢一覧、Playbook のステータス・有効化状態の詳細。
 - Flow debugger の必要ロール・関連プロパティ。
 - Decision Builder の上限プロパティ名と既定値。
 - レガシー Workflow から Flow への自動変換ツールの有無。
-- `ScriptableFlowRunner` の全メソッドシグネチャ（`subflow()` 等）。
+- `ScriptableFlowRunner` の `quick()` 実行時の制約（どの機能が使えないか）や `timeout()` と `com.glide.hub.flow_api.default_execution_time` の優先関係の詳細。
+- Now Assist による Flow generation の導入リリース。
 
 ---
 
@@ -1412,6 +1452,7 @@ Workflow Studio の Flow に関する主なシステムプロパティ（`sys_pr
 
 ### 実行・監視・ロール・プロパティ
 - https://www.servicenow.com/docs/r/build-workflows/workflow-studio/flow-execution-details.html
+- https://www.servicenow.com/docs/r/build-workflows/workflow-studio/flow-reporting.html （Flow execution details retention）
 - https://www.servicenow.com/docs/r/build-workflows/workflow-studio/flow-troubleshooting-scenarios.html
 - https://www.servicenow.com/docs/r/build-workflows/workflow-studio/flow-roles.html
 - https://www.servicenow.com/docs/r/build-workflows/workflow-studio/user-access-flow-designer.html
@@ -1439,6 +1480,7 @@ Workflow Studio の Flow に関する主なシステムプロパティ（`sys_pr
 
 ### API リファレンス
 - https://www.servicenow.com/docs/r/api-reference/server-api-reference/ScriptableFlowAPI.html
+- https://www.servicenow.com/docs/r/api-reference/server-api-reference/ScriptableFlowRunnerScopedAPI.html
 - https://www.servicenow.com/docs/r/api-reference/server-api-reference/DecisionTableAPI.html
 - https://www.servicenow.com/docs/r/api-reference/server-api-reference/PDAutomationProviderBothAPI.html
 
@@ -1447,6 +1489,7 @@ Workflow Studio の Flow に関する主なシステムプロパティ（`sys_pr
 - https://www.servicenow.com/docs/r/brazil/release-notes/flow-designer-rn.html
 - https://www.servicenow.com/docs/r/zurich/release-notes/flow-designer-rn.html
 - https://www.servicenow.com/docs/r/yokohama/release-notes/flow-designer-rn.html
+- https://www.servicenow.com/docs/r/yokohama/delta-vancouver-xanadu/xanadu-vancouver-nowassistforcreator-release-notes.html （Now Assist for Creator：Vancouver〜Xanadu の統合リリースノート）
 
 ### ServiceNow Community（第三者情報）
 - https://www.servicenow.com/community/in-other-news/yokohama-release-new-feature-flow-debugger-walkthrough/ba-p/3171821 （画像 3 点の出典、取得日 2026-11-03）

@@ -17,9 +17,12 @@ sources:
   - https://www.servicenow.com/docs/r/ZUQIWHvhWUsSoHqqH5PGGw/FHThP3zPMJs8jJC1nxVqog
   - https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/nxW_NEM7LH06ANoSftTVeg
   - https://www.servicenow.com/docs/r/Ir~NPf1dr8MGFXQE6QlBoQ/0fmzqDHt0iEzymIrRBjJUA
-  - https://www.servicenow.com/docs/bundle/washingtondc-platform-administration/page/administer/managing-data/task/t_StartAClone.html
+  - https://www.servicenow.com/docs/bundle/xanadu-platform-administration/page/administer/managing-data/task/t_StartAClone.html
+  - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/ayvU7rqInTXy5IBwHRo_iA
+  - https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/UzrPMuClbnXi6KazXAtMDw
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/62QiF9EWBhogBZIgvjkfcQ
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/zQqGJnQ~SmZnHToAkJ~H_Q
+  - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/d0NgOMHeEPl_83wzDWbpfw
   - https://www.servicenow.com/docs/r/australia/release-notes/available-versions.html
   - https://www.servicenow.com/community/servicenow-ai-platform-blog/stop-dreading-upgrades-how-the-guided-upgrade-console-changes/ba-p/3525124
   - https://www.servicenow.com/community/servicenow-ai-platform-blog/stop-reviewing-every-skipped-record-manually-how-automated-skip/ba-p/3525135
@@ -183,7 +186,8 @@ ServiceNow 社員ブログ（2026-04-14）は、Platform Academy セッション
 同ブログが挙げる Skipped Record Rules の注意点: 【第三者情報】[出典](https://www.servicenow.com/community/servicenow-ai-platform-blog/stop-reviewing-every-skipped-record-manually-how-automated-skip/ba-p/3525135)
 
 - ルールは `sys_upgrade_skipped_record_rule` に格納され、実行履歴は `sys_skipped_record_rule_history` に記録される。
-- アクションは **Keep My Modifications / Revert and Keep Inactive / Assign to User / Apply Tags** の 4 種。
+- アクションは **Keep My Modifications / Revert and Keep Inactive / Assign to User / Apply Tags** の 4 種（画面表記はそれぞれ Keep My Modifications (Always Retain)、Revert and Keep Inactive、Assign Skipped Records to User、Assign Tags to Skipped Records。[アップグレード管理 7.6](../03_導入編/13-upgrade-management.md) 参照）。
+- OOB ルールは Vancouver で 5 件（すべて既定で非アクティブ）が導入され、Xanadu で 10 件が追加された（うち 9 件が既定で有効）。Vancouver 時点の非アクティブなサンプルルールの知識のままだと、Xanadu 以降のインスタンスで有効なルールがあることを見落としやすい。
 - **Revert アクションは Update Set に記録されない** ため、他インスタンスでは手作業で繰り返す必要がある。
 - 自動マージは存在しない。本当のマージが必要なレコードは人手で処理する。
 - Resolution Status の変更は情報目的のみで、自動処理を起動しない。
@@ -207,24 +211,27 @@ ServiceNow 社員ブログ（2026-04-14）は、Platform Academy セッション
 
 #### 事例 F: 廃止・削除された機能に依存していた
 
-公式リリースノートは、機能の状態を KB0867184（Deprecation Process）に基づき次の 5 区分で示している。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/5QYkeuLOoyi~AOLtmUpRPA)
+公式の Deprecation information ページには状態の用語を定義する導入文はなく、各エントリの本文で個別に状態が書かれている（一部エントリは KB0867184 Deprecation Process を参照）。以下は **同ページの各エントリで使われる状態表現を本ファイルで整理したもの** であり、「意味」欄は各エントリの記述からの要約である。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/5QYkeuLOoyi~AOLtmUpRPA)
 
-| 状態 | 意味 | アップグレード時の扱い【経験則】 |
+| 状態表現（同ページでの使用例） | 意味（本ファイルでの整理） | アップグレード時の扱い【経験則】 |
 |---|---|---|
 | Being prepared for future deprecation | 非表示になり、新規インスタンスで有効化されない／インストール不可になるが、サポートは継続 | 新規利用を止め、移行計画を立てる |
 | Deprecated | 機能拡張・不具合修正が行われず、将来サポートされなくなる | 次の 1〜2 リリース内に置換を完了する |
+| Being deprecated（例: Australia Patch 1 からの Legacy Application Manager） | 指定したリリース・Patch から非推奨化の過程にある（本ファイルでは Deprecated に含めて扱う） | Deprecated と同様に置換計画を立てる |
 | Removed | 機能・コンポーネントが利用不可 | 依存があればアップグレード前に必ず置換 |
-| Turned off by default | 既定で無効 | 新規有効化時の挙動差に注意 |
-| Marked for eventual deprecation | 動作はするが代替が推奨される | 新規開発では使わない |
+| No longer supported（例: レガシーのクローン要求、Xanadu の Usage Insights） | 機能・画面は存在しうるがサポートされない（リダイレクト等で新機能へ誘導される場合がある） | 依存している運用手順・ブックマーク・自動化を新機能に切り替える |
+| Turned off by default（例: ITSM MCP Server の escalate ツール） | 既定で無効 | 新規有効化時の挙動差に注意 |
+| Marked for eventual deprecation（例: Dashboard overview テンプレート） | 動作はするが将来の廃止対象 | 新規開発では使わない |
 
 Australia で影響の大きい例（抜粋）: [出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/5QYkeuLOoyi~AOLtmUpRPA)
 
 | 区分 | 対象 | 内容 |
 |---|---|---|
 | Deprecated | Legacy UIs（**UI11 と UI15**） | Australia から非推奨。Next Experience の使用を推奨。一部機能は個別判断でレガシー経路で描画される場合がある |
-| Deprecated | Legacy Application Manager | Australia Patch 1 から非推奨。ブックマークは新しい Application Manager にリダイレクト |
+| Being deprecated（Australia Patch 1 から） | Legacy Application Manager | 公式表記は "is being deprecated as of Australia patch 1"（本ファイルでは Deprecated と同様に扱う）。ブックマークは新しい Application Manager にリダイレクト |
 | Removed | Multisource Report Builder（CMDB） | CMDB 360 を使用 |
-| Removed | Clone Admin Console の静的 FAQ とレガシーのクローン要求 | レガシーのクローン要求は 30 秒後にリダイレクト |
+| Removed | Clone Admin Console の静的 FAQ | ランディングページの静的 FAQ を削除し、新しい Help ページへ統合 |
+| No longer supported | Clone Admin Console の一覧・フォームからのレガシーのクローン要求 | 30 秒後に新しい要求ページへリダイレクト |
 | Removed | `sn_dpr_workspace.auto_create_product_enhancement_for_primary_epic`（Digital Product Release） | `sn_dpr_workspace.enhancement_work_item_types` を使用 |
 | Being prepared for future deprecation | Operational Technology Discovery、Guided Setup（Adoption Services）等 | Australia から |
 
@@ -241,10 +248,10 @@ Australia で影響の大きい例（抜粋）: [出典](https://www.servicenow.
 |---|---|
 | 症状 | アップグレード前に本番を開発へクローンしたら、未完了の Update Set、MID Server の定義、連携の認証情報、インスタンス固有のシステムプロパティが消えた／本番値になった |
 | 原因 | クローンは対象インスタンスのデータを上書きする。保持対象（Data Preservers）・除外対象（Exclude Tables）の設定が不十分 |
-| 対策 | 進行中の Update Set はクローン前にエクスポートし、クローン後に再インポートする（公式）。ユーザー、REST API 資格情報テーブル、システムプロパティ等を Data Preserver に設定する。MID Server・ユーザー等の重要テーブルを外部にも退避し、クローン後に MID Server 設定を確認する |
-| 出典 | [公式: Start a clone](https://www.servicenow.com/docs/bundle/washingtondc-platform-administration/page/administer/managing-data/task/t_StartAClone.html) / 【第三者情報】[Community 記事（2022-06-25）](https://www.servicenow.com/community/developer-articles/servicenow-version-upgrade-methodology-best-practices-tips/ta-p/2300241) |
+| 対策 | 進行中の Update Set はクローン前にレビューしてコミットする（公式推奨）。クローン要求の「Preserve In Progress Update Sets」オプションは直近 90 日のグローバルスコープの進行中 Update Set だけを保持し、スコープ付き Update Set や 90 日より古いものは保持しない（既定は保持しない）（公式）。保持対象外のものはクローン前に XML エクスポートし、クローン後に再インポートする【経験則】。ユーザー、REST API 資格情報テーブル、システムプロパティ等を Data Preserver に設定する。MID Server・ユーザー等の重要テーブルを外部にも退避し、クローン後に MID Server 設定を確認する |
+| 出典 | [公式: Clone options（Australia）](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/ayvU7rqInTXy5IBwHRo_iA) / [公式: Request a clone（Xanadu）](https://www.servicenow.com/docs/bundle/xanadu-platform-administration/page/administer/managing-data/task/t_StartAClone.html) / 【第三者情報】[Community 記事（2022-06-25）](https://www.servicenow.com/community/developer-articles/servicenow-version-upgrade-methodology-best-practices-tips/ta-p/2300241) |
 
-- 公式は、除外設定を外して除外テーブルのデータも複製する **Full Clone** を、アップグレードやデプロイのテストに推奨している（ServiceNow OOTB の除外テーブルは引き続き除外される）。レガシーのクローンエンジンでは一部レコード（task 拡張テーブル、リレーション、階層）の Data Preserver がサポートされない。[出典](https://www.servicenow.com/docs/bundle/washingtondc-platform-administration/page/administer/managing-data/task/t_StartAClone.html)
+- 公式は、除外設定を外して除外テーブルのデータも複製する **Full Clone** を、アップグレードやデプロイのテストに推奨している（ServiceNow OOTB の除外テーブルは引き続き除外される。Xanadu 版の記載）。レガシーのクローンエンジンでは一部レコード（task 拡張テーブル、リレーション、階層、ドットウォークのクエリ）の Data Preserver がサポートされない。[出典（Xanadu 版。Australia 版の該当ページでは本調査で同記述を確認できず）](https://www.servicenow.com/docs/bundle/xanadu-platform-administration/page/administer/managing-data/task/t_StartAClone.html)
 - 上記 Community 記事は、MID Server の定義が「保持設定をしていても上書きされることがある」と報告している。【第三者情報】[出典](https://www.servicenow.com/community/developer-articles/servicenow-version-upgrade-methodology-best-practices-tips/ta-p/2300241)
 - クローンの仕様は [アップデートセットとクローン](../02_リファレンス/platform/update-sets-cloning.md) を参照。
 
@@ -253,12 +260,12 @@ Australia で影響の大きい例（抜粋）: [出典](https://www.servicenow.
 | 項目 | 内容 |
 |---|---|
 | 症状 | インスタンスのアップグレード後、MID Server が Down／起動停止を繰り返す。Discovery、Orchestration、MID 経由の連携が止まる |
-| 原因（公式仕様） | インスタンスがアップグレードされ MID Server とバージョンが一致しなくなると、インスタンスは MID Server にアップグレードを指示し、MID Server も毎時バージョン不一致をチェックする。`mid.version.override`（全 MID Server を特定版に固定し自動アップグレードを無効化）や `config.xml` の `mid.pinned.version`（MID ごとの固定。インスタンスアップグレードで変更されない）を使っていると追随しない。Windows では Windows Application Experience サービスが有効でないと自動アップグレードできない |
+| 原因（公式仕様） | インスタンスがアップグレードされ MID Server とバージョンが一致しなくなると、インスタンスは MID Server にアップグレードを指示し、MID Server も毎時バージョン不一致をチェックする。`mid.version.override` は全 MID Server を特定版に固定する（Australia 版の公式ページでは、値はインスタンスのアップグレード中にクリアされ `mid.buildstamp` の版に戻ると記載）。`config.xml` の `mid.pinned.version`（MID ごとの固定。property による固定より優先）はアップグレードの影響を受けないため追随しない。Windows では Windows Application Experience サービスが有効でないと自動アップグレードできない |
 | 原因（事例） | MID ホストからインストールサーバーへ到達できずダウンロード失敗、Windows サービスアカウントの権限不足、Linux で `mid.shconf_override` の不備によりサービスが FAILED 表示 |
 | 対策 | 公式は、MID Server とインスタンスのバージョン不一致は障害を招きうるとして、override や pinning の使用を推奨していない。アップグレード前に固定設定の有無、プロキシ／FW の到達性、サービスアカウント権限を確認し、アップグレード後に MID Server レコードの版を確認する |
 | 出典 | [公式: MID Server upgrades（Australia）](https://www.servicenow.com/docs/r/ZUQIWHvhWUsSoHqqH5PGGw/FHThP3zPMJs8jJC1nxVqog) / [公式](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/nxW_NEM7LH06ANoSftTVeg) / [公式](https://www.servicenow.com/docs/r/Ir~NPf1dr8MGFXQE6QlBoQ/0fmzqDHt0iEzymIrRBjJUA) / 【第三者情報】[Community](https://www.servicenow.com/community/upgrades-and-patching-forum/mid-server-fails-after-patch-update-systemctl-shows-failed-but/m-p/3319649) / [Community](https://www.servicenow.com/community/itom-forum/mid-server-will-not-start-after-instance-upgrade/m-p/1005423) |
 
-- `mid.version.override` がアップグレード時にクリアされるかどうかは、公式ページ間で記述が一致していない。自社の版のドキュメントで確認すること。[出典](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/nxW_NEM7LH06ANoSftTVeg)
+- 基準リリース（Australia）の公式ページは「`mid.version.override` の値はアップグレード中にクリアされる」と明記している。[出典](https://www.servicenow.com/docs/r/ZUQIWHvhWUsSoHqqH5PGGw/FHThP3zPMJs8jJC1nxVqog) ただし他のページでは記述が一致しないものがあるため、自社の版のドキュメントで確認し、アップグレード後に override が意図どおり消えているか（再設定が必要か）を確認すること。[出典](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/nxW_NEM7LH06ANoSftTVeg)
 - MID Server の仕様は [MID Server](../02_リファレンス/platform/mid-server.md) を参照。
 
 #### 事例 I: 予約したのにアップグレードが始まらない
@@ -267,7 +274,7 @@ Australia で影響の大きい例（抜粋）: [出典](https://www.servicenow.
 |---|---|
 | 症状 | Now Support で予約した時刻を過ぎてもアップグレードが開始されない |
 | 原因 | スケジュールジョブ **Check distribution for possible upgrade**（`sys_trigger`、Paris で「Upgrade」から改名）の設定不備や、実行タイミングとの関係 |
-| 対策 | Trigger type が **Interval**、System ID が **None** であることを確認する。アップグレード／パッチの開始時刻は、このジョブが走る 10〜15 分前に設定する。**Check database for possible upgrade** も確認する |
+| 対策 | Check distribution for possible upgrade は Trigger type が **Interval**、System ID が **None** であることを確認する。アップグレード／パッチの開始時刻は、このジョブが走る 10〜15 分前に設定する。**Check database for possible upgrade** は Trigger type が **Run at System Startup** であること（ディストリビューションのアップグレード後に実行される）を確認する |
 | 出典 | [公式: Phase 3](https://www.servicenow.com/docs/r/release-notes/upgrades-phase-3.html) / 【第三者情報】[Community（KB0535198 を参照）](https://www.servicenow.com/community/upgrades-and-patching-forum/what-to-do-if-an-upgrade-did-not-start/m-p/322308) |
 
 #### 事例 J: Store アプリ・プラグインの版が環境間でずれ、比較テストが成立しない
@@ -353,8 +360,10 @@ Australia で影響の大きい例（抜粋）: [出典](https://www.servicenow.
 | 変更凍結期間を確認 | クローン・アップグレードに影響する変更凍結期間を確認（ステップ 9、17） | 同上 |
 | 業務プロセス単位でオーナーを置く | プラットフォームを業務プロセスに分割し、各プロセスに業務オーナーを割り当て、テストシナリオを書いてもらう | 【第三者情報】[Community 記事](https://www.servicenow.com/community/developer-articles/servicenow-version-upgrade-methodology-best-practices-tips/ta-p/2300241) |
 | 構成レビューを検討 | 任意の ServiceNow Configuration Review（ステップ 19）、Production Readiness Services の利用を検討する | [公式チェックリスト](https://www.servicenow.com/docs/r/release-notes/upgrades-planning-checklist.html) / [公式](https://www.servicenow.com/docs/r/release-notes/upgrade.html) |
-| 前回の計画を再利用 | 前サイクル完了時に Upgrade Plan をエクスポートし、次サイクルの出発点としてインポートする | 【第三者情報】[社員ブログ](https://www.servicenow.com/community/servicenow-ai-platform-blog/upgrades-don-t-have-to-start-from-scratch-every-time/ba-p/3567920) |
+| 前回の計画を再利用 | 前サイクル完了時に Upgrade Plan をエクスポートし、次サイクルの出発点としてインポートする（表の下の注意を参照） | 【第三者情報】[社員ブログ](https://www.servicenow.com/community/servicenow-ai-platform-blog/upgrades-don-t-have-to-start-from-scratch-every-time/ba-p/3567920) |
 | バッファを取る | カスタマイズの多い領域で想定外の挙動が出ることを見込み、スケジュールに余裕を持たせる。低トラフィックの時間帯に予定する | 【第三者情報】[Community 記事](https://www.servicenow.com/community/developer-articles/servicenow-version-upgrade-methodology-best-practices-tips/ta-p/2300241) |
+
+> **注意:** Skipped Record Rules と Upgrade Plan は同時に使えない。Upgrade Plan を使うと Skipped Record Rules は自動適用されない。Skipped records を「Upgrade Plan（前回判断の再適用）」と「Skipped Record Rules（条件ベースの自動処理）」のどちらで処理するかを、アップグレードサイクルの最初に決める。[出典](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/UzrPMuClbnXi6KazXAtMDw) 詳細は [アップグレード管理 7.6](../03_導入編/13-upgrade-management.md) を参照。
 
 計画時に使うツールは、Upgrade Console（Yokohama では Upgrade Management と呼ばれた）の Overview タブに集約されている。
 
@@ -391,10 +400,10 @@ Australia で影響の大きい例（抜粋）: [出典](https://www.servicenow.
 | 確認項目 | 内容 | 出典 |
 |---|---|---|
 | 予測スキップのレビューと担当割当 | Review predicted skipped records で予測 Disposition を確認し、Skipped record rules を作成、担当を事前に割り当てる | [公式（Guided upgrade）](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/pIeVzBlBTf6o70VhCu37Tw) / 【第三者情報】[社員ブログ](https://www.servicenow.com/community/servicenow-ai-platform-blog/stop-dreading-upgrades-how-the-guided-upgrade-console-changes/ba-p/3525124) |
-| 既存 Skipped Record Rules の見直し | Upgrade Center の Skip Record Rules Editor でルールを見直す。ルールは無効化・削除するまで残り続ける | 【第三者情報】[社員ブログ](https://www.servicenow.com/community/servicenow-ai-platform-blog/upgrades-don-t-have-to-start-from-scratch-every-time/ba-p/3567920) |
+| 既存 Skipped Record Rules の見直し | Skipped Record Rules Editor（All > Upgrade Center > Administration > Skipped Record Rules Editor）でルールを見直す。ルールは無効化・削除するまで残り続ける | メニューパス: [公式（Execute a skipped record rule）](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/d0NgOMHeEPl_83wzDWbpfw) / ルールの残存: 【第三者情報】[社員ブログ](https://www.servicenow.com/community/servicenow-ai-platform-blog/upgrades-don-t-have-to-start-from-scratch-every-time/ba-p/3567920) |
 | ドライアセスメント | チームの工数を全サイクルに投入する前に、サブ本番でドライアセスメントを行い、ルールが自社カスタマイズにどう作用するか確認する | 同上 |
 | Update Set の準備 | Skipped 処置用の Update Set をカレントにしておく | [公式 Phase 4](https://www.servicenow.com/docs/r/australia/release-notes/upgrades-phase-4.html) |
-| スケジュールジョブ | Check distribution / Check database for possible upgrade の `sys_trigger` 設定（事例 I） | [公式 Phase 3](https://www.servicenow.com/docs/r/release-notes/upgrades-phase-3.html) |
+| スケジュールジョブ | Check distribution for possible upgrade（Trigger type: Interval、System ID: None）と Check database for possible upgrade（Trigger type: Run at System Startup）の `sys_trigger` 設定（事例 I） | [公式 Phase 3](https://www.servicenow.com/docs/r/release-notes/upgrades-phase-3.html) |
 | MID Server | 固定設定（`mid.pinned.version`、`mid.version.override`）の有無、到達性、権限（事例 H） | [公式](https://www.servicenow.com/docs/r/ZUQIWHvhWUsSoHqqH5PGGw/FHThP3zPMJs8jJC1nxVqog) |
 | 性能ベースライン | 本番の性能プロファイルを取り、Performance ホームページで記録する（ステップ 44・45） | [公式チェックリスト](https://www.servicenow.com/docs/r/release-notes/upgrades-planning-checklist.html) |
 | 周知 | 停止の可能性と新機能をステークホルダー・エンドユーザーに通知する（ステップ 43） | 同上 |
@@ -408,7 +417,7 @@ Australia で影響の大きい例（抜粋）: [出典](https://www.servicenow.
 | 原則 | 内容 | 出典 |
 |---|---|---|
 | 非本番で問題を出し切る | 本番から遠い順に Development → Test → Production。ATF は非本番専用、本番は UAT のみ | [公式](https://www.servicenow.com/docs/r/release-notes/upgrade.html) |
-| カスタマイズを優先 | プラットフォームのアップグレード問題の多くはカスタマイズに起因するため、回帰テストはカスタマイズ領域を優先する | 【第三者情報】[Copado](https://copado.com/resources/blog/servicenow-regression-testing-tips-and-tricks-crt) |
+| 重要業務とカスタマイズを重点に | アップグレード問題は通常カスタマイズに関わり、回帰テストでは主要な業務機能（key business functionalities）と稼働中のアプリケーションを確認すべき、と第三者は述べる【第三者情報】。そのうえで、テスト工数はカスタマイズ領域に優先配分する【経験則】 | 【第三者情報】[Copado](https://copado.com/resources/blog/servicenow-regression-testing-tips-and-tricks-crt) |
 | 未改変の OOTB は ATF の対象外 | ATF は負荷・性能テスト用ではなく、改変していない OOTB 機能のテスト用でもない | 【第三者情報】[Community](https://www.servicenow.com/community/in-other-news/automated-test-framework-atf-test-strategy-considerations-for/ba-p/2277513) |
 | 「全部」ではなく「正しいもの」をテスト | エッジケースに迷い込まず、重要業務を確実にカバーする | 【第三者情報】[Community ブログ](https://www.servicenow.com/community/developer-blog/servicenow-automated-test-framework-atf-tips-and-tricks/ba-p/3517173) |
 | Skipped を処置してから回帰テスト | 健全性・回帰テストはすべての Skipped records を処置した後に始める | 【第三者情報】[Community 記事](https://www.servicenow.com/community/developer-articles/servicenow-version-upgrade-methodology-best-practices-tips/ta-p/2300241) |
@@ -487,9 +496,9 @@ ATF の仕様は [Automated Test Framework (ATF)](../02_リファレンス/platf
 |---|---|---|
 | P1（UI page、UI macro 等） | 必ず人がレビュー。差分を見て Merge が基本、不要なら Revert | P1・P2 は人のレビューへ回す【第三者情報】[社員ブログ](https://www.servicenow.com/community/servicenow-ai-platform-blog/stop-reviewing-every-skipped-record-manually-how-automated-skip/ba-p/3525135) |
 | P2（Business Rule、ACL、Script Include、Client Script 等のスクリプト系） | スクリプトは必ずレビューし、必要に応じて Merge。軽微な競合は Resolve Conflict → Save Merge | 【第三者情報】[Community 記事](https://www.servicenow.com/community/developer-articles/servicenow-version-upgrade-methodology-best-practices-tips/ta-p/2300241) |
-| P2 のうちセキュリティ系（ACL 等） | 妥当なカスタマイズがない限り Revert が基本、という第三者の指針がある。ただしアクセス制御を緩める変更は採用前に影響を確認 | 【第三者情報】（Web 検索結果の要約によるベンダーガイド。原典は未特定のため参考扱い）／ACL は [アクセス制御（ACL）](../02_リファレンス/platform/access-control-acl.md) 参照 |
+| P2 のうちセキュリティ系（ACL 等） | ACL の Skipped はルールで自動処理せず、必ず人が差分を確認する。Retain・Merge・Revert のいずれでも、アクセス制御を緩める差分（条件・ロール・スクリプトの削除や緩和）がないかを確認する | 【経験則】／ACL は [アクセス制御（ACL）](../02_リファレンス/platform/access-control-acl.md) 参照 |
 | P3（Reports 等） | ケースバイケース | 【第三者情報】[社員ブログ](https://www.servicenow.com/community/servicenow-ai-platform-blog/stop-reviewing-every-skipped-record-manually-how-automated-skip/ba-p/3525135) |
-| P4・P5（Form Sections、Choice Sets、リスト列、新項目追加等） | Skipped Record Rules で自動化してよい。ただし Service Catalog・翻訳・新機能に関わるものはルールで一括 Retain しない | 同上（P4・P5 は自動化）、事例 A・D・E |
+| P4・P5（Form Sections、Choice Sets、リスト列、新項目追加等） | Skipped Record Rules で自動化してよい。ただし Service Catalog・翻訳・新機能に関わるものはルールで一括 Retain しない。Upgrade Plan を使うサイクルではルールが自動適用されない（両者は併用不可）ため、Upgrade Plan 側で処理する | 同上（P4・P5 は自動化）、事例 A・D・E / [公式（併用不可）](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/UzrPMuClbnXi6KazXAtMDw) |
 | クローンしたウィジェット等（Skipped に出ない） | アップグレード後に再クローンしてカスタマイズを再適用 | [公式: Widget diagnostics](https://www.servicenow.com/docs/r/B5UZKOeMGcpyrvR2CNl5Dw/xhB42t1Lah7A6BHQc3YaGQ) |
 
 ```mermaid
@@ -534,7 +543,7 @@ flowchart TD
 
 - EOL に達したファミリーには Patch / Hotfix が提供されない。顧客が自らアップグレードしない場合、ServiceNow がサポート対象ファミリーへのアップグレードをスケジュールする（EOL Program）。[出典](https://www.servicenow.com/community/upgrades-and-patching-blogs/what-does-quot-unsupported-quot-really-mean/ba-p/2283644)
 - 2026 Q4 の Patch target は Australia・Zurich・Yokohama に設定されている。[出典](https://www.servicenow.com/docs/r/australia/release-notes/available-versions.html)
-- 年 1 回のアップグレード（1 ファミリー飛ばし）で N-1 を維持する方針は一般的である。【経験則】第三者は少なくとも年 1 回のアップグレードを推奨している。【第三者情報】[出典](https://npifinancial.com/?p=1907)
+- 年 1 回のアップグレード（1 ファミリー飛ばし）で N-1 を維持する方針は一般的である。【経験則】
 
 判断表:
 
@@ -586,15 +595,15 @@ Upgrade Console の Guided upgrade では各ステップに **Skip** ボタン�
 | 4 | ベースを「上書き」せず「拡張」する。クローンも負債として台帳管理する | 【第三者情報】[Community](https://www.servicenow.com/community/itsm-forum/what-makes-a-servicenow-customization-upgrade-safe-vs-upgrade/m-p/3453622) / [公式](https://www.servicenow.com/docs/r/B5UZKOeMGcpyrvR2CNl5Dw/xhB42t1Lah7A6BHQc3YaGQ) |
 | 5 | Skipped はアップグレード前に予測し、担当を決めておく | 【第三者情報】[社員ブログ](https://www.servicenow.com/community/servicenow-ai-platform-blog/stop-dreading-upgrades-how-the-guided-upgrade-console-changes/ba-p/3525124) |
 | 6 | Skipped の処置前に Update Set をカレントにする | [公式](https://www.servicenow.com/docs/r/australia/release-notes/upgrades-phase-4.html) |
-| 7 | P1・P2 は人、P4・P5 はルール。ただし Catalog・翻訳・新機能はルールに任せない | 【第三者情報】[社員ブログ](https://www.servicenow.com/community/servicenow-ai-platform-blog/stop-reviewing-every-skipped-record-manually-how-automated-skip/ba-p/3525135) |
+| 7 | P1・P2 は人、P4・P5 はルール。ただし Catalog・翻訳・新機能はルールに任せない。Skipped Record Rules は Upgrade Plan と併用できない | 【第三者情報】[社員ブログ](https://www.servicenow.com/community/servicenow-ai-platform-blog/stop-reviewing-every-skipped-record-manually-how-automated-skip/ba-p/3525135) / [公式](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/UzrPMuClbnXi6KazXAtMDw) |
 | 8 | OOB の Skipped Record Rules は有効化前に 1 つずつ確認する | 同上 |
 | 9 | 判断理由を必ずコメントに残す。詳細レコードは移送されない | 【第三者情報】[社員ブログ](https://www.servicenow.com/community/developer-blog/best-practices-to-manage-skipped-updates-effectively-during/ba-p/3421456) / [公式](https://www.servicenow.com/docs/r/platform-administration/upgrade-center/uc-process-skipped-records.html) |
-| 10 | クローン前に進行中の Update Set をエクスポートし、Data Preserver を確認する | [公式](https://www.servicenow.com/docs/bundle/washingtondc-platform-administration/page/administer/managing-data/task/t_StartAClone.html) |
+| 10 | クローン前に進行中の Update Set をコミット（保持対象外はエクスポート）し、Data Preserver を確認する | [公式](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/ayvU7rqInTXy5IBwHRo_iA) / [公式](https://www.servicenow.com/docs/bundle/xanadu-platform-administration/page/administer/managing-data/task/t_StartAClone.html) |
 | 11 | MID Server の固定設定と到達性を事前に確認する | [公式](https://www.servicenow.com/docs/r/ZUQIWHvhWUsSoHqqH5PGGw/FHThP3zPMJs8jJC1nxVqog) |
 | 12 | 性能ベースラインを取ってから上げる | [公式チェックリスト](https://www.servicenow.com/docs/r/release-notes/upgrades-planning-checklist.html) |
-| 13 | テストはカスタマイズ×業務重要度で絞り、ATF は非本番だけで回す | [公式](https://www.servicenow.com/docs/r/release-notes/upgrade.html) / 【第三者情報】[Copado](https://copado.com/resources/blog/servicenow-regression-testing-tips-and-tricks-crt) |
+| 13 | テストはカスタマイズ×業務重要度で絞り（【経験則】）、ATF は非本番だけで回す | [公式](https://www.servicenow.com/docs/r/release-notes/upgrade.html) / 【第三者情報】[Copado](https://copado.com/resources/blog/servicenow-regression-testing-tips-and-tricks-crt)（アップグレード問題は通常カスタマイズに関わる、主要業務機能を確認する） |
 | 14 | 日本語 UI（ラベル・メッセージ・通知）を回帰テストに含める | 【経験則】、事例 E |
-| 15 | 前回の Upgrade Plan と判断記録を次回へ引き継ぐ。振り返りを行う | 【第三者情報】[社員ブログ](https://www.servicenow.com/community/servicenow-ai-platform-blog/upgrades-don-t-have-to-start-from-scratch-every-time/ba-p/3567920) |
+| 15 | 前回の Upgrade Plan と判断記録を次回へ引き継ぐ。振り返りを行う。Upgrade Plan を使うサイクルでは Skipped Record Rules が自動適用されない（併用不可）ため、どちらで処理するかを最初に決める | 【第三者情報】[社員ブログ](https://www.servicenow.com/community/servicenow-ai-platform-blog/upgrades-don-t-have-to-start-from-scratch-every-time/ba-p/3567920) / [公式](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/UzrPMuClbnXi6KazXAtMDw) |
 
 ---
 
@@ -652,6 +661,7 @@ Upgrade Console の Guided upgrade では各ステップに **Skip** ボタン�
 - Removed features and products in Australia: https://www.servicenow.com/docs/r/release-notes/rn-summary-removed-features.html
 - Process skipped records（Skipped records の処置）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/62QiF9EWBhogBZIgvjkfcQ
 - Skipped records の優先度: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/zQqGJnQ~SmZnHToAkJ~H_Q
+- Execute a skipped record rule（Australia、Skipped Record Rules Editor のメニューパス）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/d0NgOMHeEPl_83wzDWbpfw
 - 後続インスタンスへの移送: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/2hrcoH0LcWlkS0bgP~9MhQ
 - Upgrade Center skipped records: https://www.servicenow.com/docs/r/platform-administration/upgrade-center/uc-process-skipped-records.html
 - Guided upgrade（Pre-upgrade）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/pIeVzBlBTf6o70VhCu37Tw
@@ -660,7 +670,9 @@ Upgrade Console の Guided upgrade では各ステップに **Skip** ボタン�
 - MID Server upgrades（Australia）: https://www.servicenow.com/docs/r/ZUQIWHvhWUsSoHqqH5PGGw/FHThP3zPMJs8jJC1nxVqog
 - MID Server upgrades（バージョン固定）: https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/nxW_NEM7LH06ANoSftTVeg
 - MID Server upgrades（注意事項）: https://www.servicenow.com/docs/r/Ir~NPf1dr8MGFXQE6QlBoQ/0fmzqDHt0iEzymIrRBjJUA
-- Start a clone（Washington DC）: https://www.servicenow.com/docs/bundle/washingtondc-platform-administration/page/administer/managing-data/task/t_StartAClone.html
+- Clone options（Australia）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/ayvU7rqInTXy5IBwHRo_iA
+- Request a clone（Xanadu）: https://www.servicenow.com/docs/bundle/xanadu-platform-administration/page/administer/managing-data/task/t_StartAClone.html
+- Skipped record rules（Upgrade Plan との併用不可、Australia）: https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/UzrPMuClbnXi6KazXAtMDw
 - Auto-upgrade: https://www.servicenow.com/docs/r/platform-administration/application-manager/um-auto-upgrade.html
 - Zurich Patch 7 Hotfix 3（日本語翻訳関連の修正）: https://www.servicenow.com/docs/r/u1slaAtcFiiXFQcd9RcR_A/JvZUEG2a~DfUqI0L6g5i1g
 
@@ -704,7 +716,6 @@ Upgrade Console の Guided upgrade では各ステップに **Skip** ボタン�
 
 - Echelon AI, Surviving ServiceNow Upgrades: 5 Surprises That Catch Teams Off Guard: https://www.echelonai.com/blog/surviving-servicenow-upgrades-5-surprises-that-catch-teams-off-guard
 - Copado, ServiceNow regression testing tips and tricks: https://copado.com/resources/blog/servicenow-regression-testing-tips-and-tricks-crt
-- NPI Financial（アップグレード頻度の推奨）: https://npifinancial.com/?p=1907
 - HappySignals, Handling skipped records during application updates: https://support.happysignals.com/handling-skipped-records-during-happysignals-application-updates
 - NetBox Labs, ServiceNow upgrading: https://netboxlabs.com/docs/console/netbox-integrations/servicenow/snow-upgrading
 

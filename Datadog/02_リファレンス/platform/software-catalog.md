@@ -91,7 +91,7 @@ Software Catalog の名称は次のように変わってきた。
 - Teams、ロール、権限の全般：[組織・ユーザー・権限管理](account-and-access-management.md)
 - Self-Service Actions の基盤：[App Builder](../service-management/app-builder.md)、[Workflow Automation](../service-management/workflow-automation.md)
 - DORA メトリクス：[DORA Metrics・Quality Gates・Code Coverage](../software-delivery/software-delivery-insights.md)
-- Terraform での管理：[Terraform と IaC](terraform-and-iac.md)、[Monitoring as Code](../../04_応用編/monitoring-as-code.md)
+- Terraform での管理：[Terraform と IaC](terraform-and-iac.md)、[Monitoring as Code](../../04_応用編/09-monitoring-as-code.md)
 
 ---
 
@@ -1180,7 +1180,7 @@ Campaign 作成時（`POST /api/v2/scorecard/campaigns`）の属性：
 - **Scorecard レポート**と、Workflow Automation で評価するカスタムルールは、ワークフローの実行として課金に影響する場合がある（公式ドキュメントに注意書きあり）。[出典](https://docs.datadoghq.com/internal_developer_portal/scorecards/using_scorecards/)
 - Software Catalog に表示されるパフォーマンス、セキュリティ、コスト等のデータは、それぞれの製品（APM、USM、RUM、Code Security、Cloud Cost Management など）の課金対象である。
 
-料金の数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。課金の考え方は [料金体系の全体像](../../03_導入編/pricing-overview.md) と [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+料金の数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)。課金の考え方は [料金体系の全体像](../../03_導入編/01-pricing-overview.md) と [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 
 ---
 
@@ -1218,7 +1218,7 @@ Campaign 作成時（`POST /api/v2/scorecard/campaigns`）の属性：
 | カスタムルールの評価 | Workflow Automation の定期実行で評価する。実行回数が課金に影響するため、評価頻度と対象エンティティ数を見積もる | 公式（課金注意）＋【経験則】 |
 | Backstage との併用 | 既存の Backstage を正とし、Backstage plugin で Datadog に同期する移行パスがある | 公式 [出典](https://www.datadoghq.com/blog/datadog-backstage-plugin/)（2025-11-11 公開） |
 
-実践的な運用のポイントは [組織への定着](../../04_応用編/organizational-adoption.md)、[タグ戦略の実践](../../04_応用編/tagging-strategy.md)、[APM 運用の実践](../../04_応用編/apm-practices.md) も参照。
+実践的な運用のポイントは [組織への定着](../../04_応用編/14-organizational-adoption.md)、[タグ戦略の実践](../../04_応用編/02-tagging-strategy.md)、[APM 運用の実践](../../04_応用編/05-apm-practices.md) も参照。
 
 ---
 

@@ -38,6 +38,9 @@ sources:
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/UCMpmIhbwDlrLLB~LGIxHg
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/4zrtHLsaC2WjPKRXQyU35w
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/YBBnyfX~Z7Sg6UCnbRkV~g
+  - https://www.servicenow.com/docs/r/AZQZDvc5eDr4fb4UyPv03g/9VaevvaYQg70M5CKstZn1w
+  - https://www.servicenow.com/docs/r/bB1Dk50bqXxOZKZ5dD_4fw/eo8d5EhoowmtY66BuyF6vg
+  - https://www.servicenow.com/docs/r/australia/platform-administration/t_CascadeDeleteRules.html
   - https://www.servicenow.com/docs/r/eh2NFokZCOdK5kPblQPzog/BXZHm6adRxyvy4QxA2YPIA
   - https://www.servicenow.com/docs/r/api-reference/server-api-reference/c_TaskStateUtil.html
   - https://www.servicenow.com/community/itsm-articles/new-read-only-options-australia-release/ta-p/3511146
@@ -70,7 +73,7 @@ ServiceNow のデータモデルの最大の特徴は **Table extension（テー
 | テーブル拡張と 3 つの Extension model の違いは | [4](#4-テーブル拡張table-extensionとクラス階層) |
 | Dictionary entry の各項目の意味は | [5](#5-system-dictionarysys_dictionaryと-dictionary-entry-フォーム) |
 | Australia で追加された Read-only option とは | [6](#6-read-only-optionaustralia-で導入) |
-| どのようなフィールドタイプがあるか | [7](#7-フィールドタイプfield-types) / [付録A](#付録a-フィールドタイプ全一覧australia-158-種) |
+| どのようなフィールドタイプがあるか | [7](#7-フィールドタイプfield-types) / [付録A](#付録a-フィールドタイプ全一覧australia158-種) |
 | Reference・List・Document ID・ドット・ウォークの仕組みは | [8](#8-referenceリストdocument-id-とドットウォーク) |
 | Choice list はどう定義・管理されるか | [9](#9-choice-list選択リスト) |
 | Dictionary override で何を上書きできるか | [10](#10-dictionary-overrideディクショナリオーバーライド) |
@@ -118,7 +121,7 @@ ServiceNow のデータディクショナリ（Data dictionary）は、次の 3 
 | `sys_db_view` / `sys_db_view_table` / `sys_db_view_table_field` | Database view とその構成テーブル・返却フィールド（[12 章](#12-database-viewsデータベースビュー)） | テーブル名は【経験則】。公式ページは画面名（Database View / View Tables / View Fields）で記載 |
 | `sys_filter_option_dynamic` | Dynamic filter option（動的参照修飾子・動的既定値で利用） | テーブル名は【経験則】。メニューは All > System Definition > Dynamic Filter Options [出典](https://www.servicenow.com/docs/r/australia/platform-administration/c_ReferenceQualifiers.html) |
 | `sys_schema_attribute` / `sys_schema_attribute_m2m` | Dictionary attribute の定義と、ディクショナリエントリへの割り当て | 【経験則】（公式ページでは「Attributes related list」として記載） |
-| `sys_glide_object` | フィールドタイプ（internal type）の定義 | 【第三者情報】公式ドキュメントでの説明は確認できず |
+| `sys_glide_object` | フィールドタイプ（internal type）の定義 | 【経験則】公式ドキュメントでの説明は確認できず |
 
 ### 1.3 System Dictionary 変更時の注意（公式）
 
@@ -290,7 +293,7 @@ ServiceNow のデータディクショナリ（Data dictionary）は、次の 3 
 | クラス識別カラム | — | `sys_class_name` | `sys_class_name` と `sys_class_path` |
 | 公式の例 | Contract [`ast_contract`]：ディクショナリレコード 59 | Task [`task`]：66 / Incident [`incident`]：固有 22 | Base Configuration Item [`cmdb`]：48 / Hardware [`cmdb_ci_hardware`]：73 |
 
-- `sys_class_name` は hierarchy / partition モデルで親クラスのディクショナリに存在し、レコードがどの子クラスに属するかを示す（例：`incident`、`change`、`cmdb_ci_hardware`、`cmdb_ci_computer`）。
+- `sys_class_name` は hierarchy / partition モデルで親クラスのディクショナリに存在し、レコードがどの子クラスに属するかを示す（例：`incident`、`change_request`、`cmdb_ci_hardware`、`cmdb_ci_computer`）。公式ページの例示では「change」と表記されているが、Change Request の実際のテーブル名・`sys_class_name` の値は `change_request` である（[4.3 節](#43-代表的なクラス階層task)・14.4 節の表も同じ）。
 - 上記のディクショナリレコード数はベースシステムの例示であり、上限値ではない。
 - 拡張モデルはインスタンスの `sys_db_object` リストに `Extension model` 列を追加して確認できる。子テーブルでは空欄で親のモデルを継承する。[出典](https://www.servicenow.com/community/developer-forum/how-to-identify-if-a-table-structure-is-table-per-hierarchy/m-p/2534280)
 - Table per hierarchy の `task` 系では、`incident` 等の子テーブル用の物理テーブルは作られず、全レコードが `task` の物理テーブルに格納される（公式の「1 つの DB テーブル」の記述と一致。【第三者情報】コミュニティでも同旨）。
@@ -419,7 +422,7 @@ graph TD
 | Dynamic reference qualifier [Advanced] | Dynamic 選択時の Dynamic filter option |
 | Reference qualifier [Advanced] | Advanced 選択時のクエリ／スクリプト。上書き可 |
 | Reference key [Advanced] | 参照の一意キーとして `sys_id` 以外のフィールドを使う |
-| Reference cascade rule [Advanced] | 参照先レコード削除時の動作：**Clear**（既定、参照をクリア）／ **Delete**（参照元も削除）／ **Restrict**（参照されている間は削除を阻止）／ **None**（何もしない） |
+| Reference cascade rule [Advanced] | 参照先レコード削除時の動作：**Clear**（既定。`-- None --` 表示時も同じ。参照元レコードは残り参照値だけ空になる）／ **Delete**（= **Cascade**。参照元レコードも削除。慎重に使う）／ **Restrict**（参照されている間は削除を阻止）／ **None**（参照元レコードを変更せず、参照値も残す）。既定の「Clear / -- None --」と選択肢の「None」は別物。**多対多（m2m）関係のテーブルではこの設定は効かず、参照先レコードはルールに関係なく削除される**。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/t_CascadeDeleteRules.html) |
 | Floating references [Advanced] | 1 対多の関連リストで Edit ボタンを有効化 |
 | Dynamic creation [Advanced] | 一致レコードがない値を入力したとき参照先に新規レコードを作るか |
 | Dynamic creation script [Advanced] | Dynamic creation 時の作成ロジック |
@@ -487,7 +490,7 @@ graph TD
 
 ### 6.1 概要
 
-Australia リリースで、Dictionary entry（`sys_dictionary`）と Dictionary override（`sys_dictionary_override`）に **Read only option（読み取り専用オプション）** フィールド（Choice 型、カラム名 `read_only_option`）が追加された。旧来の **Read only** チェックボックスはロックされ UI から編集できなくなった。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-tablebuilder-release-notes.html) / [出典](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/Kd8BqSKDYlEDs0kQpmEWfA)
+Australia リリースで、Dictionary entry（`sys_dictionary`）と Dictionary override（`sys_dictionary_override`）に **Read only option（読み取り専用オプション）** フィールド（String 型で選択肢（Choice list）付き、カラム名 `read_only_option`）が追加された。旧来の **Read only** チェックボックスはロックされ UI から編集できなくなった。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-tablebuilder-release-notes.html) / [出典](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/Kd8BqSKDYlEDs0kQpmEWfA)
 
 ### 6.2 選択肢
 
@@ -538,7 +541,7 @@ Australia リリースで、Dictionary entry（`sys_dictionary`）と Dictionary
 
 ### 7.1 概要
 
-フィールドタイプは管理者がフィールドを作成するとき、または既存フィールドのタイプを変更するときに選択する。Australia の公式 Field types リファレンスには **158 種** の内部名（Internal name）が掲載されており、一覧の内容は Yokohama 版と同一であった（2026-11-02 確認）。全一覧は [付録A](#付録a-フィールドタイプ全一覧australia-158-種) に掲載。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/r_FieldTypes.html)
+フィールドタイプは管理者がフィールドを作成するとき、または既存フィールドのタイプを変更するときに選択する。Australia の公式 Field types リファレンスには **158 種** の内部名（Internal name）が掲載されており、一覧の内容は Yokohama 版と同一であった（2026-11-02 確認）。全一覧は [付録A](#付録a-フィールドタイプ全一覧australia158-種) に掲載。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/r_FieldTypes.html)
 
 - 一覧には内部用・システム用のタイプ（`collection`、`sys_class_name`、`user_input` 等）も含まれる。カスタムフィールドにはサポート対象のタイプを使う。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/c_IntroductionToFields.html)
 - タイプ変更は同じ物理 DB 型に対応する論理型間（例：Choice ⇔ String）でのみ安全に行える。[出典](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/wjzwd4JRag1gCOtvm5HoaA)
@@ -645,7 +648,7 @@ Australia リリースで、Dictionary entry（`sys_dictionary`）と Dictionary
 
 - **Reference（参照）** フィールドは他テーブルのレコードを参照する。値として参照先レコードの `sys_id` を保持し、画面には参照先テーブルの **Display value**（Display=true のフィールド。Task 系は Number）を表示する。[出典](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/wjzwd4JRag1gCOtvm5HoaA)
 - `sys_id` 以外を一意キーにしたい場合は Reference key を指定する。
-- 参照先削除時の動作は **Reference cascade rule**（Clear［既定］／ Delete ／ Restrict ／ None）で決まる（[5.2](#52-dictionary-entry-フォームの全項目australia)）。
+- 参照先削除時の動作は **Reference cascade rule**（Clear［既定、`-- None --` 表示時も同じ］／ Delete［= Cascade］／ Restrict ／ None）で決まる。m2m 関係のテーブルではこの設定は効かない（[5.2](#52-dictionary-entry-フォームの全項目australia)）。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/t_CascadeDeleteRules.html)
 - 参照候補のオートコンプリートは Dictionary attributes（`ref_auto_completer`、`ref_ac_columns`、`ref_ac_columns_search`、`ref_ac_order_by` 等）で制御する（[11 章](#11-dictionary-attributesディクショナリ属性)）。
 
 ### 8.2 Reference qualifier（参照修飾子）
@@ -690,12 +693,12 @@ Reference qualifier は参照フィールドの候補レコードを絞り込む
 | クライアントスクリプト | `g_form.getReference('caller_id', callback)` | 参照レコードを非同期に取得（例：VIP 判定） |
 | 変数（通知・テンプレート） | `${assigned_to.manager}`、`${assigned_to.department.manager.mobile_phone}` | 多段も可 |
 | Reference qualifier | `current.assigned_to.email` | 8.2 参照 |
-| Database view の関数定義 | Function definition のパラメータ | 5.2 参照 |
+| Function field（関数フィールド）の Function definition | `glidefunction:` の関数パラメータにドット・ウォークしたフィールドを指定 | 5.2 参照 |
 
 **注意点**
 
-- 公式の Reporting / Data visualization 系ページでは、ドット・ウォークの連鎖は **3 階層までを推奨** している。[出典](https://www.servicenow.com/docs/r/bB1Dk50bqXxOZKZ5dD_4fw/eo8d5EhoowmtY66BuyF6vg)
-- 拡張テーブルのフィールド（例：`cmdb_ci` 参照から `cmdb_ci_computer` 固有のフィールド）へのドット・ウォークがリストで使えない場合、システムプロパティ `glide.ui.list.allow_extended_fields` の有効化を確認する（同上）。
+- 公式の Data visualization 系ページ（Dot-walking from reference fields in a data visualization）では、ドット・ウォークの連鎖は **3 階層までを推奨** している。Australia 版でも同じ記載がある。[出典（Australia 版）](https://www.servicenow.com/docs/r/AZQZDvc5eDr4fb4UyPv03g/9VaevvaYQg70M5CKstZn1w)
+- 拡張テーブルのフィールド（例：`cmdb_ci` 参照から `cmdb_ci_computer` 固有のフィールド）へのドット・ウォークがリストで使えない場合、システムプロパティ `glide.ui.list.allow_extended_fields` の有効化を確認する。この記述は同ページの Xanadu 版で確認したもので、Australia 版の該当箇所は公開情報では確認できず。[出典（Xanadu 版）](https://www.servicenow.com/docs/r/bB1Dk50bqXxOZKZ5dD_4fw/eo8d5EhoowmtY66BuyF6vg)
 - ツリーピッカー（`tree_picker=true` 属性）は最大 1,000 ノードまで表示でき、`glide.ui.group_heirarchy.max_nodes`（綴りは公式表記のまま）で設定する。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/dot-walking-examples.html)
 - 参照が空（null）の場合、深いドット・ウォークは失敗・遅延の原因になる【経験則】。GlideRecord のクエリで `addQuery('caller_id.department', ...)` のようにドット・ウォーク条件を使うと内部的に JOIN が発生する【経験則】。パフォーマンスについては [パフォーマンスチューニング](../../04_応用編/03-performance-tuning.md) を参照。
 
@@ -1179,7 +1182,7 @@ erDiagram
 | 11 | 深いドット・ウォークや Database view の非インデックス結合は性能劣化の原因 | 公式（8.5、12.5） |
 | 12 | Australia へのアップグレード後、重要な読み取り専用フィールドは非本番で検証のうえ Strict Read Only へ段階移行し、ACL も併用 | 公式（6.3）＋【第三者情報】（6.4） |
 
-カスタマイズと技術的負債の観点は [カスタマイズと技術的負債](../../04_応用編/02-customization-technical-debt.md) を参照。
+カスタマイズのガバナンスとアップグレード時の影響の観点は [ガバナンスと CoE の実践](../../04_応用編/09-governance-coe-practice.md) と [アップグレードの教訓](../../04_応用編/04-upgrade-lessons.md) を参照。
 
 ---
 
@@ -1378,7 +1381,9 @@ Australia の公式 Field types リファレンス掲載の全内部名。表示
 - Field types reference（Yokohama、表示名・説明）: https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/UBa8Uv8EEvVDdAhswzjcdg
 - Reference qualifiers（Australia）: https://www.servicenow.com/docs/r/australia/platform-administration/c_ReferenceQualifiers.html
 - Dot-walking examples（Australia）: https://www.servicenow.com/docs/r/australia/platform-user-interface/dot-walking-examples.html
-- Dot-walking from reference fields in a data visualization: https://www.servicenow.com/docs/r/bB1Dk50bqXxOZKZ5dD_4fw/eo8d5EhoowmtY66BuyF6vg
+- Dot-walking from reference fields in a data visualization（Australia）: https://www.servicenow.com/docs/r/AZQZDvc5eDr4fb4UyPv03g/9VaevvaYQg70M5CKstZn1w
+- Dot-walking from reference fields in a data visualization（Xanadu、`glide.ui.list.allow_extended_fields` の記述）: https://www.servicenow.com/docs/r/bB1Dk50bqXxOZKZ5dD_4fw/eo8d5EhoowmtY66BuyF6vg
+- Configure cascade delete rules（Australia）: https://www.servicenow.com/docs/r/australia/platform-administration/t_CascadeDeleteRules.html
 - View choice list definitions（Australia）: https://www.servicenow.com/docs/r/australia/platform-administration/t_ViewChoiceListDefinitions.html
 - View choice list definitions（Australia, pt-BR）: https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/Q6oLXa6325O0jz_TUTjkhQ
 - Dictionary overrides（Australia, pt-BR）: https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/WcHLSN2rcgpF3lNbznIwSQ

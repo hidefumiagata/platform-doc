@@ -77,7 +77,7 @@ Datadog Security の各製品は、検知結果を **Security Signal（セキュ
 | Sensitive Data Scanner | [sensitive-data-scanner.md](./sensitive-data-scanner.md) |
 | AI Guard | 専用ファイルなし。本ファイル「1.3」と [LLM Observability](../ai/llm-observability.md)、[Bits AI と AI 機能](../ai/bits-ai.md) を参照 |
 
-運用ノウハウ（検知ルールのチューニング方針、SOC 運用設計など）は [セキュリティ運用の実践](../../04_応用編/security-operations-practices.md)、Datadog 自体のコンプライアンス（SOC 2、ISO、FedRAMP 等）は [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md) を参照する。
+運用ノウハウ（検知ルールのチューニング方針、SOC 運用設計など）は [セキュリティ運用の実践](../../04_応用編/11-security-operations-practices.md)、Datadog 自体のコンプライアンス（SOC 2、ISO、FedRAMP 等）は [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md) を参照する。
 
 ---
 
@@ -824,7 +824,7 @@ API 名やパスに Preview 表記の付くものがある。最新状態は API
 
 **Terraform:** Datadog Terraform Provider では、`datadog_security_monitoring_rule`（検知ルール）、`datadog_security_monitoring_default_rule`（標準ルールの設定）、`datadog_security_monitoring_suppression`（抑制）、`datadog_security_monitoring_filter`（Security Filter）、`datadog_security_notification_rule`（通知ルール）、`datadog_security_monitoring_critical_asset`（Dynamic Severity のアセット）、`datadog_csm_threats_agent_rule`（Workload Protection の Agent ルール）などのリソースで Datadog Security を管理できる。UI と API からルールを Terraform 形式でエクスポートできるため、Detection as Code を実践しやすい。[出典](https://registry.terraform.io/providers/DataDog/datadog/latest/docs/resources/security_monitoring_rule) [出典](https://docs.datadoghq.com/security/detection_rules/)
 
-> **注記:** 上記リソース名は、公式 GitHub（`DataDog/terraform-provider-datadog` の `docs/resources/`）にドキュメントが存在することを 2026-11-02 に確認した。引数はプロバイダのバージョンで変わるため、利用前に Registry で確認すること。IaC の一般論は [Terraform と IaC](../platform/terraform-and-iac.md)、運用実践は [Monitoring as Code](../../04_応用編/monitoring-as-code.md) を参照する。
+> **注記:** 上記リソース名は、公式 GitHub（`DataDog/terraform-provider-datadog` の `docs/resources/`）にドキュメントが存在することを 2026-11-02 に確認した。引数はプロバイダのバージョンで変わるため、利用前に Registry で確認すること。IaC の一般論は [Terraform と IaC](../platform/terraform-and-iac.md)、運用実践は [Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) を参照する。
 
 ---
 
@@ -920,7 +920,7 @@ Datadog Security の製品横断の制限値・既定値を次にまとめる。
 
 ## 課金への影響
 
-Datadog Security は製品ごとに課金単位が異なる。以下は 2026-11-02 時点の公式料金ページの定価（「Starting at」表記の値）であり、**数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)** とする。料金体系の全体像は [料金体系の全体像](../../03_導入編/pricing-overview.md)、計算方法は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照する。
+Datadog Security は製品ごとに課金単位が異なる。以下は 2026-11-02 時点の公式料金ページの定価（「Starting at」表記の値）であり、**数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)** とする。料金体系の全体像は [料金体系の全体像](../../03_導入編/01-pricing-overview.md)、計算方法は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照する。
 
 | 製品 / SKU | 課金単位 | US サイト 年契約 | US サイト オンデマンド | AP1 年契約 | 出典 |
 |---|---|---|---|---|---|
@@ -938,12 +938,12 @@ Datadog Security は製品ごとに課金単位が異なる。以下は 2026-11-
 
 課金単位に関する主な注記は次の通り。
 
-- **Cloud SIEM の課金単位の表記揺れ:** 2026-11-02 時点で、料金ページ本体（`/pricing/`）は「Per GB analyzed, per month」、料金一覧ページ（`/pricing/list/`）は「Per 1M analyzed events, per month」と表記しており、同じ $5（年契約）でも単位の記載が一致しない。公式ドキュメントの課金ページは「Datadog charges for analyzed logs based on the millions of events per month analyzed by the Datadog Cloud SIEM service」と、月間の分析イベント数（百万件単位）で課金すると明記している。本ファイルは [製品別料金表](../../03_導入編/pricing-by-product.md) と同じく「分析イベント 100万件／月」を主表記とする。[出典](https://www.datadoghq.com/pricing/) [出典](https://www.datadoghq.com/pricing/list/) [出典](https://docs.datadoghq.com/account_management/billing/pricing/)
+- **Cloud SIEM の課金単位の表記揺れ:** 2026-11-02 時点で、料金ページ本体（`/pricing/`）は「Per GB analyzed, per month」、料金一覧ページ（`/pricing/list/`）は「Per 1M analyzed events, per month」と表記しており、同じ $5（年契約）でも単位の記載が一致しない。公式ドキュメントの課金ページは「Datadog charges for analyzed logs based on the millions of events per month analyzed by the Datadog Cloud SIEM service」と、月間の分析イベント数（百万件単位）で課金すると明記している。本ファイルは [製品別料金表](../../03_導入編/02-pricing-by-product.md) と同じく「分析イベント 100万件／月」を主表記とする。[出典](https://www.datadoghq.com/pricing/) [出典](https://www.datadoghq.com/pricing/list/) [出典](https://docs.datadoghq.com/account_management/billing/pricing/)
 - **Cloud SIEM の分析対象:** Cloud SIEM は送信を選んだログだけを分析する。Security Filters（UI / API）で分析対象を全体または一部に指定でき、課金量の制御に使える。カスタム検知ルールの作成と 15 か月のシグナル保持に追加費用はかからない。[出典](https://www.datadoghq.com/pricing/)
 - **Cloud Security のプラン:** CSM Pro と CSM Enterprise は組織単位でどちらか一方を選び、ホストごとに混在させることはできない。CSM Enterprise の課金対象ホストには Infrastructure Monitoring Pro または Enterprise の契約が必要で、CSM Pro は単体で購入できる。料金ページでは、CSM Pro に 5 コンテナ／ホスト、CSM Enterprise に 20 コンテナ／ホストのコンテナ枠が含まれる。[出典](https://www.datadoghq.com/pricing/)
 - **DevSecOps バンドル:** Infrastructure Monitoring と Cloud Security を組み合わせた DevSecOps Pro（年契約 $22／ホスト）と DevSecOps Enterprise（年契約 $34／ホスト）がある。単体のインフラ・コンテナ・クラウドセキュリティ製品とは併用できない。[出典](https://www.datadoghq.com/pricing/)
 - **Workflow Automation:** セキュリティの Findings とシグナルから起動するワークフローは無料で、それ以外のイベントから起動するワークフローは別途課金される。[出典](https://www.datadoghq.com/pricing/)
-- **Code Security のバンドル:** SAST、Static SCA、各種バンドル（Code Security Bundle、Flex Bundle、Advanced Bundle）はコミッター単位で課金される。詳細は [Code Security](./code-security.md) と [製品別料金表](../../03_導入編/pricing-by-product.md) を参照する。
+- **Code Security のバンドル:** SAST、Static SCA、各種バンドル（Code Security Bundle、Flex Bundle、Advanced Bundle）はコミッター単位で課金される。詳細は [Code Security](./code-security.md) と [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照する。
 - **Agent Observability の SDS:** Agent Observability（LLM Observability 系）には Sensitive Data Scanner が追加費用なしで組み込まれ、LLM スパン 1 万件ごとに 1 GB の SDS 処理枠が付く。[出典](https://www.datadoghq.com/pricing/)
 - 値引き、ボリューム割引、エンタープライズ契約条件は非公開である。料金ページには、Cloud SIEM は月 12 億イベント以上、Cloud Security は月 500 ホスト以上で複数年・ボリューム割引があると記載されている。
 
@@ -959,16 +959,16 @@ Datadog Security は製品ごとに課金単位が異なる。以下は 2026-11-
 | [App and API Protection（旧 ASM）](./app-and-api-protection.md) | アプリ層攻撃検知、In-App WAF、API Security |
 | [Code Security](./code-security.md) | SAST、SCA、IAST、Secret Scanning、IaC |
 | [Sensitive Data Scanner](./sensitive-data-scanner.md) | 機密データの検出とマスキング |
-| [製品ポートフォリオ全体像](../../01_入門編/product-map.md) | Datadog 製品全体の中での位置付け |
+| [製品ポートフォリオ全体像](../../01_入門編/04-product-map.md) | Datadog 製品全体の中での位置付け |
 | [Log Management 関連：ログ収集](../logs/log-collection.md) | Cloud SIEM のデータソース |
 | [Audit Trail](../platform/audit-trail.md) | Datadog 自体の操作監査。シグナル操作の履歴確認 |
 | [組織・ユーザー・権限管理](../platform/account-and-access-management.md) | RBAC、ロールテンプレート、Data Access Control |
 | [Datadog Sites](../platform/datadog-sites.md) | サイト別の提供差異 |
 | [Workflow Automation](../service-management/workflow-automation.md) / [Case Management](../service-management/case-management.md) / [Incident Management](../service-management/incident-management.md) | 対応・連携 |
 | [Bits AI と AI 機能](../ai/bits-ai.md) | Bits Security Analyst を含む AI 機能 |
-| [セキュリティ運用の実践](../../04_応用編/security-operations-practices.md) | 運用ノウハウ |
-| [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md) | Datadog 自体のコンプライアンス |
-| [製品別料金表](../../03_導入編/pricing-by-product.md) | 料金の正本 |
+| [セキュリティ運用の実践](../../04_応用編/11-security-operations-practices.md) | 運用ノウハウ |
+| [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md) | Datadog 自体のコンプライアンス |
+| [製品別料金表](../../03_導入編/02-pricing-by-product.md) | 料金の正本 |
 
 ---
 

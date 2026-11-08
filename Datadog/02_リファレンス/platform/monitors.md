@@ -80,8 +80,8 @@ Datadog の **Monitors（モニター）** は、メトリクス・ログ・ト�
 | Watchdog 本体（自動検知の仕組み、Watchdog Insights、RCA） | [Watchdog](./watchdog.md) |
 | メトリクスクエリ構文、関数（`anomalies()`、`outliers()`、`forecast()`、`timeshift()` 等）、`as_count()` | [メトリクスクエリと関数](./metrics-query-and-functions.md) |
 | Event Explorer、Event Management（相関・ケース化） | [Event Management](./event-management.md) |
-| Terraform による Monitor 管理 | [Terraform と IaC](./terraform-and-iac.md)、[Monitoring as Code](../../04_応用編/monitoring-as-code.md) |
-| アラート設計・ノイズ削減の実践 | [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md) |
+| Terraform による Monitor 管理 | [Terraform と IaC](./terraform-and-iac.md)、[Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) |
+| アラート設計・ノイズ削減の実践 | [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md) |
 | Incident / On-Call への連携 | [Incident Management](../service-management/incident-management.md)、[On-Call](../service-management/on-call.md) |
 | ロール・権限全般 | [組織・ユーザー・権限管理](./account-and-access-management.md) |
 
@@ -759,7 +759,7 @@ Datadog の SLO Alerts は、SLO の Error Budget 消費と Burn Rate を監視�
 
 [出典（SLO Alerts）](https://docs.datadoghq.com/monitors/types/slo/)、[出典（API）](https://docs.datadoghq.com/api/latest/monitors/create-a-monitor/)
 
-Burn Rate の推奨ウィンドウや閾値の考え方、SLO 自体の仕様は [Service Level Objectives（SLO）](./slo.md) と [SLO 運用の実践](../../04_応用編/slo-practices.md) を参照。
+Burn Rate の推奨ウィンドウや閾値の考え方、SLO 自体の仕様は [Service Level Objectives（SLO）](./slo.md) と [SLO 運用の実践](../../04_応用編/08-slo-practices.md) を参照。
 
 ### Event Monitor（イベントモニター）
 
@@ -1291,25 +1291,25 @@ Terraform（`datadog_monitor` リソース）による管理は [Terraform と I
 ## 課金への影響
 
 - Datadog Monitors（アラート）自体には個別の課金単位がない。公式料金ページの Infrastructure の比較表では「Alerts」が Basic / Pro / Enterprise いずれも **Unlimited** と記載されている（2026-11-02 時点）。[出典](https://www.datadoghq.com/pricing/?product=infrastructure)
-- Infrastructure の Enterprise プランのカードには「Machine learning-based alerts」と「Live Processes」が挙げられている。Live Process Monitor は Live Processes を前提とし、公式ドキュメント上 Enterprise プランに含まれる（他プランは営業へ相談）。Anomaly モニターの API 作成には Enterprise プランが必要と Anomaly ページに記載がある。プランごとの機能差の正本は [エディション・プラン](../../03_導入編/editions-and-plans.md) と [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
+- Infrastructure の Enterprise プランのカードには「Machine learning-based alerts」と「Live Processes」が挙げられている。Live Process Monitor は Live Processes を前提とし、公式ドキュメント上 Enterprise プランに含まれる（他プランは営業へ相談）。Anomaly モニターの API 作成には Enterprise プランが必要と Anomaly ページに記載がある。プランごとの機能差の正本は [エディション・プラン](../../03_導入編/04-editions-and-plans.md) と [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照。
 - モニターが評価するデータ側の課金は各製品に従う。例：Log モニターは Index 済み（Standard Tier）ログのみを対象とするため、監視したいログはインデックス（=Indexed Logs 課金）する必要がある。Trace Analytics モニターはカスタム Retention Filter で保持した Indexed Spans が対象。カスタムメトリクスを監視に使う場合はカスタムメトリクス課金の対象。
 - Synthetic モニターはテスト実行数、Data Observability モニターは監視テーブル数（Custom SQL モニター 1 つ = 1 テーブル）で課金される。
 - 通知の連携先（On-Call、Incident Management、Workflow Automation、Event Management など）はそれぞれの製品で別途課金される。
-- 具体的な料金額は [製品別料金表（料金の正本）](../../03_導入編/pricing-by-product.md) を参照。
+- 具体的な料金額は [製品別料金表（料金の正本）](../../03_導入編/02-pricing-by-product.md) を参照。
 
 ## 関連ファイル
 
-- [必須概念](../../01_入門編/core-concepts.md) ／ [はじめての Datadog](../../01_入門編/getting-started.md)
+- [必須概念](../../01_入門編/05-core-concepts.md) ／ [はじめての Datadog](../../01_入門編/07-getting-started.md)
 - [通知と Downtime](./notifications-and-downtimes.md)
 - [Service Level Objectives（SLO）](./slo.md)
 - [Watchdog](./watchdog.md)
 - [メトリクスクエリと関数](./metrics-query-and-functions.md) ／ [Metrics](./metrics.md)
 - [Event Management](./event-management.md)
-- [Tagging](./tagging.md) ／ [タグ戦略の実践](../../04_応用編/tagging-strategy.md)
-- [Terraform と IaC](./terraform-and-iac.md) ／ [Monitoring as Code](../../04_応用編/monitoring-as-code.md)
-- [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md)
-- [運用設計](../../03_導入編/operations-design.md)
-- [よくある失敗とアンチパターン](../../04_応用編/common-pitfalls.md)
+- [Tagging](./tagging.md) ／ [タグ戦略の実践](../../04_応用編/02-tagging-strategy.md)
+- [Terraform と IaC](./terraform-and-iac.md) ／ [Monitoring as Code](../../04_応用編/09-monitoring-as-code.md)
+- [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md)
+- [運用設計](../../03_導入編/13-operations-design.md)
+- [よくある失敗とアンチパターン](../../04_応用編/12-common-pitfalls.md)
 
 ## 参照元
 

@@ -36,7 +36,7 @@ ServiceNow の AI 機能は、大きく次の3層で構成される。本ファ�
 
 2026年の重要な変化は次のとおりである。
 
-- **ブランド変更：** 2026-05-05（Knowledge 2026）に **ServiceNow Otto** が発表された。製品ドキュメント上は Zurich Patch 12 / Australia Patch 5 以降、「Now Assist」が「ServiceNow Otto」に改称されている（製品エンタイトルメントは変更なし）。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-servicenowotto-release-notes.html) [出典](https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-Otto-creates-the-unified-AI-experience-for-the-enterprise/)
+- **ブランド変更：** 2026-05-05（Knowledge 2026）に **ServiceNow Otto** が発表された。製品ドキュメント上は Zurich Patch 12 以降、「Now Assist」が「ServiceNow Otto」に改称されている（製品エンタイトルメントは変更なし）。Australia では Patch 5 相当と推定される【推定】（公式リリースノートは「Starting with Zurich Patch 12」とのみ記載し、Australia のパッチ番号は明記していない。Zurich Patch 12 ≒ Australia Patch 5 の対応は AI Agent Studio リリースノートの掲載パターンからの推定）。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-servicenowotto-release-notes.html) [出典](https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-Otto-creates-the-unified-AI-experience-for-the-enterprise/)
 - **ライセンス体系：** Australia のリリースノートで AI ネイティブの3階層 **Foundation / Advanced / Prime** が記載された。[出典](https://www.servicenow.com/docs/r/australia/release-notes/now-assist-rn.html)
 - **既定モデルの変更：** Now LLM Service が新規・未有効化の AI 資産に対する既定モデルではなくなり、第三者 LLM（Azure OpenAI・Google Gemini・Anthropic Claude 等）が既定になった（2026-07）。[出典](https://www.servicenow.com/docs/r/australia/release-notes/now-assist-rn.html)
 - **Assist の計測方式：** 365日ルックバック方式から、契約記念日にリセットされる **365日バーンダウン方式** に変更された。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-aiagentstudio-release-notes.html)
@@ -61,12 +61,12 @@ ServiceNow の生成AI・エージェント型AI 機能は、Vancouver 以降ほ
 
 | リリース | 主な追加・変更 | 確度 |
 |---|---|---|
-| Vancouver（2023-09） | Now Assist（ITSM・CSM・HRSD・Creator 向け生成AIスキル）、Now LLM、Generative AI Controller の提供開始 | 【第三者情報】一般に語られる経緯。本調査では一次資料未確認 |
-| Washington DC（2024-03） | Now Assist の対象製品拡大、Generative AI Controller による外部 LLM 接続 | 【第三者情報】 |
+| Vancouver（2023-09） | Now Assist（ITSM・CSM・HRSD・Creator 向け生成AIスキル）と Now LLM の提供開始（生成AI 機能の GA は 2023-09-29）。Generative AI Controller は OpenAI / Azure OpenAI 接続に加え Aleph Alpha に対応 | ServiceNow 公式プレスリリース（2023-09-20、BusinessWire 掲載）。本文は取得できず検索結果要約に基づく【推定】 [出典](https://www.businesswire.com/news/home/20230920980105/en) [出典](https://docs.servicenow.com/bundle/vancouver-release-notes/page/release-notes/analytics-intelligence-reporting/generative-ai-controller-rn.html)（Vancouver 版 Generative AI Controller リリースノート。現在はリダイレクトされ本文未確認） |
+| Washington DC（2024-03） | Now Assist の対象製品拡大（ITOM・SPM 向けプラグイン追加）、新スキル（App generation、Catalog item generation、KB generation 等）、スキルのロール制限・複製、Dynamic Translation、`data_steward` ロール | [出典](https://www.servicenow.com/docs/r/yokohama/delta-vancouver-washingtondc/washingtondc-vancouver-nowassist-release-notes.html) |
 | Xanadu（2024-09） | Now Assist Skill Kit（カスタムスキル開発）、AI Agents の発表（Store アプリとして段階提供） | Skill Kit の Xanadu 導入は Community 記事に基づく【第三者情報】 [出典](https://www.servicenow.com/community/in-other-news/agentic-ai-ai-agent-development-guidelines-and-use-cases-hands/ba-p/3206822) |
-| Yokohama（2025-03） | AI Agent Studio、AI Agent Orchestrator、Now Assist AI agents アプリ。AI Control Tower（2025-05 Knowledge 2025 で発表） | Now Assist AI agents アプリは Yokohama で導入（公式リリースノート検索結果） |
+| Yokohama（2025-03） | AI Agent Studio、AI Agent Orchestrator、Now Assist AI agents アプリ。AI Control Tower（2025-05 Knowledge 2025 で発表） | AI エージェント機能は Xanadu で EA 提供され、Yokohama で Dynamic Orchestrator、エピソード記憶等が追加された [出典](https://www.servicenow.com/docs/r/yokohama/delta-xanadu-yokohama/yokohama-xanadu-nowassistaiagents-release-notes.html)。AI Agent Orchestrator・AI Agent Studio の GA は Yokohama のプレスリリース（2025-03-12）に基づく（本文未取得、検索結果要約）【推定】 [出典](https://www.businesswire.com/news/home/20250312170054/en) |
 | Zurich（2025-09） | Google Gemini・Anthropic Claude on AWS を LLM プロバイダーに追加、外部エージェント（A2A）、MCP Client、Knowledge Graph ツール、ロールマスキング、エピソード記憶、AI Agent Analytics dashboard 等 | [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-aiagentstudio-release-notes.html) |
-| Zurich Patch 12 / Australia Patch 5 | 「Now Assist」→「ServiceNow Otto」改称、Now Assist Admin console → AI Admin Hub 改称 | [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-servicenowotto-release-notes.html) [出典](https://www.servicenow.com/community/servicenow-otto-articles/tracking-now-assist-usage-measuring-roi-and-adoption-australia/ta-p/3500172) |
+| Zurich Patch 12（Australia では Patch 5 相当と推定【推定】） | 「Now Assist」→「ServiceNow Otto」改称、Now Assist Admin console → AI Admin Hub 改称 | [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-servicenowotto-release-notes.html) [出典](https://www.servicenow.com/community/servicenow-otto-articles/tracking-now-assist-usage-measuring-roi-and-adoption-australia/ta-p/3500172) |
 | **Australia（2026-05）** | 再設計された AI Agent Studio、AI specialist（Autonomous Workforce）、Kill Switch、MCP Server セキュリティ制御、Foundation/Advanced/Prime、AI Admin Center（旧 Now Assist Center）、第三者 LLM の既定化 | 本ファイル各節 |
 | Brazil（2026-09 EA） | AI Admin Hub のワンステップ有効化、モデルプレビュープログラム、MCP/外部エージェントのセキュリティ強化、deny-by-default ACL | 「Brazil での変更」節 |
 
@@ -85,7 +85,7 @@ ServiceNow Otto は 2026-05-05 の Knowledge 2026 で発表された、企業向
 
 ### 1.3 名称対応表（旧名称 → 新名称）
 
-| 旧名称 | 新名称（Australia Patch 5 / Zurich Patch 12 以降） | 備考 |
+| 旧名称 | 新名称（Zurich Patch 12 以降。Australia では Patch 5 相当と推定【推定】） | 備考 |
 |---|---|---|
 | Now Assist | ServiceNow Otto | 製品名は「ServiceNow Otto for ITSM」等 |
 | Now Assist panel | ServiceNow Otto panel | ドキュメント上は両表記が混在 |
@@ -228,7 +228,7 @@ Now Assist panel は、Next Experience の右側に表示される会話型 AI �
 | レコード切替 | premium chat で会話コンテキストを保ったまま Workspace 内のレコードを切り替え | Australia（2026-09） |
 | 生成ファイルのプレビュー | Word / PowerPoint / Excel / PDF の生成ファイルをチャット内でプレビュー・ダウンロード（ServiceNow ブランドなしのプレーンテンプレートも可） | Australia（2026-10）、Brazil にも掲載 |
 
-Now Assist panel を利用するユーザーには `now_assist_panel_user` ロールが必要である。panel の有効化には `sn_nowassist_admin.nsa_admin` が必要で、少なくとも1つの Now Assist アプリケーションがインストールされている必要がある。[出典](https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/roles-installed-with-now-assist-admin.html)（検索結果要約に基づく）
+Now Assist panel を利用するユーザーには `now_assist_panel_user` ロールが必要である。`now_assist_panel_user` は公式に「Users who have access to the Now Assist panel」と定義され、`sn_dyn_guidance_user` を含む。`admin` ロールはこれらのロールを自動的には含まないため、利用者へ直接付与する。[出典](https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/roles-installed-with-now-assist-admin.html) なお、panel の有効化に `sn_nowassist_admin.nsa_admin` が必要で、少なくとも1つの Now Assist アプリケーションのインストールが前提となる点は、公式ページ本文では未確認【推定】。
 
 ### 3.4 コンテキストメニューとフォーム内スキル
 
@@ -393,7 +393,7 @@ ServiceNow の Agentic system（エージェント型システム）は、Orches
 AI Agent Orchestrator は、Agentic workflow の計画立案とエージェントへのタスク割り当てを担う。
 
 - **Base plan（基本計画）：** Agentic workflow レベルで設定する、Orchestrator への初期計画手順の指示。[出典](https://www.servicenow.com/docs/r/x7YYxCVARboMBfN2zKAZsA/qDgIP~f7~dmSqFV7_sM~HQ)
-- **Dynamic Orchestrator：** Agentic workflow に 8〜10 を超えるエージェントがある場合、計画時に適切なエージェントを選択的に特定し、性能と精度を最適化する（Yokohama 版記載、Zurich で機能として明記）。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-aiagentstudio-release-notes.html)
+- **Dynamic Orchestrator：** 計画時に Agentic workflow に適切なエージェントをマッピングし、実行の性能と精度を最適化する（Yokohama で追加。原文「Maps the right agents for an agentic workflow with Dynamic Orchestrator for better performance and accuracy」）。[出典](https://www.servicenow.com/docs/r/yokohama/delta-xanadu-yokohama/yokohama-xanadu-nowassistaiagents-release-notes.html) [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-aiagentstudio-release-notes.html)
 - **ReAct Orchestrator プロンプト：** Zurich で、基本のリフレクションプロンプトが ReAct Orchestrator プロンプトに置き換えられ、Route スケジューリングモードが追加された。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-aiagentstudio-release-notes.html)
 - **既定モデル：** LLM として Azure OpenAI を選択している場合、Orchestrator の既定モデルは **GPT-5.4**（Australia）。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-aiagentstudio-release-notes.html)
 - **並行実行：** AI Agent Background Channel と非対話モードで、エージェントと Agentic workflow を並行実行可能（Zurich）。
@@ -436,7 +436,7 @@ AI エージェントには「Add tools and information」ステップでツー�
 ![AI Agent Studio の Add tool メニュー（Flow action、RAG、Script、Skill、Sub flow）](../../assets/images/now-assist-ai-agents/ai-agent-studio-add-tool-menu.png)
 
 - **キャプション：** AI エージェントにツールを追加する「Add tools and information」セクションと Add tool ドロップダウン（Yokohama 期）。
-- **画面説明：** 「Add a single tool or information source for the AI agent to begin working. Additional tools can be added later as needed.」の説明と、右上の **Add tool** ドロップダウンが表示されている。選択肢は **Flow action**、**Retrieval-Augmented Generation (RAG)**、**Script**、**Skill**、**Sub flow**。左側には追加済みの「Flow actions」セクションが見える。Zurich 以降はこれに加えて Web search、Catalog item、MCP、Knowledge Graph、Desktop action 等が追加されている。
+- **画面説明：** 「Add a single tool or information source for the AI agent to begin working. Additional tools can be added later as needed.」の説明と、右上の **Add tool** ドロップダウンが表示されている。選択肢は **Flow action**、**Retrieval-Augmented Generation (RAG)**、**Script**、**Skill**、**Sub flow**。左側には追加済みの「Flow actions」セクションが見える。Zurich 以降はこれに加えて Web search、Catalog item、MCP、Knowledge Graph、Desktop action 等が追加されている。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-aiagentstudio-release-notes.html)
 - **出典：** https://www.servicenow.com/community/in-other-news/agentic-ai-ai-agent-development-guidelines-and-use-cases-hands/ba-p/3206822 （取得日：2026-11-02）
 
 | ツール種別 | 内容 | 導入・出典 |
@@ -772,7 +772,7 @@ AI Admin Hub は ServiceNow Otto の生成AI 機能を設定・構成・監視�
 | `sn_nowassist_admin.nsa_admin` | Now Assist Admin（AI Admin Hub）での構成作業。スキル・設定の作成・編集・構成、panel の有効化 |
 | `sn_nowassist_admin.user` | AI Admin Hub への読み取り専用アクセス（構成オプションはグレーアウト） |
 
-[出典](https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/roles-installed-with-now-assist-admin.html)（検索結果要約に基づく）
+[出典](https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/roles-installed-with-now-assist-admin.html)（公式定義：`sn_nowassist_admin.nsa_admin`「Can create and update the AI Admin Hub experience by editing and configuring skills」、`sn_nowassist_admin.user`「Can access AI Admin Hub to view skills and their configurations, but can't make modifications」。panel の有効化権限については本文未確認【推定】）
 
 > **Brazil での変更:**
 > - **ワンステップのスキル有効化：** 既定スキルを既定設定のまま1ステップで有効化できる。詳細・カスタム設定は **Advanced setup** のガイド付きウィザードを使う。制約として「One-step activation isn't available with Next Experience in this release」と記載されている。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-aiadminhub-release-notes.html)
@@ -892,7 +892,7 @@ Now LLM Service は ServiceNow 自社の LLM サービスである。Australia �
 
 ### 10.1 AI Guardian（旧 Now Assist Guardian）
 
-AI Guardian は、生成AI の入出力に対するガードレール機能である。[出典](https://www.servicenow.com/docs/r/intelligent-experiences/now-assist-guardian.html)（検索結果要約に基づく）
+AI Guardian は、ServiceNow Small Language Model（SLM）上に構築され、LLM へのリクエストと応答をリアルタイムに評価するガードレール機能である。[出典](https://www.servicenow.com/docs/r/intelligent-experiences/now-assist-guardian.html)
 
 | ガードレール | 対象範囲 | 内容 |
 |---|---|---|
@@ -907,20 +907,20 @@ AI Guardian は、生成AI の入出力に対するガードレール機能で�
 
 ### 10.2 Data Privacy for Now Assist
 
-Data Privacy for Now Assist は、生成AI アプリケーションのプロンプト内の個人情報（PII）を LLM に送る前に匿名化する機能である。Yokohama 以降で利用でき、Xanadu では Sensitive Data Handler を使う。[出典](https://www.servicenow.com/docs/r/platform-security/data-privacy-classic/configure-now-assist-data-privacy.html)（検索結果要約に基づく）
+Data Privacy for Now Assist は、生成AI アプリケーションのプロンプト内の個人情報（PII）を LLM に送る前に匿名化する機能である。公式ページ（Brazil 版）では、構成に必要なロールが `now_assist_data_privacy_admin` であること、構成にフルの有効ライセンスは不要であること、以前に Sensitive Data Handler を使っていた場合はプライバシーポリシーが構成済みの場合があることが記載されている。[出典](https://www.servicenow.com/docs/r/platform-security/data-privacy-classic/configure-now-assist-data-privacy.html) 「Yokohama 以降で利用でき、Xanadu では Sensitive Data Handler を使う」という区分は公式ページ本文では未確認【推定】。
 
 | 項目 | 内容 |
 |---|---|
 | 前提 | Data Privacy (Classic) プラグインと Data Discovery アプリ |
 | 必要ロール | `now_assist_data_privacy_admin` |
 | 設定手順（Australia） | **All > Data Privacy (Classic) > Privacy Policy Advanced Configuration** で新規ポリシーを作成し、データチャネルを **Now Assist**、Active=true とし、**Select Data Patterns** でパターンを追加 |
-| 検出方式 | Regex（Type=Local）と NER（Named Entity Recognition、Type=Model）。NER には Vault ライセンスと付随する $0 SKU が必要 |
+| 検出方式 | Regex（Type=Local）と NER（Named Entity Recognition、Type=Model）。NER には Vault ライセンスと追加の $0 SKU が必要（Australia 版「Data Privacy for Now Assist」に記載 [出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/FnoQmnfy1r_1DvqmTDcNiw)） |
 | カスタムパターン | Data Discovery で作成し、Generative AI データチャネルに関連付ける |
 | マスキング手法 | Synthetic replacement（ワイルドカード文字で一部または全体を置換）、Remove（プロンプトから削除） |
 | 双方向マスキング | プロンプト内の一致値をプレースホルダーに置換し、エンドユーザーに返す応答では元の値に復元（Zurich 版記載） |
 | NER のレート制限 | 上限超過時は、構成済みの Regex マスキングが全 Now Assist プロンプト・スキル・Agentic 実行に適用される |
 
-- Australia 版の AI Guardian ドキュメントでは、AI Guardian を使うすべてのスキルが LLM に送る前に PII を除去すると記載されている。【第三者情報】検索結果要約
+- AI Guardian の公式ドキュメントでは、実行時にスキルが LLM に送る前に PII を除去すると記載されている。[出典](https://www.servicenow.com/docs/r/intelligent-experiences/now-assist-guardian.html)
 - Australia の一部ページは「Configuring ServiceNow Otto for Data Privacy」と改題されている。
 - プラットフォームのデータ保護全般は [platform-security-encryption.md](./platform-security-encryption.md) を参照。
 
@@ -943,7 +943,7 @@ AI Control Tower（AICT）は、ServiceNow 製・第三者製を問わず企業�
 
 主な役割：
 - **AI インベントリ：** AI システム・モデル・データセット・プロンプトを資産として登録し、ライフサイクルを管理する。
-- **AI Discovery：** AWS Bedrock、Azure AI Foundry、Google Cloud Vertex AI、Salesforce 等から AI エージェント・モデル・ツールを検出してインベントリに取り込む（Zurich 期）。[出典](https://www.servicenow.com/docs/r/u1slaAtcFiiXFQcd9RcR_A/JWk4dbULvEWw37~etJDHQg)（検索結果要約に基づく）
+- **AI Discovery：** AWS Bedrock、Azure AI Foundry、Google Cloud Vertex AI、Salesforce 等から AI エージェント・モデル・ツールを検出してインベントリに取り込む（Zurich 期）。[出典](https://www.servicenow.com/docs/r/u1slaAtcFiiXFQcd9RcR_A/JWk4dbULvEWw37~etJDHQg)（検索結果要約に基づく。公式ページ本文は未確認【推定】）
 - **リスクとコンプライアンス：** AI Risk and Compliance（IRM ベース）で影響評価・リスク評価・統制証明を行う。
 - **価値・健全性・利用状況：** Value / Health / Engagement の各ダッシュボード。カスタマイズ可能な価値テンプレート。
 - **Otto の統制：** Otto の AI 対話ログ、ポリシー適用、説明可能性を提供。[出典](https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-Otto-creates-the-unified-AI-experience-for-the-enterprise/)
@@ -1092,7 +1092,7 @@ Now Assist for Creator は、アプリケーション開発者向けの生成AI 
 
 | 製品 | Brazil での変更 | 出典 |
 |---|---|---|
-| ServiceNow Otto（Now Assist 全般） | Australia・Brazil とも新機能・変更・削除・非推奨は「なし」。主要な更新は Zurich とそのパッチで行われた | [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-servicenowotto-release-notes.html) |
+| ServiceNow Otto（Now Assist 全般） | ServiceNow Otto（製品カテゴリ）のリリースノート上は、Australia・Brazil とも新機能・変更・削除・非推奨が「No updates for this release」。これは当該製品カテゴリのリリースノートに限った記述であり、Australia の機能追加（Visual Q&A、AI Guardian の既定有効化、再設計された AI Agent Studio 等）は AI Admin Hub・AI Agent Studio・Now Assist 等の各リリースノートに掲載されている | [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-servicenowotto-release-notes.html) |
 | AI Admin Hub | ワンステップのスキル有効化（Next Experience では不可）、ホームのクイックスタートカード、モデルプレビュープログラム、premium chat のインタラクティブビュー拡張・生成ファイルプレビュー、レコード切替。削除・非推奨なし | [出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-aiadminhub-release-notes.html) |
 | AI Admin Center | 全区分で「No updates for this release」 | [出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-aiadmincenter-release-notes.html) |
 | AI Agent Studio | MCP Server のセキュリティ制御、外部 AI エージェントへのセキュリティ制御とツール追加、AI 資産へのアクセステスト（Access Analyzer）、MCP Client の再設計、新規有効化インスタンスでの deny-by-default ACL（`gen_ai_agent`、`gen_ai_workflow`、`gen_ai_skill`、`Flow`、`flow_action`）。変更：再設計された AI Agent Studio の新しいセットアッププロセス、Analyze task trends の代表レコード引用。削除・非推奨なし | [出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-aiagentstudio-release-notes.html) |
@@ -1117,7 +1117,7 @@ Now Assist for Creator は、アプリケーション開発者向けの生成AI 
 | ticket status agent | Request status AI agent に改称 | Zurich | 同上 |
 | Self-Service Performance / Value ダッシュボード（Now Assist Analytics） | 廃止 | Zurich | 【第三者情報】8.3 節 |
 | AI Agent Studio スキル実行経路 | on-glide から off-glide 実行経路へ自動移行（Mosaic への移行） | Zurich Patch 10 / Australia Patch 3 | [出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-aiagentstudio-release-notes.html) |
-| Now Assist / Now Assist Admin / Now Assist Center / Now Assist Skill Kit / Now Assist Guardian | ServiceNow Otto / AI Admin Hub / AI Admin Center / AI Skill Kit / AI Guardian に改称 | Zurich Patch 12 / Australia Patch 5 前後 | 1.3 節 |
+| Now Assist / Now Assist Admin / Now Assist Center / Now Assist Skill Kit / Now Assist Guardian | ServiceNow Otto / AI Admin Hub / AI Admin Center / AI Skill Kit / AI Guardian に改称 | Zurich Patch 12 以降（Australia では Patch 5 相当と推定【推定】） | 1.3 節 |
 
 ---
 
@@ -1179,7 +1179,7 @@ Now Assist for Creator は、アプリケーション開発者向けの生成AI 
 - https://www.servicenow.com/docs/r/intelligent-experiences/now-assist-skills/now-assist-skills.html （Now Assist skills 一覧：Brazil）
 - https://www.servicenow.com/docs/r/intelligent-experiences/now-assist-analytics-and-monitoring.html （Now Assist analytics and monitoring：Brazil）
 - https://www.servicenow.com/docs/r/intelligent-experiences/install-now-assist-feature-plugins.html （Now Assist プラグインのインストール：Brazil）
-- https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/roles-installed-with-now-assist-admin.html （Now Assist Admin roles：検索結果要約のみ）
+- https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/roles-installed-with-now-assist-admin.html （Roles installed with Now Assist Admin）
 - https://www.servicenow.com/docs/r/intelligent-experiences/now-assist-skill-kit/create-new-skill.html （Create a skill）
 - https://www.servicenow.com/docs/r/intelligent-experiences/now-assist-skill-kit/na-skill-kit-roles.html （Now Assist Skill Kit roles）
 - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/PRIythxagGcuDVufUsHy5Q （Exploring Now Assist for ITSM：Australia）
@@ -1189,8 +1189,14 @@ Now Assist for Creator は、アプリケーション開発者向けの生成AI 
 - https://www.servicenow.com/docs/r/SRy58xeijUUqttfwLgfrHQ/rgXiRWrR2_88Hdow5AaNWQ （Components installed with AI Control Tower：Zurich）
 - https://www.servicenow.com/docs/r/_yCRwrQYX6H0b46tCsDNZA/TSKwR8PkgQG9yG2O9fuJEw （AI Control Tower roles：Yokohama）
 - https://www.servicenow.com/docs/r/_yCRwrQYX6H0b46tCsDNZA/8zreJmc9wXQryb6RIHpdRA （Activation and installation of AI Control Tower：検索結果要約のみ）
-- https://www.servicenow.com/docs/r/intelligent-experiences/now-assist-guardian.html （Now Assist Guardian：検索結果要約のみ）
-- https://www.servicenow.com/docs/r/platform-security/data-privacy-classic/configure-now-assist-data-privacy.html （Configure Data Privacy for Now Assist：検索結果要約のみ）
+- https://www.servicenow.com/docs/r/intelligent-experiences/now-assist-guardian.html （Now Assist Guardian / AI Guardian）
+- https://www.servicenow.com/docs/r/platform-security/data-privacy-classic/configure-now-assist-data-privacy.html （Configure Data Privacy for Now Assist：Brazil 版）
+- https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/FnoQmnfy1r_1DvqmTDcNiw （Data Privacy for Now Assist：Australia 版）
+- https://www.servicenow.com/docs/r/yokohama/delta-xanadu-yokohama/yokohama-xanadu-nowassistaiagents-release-notes.html （Combined Now Assist AI agents release notes, Xanadu→Yokohama）
+- https://www.servicenow.com/docs/r/yokohama/delta-vancouver-washingtondc/washingtondc-vancouver-nowassist-release-notes.html （Combined Now Assist release notes, Vancouver→Washington DC）
+- https://docs.servicenow.com/bundle/vancouver-release-notes/page/release-notes/analytics-intelligence-reporting/generative-ai-controller-rn.html （Generative AI Controller release notes：Vancouver、本文未確認）
+- https://www.businesswire.com/news/home/20230920980105/en （ServiceNow Vancouver リリース プレスリリース、2023-09-20：検索結果要約のみ）
+- https://www.businesswire.com/news/home/20250312170054/en （ServiceNow Yokohama リリース プレスリリース、2025-03-12：検索結果要約のみ）
 - https://www.servicenow.com/docs/r/intelligent-experiences/byok-for-azure-open-ai.html （Bring your own key for third-party AI provider integration：検索結果要約のみ）
 - https://www.servicenow.com/docs/r/intelligent-experiences/now-llm-model-updates.html （Now LLM Service model updates：検索結果要約のみ）
 

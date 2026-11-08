@@ -545,7 +545,7 @@ Data Observability の CI/CD は、dbt モデルを変更する Pull Request に
 
 ## ウェアハウス別セットアップ要件
 
-すべてのウェアハウス連携は `Data Observability > Settings` から設定する（Databricks は Databricks インテグレーションタイル、ClickHouse は専用タイル）。IP 制限がある場合は、サイト別の Datadog **webhooks** IP レンジを許可リストに追加する（IP レンジはサイトごとに異なる。[network-and-connectivity.md](../../03_導入編/network-and-connectivity.md) 参照）。
+すべてのウェアハウス連携は `Data Observability > Settings` から設定する（Databricks は Databricks インテグレーションタイル、ClickHouse は専用タイル）。IP 制限がある場合は、サイト別の Datadog **webhooks** IP レンジを許可リストに追加する（IP レンジはサイトごとに異なる。[11-network-and-connectivity.md](../../03_導入編/11-network-and-connectivity.md) 参照）。
 
 ### Snowflake
 
@@ -706,7 +706,7 @@ Jobs Monitoring 側（Agent・トレーサー・ログ収集）のオーバー�
 | ルーティング | テーブルオーナーとパイプラインのオンコールの両方へ（Slack、メール、PagerDuty、[Datadog On-Call](../service-management/on-call.md) 等） |
 | 調査手順 | 影響テーブルと時間範囲を確認 → Lineage で下流影響 → 発生源（ソース / ストリーミング層 / バッチ）を切り分け。バッチは入出力件数を比較、ストリーミングはトピック別スループットとラグを確認 |
 
-アラート設計全般は [alert-design-and-noise-reduction.md](../../04_応用編/alert-design-and-noise-reduction.md)、よくある失敗は [common-pitfalls.md](../../04_応用編/common-pitfalls.md) を参照。
+アラート設計全般は [03-alert-design-and-noise-reduction.md](../../04_応用編/03-alert-design-and-noise-reduction.md)、よくある失敗は [12-common-pitfalls.md](../../04_応用編/12-common-pitfalls.md) を参照。
 
 ## 制限値・クォータ・デフォルト値
 
@@ -747,7 +747,7 @@ Jobs Monitoring 側（Agent・トレーサー・ログ収集）のオーバー�
 
 ## 課金への影響
 
-Data Observability は **Quality Monitoring** と **Jobs Monitoring** で別々に課金される。以下は公式料金ページの定価（**2026-11-02 時点**、USD、US / EU1 サイト表示。AP1 は表下のサイト差異を参照）。料金の正本は [pricing-by-product.md](../../03_導入編/pricing-by-product.md)。[出典](https://www.datadoghq.com/pricing/list/)
+Data Observability は **Quality Monitoring** と **Jobs Monitoring** で別々に課金される。以下は公式料金ページの定価（**2026-11-02 時点**、USD、US / EU1 サイト表示。AP1 は表下のサイト差異を参照）。料金の正本は [02-pricing-by-product.md](../../03_導入編/02-pricing-by-product.md)。[出典](https://www.datadoghq.com/pricing/list/)
 
 | 製品 | 課金単位 | 年契約（Billed Annually） | 月契約（Month-to-month） | オンデマンド |
 |---|---|---|---|---|
@@ -756,7 +756,7 @@ Data Observability は **Quality Monitoring** と **Jobs Monitoring** で別々�
 | Data Observability: Jobs Monitoring（Databricks Serverless） | DBU あたり | $0.025 | $0.03 | $0.036 |
 | Data Observability: Jobs Monitoring（Orchestrators） | ジョブあたり / 時間 | $0.10 | $0.12 | $0.144 |
 
-> **サイト差異:** 上表は US / EU1 の定価。基準サイト **AP1** では単価が異なり、Quality Monitoring は年契約 **$20** / 月契約 $26.25 / オンデマンド $30、Jobs Monitoring は Clusters $0.0625 / $0.075 / $0.09、Databricks Serverless $0.03125 / $0.0375 / $0.045、Orchestrators $0.125 / $0.15 / $0.18。最新値は正本の [pricing-by-product.md](../../03_導入編/pricing-by-product.md) を参照。[出典](https://www.datadoghq.com/pricing/list/)
+> **サイト差異:** 上表は US / EU1 の定価。基準サイト **AP1** では単価が異なり、Quality Monitoring は年契約 **$20** / 月契約 $26.25 / オンデマンド $30、Jobs Monitoring は Clusters $0.0625 / $0.075 / $0.09、Databricks Serverless $0.03125 / $0.0375 / $0.045、Orchestrators $0.125 / $0.15 / $0.18。最新値は正本の [02-pricing-by-product.md](../../03_導入編/02-pricing-by-product.md) を参照。[出典](https://www.datadoghq.com/pricing/list/)
 
 > Jobs Monitoring の課金詳細は [data-jobs-monitoring.md](./data-jobs-monitoring.md) を参照。2026-01 時点の料金ページでは Databricks Serverless が「$0.50/job/hr」と記録されており、その後 DBU 単位に変更されたとみられる【第三者情報】[出典](https://pricingsaas.com/companies/datadog/diffs/2026W03)（2026-01 の差分記録）。
 
@@ -779,7 +779,7 @@ Quality Monitoring の課金単位「**monitored table**」は次の規則で数
 - Datadog 料金とは別に、**監視クエリのウェアハウス側コスト**（Snowflake クレジット、Databricks DBU、BigQuery スキャン/スロット、Athena クエリ料金、ClickHouse コンピュート）が顧客側で発生する（前述「ウェアハウス側のオーバーヘッドとコスト」）。
 - 試算例（定価からの単純計算）：1,200 テーブルを US / EU1 の年契約定価で監視すると $16 × 1,200 × 12 = $230,400/年、AP1 では $20 × 1,200 × 12 = $288,000/年。値引き条件は非公開で、実際の契約額は異なりうる【推定】。
 
-使用量の確認は [usage-and-cost-attribution.md](../platform/usage-and-cost-attribution.md)、見積り手法は [cost-estimation.md](../../03_導入編/cost-estimation.md)、最適化は [cost-optimization.md](../../04_応用編/cost-optimization.md) を参照。
+使用量の確認は [usage-and-cost-attribution.md](../platform/usage-and-cost-attribution.md)、見積り手法は [05-cost-estimation.md](../../03_導入編/05-cost-estimation.md)、最適化は [01-cost-optimization.md](../../04_応用編/01-cost-optimization.md) を参照。
 
 ## 関連ファイル
 
@@ -791,8 +791,8 @@ Quality Monitoring の課金単位「**monitored table**」は次の規則で数
 - [AWS Integration](../platform/aws-integration.md) / [Google Cloud Integration](../platform/gcp-integration.md) / [Azure Integration](../platform/azure-integration.md)
 - [Fleet Automation と Remote Configuration](../platform/fleet-automation.md)
 - [Datadog Sites](../platform/datadog-sites.md)
-- [製品別料金表（料金の正本）](../../03_導入編/pricing-by-product.md)
-- [製品ポートフォリオ全体像](../../01_入門編/product-map.md)
+- [製品別料金表（料金の正本）](../../03_導入編/02-pricing-by-product.md)
+- [製品ポートフォリオ全体像](../../01_入門編/04-product-map.md)
 
 ## 参照元
 

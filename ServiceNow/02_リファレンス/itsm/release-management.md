@@ -3,7 +3,7 @@ title: Release Management と DevOps（リリース管理と DevOps）
 category: reference
 domain: itsm
 release: Australia
-last_verified: 2026-11-03
+last_verified: 2026-11-02
 summary: ServiceNow のリリース管理系アプリケーション（Release Management v2 の `rm_release` 系テーブル、後継の Digital Product Release（DPR）の `sn_dpr_model_*` 系テーブル）、Agile Development 2.0 の `rm_release_scrum` との関係と CWM への移行、DevOps Change Velocity（`sn_devops`）による変更要求の自動作成・自動承認・パイプライン連携、CI/CD 連携（Jenkins／GitHub Actions／Azure DevOps／GitLab、DevOps API、CICD API `sn_cicd`）について、テーブル・ロール・プロパティ・状態値・メニュー・制約を Australia リリース基準でまとめたリファレンス。
 keywords: [release management, リリース管理, Release Management v2, com.snc.release_management_v2, rm_release, rm_release_phase, rm_task, rm_product, rm_m2m_release_task, release_v2_admin, release_v2_user, sn_release_read, Digital Product Release, DPR, sn_dpr, sn_dpr_model, sn_dpr_model_release, release template, リリーステンプレート, release readiness target, release calendar, release bundle, Policy as Code Engine, sn_pace, Agile Development 2.0, rm_release_scrum, rm_story, rm_sprint, rm_epic, scrum_admin, Collaborative Work Management, CWM, DevOps Change Velocity, sn_devops, sn_devops_chgvlcty, DevOps Change Workspace, change acceleration, change receipt, DevOps change model, DevOps Simplified, change approval policy, sn_devops.admin, sn_devops.app_owner, sn_devops.tool_owner, sn_devops.integration, sn_devops.viewer, DevOps Insights, DevOps Config, CI/CD, continuous integration, 継続的インテグレーション, Jenkins, GitHub Actions, Azure DevOps, GitLab, Argo CD, JFrog, SonarQube, Veracode, DevOps API, CICD API, sn_cicd, sn_cicd.sys_ci_automation, Service Operations Workspace]
 sources:
@@ -35,6 +35,13 @@ sources:
   - https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/2dwyBIN8pSbtyJfYaP_OhQ
   - https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-devopschangevelocity-release-notes.html
   - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/Rze1FcRMcO57zc_D8ah86w
+  - https://www.servicenow.com/docs/r/UMl~97STJe3fa_KTmzD1Gg/A6pePTGlVEUEXxLgwaixVg
+  - https://www.servicenow.com/docs/r/Recj91eIo1YnsOabQjgskg/7qhOWL9JsStIVB8rRK2Omw
+  - https://www.servicenow.com/docs/r/3ongaT2PAVB3Cqoicgnoxg/lfBtDCE0fTeKmfyud~V04Q
+  - https://www.servicenow.com/docs/r/Recj91eIo1YnsOabQjgskg/6n_kAehMfcZbOJTTqEeaHA
+  - https://www.servicenow.com/community/digital-product-release-forum/what-is-the-purpose-of-tasks-on-dpr-release-template-who-are/m-p/3476628
+  - https://www.servicenow.com/community/digital-product-release-forum/linking-and-viewing-the-dpr-release-in-the-change-management/m-p/3058450
+  - https://www.servicenow.com/community/digital-product-release-forum/update-release-scope-in-dpr-workspace-to-view-related-tasks/m-p/3332328
   - https://www.servicenow.com/docs/r/pt-BR/api-reference/rest-apis/devops-api.html
   - https://www.servicenow.com/docs/r/api-reference/rest-apis/cicd-api.html
   - https://github.com/ServiceNow/servicenow-devops-change
@@ -56,7 +63,7 @@ ServiceNow におけるリリース管理（Release Management）と DevOps 連�
 |---|---|---|---|
 | ITIL 型リリース管理（従来型） | Release Management v2（`com.snc.release_management_v2`） | `rm_release`, `rm_release_phase`, `rm_task`, `rm_product`, `rm_m2m_release_task` | ITSM 標準の古典的リリース管理。UI16（Core UI）中心 |
 | プロダクト型リリース管理（新世代） | Digital Product Release（DPR、`sn_dpr`） | `sn_dpr_model_release` ほか `sn_dpr_model_*` | Store アプリ。ワークスペース・リリーステンプレート・Policy as Code によるフェーズゲート |
-| アジャイル開発のリリース | Agile Development 2.0（`com.snc.sdlc.agile.2.0`） | `rm_release_scrum`, `rm_sprint`, `rm_story`, `rm_epic` | Australia から廃止予定（August 2030 予定）。後継は Collaborative Work Management（CWM） |
+| アジャイル開発のリリース | Agile Development 2.0（`com.snc.sdlc.agile.2.0`） | `rm_release_scrum`, `rm_sprint`, `rm_story`, `rm_epic` | 廃止予定（2030 年 8 月、公式リリースノート）。後継は Collaborative Work Management（CWM） |
 | DevOps／CI/CD 連携と変更自動化 | DevOps Change Velocity（`sn_devops` ほか） | `sn_devops_*` | Store アプリ。パイプラインから Change Request（変更要求）を自動作成・自動承認 |
 
 加えて、ServiceNow 上のアプリケーション開発自体の CI/CD 用に **CICD API（`/api/sn_cicd/`）** があり、これも「Continuous integration（継続的インテグレーション）連携」の文脈で扱う（本ファイル後半）。
@@ -119,10 +126,10 @@ flowchart LR
 
 ### 1.3 ライセンス上の位置付け
 
-- **DevOps Change Velocity**：ServiceNow Community の公式ブログ（DevOps blog）では、DevOps Change Velocity は単体製品から ITSM Pro パッケージに移され、ITSM Pro（および Enterprise）の顧客が利用できると説明されている。[出典](https://www.servicenow.com/community/devops-blog/got-itsm-pro-have-you-tried-connecting-to-the-world-of-devops/ba-p/2371736)（2021〜2023 年頃の記事のため、最新の契約条件は要確認）
+- **DevOps Change Velocity**：【第三者情報】ServiceNow Community の DevOps blog に ServiceNow 社員が投稿した記事（2022-11-03 投稿）では、DevOps Change Velocity は単体製品から ITSM Pro パッケージに移され、ITSM Pro（および Enterprise）の顧客が利用できると説明されている。[出典](https://www.servicenow.com/community/devops-blog/got-itsm-pro-have-you-tried-connecting-to-the-world-of-devops/ba-p/2371736)（2022 年時点の記事であり、公式のパッケージング資料では未確認。最新の契約条件は要確認）
 - **Digital Product Release**：インストール手順では「アプリと関連 Store アプリに有効なエンタイトルメントが必要」とのみ記載されている。ITSM のどのパッケージに含まれるかは、公開情報では明確に確認できず（ITSM 価格ページの断片に DPR が記載されているとの検索結果があるが未確認、【推定】）。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/5vkhHUTA925YQuezD_MdHw)
 - **Release Management v2**：ITSM のプラグインとして提供される。パッケージ区分の詳細は [ITSM 概要とパッケージ](./itsm-overview.md) と [エディション比較](../../03_導入編/03-edition-comparison.md) を参照。
-- **Agile Development 2.0**：2026 年 4 月に新規顧客向け販売終了（End of Sale）。詳細は「4. Agile Development 2.0 との関係」を参照。
+- **Agile Development 2.0**：【第三者情報】ServiceNow 社員による Community 記事（2026-04-28）によれば、2026 年 4 月に新規顧客向け販売終了（End of Sale）。[出典](https://www.servicenow.com/community/cwm-articles/start-here-agile-2-0-end-of-support-and-collaborative-work/ta-p/3533752) 公式リリースノート上の廃止予定日は 2030 年 8 月。詳細は「4. Agile Development 2.0 との関係」を参照。
 
 ---
 
@@ -356,11 +363,11 @@ Digital Product Release（DPR）は、プロダクト／サービス単位でリ
 | ロール（ラベル） | ロール名 | 概要 | 主な包含ロール |
 |---|---|---|---|
 | Digital Product Release Admin | `sn_dpr_model.release_admin` | リリースプロセスを定義し、リリースを監視 | `sn_dpr_model.release_calendar_admin`, `sn_dpr_model.release_template_admin`, `sn_dpr_model.release_user`, `sn_devops.tool_owner`, `sn_change_write`, `sn_pace.admin`, `sn_pace.mapping_admin`, `pd_operator` |
-| Digital Product Manager | `sn_dpr_model.product_manager` | デジタル製品・サービスを管理 | `sn_devops.app_owner`, `sn_change_write`, `sn_dpr_model.release_user`, `sn_dpr_model.product_feature_create/delete/write`, `asset`, `model_manager`, `sn_pace.*`（reader 系・`mapping_admin`）, `template_read_global` |
+| Digital Product Manager | `sn_dpr_model.product_manager` | デジタル製品・サービスを管理 | `sn_devops.app_owner`, `sn_change_write`, `sn_dpr_model.release_user`, `sn_dpr_model.product_feature_create/delete/write`, `asset`, `model_manager`, `pd_operator`, `sn_pace.*`（reader 系・`mapping_admin`）, `template_read_global` |
 | Digital Product Release Coordinator | `sn_dpr_model.release_coordinator` | プロダクトチームを支援 | `sn_change_write`, `sn_dpr_model.release_user`, `sn_pace.*`（reader 系・`mapping_admin`）, `pd_operator`, `template_read_global` |
 | Digital Product Release Template Admin | `sn_dpr_model.release_template_admin` | リリーステンプレートを管理 | `pd_operator`, `personalize_choices`, `sla_manager`, `sn_pace.policy_reader`, `template_editor_global` |
 | Digital Product Release Calendar Admin | `sn_dpr_model.release_calendar_admin` | リリースカレンダーを管理（単独では機能せず、他の DPR ロールが必要） | `personalize_choices`, `sn_change_read` |
-| Digital Product Release User | `sn_dpr_model.release_user` | リリース参照、リリースタスクの更新・承認。リリースの作成・変更は不可 | `sn_dpr_workspace.workspace_user`, `sn_devops.viewer`, `sn_change_read`, `sn_incident_read`, `sn_problem_read`, `sn_request_read`, `task_editor`, `app_service_user`, `service_viewer` ほか |
+| Digital Product Release User | `sn_dpr_model.release_user` | リリース参照、リリースタスクの更新・承認。リリースの作成・変更は不可 | `sn_dpr_workspace.workspace_user`, `sn_devops.viewer`, `sn_change_read`, `sn_incident_read`, `sn_problem_read`, `sn_request_read`, `task_editor`, `app_service_user`, `service_viewer`, `sn_dpr_model.product_feature_read`, `sn_pace.policy_reader` |
 | Digital Product Release Workspace User | `sn_dpr_workspace.workspace_user` | DPR ワークスペースへのアクセス | `cmdb_read` |
 | Product Feature Create／Read／Write／Delete | `sn_dpr_model.product_feature_create` 等 | 製品機能（Product Feature）の作成・参照・更新・削除 | なし |
 | Product Enhancement Read | `sn_dpr_model.product_enhancement_read` | 製品拡張（Product Enhancement）の参照 | なし |
@@ -592,8 +599,11 @@ Agile Development 2.0 はリリース管理とは別系統のリリーステー�
 | Scrum Programs（`com.snc.sdlc.scrum_program`） | 「C」リリースで廃止予定 | 代替なし |
 | Atlassian Jira Integration for Agile Development（`app_agile_jira_integrations`） | 「C」リリースで廃止予定 | SPW Jira Integration（Store） |
 | Microsoft Azure DevOps Integration for Agile Development（`app_agile_ado_integration`） | 「C」リリースで廃止予定 | 代替なし |
-| Agile Development 2.0 - ATF Tests（`com.snc.sdlc.agile.2.0.atf`）ほか ATF 系 | 「C」リリースで廃止予定 | 代替なし |
+| Agile Development 2.0 - ATF Tests（`com.snc.sdlc.agile.2.0.atf`） | 「C」リリースで廃止予定 | 代替なし |
+| Agile Development 2.0: ATF Development Tests（`com.snc.sdlc.agile.2.0.atf.dev`） | 「C」リリースで廃止予定 | 代替なし |
+| Agile Teams Work Progress Status（`com.sn_scrum_progress`） | 「C」リリースで廃止予定 | 代替なし |
 | Performance Analytics Content Pack for Agile 2.0（`com.sn_scrum_dashboards`） | 「C」リリースで廃止予定 | CWM |
+| Agile Development v2（`com.snc.sdlc.agile.mobile`） | 「C」リリースで廃止予定 | 代替なし |
 
 [出典](https://www.servicenow.com/docs/r/8_SIK58xmFJIEc2bL5YTYg/OmeGbE3Q4rYRUIqFLX2DOA)（Australia 版。ドイツ語版ページから取得し、プラグイン ID は小文字に正規化。「C」リリースは Brazil の次のファミリーを指す）
 
@@ -606,6 +616,8 @@ Agile Development 2.0 はリリース管理とは別系統のリリーステー�
 | 2030 年以降（日付未定） | サポート終了（End of Support）。すべての有効な契約の満了後に適用。アプリは無効化されないが、以後はサポートケースを受け付けずカスタマイズ扱い |
 
 [出典](https://www.servicenow.com/community/cwm-articles/start-here-agile-2-0-end-of-support-and-collaborative-work/ta-p/3533752)
+
+**2 つの日付の関係：** 公式リリースノートは `com.snc.sdlc.agile.2.0` の廃止予定日を 2030 年 8 月としている。Community 記事は End of Support を「すべての有効な契約の満了後（日付未定）」と説明している。両者の関係（2030 年 8 月が End of Support と同じ日を指すか）は公開情報では確認できず。
 
 移行に関する主な事項【第三者情報】：
 
@@ -826,9 +838,16 @@ Australia 版のプロパティページには 68 件のプロパティが記載
 
 その他の主なプロパティ（システム名は公式表を参照）：インバウンドイベントの最大リトライ 3 回、Jenkins フォルダ探索深度 3、Azure DevOps プロジェクトあたり最大検出パイプライン数 15000、ツール資格情報の期限切れ通知 3 日前、イベント未受信の警告 2 日／重大 7 日、Import based evidence collection for orchestration capability（false。ステップ単位のパイプライン処理を省いてインスタンス負荷を下げる）。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/Cy67V7Lf9sOXU2beB3VARQ)
 
-### 5.10 DevOps Config（廃止）
+### 5.10 DevOps Config（廃止・廃止準備中）
 
-DevOps Config は、デプロイ前に構成データをポリシーで検証し、リスクのある変更をパイプラインゲートで止める製品で、DevOps Change Velocity とアプリオブジェクト単位で同期して変更要求を作成できた。Washington DC のリリースノートでは「将来の廃止に向けた準備（新規インスタンスで非表示・有効化不可、サポートは継続）」とされ、Australia のリリースノートでは**廃止済みで新規有効化不可**とされている。新規設計では使用しないこと。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/Rze1FcRMcO57zc_D8ah86w)
+DevOps Config は、デプロイ前に構成データをポリシーで検証し、リスクのある変更をパイプラインゲートで止める製品で、DevOps Change Velocity とアプリオブジェクト単位で同期して変更要求を作成できた。DevOps Config の廃止状況について、Australia 版の公式ドキュメント同士で記述が食い違っている。
+
+| ページ（Australia 版） | 記述 |
+|---|---|
+| Install DevOps Config ほか（Configure your pipeline in DevOps Config、Install DevOps Config Policy content pack） | DevOps Config は**廃止済み（deprecated）で、サポート対象外・新規有効化不可** [出典](https://www.servicenow.com/docs/r/UMl~97STJe3fa_KTmzD1Gg/A6pePTGlVEUEXxLgwaixVg) |
+| Exploring DevOps Config | Washington DC 以降「将来の廃止に向けて準備中」。新規インスタンスでは非表示・有効化不可だが、**サポートは継続** [出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/Rze1FcRMcO57zc_D8ah86w) |
+
+どちらの記述でも新規インスタンスでは有効化できないため、新規設計では使用しないこと。既存利用中の場合は、インスタンス上のプラグイン状態とサポート可否を確認すること。
 
 ### 5.11 リリース履歴（Store アプリのバージョン）
 
@@ -902,7 +921,7 @@ Jenkins の ServiceNow DevOps プラグインは、ServiceNow DevOps からパ�
 | `snDevOpsArtifact` | 成果物バージョンを登録 |
 | `snDevOpsPackage` | 成果物パッケージ（成果物バージョンの集合）を作成 |
 | `snDevOpsSecurityResult` | セキュリティスキャン結果を登録 |
-| `snDevOpsConfig*` | DevOps Config 用（DevOps Config は廃止済み） |
+| `snDevOpsConfig*` | DevOps Config 用（DevOps Config は廃止済みまたは廃止準備中。5.10 参照） |
 
 [出典](https://www.jenkins.io/doc/pipeline/steps/servicenow-devops/)
 
@@ -945,7 +964,7 @@ jobs:
     steps:
       - name: ServiceNow Change
         id: create
-        uses: ServiceNow/servicenow-devops-change@v6.1.0   # 最新タグはリポジトリで確認
+        uses: ServiceNow/servicenow-devops-change@v6.1.0   # README の例は v6.1.0。2026-11 時点の最新リリースは v7.1.0（入力名は採用前にリポジトリで確認）
         with:
           devops-integration-token: ${{ secrets.SN_DEVOPS_INTEGRATION_TOKEN }}
           instance-url: ${{ secrets.SN_INSTANCE_URL }}
@@ -1124,7 +1143,8 @@ CICD API は、ServiceNow 上で開発するアプリケーション自体のソ
 - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/1IOGCXHTnX02RprvPaB2wg （Accelerating your DevOps change process、Australia）
 - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/kYawifgINsRlYqcbPCDx_A （DevOps change models、Australia）
 - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/qSBq1n771cxd1ygmFSVUrA （DevOps Change Velocity integrations）
-- https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/Rze1FcRMcO57zc_D8ah86w （Exploring DevOps Config）
+- https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/Rze1FcRMcO57zc_D8ah86w （Exploring DevOps Config、Australia）
+- https://www.servicenow.com/docs/r/UMl~97STJe3fa_KTmzD1Gg/A6pePTGlVEUEXxLgwaixVg （Install DevOps Config、Australia）
 - https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/2dwyBIN8pSbtyJfYaP_OhQ （DevOps Change Velocity release notes）
 - https://www.servicenow.com/docs/r/3ongaT2PAVB3Cqoicgnoxg/lfBtDCE0fTeKmfyud~V04Q （DevOps Change Velocity release notes、Xanadu）
 - https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-devopschangevelocity-release-notes.html （Australia → Brazil 統合リリースノート）

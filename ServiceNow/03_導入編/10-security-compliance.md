@@ -5,7 +5,7 @@ domain: platform
 release: Australia
 last_verified: 2026-11-02
 summary: ServiceNow 導入時のセキュリティ・コンプライアンス検討事項をまとめる。対象は、データセンターとデータレジデンシー（日本の Tokyo/Osaka ペア）、ISMAP 登録状況（AI Platform 2022年3月、Now Assist/AI Agents 2026年6月）、SOC 1/SOC 2、ISO 27001 系、FedRAMP/DoD IL、GDPR と DPA、責任共有モデル、Security Center によるインスタンスのハードニング（スコア計算、Accept Risk、主要プロパティ、MFA 強制、Explicit Roles、IP 制限）で、セキュリティ審査・調達・設計で使える具体的な確認ポイントを示す。
-keywords: [security, compliance, セキュリティ, コンプライアンス, データセンター, data center, データレジデンシー, data residency, Tokyo, Osaka, 東京, 大阪, AHA, Advanced High Availability, バックアップ, ISMAP, ISMAP-LIU, SOC 1, SOC 2, Type 2, ISO 27001, ISO 27017, ISO 27018, ISO 27701, ISO 42001, FedRAMP, GCC, National Security Cloud, DoD IL4, IL5, C5, IRAP, GDPR, DPA, Data Processing Addendum, SCC, 標準契約条項, 個人情報保護法, shared responsibility, 責任共有モデル, CORE Compliance Portal, KB0564067, penetration test, ペネトレーションテスト, KB0538598, Security Center, sn_vsc, sn_vsc.security_center_admin, sn_vsc.security_center_viewer, Instance Security Center, ISC, hardening, ハードニング, compliance score, Accept risk, baseline 4.0, glide.security.use_csrf_token, glide.ip.authenticate.strict, com.glide.high_security, Explicit Roles, com.glide.explicit_roles, snc_internal, snc_external, ip_access, com.snc.ipauthenticator, MFA enforcement, glide.authenticate.multifactor.self_enrolment_period, Data Privacy, Column Level Encryption, Cloud Encryption, Now Assist, KB1584492]
+keywords: [security, compliance, 国家サイバー統括室, NCO, セキュリティ, コンプライアンス, データセンター, data center, データレジデンシー, data residency, Tokyo, Osaka, 東京, 大阪, AHA, Advanced High Availability, バックアップ, ISMAP, ISMAP-LIU, SOC 1, SOC 2, Type 2, ISO 27001, ISO 27017, ISO 27018, ISO 27701, ISO 42001, FedRAMP, GCC, National Security Cloud, DoD IL4, IL5, C5, IRAP, GDPR, DPA, Data Processing Addendum, SCC, 標準契約条項, 個人情報保護法, shared responsibility, 責任共有モデル, CORE Compliance Portal, KB0564067, penetration test, ペネトレーションテスト, KB0538598, Security Center, sn_vsc, sn_vsc.security_center_admin, sn_vsc.security_center_viewer, Instance Security Center, ISC, hardening, ハードニング, compliance score, Accept risk, baseline 4.0, glide.security.use_csrf_token, glide.ip.authenticate.strict, com.glide.high_security, Explicit Roles, com.glide.explicit_roles, snc_internal, snc_external, ip_access, com.snc.ipauthenticator, MFA enforcement, glide.authenticate.multifactor.self_enrolment_period, Data Privacy, Column Level Encryption, Cloud Encryption, Now Assist, KB1584492]
 sources:
   - https://www.servicenow.com/company/trust/compliance.html
   - https://www.servicenow.com/uk/company/trust/compliance.html
@@ -33,6 +33,9 @@ sources:
   - https://www.servicenow.com/docs/r/8yND1KuvF7tjP~F577YThQ/q3VTM7zM2iuKKhfPNPM3Hg
   - https://www.servicenow.com/docs/r/platform-security/instance-security-hardening-settings/anti-csrf-token.html
   - https://www.servicenow.com/docs/r/oJu9n0q6rU~F9UHAnNCt5w/KgGK56BHwEvJShUSKPrivg
+  - https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/vquE8rIq3TcVvQJbtk1wUQ
+  - https://www.servicenow.com/docs/r/oJu9n0q6rU~F9UHAnNCt5w/f8IBu_D9UULcjZPzsXmJqQ
+  - https://www.servicenow.com/docs/r/zurich/release-notes/security-center-rn.html
   - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-securitycenter-release-notes.html
   - https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-encryption-release-notes.html
   - https://www.servicenow.com/community/security-on-now-blog/your-hardening-score-isn-t-just-a-number-here-s-what-it-s/ba-p/3574268
@@ -48,6 +51,20 @@ sources:
   - https://appomni.com/blog/appomni-discovers-security-misconfiguration-impacting-servicenow/
   - https://www.pwc.com/jp/ja/knowledge/prmagazine/pwcs-view/202303/43-02.html
   - https://kpmg.com/jp/ja/insights/2024/05/ismap-revision-overview.html
+  - https://www.fedramp.gov/marketplace/products/F1305072116/
+  - https://www.nasdaq.com/press-release/servicenow-secures-fedramp-high-authorization-2019-09-18
+  - https://www.servicenow.com/company/media/press-room/servicenow-gains-fedramp-certification.html
+  - https://www.ismap.go.jp/
+  - https://www.soumu.go.jp/menu_news/s-news/01cyber01_02000001_00071.html
+  - https://www.pwc.com/jp/ja/knowledge/column/awareness-cyber-security/explanation-of-ismap2.html
+  - https://scan.netsecurity.ne.jp/article/2025/07/11/53202.html
+  - https://scan.netsecurity.ne.jp/article/2025/07/25/53286.html
+  - https://scan.netsecurity.ne.jp/article/2020/06/05/44178.html
+  - https://www.pwc.com/jp/ja/services/digital-trust/ismap.html
+  - https://www.apmdigest.com/servicenow-achieves-iso27701-and-apec-prp-certification
+  - https://www.servicenow.com/blogs/2025/iso-certification-ai-management-system
+  - https://www.servicenow.com/blogs/2024/enforced-multifactor-authentication-mfa
+  - https://www.servicenow.com/community/platform-privacy-security-blog/enforced-multifactor-authentication-mfa-what-you-need-to-know/ba-p/3132526
 ---
 
 # セキュリティとコンプライアンス（Security and Compliance）
@@ -61,7 +78,7 @@ ServiceNow 導入プロジェクトにおけるセキュリティとコンプラ
 
 本ファイルは導入編として、セキュリティ審査票（チェックシート）への回答、調達要件の確認、設計・本番稼働前のハードニングで「何を、どこで確認し、どの値にするか」を具体的に示す。プラットフォームの暗号化機能・認証機能の仕様詳細はリファレンス編（[プラットフォームセキュリティと暗号化](../02_リファレンス/platform/platform-security-encryption.md)、[認証とSSO](../02_リファレンス/platform/authentication-sso.md)、[アクセス制御（ACL）](../02_リファレンス/platform/access-control-acl.md)）を、運用定着後の実践知は[セキュリティ強化の実践](../04_応用編/12-security-hardening-practice.md)を参照する。
 
-> **情報取得上の注意（2026-11-03 時点）:** ServiceNow の Trust サイト（`servicenow.com/company/trust/...`）は本調査のツールから本文を直接取得できず（HTTP 403）、検索エンジンが返した同ページの抜粋に基づいて記述した箇所がある。該当箇所は本文中で明記する。認証の最新状況は、契約前に必ず Trust サイトと CORE Compliance Portal で確認すること。
+> **情報取得上の注意（2026-11-02 時点）:** ServiceNow の Trust サイト（`servicenow.com/company/trust/...`）は本調査のツールから本文を直接取得できず（HTTP 403）、検索エンジンが返した同ページの抜粋に基づいて記述した箇所がある。該当箇所は本文中で明記する。認証の最新状況は、契約前に必ず Trust サイトと CORE Compliance Portal で確認すること。
 
 ---
 
@@ -180,9 +197,9 @@ ServiceNow の Trust サイト（Compliance ページ）および関連発表に
 | **ISO/IEC 27001** | 情報セキュリティマネジメントシステム | 2012 年から | [出典](https://www.servicenow.com/company/trust/compliance.html) |
 | **ISO/IEC 27017** | クラウドサービスの情報セキュリティ管理策 | 2018 年から（UK 版ページ） | [出典](https://www.servicenow.com/uk/company/trust/compliance.html) |
 | **ISO/IEC 27018** | パブリッククラウドにおける PII 保護 | **ページにより 2016 年 / 2020 年と記載が不一致** | [UK 版](https://www.servicenow.com/uk/company/trust/compliance.html)、[グローバル版](https://www.servicenow.com/company/trust/compliance.html) |
-| **ISO/IEC 27701** | プライバシー情報マネジメント | 取得済み（APEC PRP と同時に発表） | [出典](https://www.servicenow.com/company/media/press-room/servicenow-achieves-iso27701-and-apec-prp-certification.html) |
-| **ISO/IEC 42001:2023** | AI マネジメントシステム | 取得済み（2026-06 のプレスリリースで言及） | [出典](https://prtimes.jp/main/html/rd/p/000000206.000029239.html) |
-| **FedRAMP High** | 米国連邦政府クラウド認可 | Government Community Cloud（GCC）が FedRAMP High P-ATO を保有（2019-08 初回）。GCC は DoD IL4 も保有 | [出典](https://www.servicenow.com/company/trust/compliance.html)、[IL5 プレス](https://newsroom.servicenow.com/press-releases/details/2022/ServiceNow-Secures-U-S--Department-of-Defense-Impact-Level-5-Provisional-Authorization-03-30-2022-12-00-AM/default.aspx) |
+| **ISO/IEC 27701** | プライバシー情報マネジメント | 2021-02 に APEC PRP と同時に取得を発表（プレスリリースの転載日 2021-02-22） | [出典](https://www.servicenow.com/company/media/press-room/servicenow-achieves-iso27701-and-apec-prp-certification.html)、[APMdigest 転載](https://www.apmdigest.com/servicenow-achieves-iso27701-and-apec-prp-certification) |
+| **ISO/IEC 42001:2023** | AI マネジメントシステム | 2025-12 に取得を発表（公式ブログ 2025-12-18）。範囲は ServiceNow AI を支える AI マネジメントシステム（AIMS）。2026-06 のプレスリリースでも言及 | [公式ブログ](https://www.servicenow.com/blogs/2025/iso-certification-ai-management-system)、[PR TIMES](https://prtimes.jp/main/html/rd/p/000000206.000029239.html) |
+| **FedRAMP High** | 米国連邦政府クラウド認可 | Government Community Cloud（GCC）が JAB の FedRAMP High P-ATO を保有（FedRAMP Marketplace 上の Certified Since は 2019-08-12、発表は 2019-09-18）。それ以前の 2016-02 に FedRAMP Moderate の JAB P-ATO を取得済み。GCC は DoD IL4 も保有 | [FedRAMP Marketplace（F1305072116）](https://www.fedramp.gov/marketplace/products/F1305072116/)、[Moderate 取得プレス](https://www.servicenow.com/company/media/press-room/servicenow-gains-fedramp-certification.html)、[プレス（2019-09-18）](https://www.nasdaq.com/press-release/servicenow-secures-fedramp-high-authorization-2019-09-18)、[Compliance ページ](https://www.servicenow.com/company/trust/compliance.html)、[IL5 プレス](https://newsroom.servicenow.com/press-releases/details/2022/ServiceNow-Secures-U-S--Department-of-Defense-Impact-Level-5-Provisional-Authorization-03-30-2022-12-00-AM/default.aspx) |
 | **DoD IL5** | 米国防総省 Impact Level 5 | National Security Cloud（NSC）が 2022-03 に IL5 PA を取得。NSC は Microsoft Azure Government 上で提供 | [プレス](https://newsroom.servicenow.com/press-releases/details/2022/ServiceNow-Secures-U-S--Department-of-Defense-Impact-Level-5-Provisional-Authorization-03-30-2022-12-00-AM/default.aspx)、[Carahsoft インフォグラフィック](https://static.carahsoft.com/concrete/files/4916/5661/0302/National_Security_Cloud_IL-5_Infographic_1.pdf) |
 | **BSI C5**（ドイツ） | クラウドコンピューティング準拠基準 | 2020 年に C5 Attestation Report 取得 | Compliance ページ検索抜粋 [出典](https://www.servicenow.com/company/trust/compliance.html) |
 | **IRAP**（オーストラリア） | 政府向け評価 | OFFICIAL / PROTECTED（IRAP-Protected データセンターあり） | [PR TIMES](https://prtimes.jp/main/html/rd/p/000000206.000029239.html)、[AI implementation](https://www.servicenow.com/docs/r/XRgEFx7nPN6ciT_BBIvnbg/naFFc3uk~rCIpyPKBHkFZg) |
@@ -211,14 +228,14 @@ SOC 1/SOC 2 レポート、ISO 証明書、ペネトレーションテスト要�
 
 | 項目 | 内容 | 出典 |
 |---|---|---|
-| 制度 | ISMAP（Information system Security Management and Assessment Program、イスマップ）は、政府が求めるセキュリティ要求を満たすクラウドサービスを事前に評価・登録する制度。2020-06 運用開始。政府機関は原則として登録サービスから調達する | [PR TIMES](https://prtimes.jp/main/html/rd/p/000000206.000029239.html) |
+| 制度 | ISMAP（Information system Security Management and Assessment Program、イスマップ）は、政府が求めるセキュリティ要求を満たすクラウドサービスを事前に評価・登録する制度。2020-06-03 に総務省・内閣官房・経済産業省が運用開始を発表。各政府機関の情報システムの調達は、原則として ISMAP クラウドサービスリストに登録されたサービスから行う。所管は**国家サイバー統括室（NCO。2025-07-01 に内閣サイバーセキュリティセンター〈NISC〉から改組）**・デジタル庁・総務省・経済産業省で、IPA が制度運用の実務と評価の技術的支援を担う | [ISMAP ポータル（公式）](https://www.ismap.go.jp/)、[総務省報道資料（2020-06-03）](https://www.soumu.go.jp/menu_news/s-news/01cyber01_02000001_00071.html)、【第三者情報】[ScanNetSecurity（2020-06-05）](https://scan.netsecurity.ne.jp/article/2020/06/05/44178.html)、[ScanNetSecurity（NCO 設置、2025-07-11）](https://scan.netsecurity.ne.jp/article/2025/07/11/53202.html)、[PwC（ISMAP 解説）](https://www.pwc.com/jp/ja/services/digital-trust/ismap.html)、[PwC（2026-02-06）](https://www.pwc.com/jp/ja/knowledge/column/awareness-cyber-security/explanation-of-ismap2.html) |
 | ISMAP-LIU | リスクの小さな業務・情報を扱う SaaS 向けの簡易版。2022-11-01 運用開始 | 【第三者情報】[PwC](https://www.pwc.com/jp/ja/knowledge/prmagazine/pwcs-view/202303/43-02.html) |
-| 制度改定 | 2023-10 に外部監査の負荷軽減等の改定 | 【第三者情報】[KPMG](https://kpmg.com/jp/ja/insights/2024/05/ismap-revision-overview.html) |
+| 制度改定 | 2023-10 に外部監査の負荷軽減等の改定。さらに 2025-12-25 に「ISMAP管理基準の改定について（案）」（国家サイバー統括室・デジタル庁・総務省・経済産業省）で全般的な改定案が示され、改定後の基準の施行は 2027-03 以降の見込み（現行基準との並行運用期間は検討中）とされる。改定案は確定前のため、最新の改定状況は ISMAP ポータルで確認すること | 【第三者情報】[KPMG](https://kpmg.com/jp/ja/insights/2024/05/ismap-revision-overview.html)、[PwC（2026-02-06）](https://www.pwc.com/jp/ja/knowledge/column/awareness-cyber-security/explanation-of-ismap2.html)、[ScanNetSecurity（NCO 講演、2025-07-25）](https://scan.netsecurity.ne.jp/article/2025/07/25/53286.html) |
 | ServiceNow の登録 | ServiceNow AI Platform（2022-03〜）、Now Assist・AI Agents for ServiceNow（2026-06 追加） | §3.1 |
 
 **ISMAP 案件での実務上の注意:**
 
-- ISMAP の登録対象は「クラウドサービス名」単位である。利用予定の製品・機能（例：Now Assist の特定スキル、Store アプリ、Workflow Data Fabric の外部接続など）が登録範囲に含まれるか、ISMAP ポータルのクラウドサービスリストで**登録番号・登録範囲・有効期限**を確認する。本調査ではポータル（JavaScript 描画）から ServiceNow の登録番号・有効期限を取得できなかった（公開情報では確認できず）。
+- ISMAP の登録対象は「クラウドサービス名」単位である。利用予定の製品・機能（例：Now Assist の特定スキル、Store アプリ、Workflow Data Fabric の外部接続など）が登録範囲に含まれるか、ISMAP ポータル（https://www.ismap.go.jp/ ）のクラウドサービスリストで**登録番号・登録範囲・有効期限**を確認する。本調査ではポータル（JavaScript 描画）から ServiceNow の登録番号・有効期限を取得できなかった（公開情報では確認できず）。
 - ISMAP 登録は「クラウドサービス事業者の統制」を保証するものであり、**利用者側の設定（ACL、MFA、ログ監視）は政府機関側の責任**として残る（責任共有モデル、§5）。
 - 2026-06 の AI 追加登録により、問い合わせ対応・文書起案・申請処理（Now Assist）や承認ワークフロー（AI Agents）が機密性の高い業務でも利用しやすくなったと発表されている [出典](https://prtimes.jp/main/html/rd/p/000000206.000029239.html)。
 
@@ -259,7 +276,7 @@ GDPR 等の要求（データ最小化、非本番環境での匿名化、消去
 | Data Discovery | 別 Store アプリ。機密データの検出 | 同上 |
 | 暗号化（Column Level Encryption / Field Encryption 等） | フィールド・添付の暗号化。Enterprise 版は有償で Key Management Framework（KMF、FIPS 140-2 Level 3 HSM）を利用。**Zurich から CLE/CLEE は将来の廃止に向けた準備段階** | [出典](https://www.servicenow.com/docs/r/oJu9n0q6rU~F9UHAnNCt5w/xCLd3n6FPwSbXqd5X0UaeQ)。詳細は [プラットフォームセキュリティと暗号化](../02_リファレンス/platform/platform-security-encryption.md) |
 
-> **Brazil での変更:** 暗号化領域では Australia→Brazil 間で廃止・名称変更はなく、Edge Encryption プロキシが Java 21 以降に対応した（Java 17.0.3 以降の 17.x も引き続きサポート）。外部 KMS 連携プラグイン `com.glide.encryption.external_kms` は別サブスクリプションが必要（Australia と同じ）。Australia では Field Encryption Enterprise の管理画面刷新と External Key Management Service（EKMS）連携が追加された [出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-encryption-release-notes.html)。
+> **Brazil での変更:** 暗号化領域では Australia→Brazil 間で廃止・名称変更はなく、Edge Encryption プロキシが Java 21 以降に対応した（サポート版として Java 17.0.3 以降の 17.x も記載されているが、Brazil へのアップグレード前にプロキシの Java を Java 21 以降へ上げる必要があり、スケジュールアップグレードには Zurich Patch 13／Australia Patch 6 以降が必要）。外部 KMS 連携プラグイン `com.glide.encryption.external_kms` は別サブスクリプションが必要（Australia と同じ）。Australia では Field Encryption Enterprise の管理画面刷新と External Key Management Service（EKMS）連携が追加された [出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-encryption-release-notes.html)。
 
 ---
 
@@ -307,7 +324,7 @@ ServiceNow はこれに対し `KB1553688`（Potential Public List Widget Misconf
 - ロール指定が空の ACL、または `public` ロールを含む ACL を見直す
 - Public フラグが付いた Service Portal ウィジェット（Simple List 等）を見直し、不要なら Public = false にする
 - IP Address Access Control または Adaptive Authentication で接続元を制限する
-- Explicit Roles プラグインの導入を検討する（§7.5）
+- Explicit Roles プラグインの導入を検討する（§7.8）
 
 これは「プラットフォーム自体の脆弱性ではなく、顧客側の設定責任の範囲で起きる事故」の典型であり、導入プロジェクトでは**ポータル公開範囲と ACL の設計レビューを必須工程**にすべきである【経験則】。Australia の Security Center v3.3 では Access Findings（空 ACL、テーブル ACL、クライアント呼び出し可能な Script Include の ACL 等を 24 時間ごとにチェック）が追加された（§7.4）。
 
@@ -352,9 +369,9 @@ Security Center（Brazil 版ドキュメント）の構成要素は次のとお�
 |---|---|
 | Security Center landing page | 全体の入口 |
 | Security configuration console（セキュリティ構成コンソール） | ハードニング準拠スコア、スコア推移、優先度の高い非準拠設定、セキュリティスキャン結果 |
-| Security monitoring console（セキュリティ監視コンソール） | セキュリティ通知と、潜在的リスクに関するメトリクス（50 以上の指標） |
+| Security monitoring console（セキュリティ監視コンソール） | セキュリティ通知（なりすまし・データエクスポート等のイベント）、メトリクス閾値通知（直近 7 日）、セキュリティメトリクス、My Security Tasks。公式ドキュメントは「50 を超えるセキュリティメトリクスを監視できる」と記載（Store 掲載情報には 65 超とする記載もあり、バージョンにより異なる）[出典](https://www.servicenow.com/docs/r/oJu9n0q6rU~F9UHAnNCt5w/f8IBu_D9UULcjZPzsXmJqQ) |
 | Security posture console（セキュリティポスチャーコンソール） | 脅威の特定・対応・復旧をステップごとに支援 |
-| Security Tasks | セキュリティタスクの監視・優先度付け・割り当て（Zurich で導入） |
+| Security Tasks | セキュリティタスクの監視・優先度付け・割り当て（Zurich で Platform Security Tasks として導入）[出典](https://www.servicenow.com/docs/r/zurich/release-notes/security-center-rn.html) |
 | Security learning | 学習コンテンツの集約 |
 | Security banner announcements | 緊急・重大なセキュリティ問題を管理者 UI にバナー表示 |
 | Identity and Access Management | IAM ツールとメトリクス（Access Controls console / Access Findings） |
@@ -364,7 +381,7 @@ Security Center（Brazil 版ドキュメント）の構成要素は次のとお�
 | ロール | 権限 | 出典 |
 |---|---|---|
 | `admin` | すべての機能。より限定的なロールがある場合は使用を避けることが推奨 | [出典](https://www.servicenow.com/docs/r/oJu9n0q6rU~F9UHAnNCt5w/KgGK56BHwEvJShUSKPrivg) |
-| `sn_vsc.security_center_admin` | Security Center Admin。**フル admin なしで** Security Center の構成・アクセス制御を管理（Security Center 3.2 以降、Zurich/Australia リリースノートに記載） | [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-securitycenter-release-notes.html) |
+| `sn_vsc.security_center_admin` | Security Center Admin。**フル `admin` なしで** Security Center のコンソールとツールに管理者レベルでアクセスでき、セキュリティタスクの作成・管理も行える（Store の Security Center 3.2 で導入）。包含ロール：`mi_admin`、`access_analyzer_admin`、`pa_admin`、`scan_user`、`data_classification_auditor`、`sn_ace.ace_user`、`antivirus_viewer`、`sn_vsc.task_manager`、`sn_mif.mif_read`、`sn_cicd.sys_ci_automation` | [Granular roles for Security Center（Australia）](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/vquE8rIq3TcVvQJbtk1wUQ) |
 | `sn_vsc.security_center_viewer` | 参照のみ | [出典](https://www.servicenow.com/docs/r/oJu9n0q6rU~F9UHAnNCt5w/KgGK56BHwEvJShUSKPrivg) |
 
 > 旧 ISC のドキュメントでは閲覧ロールとして `security_dashboard_user` という名称も記載されている。ロール名はインスタンス上で確認すること。
@@ -403,7 +420,7 @@ Security Center の Security hardening（Australia）は、インスタンスの
 *図 1: Security Center > Security configuration console > Hardening の All settings 画面（Australia 世代）*
 
 画面の説明：上部ナビゲーションは「Security Center Configuration」ワークスペースで、タブは Overview / **Security hardening** / Security scanner / Security customer actions。左ペインに All settings、Score trend、Score comparison。本文上部に「Improve my hardening score」ボタンと、次に対処すべき非準拠設定（例：Enforce OCSP Check on Network Error、改善幅 0.44%）の提案。ウィジェットは「All hardening settings」（ゲージ 92%、Compliant & accepted risk）、「Compliant settings」217、「Accepted risk settings」1、「Non-compliant settings」26。下部の一覧「All hardening settings（244 件）」の列は Name / Compliance Status / Score Impact / Priority / Security Category / Resolution Details で、例として Enable Script Sandbox（`glide.script.use.sandbox` = true）、Require XMLdoc2 entity validation with allowlist（`glide.stax.whitelist_enabled`）、**Enable High Security Plugin（`com.glide.high_security`）** が 1 - Critical として並ぶ。右上に「Create task」「Export」。
-出典：ServiceNow Community「Your hardening score isn't just a number」（2026-07-15、ServiceNow 社員投稿）https://www.servicenow.com/community/security-on-now-blog/your-hardening-score-isn-t-just-a-number-here-s-what-it-s/ba-p/3574268 （取得日：2026-11-03）
+出典：ServiceNow Community「Your hardening score isn't just a number」（2026-07-15、ServiceNow 社員投稿）https://www.servicenow.com/community/security-on-now-blog/your-hardening-score-isn-t-just-a-number-here-s-what-it-s/ba-p/3574268 （取得日：2026-11-02）
 
 ### 7.4 Accept Risk（リスク受容）— Australia の新機能
 
@@ -427,14 +444,14 @@ Australia で、適用できないハードニング設定についてリスク�
 *図 2: Hardening setting の詳細画面（例：Require Minimum and Maximum Password Length）*
 
 画面の説明：パンくずは All hardening settings > Hardening setting。ヘッダーに Compliance Status（Non-Compliant）、Priority（3 - Moderate）、Security Category（Authentication）、Score Impact（0.44）。右上に「Create task」「Cancel」「Update」。左側の Description に、パスワード長は NIST 800-63B の範囲内にすべきという説明。「Setting configuration」に構成対象が並び、`pwd_cred_store` テーブル（Configured、各 Password credential store で Enable password policy を有効化）と `password_policy` テーブル（Not configured、最小 15 文字・最大 64 文字以上）にそれぞれ「Configure」ボタンがある。下部の「Accept compliance risk」セクションに、Current score 91.96% と Projected score with accepted risk 92.40%、「Accept risk」チェックボックスと理由入力欄。右側は Work notes / Additional Comments と Activity（Accept Risk、Compliance Status、Excluded Checks 等のフィールド変更履歴）。
-出典：ServiceNow Community「Your hardening score isn't just a number」https://www.servicenow.com/community/security-on-now-blog/your-hardening-score-isn-t-just-a-number-here-s-what-it-s/ba-p/3574268 （取得日：2026-11-03）
+出典：ServiceNow Community「Your hardening score isn't just a number」https://www.servicenow.com/community/security-on-now-blog/your-hardening-score-isn-t-just-a-number-here-s-what-it-s/ba-p/3574268 （取得日：2026-11-02）
 
 ![ハードニング準拠スコアの推移画面](../assets/images/10-security-compliance/sc-hardening-trend.png)
 
 *図 3: Compliant & accepted risk score trend（ハードニング準拠スコアの推移）*
 
 画面の説明：KPI DETAILS の「Compliant & accepted risk score trend」で、対象日（例：Jul 07 2026）のスコア 92%（前回比 +1）。期間（Apr 27 2026〜Jul 07 2026）と粒度（Daily）を指定でき、折れ線グラフでスコア推移を表示。右上に「Run process analysis」。下部の「All Hardening Compliance Scores」表は Score collected on / Score % / Non-Compliant Settings の列で、毎月 1 日の自動計算と随時計算の履歴（例：2026-07-01 91% / 非準拠 28 件、2026-07-07 92% / 26 件）が並ぶ。
-出典：ServiceNow Community「Your hardening score isn't just a number」https://www.servicenow.com/community/security-on-now-blog/your-hardening-score-isn-t-just-a-number-here-s-what-it-s/ba-p/3574268 （取得日：2026-11-03）
+出典：ServiceNow Community「Your hardening score isn't just a number」https://www.servicenow.com/community/security-on-now-blog/your-hardening-score-isn-t-just-a-number-here-s-what-it-s/ba-p/3574268 （取得日：2026-11-02）
 
 ### 7.5 主要なハードニング設定（Security Center baseline 4.0 ほか）
 
@@ -449,11 +466,11 @@ Security Center baseline version 4.0 で更新されたハードニング設定�
 | `glide.ui.escape_all_script` | `true` | スクリプトのエスケープ（XSS 対策） |
 | `glide.ui.escape_html_list_field` | `true` | リストの HTML フィールドのエスケープ |
 | `com.glide.cs.html.sanitizer.enabled` | `true` | HTML サニタイザー |
-| `glide.security.explicit_roles.enable_internal_user_blacklist` | `true` | Explicit Roles の内部ユーザー除外リストを有効化 |
+| `glide.security.explicit_roles.enable_internal_user_blacklist` | `true` | 外部ユーザーに `snc_internal` ロールが付与されるのを防ぐ。`true` のとき、除外リスト `glide.security.explicit_roles.internal_user_blacklist` が有効になる（§7.8） |
 | `com.glide.snap.infected_download_allowed` | `false` | ウイルス検出された添付のダウンロード禁止 |
 | `glide.attachment.enforce_security_validation` | `true` | 添付ファイルのセキュリティ検証 |
 | `glide.ip.authenticate.strict` | `true` | ServiceNow 内部 IP の許可範囲を厳格化 |
-| `glide.db.loguser` | `false` | — |
+| `glide.db.loguser` | `false` | SQL エラーメッセージをブラウザーに表示しない。エラーメッセージにはスタックトレースや DB 構造の情報が含まれうるため、`false` でない場合はサーバー側の機微なエラー内容がエンドユーザーに見える |
 | `glide.cms.catalog_uri_relative` | `true` | オープンリダイレクト対策 |
 | `glide.xmlutil.max_entity_expansion` | `3000` 以下 | XML エンティティ展開攻撃対策 |
 | `glide.stax.allow_entity_resolution` | `false`（カスタマイズで不要な場合） | XXE 対策 |
@@ -473,6 +490,8 @@ Anti-CSRF については、`glide.security.use_csrf_token` の関連として `
 ### 7.6 MFA 強制（Yokohama 以降）
 
 Yokohama 以降にアップグレードしたインスタンスでは、**ローカル（ユーザー名＋パスワード）および LDAP ログインに対して MFA が既定で強制**される。SSO（SAML、OIDC、証明書認証）ログインには既定の安全な MFA ポリシーでは MFA を要求しない（IdP 側で MFA を強制できない場合は ServiceNow 側 MFA を SSO にも有効化可能）[出典](https://www.servicenow.com/docs/r/zurich/platform-security/authentication/mfa-enforcement-scope.html)。
+
+**新規プロビジョニングされたインスタンスでは、初日から**内部ユーザーのローカル／LDAP ログインに MFA が既定で有効になる（アップグレード時のような猶予期間はない）。導入プロジェクトで新規に払い出したインスタンスは最初から MFA 前提となるため、初期構築時の管理者・テストユーザーの MFA 登録手順を用意しておく。対象は本番・サブプロダクション・開発者インスタンスを含む、Yokohama 以降で既存の MFA ポリシーが有効でないすべてのインスタンスである [出典](https://www.servicenow.com/blogs/2024/enforced-multifactor-authentication-mfa)、[Community 版](https://www.servicenow.com/community/platform-privacy-security-blog/enforced-multifactor-authentication-mfa-what-you-need-to-know/ba-p/3132526)。
 
 MFA 強制のタイムライン（Australia 版ドキュメント）[出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/4g2XUcwwnfQ03SQ6bdDn5A)：
 
@@ -518,7 +537,7 @@ MFA 強制のタイムライン（Australia 版ドキュメント）[出典](htt
 | 付与されるロール | `snc_internal`（全内部ユーザー。新規ユーザーには初回ログイン／なりすまし時に付与）、`snc_external`（外部ユーザー。ACL で明示的に許可しない限りリソースにアクセス不可） |
 | 排他 | Paris 以降、1 ユーザーが両ロールを同時に持つことはできない |
 | 既存データ | インストール時点の `sys_user` の全ユーザーを内部ユーザーとみなし、Fix script で `snc_internal` を付与。ロール指定のない ACL にも `snc_internal` を付与 |
-| 除外プロパティ | `glide.security.explicit_roles.internal_user_blacklist`（特定のユーザー種別を `snc_internal` 対象外にする） |
+| 除外プロパティ（2 つで 1 組） | ①`glide.security.explicit_roles.enable_internal_user_blacklist`：除外リストの有効化スイッチ（Security Center の推奨値 `true`、§7.5）。②`glide.security.explicit_roles.internal_user_blacklist`：除外対象（信頼しないユーザー種別）のリスト。①が `true` のとき、②に挙げたユーザー種別には `snc_internal` ではなく `snc_external` が付与される。①が `false` のときは②は無視される。旧版の説明では②に少なくとも既定の `csm_consumer_user`、`customer_contact` を含めるべきとされていた [出典](https://www.servicenow.com/docs/r/8yND1KuvF7tjP~F577YThQ/q3VTM7zM2iuKKhfPNPM3Hg) |
 | 前提 | Contextual Security Manager プラグインが必要 |
 | 注意 | 保守時間帯（ログインユーザーが少ない時間）に有効化する。Explicit Roles の有無が異なるインスタンス間でシステムのアップデートセットを移送しない |
 
@@ -625,6 +644,9 @@ ServiceNow インスタンスへの顧客によるペネトレーションテス
 - Updated hardening settings for baseline version 4.0: https://www.servicenow.com/docs/r/8yND1KuvF7tjP~F577YThQ/q3VTM7zM2iuKKhfPNPM3Hg
 - Anti-CSRF token（instance security hardening）: https://www.servicenow.com/docs/r/platform-security/instance-security-hardening-settings/anti-csrf-token.html
 - Instance Security Center（Zurich）: https://www.servicenow.com/docs/r/oJu9n0q6rU~F9UHAnNCt5w/KgGK56BHwEvJShUSKPrivg
+- Granular roles for Security Center（Australia）: https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/vquE8rIq3TcVvQJbtk1wUQ
+- Security monitoring console: https://www.servicenow.com/docs/r/oJu9n0q6rU~F9UHAnNCt5w/f8IBu_D9UULcjZPzsXmJqQ
+- Security Center release notes（Zurich）: https://www.servicenow.com/docs/r/zurich/release-notes/security-center-rn.html
 - Security Center release notes（Zurich→Brazil）: https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-securitycenter-release-notes.html
 - Encryption release notes（Australia→Brazil）: https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-encryption-release-notes.html
 - MFA enforcement timeline（Australia）: https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/4g2XUcwwnfQ03SQ6bdDn5A
@@ -647,6 +669,16 @@ ServiceNow インスタンスへの顧客によるペネトレーションテス
 - ServiceNow achieves ISO 27701 and APEC PRP certification: https://www.servicenow.com/company/media/press-room/servicenow-achieves-iso27701-and-apec-prp-certification.html
 - ServiceNow Secures DoD Impact Level 5 Provisional Authorization（2022-03-30）: https://newsroom.servicenow.com/press-releases/details/2022/ServiceNow-Secures-U-S--Department-of-Defense-Impact-Level-5-Provisional-Authorization-03-30-2022-12-00-AM/default.aspx
 - NTT Communications プレスリリース（2018-10-17）: https://www.ntt.com/about-us/press-releases/news/article/2018/1017.html
+- ServiceNow Secures FedRAMP High Authorization（2019-09-18）: https://www.nasdaq.com/press-release/servicenow-secures-fedramp-high-authorization-2019-09-18
+- ServiceNow Gains FedRAMP Certification（2016、Moderate JAB P-ATO）: https://www.servicenow.com/company/media/press-room/servicenow-gains-fedramp-certification.html
+- ServiceNow achieves ISO certification for its AI management system（2025-12-18）: https://www.servicenow.com/blogs/2025/iso-certification-ai-management-system
+- Enforced multifactor authentication (MFA): What you need to know: https://www.servicenow.com/blogs/2024/enforced-multifactor-authentication-mfa
+
+**公的機関**
+
+- FedRAMP Marketplace – ServiceNow Government Community Cloud（F1305072116）: https://www.fedramp.gov/marketplace/products/F1305072116/
+- ISMAP ポータル（政府情報システムのためのセキュリティ評価制度）: https://www.ismap.go.jp/
+- 総務省報道資料「政府情報システムのためのセキュリティ評価制度（ISMAP）の運用開始」（2020-06-03）: https://www.soumu.go.jp/menu_news/s-news/01cyber01_02000001_00071.html
 
 **ServiceNow Community**
 
@@ -660,6 +692,7 @@ ServiceNow インスタンスへの顧客によるペネトレーションテス
 - Link to download compliance documentation: https://www.servicenow.com/community/denmark-snug/link-to-download-compliance-documentation-for-servicenow/m-p/2435572
 - Regarding "Potential Public List Widget Misconfiguration" [KB1553688]: https://www.servicenow.com/community/developer-forum/regarding-quot-potential-public-list-widget-misconfiguration/m-p/2718223
 - How vulnerability assessment and penetration testing (VAPT) is done: https://www.servicenow.com/community/architect-forum/article-how-vulnerability-assessment-and-penetration-testing/m-p/2685423
+- Enforced multifactor authentication (MFA): What you need to know（Community 版）: https://www.servicenow.com/community/platform-privacy-security-blog/enforced-multifactor-authentication-mfa-what-you-need-to-know/ba-p/3132526
 
 **第三者情報**
 
@@ -668,3 +701,9 @@ ServiceNow インスタンスへの顧客によるペネトレーションテス
 - Carahsoft「National Security Cloud IL-5 Infographic」: https://static.carahsoft.com/concrete/files/4916/5661/0302/National_Security_Cloud_IL-5_Infographic_1.pdf
 - PwC（ISMAP-LIU 解説）: https://www.pwc.com/jp/ja/knowledge/prmagazine/pwcs-view/202303/43-02.html
 - KPMG（ISMAP 制度改定の概要）: https://kpmg.com/jp/ja/insights/2024/05/ismap-revision-overview.html
+- ScanNetSecurity「政府機関向けにクラウドサービス事業者を評価する制度を開始」（2020-06-05）: https://scan.netsecurity.ne.jp/article/2020/06/05/44178.html
+- PwC（ISMAP 解説）: https://www.pwc.com/jp/ja/services/digital-trust/ismap.html
+- PwC（ISMAP 管理基準改定案の解説、2026-02-06）: https://www.pwc.com/jp/ja/knowledge/column/awareness-cyber-security/explanation-of-ismap2.html
+- ScanNetSecurity「内閣官房に国家サイバー統括室を設置」（2025-07-11）: https://scan.netsecurity.ne.jp/article/2025/07/11/53202.html
+- ScanNetSecurity「ISMAP 制度見直しについて ～ 国家サイバー統括室（NCO）基調講演」（2025-07-25）: https://scan.netsecurity.ne.jp/article/2025/07/25/53286.html
+- APMdigest（ISO 27701 / APEC PRP プレスリリース転載、2021-02-22）: https://www.apmdigest.com/servicenow-achieves-iso27701-and-apec-prp-certification

@@ -52,7 +52,16 @@ sources:
   - https://www.servicenow.com/docs/r/australia/release-notes/mobile-rn.html
   - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-mobileplatform-release-notes.html
   - https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-mobileplatform-release-notes.html
+  - https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-nowmobile-release-notes.html
   - https://www.servicenow.com/docs/r/mobile/classic-mobile-migration.html
+  - https://www.servicenow.com/docs/r/mobile/mobile-platform/sg-mobile-migration-ny.html
+  - https://www.servicenow.com/docs/r/mobile/using-shared-device.html
+  - https://www.servicenow.com/docs/r/gW~WF5J9ksCMAF2lNB3mJw/QvGkDFo5aZXwubuUCmDsTQ
+  - https://www.servicenow.com/docs/r/fr-FR/mobile/sg-mobile-package-ids.html
+  - https://www.servicenow.com/docs/r/zurich/mobile/update-branded-app.html
+  - https://www.servicenow.com/docs/r/store-release-notes/store-rn-mobile-publishing.html
+  - https://www.servicenow.com/docs/r/washingtondc/platform-administration/r_PushNotificationSetupCustom.html
+  - https://appstoreprod.service-now.com/store/app/81eb232e1b246a50a85b16db234bcb1e
   - https://www.servicenow.com/community/mobile-apps-and-platform-blog/what-s-new-for-servicenow-mobile-in-the-australia-release/ba-p/3575645
   - https://www.servicenow.com/community/mobile-apps-platform-articles/getting-started-with-mobile-faq/ta-p/2301723
   - https://www.servicenow.com/community/mobile-apps-platform-articles/mobile-security-faq/ta-p/2302507
@@ -145,11 +154,12 @@ ServiceNow のモバイルアプリは、ドキュメント・アプリストア
 | OS サポートポリシー | **iOS は最新 2 バージョン、Android は最新 4 バージョン**をサポート（OS 機能やロードマップに応じて見直す権利を留保） |
 | 互換性の方向 | 新しいアプリはどのインスタンスバージョンとも動作するが、**古いアプリは新しいインスタンスでは動作しない**。表の最大インスタンスバージョンを超えないこと |
 | 例（アプリ 22.x） | iOS 18 以上、Android 12.0（Snow Cone）以上。対応インスタンスは Utah〜Brazil |
-| インスタンス要件 | Madrid リリース以降 |
+| インスタンス要件 | モバイルアプリ全般の最低要件は Madrid リリース以降。ただし実際の下限・上限はアプリのバージョンごとの表に従う（例：22.x は Utah 以上 Brazil まで） |
 | Android アーキテクチャ | アプリ 20.4.0 以降、Intel x86 / x86_64 の Android 端末はサポート外 |
 | テスト済み iPhone | iPhone 11〜iPhone 17 系（iPhone Air、iPhone 17e を含む） |
 | テスト済み Android | Samsung Galaxy S10〜S26 系、Google Pixel 4〜Pixel 10 系、OnePlus 8 Pro、Zebra TC51 |
-| Android タブレット | 公式にはテスト対象外。推奨 RAM は 8GB 以上 |
+| テスト済み iPad | iPad Pro 11"（M5）、iPad Pro 13"（M4 / M5）、iPad Air（M4, 8th gen）、iPad（11th gen, A16）、iPad mini（5th gen）、iPad Pro 11"（2nd gen）/ 12.9"（4th gen）など多数の機種 |
+| Android タブレット | 公式にはテスト対象外。推奨 RAM は 8GB 以上（Android 端末全般の最小推奨値として記載） |
 | Apple Vision Pro | Mobile Agent（ServiceNow Agent）17.5 のベータ版が Apple Vision Pro App Store で提供（詳細は営業担当に問い合わせ） |
 
 [出典](https://www.servicenow.com/docs/r/australia/mobile/mobile-supported-devices.html)
@@ -199,7 +209,7 @@ Now Mobile の Home / Support（Help Center）タブは Employee Center と一�
 
 | 要素 | Employee Center との共有 | 補足 |
 |---|---|---|
-| Search for Mobile | 共有しない | Now Mobile 用の **Search Profile** を別途構成。AI Search 利用可。Genius results は **All > AI Search > Now Assist in AI Search Setup** で Now Mobile Default Search Profile 配下のアプリ（Now Mobile - Home / Help Center 等）を選択 |
+| Search for Mobile | 共有しない | Now Mobile 用の **Search Profile** を別途構成。AI Search 利用可。Genius results は **All > AI Search > Now Assist in AI Search Setup** で Now Mobile Default Search Profile 配下のアプリ（Now Mobile - Home / Help Center 等）を選択。Genius results は Yokohama で導入され、Now Mobile 29.2 以上と Employee Center 35.0 以上が必要（[出典](https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-nowmobile-release-notes.html)） |
 | Employee Communications（キャンペーン） | 共有しない | Now Mobile 向けに別途スケジュール。Employee Center Pro が必要 |
 | Quick Links | 仕組みは同じ | Now Mobile 用に別途設定が必要 |
 | Featured news | 共有 | ポータルのニュースを表示 |
@@ -308,8 +318,8 @@ ServiceNow のモバイルアプリは以下の階層でメタデータとして
 
 | コンポーネント | テーブル | 説明 |
 |---|---|---|
-| Mobile app（モバイルアプリ） | `sys_sg_native_client`（Native Clients） | Now Mobile と Mobile Agent。それぞれ 1 つ以上の Mobile app config を持つ |
-| Mobile app config（アプリ構成） | 公開情報では単独のテーブル名を確認できず（MAB の「Mobile app configs」カテゴリは `sys_sg_native_client` に基づく） | ログイン後にユーザーが見る体験を定義。どの構成が適用されるかは構成に設定した条件で決まる。テーマ、利用者権限、ナビゲーションバーもここで設定 |
+| Mobile app（モバイルアプリ） | `sys_sg_native_client`（Native Clients）※下記注記参照 | Now Mobile と Mobile Agent。それぞれ 1 つ以上の Mobile app config を持つ |
+| Mobile app config（アプリ構成） | `sys_sg_native_client`（MAB の「Mobile app configs」カテゴリ）※下記注記参照 | ログイン後にユーザーが見る体験を定義。どの構成が適用されるかは構成に設定した条件で決まる。テーマ、利用者権限、ナビゲーションバーもここで設定 |
 | Navigation bar（ナビゲーションバー） | ― | 画面下部のバー。最大 5 タブ。既定で通知タブと設定タブを含む |
 | Navigation bar tabs | ― | 各タブは Screen または Launcher screen を開く。5 を超えるタブは「More」タブに格納 |
 | Launcher screens（ランチャー画面） | ― | ホーム / ランディングページ。ヘッダー、セクション、検索バー（任意）、クイックアクションを構成 |
@@ -321,9 +331,11 @@ ServiceNow のモバイルアプリは以下の階層でメタデータとして
 | Item configurations | `sys_sg_master_item` | セグメント内でのデータの表示パターン・外観 |
 | Functions（機能） | `sys_sg_button` | ユーザーが実行する操作（タスク割り当て、レコード遷移、メール送信、地図を開く、電話をかける等） |
 
+> **注記（`sys_sg_native_client` の位置付け）:** 公式ドキュメントでは `sys_sg_native_client` が「クライアント（Mobile Agent / Now Mobile / Mobile Onboarding）」のテーブルとしても（New York 移行ページ）、「Mobile app configs」のテーブルとしても（MAB categories ページ）説明されている。MAB では app config レコードをこのテーブル上で編集する（エディター URL は `/now/mobile-app-builder/editor/sys_sg_native_client/<sys_id>`）。一方、アプリ種別（Agent / Request）は共有デバイス設定（10.4）などで「Mobile Application」として app config とは別に参照される。実テーブルの構造はインスタンスの辞書（**System Definition > Tables**）で確認すること。[出典](https://www.servicenow.com/docs/r/mobile/mobile-platform/sg-mobile-migration-ny.html) / [出典](https://www.servicenow.com/docs/r/mobile/mab-menu-screen-listed.html)
+
 ```mermaid
 flowchart TD
-  NC["Mobile app<br/>sys_sg_native_client<br/>(Now Mobile / Mobile Agent)"] --> CFG["Mobile app config<br/>(条件で適用先を決定)"]
+  NC["Mobile app / app config<br/>sys_sg_native_client<br/>(Now Mobile / Mobile Agent)"] --> CFG["Mobile app config<br/>(条件で適用先を決定)"]
   CFG --> NAV["Navigation bar<br/>(最大5タブ + More)"]
   NAV --> LS["Launcher screen<br/>(ヘッダー/セクション/検索/クイックアクション)"]
   NAV --> SC["Screen"]
@@ -428,8 +440,8 @@ ServiceNow Community の Australia 紹介ブログは、構成の簡素化、リ
 |---|---|
 | `admin` | プラグインのインストール、MAB でのロール割り当て等。`PINIdleTimeout` 作成やトークン寿命設定の手順も `admin` を要求 |
 | `mobile_shared_device_mode_enabler` | 端末を共有デバイス（マルチユーザー）モードに切り替えられるユーザー（10.4 参照） |
-| `delegated_developer` | 他の開発者によるモバイルアプリのピアレビュー・テストに利用（Community 記事の記載） |
-| `snc_external` | 外部ユーザーに付与し、限定的なアクセスを与える（Community FAQ の記載） |
+| `delegated_developer` | プラットフォーム共通ロール（モバイル専用ではない）。モバイルの文脈では、他の開発者によるモバイルアプリのピアレビュー・テストに使うと Community 記事で言及されている |
+| `snc_external` | プラットフォーム共通ロール（モバイル専用ではない）。モバイルの文脈では、外部ユーザーに付与して限定的なアクセスを与えると Community FAQ で言及されている |
 | Push admin（正式ロール名は未確認） | カスタムプッシュアプリの設定（Push admin = push app developer / mobile app developer） |
 
 [出典](https://www.servicenow.com/docs/r/australia/mobile/user-roles-config.html) [出典](https://www.servicenow.com/community/mobile-apps-platform-articles/servicenow-mobile-quick-start-guide/ta-p/2532845) [出典](https://www.servicenow.com/community/mobile-apps-platform-articles/getting-started-with-mobile-faq/ta-p/2301723) [出典](https://www.servicenow.com/docs/r/washingtondc/platform-administration/r_PushNotificationSetupCustom.html)
@@ -543,7 +555,7 @@ return deepLinkGen.getScreenLink('73f3d135532033002d96ddeeff7b1212');
 | 認証フロー | **OAuth 2.0（AppAuth）**。サインインは外部のモバイルブラウザーで行う |
 | 対応認証方式 | Multi-Provider SSO（SAML、`com.snc.integration.sso.multi.installer`）、MFA（`com.snc.integration.multifactor.authentication`）、LDAP、ローカル DB ログイン、Digest |
 | 資格情報 | アプリはパスワードを保存しない（OAuth の client ID のみ保持） |
-| トークン | 初回ログイン時にアクセストークンとリフレッシュトークンを発行。アクセストークン失効時はリフレッシュトークンで再取得し、それも無効なら再ログイン。iOS Keychain / Android KeyStore に保存 |
+| トークン | 初回ログイン時にアクセストークンとリフレッシュトークンを発行。アクセストークン失効時はリフレッシュトークンで再取得し、それも無効なら再ログイン。iOS Keychain / Android KeyStore に保存。Keychain の暗号化は AES-256（Galois/Counter Mode, GCM） |
 | ユーザー削除時 | 管理者がユーザーを削除するとアクセストークンが無効になりログアウト |
 
 [出典](https://www.servicenow.com/docs/r/australia/mobile/mobile-security-landing.html)
@@ -574,7 +586,7 @@ SSO・MFA の構成自体は [認証とSSO](authentication-sso.md) を参照。
 | 端末内（Android） | SQLCipher SDK（FIPS 140-2 検証済み暗号モジュール）で Room DB を暗号化 |
 | Android の暗号スイート | クライアント 20.1.0 で `TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384` を追加し、CBC 系 3 スイートを廃止。SSL ハンドシェイク失敗時はインスタンス側の対応スイートを確認 |
 | コピー＆ペースト制限 | `glide.sg.clear_pasteboard_when_background` = `true` |
-| アプリ PIN の強制 | `glide.sg.require_mobile_application_pin` = `true`（6 桁。サインイン後および非アクティブ後に要求） |
+| アプリ PIN の強制 | `glide.sg.require_mobile_application_pin` = `true`（6 桁。サインインのたび、またはアプリが **5 分間**非アクティブになった後に要求。Australia ではアプリ種別ごとに `PINIdleTimeout`（既定 300 秒 = 5 分）で調整可能、10.4 参照） |
 | バックグラウンド時のぼかし | `glide.sg.blur_ui_when_backgrounded` = `true`（既定 `false`）。Android では画面共有が黒画面になりスクリーンショットも禁止（iOS には適用されない） |
 | 添付ファイルのブロック | `sys_attachment` の ACL で `gs.isMobile()` の場合に `false` を返す |
 | 端末キャッシュ | お気に入り・ホーム画面・ナビゲーター項目などの設定類はキャッシュされる。レコードデータは（Field Service 等で）オフライン同期を有効にしない限り端末に保存しない。オフラインデータは暗号化 |
@@ -656,13 +668,13 @@ ServiceNow Community の Mobile Security FAQ（ServiceNow 社員による Commun
 |---|---|
 | 有効化の原則 | オフラインペイロードに含める**すべての項目を管理者が明示的に有効化**する必要がある |
 | 対象アプリ | Now Mobile、Mobile Agent、カスタムアプリ、Mobile Publishing のアプリ（アプリ単位の有効化だけでは不十分で、画面・Function ごとの設定が必要） |
-| キャッシュ有効期限 | 既定でダウンロード後 **48 時間**（`glide.sg.offline.expiration` = 172800 秒）。期限内に同期されない変更は Outbox に移る |
+| キャッシュ有効期限 | 既定でダウンロード後 **48 時間**（`glide.sg.offline.expiration` = 172800 秒）。期限内に同期されない変更は Outbox に移り、ユーザーが次にログアウトしたときにインスタンスへ同期される（競合は Outbox で解決） |
 | オフラインで使える範囲 | キャッシュされたデータを持つ画面のみ（例：Tasks と Inventory だけ有効なら他は使えない） |
 | 操作 | キャッシュ済みレコードの作成・更新・削除が可能。各操作は **Outbox（送信トレイ）** に記録され、再接続まで保持 |
 | 同期 | 再接続時に Outbox を同期。競合がなければ自動反映、競合は Outbox でユーザーが解決 |
 | OS 差異 | iOS は「Expires」フィールドで有効期限を表示。Android はキャッシュサイズと最終キャッシュ日時を表示（有効期限は表示しない） |
 | 想定用途 | 短時間の通信断への対応。長期のデータ保持用途ではない |
-| プラグイン | SG Offline support プラグイン（`com.glide.sg.offline`） |
+| プラグイン | SG Offline support プラグイン（`com.glide.sg.offline`）。「Configure offline mode behavior」ページの前提条件に「インストール済み、またはインストールを依頼」と記載（オフラインモード自体は既定で有効）[出典](https://www.servicenow.com/docs/r/gW~WF5J9ksCMAF2lNB3mJw/QvGkDFo5aZXwubuUCmDsTQ) |
 
 [出典](https://www.servicenow.com/docs/r/australia/mobile/mobile-offline-mode.html) [出典](https://www.servicenow.com/docs/r/australia/mobile/offline-capabilities.html) [出典](https://www.servicenow.com/docs/r/mobile/config-offline-data-item.html) [出典](https://www.servicenow.com/docs/r/gW~WF5J9ksCMAF2lNB3mJw/QvGkDFo5aZXwubuUCmDsTQ)
 
@@ -830,7 +842,7 @@ ServiceNow のモバイルアプリには、EMM（Enterprise Mobility Management
 | `SNDefaultInstanceURL` | 例 `https://instancename.service-now.com` | 既定インスタンス URL を事前設定 | 管理対象アプリ |
 | `SNDefaultInstanceName` | 表示名（例：会社名） | 既定インスタンスの表示名 | 管理対象アプリ |
 | `SNBlockInstanceCreate` | `"true"` / `"false"` | `true` でインスタンス一覧の「+」を非表示にし、無許可のインスタンス追加を防止 | 管理対象アプリ |
-| `SNBlockMultiInstance` | `"true"` / `"false"` | `true` で複数インスタンスへの同時ログインを禁止（切り替えにはログアウトが必要） | ― |
+| `SNBlockMultiInstance` | `"true"` / `"false"` | エンドユーザーが複数インスタンスに同時ログインするのを防ぐ。`true` でログイン中はインスタンス管理画面を開けなくなる（インスタンスを切り替えるにはログアウトして別インスタンスにログインする必要がある） | 管理対象アプリ |
 | `SNAuthenticationBrowseriOS` | `Safari`、`Chrome`、`Firefox`、`Edge`、`WorkspaceONE`、`WebAtWork`、`BlackBerry Access`、`MaaS360`、`Citrix` | 認証（AppAuth）に使うブラウザー | iOS |
 | `SNAuthenticationBrowserAndroid` | `Chrome`、`Firefox`、`Samsung`、`WorkspaceONE`、`Edge`、`BlackBerry Access`、`MaaS360`、`Citrix` | 認証に使うブラウザー | Android |
 | `SNExternalBrowseriOS` | `Safari`、`Chrome`、`Firefox`、`Edge`、`WorkspaceONE`、`WebAtWork`、`Blackberry Access`、`MaasS360`、`Citrix` | 外部リンクを開くブラウザー。未設定時は Safari | iOS |
@@ -953,7 +965,7 @@ Apple Connect / Developer、Managed Google Play、Xcode、Entra ID は申請時�
 | **Mobile AI Voice Agent**（Australia） | アプリ内で AI 音声アシスタントとリアルタイムに会話（質問、問題報告、レコード作成、ワークフロー開始）。ライブトランスクリプトを表示し、通話後に保存・共有可能。ユーザーはサインイン済みのため依頼に直接対応できる。アプリをバックグラウンドにしても通話継続（iOS / Android、ホーム / ロック画面からミュート・終了） | インスタンスで Now Assist が有効、AI 音声機能の権限とライセンス、Assistant Designer で Now Assist Voice assistant を作成し voice function を割り当て。ランチャーの Type は **Voice Launcher**（直接起動）または **Chat launcher**（Virtual Agent から起動） |
 | **ServiceNow AI Lens for mobile** | 画像・メール・手書きメモ・Web / アプリのスクリーンショット等から生成 AI で情報を抽出し、フォームに自動入力。対応ファイルは PDF、Word、Excel、PowerPoint、JPG / JPEG / PNG。Input form screen に **Lens launcher button** を追加して利用 | Now Assist（Now Assist プラグインの有効化）。ライセンス条件はページにより記述が異なり、営業担当への確認が推奨されている |
 | **Virtual Agent / Premium chat**（Australia） | Web ベースのチャット（Premium chat）をアプリ内で開き、Web で構成した全機能を利用可能。検索結果の Chat ボタンからその結果について VA と会話。VA のブランド表示、トーンと応答長の調整（Assistant Designer）、Markdown の表表示 | Virtual Agent のライセンス（ITSM Pro 等） |
-| **Now Assist Genius results** | Now Mobile の検索で Genius results（生成 AI 回答）を表示 | Now Assist ライセンス、AI Search |
+| **Now Assist Genius results** | Now Mobile の検索で Genius results（生成 AI 回答）を表示（Yokohama で導入） | Now Assist ライセンス、AI Search、Now Mobile 29.2 以上、Employee Center 35.0 以上 [出典](https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-nowmobile-release-notes.html) |
 | **Suggested actions**（Australia） | すべての agentic workflow で推奨アクションを構成可能 | Now Assist |
 
 [出典](https://www.servicenow.com/docs/r/australia/release-notes/mobile-rn.html) [出典](https://www.servicenow.com/docs/r/mobile/mobile-platform/config-mobile-ai-voice-agent.html) [出典](https://www.servicenow.com/docs/r/australia/mobile/servicenow-lens-mobile.html) [出典](https://www.servicenow.com/community/employee-center-articles/getting-started-with-now-mobile/ta-p/3359190)
@@ -998,12 +1010,13 @@ Apple Connect / Developer、Managed Google Play、Xcode、Entra ID は申請時�
 | 添付ファイル / ServiceNow Lens の更新 | 対応形式を PDF、DOC/DOCX、XLS/XLSX、PPT/PPTX、JPG/JPEG、PNG に拡大。Field Service の添付バックグラウンドアップロードと自動リトライ |
 | Redesigned Settings screen | Now Mobile と Mobile Agent の Settings を折りたたみセクション（設定・プロフィール・アカウント切替）に再編し、Experience 領域を追加 |
 | System default theme option | 端末のテーマに追従する System default（Light / Dark も選択可） |
+| Accessibility 改善（Accessibility and localization） | タブレット端末での可読性向上（Improved readability on tablet devices） |
 
 [出典](https://www.servicenow.com/docs/r/australia/release-notes/mobile-rn.html) [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-mobileplatform-release-notes.html)
 
 ServiceNow Community の Australia 紹介ブログは、上記に加えて「Richer mobile forms（複数ページのフォーム、ページ間ナビゲーション、説明・ヘルプの充実、画像撮影と注釈、検証とエラーメッセージの改善、全画面モード、AI 支援入力）」「Embedded web experiences の改善」「医療・小売・事業継続・リスク管理向けの新しい専用アプリ」を挙げている。[出典](https://www.servicenow.com/community/mobile-apps-and-platform-blog/what-s-new-for-servicenow-mobile-in-the-australia-release/ba-p/3575645)
 
-- Australia のモバイルリリースノートでは**廃止（Deprecations）・削除（Removed）項目は記載されていない**。
+- Australia のモバイルリリースノートでは**廃止（Deprecations）・削除（Removed）項目は記載されていない**。ただし Mobile Studio の非推奨化準備（7.7）は、リリースノートではなく製品ドキュメント（Mobile Platform configuration navigation）に記載されている。[出典](https://www.servicenow.com/docs/r/australia/mobile/mobile-config-navigation.html)
 
 ---
 

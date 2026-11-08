@@ -344,7 +344,7 @@ Datadog の CloudFormation StackSet テンプレートは、Organization また�
 
 出典: [AWS Integration Multi-Account setup for AWS Organizations](https://docs.datadoghq.com/integrations/guide/aws-organizations-setup/)
 
-100 以上のアカウントの連携に関する公式のアーキテクチャガイド「A Guide to Integrating 100+ AWS Accounts with Datadog」もある。[出典](https://www.datadoghq.com/architecture/a-guide-to-integrating-100-aws-accounts-with-datadog/) マルチアカウント・マルチ org の運用設計は [大規模・マルチorg運用](../../04_応用編/large-scale-and-multi-org.md) を参照。
+100 以上のアカウントの連携に関する公式のアーキテクチャガイド「A Guide to Integrating 100+ AWS Accounts with Datadog」もある。[出典](https://www.datadoghq.com/architecture/a-guide-to-integrating-100-aws-accounts-with-datadog/) マルチアカウント・マルチ org の運用設計は [大規模・マルチorg運用](../../04_応用編/15-large-scale-and-multi-org.md) を参照。
 
 ## AWS インテグレーションページの構成
 
@@ -636,7 +636,7 @@ Datadog Forwarder は、AWS からログを Datadog に送る Lambda 関数で�
 - Forwarder は VPC のプライベートサブネットで動かし、AWS PrivateLink 経由で送信できる。**PrivateLink は AWS 上でホストされる Datadog サイトでのみ利用でき、`datadoghq.eu`（EU1）では使えない**。必要な Datadog エンドポイントは `api`、`http-logs.intake`、`trace.agent`、AWS 側は Secrets Manager と S3。タグ取得を有効にする場合は Resource Groups Tagging API（`DdFetchLambdaTags` / `DdFetchS3Tags`）や CloudWatch Logs（`DdFetchLogGroupTags`）のエンドポイントも必要。[出典](https://docs.datadoghq.com/logs/guide/forwarder/)
 - PrivateLink が使えない場合（EU サイト等）は、HAProxy / NGINX のプロキシ（API 用ポート `3834`、トレース用 `3835`、ログ用 `3837`）や Web プロキシ（`DdHttpProxyURL`）を使う。Resource Groups Tagging API には VPC エンドポイントがないため、この構成では `DdFetchLambdaTags` と `DdFetchS3Tags` を無効にする。`DdHttpProxyURL` と PrivateLink は併用しない。[出典](https://docs.datadoghq.com/logs/guide/forwarder/)
 
-> **サイト差異:** Forwarder の PrivateLink 送信は EU1（`datadoghq.eu`）では利用不可。AP1 など AWS 上でホストされるサイトでの PrivateLink の詳細（対応リージョン等）は [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md) を参照。
+> **サイト差異:** Forwarder の PrivateLink 送信は EU1（`datadoghq.eu`）では利用不可。AP1 など AWS 上でホストされるサイトでの PrivateLink の詳細（対応リージョン等）は [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md) を参照。
 
 #### 失敗時の保存とリトライ
 
@@ -793,7 +793,7 @@ Amazon Data Firehose では、CloudWatch ロググループのログを（任意
 出典: [AWS Integration](https://docs.datadoghq.com/integrations/amazon_web_services/)、[Datadog Forwarder](https://docs.datadoghq.com/logs/guide/forwarder/)、[Firehose Destination](https://docs.datadoghq.com/logs/guide/send-aws-services-logs-with-the-datadog-kinesis-firehose-destination/)
 
 - **CloudWatch ロググループごとのサブスクリプションフィルターは 2 つまで**。Forwarder と Firehose の併用や他ツールとの共存では、この上限を考慮する。[出典](https://docs.datadoghq.com/logs/guide/send-aws-services-logs-with-the-datadog-kinesis-firehose-destination/)
-- ログの取り込み後の処理は [Log Pipelines と処理](../logs/log-pipelines-and-processing.md)、量の制御とコストは [ログ管理の実践](../../04_応用編/log-management-practices.md) を参照。
+- ログの取り込み後の処理は [Log Pipelines と処理](../logs/log-pipelines-and-processing.md)、量の制御とコストは [ログ管理の実践](../../04_応用編/06-log-management-practices.md) を参照。
 
 ## リソース収集
 
@@ -911,7 +911,7 @@ AWS Integration が付与するタグのキーは次のとおり（一部のタ�
 - Terraform の `account_tags` で、アカウント単位の共通タグを全メトリクスに付与できる。[出典](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/integration_aws_account.md)
 - インテグレーションを削除しても、Agent が動いている限り AWS 由来のホストタグは残る（想定どおりの動作）。削除するには Remove host tags API または `remove_lingering_aws_host_tags.py` を使う。[出典](https://docs.datadoghq.com/integrations/guide/aws-integration-troubleshooting/)
 
-タグ設計の考え方は [Tagging](./tagging.md) と [タグ戦略の実践](../../04_応用編/tagging-strategy.md) を参照。
+タグ設計の考え方は [Tagging](./tagging.md) と [タグ戦略の実践](../../04_応用編/02-tagging-strategy.md) を参照。
 
 ## 対応サービス
 
@@ -987,7 +987,7 @@ Lambda の対応ランタイム：Node.js 16.x / 18.x / 20.x / 22.x / 24.x / 26.
 ステップ 1「Select AWS Region」では CloudFormation スタックを作成するリージョン（例 `us-east-1`）を選ぶ。画面の注記には「CloudWatch メトリクスはこの選択に関係なく利用中のすべての AWS リージョンから収集され、Agent も対象ワークロードのある全リージョンにインストールされる」とある。ステップ 2「Install the Datadog Agent」には「Install the Datadog Agent on my AWS workloads」トグルと、「Select Workloads for Agent Installation」の下に **Hosts**（Install the Agent on EC2 instances）と **Kubernetes**（Install the Agent on EKS clusters）のトグルが表示されている。ただし本文では、EKS は 2026-11-02 時点で選択できないとされている。画像は旧 UI の可能性がある。
 出典: https://docs.datadoghq.com/integrations/guide/aws-agent-installation/ （取得日 2026-11-02）
 
-Agent を手動で入れる場合やバージョン管理は [Datadog Agent](./agent.md)、[Fleet Automation と Remote Configuration](./fleet-automation.md)、展開設計は [Agent 展開設計](../../03_導入編/agent-rollout-design.md) を参照。
+Agent を手動で入れる場合やバージョン管理は [Datadog Agent](./agent.md)、[Fleet Automation と Remote Configuration](./fleet-automation.md)、展開設計は [Agent 展開設計](../../03_導入編/10-agent-rollout-design.md) を参照。
 
 ## API
 
@@ -1078,7 +1078,7 @@ AWS Integration の設定は Datadog API（v2）で管理できる。パスは�
 
 AWS Integration そのものに追加料金はかからない。Datadog が課金するのは、AWS Integration で取り込んだデータのうち次の対象である。[出典](https://docs.datadoghq.com/account_management/billing/aws/)
 
-| 課金対象 | 内容 | 課金単位（定価。正本 pricing-by-product.md〈取得日 2026-11-03〉の値と一致） |
+| 課金対象 | 内容 | 課金単位（定価。正本 02-pricing-by-product.md〈取得日 2026-11-03〉の値と一致） |
 |---|---|---|
 | **EC2（ホスト）** | AWS Integration が検出した**すべての EC2 インスタンス**と、Agent が動くホスト。両方に該当しても**二重課金されない** | Infrastructure Monitoring のホスト単価（Pro：年契約 $15、月契約 / オンデマンド $18、Enterprise：年契約 $23、月契約 / オンデマンド $27。いずれも 1 ホスト / 月） |
 | **Lambda（アクティブ関数）** | Lambda サブインテグレーションで監視する関数 | Serverless のアクティブ関数単価（年契約 $5、月契約 $6、オンデマンド $7.20。1 アクティブ関数 / 月） |
@@ -1095,7 +1095,7 @@ AWS Integration そのものに追加料金はかからない。Datadog が課�
 - Metric Streams 自体に Datadog の追加料金はない。ただし、ストリームに EC2 や Lambda のメトリクスが含まれ、それらが AWS Integration や Agent でまだ監視されていない場合、**課金対象ホスト数や Lambda 呼び出し数が増える可能性がある**。[出典](https://docs.datadoghq.com/integrations/guide/aws-cloudwatch-metric-streams-with-kinesis-data-firehose/)
 - 課金上の扱いの確認：Infrastructure List で AWS ロゴのみのホスト（メトリクスが `aws.*` のみ）は AWS Integration だけで監視されている。Agent ロゴのホスト（`datadog.*` や `system.*` がある）は Agent で監視されている。[出典](https://docs.datadoghq.com/account_management/billing/aws/)
 
-料金の数値は `03_導入編/pricing-by-product.md` を正本とする（上表の値は本ファイルで 2026-11-02 に公式料金ページから取得したもので、正本の取得日 2026-11-03 時点の値と一致することを確認済み）。詳細は [製品別料金表](../../03_導入編/pricing-by-product.md)、[課金計算の仕組み](../../03_導入編/billing-mechanics.md)、[Usage・Usage Attribution・Cost Visibility](./usage-and-cost-attribution.md) を参照。
+料金の数値は `03_導入編/02-pricing-by-product.md` を正本とする（上表の値は本ファイルで 2026-11-02 に公式料金ページから取得したもので、正本の取得日 2026-11-03 時点の値と一致することを確認済み）。詳細は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、[課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、[Usage・Usage Attribution・Cost Visibility](./usage-and-cost-attribution.md) を参照。
 
 ### AWS 側で発生する費用
 
@@ -1120,7 +1120,7 @@ AWS Integration を有効にすると、**お客様の AWS 請求**にも費用�
 - 【第三者情報】サーバーワークスのブログ（2025-09-26 公開）は、Datadog の AWS Integration で**リージョンを絞らなかった**ため、全リージョンから CloudWatch メトリクスが取得され、CloudTrail のイベント量の増加と、それを分析する GuardDuty の費用増加が重なって AWS 利用料が大きく増えた事例を紹介している。対策は、**General タブで必要なリージョンだけに絞ること**と、**Metric Collection タブで対象サービスとタグフィルター（例：Lambda に `monitor:true` を付けて限定）を設定すること**。記事は、新規 Datadog org では全リージョンがチェック済みになっていると述べている。[出典](https://blog.serverworks.co.jp/2025/09/26/134325)（2025-09 公開）
 - 【第三者情報】SMG Swiss Marketplace Group のテックブログでは、CloudWatch 費用の 65% 超が `GetMetricData` によるもので、原因は Datadog AWS Integration が既定で全リージョン・全サービスからメトリクスを収集していたことだった。未使用のリージョンとサービスを無効にした結果、**CloudWatch 費用が 78% 減少**した（未使用リージョン 1 つあたり月 $9〜10.50、合計月 $142）。[出典](https://swissmarketplace.group/fr/tech-blog/aws-cloudwatch-cost-fs24/)（公開日の明記なし。画像の格納フォルダから 2025-06 頃と【推定】）
 
-コスト削減の実践は [コスト最適化](../../04_応用編/cost-optimization.md)、[よくある失敗とアンチパターン](../../04_応用編/common-pitfalls.md) を参照。
+コスト削減の実践は [コスト最適化](../../04_応用編/01-cost-optimization.md)、[よくある失敗とアンチパターン](../../04_応用編/12-common-pitfalls.md) を参照。
 
 ## 設計時のチェックリスト
 
@@ -1139,7 +1139,7 @@ AWS Integration を設計するときに決めておく事項を、公式ドキ�
 | セキュリティ | `SecurityAudit` の付与範囲、SCP・境界ポリシーとの整合、Forwarder の `KMS:Decrypt` の事後削除 | [AWS Integration](https://docs.datadoghq.com/integrations/amazon_web_services/) |
 | Agent 併用 | ホストレベルのメトリクス、APM、プロセス、詳細ログが必要な EC2 に Agent を入れる（二重課金はない） | [AWS Integration Billing](https://docs.datadoghq.com/account_management/billing/aws/) |
 
-要件定義やネットワーク設計の全体像は [要件定義とアーキテクチャ設計](../../03_導入編/requirements-and-architecture-design.md)、[ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md)、[セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md) を参照。
+要件定義やネットワーク設計の全体像は [要件定義とアーキテクチャ設計](../../03_導入編/09-requirements-and-architecture-design.md)、[ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md)、[セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md) を参照。
 
 ## 参照元
 

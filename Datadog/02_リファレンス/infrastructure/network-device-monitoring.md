@@ -73,7 +73,7 @@ NDM の主な構成要素は次のとおり。
 | Remote Configuration、Fleet Automation | [Fleet Automation と Remote Configuration](../platform/fleet-automation.md) |
 | モニター全般、通知 | [Monitors](../platform/monitors.md)、[通知と Downtime](../platform/notifications-and-downtimes.md) |
 | ログ処理（Pipelines、Remapper、Grok） | [Log Pipelines と処理](../logs/log-pipelines-and-processing.md) |
-| 料金の正本 | [製品別料金表](../../03_導入編/pricing-by-product.md) |
+| 料金の正本 | [製品別料金表](../../03_導入編/02-pricing-by-product.md) |
 
 > **CNM との違い（公式料金ページ FAQ）:** CNM のフローはホストで動く Agent が eBPF で集めたデータから作られ、ホスト・コンテナ・クラウド上のソフトウェアの接続問題の調査に使う。NetFlow Monitoring のレコードは物理ネットワーク機器から受け取るもので、物理ネットワークの接続問題の調査とキャパシティプランニングに使う。[出典](https://www.datadoghq.com/pricing/?product=network-monitoring)
 
@@ -1019,7 +1019,7 @@ Windows で管理者として実行しないと `auth_token` のアクセス拒�
 | 大規模環境 | Autodiscovery＋Cluster Agent のクラスターチェックで分散。コレクターは HA 構成 | [出典](https://docs.datadoghq.com/network_monitoring/devices/guide/cluster-agent/) |
 | NetFlow のコスト制御 | `aggregator_max_flows_per_flush_interval` で Agent ごとの送信フロー数を制限し、保持期間（15〜90 日）を用途に合わせて選ぶ | [出典](https://docs.datadoghq.com/network_monitoring/netflow/) |
 
-アラート設計全般は [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md)、タグ設計は [タグ戦略の実践](../../04_応用編/tagging-strategy.md) を参照。
+アラート設計全般は [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md)、タグ設計は [タグ戦略の実践](../../04_応用編/02-tagging-strategy.md) を参照。
 
 ## 制限値・クォータ・デフォルト値
 
@@ -1060,7 +1060,7 @@ Windows で管理者として実行しないと `auth_token` のアクセス拒�
 
 ## 課金への影響
 
-NDM 関連の課金単位は次のとおり（公式料金ページ、2026-11-02 時点、USD）。料金の数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、課金計算の仕組みは [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。[出典](https://www.datadoghq.com/pricing/list/)、[出典](https://www.datadoghq.com/pricing/?product=network-monitoring)
+NDM 関連の課金単位は次のとおり（公式料金ページ、2026-11-02 時点、USD）。料金の数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、課金計算の仕組みは [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。[出典](https://www.datadoghq.com/pricing/list/)、[出典](https://www.datadoghq.com/pricing/?product=network-monitoring)
 
 | SKU | 課金単位 | US/EU1 年契約 | US/EU1 月契約 | US/EU1 オンデマンド | AP1 年契約 | AP1 月契約 | AP1 オンデマンド |
 |---|---|---|---|---|---|---|---|
@@ -1072,7 +1072,7 @@ NDM 関連の課金単位は次のとおり（公式料金ページ、2026-11-02
 | NetFlow Monitoring（90 日保持） | 同上 | $0.85 | $1.02 | $1.22 | $1.0625 | $1.275 | $1.525 |
 | NetFlow Monitoring（90 日超） | — | 要問い合わせ | — | — | 要問い合わせ | — | — |
 
-> **サイト差異:** 価格はサイトによって異なり、AP1 は US/EU1 より高い。上記以外のサイトの価格は料金ページで確認すること。正本は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
+> **サイト差異:** 価格はサイトによって異なり、AP1 は US/EU1 より高い。上記以外のサイトの価格は料金ページで確認すること。正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照。
 
 - **デバイスの定義:** 「SNMP でポーリングされる、一意の IP アドレスを持つ物理または仮想のアプライアンス」（料金ページ FAQ）。
 - **Infrastructure ホストの購入:** NDM の利用には、デバイスをポーリングするための Infrastructure ホストを 1 台以上購入する必要がある（CNM のように監視対象ホストごとの Infrastructure Pro / Enterprise は不要）。ホストの課金は [Infrastructure Monitoring](infrastructure-monitoring.md) を参照。
@@ -1096,7 +1096,7 @@ NDM 関連の課金単位は次のとおり（公式料金ページ、2026-11-02
 - [Log Pipelines と処理](../logs/log-pipelines-and-processing.md)
 - [Workflow Automation](../service-management/workflow-automation.md)（Private Action Runner）
 - [Bits AI と AI 機能](../ai/bits-ai.md)
-- [製品別料金表](../../03_導入編/pricing-by-product.md) / [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md)
+- [製品別料金表](../../03_導入編/02-pricing-by-product.md) / [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md)
 
 ## 参照元
 

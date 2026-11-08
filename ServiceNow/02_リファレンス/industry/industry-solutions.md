@@ -21,6 +21,8 @@ sources:
   - https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/LZ9DlanUnHWJNOwyKwFw_Q
   - https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/gW6elw6L1F1_xXfaE93P5Q
   - https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-retail-release-notes.html
+  - https://www.servicenow.com/docs/r/delta-zurich-australia/australia-zurich-telecommunicationsserviceoperationsmanagementtsom-release-notes.html
+  - https://www.servicenow.com/community/technology-articles/what-s-new-in-the-australia-release-for-technology-provider/ta-p/3535232
 ---
 
 # 業界向けソリューション（Industry Solutions）
@@ -86,7 +88,8 @@ Australia では ServiceNow AI Platform 全体で **読み取り専用フィー�
 
 - 新フィールド `read_only_option` が追加され、`strict_read_only` や `client_script_modifiable` などの細かな制御レベルを指定できる。
 - 変更はバックエンドで行われ、後方互換性が保たれている。対象フィールドと設定は Now Support の KB2718122 に記載されている。
-- FSO では 31 アプリ（保険 14、銀行・金融 12、カード・紛争等 5）、HLS Service Management Core でも同じ強化が行われている。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/GuisLqEHbSNIwwTIW_edRA)
+- FSO では 31 アプリが対象になっている（リリースノートの一覧をアプリ名で分類すると、保険 14、銀行 13（Financial Services Operations Core、Complaint Management、Know Your Customer、Credit Operations などを含む）、その他 4（Application spoke selector、Document Processor、Intelligent Servicing for Fraud、Payment card））。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/BFxap0fVmy2Pn6ZQcHsCWg)
+- HLS Service Management Core でも同じ強化が行われている。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/GuisLqEHbSNIwwTIW_edRA)
 - HLS Service Management Core では、従来 admin に限られていた一部作業を feature administrator ロールで実施できるようになった。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/GuisLqEHbSNIwwTIW_edRA)
 
 ---
@@ -117,16 +120,18 @@ Australia リリースノートに掲載されている TMT のアプリケー�
 | Product Support for Technology | 影響顧客の特定、エスカレーション、ケースの自動生成 | 拡張・更新 |
 | Service Exchange（旧 Service Bridge） | プロバイダーとコンシューマーのインスタンスを直接接続し、カスタム連携なしでサービスを追跡する | 拡張・更新 |
 
-ServiceNow Community の公式記事は、主要 6 製品を次のように整理している。【第三者情報】ではなく ServiceNow 社員による Community 記事である。[出典](https://www.servicenow.com/community/telecom-articles/telecom-products-faqs/ta-p/3345518)
+ServiceNow Community の公式記事は、主要 6 製品を次のように整理している（ServiceNow 社員による Community 記事、公式記事）。[出典](https://www.servicenow.com/community/telecom-articles/telecom-products-faqs/ta-p/3345518)
 
 | 略称 | 製品 | 要点 |
 |---|---|---|
 | TSM | Telecom Service Management | AI エージェントによる問題解決、オンボーディング、顧客サービスとネットワーク運用の生産性向上 |
 | TSOM | Telecom Service Operations Management | 予測型のサービスアシュアランスとネットワーク可視化。ネットワーク・IT・クラウド資源を AI で検出・照合する |
-| TNI | Telecom Network Inventory | 論理・物理回線インベントリの自動化。TMF620/641/645 API に対応 |
+| TNI | Telecom Network Inventory | 論理・物理回線インベントリの自動化。TMF620/641/645 API に対応（※） |
 | SOMT | Sales and Order Management for Telecom | SFA、CPQ、契約管理、オーダー管理を組み合わせた Quote-to-Order |
 | SPMT | Strategic Portfolio Management for Telecom | 戦略目標と実行を結び付ける。プロジェクトテンプレートとオーダータスクをポートフォリオ計画に統合する |
 | FSMT | Field Service Management for Telecom | ディスパッチ、保守、顧客サポート。モバイル、スケジュール最適化、要員分析 |
+
+※ TNI の「TMF620/641/645 API に対応」は Community FAQ の記載である。公式ドキュメント（1.7 の TMF Open API 一覧）では、TMF620/641/645 を提供するのは Sales CRM for Telecommunications で、TNI が提供するのは TMF639 Resource Inventory である。TNI はこれらの API を自ら提供するのではなく、Design and Assign やオーダー連携（1.4）を通じてこれらと連携する位置付けと考えられる。【推定】
 
 同じ記事によると、各製品は **TM Forum ODA（Open Digital Architecture）に準拠した独立モジュール** で、単独導入できる。必須のインストール順序はなく、ユースケースと導入計画に応じて順序を決める。スイートとして導入すると相乗効果がある。[出典](https://www.servicenow.com/community/telecom-articles/telecom-products-faqs/ta-p/3345518)
 
@@ -161,7 +166,7 @@ TSM は「専用アプリ + CSM + プラットフォームコア」で構成さ�
 | Service Test Management | サービステストの定義と実行（CSPM の診断基盤） |
 | Telecommunications Customer 360 | 複数システムのデータの集約 |
 
-コミュニティでは「TSM = ITSM + CSM + KM + FSM + 通信の業務知識」という整理がよく紹介される。【第三者情報】（執筆者個人の経験則で、公式定義ではない）[出典](https://www.servicenow.com/community/telecom-articles/telecommunication-service-management-tsm-overview/ta-p/2765097)
+コミュニティでは「TSM = ITSM + CSM + KM + FSM + 通信の業務知識」という整理がよく紹介される。【第三者情報】【経験則】（記事の執筆者は ServiceNow 社員の表示がない Community メンバーで、本人の経験に基づく整理として書いている。公式定義ではない）[出典](https://www.servicenow.com/community/telecom-articles/telecommunication-service-management-tsm-overview/ta-p/2765097)
 
 同じ記事によると、旧 Proactive Service Experience Workflows はネットワーク起因のインシデント（SD-WAN の典型障害など）を扱い、影響顧客に事前通知する。この機能は Incident フォームに Stage フィールド（`sn_ind_tsm_core_stage`）とインシデントフラグ（`sn_ind_tsm_core_incident`）を追加する。また、「Incident Escalation Policy」「Work order creation flow」の Decision Table を提供する。【第三者情報】[出典](https://www.servicenow.com/community/telecom-articles/telecommunication-service-management-tsm-overview/ta-p/2765097)
 
@@ -207,7 +212,7 @@ Telecommunications Customer 360 は **Australia で新規に追加されたア�
 - **ロール:** `sn_telecom_c360.user`、`sn_telecom_c360.admin`。
 - **Party Relationship Center（PRC）:** パーティ（顧客）に関連するエンティティ（請求アカウント、販売済み製品、関連パーティ、アクティブケース）を対話型グラフで表示する。表示には `sn_genai_platform` プラグインが必要である。ノードの表示内容（ヘッダー、サブヘッダー、強調値、サイドパネル項目）はノード種別ごとに構成でき、水平/垂直レイアウトと検索フィルターに対応する。
 
-Consumer（個人顧客）の場合の PRC 階層（最大 5 階層）:
+Consumer（個人顧客）の場合の PRC 階層（最大 5 階層。Australia TMT PDF p.282–283 の記載どおり）:
 
 | 階層 | 内容 | テーブル |
 |---|---|---|
@@ -218,6 +223,8 @@ Consumer（個人顧客）の場合の PRC 階層（最大 5 階層）:
 | Tier 5 | トランザクション（アクティブなケース、インシデント、作業指示） | `sn_customerservice_case`、`incident`、`sn_csm_work_order` |
 
 Account（法人）の場合は、親アカウントと各子アカウントの関連エンティティを最大 5 階層まで表示する。[出典](https://downloads.docs.servicenow.com/pdf/enus/servicenow-australia-telecom-media-technology-enus.pdf)
+
+> 注: 上表のテーブル名は PDF の表記をそのまま転記したものである。PDF は Tier 1 の Consumer テーブルを `sn_customerservice_consumer` と記載しているが、CSM の Consumer テーブルは本ファイルの他の節や TMF632 のドキュメントでは `csm_consumer` と記載されている。`sn_customerservice_consumer_relationship`、`sn_crt_billing_account`、`sn_csm_work_order` も PDF 以外の公式ページでは確認できなかった。実環境の `sys_db_object` でテーブル名を確認すること。
 
 #### 1.2.3 Australia Store リリースでの TSM 系の新機能
 
@@ -248,13 +255,29 @@ TPSM は、SaaS や as-a-Service 型のビジネスを営むテクノロジー�
 | Product Support for Technology | サービス障害の事前通知とリアルタイムの解決追跡 |
 
 - Customer Success Management のロールには `sn_acct_lc.customer_success_agent`、`sn_acct_lc.agent` などがあり、主なテーブルには `sn_acct_lc_onb_case`（オンボーディングケース）、`sn_acct_lc_success_case`、`sn_acct_lc_success_initiative`、`sn_acct_lc_success_task`、`sn_acct_lc_engagement`、`sn_acct_lc_touchpoint`、`sn_acct_lc_risk_signal_issue` などがある（Australia 版 PDF から抽出）。[出典](https://downloads.docs.servicenow.com/pdf/enus/servicenow-australia-telecom-media-technology-enus.pdf)
-- **名称の変遷:** リリースノート上の旧称「Technology Service Management」が、Australia 版ドキュメントでは「Technology Provider Service Management（TPSM）」になっている。Community には「TSM が TPSM にリブランドされた」とする投稿もあるが、Australia 版ドキュメントでは TSM（通信）と TPSM（テクノロジー）が別製品として並んでいる。【第三者情報】[出典](https://www.servicenow.com/community/telecom-articles/telecommunication-service-management-tsm-overview/ta-p/2765097)
+- **名称の変遷:** リリースノート上の旧称「Technology Service Management」が、Australia 版ドキュメントでは「Technology Provider Service Management（TPSM）」になっている。Community には「TSM が TPSM にリブランドされた」とする投稿（ServiceNow 社員の表示がない記事執筆者による 2025-02 のコメント）もあるが、Australia 版ドキュメントでは TSM（通信）と TPSM（テクノロジー）が別製品として並んでいる。【第三者情報】[出典](https://www.servicenow.com/community/telecom-articles/telecommunication-service-management-tsm-overview/ta-p/2765097)
+
+#### 1.3.1 Australia Store リリースでの Technology Provider 系の新機能
+
+ServiceNow 社員による Community 記事「What's new in the Australia release for Technology Provider」（2026-04-30 公開）は、Technology Provider 向け製品の Australia での強化点として次の 9 件を挙げている。公式リリースノートで各項目を個別には照合していない。[出典](https://www.servicenow.com/community/technology-articles/what-s-new-in-the-australia-release-for-technology-provider/ta-p/3535232)
+
+| 製品 | 機能（英語名） | 内容 |
+|---|---|---|
+| Customer Success Management | Product Adoption Roadmap（製品導入ロードマップ） | Engagement レコードに、地域ごとの製品の稼働時期を示すタイムラインを追加する。段階的な展開をスプレッドシートで管理する必要がなくなる |
+| Customer Success Management | Build Product Roadmaps（エージェンティックワークフロー） | 類似顧客の Engagement を分析して導入ロードマップの下書きを作る。最終判断は CSM（カスタマーサクセスマネージャー）が行う |
+| Customer Success Management | Launch Release Communications（エージェンティックワークフロー） | 利用が進んでいない製品と適切な連絡先を特定し、利用データ入りの個別メールを下書きする。CSM が確認して送信する |
+| Customer Success Management | Source Squad Resources（エージェンティックワークフロー） | Engagement に必要なスキル・所在地・稼働状況に基づいて社内の専門家を割り当て候補として提示する |
+| Customer Success Management | Support Renewals & Expansion Enhancement（更新・拡販支援の強化） | ルールベースの更新スコアリングを置き換える。利用状況、エスカレーション、製品の重要度、関係の健全性を分析し、複数契約の顧客では契約ごとに評価する |
+| Service Exchange | Streamline Enterprise Customer Registration Enhancement（法人顧客登録の自動化強化） | 自動化を Consumer 側にも広げる。登録メールの送信、認可、接続の完了を手作業のやり取りなしで行える |
+| Service Exchange | Bi-directional Foundation Data Sync（双方向の基盤データ同期） | 顧客（Consumer）の CMDB データを Provider に同期し、ナレッジベースの更新を顧客側に自動で流す |
+| Service Exchange | Admin Experience: Health Dashboard（ヘルスダッシュボード） | 全接続のヘルススコア、問題検出、ガイド付きの修正を 1 画面で提供する。管理者はチケットを起票せずに修正を適用できる |
+| Product Support for Technology | Service Delivery Dashboards（サービス提供ダッシュボード） | 同じサービス提供パフォーマンス指標を Service Operations Workspace と CSM/FSM Workspace の両方に表示し、両チームが同一データで作業できるようにする |
 
 ### 1.4 Telecommunications Network Inventory（TNI）
 
 TNI は、ネットワーク計画者が物理・論理・仮想ネットワークをモデル化し、データセンター基盤管理とサービス設計・割り当て（Design and Assign）を行うためのアプリケーションである。[出典](https://www.servicenow.com/docs/r/35dlqBTUtpT5W39aSiHI6w/O3E2mggNFSkWnIOtxbOn1A)
 
-TNI のロール（Zurich 版ドキュメント）:[出典](https://www.servicenow.com/docs/r/4xj1xH858qF8uWRIN94F3g/p_~fbo7BacSR8DDaGdpATQ)
+TNI のロール（Zurich 版ドキュメントによる。Australia 版 TMT PDF には TNI のロール表がなく、Australia での変更有無は公開情報では確認できず）:[出典](https://www.servicenow.com/docs/r/4xj1xH858qF8uWRIN94F3g/p_~fbo7BacSR8DDaGdpATQ)
 
 | ロール（タイトル） | ロール名 | 権限 |
 |---|---|---|
@@ -264,9 +287,9 @@ TNI のロール（Zurich 版ドキュメント）:[出典](https://www.servicen
 | Inventory Agent | `sn_ni_core.inventory_agent` | インベントリモデル・キャパシティメトリクス・パックテーブルの読み取り、インベントリテーブルの書き込み・更新・削除、テンプレート・変更要求・変更タスクの読み書き。モデル・モデル関連テーブルの変更には Asset または Inventory User ロールも必要 |
 | Inventory Number Manager | `sn_inv_num_mgmt.inventory_number_manager` | 全電話番号テーブルの読み取り・書き込み・更新・削除 |
 
-> 注: 上記ページは、サマリー部とロール表とでロール識別子の表記が異なる。また OMT 連携の設定手順は `sn_ni_core.inventory_admin` ロールを要求している。実環境のロール名は `sys_user_role` で確認すること。[出典](https://www.servicenow.com/docs/r/ZoAb3Miy7jj5K_x2IWYuRw/fqDbVR8Z8cbO7bKb71l2mg)
+> 注: 上記ページは、サマリー部とロール表とでロール識別子の表記が異なる。また OMT 連携の設定手順は `sn_ni_core.inventory_admin` ロールを要求している。実環境のロール名は `sys_user_role` で確認すること。[出典](https://www.servicenow.com/docs/r/ZoAb3Miy7jj5K_x2IWYuRw/fqDbVR8Z8cbO7bKb71l2mg)（OMT 連携の設定手順ページ。対象リリースはページ上で明示されていない）
 
-TNI とオーダー管理（Order Management for Telecommunications、OMT）の連携仕様:[出典](https://www.servicenow.com/docs/r/xanadu/telecom-network-inventory/telecommunications-network-inventory/telecomm-network-inventor-order-management.html)
+TNI とオーダー管理（Order Management for Telecommunications、OMT）の連携仕様（Xanadu 版ドキュメントによる。Australia 版 TMT PDF には同等の記述がなく、Australia での変更有無は公開情報では確認できず）:[出典](https://www.servicenow.com/docs/r/xanadu/telecom-network-inventory/telecommunications-network-inventory/telecomm-network-inventor-order-management.html)
 
 - TNI と OMT の **両方のライセンスが同一インスタンスに必要** である。
 - インベントリを変更するネットワーク関連のオーダータスクには、TNI 側で Change Request（変更要求）が作成される。TNI は変更の特性を分析して適合する Change Model を選び、変更タスクを作成し、インベントリタスクフロー（テンプレートサブフローと CI の読み取り/作成アクション）で処理する。
@@ -282,7 +305,7 @@ TSOM は、通信事業者がマルチドメインのネットワーク・サー
 
 - Event Management / AIOps（[Event Management と AIOps](../itom/event-management-aiops.md)）、Discovery、Service Graph Connectors を通信ドメインに拡張したもので、TMF642（Alarm Management）と TMF688（Event Notification Management）を `em_event` / `em_alert` テーブルに対して公開する。
 - Australia Store リリースでは SD-WAN Discovery、SD-WAN Event Management、SD-WAN Metric Intelligence が追加された（1.2.3 を参照）。
-- TSOM のリリースノートによると、TSOM の設定作業を full admin 権限なしで行える新しいロールが追加されている。
+- TSOM には、TSOM の構成作業を full admin（`admin`）ロールなしで行える granular admin role（粒度の細かい管理者ロール）がある（Zurich で導入。Zurich→Australia の統合リリースノートに掲載）。[出典](https://www.servicenow.com/docs/r/delta-zurich-australia/australia-zurich-telecommunicationsserviceoperationsmanagementtsom-release-notes.html)
 
 > **Brazil での変更:** TSOM Version 4.0（Brazil）では、MPN（Mobile Private Network）向けの機能が追加された。具体的には、Nokia MED / Elastic / Prometheus / Netcool の KPI ドメインからレイテンシ KPI などを収集する Elastic event pull connector、MPN Latency Metrics ダッシュボード、Health Log Analytics による MPN セキュリティログ収集、タワー/サイト単位の赤・黄・緑のヘルスステータス集約である。また、600 ポートを超える Fortinet 機器のディスカバリが、ポートのバッチ処理によってメモリ制限で失敗しなくなった。専用の言語パックはない。[出典](https://www.servicenow.com/docs/r/7GoNY9eeDRD0FzxldbEmXw/I0u_5uU6ivgf9aNIgDyEKQ)
 
@@ -359,7 +382,7 @@ Australia 版ドキュメントの FSO アプリ構成:
 
 [出典](https://downloads.docs.servicenow.com/pdf/enus/servicenow-australia-financial-services-operations-enus.pdf)
 
-- ServiceNow University では FSO 向けスイート認定として **FSO Insurance Professional** と **FSO Banking and Wealth Management Professional** が案内されている（[学習パスと認定資格](../../01_入門編/09-learning-path.md)）。
+- Zurich 版の FSO ドキュメントは、ServiceNow University の FSO 向けスイート認定として **FSO Insurance Professional** と **FSO Banking and Wealth Management Professional** を例示している。[出典](https://www.servicenow.com/docs/r/07i96mihvdtIctrdGsOYHQ/hH8RC4_07XBlP2aRm2gpug) 認定名は資料によって「Delivery Accreditation」などの表記揺れがあるため、最新の名称は ServiceNow University のカタログで確認すること（[学習パスと認定資格](../../01_入門編/09-learning-path.md)）。
 - FSO のライセンスは公開されておらず、ドキュメントはアカウントマネージャーへの問い合わせを案内している。
 
 ### 2.2 Australia での主な新機能・変更（FSO）
@@ -695,17 +718,19 @@ Healthcare Operations は、病院のケアチーム（看護師など）が日�
 - **インストール:** `sn_hco` は admin ロールでインストールする。Care Team Operations の各アプリは、Field Service Management（`com.snc.work_management`）プラグインがない場合の手順を個別に案内している。
 - **ロール例:** `sn_hco.care_team_member`、`sn_cto.care_team_agent`、`sn_hco_orc.loc_support_agent`、`sn_hco_orc.plan_author`（オーケストレーション、`sn_hco_orchestration_case`）。
 
-Australia リリース（HCO Australia Release Q1'26 GA）の主な新機能（Community の公式記事と検索結果による）:[出典](https://www.servicenow.com/community/healthcare-and-life-sciences/what-s-new-in-the-australia-release-for-healthcare/ba-p/3535638)
+Australia リリース（HCO Australia Release Q1'26 GA）の主な新機能は次のとおり。各行の出典は表の「出典」列に示す（Community 記事は ServiceNow 社員による公式記事）。
 
-| 機能 | 内容 |
-|---|---|
-| Care Team Operations | 患者ケアと並行して運用タスクを扱う単一の Workspace。依頼を分類し、適切なチームにルーティングする |
-| Care Team Work Management（新規） | タスクの作成・割り当て・追跡。監査可能な記録と明確な責任者 |
-| Operational Rounding Playbook | 構造化された Playbook でシフトをまたいで巡回（ラウンディング）タスクを標準化し、記録を自動化する |
-| Unified Request View | 支援チームが受け付けた依頼を、リアルタイムの状況とともに 1 つのビューで確認する |
-| AI | AI エージェントによる自動割り当て、Care Team Operations Case Creation の AI 音声エージェント（電話でのケース作成）、Virtual Agent 内の Now Assist によるサポート要求の作成 |
-| HL7 v2.x Integration（新規） | 病院の統合エンジンから HL7 v2.x メッセージを受信する（3.5 を参照） |
-| Now Assist for Healthcare Operations（新規） | ケアチーム業務向けの生成 AI（現 ServiceNow Otto for Care Team Operations） |
+| 機能 | 内容 | 出典 |
+|---|---|---|
+| Care Team Operations | 患者ケアと並行して運用タスクを扱う単一の Workspace。依頼を分類し、適切なチームにルーティングする | [Community](https://www.servicenow.com/community/healthcare-and-life-sciences/what-s-new-in-the-australia-release-for-healthcare/ba-p/3535638) |
+| Care Team Work Management（新規） | タスクの作成・割り当て・追跡。監査可能な記録と明確な責任者 | [Community](https://www.servicenow.com/community/healthcare-and-life-sciences/what-s-new-in-the-australia-release-for-healthcare/ba-p/3535638) |
+| Operational Rounding Playbook | 構造化された Playbook でシフトをまたいで巡回（ラウンディング）タスクを標準化し、記録を自動化する | [Community](https://www.servicenow.com/community/healthcare-and-life-sciences/what-s-new-in-the-australia-release-for-healthcare/ba-p/3535638) |
+| Unified Request View | 支援チームが受け付けた依頼を、リアルタイムの状況とともに 1 つのビューで確認する | [Community](https://www.servicenow.com/community/healthcare-and-life-sciences/what-s-new-in-the-australia-release-for-healthcare/ba-p/3535638) |
+| AI エージェントによる自動割り当て | AI エージェントによるタスクの自動割り当て | [Community](https://www.servicenow.com/community/healthcare-and-life-sciences/what-s-new-in-the-australia-release-for-healthcare/ba-p/3535638) |
+| Care Team Operations Case Creation AI voice agent | 電話での会話によるケース作成。AI エージェントが不足情報を確認し、依頼を検証する。対象リクエストタイプの Care Team Operations プラグインが必要 | [Zurich→Australia HCO Core 統合リリースノート](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/ZQSQing55Y3XSqrvyKRfIQ) |
+| Now Assist in Virtual Agent によるサポート要求 | Care Team Portal / Care Team Mobile から、Healthcare IT、Biomed、Facilities、Environmental Services 向けの依頼を会話形式で作成する | [Zurich→Australia HCO Core 統合リリースノート](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/ZQSQing55Y3XSqrvyKRfIQ) |
+| HL7 v2.x Integration | 病院の統合エンジンから HL7 v2.x メッセージを受信する（3.5 を参照） | [Australia HLS PDF](https://downloads.docs.servicenow.com/pdf/enus/servicenow-australia-healthcare-life-sciences-enus.pdf) |
+| ServiceNow Otto for Care Team Operations | ケアチーム業務向けの生成 AI（3.1 の表を参照）。「Now Assist for Healthcare Operations」が Australia で新規追加されたかどうかは公式リリースノートでは確認できず | [Australia HLS PDF](https://downloads.docs.servicenow.com/pdf/enus/servicenow-australia-healthcare-life-sciences-enus.pdf) |
 
 ![Care Team Operations を Epic Hyperspace 内に埋め込んだ画面（Australia リリース紹介記事より）](../../assets/images/industry-solutions/hco-australia-overview.png)
 
@@ -729,7 +754,8 @@ Australia リリース（HCO Australia Release Q1'26 GA）の主な新機能（C
 
 Clinical Device Management は医療機器の管理を効率化する製品である。Australia 版ドキュメントの CDM ページは概要のみで、保守・修理は Field Service Management、インベントリ・管理は Enterprise Asset Management for Healthcare のドキュメントへ誘導している。CDM には HLS Service Management アプリケーションが必要とされる。旧 Healthcare CMMS（Computerized Maintenance Management System）の機能は CDM に置き換えられている。[出典](https://www.servicenow.com/docs/r/gc7XS1fp23TYGlWCA6RjCw/LUhpcPSifyNogA5472ZXMA)
 
-- 臨床工学技士（Clinical Engineer）が使う Playbook として、医療機器の使用開始（In-service）、代替保守（AEM: Alternative Equipment Maintenance）計画のレビュー、使用停止（Out-of-service）要求の管理が公開情報で言及されている。ロールには Case Viewer、Clinical Engineer、Clinical Engineering Admin、Clinical Engineering Technician がある。【第三者情報】（検索結果の要約に基づく。Australia 版での正式なロール識別子は公開情報では確認できず）
+- 公式ドキュメントでは、臨床工学技士（Clinical Engineer）向けの Playbook（医療機器の使用開始（In-service）、代替保守（AEM: Alternative Equipment Maintenance）計画のレビュー、使用停止（Out-of-service）要求の管理）は、CDM ではなく旧 **Healthcare CMMS** の機能として記載されている。Zurich 版ドキュメントは Healthcare CMMS を「非推奨で、新規アクティベーション不可」とし、保守・インベントリ業務には CDM を使うよう案内している。[出典](https://www.servicenow.com/docs/r/zurich/healthcare-life-sciences/cmms-explore.html) Healthcare CMMS の使用開始ケースは `sn_hcls_cmms.clinical_engineer` ロールを持つ臨床工学技士に割り当てられる。[出典](https://www.servicenow.com/docs/r/zurich/healthcare-life-sciences/cmms-cd-aem-playbook.html)
+- CDM 固有の Playbook とロール識別子（Australia 版）は公開情報では確認できず。
 - 資産管理全般は [ITAM 概要](../itam/itam-overview.md) と [Agile Development・APM・EAM](../spm/agile-apm-eam.md) を参照。
 
 ---
@@ -845,7 +871,9 @@ PSDS は Store アプリとして月次で更新される。Australia リリー�
 
 ### 5.1 MCO の全体像
 
-Manufacturing Commercial Operations（MCO、製造業向け商用オペレーション）は、製造業（OEM）の販売、サポート、サービス業務を 1 つのプラットフォームで管理する製品である。**Australia で新規に追加されたアプリケーション** で、メーカー、エージェント、ディーラー（社内スタッフとチャネルパートナー）がサービスを管理できる。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/LZ9DlanUnHWJNOwyKwFw_Q)、[出典](https://downloads.docs.servicenow.com/pdf/enus/servicenow-australia-manufacturing-enus.pdf)
+Manufacturing Commercial Operations（MCO、製造業向け商用オペレーション）は、製造業（OEM）の販売、サポート、サービス業務を 1 つのプラットフォームで管理する製品である。MCO を使うと、メーカー、エージェント、ディーラー（社内スタッフとチャネルパートナー）がサービスを管理できる。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/LZ9DlanUnHWJNOwyKwFw_Q)、[出典](https://downloads.docs.servicenow.com/pdf/enus/servicenow-australia-manufacturing-enus.pdf)
+
+> **リリース履歴の注意:** Australia のリリースノートは MCO を「Australia リリースの新規アプリケーション」と記載している。しかし Zurich のリリースノートにも「Zurich リリースの新規アプリケーション」という同じ記載がある。また Xanadu→Zurich 統合リリースノートには、Xanadu の機能（受注例外・紛争管理、承認済み見積からの販売契約作成）と Yokohama の機能（MCO ロール、Dealer フレームワーク、Sales Promotion フレームワーク）が掲載されており、「MCO は ServiceNow Store で提供されている」と書かれている。したがって MCO は Australia で新しく登場した製品ではなく、Store アプリとして継続的に更新されてきた製品である。[出典](https://www.servicenow.com/docs/r/zurich/release-notes/manufacturing-commercial-operations-rn.html)、[出典](https://www.servicenow.com/docs/r/zurich/delta-xanadu-zurich/zurich-xanadu-manufacturingcommercialoperations-release-notes.html)
 
 MCO の主な機能:
 
@@ -1007,16 +1035,16 @@ classDiagram
 
 ### 6.4 Australia での Retail の新機能
 
-[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/gW6elw6L1F1_xXfaE93P5Q)、[出典](https://www.servicenow.com/community/retail-hospitality-blog/what-s-new-in-the-australia-release-for-retail-industry-products/ba-p/3537925)
+Australia での Retail の新機能は次のとおり。各行の出典は表の「出典」列に示す。「Community」は ServiceNow 社員による Community 記事で、公式リリースノートには記載がない項目である。
 
-| 区分 | 内容 |
-|---|---|
-| Store questionnaires（Smart Store Task Questionnaires） | 本部が条件分岐、添付、ロール別の回答可視性を備えた標準質問票を作成し、店舗チームが Retail モバイルで回答する |
-| Store plans | 本部と地域マネージャーが複数店舗にまたがる運用計画（ケース・タスク）を作成する。毎日の開店手順などの定期タスクを、店舗単位の親ケースで追跡する |
-| 新プラグイン | Retail Playbook for Store Plan（ガイド付きの計画作成。スケジュールと繰り返しの設定）、Task plan template playbook activities、PWM playbook activities（Planned Work Management のスケジューリング） |
-| Mobile Task Fulfillment | 店舗スタッフが売場でモバイルからタスクを確認・割り当て・完了する |
-| Now Assist for RSM（要 Professional Plus または Enterprise Plus） | 顧客サービス向け AI 音声エージェント（音声でのケース確認・更新・起票、人への引き継ぎ時はコンテキストを渡す。主要 CCaaS に対応）、Customer 360 Insights（顧客履歴、ロイヤルティ、センチメント、自然言語の質問、解決手順の提案） |
-| Web Embeddables | ケースフォーム、ナレッジ記事、サービスカタログ項目を既存の Web サイトやアプリに埋め込む |
+| 区分 | 内容 | 出典 |
+|---|---|---|
+| Smart assessment（smart store task questionnaires） | 本部が条件分岐、添付、ロール別の回答可視性を備えた標準質問票を作成し、店舗チームが Retail モバイルで回答する。関連プラグインは Smart Assessment for CSM（`com.sn_smart_ast_cs`）、Smart Assessment for Field Service（`com.snc.fsm_smart_asmt_questionnaire`） | [リリースノート](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/gW6elw6L1F1_xXfaE93P5Q) |
+| Manage store plans | 本部と地域マネージャーが複数店舗にまたがる運用計画（ケース・タスク）を作成する。毎日の開店手順などの定期タスクを、店舗単位の親ケースで追跡する。タスクは Retail mobile アプリで完了（fulfill）する | [リリースノート](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/gW6elw6L1F1_xXfaE93P5Q) |
+| Retail Mobile（新プラグイン `com.sn_retail_mobile`） | 店舗スタッフとフィールド担当者向けのモバイルアプリ。作業指示の管理、質問票への回答、店内タスクの追跡を行う | [リリースノート](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/gW6elw6L1F1_xXfaE93P5Q) |
+| 新プラグイン | Retail Playbook for Store Plan（ガイド付きの計画作成。スケジュールと繰り返しの設定）、Task plan template playbook activities、PWM playbook activities（Planned Work Management のスケジューリング） | [Community](https://www.servicenow.com/community/retail-hospitality-blog/what-s-new-in-the-australia-release-for-retail-industry-products/ba-p/3537925) |
+| Now Assist for RSM（要 Professional Plus または Enterprise Plus） | 顧客サービス向け AI 音声エージェント（音声でのケース確認・更新・起票、人への引き継ぎ時はコンテキストを渡す。主要 CCaaS に対応）、Customer 360 Insights（顧客履歴、ロイヤルティ、センチメント、自然言語の質問、解決手順の提案）。CSM 共通の機能である可能性がある。Retail 固有の機能かどうかは公式リリースノートでは確認できず | [Community](https://www.servicenow.com/community/retail-hospitality-blog/what-s-new-in-the-australia-release-for-retail-industry-products/ba-p/3537925) |
+| Web Embeddables | ケースフォーム、ナレッジ記事、サービスカタログ項目を既存の Web サイトやアプリに埋め込む。CSM 共通の機能である可能性がある。Retail 固有の機能かどうかは公式リリースノートでは確認できず | [Community](https://www.servicenow.com/community/retail-hospitality-blog/what-s-new-in-the-australia-release-for-retail-industry-products/ba-p/3537925) |
 
 > **Brazil での変更:** Brazil の Retail には次の変更がある。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-retail-release-notes.html)
 > - **SPM-RO Better Together:** 店舗の開店、閉店、改装、移転プロジェクトについて、CSM と SPM のプロジェクトデータを Retail Service Portal と Retail Mobile に表示し、店舗スタッフがタスクの割り当て・取得・クローズを行える。Retail 独自のテーブル、ロール、ACL は追加しない（CSM/SPM プロジェクトテーブル上の消費レイヤー）。
@@ -1045,7 +1073,7 @@ Retail MCP Server は、Retail Service Management の機能を MCP（Model Conte
   - 第三者の情報では、電力・ガス事業者は社内 IT に ITSM、送配電網運用に ITOM、架線作業員に FSM、請求・停電対応に CSM を使う、とされる。【第三者情報】[出典](https://redresscompliance.com/servicenow-licensing-energy-ene.html)
 - **Automotive（自動車）:** 自動車 OEM とディーラーの保証、リコール、販促は MCO（5 章）で扱う（MCO のディーラーポータルは車両引き渡しなどの OEM-チャネル協働に言及している）。
 - **Education（教育）、Media（メディア）、Hospitality（ホスピタリティ）等:** Australia 版で独立した業界ドキュメント製品があるかどうかは、本調査では確認できなかった。Media は TMT に、Hospitality は Retail & Hospitality のコミュニティ区分に含まれる。
-- **OT（制御システム）:** 製造業・公益の OT 資産管理・脆弱性管理（Operational Technology Management 等）は ITOM/SecOps の領域であり、本ファイルの範囲外である（[ITOM 概要](../itom/itom-overview.md)、[Security Operations](../secops/security-operations.md) を参照）。
+- **OT（制御システム）:** 製造業・公益の OT 資産管理・脆弱性管理（Operational Technology Management 等）は ITOM/SecOps の領域であり、本ファイルの範囲外である（[Operational Technology Management](../itom/operational-technology-management.md) を主に参照。あわせて [ITOM 概要](../itom/itom-overview.md)、[Security Operations](../secops/security-operations.md) を参照）。
 
 ---
 
@@ -1057,7 +1085,7 @@ Retail MCP Server は、Retail Service Management の機能を MCP（Model Conte
 | 基底ケース | `sn_customerservice_case` / `sn_sprb_mgmt_case` 等 | `sn_bom_case` | `sn_hcls_case`（抽象）、`sn_hco_case`（抽象） | `sn_gsm_case` / `sn_gsm_government_service_case` | 請求ケース（`sn_claim_cmn` 系） | `sn_retail_case`（抽象） |
 | 業界標準・外部連携 | TM Forum Open API（TMF620〜TMF697）、ODA | Visa / Mastercard / Verifi / Ethoca / Nacha / Reg E・Reg Z / Guidewire / Jack Henry / Socure / FRISS | HL7 v2.x、HL7 FHIR R4、Epic Hyperspace、Redox | GOV.UK（GDS）、Service Exchange（機関間） | DMS、FSM | MCP（Retail MCP Server）、CCaaS |
 | 主な Workspace | CSM/FSM Configurable Workspace（Telecom Customer 360） | CRM Workspace（Interaction / Customer 360 ページ） | HLS Workspace、Care Team Portal（EMR 埋め込み） | CRM Workspace（ICM 用ビュー） | MCO ランディングページ（CSM/FSM Workspace）、Dealer Portal | Retail portal、Retail mobile、Workspace |
-| Australia の新規 | Telecommunications Customer 360 | Agentic Contact Center for Banking、Integration with Verifi | HL7 v2.x Integration、Care Team Work Management、HCO AI | ICM ほか（Store 月次） | MCO 自体が新規 | Store plans、Questionnaires、Retail Playbook for Store Plan |
+| Australia の新規 | Telecommunications Customer 360、Customer Success Management のエージェンティックワークフロー（Build Product Roadmaps 等）、Service Exchange Health Dashboard | Agentic Contact Center for Banking、Integration with Verifi | HL7 v2.x Integration、Care Team Work Management、HCO AI | ICM ほか（Store 月次） | MCO ランディングページ、異常検知ルールによる不正検知、QIM Playbook、QIM-FSM 連携（EA） | Manage store plans、Smart assessment、Retail Mobile、Retail Playbook for Store Plan |
 | 前提となる横断製品 | CSM、ITSM、ITOM（TSOM）、FSM | CSM | CSM、FSM（CDM/CTO） | CSM、FSM | CSM、FSM | CSM、FSM（監査） |
 
 上の表は本ファイルの各節の情報を整理したもの。前提製品は各ドキュメントの依存関係の記述から整理しており、正式なライセンス上の前提条件は販売契約で確認が必要である。【推定】
@@ -1066,7 +1094,7 @@ Retail MCP Server は、Retail Service Management の機能を MCP（Model Conte
 
 ## 9. 設計・導入上の留意点（リファレンス観点）
 
-本節は公式ドキュメントの仕様から導いた留意点である。導入実務の知見は [導入方法論](../../03_導入編/04-implementation-methodology.md)、[カスタマイズと技術的負債](../../04_応用編/02-customization-technical-debt.md) を参照。
+本節は公式ドキュメントの仕様から導いた留意点である。導入実務の知見は [導入方法論](../../03_導入編/04-implementation-methodology.md)、[アップグレードの教訓](../../04_応用編/04-upgrade-lessons.md)、[ガバナンスと CoE の実践](../../04_応用編/09-governance-coe-practice.md) を参照。
 
 1. **CSM の理解が前提である。** 業界製品のケースは CSM の `sn_customerservice_case` を、顧客は CSM の Account/Consumer/Contact を、製品は Sold Product と Product Catalog を使う。業界製品を CSM と切り離して設計しないこと。[出典](https://downloads.docs.servicenow.com/pdf/enus/servicenow-australia-financial-services-operations-enus.pdf)
 2. **抽象ベースケースに直接レコードを作らない。** `sn_retail_case`、`sn_hcls_case`、`sn_hco_case` は抽象テーブルで、ケースタイプとして拡張して使う。[出典](https://downloads.docs.servicenow.com/pdf/enus/servicenow-australia-retail-industry-enus.pdf)
@@ -1100,6 +1128,8 @@ Retail MCP Server は、Retail Service Management の機能を MCP（Model Conte
 - Telecommunications, Media, and Technology release notes（Australia）: https://www.servicenow.com/docs/r/35dlqBTUtpT5W39aSiHI6w/O3E2mggNFSkWnIOtxbOn1A
 - Telecommunications, Media, and Technology release notes（Brazil）: https://www.servicenow.com/docs/r/7GoNY9eeDRD0FzxldbEmXw/Dn7OEHl3MvMTztcn2mLkbA
 - Telecommunications Service Operations Management (TSOM) release notes（Brazil）: https://www.servicenow.com/docs/r/7GoNY9eeDRD0FzxldbEmXw/I0u_5uU6ivgf9aNIgDyEKQ
+- Combined Telecommunications Service Operations Management (TSOM) release notes for upgrades from Zurich to Australia: https://www.servicenow.com/docs/r/delta-zurich-australia/australia-zurich-telecommunicationsserviceoperationsmanagementtsom-release-notes.html
+- ServiceNow Community, "What's new in the Australia release for Technology Provider": https://www.servicenow.com/community/technology-articles/what-s-new-in-the-australia-release-for-technology-provider/ta-p/3535232
 - Telecom Network Inventory roles（Zurich）: https://www.servicenow.com/docs/r/4xj1xH858qF8uWRIN94F3g/p_~fbo7BacSR8DDaGdpATQ
 - Order Management for Telecommunications integration: https://www.servicenow.com/docs/r/ZoAb3Miy7jj5K_x2IWYuRw/fqDbVR8Z8cbO7bKb71l2mg
 - Telecommunications Network Inventory and Order Management for Telecommunications and Media: https://www.servicenow.com/docs/r/xanadu/telecom-network-inventory/telecommunications-network-inventory/telecomm-network-inventor-order-management.html
@@ -1110,15 +1140,21 @@ Retail MCP Server は、Retail Service Management の機能を MCP（Model Conte
 - Financial Services Operations release notes（Australia）: https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/BFxap0fVmy2Pn6ZQcHsCWg
 - Financial Services Operations Core release notes（Australia）: https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/MjxOD32LDPUnRAoRxSM1zw
 - Financial Services Operations release notes（Brazil）: https://www.servicenow.com/docs/r/7GoNY9eeDRD0FzxldbEmXw/gZzspfnjrWGIQKXTZ7qCQQ
+- Financial Services（FSO 概要、Zurich）: https://www.servicenow.com/docs/r/07i96mihvdtIctrdGsOYHQ/hH8RC4_07XBlP2aRm2gpug
 - User roles and FSO Business rules（Australia）: https://www.servicenow.com/docs/r/r3pULTjmzinsV0aMKlfEIA/CTV3agMihrNr1wmKq2PGIw
 - Components installed with Financial Services Payment Operations: https://www.servicenow.com/docs/r/ji07O0rsHXGmjRdUgRbfLw/QbmbT8~SLhDY7vOzxYPpEg
 - Healthcare and Life Sciences Service Management Core release notes（Australia）: https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/GuisLqEHbSNIwwTIW_edRA
 - Healthcare Operations overview（Brazil）: https://www.servicenow.com/docs/r/healthcare-life-sciences/healthcare-operations-overview.html
 - Clinical Device Management（Yokohama）: https://www.servicenow.com/docs/r/gc7XS1fp23TYGlWCA6RjCw/LUhpcPSifyNogA5472ZXMA
+- Exploring Healthcare CMMS（Zurich）: https://www.servicenow.com/docs/r/zurich/healthcare-life-sciences/cmms-explore.html
+- Working on a medical device AEM case in Workspace（Zurich）: https://www.servicenow.com/docs/r/zurich/healthcare-life-sciences/cmms-cd-aem-playbook.html
+- Combined Healthcare Operations Core release notes for upgrades from Zurich to Australia: https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/ZQSQing55Y3XSqrvyKRfIQ
 - ServiceNow Community, "What's new in the Australia release for Healthcare": https://www.servicenow.com/community/healthcare-and-life-sciences/what-s-new-in-the-australia-release-for-healthcare/ba-p/3535638
 - Public Sector Digital Services release notes（Australia）: https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/3e294rZ2JmMaExO7uX88Vw
 - Public Sector Digital Services release notes（Brazil）: https://www.servicenow.com/docs/r/7GoNY9eeDRD0FzxldbEmXw/X2QXDkt4BDGRX9Zdy3Ubtw
 - Manufacturing Commercial Operations release notes（Australia）: https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/LZ9DlanUnHWJNOwyKwFw_Q
+- Manufacturing Commercial Operations release notes（Zurich）: https://www.servicenow.com/docs/r/zurich/release-notes/manufacturing-commercial-operations-rn.html
+- Combined Manufacturing Commercial Operations release notes for upgrades from Xanadu to Zurich: https://www.servicenow.com/docs/r/zurich/delta-xanadu-zurich/zurich-xanadu-manufacturingcommercialoperations-release-notes.html
 - Retail release notes（Australia）: https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/gW6elw6L1F1_xXfaE93P5Q
 - Combined Retail release notes for upgrades from Australia to Brazil: https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-retail-release-notes.html
 - ServiceNow Community, "What's new in the Australia release for Retail industry products": https://www.servicenow.com/community/retail-hospitality-blog/what-s-new-in-the-australia-release-for-retail-industry-products/ba-p/3537925

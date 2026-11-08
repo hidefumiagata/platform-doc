@@ -72,7 +72,7 @@ Event Management は次の要素で構成される。
 - 自動化：[Workflow Automation](../service-management/workflow-automation.md)
 - DogStatsD の全般：[Custom Metrics と DogStatsD](./custom-metrics-and-dogstatsd.md)
 - 監査用途（API 操作・設定変更の追跡）：[Audit Trail](./audit-trail.md)
-- アラート設計の実践：[アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md)
+- アラート設計の実践：[アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md)
 
 ### 全体像
 
@@ -415,7 +415,7 @@ Datadog はすべてのイベントに Unified Service Tagging と次のタグ�
 | `host` | 取り込み時にホストタグでエンリッチされ、Events Explorer から Host Infrastructure / Metrics タブにピボットできる |
 | `team` | イベントを所有し通知を受けるチーム |
 
-タグの付け方：API は `tags` フィールド、Monitor は「Say what's happening」節、インテグレーションは各インテグレーションのタグ設定で付ける。タグ設計は [Tagging](./tagging.md) と [タグ戦略の実践](../../04_応用編/tagging-strategy.md) を参照。
+タグの付け方：API は `tags` フィールド、Monitor は「Say what's happening」節、インテグレーションは各インテグレーションのタグ設定で付ける。タグ設計は [Tagging](./tagging.md) と [タグ戦略の実践](../../04_応用編/02-tagging-strategy.md) を参照。
 
 ---
 
@@ -1022,7 +1022,7 @@ Datadog は旧 Event Stream と旧 Event Monitor を廃止し、新しい Events
 
 ## 課金への影響
 
-Datadog Event Management に関わる課金は次のとおり（2026-11-02 時点の公式料金ページの定価。USD）。料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、計算の考え方は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+Datadog Event Management に関わる課金は次のとおり（2026-11-02 時点の公式料金ページの定価。USD）。料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、計算の考え方は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 
 ### Event Management（相関）
 
@@ -1051,7 +1051,7 @@ Datadog Event Management に関わる課金は次のとおり（2026-11-02 時�
 
 > **サイト差異:** AP1（日本）の単価は US/EU より高い。料金ページの地域区分「US」が US1/US3/US5 のすべてに適用されるかは、ページ上の明記を確認できなかった。
 
-> **注意:** 料金ページの単位は「per event」と表記されている。【推定】イベント量が多い環境では金額が大きくなりやすいため、見積もりでは評価対象イベント数（Datadog 生成イベントを除く）をパターンのフィルターで絞った後の件数で見積もり、契約条件は Datadog の営業窓口に確認するのが安全である。見積もり手法は [コスト見積り手法](../../03_導入編/cost-estimation.md) を参照。
+> **注意:** 料金ページの単位は「per event」と表記されている。【推定】イベント量が多い環境では金額が大きくなりやすいため、見積もりでは評価対象イベント数（Datadog 生成イベントを除く）をパターンのフィルターで絞った後の件数で見積もり、契約条件は Datadog の営業窓口に確認するのが安全である。見積もり手法は [コスト見積り手法](../../03_導入編/05-cost-estimation.md) を参照。
 
 ### カスタムイベント（Infrastructure Monitoring のカスタムイベント枠）
 
@@ -1076,7 +1076,7 @@ Events から生成したメトリクスは**カスタムメトリクスとし�
 ### その他
 
 - Events Explorer での検索・閲覧、Event Monitor、Event Pipelines について、個別の課金単位は料金ページで確認できなかった（公開情報では確認できず）。
-- Work Management、Incident Management、On-Call、Workflow Automation など、エスカレーション先の製品はそれぞれ別に課金される。[製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
+- Work Management、Incident Management、On-Call、Workflow Automation など、エスカレーション先の製品はそれぞれ別に課金される。[製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照。
 
 ---
 
@@ -1095,7 +1095,7 @@ Events から生成したメトリクスは**カスタムメトリクスとし�
 | 古いタイムスタンプ | 18 時間より古いタイムスタンプは受け付けない。バッチで遅れて送るシステムでは注意 | 公式 [出典](https://docs.datadoghq.com/api/latest/events/post-an-event/) |
 | 機密データ | イベントに含まれる機密データは Sensitive Data Scanner で検出・秘匿化できる。スキャン対象はイベントの属性値だけで、使えるアクションは Redact・Partially redact・Hash（Mask はイベント非対応） | 公式 [出典](https://docs.datadoghq.com/sensitive_data_scanner/)、[Sensitive Data Scanner](../security/sensitive-data-scanner.md) |
 
-アラート疲れ対策の全体設計は [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md)、他製品からの移行時のイベント統合は [他製品からの移行](../../03_導入編/migration-from-other-tools.md) を参照。
+アラート疲れ対策の全体設計は [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md)、他製品からの移行時のイベント統合は [他製品からの移行](../../03_導入編/14-migration-from-other-tools.md) を参照。
 
 ---
 

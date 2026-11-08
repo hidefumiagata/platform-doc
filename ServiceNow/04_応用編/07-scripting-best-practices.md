@@ -14,12 +14,15 @@ sources:
   - https://www.servicenow.com/docs/r/zurich/api-reference/server-api-reference/c_GlideRecordAPI.html
   - https://www.servicenow.com/docs/r/api-reference/server-api-reference/GlideQueryGlobalAPI.html
   - https://www.servicenow.com/docs/r/api-reference/scripts/c_ScriptIncludes.html
+  - https://www.servicenow.com/docs/r/zurich/platform-user-interface/service-portal/client-script-reference.html
+  - https://www.servicenow.com/docs/r/api-reference/server-api-reference/c_GlideSystemAPI.html
+  - https://www.servicenow.com/docs/r/api-reference/server-api-reference/c_GlideSystemScopedAPI.html
   - https://www.servicenow.com/docs/r/zurich/api-reference/scripts/script-sandbox-environment.html
   - https://www.servicenow.com/docs/r/application-development/c_RuntimeAccessTracking.html
   - https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/Gh5CGmZWei9jdTT17tZ7JA
-  - https://www.servicenow.com/docs/r/a3E8xg0zsiQLBPKbKO15Mg/7IOu6vhY96xl__WOafBx~w
+  - https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/LXK5qwxCykj7b7g0ZCKyrg
   - https://www.servicenow.com/docs/r/zurich/api-reference/scripts/c_JS_modes.html
-  - https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/JyNTsKAk4QuTc4qk9xZM9g
+  - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/Bqb9LnnKpGr9XSXoqzv6_Q
   - https://www.servicenow.com/docs/r/api-reference/server-api-reference/FindingsAPI.html
   - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-servicenowstudio-release-notes.html
   - https://www.servicenow.com/docs/r/yokohama/delta-xanadu-yokohama/yokohama-xanadu-nowassistforcreator-release-notes.html
@@ -38,6 +41,7 @@ sources:
   - https://www.servicenow.com/community/csm-forum/how-do-i-avoid-using-current-update-in-a-business-rule-script-by/td-p/411078/page/3
   - https://www.servicenow.com/community/servicenow-ai-platform-forum/is-it-okay-to-use-gliderecord-at-client-side/td-p/3129761
   - https://www.servicenow.com/community/itsm-forum/updatemultiple-setworkflow/m-p/742753
+  - https://www.servicenow.com/community/developer-forum/why-is-gliderecord-not-available-in-clientscript-in-the-custom/td-p/2659528
   - https://www.servicenow.com/community/developer-forum/sandbox-enabled-on-script-include/td-p/3134547/page/2
 ---
 
@@ -79,15 +83,15 @@ ServiceNow のスクリプト不具合の多くは、少数の典型パターン
 | A3 | 条件（Condition）なしの Business Rule | すべての Insert/Update で無駄に実行 | Condition／Filter Conditions を必ず設定 | 公式 | 2.5 |
 | A4 | クライアント側で `GlideRecord` や `g_form.getReference()`（コールバックなし）を使う | フォームのフリーズ、全フィールド取得による無駄な通信、ACL 回避の懸念 | 非同期 GlideAjax、Display BR + `g_scratchpad` | 公式＋第三者 | 3 |
 | A5 | `GlideAjax.getXMLWait()`（同期呼び出し） | 応答待ちの間 UI がフリーズ | `getXML()` / `getXMLAnswer()`（非同期） | 公式 | 3.2 |
-| A6 | 参照フィールドに `g_form.setValue(field, sys_id)` だけを渡す | 表示値取得のため同期サーバー呼び出しが発生 | 第3引数に表示値を渡す | 公式 | 3.4 |
-| A7 | Global Client Script / Global Business Rule | 全ページで読み込まれる／全トランザクションで評価される | テーブルを限定、Script Include に移す | 公式 | 3.5, 2.6 |
+| A6 | 参照フィールドに `g_form.setValue(field, sys_id)` だけを渡す | 表示値取得のため同期サーバー呼び出しが発生 | 第3引数に表示値を渡す | 公式 | 3.2 |
+| A7 | Global Client Script / Global Business Rule | 全ページで読み込まれる／全トランザクションで評価される | テーブルを限定、Script Include に移す | 公式 | 3.2, 2.6 |
 | A8 | 未検証の変数を `addQuery()` に渡し、その結果を更新・削除 | 無効条件が無視され **全件更新・全件削除** | 値の事前検証、`glide.invalid_query.returns_no_rows=true`、`GlideQuery` | 公式＋社員記事 | 4.1 |
 | A9 | `getRowCount()` で件数を数える／ループ内でクエリを発行 | 大量データで遅延 | `GlideAggregate`、`setLimit` | 社員記事 | 4.3 |
 | A10 | sys_id・グループ名・メールアドレス等のハードコード | 環境移送後に存在しないレコードを参照して失敗 | System Property、Decision Table、Assignment Rule、定数 Script Include | 社員記事＋第三者 | 5 |
 | A11 | `gs.log()`・デバッグ出力の残置 | ログ肥大、スコープドアプリでエラー、重要ログが埋もれる | `gs.info/warn/error/debug` とアプリごとの verbosity プロパティ | 第三者 | 6 |
 | A12 | すべてをグローバルスコープで作る | 影響範囲が不明、アンインストール不可、委任開発不可 | Private scope を既定とし、例外的にグローバル | 公式 | 7 |
 | A13 | Script Include を無条件に「All application scopes」「Glide AJAX enabled」で公開 | 想定外の呼び出し・ゲストからのアクセス | Accessible from を絞る、ACL を付与、`isPublic()` を既定の false のまま | 公式 | 7.4 |
-| A14 | DOM 操作（`document.getElementById`、jQuery 等） | ブラウザ／UI 更新で破損 | GlideForm（`g_form`）API | 公式 | 3.5 |
+| A14 | DOM 操作（`document.getElementById`、jQuery 等） | ブラウザ／UI 更新で破損 | GlideForm（`g_form`）API | 公式 | 3.2 |
 | A15 | `eval()` の使用 | インジェクション、デバッグ困難 | 設計を見直す | 第三者 | 8 |
 
 ---
@@ -147,7 +151,7 @@ flowchart TD
 - `setWorkflow()` は、後続の `deleteMultiple()` 等によるカスケード削除では無視される。
 - **クロススコープのアプリケーションからは設定できない**（他スコープのテーブルの GlideRecord に対して `setWorkflow(false)` は効かない）。
 
-`setWorkflow(false)` は「再帰を止めるスイッチ」として Community で頻繁に紹介されるが、実際には **監査履歴（`sys_audit`）、ジャーナル、通知エンジン、ワークフローエンジン** など多くの付随処理を止めるため、2025 年の Community スレッドでもその影響の大きさが指摘されている `【第三者情報】`。また Community では「`setWorkflow(false)` でも Business Rule が完全には止まらない例外がある（例：`sys_class_name` の変更＝レコードの再分類）」という報告もある `【第三者情報】`（[Community: updateMultiple & setWorkflow](https://www.servicenow.com/community/itsm-forum/updatemultiple-setworkflow/m-p/742753)）。
+`setWorkflow(false)` は「再帰を止めるスイッチ」として Community で頻繁に紹介されるが、実際には **監査履歴（`sys_audit`）、ジャーナル、通知エンジン、ワークフローエンジン** など多くの付随処理を止めうる。公式 API リファレンスも上記のとおり「重大な影響を及ぼしうる」と注記しており、再帰回避の手段として常用すべきではない（[GlideRecord - Scoped（Brazil）](https://www.servicenow.com/docs/r/api-reference/server-api-reference/c_GlideRecordScopedAPI.html)）。また Community では「`setWorkflow(false)` でも Business Rule が完全には止まらない例外がある（例：`sys_class_name` の変更＝レコードの再分類）」という報告もある `【第三者情報】`（[Community: updateMultiple & setWorkflow](https://www.servicenow.com/community/itsm-forum/updatemultiple-setworkflow/m-p/742753)）。
 
 `【経験則】` レビューでは `setWorkflow(false)` を見つけたら次の3点を必ず確認する。
 
@@ -218,9 +222,9 @@ flowchart TD
 | フィールドの必須・読取専用・表示切替をスクリプトで行う | UI Policy ならスクリプト不要・Order で順序管理可能（UI Policy は Client Script の後に実行） | UI Policy |
 | onChange でロード時にも処理する | 不要なロード時処理 | `if (isLoading) return;` |
 
-Community では、クライアント側 GlideRecord について「サーバー側 GlideRecord は ACL を適用するがクライアント側では回避されうる」「データベース構造とデータをエンドユーザーに露出する」というセキュリティ上の懸念も挙げられている。一方で「コールバック付きのクライアント GlideRecord はブラウザをブロックしない」「OOTB スクリプトにも使用例がある」という反論もある `【第三者情報】`（[Community: Is it okay to use GlideRecord at client side](https://www.servicenow.com/community/servicenow-ai-platform-forum/is-it-okay-to-use-gliderecord-at-client-side/td-p/3129761)）。いずれにせよ公式は推奨しておらず、また**スコープドアプリのクライアントスクリプトでは `GlideRecord` が利用できない**（"GlideRecord is not a constructor" エラーになる）と報告されている `【第三者情報】`。
+Community では、クライアント側 GlideRecord について「サーバー側 GlideRecord は ACL を適用するがクライアント側では回避されうる」「データベース構造とデータをエンドユーザーに露出する」というセキュリティ上の懸念も挙げられている。一方で「コールバック付きのクライアント GlideRecord はブラウザをブロックしない」「OOTB スクリプトにも使用例がある」という反論もある `【第三者情報】`（[Community: Is it okay to use GlideRecord at client side](https://www.servicenow.com/community/servicenow-ai-platform-forum/is-it-okay-to-use-gliderecord-at-client-side/td-p/3129761)）。いずれにせよ公式は推奨しておらず、また**スコープドアプリのクライアントスクリプトでは `GlideRecord` が利用できない**（"GlideRecord is not a constructor" エラーになる）と報告されている `【第三者情報】`（[Community: Why is GlideRecord not available in ClientScript in the Custom Application scope?](https://www.servicenow.com/community/developer-forum/why-is-gliderecord-not-available-in-clientscript-in-the-custom/td-p/2659528)）。なお Service Portal 向けの公式クライアント API 一覧にはコールバック付きの非同期 `GlideRecord` が掲載されているが、これはポータル上で利用できる API を示すもので、推奨を意味しない（[Supported client script types and APIs（Zurich）](https://www.servicenow.com/docs/r/zurich/platform-user-interface/service-portal/client-script-reference.html)）。
 
-`getXMLWait()` は Service Portal ではサポートされないという Community 上の指摘がある `【第三者情報】`。Service Portal／Employee Center・Workspace 上で動くスクリプトでは、いずれにしても非同期 API で書くべきである（UI 種別ごとの Client Script の挙動は [クライアントサイドスクリプト](../02_リファレンス/platform/scripting-client-side.md) を参照）。
+公式の Service Portal 向け「Supported client script types and APIs」は、`getXMLWait()` のような同期呼び出しは Service Portal では動作せず、非同期コールバックを使う必要があると明記している（[Supported client script types and APIs（Zurich）](https://www.servicenow.com/docs/r/zurich/platform-user-interface/service-portal/client-script-reference.html)）。Service Portal／Employee Center・Workspace 上で動くスクリプトでは、いずれにしても非同期 API で書くべきである（UI 種別ごとの Client Script の挙動は [クライアントサイドスクリプト](../02_リファレンス/platform/scripting-client-side.md) を参照）。
 
 ### 3.3 推奨パターン1：フォーム表示時に必要なデータは Display BR + `g_scratchpad`
 
@@ -229,7 +233,8 @@ Community では、クライアント側 GlideRecord について「サーバー
 ```javascript
 // Display Business Rule（incident）
 (function executeRule(current, previous) {
-    g_scratchpad.callerIsVip = current.caller_id.vip == true;   // 必要最小限の値だけ
+    // 必要最小限の値だけ。GlideElement は文字列化してから比較する（4.2 参照）
+    g_scratchpad.callerIsVip = current.caller_id.vip.toString() === 'true';
 })(current, previous);
 
 // onLoad Client Script
@@ -251,7 +256,11 @@ CallerInfoAjax.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         if (!userId) return '';
         var user = new GlideRecordSecure('sys_user');       // ACL を評価
         if (user.get('sys_id', userId)) {
-            return user.getValue('department');
+            // sys_id と表示値の両方を返す（クライアントで setValue の第3引数に使う）
+            return JSON.stringify({
+                id: user.getValue('department'),
+                name: user.getDisplayValue('department')
+            });
         }
         return '';
     },
@@ -265,7 +274,10 @@ function onChange(control, oldValue, newValue, isLoading) {
     ga.addParam('sysparm_name', 'getDepartment');
     ga.addParam('sysparm_user', newValue);
     ga.getXMLAnswer(function (answer) {                     // 非同期
-        if (answer) g_form.setValue('u_department', answer);
+        if (!answer) return;
+        var r = JSON.parse(answer);
+        // 参照フィールドには第3引数に表示値を渡す（3.2 参照。省くと表示値取得の同期サーバー呼び出しが発生）
+        g_form.setValue('u_department', r.id, r.name);
     });
 }
 ```
@@ -292,7 +304,7 @@ function onChange(control, oldValue, newValue, isLoading) {
 
 GlideRecord のクエリに存在しないフィールド名や未定義の値を渡すと、**無効な部分の条件が捨てられ、残りの有効な条件だけで実行される**。その結果、テーブルの全レコードが返る可能性がある。公式 GlideRecord API リファレンスは、こうした不正なクエリ結果に対して `insert()`、`update()`、`deleteRecord()`、`deleteMultiple()` を使うと**データ損失**につながりうると警告している（[GlideRecord - Global（Zurich）](https://www.servicenow.com/docs/r/zurich/api-reference/server-api-reference/c_GlideRecordAPI.html)）。
 
-システムプロパティ `glide.invalid_query.returns_no_rows` を `true` に設定すると、無効なクエリは 0 件を返すようになる。既定値は `false`。ただし公式は、WHERE 演算子と組み合わせた無効なクエリ項目など、`true` でもレコードが返るケースがあるとしている（[GlideRecord - Global（Zurich）](https://www.servicenow.com/docs/r/zurich/api-reference/server-api-reference/c_GlideRecordAPI.html)）。ServiceNow 社員記事（2017 年）はこのプロパティの設定を推奨しており、コメント欄ではスクリプトだけでなく Business Rule の Condition Builder を含むインスタンス全体のクエリに影響する点が補足されている（[ServiceNow 社員記事: Protect custom scripts from unwanted behavior](https://www.servicenow.com/community/developer-blog/protect-custom-scripts-from-unwanted-behavior-using-this-system/bc-p/2291472)）。GTSPerformance の記事も同プロパティの `true` 設定と、クエリに使う前の値検証（`JSUtil.notNil()`、`GlideElement.nil()`、`gs.nil()`）を推奨している（[GTSPerformance: Server-side coding](https://www.servicenow.com/community/developer-articles/performance-best-practices-for-server-side-coding-in-servicenow/ta-p/2324426)）。
+システムプロパティ `glide.invalid_query.returns_no_rows` を `true` に設定すると、無効なクエリは 0 件を返すようになる。公式 API リファレンスには既定値の記載がない。ServiceNow 社員記事は既定値を `false` とし、プロパティが無ければ `sys_properties` に新規作成する手順を示している（既定ではプロパティが存在せず `false` 相当）（[ServiceNow 社員記事: Protect custom scripts from unwanted behavior](https://www.servicenow.com/community/developer-blog/protect-custom-scripts-from-unwanted-behavior-using-this-system/bc-p/2291472)）。ただし公式は、WHERE 演算子と組み合わせた無効なクエリ項目など、`true` でもレコードが返るケースがあるとしている（[GlideRecord - Global（Zurich）](https://www.servicenow.com/docs/r/zurich/api-reference/server-api-reference/c_GlideRecordAPI.html)）。ServiceNow 社員記事（2017 年）はこのプロパティの設定を推奨しており、コメント欄ではスクリプトだけでなく Business Rule の Condition Builder を含むインスタンス全体のクエリに影響する点が補足されている（[ServiceNow 社員記事: Protect custom scripts from unwanted behavior](https://www.servicenow.com/community/developer-blog/protect-custom-scripts-from-unwanted-behavior-using-this-system/bc-p/2291472)）。GTSPerformance の記事も同プロパティの `true` 設定と、クエリに使う前の値検証（`JSUtil.notNil()`、`GlideElement.nil()`、`gs.nil()`）を推奨している（[GTSPerformance: Server-side coding](https://www.servicenow.com/community/developer-articles/performance-best-practices-for-server-side-coding-in-servicenow/ta-p/2324426)）。
 
 ```javascript
 // アンチパターン: groupId が undefined だと条件が捨てられ、全件削除になりうる
@@ -390,7 +402,7 @@ Community では「ServiceNow 自身の OOTB コードにも sys_id のハード
 
 ### 6.1 ロギング API とスコープの対応
 
-ServiceNow のサーバー側ロギング API は、スコープによって使えるものが異なる。以下は Community の解説記事（Tera Patron、2025-06 最終更新）および Community スレッドで確認できた内容である `【第三者情報】`（[Just another Log Helper](https://www.servicenow.com/community/developer-articles/just-another-log-helper/ta-p/2315453)、[Community: How to add logging for a scoped application?](https://www.servicenow.com/community/developer-forum/how-to-add-logging-for-a-scoped-application/td-p/1897357)）。
+ServiceNow のサーバー側ロギング API は、スコープによって使えるものが異なる。公式 API リファレンスでは、[GlideSystem - Global（Brazil）](https://www.servicenow.com/docs/r/api-reference/server-api-reference/c_GlideSystemAPI.html) に `log(message, source)`（システムログに書き込み、`syslog` テーブルに保存）が掲載されている。一方 [GlideSystem - Scoped（Brazil）](https://www.servicenow.com/docs/r/api-reference/server-api-reference/c_GlideSystemScopedAPI.html) には `log()` がなく、`debug()`／`info()`／`warn()`／`error()`（いずれも「システムログにメッセージを書き込む」、最大 5 つの MessageFormat 引数）が提供される。Scoped の `isDebugging()` は「セッションデバッグが有効、またはそのスコープのログレベルが debug のとき true」と説明されており、debug 出力がスコープのログレベル（verbosity）と連動することが公式でも読み取れる。下表のうち、スコープドで `gs.log()` を呼ぶと「Function log is not allowed in scope」エラーになる点、`gs.print()`、`syslog_app_scope` への書き込み条件などの細部は Community の解説記事（Tera Patron、2025-06 最終更新）およびスレッドに基づく `【第三者情報】`（[Just another Log Helper](https://www.servicenow.com/community/developer-articles/just-another-log-helper/ta-p/2315453)、[Community: How to add logging for a scoped application?](https://www.servicenow.com/community/developer-forum/how-to-add-logging-for-a-scoped-application/td-p/1897357)）。
 
 | API | グローバルスコープ | スコープドアプリ | 書き込み先 |
 |---|---|---|---|
@@ -419,7 +431,7 @@ verbosity を `debug` にすると `debug`・`info`・`warn`・`error` のすべ
 
 | アンチパターン | 問題 | 推奨 | 出典 |
 |---|---|---|---|
-| `gs.log()` をスコープドアプリやスコープ移行予定のコードで使う | スコープドでは動かない | `gs.info/warn/error` | [Log Helper](https://www.servicenow.com/community/developer-articles/just-another-log-helper/ta-p/2315453) `【第三者情報】` |
+| `gs.log()` をスコープドアプリやスコープ移行予定のコードで使う | スコープドでは動かない（Scoped API に `log()` がない） | `gs.info/warn/error` | [GlideSystem - Scoped](https://www.servicenow.com/docs/r/api-reference/server-api-reference/c_GlideSystemScopedAPI.html) |
 | デバッグ用 `gs.log()`／`alert()` を残したまま移送 | 本番ログの肥大、エンドユーザーにアラート表示 | 開発中の出力は `gs.debug()` とし、プロパティで ON/OFF | [Development Best Practices](https://www.servicenow.com/community/developer-articles/servicenow-development-best-practices/ta-p/2312003) `【第三者情報】` |
 | ループ内で毎回ログ出力 | `syslog` の行数が爆発し、ログ検索自体が遅くなる | ループ外で件数・サマリーを 1 行出力 | `【経験則】` |
 | 「何が」「どこで」が分からないメッセージ（`'here'`、`'error'`） | 調査不能 | 接頭辞（Script Include 名・メソッド名）＋対象レコード番号＋値 | `【経験則】` |
@@ -445,7 +457,7 @@ if (!targetGroup) {
 
 ### 7.1 公式の原則：Private scope が既定、Global は例外
 
-公式ドキュメント「Plan before you build」は、アプリケーションは既定で **Private scope（プライベートスコープ）** となり、同一スコープ内のアーティファクトだけがアクセスできること、Private scope はソース管理連携と委任開発（Delegated development）をサポートし、**Global scope は委任開発をサポートしない**ことを説明している（[Plan before you build（Xanadu）](https://www.servicenow.com/docs/r/a3E8xg0zsiQLBPKbKO15Mg/7IOu6vhY96xl__WOafBx~w)）。
+公式ドキュメント「Plan before you build」は、アプリケーションは既定で **Private scope（プライベートスコープ）** となり、同一スコープ内のアーティファクトだけがアクセスできること、Private scope はソース管理連携と委任開発（Delegated development）をサポートし、**Global scope は委任開発をサポートしない**ことを説明している（[Plan before you build（Australia）](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/LXK5qwxCykj7b7g0ZCKyrg)）。
 
 同ページは、カスタム業務アプリは Private scope で作り、Global scope を選ぶのは次の場合に限るとしている。
 
@@ -455,13 +467,13 @@ if (!targetGroup) {
 | 複数の既定テーブルのアプリケーションアクセス設定を変更する必要がある |
 | Global scope でしか使えない API を使う必要がある |
 
-Global にしかない API を Private scope から使う手段として、Global scope に作成した **Passthrough script include（パススルー Script Include）** があるが、公式はこれを完全な代替とは位置づけていない（[Plan before you build（Xanadu）](https://www.servicenow.com/docs/r/a3E8xg0zsiQLBPKbKO15Mg/7IOu6vhY96xl__WOafBx~w)）。
+Global にしかない API を Private scope から使う手段として、Global scope に作成した **Passthrough script include（パススルー Script Include）** があるが、公式はこれを完全な代替とは位置づけていない（[Plan before you build（Australia）](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/LXK5qwxCykj7b7g0ZCKyrg)）。
 
 ServiceNow 社員のブログ（2017 年）も「スコープ内で作業することをルールとし、グローバルでの作業を例外とせよ」と述べ、利点として、スコープのサンドボックスとクォータ、アップグレードの容易さ、インストール／アンインストールの容易さ、Update Set に依存しない、セキュリティとプログラミングモデルの強化、変更の可視性、委任開発、Studio と Git との互換性を挙げている（[ServiceNow 社員記事: Application development best practice #1 – work in a scope](https://www.servicenow.com/community/servicenow-ai-platform-blog/application-development-best-practice-1-work-in-a-scope/ba-p/2288784)）。
 
 ### 7.2 スコープ名の命名
 
-公式は、スコープ名を `x_[会社コード]_[アプリ名]` 形式・**最大 18 文字**とする例を示している（例：「Legal Request」→ `x_acme_legal_reque`）。アプリのすべてのファイルがスコープを継承するため慎重に選ぶこと、アプリ名は後で変更できることも記載されている（[Plan before you build（Xanadu）](https://www.servicenow.com/docs/r/a3E8xg0zsiQLBPKbKO15Mg/7IOu6vhY96xl__WOafBx~w)）。
+公式は、スコープ名を `x_[会社コード]_[アプリ名]` 形式・**最大 18 文字**とする例を示している（例：「Legal Request」→ `x_acme_legal_reque`）。アプリのすべてのファイルがスコープを継承するため慎重に選ぶこと、アプリ名は後で変更できることも記載されている（[Plan before you build（Australia）](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/LXK5qwxCykj7b7g0ZCKyrg)）。
 
 また同ページは、PoC は別のサンドボックスや Personal Developer Instance（PDI）で作り、スコープの名前空間が異なる場合は組織の開発インスタンスで**作り直す**（インポートしない）こと、本番アプリは組織の開発インスタンスで作りテスト・展開プロセスに乗せることを推奨している。
 
@@ -469,11 +481,11 @@ ServiceNow 社員のブログ（2017 年）も「スコープ内で作業する�
 
 スコープドアプリが他のアプリのリソース（テーブル、Script Include、Script Object）にアクセスすると、アプリケーションレコードの **Runtime Access Tracking（ランタイムアクセストラッキング）** 設定に応じて扱いが決まる（[Runtime access tracking（Brazil）](https://www.servicenow.com/docs/r/application-development/c_RuntimeAccessTracking.html)）。
 
-| 設定値 | 開発中 | インストール後 |
-|---|---|---|
-| `None` | 追跡も認可もしない | テーブルレベルのアクセス設定が許せばアクセス可 |
-| `Tracking` | アクセス要求ごとに Cross-Scope Privilege レコードを作成 | 新規要求の追跡を停止。レコードは **Allowed** となり、テーブルレベル設定が許せば実行 |
-| `Enforcing` | Tracking と同様にレコード作成 | レコードは **Requested** となり、管理者が Allowed に変更するまで**ブロック** |
+| 設定値 | 追跡（Tracking） | 認可（Authorization） | 結果 |
+|---|---|---|---|
+| `None` | ランタイムアクセス要求を記録しない | 認可不要 | テーブルレベルのアクセス設定が許せば他アプリのリソースにアクセス可 |
+| `Tracking` | 開発中はアクセス要求ごとに Cross-Scope Privilege レコードを作成し、インストール後は新規要求を追跡しない | 作成時にレコードの status を **Allowed** に設定 | 追跡された操作は、テーブルレベル設定が許せば実行 |
+| `Enforcing` | Tracking と同じ | 作成時にレコードの status を **Requested** に設定（開発中から） | 管理者が status を Allowed に変更し、かつテーブルレベル設定が許すまで操作は**ブロック** |
 
 Cross-Scope Privilege は `sys_scope_privilege` テーブルに保存される。主なフィールドは Source Scope、Target Scope、Target Name、Target Type（table／script include／script object）、Operation（テーブルは read／write／create／delete、Script Include と Script Object は execute API のみ）、Status（requested／allowed／denied）である。アプリ公開後は有効な Cross-Scope Privilege レコードがあるランタイム要求だけが実行される。テーブル権限はテーブルオブジェクト（`sys_db_object`）の許可を超えられない（[Cross-scope privilege record（Australia）](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/Gh5CGmZWei9jdTT17tZ7JA)）。
 
@@ -491,7 +503,7 @@ Script Include の公開範囲に関わる主な項目は次のとおり（[Scri
 | Sandbox enabled | クエリ条件などスクリプトサンドボックスから実行されるスクリプトで利用可能にする | 必要な場合のみ |
 | Protection policy | None／Read-only／Protected（Protected はスクリプト内容を顧客から隠し、メモリ上で暗号化） | ストア配布アプリで検討 |
 
-公式の Zurich 版「Script sandbox environment」ページでは、Washington DC 以前から Zurich へアップグレードすると、Client callable の Script Include が Sandbox enabled としてもマークされる旨が記載されている（[Script sandbox environment（Zurich）](https://www.servicenow.com/docs/r/zurich/api-reference/scripts/script-sandbox-environment.html)）。Community では Xanadu 以降、Glide AJAX enabled の Script Include がサンドボックス内からアクセスできなくなったとの指摘もある `【第三者情報】`（[Community: Sandbox enabled on script include](https://www.servicenow.com/community/developer-forum/sandbox-enabled-on-script-include/td-p/3134547/page/2)）。`【経験則】` アップグレード後に参照修飾子（Advanced reference qualifier）から呼んでいる Script Include が動かなくなった場合、このフラグを確認する。
+公式の Zurich 版「Script sandbox environment」ページでは、Washington DC 以前から Zurich へアップグレードすると、Client callable の Script Include が Sandbox enabled としてもマークされる旨が記載されている（[Script sandbox environment（Zurich）](https://www.servicenow.com/docs/r/zurich/api-reference/scripts/script-sandbox-environment.html)）。同ページの注記によれば、Xanadu で Client callable は Glide AJAX enabled に改称され、Glide AJAX enabled の Script Include はサンドボックス内では利用できなくなった。サンドボックスで使えるのは Sandbox enabled が付いた Script Include のみである（[Script sandbox environment（Zurich）](https://www.servicenow.com/docs/r/zurich/api-reference/scripts/script-sandbox-environment.html)。Australia 版での差分は未確認）。この挙動変化は Community でも報告されている（[Community: Sandbox enabled on script include](https://www.servicenow.com/community/developer-forum/sandbox-enabled-on-script-include/td-p/3134547/page/2)）。`【経験則】` アップグレード後に参照修飾子（Advanced reference qualifier）から呼んでいる Script Include が動かなくなった場合、このフラグを確認する。
 
 ### 7.5 スコープ設計のアンチパターン
 
@@ -593,7 +605,7 @@ ServiceNow のサーバースクリプトには 3 つの JavaScript モードが
 
 ### 9.2 Instance Scan による自動レビュー
 
-**Instance Scan** は、既存の構成をスキャンしてヘルス上の問題やベストプラクティス上の改善機会を見つけ、将来の構成問題を予防するためのプラットフォーム機能である。DevOps、リリース管理、アップグレード前後の確認に使え、フルスキャンをスケジュール実行してダッシュボードで結果を分析できる（[Instance Scan（公式）](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/JyNTsKAk4QuTc4qk9xZM9g)）。チェックはスキャン範囲内の各レコードに対して実行され、違反ごとに Finding（検出結果）が `scan_finding`（Scan Findings）テーブルに作成される（[Findings API](https://www.servicenow.com/docs/r/api-reference/server-api-reference/FindingsAPI.html)）。
+**Instance Scan** は、既存の構成をスキャンしてヘルス上の問題やベストプラクティス上の改善機会を見つけ、将来の構成問題を予防するためのプラットフォーム機能である。DevOps、リリース管理、アップグレード前後の確認に使え、フルスキャンをスケジュール実行してダッシュボードで結果を分析できる（[Instance Scan（Australia）](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/Bqb9LnnKpGr9XSXoqzv6_Q)）。チェックはスキャン範囲内の各レコードに対して実行され、違反ごとに Finding（検出結果）が `scan_finding`（Scan Findings）テーブルに作成される（[Findings API](https://www.servicenow.com/docs/r/api-reference/server-api-reference/FindingsAPI.html)）。
 
 Scan Check（スキャンチェック）には 4 種類がある（[Mark Roethof: Creating your own Instance Scan Scan Checks](https://www.servicenow.com/community/developer-blog/creating-your-own-instance-scan-scan-checks/ba-p/2278735) `【第三者情報】`、[Findings API](https://www.servicenow.com/docs/r/api-reference/server-api-reference/FindingsAPI.html)）。
 
@@ -683,13 +695,16 @@ Scan Check（スキャンチェック）には 4 種類がある（[Mark Roethof
 - [GlideRecord - Scoped（Brazil）](https://www.servicenow.com/docs/r/api-reference/server-api-reference/c_GlideRecordScopedAPI.html)
 - [GlideRecord - Global（Zurich）](https://www.servicenow.com/docs/r/zurich/api-reference/server-api-reference/c_GlideRecordAPI.html)
 - [GlideQuery - Scoped, Global](https://www.servicenow.com/docs/r/api-reference/server-api-reference/GlideQueryGlobalAPI.html)
+- [GlideSystem - Global（Brazil）](https://www.servicenow.com/docs/r/api-reference/server-api-reference/c_GlideSystemAPI.html)
+- [GlideSystem - Scoped（Brazil）](https://www.servicenow.com/docs/r/api-reference/server-api-reference/c_GlideSystemScopedAPI.html)
 - [Script includes（Brazil）](https://www.servicenow.com/docs/r/api-reference/scripts/c_ScriptIncludes.html)
+- [Supported client script types and APIs（Service Portal、Zurich）](https://www.servicenow.com/docs/r/zurich/platform-user-interface/service-portal/client-script-reference.html)
 - [Script sandbox environment（Zurich）](https://www.servicenow.com/docs/r/zurich/api-reference/scripts/script-sandbox-environment.html)
 - [Runtime access tracking（Brazil）](https://www.servicenow.com/docs/r/application-development/c_RuntimeAccessTracking.html)
 - [Cross-scope privilege record（Australia）](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/Gh5CGmZWei9jdTT17tZ7JA)
-- [Plan before you build（Xanadu）](https://www.servicenow.com/docs/r/a3E8xg0zsiQLBPKbKO15Mg/7IOu6vhY96xl__WOafBx~w)
+- [Plan before you build（Australia）](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/LXK5qwxCykj7b7g0ZCKyrg)
 - [JavaScript modes（Zurich）](https://www.servicenow.com/docs/r/zurich/api-reference/scripts/c_JS_modes.html)
-- [Instance Scan](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/JyNTsKAk4QuTc4qk9xZM9g)
+- [Instance Scan（Australia）](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/Bqb9LnnKpGr9XSXoqzv6_Q)
 - [Findings - Scoped, Global](https://www.servicenow.com/docs/r/api-reference/server-api-reference/FindingsAPI.html)
 - [ServiceNow Studio release notes（Zurich→Brazil）](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-servicenowstudio-release-notes.html)
 - [Now Assist for Creator release notes（Xanadu→Yokohama）](https://www.servicenow.com/docs/r/yokohama/delta-xanadu-yokohama/yokohama-xanadu-nowassistforcreator-release-notes.html)
@@ -713,5 +728,6 @@ Scan Check（スキャンチェック）には 4 種類がある（[Mark Roethof
 - [Enforcing best practices and development standards for your instance（2022）](https://www.servicenow.com/community/developer-articles/enforcing-best-practices-and-development-standards-for-your/ta-p/2349946)
 - [How do I avoid using current.update() in a business rule script…](https://www.servicenow.com/community/csm-forum/how-do-i-avoid-using-current-update-in-a-business-rule-script-by/td-p/411078/page/3)
 - [Is it okay to use GlideRecord at client side](https://www.servicenow.com/community/servicenow-ai-platform-forum/is-it-okay-to-use-gliderecord-at-client-side/td-p/3129761)
+- [Why is GlideRecord not available in ClientScript in the Custom Application scope?](https://www.servicenow.com/community/developer-forum/why-is-gliderecord-not-available-in-clientscript-in-the-custom/td-p/2659528)
 - [updateMultiple & setWorkflow](https://www.servicenow.com/community/itsm-forum/updatemultiple-setworkflow/m-p/742753)
 - [Sandbox enabled on script include](https://www.servicenow.com/community/developer-forum/sandbox-enabled-on-script-include/td-p/3134547/page/2)

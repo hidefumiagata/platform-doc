@@ -25,6 +25,10 @@ sources:
   - https://newsroom.servicenow.com/press-releases/details/2020/ServiceNow-Boosts-Data-Centre-Capacity-in-Europe-06-25-2020-12-00-AM/default.aspx
   - https://atmarkit.itmedia.co.jp/ait/articles/1810/19/news068.html
   - https://www.theregister.com/2024/09/10/servicenow_xanadu_postgres_raptordb/
+  - https://www.businesswire.com/news/home/20240508862498/en/
+  - https://newsroom.servicenow.com/press-releases/details/2024/ServiceNow-announces-powerful-data-enhancements-to-unlock-value-with-ultra-scale-and-performance-09-10-2024-traffic/default.aspx
+  - https://www.businesswire.com/news/home/20200625005133/en/ServiceNow-Boosts-Data-Centre-Capacity-in-Europe
+  - https://www.servicenow.com/docs/r/zurich/application-development/developer-sandboxes/sandboxes-landing.html
 ---
 
 # Instance Architecture（インスタンスアーキテクチャ）
@@ -65,8 +69,8 @@ ServiceNow は SaaS として提供され、顧客ごとに独立した **Instan
 | Production instance | 本番インスタンス | サブスクリプションを業務で実際に使用する環境 | [出典](https://www.servicenow.com/community/servicenow-ai-platform-forum/what-is-a-sub-production-instance/m-p/1005204) |
 | Sub-production instance（Non-production） | サブプロダクション（非本番）インスタンス | 開発・テスト・UAT・トレーニング等、本番以外の全インスタンス。Non-production と同義 | 同上 |
 | Personal Developer Instance（PDI） | 個人開発者インスタンス | developer.servicenow.com で個人が無償取得できる学習・検証用インスタンス。顧客契約のインスタンスではない | [出典](https://developer.servicenow.com/) |
-| Developer Sandbox | 開発者サンドボックス | サブプロダクションインスタンス上に専用アプリノードを割り当てて作る、開発者個人用の分離環境（Zurich のドキュメントで解説） | [出典](https://www.servicenow.com/community/app-engine-articles/developer-sandboxes-road-to-k26-series/ta-p/3513799) |
-| RaptorDB | RaptorDB | MariaDB に代わる ServiceNow の新データベース（PostgreSQL ベース） | [出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/jdtu9CkREkfuKqRvW_YWvw) |
+| Developer Sandbox | 開発者サンドボックス | サブプロダクションインスタンス上に専用アプリノードを割り当てて作る、開発者個人用の分離環境（Zurich で一般提供（GA）。Xanadu・Yokohama では限定提供） | [出典](https://www.servicenow.com/docs/r/zurich/application-development/developer-sandboxes/sandboxes-landing.html)、[出典](https://www.servicenow.com/community/app-engine-articles/developer-sandboxes-road-to-k26-series/ta-p/3513799) |
+| RaptorDB | RaptorDB | MariaDB に代わる ServiceNow の新データベース（PostgreSQL ベース。2024-05 の Knowledge 24 で発表） | [出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/jdtu9CkREkfuKqRvW_YWvw)、PostgreSQL ベースである点は [出典](https://www.businesswire.com/news/home/20240508862498/en/)（公式プレスリリース "Postgres-based"）、[出典](https://www.theregister.com/2024/09/10/servicenow_xanadu_postgres_raptordb/) |
 
 ---
 
@@ -74,7 +78,7 @@ ServiceNow は SaaS として提供され、顧客ごとに独立した **Instan
 
 ### 2.1 マルチインスタンスの定義
 
-ServiceNow の Multi-instance architecture（マルチインスタンスアーキテクチャ）では、顧客ごとに**独立したアプリケーション層とデータベース**を持つインスタンスが割り当てられる。複数顧客のデータを 1 つのデータベース内で論理分離する一般的な **Multi-tenant architecture（マルチテナントアーキテクチャ）** とは異なり、顧客データは混在しない。このため、顧客単位でのフェイルオーバー、スケーリング、アップグレードの実施が可能になる。【第三者情報】MariaDB 社の事例紹介では、ServiceNow がこのモデルのために 85,000 を超える MariaDB サーバーインスタンスを運用していたと紹介されている（RaptorDB 移行前の情報）。[出典](https://mariadb.com/resources/customer-stories/servicenow)
+ServiceNow の Multi-instance architecture（マルチインスタンスアーキテクチャ）では、顧客ごとに**独立したアプリケーション層とデータベース**を持つインスタンスが割り当てられる。複数顧客のデータを 1 つのデータベース内で論理分離する一般的な **Multi-tenant architecture（マルチテナントアーキテクチャ）** とは異なり、顧客データは混在しない。このため、顧客単位でのフェイルオーバー、スケーリング、アップグレードの実施が可能になる。【第三者情報】MariaDB 社の事例紹介では、ServiceNow がこのモデルのために 85,000 を超える MariaDB サーバーインスタンスを運用していたと紹介されている。この数値は 2018-02 の MariaDB M|18 カンファレンスで ServiceNow が発表した **2018 年時点**の規模であり（報道によっては「85,000 データベース」と表記）、現在の規模ではない（RaptorDB 移行前の情報）。[出典](https://mariadb.com/resources/customer-stories/servicenow)、[出典](https://www.percona.com/blog/2018/09/21/this-week-in-data-with-colin-charles-53-its-mariadb-week-plus-percona-live-europe-update/)
 
 ```mermaid
 flowchart LR
@@ -211,21 +215,21 @@ ServiceNow 運用クラウドのデータセンターは、**同一地域内の�
 | 時期 | 内容 | 出典の種類 |
 |---|---|---|
 | 2015 年頃 | 8 つの地域にペアで配置 | 報道【第三者情報】[出典](https://siliconangle.com/?p=228172) |
-| 時期不明（コミュニティ記事） | 8 ペア（計 16 データセンター）、6 サポートセンター、5 大陸（アジア、オーストラリア、欧州、北米、南米） | コミュニティ記事 [出典](https://www.servicenow.com/community/developer-articles/servicenow-datacenters/ta-p/2330303) |
+| 2018-08（コミュニティ記事） | 8 ペア（計 16 データセンター）、6 サポートセンター、5 大陸（アジア、オーストラリア、欧州、北米、南米） | コミュニティ記事 [出典](https://www.servicenow.com/community/developer-articles/servicenow-datacenters/ta-p/2330303) |
 | 2018-10 | 日本（東京・大阪）のデータセンター開設を発表 | 報道 [出典](https://atmarkit.itmedia.co.jp/ait/articles/1810/19/news068.html) |
-| 2020-06 | 欧州で英国ソブリンペア（London／Newport）と EU ソブリンペア（Amsterdam／Dublin）を追加し、**全世界で 11 ペア・5 大陸**に | 公式プレスリリース [出典](https://newsroom.servicenow.com/press-releases/details/2020/ServiceNow-Boosts-Data-Centre-Capacity-in-Europe-06-25-2020-12-00-AM/default.aspx) |
+| 2020-06 | 欧州で英国ソブリンペア（London／Newport）と EU ソブリンペア（Amsterdam／Dublin）を追加し、**全世界で 11 ペア・5 大陸**に | 公式プレスリリース [出典](https://newsroom.servicenow.com/press-releases/details/2020/ServiceNow-Boosts-Data-Centre-Capacity-in-Europe-06-25-2020-12-00-AM/default.aspx)、Business Wire 掲載版 [出典](https://www.businesswire.com/news/home/20200625005133/en/ServiceNow-Boosts-Data-Centre-Capacity-in-Europe) |
 | 2022-03 | インド（Mumbai／Bengaluru）に 2 拠点を開設 | 報道【第三者情報】[出典](https://prnewswire.com/in/news-releases/servicenow-opens-two-india-based-data-centres-in-response-to-strong-customer-growth-858798874.html) |
 | 2024（LEAP 24） | サウジアラビアに国内データセンターペアの設置計画を発表。2025-02 の報道では 2026 年開設予定 | 報道【第三者情報】[出典](https://www.arabnews.pk/node/2589702) |
 
-※2020 年のプレスリリースは直接取得できず（HTTP 403）、検索結果の要約および転載記事で内容を確認した。
+※2020 年のプレスリリースは ServiceNow newsroom から直接取得できなかった（HTTP 403）。Business Wire に掲載された同じリリース（2020-06-25、[出典](https://www.businesswire.com/news/home/20200625005133/en/ServiceNow-Boosts-Data-Centre-Capacity-in-Europe)）の内容で確認した。
 
 ### 4.3 地域一覧（参考）
 
-2023-01 の ServiceNow Community 投稿では、選択可能なデータセンター地域として次が挙げられている。【第三者情報】（投稿者は ServiceNow 社員ではなく、公式一覧ではない）[出典](https://www.servicenow.com/community/architect-forum/servicenow-instance-geographic-location/m-p/2463227)
+2023-01 の ServiceNow Community 投稿では、選択可能なデータセンター地域として次が挙げられている。【第三者情報】（ServiceNow 社員ではない投稿者が、ServiceNow 提供の資料（standard documents）とされる一覧を引用したもの。原典の資料は未確認）[出典](https://www.servicenow.com/community/architect-forum/servicenow-instance-geographic-location/m-p/2463227)
 
 | 地域 | 国・エリア |
 |---|---|
-| North America | Canada、United States |
+| North America | Canada（北米では Canada が既定とされる）、United States |
 | South East Asia | South Korea、Singapore |
 | Europe | Germany、Switzerland、Netherlands、Ireland |
 | U.K. | England and Wales |
@@ -252,11 +256,11 @@ ServiceNow 運用クラウドのデータセンターは、**同一地域内の�
 
 ServiceNow 社員のコミュニティ回答（2023-02）によると、インスタンスを別のデータセンターペアへ移動することは可能だが、次の条件・手順を伴う。[出典](https://www.servicenow.com/community/architect-forum/servicenow-instance-geographic-location/m-p/2463227)
 
-1. 対象はプロビジョニング後・本番稼働前（go-live 前）のインスタンスが前提とされている。
+1. 回答ではプロビジョニング後・本番稼働前（go-live 前）の移動依頼が例示されているが、稼働中（live）のインスタンスも対象となり得る。その場合は最大 1 時間程度のダウンタイムを前提に事前計画が必要とされる（手順 5 参照）。
 2. アカウント担当（営業）またはソリューションコンサルタント経由で依頼する。**費用が発生する場合がある**。
 3. 営業承認後、カスタマーサポートでケースが起票され、インフラチームが移動を実施する。
 4. 移動先ペアにインスタンスをリストアしてレプリケーションを設定し、変更ウィンドウ開始時に移動元を停止、レプリケーション追いつき後に移動先で起動する。
-5. 長いリードタイムと計画が必要で、**ダウンタイムは最大 1 時間程度**。
+5. 長いリードタイムと計画が必要で、**ダウンタイムは最大 1 時間程度**。稼働中のインスタンスであれば事前に計画すること（"plan this in advance if it is a live instance"）。
 
 ---
 
@@ -292,7 +296,7 @@ flowchart LR
   USER -. "Transfer / Failover 後" .-> LB2
 ```
 
-**Transfer の用途:** ServiceNow は必要なメンテナンスの前に、影響を受ける顧客インスタンスをピアのデータセンターへ事前に移す（Transfer）ことがある。計画的な移動はペア内の Primary と Secondary の役割を入れ替えることで行われる。[出典](https://www.servicenow.com/community/developer-articles/servicenow-datacenters/ta-p/2330303)
+**Transfer の用途:** Transfer は、ペア内の Primary と Secondary の役割を入れ替える計画的な切替である（「secondary を primary に、primary を secondary に指定する」）。なお、このコミュニティ記事（2018-08）は Standby という語を使わず、Secondary を「読み取り専用（read-only）」の DB と表現している。本ファイルでいう Standby は、インスタンス単位で見た Secondary 側を指す。[出典](https://www.servicenow.com/community/developer-articles/servicenow-datacenters/ta-p/2330303) Transfer をどのような契機（計画メンテナンス等）で実施するかの公式な説明は、公開情報では確認できず。
 
 ### 5.2 RTO・RPO・可用性 SLA
 
@@ -367,7 +371,7 @@ ServiceNow 社員のコミュニティ回答によれば、**サブプロダク�
 | Production（本番） | 業務利用 | サブスクリプション契約 | あり（完全な AHA） | 可用性 SLA 99.8%/月の対象 |
 | Sub-production（サブプロダクション／非本番） | 開発、テスト、UAT、トレーニング等 | サブスクリプションに 1 つ以上含まれる。追加は有償 | 完全な AHA ではない | Non-production と同義 |
 | Personal Developer Instance（PDI） | 個人の学習・検証 | developer.servicenow.com で無償 | ― | 顧客契約外。一定期間未使用で回収される。業務データの投入は不可【経験則】 |
-| Developer Sandbox | 開発者ごとの分離開発環境 | ライセンス機能。サブプロダクション上に作成 | ― | 1 インスタンスあたり最大 30 |
+| Developer Sandbox | 開発者ごとの分離開発環境 | ライセンス機能（ServiceNow Store アプリ、アカウントマネージャー経由で導入）。サブプロダクション上に作成 | ― | 1 インスタンスあたり最大 30。Zurich で GA |
 | Demo / Training 等 | パートナーのデモ、教育 | 契約・プログラムによる | ― | 詳細は公開情報では確認できず |
 
 出典：[本番・サブプロダクション](https://www.servicenow.com/community/servicenow-ai-platform-forum/what-is-a-sub-production-instance/m-p/1005204)、[Developer Sandbox](https://www.servicenow.com/community/app-engine-articles/developer-sandboxes-road-to-k26-series/ta-p/3513799)、[PDI](https://developer.servicenow.com/)
@@ -387,7 +391,7 @@ ServiceNow 社員のコミュニティ回答によれば、**サブプロダク�
 
 ### 6.4 Developer Sandbox
 
-**Developer Sandbox（開発者サンドボックス）** は、既存のサブプロダクションインスタンスの上に**専用のアプリノード**を割り当てて作る、開発者個人用の分離開発環境である。Zurich リリースのドキュメントで解説されている。[出典](https://www.servicenow.com/community/app-engine-articles/developer-sandboxes-road-to-k26-series/ta-p/3513799)
+**Developer Sandbox（開発者サンドボックス）** は、既存のサブプロダクションインスタンスの上に**専用のアプリノード**を割り当てて作る、開発者個人用の分離開発環境である（Zurich で一般提供（GA）。公式ドキュメントでは Xanadu・Yokohama では限定提供（limited availability）とされ、Yokohama 以降での利用が目安とされている）。[出典](https://www.servicenow.com/docs/r/zurich/application-development/developer-sandboxes/sandboxes-landing.html)、[出典](https://www.servicenow.com/docs/r/u1slaAtcFiiXFQcd9RcR_A/ZQUHhCMbEepkvIztpLv8aA)、[出典](https://www.servicenow.com/community/app-engine-articles/developer-sandboxes-road-to-k26-series/ta-p/3513799)
 
 | 項目 | 内容 |
 |---|---|
@@ -397,7 +401,7 @@ ServiceNow 社員のコミュニティ回答によれば、**サブプロダク�
 | 上限 | 1 インスタンスあたり同時に最大 **30** サンドボックス |
 | プロビジョニング時間 | 小規模インスタンスで約 10 分、大規模サブプロダクションで 2 時間超。30〜60 分を見込むことが推奨 |
 | 対象外 | PDI では利用不可 |
-| ライセンス | ライセンス機能。サブプロダクションでの有効化は ServiceNow のカスタマーチームに依頼 |
+| ライセンス | ライセンス機能。ServiceNow Store で配布されるアプリケーションで、インストールは ServiceNow のアカウントマネージャーに依頼する（Zurich リリースノート）。[出典](https://www.servicenow.com/docs/r/u1slaAtcFiiXFQcd9RcR_A/ZQUHhCMbEepkvIztpLv8aA) |
 | ロール | Admin（割当・廃止）、Delegated Developer（要求・割当・廃止）、Sandbox Manager（全サンドボックスのライフサイクル管理。admin 権限不要）、Sandbox User（要求・閲覧） |
 | 管理画面 | Sandbox Management Home ダッシュボード（所有者、最終アクセス、状態） |
 | ワークフロー | 割当 → 分離環境で開発・テスト → Git または Update Set でプッシュ → 廃止（ノードはプールに返却） |
@@ -419,7 +423,7 @@ ServiceNow の提供形態（Hosting options）は、運用主体と対象市場
 | ServiceNow Protected Platform（SPP-AU／SPP-EU／SPP-SG） | ServiceNow | 豪州・EU・シンガポールの政府・規制業種 | 地域のデータ主権要件向けの規制環境。独立した ServiceNow Store インスタンスを持つ | [出典](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/YuAJRohMzb~AhTLgq_w_mA) |
 | Government Community Cloud（GCC） | ServiceNow | 米国連邦政府・関連組織 | FedRAMP High、DoD IL4 | [9 章](#9-government-community-cloudgccと規制市場向け環境) |
 | National Security Cloud（NSC） | ServiceNow | 米国国防・国家安全保障機関 | DoD IL5 | 同上 |
-| Self-hosted（Private Stack、旧称 on-premise） | 顧客またはパートナー | エアギャップ環境、データ主権、遠隔拠点 | 顧客のインフラに ServiceNow ソフトウェアを導入 | [8 章](#8-self-hostedprivate-stack) |
+| Self-hosted（製品名 Private Stack。Self-hosted の旧称は on-premise） | 顧客またはパートナー | エアギャップ環境、データ主権、遠隔拠点 | 顧客のインフラに ServiceNow ソフトウェアを導入 | [8 章](#8-self-hostedprivate-stack) |
 
 - 規制環境（GCC、NSC、SPP-AU、SPP-EU、SPP-SG）は、データセキュリティ要件のため**独立した ServiceNow Store インスタンス**を持つ。自環境に専用 Store がない場合は商用 ServiceNow Store を利用する。（Australia ドキュメント、2026-03-12 更新）[出典](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/YuAJRohMzb~AhTLgq_w_mA)
 - ServiceNow Protected Platform: Australia は、2022 年に豪州政府・規制業種向けに提供開始され、Microsoft Azure 上で稼働し、豪州信号局（ASD）の Information Security Manual に沿って設計されたと報じられている。【第三者情報】[出典](https://www.intelligentcio.com/apac/2022/06/09/major-australian-government-department-improves-corporate-services-for-4000-employees-with-servicenow/) SPP-EU、SPP-SG の提供開始時期・詳細は公開情報では確認できず。
@@ -449,7 +453,7 @@ flowchart TD
 
 ### 8.1 Private Stack の位置付け
 
-**Private Stack（プライベートスタック）** は、ServiceNow の顧客・パートナー運用型の提供形態であり、従来 **Self-hosted（セルフホスト）** または **On-premise（オンプレミス）** と呼ばれていたものである。商用クラウドと**同じアプリケーションソフトウェア**を顧客のインフラ上に展開する。2026-04-30 付の ServiceNow 社員による公式紹介記事では、防衛、政府、銀行、通信、テクノロジー分野で 500 社超・28 か国に展開されていると紹介されている。[出典](https://www.servicenow.com/community/product-launch-blogs/private-stack-deploy-the-full-servicenow-ai-platform-on-your/ba-p/3524144)
+**Private Stack（プライベートスタック）** は、ServiceNow の顧客・パートナー運用型の提供形態である **Self-hosted（セルフホスト）** の製品名として紹介されている（記事見出し「Introducing Private Stack: ServiceNow's Self-Hosted Deployment」）。Self-hosted は旧称 **On-premise（オンプレミス）** であり、Self-hosted 自体は現役の呼称として使われている。Self-hosted から Private Stack への名称変更を告げる公式発表の有無は、公開情報では確認できず。Private Stack は商用クラウドと**同じアプリケーションソフトウェア**を顧客のインフラ上に展開する。2026-04-30 付の ServiceNow 社員による公式紹介記事では、防衛、政府、銀行、通信、テクノロジー分野で、28 か国に顧客基盤があると紹介されている（"Our Self-Hosted customer base spans 28 countries"）。顧客数は公開情報では確認できず。[出典](https://www.servicenow.com/community/product-launch-blogs/private-stack-deploy-the-full-servicenow-ai-platform-on-your/ba-p/3524144)
 
 主な用途（同記事より）：
 
@@ -570,12 +574,13 @@ flowchart TD
 |---|---|---|
 | 2022〜 | データベース・アプリケーション層の互換性テストを開始 | [出典](https://www.servicenow.com/community/now-platform-blog/servicenow-raptordb-migration-frequently-asked-questions/ba-p/3126045) |
 | 2023〜 | 顧客固有テスト（大規模・複雑・高度カスタマイズのサブプロダクション、本番負荷テスト）を開始 | 同上 |
-| 2024-09（Xanadu） | RaptorDB を発表。オープンソースの **PostgreSQL** と ServiceNow が買収した独自技術をベースとする | 【第三者情報】[出典](https://www.theregister.com/2024/09/10/servicenow_xanadu_postgres_raptordb/) |
+| 2024-05（Knowledge 24） | **Project RaptorDB**（Postgres ベースのデータベース）を公式発表。報道では、オープンソースの **PostgreSQL** と ServiceNow が 2021 年に買収した Swarm64 の技術（PostgreSQL のフォーク）をベースとし、2025 年末までに全顧客を MariaDB から移行する目標とされた（移行目標は報道ベース【第三者情報】。2026 年時点の移行完了状況は公開情報では確認できず） | [出典](https://www.businesswire.com/news/home/20240508862498/en/)（公式プレスリリース, 2024-05-08）、【第三者情報】[出典](https://techzine.eu/news/data-management/119846/servicenow-trades-mariadb-for-raptordb-postgresql)（Techzine, 2024-05-13） |
+| 2024-09（Xanadu） | 商用エディション **RaptorDB Standard / RaptorDB Pro** を発表。Pro は新規・既存顧客向けに即時提供、Standard は新規顧客向けに提供開始し、既存顧客へは翌年（2025 年）提供予定とされた | [出典](https://newsroom.servicenow.com/press-releases/details/2024/ServiceNow-announces-powerful-data-enhancements-to-unlock-value-with-ultra-scale-and-performance-09-10-2024-traffic/default.aspx)（公式プレスリリース, 2024-09-10） |
 | Australia（2026-05） | RaptorDB Professional で SQL API（Live Connect）と Archive Tier 2 ストレージ（Live Archive）を提供開始 | [出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/jdtu9CkREkfuKqRvW_YWvw) |
-| 2026 | 全顧客の移行完了を見込む（第三者ブログ。過去には 2025 年末目標との報道もあり） | 【第三者情報】[出典](https://techzine.eu/news/data-management/119846/servicenow-trades-mariadb-for-raptordb-postgresql) |
 
 - **RaptorDB の展開は Australia へのアップグレードとは連動しない**。展開時期はアカウントチームに確認する。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/jdtu9CkREkfuKqRvW_YWvw)
-- 【第三者情報】Xanadu 発表時、ServiceNow は Pro 版について「全体のトランザクション時間 53% 改善」「レポート・分析・リスト表示の取得が最大 27 倍高速」「ワークフロー全体のトランザクションスループット 3 倍」と主張した。ServiceNow がそれまで SaaS で性能ティアを設けたことはなかった。[出典](https://www.theregister.com/2024/09/10/servicenow_xanadu_postgres_raptordb/)
+- Xanadu での発表時、ServiceNow は公式プレスリリースで、RaptorDB Pro の初期ユースケースにおいて「全体のトランザクション時間 53% 改善」「レポート・分析・リスト表示の取得が 27 倍高速」「ワークフロー全体のトランザクションスループット 3 倍」を示したと公表した（いずれもベンダー自己申告の値であり、独立検証された数値ではない）。[出典](https://newsroom.servicenow.com/press-releases/details/2024/ServiceNow-announces-powerful-data-enhancements-to-unlock-value-with-ultra-scale-and-performance-09-10-2024-traffic/default.aspx)
+- 【第三者情報】The Register は、ServiceNow がそれまで SaaS で性能ティアを設けたことはなかったと論評している。[出典](https://www.theregister.com/2024/09/10/servicenow_xanadu_postgres_raptordb/)
 
 ### 10.2 名称について（Pro と Professional）
 
@@ -648,7 +653,7 @@ ServiceNow Community の公式 FAQ（2024-12-12 公開）による移行の要�
 
 ## 11. インスタンス間のデータ連携：Instance Data Replication（IDR）
 
-**Instance Data Replication（IDR、インスタンスデータレプリケーション）** は、**Producer instance（プロデューサーインスタンス）** のデータ更新を 1 つ以上の **Consumer instance（コンシューマーインスタンス）** に複製する機能で、複数本番インスタンスを持つ構成でのデータ共有に使われる。Hermes（Kafka）基盤を利用する（[5.3](#53-ahaとhermeskafkaクラスタ)）。[出典](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/PLjsbkIFzkzJ30Rr2wVgqw)
+**Instance Data Replication（IDR、インスタンスデータレプリケーション）** は、**Producer instance（プロデューサーインスタンス）** のデータ更新を 1 つ以上の **Consumer instance（コンシューマーインスタンス）** に複製する機能で、複数本番インスタンスを持つ構成でのデータ共有に使われる。Hermes（Kafka）基盤を利用する（[5.3](#53-aha-と-hermeskafkaクラスタ)）。[出典](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/PLjsbkIFzkzJ30Rr2wVgqw)
 
 | 項目 | 内容 |
 |---|---|
@@ -659,7 +664,7 @@ ServiceNow Community の公式 FAQ（2024-12-12 公開）による移行の要�
 | シーディング | 7 日以内に完了する必要あり |
 | スケジュール型 | スケジュール型レプリケーションセットは 1 つのみ、そのセット内のアウトバウンドエントリも 1 つ |
 | 複製不可フィールド | Edge Encrypted、Field Encryption、Password (2-Way Encrypted) |
-| 複製対象外テーブル | メタデータテーブル（`sys_metadata` とその拡張：`sys_script`、`sc_catalog`、`wf_workflow` 等） |
+| 複製対象外テーブル | メタデータテーブル（`sys_metadata` とその拡張：`sys_script`、`sc_catalog`、`wf_workflow` 等）、その子テーブル、および大半のユーザー・システムテーブル（most user and system tables） |
 | アーカイブ | インスタンス間で同期されない。各インスタンスでアーカイブルールが必要 |
 | 非推奨 | 10 MB 超の添付の常時複製、CMDB テーブルの継続レプリケーション（性能懸念）、クローン目的での利用 |
 | 注意 | データを上書きし、機微データも複製され得るため、本番前環境でのテストを推奨 |
@@ -705,6 +710,9 @@ ServiceNow Community の公式 FAQ（2024-12-12 公開）による移行の要�
 - Private Stack でサポートされるハードウェア、OS、データベースのバージョン。
 - RaptorDB Professional の「Advanced instance topology support」の具体的内容（リードレプリカ等）。
 - MariaDB → RaptorDB 移行時のダウンタイムの目安。
+- RaptorDB への全顧客移行の完了状況（2024-05 の Knowledge 24 での Project RaptorDB 発表時の報道では 2025 年末目標とされ、2024-09 の Xanadu 公式発表では RaptorDB Standard の既存顧客向け提供は翌年とされたが、2026 年時点の達成状況は未確認）。
+- Private Stack の顧客数、および Self-hosted から Private Stack への名称変更に関する公式発表の有無。
+- AHA の Transfer をどのような契機（計画メンテナンス等）で実施するかの公式説明。
 - Developer Sandbox 関連ロールの内部名。
 - 新規サブプロダクションインスタンスを要求する Now Support カタログアイテムの現行名称。
 
@@ -741,11 +749,16 @@ ServiceNow Community の公式 FAQ（2024-12-12 公開）による移行の要�
 - Advanced High Availability transfer with Hermes（Zurich）: https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/KufA2mI6WfAIsf2ymqoWdg
 - Exploring Instance Data Replication: https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/PLjsbkIFzkzJ30Rr2wVgqw
 - Environments with federal or regional ServiceNow Store instances（Australia）: https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/YuAJRohMzb~AhTLgq_w_mA
+- Developer Sandboxes（Zurich）: https://www.servicenow.com/docs/r/zurich/application-development/developer-sandboxes/sandboxes-landing.html
+- Developer Sandboxes release notes（Zurich）: https://www.servicenow.com/docs/r/u1slaAtcFiiXFQcd9RcR_A/ZQUHhCMbEepkvIztpLv8aA
 - Application Insights detail graphs and metrics: https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/hyfKrI6JDCCmR4uhzkZcFg
 
 ### ServiceNow 公式サイト・プレスリリース・Developer
 
 - ServiceNow Boosts Data Centre Capacity in Europe（2020-06-25）: https://newsroom.servicenow.com/press-releases/details/2020/ServiceNow-Boosts-Data-Centre-Capacity-in-Europe-06-25-2020-12-00-AM/default.aspx
+- ServiceNow Boosts Data Centre Capacity in Europe（Business Wire 掲載版, 2020-06-25）: https://www.businesswire.com/news/home/20200625005133/en/ServiceNow-Boosts-Data-Centre-Capacity-in-Europe
+- Project RaptorDB 発表（Knowledge 24, Business Wire, 2024-05-08）: https://www.businesswire.com/news/home/20240508862498/en/
+- ServiceNow announces powerful data enhancements（RaptorDB Standard / Pro, 2024-09-10）: https://newsroom.servicenow.com/press-releases/details/2024/ServiceNow-announces-powerful-data-enhancements-to-unlock-value-with-ultra-scale-and-performance-09-10-2024-traffic/default.aspx
 - ServiceNow and Microsoft for Singapore regulated industries: https://www.servicenow.com/company/media/press-room/servicenow-microsoft-for-singapore-regulated-industries.html
 - ServiceNow Developer Program（PDI）: https://developer.servicenow.com/
 
@@ -755,7 +768,7 @@ ServiceNow Community の公式 FAQ（2024-12-12 公開）による移行の要�
 - Private Stack / Self-Hosted Offering（社員, 2026-04-30）: https://www.servicenow.com/community/product-launch-blogs/private-stack-deploy-the-full-servicenow-ai-platform-on-your/ba-p/3524144
 - RaptorDB Pro: What's new in Australia（社員, 2026-04-15）: https://www.servicenow.com/community/workflow-data-fabric-blog/raptordb-pro-what-s-new-in-australia/ba-p/3525741
 - ServiceNow RaptorDB Migration FAQ（2024-12-12）: https://www.servicenow.com/community/now-platform-blog/servicenow-raptordb-migration-frequently-asked-questions/ba-p/3126045
-- ServiceNow Datacenters: https://www.servicenow.com/community/developer-articles/servicenow-datacenters/ta-p/2330303
+- ServiceNow Datacenters（2018-08-23）: https://www.servicenow.com/community/developer-articles/servicenow-datacenters/ta-p/2330303
 - ServiceNow instance geographic location: https://www.servicenow.com/community/architect-forum/servicenow-instance-geographic-location/m-p/2463227
 - 13 reasons why the stats.do page is your best friend: https://www.servicenow.com/community/now-platform-blog/13-reasons-why-the-stats-do-page-is-your-best-friend-for/ba-p/2286882
 - ServiceNow Things to Know 117: sys_cluster_state table: https://www.servicenow.com/community/developer-blog/servicenow-things-to-know-117-sys-cluster-state-table/ba-p/2930314
@@ -781,8 +794,9 @@ ServiceNow Community の公式 FAQ（2024-12-12 公開）による移行の要�
 - @IT「ServiceNow、東京と大阪にデータセンターを開設」（2018-10-19）: https://atmarkit.itmedia.co.jp/ait/articles/1810/19/news068.html
 - Voice&Data: ServiceNow partners NTT Communications: https://www.voicendata.com/servicenow-partners-ntt-communications-establish-cloud-service-data-centers-japan/
 - The Register: ServiceNow Xanadu / RaptorDB（2024-09-10）: https://www.theregister.com/2024/09/10/servicenow_xanadu_postgres_raptordb/
-- Techzine: ServiceNow trades MariaDB for RaptorDB: https://techzine.eu/news/data-management/119846/servicenow-trades-mariadb-for-raptordb-postgresql
+- Techzine: ServiceNow trades MariaDB for RaptorDB（2024-05-13）: https://techzine.eu/news/data-management/119846/servicenow-trades-mariadb-for-raptordb-postgresql
 - MariaDB customer story: ServiceNow: https://mariadb.com/resources/customer-stories/servicenow
+- Percona: This Week in Data with Colin Charles 53（2018-09-21, M|18 の ServiceNow 発表に言及）: https://www.percona.com/blog/2018/09/21/this-week-in-data-with-colin-charles-53-its-mariadb-week-plus-percona-live-europe-update/
 - SiliconANGLE（2015）: https://siliconangle.com/?p=228172
 - PR Newswire: ServiceNow opens two India-based data centres: https://prnewswire.com/in/news-releases/servicenow-opens-two-india-based-data-centres-in-response-to-strong-customer-growth-858798874.html
 - Arab News: ServiceNow to launch data centers in Saudi Arabia in 2026: https://www.arabnews.pk/node/2589702

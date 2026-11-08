@@ -36,6 +36,12 @@ sources:
   - https://www.servicenow.com/docs/r/5Jej__fTTtx2c_SiyuTQfQ/LU7lhor1nuVqH3G8wYW3OA
   - https://www.servicenow.com/docs/r/xUi4EDRoQXDqROOshinXwQ/uCno_JMAfN4aeh_edNjfCg
   - https://www.servicenow.com/docs/r/1zMxrAxr2iK81FYv03BwFA/ASHCsuivYkjbfY6G~5umbQ
+  - https://www.servicenow.com/docs/r/EdiPWhlSAqBiE0AMK4k9bQ/dIhT2ylWmwGgTeC8d6IDmg
+  - https://www.servicenow.com/docs/r/pyt4lF0aAin_R6wVyV414Q/H9rq2xumNVB59puvtBkQSg
+  - https://www.servicenow.com/docs/r/1zMxrAxr2iK81FYv03BwFA/9ghS_MzokZV07Ng2lE6yjA
+  - https://www.servicenow.com/docs/r/OxLLTMwXG2tKQ2SIp7HnZg/i23ga7zrENMSZQZcsPSV0Q
+  - https://www.servicenow.com/docs/r/5Jej__fTTtx2c_SiyuTQfQ/SlAc9VsF__r50u~CwclMCg
+  - https://www.servicenow.com/community/itsm-forum/install-status-vs-hardware-status-on-hardware-cis/m-p/770536
 ---
 
 # Hardware Asset Management（ハードウェア資産管理）
@@ -56,7 +62,7 @@ Hardware Asset Management（HAM、ハードウェア資産管理）は、Service
 
 ITAM 全体像は [ITAM 概要](./itam-overview.md)、ソフトウェア資産は [Software Asset Management](./software-asset-management.md)、CI との関係は [CMDB と CSDM](../platform/cmdb-csdm.md) を参照。
 
-> **リリースとバージョンの関係:** HAM はファミリーリリースとは独立に ServiceNow Store で更新される（Release notes 上の Release version は「Store」）。Australia 期（2026-03〜）に提供された主なバージョンは 15.0.0（2026-03）、15.0.1（2026-05）、15.0.2（2026-06）、15.2.0（2026-08）、16.0.x（2026-09）である。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/5UDeqpbx9IHWE0U8DfjJNQ)
+> **リリースとバージョンの関係:** HAM はファミリーリリースとは独立に ServiceNow Store で更新される（Release notes 上の Release version は「Store」）。Australia 対応（GA 2026-05-05。15.0.0 は GA 前の 2026-03 に先行提供）の主なバージョンは 15.0.0（2026-03）、15.0.1（2026-05）、15.0.2（2026-06）、15.2.0（2026-08）、15.5.0（Australia Patch 5 相当。Otto への改名を告知。Australia リリースノートに記載、Store のバージョン履歴には未掲載）、16.0.x（2026-09〜）である。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/5UDeqpbx9IHWE0U8DfjJNQ) / [出典](https://www.servicenow.com/docs/bundle/australia-release-notes/page/release-notes/it-asset-management/hardware-asset-management-rn.html)
 
 ---
 
@@ -92,7 +98,7 @@ ServiceNow のプラットフォームには、ITSM 等に付随する基本的�
 
 ### 1.3 インストール
 
-HAM は ServiceNow Store から入手し、以下の手順でインストールする（必要ロール：`ham_admin`、または `admin`）。[出典](https://www.servicenow.com/docs/r/it-asset-management/hardware-asset-management/install-ham.html)
+HAM は ServiceNow Store から入手し、以下の手順でインストールする。必要ロールは、初回インストールでは `admin`。`ham_admin` は HAM をインストールした後に作られるロールなので、アップグレード時に使う。なお公式ページの中でも、前提条件の欄は `ham_admin`、概要は `admin` と表記が揃っていない。[出典](https://www.servicenow.com/docs/r/it-asset-management/hardware-asset-management/install-ham.html)
 
 1. **All > System Applications > All Available Applications** を開く。
 2. `sn_hamp`（名称：Hardware Asset Management）を検索する。一覧にない場合は Store から申請する。
@@ -116,18 +122,18 @@ HAM のライセンスは **Resource category（リソースカテゴリ）** �
 |---|---|---|
 | End-user computer | 4:1 | Computer |
 | Server | 1:1 | AIX / ESX / HPUX / Linux / NetWare / OS/X / Solaris / Unix / Windows Server、Server |
-| Network device | 5:1 | Network gear、IP switch、IP router |
+| Network gear（ネットワーク機器） | 5:1 | Network gear、IP switch、IP router |
 | Mobile device | 10:1 | Mobile device |
 | Telecommunications network inventory | 1:1 | Card、Network interface、Logical/Physical connection、Telecom device |
 | Unclassified hardware | 1:1 | Hardware |
 | Monitors | 15:1 | Monitor |
 | Storage | 3:1 | Storage device |
-| Printer | 10:1 | Printer |
+| Printers（プリンター） | 10:1 | Printer |
 
 ### 2.2 Opt in / Opt out の挙動
 
 - Opt in したカテゴリでのみ正規化機能と Asset action（自動化フロー）が動作する。Opt out したカテゴリ（およびその子 Model category）の資産は HAM の機能・ワークフローから除外される（License exclusion）。[出典](https://www.servicenow.com/docs/r/xUi4EDRoQXDqROOshinXwQ/uCno_JMAfN4aeh_edNjfCg)
-- Unclassified hardware / Monitors / Storage / Printer は HAM ライセンスバージョン 5.0 が必要。Telecommunications network inventory は Telecommunications Network Inventory アプリのインストールも必要。[出典](https://www.servicenow.com/docs/r/xUi4EDRoQXDqROOshinXwQ/uCno_JMAfN4aeh_edNjfCg)
+- Unclassified hardware / Monitors / Storage / Printers を使うには、HAM 10.1.0 以降であること、かつ HAM ライセンスバージョン 5.0 にアップグレードしていることが必要。5.0 へのアップグレード前に作成された Printer / Monitor / Storage / Unclassified hardware 資産は、既定では HAM の機能にアクセスできない。これらのリソースカテゴリは明示的に有効化する必要がある。Telecommunications network inventory は Telecommunications Network Inventory アプリのインストールも必要。[出典](https://www.servicenow.com/docs/r/xUi4EDRoQXDqROOshinXwQ/uCno_JMAfN4aeh_edNjfCg)
 - デモデータをロードすると全カテゴリが Opt in 状態になるため、不要なカテゴリは Opt out する必要がある。[出典](https://www.servicenow.com/docs/r/EdiPWhlSAqBiE0AMK4k9bQ/dIhT2ylWmwGgTeC8d6IDmg)
 - License exclusion 対象の資産は Disposal order の Verify 対象として選択できない、自動化ワークフローが動かない等、手動更新が必要になる。[出典](https://www.servicenow.com/docs/r/pyt4lF0aAin_R6wVyV414Q/USsdwDZbMq8Kaid6ZWW9hQ)
 
@@ -188,7 +194,7 @@ Australia では、従来の広い `admin` チェックが以下の **Granular a
 
 ### 3.3 読み取り制限プロパティ（Australia Patch 5）
 
-Australia Patch 5 でシステムプロパティ `sn_itam_restrict_asset_read`（既定 `false`）が追加された。`true` にすると、`snc_internal` ロールのみを持つユーザーによる Asset（`alm_asset`）テーブルおよび子テーブルの読み取りが制限される。[出典](https://www.servicenow.com/docs/bundle/australia-release-notes/page/release-notes/it-asset-management/hardware-asset-management-rn.html)
+Australia Patch 5 でシステムプロパティ `sn_itam_restrict_asset_read`（既定 `true`）が追加された。`true` の場合、`snc_internal` ロールのみを持つユーザーは、Asset（`alm_asset`）テーブルと子テーブルのうち、自分に割り当てられた資産、または Reserved for / Managed by / Owned by 等のフィールドで自分が参照されている資産しか読み取れない。ほかのロールを1つでも持つユーザーは引き続き全件を読み取れる。既定で有効なため、Patch 5 適用後は `snc_internal` のみの一般ユーザーが他人の資産を参照できなくなる点に注意する（従来どおり全件を参照させたい場合は `false` に変更する）。[出典](https://www.servicenow.com/docs/bundle/australia-release-notes/page/release-notes/it-asset-management/hardware-asset-management-rn.html)
 
 ---
 
@@ -330,8 +336,8 @@ stateDiagram-v2
     [*] --> OnOrder: PO 発注
     OnOrder --> InStock_Available: 受入（Reserve なし）
     OnOrder --> InStock_Reserved: 受入（Reserve あり）
-    InStock_Available --> InStock_PendingTransfer: Transfer order (Draft)
-    InStock_PendingTransfer --> InStock_Available: 移動先で Received
+    InStock_Available --> InStock_PendingTransfer: Transfer order (Draft)【推定】
+    InStock_PendingTransfer --> InStock_Available: 移動先で Received【推定】
     InStock_Available --> InStock_Reserved: Sourcing / Refresh Prepare
     InStock_Reserved --> InStock_PendingInstall: Refresh Schedule
     InStock_PendingInstall --> InUse: Deploy
@@ -346,7 +352,7 @@ stateDiagram-v2
     InTransit --> Retired_Sold: Resale
 ```
 
-本図は公式各ページの記述を組み合わせた要約図である【推定】（特に Resale 後の Sold 遷移の正確なタイミングは公開情報では確認できず）。各遷移の根拠は後述の各節（受入：§8.3、Transfer order：§6.4、Refresh：§9、Zero Touch Refresh：§10、Disposal：§12）を参照。
+本図は公式各ページの記述を組み合わせた要約図である【推定】（特に Resale 後の Sold 遷移の正確なタイミングは公開情報では確認できず）。各遷移の根拠は後述の各節（受入：§8.3、Transfer order：§7.4、Refresh：§9、Zero Touch Refresh：§10、Disposal：§12）を参照。
 
 ### 5.3 資産と CI の状態同期
 
@@ -462,7 +468,7 @@ Stockroom（在庫保管場所）は資産を保管する論理/物理の場所�
 
 - フィールド定義は Field Service Management 版の Stockroom 作成ページにも類似の記載がある（Type の選択肢例 Central Warehouse、Field Agent、FSL、On site、PUDO、Warehouse は FSM 用）。公式情報だが FSM 文脈である点に注意。[出典](https://www.servicenow.com/docs/r/OxLLTMwXG2tKQ2SIp7HnZg/i23ga7zrENMSZQZcsPSV0Q)
 - 退役・交換時、Asset task は資産の所在地から Stockroom フィールドを自動設定する。所在地に Service location で紐づく Stockroom が複数ある場合は優先度が最も高い Stockroom が使われる。[出典](https://www.servicenow.com/docs/r/it-asset-management/hardware-asset-management/asset-lifecycle-automation.html)
-- 高度な在庫（HAM 8.0.0 以降）：Aisle / Space による保管位置管理、Pallet 資産クラスによるパレット単位管理、Picking（屋内マップ連携、11.0.0）、Put-away task と統合受入（13.0.0）。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/5UDeqpbx9IHWE0U8DfjJNQ) / [出典](https://www.servicenow.com/docs/r/1zMxrAxr2iK81FYv03BwFA/ASHCsuivYkjbfY6G~5umbQ)
+- 高度な在庫機能の導入バージョン：Pallet 資産クラスによるパレット単位管理（7.0.0、2023-02）、Advanced Inventory & Distribution（8.0.0、2023-08）、Picking（屋内マップ連携、11.0.0、2024-08）、Aisle / Space による保管位置管理・Asset put-away task・統合受入（Unified receiving）（13.0.0、2025-08）。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/5UDeqpbx9IHWE0U8DfjJNQ) / [出典](https://www.servicenow.com/docs/r/1zMxrAxr2iK81FYv03BwFA/ASHCsuivYkjbfY6G~5umbQ)
 - Stockroom ごとに **Asset pick task** を有効化でき、有効な Stockroom から払い出す場合のみ Refresh 等で Pick タスクが生成される（設定は Hardware Asset Workspace）。[出典](https://www.servicenow.com/docs/r/it-asset-management/hardware-asset-management/hardware-asset-refresh.html)
 
 ### 7.2 Stock rule（在庫補充ルール）
@@ -495,8 +501,8 @@ Transfer order は自社保有資産を Stockroom 間で移動するための指
 - **必要ロール:** `inventory_user`（レポートのみは `inventory_user` / `asset` / `procurement_user`、`com.snc.procurement` 有効が前提）。
 - **メニュー:** All > Inventory > Transfer Orders > Create Transfer Order。明細は Transfer Order Lines の New から追加。Hardware Asset Workspace では Inventory ビュー > Transfer orders タブ。
 - **主な項目:** From Stockroom、To Stockroom（同一にすると明細追加時に自動で Received へ）、Delivery by date、Asset / Model（バンドルモデルも可）、Quantity Requested（消耗品用。非消耗品は 1 単位）。
-- **ステージ:** Draft → （中間ステージ：Ready for fulfillment、Ready for shipment 等。Model category に基づき明細ごとに Transfer order line task が生成される）→ Received → 全明細クローズで Delivered。Draft のみ削除可。いずれかの明細が次ステージに進むと新しい明細は追加できない。
-- **資産状態:** Draft で資産は確保（In stock / Pending transfer）され、移動先で受領すると In stock / Available になる。
+- **ステージ:** Draft →（中間ステージ。Model category に基づき明細ごとに Transfer order line task が生成され、タスクを順にクローズして進む。オーダーのステージは常に明細タスクに基づく）→ Received → Received タスクのクローズで明細・オーダーが Delivered。中間ステージの具体名は公開情報では確認できず。Draft のみ削除可。いずれかの明細が次ステージに進むと新しい明細は追加できない。
+- **資産状態:** Draft の時点で資産は確保（reserved）され、確保中の資産は要求・移動できない。[出典](https://www.servicenow.com/docs/r/EdiPWhlSAqBiE0AMK4k9bQ/9yAes5Ha6im7NdCzM47BTg) 【推定】Substate としては、移動中は In stock / Pending transfer（§5 の定義「Transfer order で移動予定」）、移動先で受領した後は In stock / Available が該当すると考えられる（出典ページに Substate 名の記載はない）。
 
 ### 7.5 棚卸（Asset audit）と Attestation
 
@@ -566,7 +572,7 @@ Purchase order（PO）は単一ベンダーに資産を要求する文書で、�
 
 ### 8.4 ASN（Advanced Shipment Notification）
 
-ASN は納品前に出荷通知ファイルを取り込み、資産レコードを事前作成する機能。Australia（HAM 15.0.0）では admin 権限なしで、`ham_admin`、`ham_user`、`procurement_admin`、`asset` のいずれかを持つユーザーが Hardware Asset Workspace の Procurement ビューから ASN ファイルをアップロードしインポートできるようになった。ASN 機能の管理は `sn_hamp.ham_asn_admin`。[出典](https://www.servicenow.com/docs/bundle/australia-release-notes/page/release-notes/it-asset-management/hardware-asset-management-rn.html) / [出典](https://www.servicenow.com/community/ham-blog/what-s-new-in-australia-release-for-hardware-asset-management/ba-p/3535759)
+ASN は納品前に出荷通知ファイルを取り込み、資産レコードを事前作成する機能。Australia（HAM 15.0.0）では admin 権限なしで、`ham_admin`、`sn_hamp.ham_user`（リリースノート上の表記は `ham_user`）、`procurement_admin`、`asset` のいずれかを持つユーザーが Hardware Asset Workspace の Procurement ビューから ASN ファイルをアップロードしインポートできるようになった。ASN 機能の管理は `sn_hamp.ham_asn_admin`。[出典](https://www.servicenow.com/docs/bundle/australia-release-notes/page/release-notes/it-asset-management/hardware-asset-management-rn.html) / [出典](https://www.servicenow.com/community/ham-blog/what-s-new-in-australia-release-for-hardware-asset-management/ba-p/3535759)
 
 ### 8.5 添付ファイルからの PO 作成（Otto for HAM）
 
@@ -580,7 +586,7 @@ Australia で追加された Now Assist（ServiceNow Otto）スキル **Create p
 
 ### 8.6 AI Agents による調達・修理（Otto for HAM）
 
-Now Assist for HAM（Store アプリ）では、Agentic workflow「Manage hardware asset requests」に Sourcing、Transfer order、Purchase order、Repair の AI Agents が含まれる（1.1.0：Sourcing AI agent、2.0.0：Repair AI agents、3.0.1：`procurement_user` への開放）。2.0.0 の記載では **Hardware Asset Management Pro plus** ライセンスが必要とされている。[出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itam-now-assist-ham.html)
+Now Assist for HAM（Store アプリ）では、Agentic workflow「Help manage hardware asset requests」に Sourcing、Transfer order、Purchase order、Repair の AI Agents が含まれる（1.1.0：Sourcing AI agent、2.0.0：Repair AI agents、3.0.1：`procurement_user` への開放）。2.0.0 の記載では **Hardware Asset Management Pro plus** ライセンスが必要とされている。これは 2.0.0 当時（2025-09）の旧 SKU 体系による記載で、§2.4 の Foundation / Advanced / Prime ティアとの対応は公開情報では確認できず。[出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itam-now-assist-ham.html)
 
 AI Agents の一般仕様は [Now Assist と AI Agents](../platform/now-assist-ai-agents.md) を参照。
 
@@ -797,7 +803,7 @@ HAM 15.0.0 から、Disposal order が Documentation ステージにあるとき
 |---|---|---|
 | Generate asset insights（Asset analysis summary） | 資産のライフサイクル履歴、Chain of custody、割当、所在地、監査状況、ライフサイクル日付、財務、データ欠落を要約。AI Agents からも利用可 | Australia Patch 1 / Now Assist for HAM 4.0.0（2026-03） |
 | Create purchase order from attachments | 添付文書から PO を作成 | Australia |
-| AI Agents（Sourcing / Transfer order / Purchase order / Repair） | Agentic workflow「Manage hardware asset requests」 | 2025-06〜2025-12（Zurich 期） |
+| AI Agents（Sourcing / Transfer order / Purchase order / Repair） | Agentic workflow「Help manage hardware asset requests」 | 1.1.0（2025-06、Yokohama 期）〜3.0.1（2025-12、Zurich 期） |
 | Configuration Console の会話型設定 | AI でグループ・ユーザー・Content service を設定 | HAM 16.0.0 |
 | Otto panel | HAM ワークフロー内に Otto パネル | HAM 16.0.1（2026-09） |
 
@@ -833,7 +839,7 @@ HAM 15.0.0 から、Disposal order が Documentation ステージにあるとき
 
 | プロパティ | 既定 | 説明 |
 |---|---|---|
-| `sn_itam_restrict_asset_read` | `false` | `snc_internal` のみのユーザーの `alm_asset` 系読み取りを制限（Australia Patch 5） |
+| `sn_itam_restrict_asset_read` | `true` | `snc_internal` のみのユーザーの `alm_asset` 系読み取りを、自分に関係する資産（割当先、Reserved for / Managed by / Owned by 等で参照）に限定（Australia Patch 5） |
 | `migrate_hamaudit` | — | `true` で旧監査レコードを Asset operations から参照 |
 | `sn_itam_workspace.asset_overview_enable_lazy_loading` | `false` | Overview レポートの遅延読み込み |
 | `sn_ham_active_entitlements` | — | 保有 HAM エンタイトルメント（オンプレ等で手動設定） |

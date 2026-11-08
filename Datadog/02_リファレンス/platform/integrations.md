@@ -97,7 +97,7 @@ Datadog のインテグレーションは、データの取り込み方式で次
 | データベースのクエリレベル監視 | [Database Monitoring](../infrastructure/database-monitoring.md) |
 | SNMP 等ネットワーク機器 | [Network Device Monitoring](../infrastructure/network-device-monitoring.md) |
 | Kafka のコンシューマラグ・パイプライン監視 | [Data Streams Monitoring](../apm/data-streams-monitoring.md) |
-| 料金の正本 | [製品別料金表](../../03_導入編/pricing-by-product.md) |
+| 料金の正本 | [製品別料金表](../../03_導入編/02-pricing-by-product.md) |
 
 ---
 
@@ -1226,7 +1226,7 @@ Datadog のインテグレーション自体には追加料金がかからない
 | ログ収集（`logs` セクション、`send_log`） | Log Management の取り込み・インデックス量として課金 | [ログ収集](../logs/log-collection.md) |
 | DBM 等の追加製品 | DB インテグレーションとは別に製品として課金 | [Database Monitoring](../infrastructure/database-monitoring.md) |
 
-カスタムメトリクスの課金単位（2026-11-02 時点の公式料金ページ。数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)）:
+カスタムメトリクスの課金単位（2026-11-02 時点の公式料金ページ。数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)）:
 
 | 項目 | 値 | 契約形態 |
 |---|---|---|
@@ -1234,12 +1234,12 @@ Datadog のインテグレーション自体には追加料金がかからない
 | 超過分 Custom Metrics（US/EU1 価格） | 100 カスタムメトリクスあたり月 $5 | 年契約・月契約・オンデマンドとも同額 |
 | Ingested Custom Metrics（Metrics without Limits™ 利用時、US/EU1 価格） | 100 ingested カスタムメトリクスあたり月 $0.10 | 年契約・月契約・オンデマンドとも同額 |
 
-> **サイト差異:** AP1 は Custom Metrics が 100 カスタムメトリクスあたり月 $6.25、Ingested Custom Metrics が 100 あたり月 $0.125（年契約・月契約・オンデマンドとも同額）。[製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
+> **サイト差異:** AP1 は Custom Metrics が 100 カスタムメトリクスあたり月 $6.25、Ingested Custom Metrics が 100 あたり月 $0.125（年契約・月契約・オンデマンドとも同額）。[製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照。
 
 [出典](https://www.datadoghq.com/pricing/list/) [出典](https://docs.datadoghq.com/account_management/billing/custom_metrics/)
 
 - カスタムメトリクスは「メトリクス名＋タグ値（host タグを含む）の組み合わせ」で数え、月内の時間ごとの個数の平均で課金される。histogram は 1 組み合わせあたり既定 5 個、distribution は 5 個（パーセンタイル追加で 10 個）。[出典](https://docs.datadoghq.com/account_management/billing/custom_metrics/)
-- 抑制策: OpenMetrics の `metrics` は明示指定または部分一致にし `exclude_metrics` / `exclude_labels` で高カーディナリティを除く、JMX は `conf` フィルタで絞る、Kubernetes の `prometheusScrape` は高度なルールで対象を限定する。コスト最適化の実践は [コスト最適化](../../04_応用編/cost-optimization.md)、課金計算の詳細は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+- 抑制策: OpenMetrics の `metrics` は明示指定または部分一致にし `exclude_metrics` / `exclude_labels` で高カーディナリティを除く、JMX は `conf` フィルタで絞る、Kubernetes の `prometheusScrape` は高度なルールで対象を限定する。コスト最適化の実践は [コスト最適化](../../04_応用編/01-cost-optimization.md)、課金計算の詳細は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 
 ---
 

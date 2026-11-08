@@ -49,7 +49,7 @@ Data Jobs Monitoring（データジョブ監視、略称 DJM）は、Apache Spar
 | Spark ジョブのトレース基盤（Java トレーサ、スパン） | 概要のみ | [APM の概念とインジェスト制御](../apm/apm-concepts-and-ingestion.md)、[APM インスツルメンテーション](../apm/apm-instrumentation.md) |
 | Databricks の DBU コストとクラウドコストの統合 | 概要のみ | [Cloud Cost Management](../infrastructure/cloud-cost-management.md) |
 | モニターの共通仕様 | 概要のみ | [Monitors](../platform/monitors.md) |
-| 料金の正本 | 概要のみ | [製品別料金表](../../03_導入編/pricing-by-product.md) |
+| 料金の正本 | 概要のみ | [製品別料金表](../../03_導入編/02-pricing-by-product.md) |
 
 ## 対応テクノロジー
 
@@ -72,7 +72,7 @@ Data Observability: Jobs Monitoring が公式にサポートするテクノロ�
 >
 > 補足：AWS Glue の課金区分は、料金ページの Orchestrators カード（「Airflow, dbt, AWS Glue, custom jobs」）による。Azure Data Factory は料金ページに記載がなく、課金区分は公開情報では確認できず。[出典](https://www.datadoghq.com/pricing/?product=jobs-monitoring)
 
-> **サイト差異:** 公式ドキュメントでは、Data Observability: Jobs Monitoring は **US1-FED（`app.ddog-gov.com`）および `us2.ddog-gov.com` では非サポート** とされ、US1、US3、US5、EU1、AP1、AP2 で利用できる。[出典](https://docs.datadoghq.com/data_observability/jobs_monitoring/) 一方、料金ページの FAQ は「AP、EU、US の全データセンターで提供（GovCloud（US）を含む）」と書いており、公式情報どうしが食い違っている（2026-11-04 確認）。[出典](https://www.datadoghq.com/pricing/?product=jobs-monitoring) 本ファイルは仕様の記述として **ドキュメントの非サポート表記を優先** する。GovCloud で使う場合は、事前に Datadog 営業・サポートに提供可否を確認すること。なお [製品別料金表](../../03_導入編/pricing-by-product.md) は料金ページに従って「GovCloud（US）で提供」と書いており、本ファイルとの整合が必要である。
+> **サイト差異:** 公式ドキュメントでは、Data Observability: Jobs Monitoring は **US1-FED（`app.ddog-gov.com`）および `us2.ddog-gov.com` では非サポート** とされ、US1、US3、US5、EU1、AP1、AP2 で利用できる。[出典](https://docs.datadoghq.com/data_observability/jobs_monitoring/) 一方、料金ページの FAQ は「AP、EU、US の全データセンターで提供（GovCloud（US）を含む）」と書いており、公式情報どうしが食い違っている（2026-11-04 確認）。[出典](https://www.datadoghq.com/pricing/?product=jobs-monitoring) 本ファイルは仕様の記述として **ドキュメントの非サポート表記を優先** する。GovCloud で使う場合は、事前に Datadog 営業・サポートに提供可否を確認すること。なお [製品別料金表](../../03_導入編/02-pricing-by-product.md) は料金ページに従って「GovCloud（US）で提供」と書いており、本ファイルとの整合が必要である。
 
 ## アーキテクチャとデータの流れ
 
@@ -395,7 +395,7 @@ EMR、Dataproc、Kubernetes の Spark ジョブでは、Jobs Monitoring 上の *
 | `-Ddd.tags` | 同上（EMR / Dataproc） | 任意タグ（`<KEY>:<VALUE>`） |
 | `sparkContext.setLocalProperty("spark.datadog.tags.key", "value")` | アプリケーションコード | 実行時タグ。追加後に開始したスパンにのみ適用。値を `null` にすると削除 |
 
-タグ設計の全般は [Tagging](../platform/tagging.md) と [タグ戦略の実践](../../04_応用編/tagging-strategy.md) を参照。
+タグ設計の全般は [Tagging](../platform/tagging.md) と [タグ戦略の実践](../../04_応用編/02-tagging-strategy.md) を参照。
 
 ## セットアップ：Apache Airflow
 
@@ -556,7 +556,7 @@ Data Observability: Jobs Monitoring の制限値・デフォルト値として�
 
 ## 課金への影響
 
-Data Observability: Jobs Monitoring の課金単位と定価は次のとおり（**2026-11-02 時点、USD、US/EU1 価格**）。料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。[出典](https://www.datadoghq.com/pricing/list/) [出典](https://www.datadoghq.com/pricing/?product=jobs-monitoring)
+Data Observability: Jobs Monitoring の課金単位と定価は次のとおり（**2026-11-02 時点、USD、US/EU1 価格**）。料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)。[出典](https://www.datadoghq.com/pricing/list/) [出典](https://www.datadoghq.com/pricing/?product=jobs-monitoring)
 
 | 区分 | 対象 | 課金単位 | 年契約（Billed Annually） | 月契約（Month-to-month） | オンデマンド |
 |---|---|---|---|---|---|
@@ -564,7 +564,7 @@ Data Observability: Jobs Monitoring の課金単位と定価は次のとおり�
 | Jobs Monitoring (Databricks Serverless) | Databricks Serverless | DBU あたり（per DBU） | $0.025 | $0.03 | $0.036 |
 | Jobs Monitoring (Orchestrators) | Airflow、dbt、AWS Glue、カスタムジョブ | ジョブ・時間あたり（per job, per hour） | $0.10 | $0.12 | $0.144 |
 
-> **サイト差異:** 上表は US/EU1 の価格である。基準サイト AP1 の価格は高く、年契約／月契約／オンデマンドの順に、Clusters が $0.0625／$0.075／$0.09、Databricks Serverless が $0.03125／$0.0375／$0.045、Orchestrators が $0.125／$0.15／$0.18 である。サイト別の価格は [製品別料金表](../../03_導入編/pricing-by-product.md) を正本とする。
+> **サイト差異:** 上表は US/EU1 の価格である。基準サイト AP1 の価格は高く、年契約／月契約／オンデマンドの順に、Clusters が $0.0625／$0.075／$0.09、Databricks Serverless が $0.03125／$0.0375／$0.045、Orchestrators が $0.125／$0.15／$0.18 である。サイト別の価格は [製品別料金表](../../03_導入編/02-pricing-by-product.md) を正本とする。
 
 使用量の算定方法は、料金ページ FAQ で次のように示されている。[出典](https://www.datadoghq.com/pricing/?product=jobs-monitoring)
 
@@ -586,7 +586,7 @@ Data Observability: Jobs Monitoring の課金単位と定価は次のとおり�
 - Databricks 側でも、システムテーブル取得用 SQL Warehouse の DBU コストが発生する（公式は専用 2XS・Auto Stop 5〜10 分を推奨）。[出典](https://docs.datadoghq.com/data_observability/jobs_monitoring/databricks/)
 - 新規アカウントには 14 日間の無料トライアルがある。[出典](https://www.datadoghq.com/product/data-observability/jobs-monitoring/)
 
-課金計算の一般的な仕組みは [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、使用量の確認は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md) を参照。
+課金計算の一般的な仕組みは [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、使用量の確認は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md) を参照。
 
 ## 他製品との使い分け
 
@@ -603,10 +603,10 @@ Data Observability: Jobs Monitoring の課金単位と定価は次のとおり�
 
 - **ジョブ名の一貫性**：Spark 系はジョブ名が `-Ddd.service` で決まるため、Driver と Executor の両方に同じ値を設定する。Databricks の単発実行では `DD_JOB_NAME` を `run_name` と一致させないと実行ごとに別ジョブ扱いになりやすい。[出典](https://docs.datadoghq.com/data_observability/jobs_monitoring/databricks/)
 - **init script のバージョン固定**：本番では `install-*-<version>.sh` を指定し、予期しない更新を避ける `【経験則】`。
-- **ログ量の管理**：Driver／Worker ログは既定無効。有効化する場合は `DD_LOGS_CONFIG_PROCESSING_RULES` やログインデックスの除外フィルターで量を制御する（[ログ管理の実践](../../04_応用編/log-management-practices.md)）。
+- **ログ量の管理**：Driver／Worker ログは既定無効。有効化する場合は `DD_LOGS_CONFIG_PROCESSING_RULES` やログインデックスの除外フィルターで量を制御する（[ログ管理の実践](../../04_応用編/06-log-management-practices.md)）。
 - **Standard アクセスモード**：Databricks の Standard（旧 Shared）アクセスモードのクラスターでは Datadog 管理 init script とグローバル init script が使えない。クラスターポリシー方式を採る。
 - **権限の最小化**：ADF は組み込み Data Factory Contributor より最小権限のカスタムロールを推奨。Databricks も Workspace Admin を付与できない場合は個別権限で構成できる。
-- **導入計画**：Agent の展開方式は [Agent 展開設計](../../03_導入編/agent-rollout-design.md)、ネットワーク要件は [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md)、コスト最適化は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+- **導入計画**：Agent の展開方式は [Agent 展開設計](../../03_導入編/10-agent-rollout-design.md)、ネットワーク要件は [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md)、コスト最適化は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ## 変更履歴（公開情報ベース）
 

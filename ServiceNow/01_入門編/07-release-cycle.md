@@ -18,6 +18,8 @@ sources:
   - https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/b8xBw9Kx_m6ywoaK~SOCDg
   - https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/YEkm_EKK0HKTdmqjibAY1A
   - https://www.servicenow.com/docs/r/u7nZu9GEUxWr9UkuDmbe6w/p38fsz1iLJIQoyRahdGGTQ
+  - https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-api-release-notes.html
+  - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-api-release-notes.html
   - https://www.servicenow.com/community/servicenow-ai-platform-articles/servicenow-versions-release/ta-p/2312014
   - https://www.servicenow.com/community/product-launch-forum/releases-and-upgrades-schedule-2026/m-p/3473339
   - https://www.servicenow.com/community/product-launch-forum/i-am-on-washington-dc-why-am-i-getting-status-of-quot-nearing/m-p/3112765
@@ -42,7 +44,7 @@ ServiceNow は SaaS であり、全顧客のインスタンスが同じコード
 | リリース頻度 | Family release は年2回。ServiceNow Store アプリは別スケジュール（四半期ごと等）で随時リリース |
 | 命名規則 | アルファベット順。Aspen〜Zurich は都市名、**Australia 以降は国名**（Australia → Brazil → Canada …） |
 | 公開フェーズ | Early Release Program（RTP → EA）を経て GA（General Availability：一般提供） |
-| 現行ファミリー | **Australia**（2026-05-05 GA、本ナレッジの基準リリース）。次期 **Brazil** は 2026-09-24 EA、GA は 2026-11 見込み（未確定） |
+| 現行ファミリー | **Australia**（2026-05-05 GA、本ナレッジの基準リリース）。次期 **Brazil** は 2026-09-24 EA。2026-11-05 に Brazil Patch 2 が「Available」で公開されており、この日に GA したとみられる【推定】（2026-11-08 追記確認。公式表に GA の明記はない） |
 | 修正の単位 | Patch（累積的な修正集）、Hotfix（個別修正）、Security patch（セキュリティ修正） |
 | 用語 | **Upgrade（アップグレード）** = ファミリーをまたぐ移行、**Update（アップデート）** = 同一ファミリー内の Patch/Hotfix 間の移行 |
 | サポート | 一般に「N（最新）と N-1（1つ前）」がサポート対象と説明される。契約により N-2 まで保持できる場合がある。EOL 後は Patch/Hotfix が提供されない |
@@ -94,13 +96,14 @@ ServiceNow のファミリーリリースは **年2回** である。2026 年に
 | Yokohama | 2025-01-30 | 2025-03（Patch 1 = 2025-03-12） |
 | Zurich | 2025-07-31 | 2025-09（Patch 1 = 2025-09-10） |
 | Australia | 2026-03-12 | **2026-05-05**（Patch 2 と同日） |
-| Brazil | 2026-09-24 | 2026-11 見込み（未確定） |
+| Brazil | 2026-09-24 | 2026-11-05（Patch 2 と同日。公式表に GA の明記はないため【推定】） |
 
 EA 日付・Patch 日付は各ファミリーの公式「Available patches and hotfixes」ページ（[Xanadu](https://www.servicenow.com/docs/r/xanadu/release-notes/available-versions.html)、[Yokohama](https://www.servicenow.com/docs/r/yokohama/release-notes/available-versions.html)、[Zurich](https://www.servicenow.com/docs/r/zurich/release-notes/available-versions.html)、[Australia](https://www.servicenow.com/docs/r/australia/release-notes/available-versions.html)、[Brazil](https://www.servicenow.com/docs/r/brazil/release-notes/available-versions.html)）による。GA 日付そのものは公式表に明記されていないため、Yokohama・Zurich・Australia の GA 日は第三者情報（[jitendrazaa.com](https://www.jitendrazaa.com/blog/servicenow/servicenow-release-timeline-upgrade-guide-complete-2025/)、[ServiceNow Community](https://www.servicenow.com/community/servicenow-ai-platform-articles/servicenow-versions-release/ta-p/2312014)）と Patch 日付の一致から判断した。【第三者情報】【推定】
 
 - 2024〜2025 年は「Q1 と Q3（3月・9月）に GA」というリズムだった。
-- 2026 年は Australia が 5 月、Brazil が 11 月見込みとなり、**「Q2 と Q4」にずれた**。コミュニティでは「リリース時期が Q1/Q3 か Q2/Q4 か分からない、推測させないでほしい」という声もある。[出典](https://www.servicenow.com/community/product-launch-forum/i-am-on-washington-dc-why-am-i-getting-status-of-quot-nearing/m-p/3112765)【第三者情報】
-- 近年は **GA が新しい Patch 番号の公開日と一致** する傾向がある（Xanadu・Yokohama・Zurich は Patch 1、Australia は Patch 2）。【推定】
+- 2026 年は Australia が 5 月、Brazil が 11 月（2026-11-05 とみられる【推定】）となり、**「Q2 と Q4」にずれた**。2026 スケジュールのコミュニティスレッド（2026-01）では、ユーザーから「Brazil の GA が 11 月頃になると、アップグレードが休暇や年末業務で時間を取りにくい 12 月にずれ込む」という懸念が出た。ServiceNow 社員は、日程が例年より遅く年末の負荷と重なり得ることを認めている。[出典](https://www.servicenow.com/community/product-launch-forum/releases-and-upgrades-schedule-2026/m-p/3473339)【第三者情報】
+- なお、2026 年の変更より前の 2024-11 時点でも、情報源によってリリース時期の書き方が違うことについて、コミュニティでは「Q1/Q3 か Q2/Q4 か推測させないでほしい」という声があった。[出典](https://www.servicenow.com/community/product-launch-forum/i-am-on-washington-dc-why-am-i-getting-status-of-quot-nearing/m-p/3112765)【第三者情報】
+- 近年は **GA が新しい Patch 番号の公開日と一致** する傾向がある（Xanadu・Yokohama・Zurich は Patch 1、Australia・Brazil は Patch 2）。【推定】
 
 ---
 
@@ -149,12 +152,13 @@ Australia の公式日程（公式「Available patches and hotfixes」表とコ�
 | Feature Early Availability | 2026-03-12 | [公式](https://www.servicenow.com/docs/r/australia/release-notes/available-versions.html) |
 | Australia Patch 1 | 2026-04-03 | [公式](https://www.servicenow.com/docs/r/australia/release-notes/available-versions.html) |
 | Australia Patch 2（＝GA） | 2026-05-05 | [公式](https://www.servicenow.com/docs/r/australia/release-notes/available-versions.html)／GA 日は [第三者](https://www.jitendrazaa.com/blog/servicenow/servicenow-release-timeline-upgrade-guide-complete-2025/) |
-| Australia Patch 7（最新の番号付き Patch） | 2026-10-08 | [公式](https://www.servicenow.com/docs/r/australia/release-notes/available-versions.html) |
-| Q4 2026 Patch target | Australia Patch 5a W44（2026-10-29） | [公式](https://www.servicenow.com/docs/r/australia/release-notes/available-versions.html) |
+| Australia Patch 7 | 2026-10-08 | [公式](https://www.servicenow.com/docs/r/australia/release-notes/available-versions.html) |
+| Australia Patch 8（2026-11-08 確認時点で最新の番号付き Patch） | 2026-11-05 | [公式](https://www.servicenow.com/docs/r/australia/release-notes/available-versions.html) |
+| Q4 2026 Patch target | ほぼ毎週更新される（2026-11-02 時点の一例：Australia Patch 5a W44。詳細は「4.2」） | [公式](https://www.servicenow.com/docs/r/australia/release-notes/available-versions.html) |
 
-### 2.3 Brazil の日程（2026-11-02 時点）
+### 2.3 Brazil の日程（2026-11-08 追記確認）
 
-> **Brazil での変更:** Brazil は国名ファミリーの 2 番目。日程は以下のとおりで、**GA 日は公式には未確認**である。
+> **Brazil での変更:** Brazil は国名ファミリーの 2 番目。日程は以下のとおり。Brazil Patch 2（2026-11-05、Available）の公開により **GA 済みとみられる** が、**GA 日は公式表に明記されていない**。
 >
 > | マイルストーン | 日付 | 確度 |
 > |---|---|---|
@@ -163,7 +167,8 @@ Australia の公式日程（公式「Available patches and hotfixes」表とコ�
 > | Early Availability | 当初 2026-09-10 前後の予定 → **2026-09-24 に変更** | ServiceNow 社員の Community 記事で「Brazil Early Availability has moved to September 24」と告知。[出典](https://www.servicenow.com/community/servicenow-otto-for-creator/what-s-new-in-servicenow-otto-for-creator-brazil-ea-release/ta-p/3596068)。公式表でも Feature Early Availability = 2026-09-24。[出典](https://www.servicenow.com/docs/r/brazil/release-notes/available-versions.html) |
 > | Brazil Patch 1 | 2026-10-08 | 公式表 [出典](https://www.servicenow.com/docs/r/brazil/release-notes/available-versions.html) |
 > | Brazil Patch 1 Hotfix 1 | 2026-10-15（Available to Early Availability customers） | 公式表 [出典](https://www.servicenow.com/docs/r/brazil/release-notes/available-versions.html) |
-> | General Availability | **2026-11 見込み** | 【第三者情報】コミュニティ回答・第三者ブログ。公式の GA 日付は公開情報では確認できず。[出典](https://nowben.com/servicenow-brazil-release-key-dates-and-preview-information/) |
+> | Brazil Patch 2 | 2026-11-05（Available） | 公式表 [出典](https://www.servicenow.com/docs/r/brazil/release-notes/available-versions.html)。同日に Brazil Patch 1 は Unavailable となった |
+> | General Availability | **2026-11-05** | 【推定】Australia が GA と Patch 2 を同日に迎えたパターン、および Patch 2 が EA 顧客限定でなく「Available」で公開されたことからの推定。公式の GA 日付は公開情報では確認できず。事前の見込みは「2026-11」だった【第三者情報】[出典](https://nowben.com/servicenow-brazil-release-key-dates-and-preview-information/) |
 >
 > また、公式「ServiceNow upgrades」ページは「Brazil では Update・Upgrade ともに所要時間が大幅に短縮される。ただし速く終わったことを成功とみなさず、必ずテストすること」と記載している。[出典](https://www.servicenow.com/docs/r/release-notes/upgrade.html)
 
@@ -176,7 +181,7 @@ Australia の公式日程（公式「Available patches and hotfixes」表とコ�
 ServiceNow のファミリー名は **アルファベット順** に付けられる。
 
 - **第1巡（都市名）**：2011 年の **Aspen** から 2025 年の **Zurich** まで、A〜Z の頭文字を持つ都市名が順に使われた（例：Kingston、London、Madrid、New York、Orlando、Paris、Quebec、Rome、San Diego、Tokyo、Utah、Vancouver、Washington DC、Xanadu、Yokohama、Zurich）。[出典](https://www.jitendrazaa.com/blog/servicenow/servicenow-release-timeline-upgrade-guide-complete-2025/)【第三者情報】
-- **第2巡（国名）**：Zurich の後は A に戻り、**国名** が使われる。**Australia が最初の国名ファミリー**、続いて **Brazil**。ServiceNow 社員は 2026 年のスケジュールに関するコミュニティスレッドで、命名が都市名から国名に変わることを前提に Australia / Brazil の時期を案内している。[出典](https://www.servicenow.com/community/product-launch-forum/releases-and-upgrades-schedule-2026/m-p/3473339)
+- **第2巡（国名）**：Zurich の後は A に戻り、**国名** が使われる。**Australia が最初の国名ファミリー**、続いて **Brazil**。ServiceNow 社員はコミュニティで、2026 年の唯一の注目すべき変更は命名が都市名から国名に変わること（Australia から）だと明言している（2026-01-09。原文 "The only notable change is the naming convention, which moves from city names to country names, starting with Australia for the first release in 2026."）。[出典](https://www.servicenow.com/community/product-launch-forum/releases-and-upgrades-schedule-2026/m-p/3473339)
 - **今後**：コミュニティのリリース一覧記事では Brazil の次が **Canada（2027 年 Q2 想定）**、その次が **Denmark（「Q4」とのみ記載）** と記載されている。いずれも公式発表は確認できず。[出典](https://www.servicenow.com/community/servicenow-ai-platform-articles/servicenow-versions-release/ta-p/2312014)【第三者情報】
 
 > 補足：第1巡の中でも Utah（州名）や Xanadu（架空の地名）のように厳密な「都市名」でない名前がある。Utah・Xanadu も含めて慣習的に「都市名リリース」と呼ばれる。【経験則】
@@ -186,7 +191,7 @@ ServiceNow のファミリー名は **アルファベット順** に付けられ
 | 場面 | 例 |
 |---|---|
 | 公式ドキュメントの URL | `https://www.servicenow.com/docs/r/australia/...`、`https://www.servicenow.com/docs/r/zurich/...` |
-| リリースノートのデルタ（差分）ページ | `delta-zurich-australia`（Zurich → Australia の差分）、`delta-yokohama-brazil` |
+| リリースノートのデルタ（差分）ページ | `delta-zurich-australia`（Zurich → Australia の差分）、`delta-yokohama-brazil`（Yokohama → Brazil の差分。[例](https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-api-release-notes.html)） |
 | Patch/Hotfix の版名 | `Australia Patch 7 Hotfix 1` |
 | 認定資格の Delta exam（差分試験） | ファミリーごとに実施（[学習パスと認定資格](09-learning-path.md) 参照） |
 
@@ -235,15 +240,19 @@ ServiceNow は各ファミリーのリリースノート内に **Available patch
 
 ### 4.2 Patch target（四半期ごとの推奨到達版）
 
-「Available patches and hotfixes」ページには **四半期ごとの Patch target（パッチ目標版）** が記載される。2026 年 Q4 の Patch target は次のとおり（ページ上で「Target versions change only if absolutely necessary＝目標版は絶対に必要な場合のみ変更される」と注記）。[出典](https://www.servicenow.com/docs/r/release-notes/available-versions.html)
+「Available patches and hotfixes」ページには **四半期ごとの Patch target（パッチ目標版）** が記載される。ページ上には「Targets are subject to change prior to patching. Target versions change only if absolutely necessary.（目標版はパッチ適用前に変更されることがある。目標版は絶対に必要な場合にのみ変更される）」と注記されている。[出典](https://www.servicenow.com/docs/r/release-notes/available-versions.html)
 
-| ファミリー | Q4 2026 Patch target |
+2026 年 Q4 の Patch target の **2026-11-02 時点の一例** は次のとおり（Australia・Zurich・Yokohama の 3 ファミリーに設定。Brazil は対象外）。
+
+| ファミリー | Q4 2026 Patch target（2026-11-02 時点の一例） |
 |---|---|
-| Australia | Australia Patch 5a W44（Australia 版ページの記載。共通ページでは W42 表記の時期あり） |
-| Zurich | Zurich Patch 12 W42 |
+| Australia | Australia Patch 5a W44 |
+| Zurich | Zurich Patch 12 W44 |
 | Yokohama | Yokohama Patch 13 Hotfix 5a W39 |
 
-> 注：共通ページと Australia 版ページで W 番号が異なる（W42 / W44）のは、ページの更新時期の差と考えられる。最新の値は Australia 版ページ（Australia Patch 5a W44、2026-10-29 公開、Available）。[出典](https://www.servicenow.com/docs/r/australia/release-notes/available-versions.html)【推定】
+[出典（Australia 版）](https://www.servicenow.com/docs/r/australia/release-notes/available-versions.html)・[出典（Zurich 版）](https://www.servicenow.com/docs/r/zurich/release-notes/available-versions.html)
+
+> 注：Patch target の値（特に `W` 付きの版）は **ほぼ毎週更新され**、共通ページと各ファミリー版ページで表記が違うことがある（例：2026-11-08 には Australia 版ページの Australia 行が Patch 5b W44 になっていた）。本表の値は参考にとどめ、必ず最新の公式ページと Now Support で確認すること。[出典](https://www.servicenow.com/docs/r/release-notes/available-versions.html)・[出典](https://www.servicenow.com/docs/r/australia/release-notes/available-versions.html)
 
 ServiceNow の **Patching Program（パッチ適用プログラム）** では、Patch target に合わせて ServiceNow が顧客インスタンス向けに **Parent Change Request（親 CHG）** を作成し、パッチ適用を連絡・追跡する。顧客は Now Support の Instances Dashboard から該当インスタンスの親 CHG を開き、コメントで質問・延期相談ができる。詳細は KB0995477 / KB1644913 に記載されている（本調査では KB 本文は未確認）。[出典](https://www.servicenow.com/community/onboarding-hub-articles/getting-started-with-servicenow-patching-and-eol-programs/ta-p/3114925)
 
@@ -262,6 +271,7 @@ Australia ファミリーでは、公式表に掲載された番号付き Patch 
 | Australia Patch 5 | 2026-08-07 | KB3138411 |
 | Australia Patch 6 | 2026-09-10 | KB3152248 |
 | Australia Patch 7 | 2026-10-08 | KB3221587 |
+| Australia Patch 8 | 2026-11-05 | KB3229040 |
 
 ---
 
@@ -270,23 +280,23 @@ Australia ファミリーでは、公式表に掲載された番号付き Patch 
 ### 5.1 N / N-1 とは
 
 - **N** = 最新の GA 済みファミリー、**N-1** = その 1 つ前のファミリー、**N-2** = 2 つ前。
-- ServiceNow は 2018 年の London リリース前後に、サポート対象を N-2 から **N-1** へ縮小したと広く説明されている。【第三者情報】[出典](https://www.servicenow.com/community/now-platform-forum/with-the-new-sn-policy-to-support-only-n-and-n-1-release-how-can/m-p/1033893)
+- 2020 年頃（2020-04 の投稿）のコミュニティでは、**N と N-1 のみ** をサポートする方針が新しい方針として話題になっている（回答者は「数日前に知った」と書き、例外的に N-2 が認められる場合もあると回答）。この方針の導入時期を明記した公式情報は公開情報では確認できず。【第三者情報】[出典](https://www.servicenow.com/community/now-platform-forum/with-the-new-sn-policy-to-support-only-n-and-n-1-release-how-can/m-p/1033893)
 - 一方で、サポート範囲は **契約（エンタイトルメント）によって N-1 または N-2** になる。2024-11 時点のコミュニティ回答では「N-1 エンタイトルメントでは Xanadu（N）と Washington DC（N-1）、N-2 エンタイトルメントでは Xanadu（N）と Vancouver・Washington DC」がサポート対象と説明されている。[出典](https://www.servicenow.com/community/product-launch-forum/i-am-on-washington-dc-why-am-i-getting-status-of-quot-nearing/m-p/3112765)【第三者情報】
 - 正式なポリシーは Now Support の **KB0783520（ServiceNow Upgrade and Update Policy Explained）**、**KB0610454（End-of-Life - Unsupported release family upgrades FAQ）**、**KB0598977（Definition of Unsupported Release）** に記載されている（いずれもログインが必要で、本調査では本文未確認）。[出典](https://www.servicenow.com/community/upgrades-and-patching-blogs/what-does-quot-unsupported-quot-really-mean/ba-p/2283644)
 
-2026-11-02 時点で N / N-1 を当てはめると次のようになる（Brazil GA 前）。
+Brazil が 2026-11-05 に GA したとみなすと【推定】、2026-11-08 時点の N / N-1 は次のようになる（2026-11-02 時点では Brazil は EA 中で、Australia = N、Zurich = N-1、Yokohama = N-2 だった）。
 
 | 区分 | ファミリー | 状況 |
 |---|---|---|
-| N（次期・EA 中） | Brazil | EA 顧客のみ（2026-09-24〜） |
-| **N（現行）** | **Australia** | 2026-05-05 GA。基準リリース |
-| N-1 | Zurich | Patch 13 まで公開、Q4 2026 Patch target あり |
-| N-2 | Yokohama | Q4 2026 Patch target あり（＝少なくとも 2026 Q4 時点で Patch 提供が継続）。第三者情報では EOL は 2026 Q4 とされる【第三者情報】[出典](https://www.jitendrazaa.com/blog/servicenow/servicenow-release-timeline-upgrade-guide-complete-2025/) |
-| N-3 | Xanadu | 最終掲載は Xanadu Patch 11 Hotfix 5a（2026-05-20、Available by request）。第三者情報では 2026 Q2 に EOL【第三者情報】 |
+| **N（最新）** | **Brazil** | 2026-09-24 EA、2026-11-05 GA【推定】（Brazil Patch 2 が Available） |
+| N-1 | **Australia** | 2026-05-05 GA。本ナレッジの基準リリース。Patch 8 まで公開 |
+| N-2 | Zurich | Patch 13 まで公開、Q4 2026 Patch target あり |
+| N-3 | Yokohama | Q4 2026 Patch target あり（＝少なくとも 2026 Q4 時点で Patch 提供が継続）。第三者情報では EOL は 2026 Q4 とされる【第三者情報】[出典](https://www.jitendrazaa.com/blog/servicenow/servicenow-release-timeline-upgrade-guide-complete-2025/) |
+| N-4 | Xanadu | 最終掲載は Xanadu Patch 11 Hotfix 5a（2026-05-20、Available by request）。第三者情報では 2026 Q2 に EOL【第三者情報】 |
 
 > 解釈上の注意：公式の Q4 2026 Patch target が Australia・Zurich・Yokohama の 3 ファミリーに設定されていることから、「N-1 のみ」とする一般的な説明よりも、実際には EOL 到達までの移行期間を含めて 3 ファミリー程度に Patch が提供されている状態と読める。自社がどこまでサポートされるかは、契約と Now Support の EOL 情報で必ず確認すること。【推定】[出典](https://www.servicenow.com/docs/r/release-notes/available-versions.html)
 
-> **Brazil での変更:** Brazil が GA になると、Brazil = N、Australia = N-1、Zurich = N-2 となり、Yokohama は EOL に向かう（N-1 エンタイトルメントなら Zurich も EOL 対象）。Brazil のリリースノートには Yokohama・Zurich・Australia からの差分ページ（`delta-yokohama-brazil` など）が用意されている。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-servicenowide-release-notes.html)【推定】
+> **Brazil での変更:** Brazil の GA（2026-11-05 とみられる【推定】）により、Brazil = N、Australia = N-1、Zurich = N-2 となり、Yokohama は EOL に向かう（N-1 エンタイトルメントなら Zurich も EOL 対象）。Brazil のリリースノートには Yokohama・Zurich・Australia からの差分ページ（`delta-yokohama-brazil`、`delta-zurich-brazil`、`delta-australia-brazil`）が用意されている。[出典（Yokohama→Brazil）](https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-api-release-notes.html)・[出典（Zurich→Brazil）](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-api-release-notes.html)・[出典（Australia→Brazil）](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-servicenowide-release-notes.html)（ファミリーの位置づけの変化は【推定】）
 
 ### 5.2 「Unsupported（サポート対象外）」の意味
 
@@ -332,7 +342,7 @@ flowchart TB
     end
     P2 -. 互換範囲内で導入・更新 .-> S2
     P2 -. 互換範囲内で導入・更新 .-> S3
-    P3 -. ファミリーアップグレード時に<br/>同梱版へ更新されることがある .-> S4
+    P3 -. ファミリーアップグレード時に<br/>あわせて更新できる .-> S4
 ```
 
 ### 6.2 Store アプリの更新方法
@@ -343,7 +353,7 @@ flowchart TB
 | 必要ロール | `admin` | [公式（Zurich）](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/YEkm_EKK0HKTdmqjibAY1A) |
 | できること | ライセンス済みアプリ・プラグインのインストール、更新、修復（Repair）、アンインストール | 同上 |
 | 更新 | 更新可能なアプリ・プラグインを一覧から選び、即時インストールまたは日時指定でスケジュール。多くは Store に戻らずに更新できる | [公式（Zurich）](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/bD_XB4s8asdFrDfTqxMJlg) |
-| ファミリーとの関係 | Store アプリの版は、インスタンスを新ファミリーへアップグレードする際にも更新され得る。更新は基本的に手動だが、古すぎるアプリはファミリーアップグレード時に強制更新されることがある | [Community FAQ](https://www.servicenow.com/community/servicenow-store-releases/store-release-forum-faqs/ta-p/2352627)【第三者情報】 |
+| ファミリーとの関係 | Store アプリの版は、インスタンスを新ファミリーへアップグレードする際にも更新できる（"Store application versions can be upgraded when you upgrade your instance to a new release version"） | [Community FAQ（社員投稿）](https://www.servicenow.com/community/servicenow-store-releases/store-release-forum-faqs/ta-p/2352627) |
 | 互換性の制約 | 自インスタンスのファミリーと互換性のあるアプリ版しか導入できない | [Community（GRC ブログ）](https://www.servicenow.com/community/grc-blog/the-servicenow-store-speeds-access-to-new-grc-applications/ba-p/2273910) |
 
 > 実務上の意味：Now Assist（生成 AI）系、ITOM 系、HRSD 系など多くの機能が Store アプリとして頻繁に更新されるため、「ファミリーが同じでも Store アプリの版によって使える機能が違う」ことがある。機能の有無を議論するときは **ファミリー名＋Store アプリの版** の両方を確認する。【経験則】（Now Assist の詳細は [Now Assist と AI Agents](../02_リファレンス/platform/now-assist-ai-agents.md) を参照）
@@ -383,7 +393,7 @@ Australia のリリースノート（Australia release notes）は、アップ�
 
 公式ドキュメントでは、アップグレードのスケジュールは **Now Support** から行い（例：Phase 3 で開発インスタンス、Phase 7 で本番インスタンスをスケジュール）、作業には `admin` ロールが必要とされる。テストは開発インスタンスでスモークテスト、テストインスタンスで Automated Test Framework（ATF）と UAT、本番では UAT のみ（ATF は非本番向け）が推奨される。[出典](https://www.servicenow.com/docs/r/release-notes/upgrade.html)・[出典](https://www.servicenow.com/docs/r/release-notes/upgrades-phase-7.html)
 
-インスタンス側では、Store アプリの **Upgrade Console（アップグレードコンソール）** が、最新 3 バージョンの表示・Patch 版の選択・スケジュール状況・現行版の EOL 情報・関連ツール（ATF、Cloning、Upgrade History、Upgrade Monitor、Upgrade Preview、Upgrade Skipped Record Rules Editor、Upgrade Plans など）を 1 か所にまとめている（Zurich 時点の公式ドキュメント）。[出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/b8xBw9Kx_m6ywoaK~SOCDg)
+インスタンス側では、Store アプリの **Upgrade Console（アップグレードコンソール）** が、最新版の表示・Patch 版の選択・スケジュール状況・現行版（Current version）の EOL 情報へのリンク・関連ツール（ATF、Cloning、Upgrade History、Upgrade Monitor、Now Support、Upgrade Preview、Upgrade Skipped Record Rules Editor、Upgrade Plans など）を 1 か所にまとめている（Zurich 時点の公式ドキュメント）。[出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/b8xBw9Kx_m6ywoaK~SOCDg)
 
 詳細な手順・体制・スキップ判断は [アップグレード管理](../03_導入編/13-upgrade-management.md)、カスタマイズがアップグレードに与える影響（Skipped records 等）は [カスタマイズと技術的負債](../04_応用編/02-customization-technical-debt.md) を参照。
 
@@ -398,7 +408,7 @@ ServiceNow の歴代ファミリーリリースを以下にまとめる。**公�
 | # | ファミリー | EA | GA | 備考 | 出典 |
 |---|---|---|---|---|---|
 | 1 | **Australia** | 2026-03-12 | **2026-05-05** | 初の国名ファミリー。本ナレッジの基準 | [公式](https://www.servicenow.com/docs/r/australia/release-notes/available-versions.html)・GA は【第三者情報】 |
-| 2 | **Brazil** | 2026-09-24 | 2026-11 見込み | 2026-11-02 時点で EA 中 | [公式](https://www.servicenow.com/docs/r/brazil/release-notes/available-versions.html)・GA は【第三者情報】 |
+| 2 | **Brazil** | 2026-09-24 | 2026-11-05 | Brazil Patch 2（2026-11-05、Available）と同日。2026-11-02 時点では EA 中だった | [公式](https://www.servicenow.com/docs/r/brazil/release-notes/available-versions.html)・GA は【推定】 |
 | 3 | Canada | — | 2027 Q2 想定 | 公式未発表 | 【第三者情報】[Community](https://www.servicenow.com/community/servicenow-ai-platform-articles/servicenow-versions-release/ta-p/2312014) |
 | 4 | Denmark | — | 「Q4」とのみ記載（2027 年後半と推定） | 公式未発表 | 【第三者情報】【推定】同上 |
 
@@ -417,7 +427,7 @@ ServiceNow の歴代ファミリーリリースを以下にまとめる。**公�
 | Istanbul | 2017 Q1 | |
 | Jakarta | 2017 Q2 | |
 | Kingston | 2017-11 | |
-| London | 2018 Q3 | この前後でサポート方針が N-2 → N-1 に変わったと説明される【第三者情報】 |
+| London | 2018 Q3 | |
 | Madrid | 2019 Q1 | |
 | New York | 2019 Q2 | |
 | Orlando | 2020 Q1 | |
@@ -445,7 +455,7 @@ Aspen 以前は「GlideSoft 2004」「Spring 2010」「Winter 2011」のよう�
 
 | 質問 | 回答 |
 |---|---|
-| 今の最新バージョンは？ | 2026-11-02 時点で GA 済みの最新は **Australia**（2026-05-05 GA）。Brazil は EA 中で、GA は 2026-11 見込み |
+| 今の最新バージョンは？ | 2026-11-02 時点で GA 済みの最新は **Australia**（2026-05-05 GA、本ナレッジの基準）。ただし 2026-11-05 に Brazil Patch 2 が「Available」で公開されており、Brazil はこの日に GA したとみられる【推定】。現在は Brazil = N、Australia = N-1 |
 | 「Zurich Patch 12」と「Zurich Patch 12 Hotfix 1」の違いは？ | Patch は修正の累積的なまとまり、Hotfix は特定の問題に対する個別修正。どちらも新機能は含まない |
 | EA で本番を上げてもよいか？ | EA は本番利用可能（production-ready）な版として提供される。RTP はサブプロダクション専用【第三者情報】 |
 | 何バージョンまで遅れてよいか？ | 一般に N-1 まで。ただし契約により N-2 まで認められる場合がある。EOL に達すると Patch/Hotfix が出なくなり、ServiceNow がアップグレードをスケジュールする |
@@ -474,6 +484,8 @@ Aspen 以前は「GlideSoft 2004」「Spring 2010」「Winter 2011」のよう�
 - Update an application or plugin（Zurich）: https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/bD_XB4s8asdFrDfTqxMJlg
 - ITOM Store upgrades（Australia, de-DE）: https://www.servicenow.com/docs/r/u7nZu9GEUxWr9UkuDmbe6w/p38fsz1iLJIQoyRahdGGTQ
 - Combined ServiceNow IDE release notes for upgrades from Australia to Brazil: https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-servicenowide-release-notes.html
+- Combined API release notes for upgrades from Yokohama to Brazil: https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-api-release-notes.html
+- Combined API release notes for upgrades from Zurich to Brazil: https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-api-release-notes.html
 
 ### ServiceNow Community（公式ブログ・社員投稿・フォーラム）
 - What does "unsupported" really mean?（Upgrades and Patching Blog）: https://www.servicenow.com/community/upgrades-and-patching-blogs/what-does-quot-unsupported-quot-really-mean/ba-p/2283644

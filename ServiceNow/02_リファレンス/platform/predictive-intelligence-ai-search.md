@@ -4,8 +4,8 @@ category: reference
 domain: ai
 release: Australia
 last_verified: 2026-11-02
-summary: ServiceNow の機械学習機能 Predictive Intelligence（Classification / Similarity / Clustering / Regression）のソリューション定義・学習要件・ロール・プロパティ・API と、検索エンジン AI Search（Indexed source / Search source / Search profile / Search application、Genius Results）の構成要素、および旧来の Zing テキスト検索との違いを整理する。
-keywords: [Predictive Intelligence, 予測インテリジェンス, PI, machine learning, 機械学習, Classification, 分類, Similarity, 類似性, Clustering, クラスタリング, Regression, 回帰, solution definition, ソリューション定義, ml_admin, ml_solution, ml_predictor_results, MLSolutionFactory, ClassificationSolution, precision, coverage, recall, AI Search, AI検索, Genius Results, ジーニアスリザルト, search profile, 検索プロファイル, indexed source, search source, sys_search_context_config, ais_admin, Zing, テキスト検索, ServiceNow Otto for AI Search, Now Assist in AI Search, hybrid search, ハイブリッド検索]
+summary: ServiceNow の機械学習機能 Predictive Intelligence（Classification / Similarity / Clustering / Regression）のソリューション定義・学習要件・ロール・プロパティ・API、製品組込み手段（Task Intelligence、非推奨の PIWB）と、検索エンジン AI Search（Indexed source / Search source / Search profile / Search application、Genius Results）の構成要素、および旧来の Zing テキスト検索との違いを整理する。
+keywords: [Predictive Intelligence, 予測インテリジェンス, PI, machine learning, 機械学習, Classification, 分類, Similarity, 類似性, Clustering, クラスタリング, Regression, 回帰, solution definition, ソリューション定義, ml_admin, ml_solution, ml_predictor_results, MLSolutionFactory, ClassificationSolution, precision, coverage, recall, AI Search, AI検索, Genius Results, ジーニアスリザルト, search profile, 検索プロファイル, indexed source, search source, sys_search_context_config, ais_admin, Zing, テキスト検索, ServiceNow Otto for AI Search, Now Assist in AI Search, hybrid search, ハイブリッド検索, Task Intelligence, タスクインテリジェンス, com.snc.itsm_ml_task, Predictive Intelligence Workbench, PIWB]
 sources:
   - https://www.servicenow.com/docs/r/australia/intelligent-experiences/predictive-intelligence/predictive-intelligence-frameworks.html
   - https://www.servicenow.com/docs/r/zurich/intelligent-experiences/predictive-intelligence/training-ml-solutions.html
@@ -19,30 +19,58 @@ sources:
   - https://www.servicenow.com/docs/r/intelligent-experiences/predictive-intelligence/configuring-target-metrics-trained-classification-solution.html
   - https://www.servicenow.com/docs/r/intelligent-experiences/predictive-intelligence/using-predictive-intelligence.html
   - https://www.servicenow.com/docs/r/it-service-management/predictive-intelligence-for-incident.html
+  - https://www.servicenow.com/docs/r/5M2H7PAkXUuakbtz~5Kfeg/kcCD~6wu0anJrM22u4Zt0Q
+  - https://www.servicenow.com/docs/r/5M2H7PAkXUuakbtz~5Kfeg/40pUFf3JG3QPhlf7yaM1ZA
+  - https://www.servicenow.com/docs/r/customer-service-management/csm-task-intelligence.html
+  - https://www.servicenow.com/docs/r/t~YvqQkg2oQX4L7ySrpyuQ/Tcvqw~Q_2KxL8Ea4zF_i5Q
+  - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/MAe_MZnea_9WMemT034LxQ
+  - https://www.servicenow.com/docs/r/MlbQAgTiiiMOLOw9T36wJg/7ougNE51beqzg62IvA7u5g
+  - https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-task-intelligence.html
+  - https://www.servicenow.com/docs/r/yokohama/it-service-management/predictive-intelligence-workbench/itsm-piwb-landing-page.html
+  - https://www.servicenow.com/docs/r/xanadu/it-service-management/predictive-intelligence-workbench/itsm-piwb-activation.html
+  - https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/brjyI98msVprkdVZeRPong
+  - https://www.servicenow.com/docs/r/AWjfoG0XNF6COBtQI5zL~A/AlwxOt~2fh1tkuUYmQHTkQ
   - https://www.servicenow.com/docs/r/HGWDpzjgkfvaJWTdMzNy2w/of3c3wLKuRfrpti~VcHbZQ
   - https://www.servicenow.com/docs/r/api-reference/server-api-reference/ClassificationSolutionAPI.html
   - https://www.servicenow.com/docs/r/api-reference/server-api-reference/MLSolutionFactoryAPI.html
   - https://www.servicenow.com/docs/r/pt-BR/api-reference/rest-apis/agent-intelligence-api.html
   - https://www.servicenow.com/docs/r/_yCRwrQYX6H0b46tCsDNZA/kxAsV60soGmyMn7lHur8Jg
   - https://www.servicenow.com/docs/bundle/zurich-platform-administration/page/administer/ai-search/concept/configuring-ais.html
+  - https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/bl8P_x4UatHNL41ewDJd3g
   - https://www.servicenow.com/docs/r/zurich/platform-administration/ai-search/search-sources-ais.html
   - https://www.servicenow.com/docs/r/platform-administration/ai-search/defining-search-profiles-ais.html
+  - https://www.servicenow.com/docs/bundle/yokohama-platform-administration/page/administer/ai-search/concept/ais-managing-indexed-source.html
   - https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/E~x2U7igB3UpAxqJpRKclw
   - https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/TCo08FVktAmwgTnlfVB3YQ
+  - https://www.servicenow.com/docs/r/eh2NFokZCOdK5kPblQPzog/RmpeBQ~exjX2gmR1y5_1Ig
   - https://www.servicenow.com/docs/r/eh2NFokZCOdK5kPblQPzog/71872ZeiCiGbuwN6on3jBg
   - https://www.servicenow.com/docs/r/australia/release-notes/ai-search-rn.html
   - https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-aisearch-release-notes.html
   - https://www.servicenow.com/docs/r/platform-administration/ai-search/now-assist-ais.html
   - https://www.servicenow.com/docs/r/platform-administration/ai-search/search-disparities-ai-search-now-assist.html
   - https://www.servicenow.com/docs/r/yokohama/platform-administration/ai-search/international-language-support-ais.html
+  - https://www.servicenow.com/docs/r/platform-administration/ai-search/searching-translated-content-ais.html
   - https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/1Ch~zWUnQ7p_tovUGVS6hA
+  - https://www.servicenow.com/docs/r/wLYnGFihvmNxBr5heMf_jw/mP6YBAs2d9mEKZnD3boB6A
+  - https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/I~HVOp9UUqA8qkQvzfUW6A
   - https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/h4FGFcOayHtjg~c981fNUA
   - https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/LAWI_0XHmB8iRfSnR1xFIw
   - https://www.servicenow.com/docs/r/eFUFU9smnpvS4o_KRK5TFA/TrnJkeJcGEF3An6lzPOutg
   - https://www.servicenow.com/community/ai-intelligence-articles/tuning-predictive-intelligence-models-part-2-using/ta-p/2299135
   - https://www.servicenow.com/community/hrsd-articles/predictive-intelligence-for-hr-find-patterns-using-clustering/ta-p/2310820
+  - https://www.servicenow.com/community/intelligence-ml-forum/records-in-quot-ml-solution-definitions-quot-and-quot-solution/m-p/2717973
+  - https://www.servicenow.com/community/intelligence-ml-forum/how-is-predictive-intelligence-confidence-calculated/td-p/2725619/page/2
+  - https://www.servicenow.com/community/intelligence-ml-forum/servicenow-predictive-intelligence-pi-complete-guide/m-p/3515244
+  - https://www.servicenow.com/community/servicenow-otto-forum/now-assist-vs-predictive-intelligence/m-p/3500993
   - https://www.servicenow.com/community/ai-intelligence-articles/drive-action-with-genius-results-in-ai-search/ta-p/2307689
   - https://www.servicenow.com/community/now-assist-articles/check-out-the-brand-new-ai-search-setup-page-and-more-in-the/ta-p/3018734
+  - https://www.servicenow.com/community/ai-intelligence-articles/ai-search-quick-start-guide/ta-p/2307562
+  - https://www.servicenow.com/community/employee-center-forum/ai-search-spoke-license/td-p/3079820
+  - https://www.servicenow.com/community/developer-forum/unable-to-create-ai-search-indexed-source-for-business/m-p/3291642
+  - https://www.servicenow.com/community/servicenow-ai-platform-forum/ai-search-zing-to-ai-search-migration-issue/m-p/3291316
+  - https://www.servicenow.com/community/ai-intelligence-articles/task-intelligence-for-itsm-quick-start-guide/ta-p/2639239
+  - https://www.servicenow.com/community/ai-intelligence-articles/task-intelligence-case-field-prediction-guide/ta-p/2597155
+  - https://speakerdeck.com/niwato/servicenow-snug-meetup-lt-deck-servicenow-jian-suo-xing-nojin-hua-zingkaranow-assistmade
 ---
 
 # Predictive Intelligence と AI Search（予測インテリジェンスと AI 検索）
@@ -56,13 +84,13 @@ sources:
 | **Predictive Intelligence（予測インテリジェンス、PI）** | 過去レコードを学習した機械学習（ML）モデルで、フィールド値の予測・類似レコード検出・グルーピングを行う | Incident の Category / Assignment group 自動設定、類似インシデント・ナレッジ推奨、メジャーインシデント検知 | `ml_admin` |
 | **AI Search（AI 検索）** | プラットフォーム内レコードと外部コンテンツを索引化し、関連性学習・同義語・タイポ補正等を備えた検索と、カード型の即答 **Genius Results（ジーニアスリザルト）** を提供する | Service Portal / Employee Center / Virtual Agent / Now Mobile / グローバル検索 | `ais_admin` |
 
-- Predictive Intelligence は ServiceNow AI Platform の機能で、Australia リリースのリリースノートでは「active by default（既定で有効）」と記載されている（プラグイン `com.glide.platform_ml`）。[出典](https://www.servicenow.com/docs/r/australia/release-notes/predictive-intelligence-rn.html)
+- Predictive Intelligence は ServiceNow AI Platform の機能で、Australia リリースのリリースノートでは「active by default（既定で有効）」と記載されている。[出典](https://www.servicenow.com/docs/r/australia/release-notes/predictive-intelligence-rn.html) プラグインは `com.glide.platform_ml`（Predictive Intelligence プラグイン）である。[出典](https://www.servicenow.com/docs/r/pt-BR/api-reference/rest-apis/agent-intelligence-api.html)
 - AI Search も Australia リリースノートで「active by default」と記載されている。[出典](https://www.servicenow.com/docs/r/australia/release-notes/ai-search-rn.html)
-- AI Search は旧来の **Zing（ジング）** テキストインデックス／検索エンジンを置き換える位置付けの検索エンジンである（後述「Zing との違い」）。[出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/1Ch~zWUnQ7p_tovUGVS6hA)
+- AI Search は旧来の **Zing（ジング）** テキストインデックス／検索エンジンを置き換える位置付けの検索エンジンである（後述「Zing との違い」）。公式には「Utah リリース以降、CRM Workspace で AI Search が Zing 検索アプリケーションを置き換える」と記載されている。[出典](https://www.servicenow.com/docs/r/wLYnGFihvmNxBr5heMf_jw/mP6YBAs2d9mEKZnD3boB6A) ただし Zing の廃止（EOL）日は公開情報では確認できず、Unified Navigation の検索エンジンを Zing に戻す手順（Revert to Zing as the Unified Navigation search engine）も公式に提供されている。[出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/I~HVOp9UUqA8qkQvzfUW6A)
 - 生成 AI（LLM）を使う Now Assist / AI Agents、および AI Search に LLM 回答を付加する「Now Assist in AI Search（2026-09 以降の名称は ServiceNow Otto for AI Search）」の詳細は [Now Assist と AI Agents](./now-assist-ai-agents.md) を参照。本ファイルでは AI Search 側から見た Genius Results の構成のみ扱う。
 - 会話型 UI 側（Virtual Agent、NLU）は [Virtual Agent と会話型AI](./virtual-agent.md)、ポータル側の検索 UI は [Service Portal と Employee Center](./portals-employee-center.md) を参照。
 
-> **Brazil での変更:** Australia→Brazil の AI Search 差分リリースノートでは、Brazil ファミリー固有の AI Search 変更は「No updates for this release」とされ、主要変更はすべて Australia ファミリー（パッチ／ストアアプリ更新）側に記録されている。Predictive Intelligence の Brazil 固有の変更点は公開情報では確認できず。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-aisearch-release-notes.html)
+> **Brazil での変更:** Australia→Brazil の AI Search 差分リリースノートの Brazil 見出しには、次の項目が記載されている。新機能は、high-churn（頻繁に更新される）フィールドを索引化から除外して索引化の処理回数と索引サイズを減らす機能（Exclude high-churn fields from indexing）と、検索候補リンク・検索結果タイトルリンクの標準 HTML アンカー表示（右クリック・長押しで新しいタブに開ける。Australia Patch 7 にも含まれる）。変更点は、semantic vector indexing を構成したすべての Indexed source でハイブリッド検索をサポートするようになったこと（Expanded support for hybrid search）。非推奨欄には Now LLM Service の記載がある（2026-09 リリース以降 Gemma 4 を追加し、旧モデルは既存の公開済みスキル等では引き続き使えるが、新規開発には使えない）。Action Genius Results は Now LLM Service を使うため影響を確認すること。Important information / Removed / Additional requirements / Accessibility の欄は「No updates for this release」。Predictive Intelligence の Brazil 固有の変更点は公開情報では確認できず。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-aisearch-release-notes.html) [出典（Patch 7）](https://www.servicenow.com/docs/r/australia/release-notes/ai-search-rn.html)
 
 ---
 
@@ -107,16 +135,16 @@ flowchart LR
 - 学習には `sharedservice.worker` ユーザーが必要とされている（ロールではなく要件として記載）。[出典](https://www.servicenow.com/docs/r/HGWDpzjgkfvaJWTdMzNy2w/of3c3wLKuRfrpti~VcHbZQ)
 - ML Trainer との通信の KAA 検証プロパティ `glide.platform_ml.kaa_auth_enabled`（既定 `true`）が Australia の 2026-08 パッチノート（AP5）で追加された。KAA 検証はインスタンスで mTLS が有効な場合にのみ動作し、mTLS が無効なら検証はスキップされる。[出典](https://www.servicenow.com/docs/r/australia/release-notes/predictive-intelligence-rn.html)
 
-## フレームワーク（Classification / Similarity / Clustering / Regression）
+## フレームワーク（Classification / Similarity / Clustering ＋非推奨の Regression）
 
-Predictive Intelligence には4つのフレームワーク（Framework、機械学習の種類）がある。Australia 版の公式ページの記載を整理する。[出典](https://www.servicenow.com/docs/r/australia/intelligent-experiences/predictive-intelligence/predictive-intelligence-frameworks.html)
+Australia リリースの Predictive Intelligence のフレームワーク（Framework、機械学習の種類）は **Classification、Similarity、Clustering の3つ**である。Regression（回帰）は Washington DC リリースで非推奨となり（新規ソリューションの作成サポートを削除）、既存ソリューションの学習・編集のみ可能として、公式ページに「Deprecated」の見出しで別枠に併記されている。下表では参考として Regression を最終行に示す。[出典](https://www.servicenow.com/docs/r/australia/intelligent-experiences/predictive-intelligence/predictive-intelligence-frameworks.html)
 
 | フレームワーク | 目的 | 典型例 | ソリューション種別 | Australia での状態 |
 |---|---|---|---|---|
 | **Classification（分類）** | レコード作成時にカテゴリ型フィールド値を ML で設定し、過去の処理実績に基づいて作業を分類・ルーティングする | Short description から Incident の Category を設定 | Classification（Workflow Classification を含む） | 利用可 |
 | **Similarity（類似性）** | 新規レコードと値が類似する既存レコードを特定し、実績ある解決策の再利用を促す | 類似のクローズ済み Incident の解決策を推奨 | Workflow similarity solution | 利用可 |
 | **Clustering（クラスタリング）** | レコードをクラスタ（グループ）に分割してパターンを可視化し、まとめて対処・データのギャップ発見に使う | 新規 Incident 群をグループ化して大規模障害を発見 | Workflow clustering solution | 利用可 |
-| **Regression（回帰）** | 過去データから数値を予測する | 温度、株価などの数値予測 | Regression | **非推奨（Deprecated）**。新規作成不可、既存の編集・再学習は可 |
+| *（参考：非推奨フレームワーク）* **Regression（回帰）** | 過去データから数値を予測する | 温度、株価などの数値予測 | Regression | **非推奨（Deprecated）**（Washington DC で新規作成サポート削除）。新規作成不可、既存の編集・再学習は可。現行フレームワークには数えない |
 
 ### Classification（分類）フレームワーク
 
@@ -176,11 +204,11 @@ Australia 版の Predictive Intelligence ロール一覧は以下のとおり。
 
 | ロール | 表示名 | 権限 | 包含ロール |
 |---|---|---|---|
-| `ml_admin` | ML Admin | `ml_predictor_results`、`ml_predictor_results_task` テーブルへの CRUD。ソリューション定義の作成・学習（`admin` でも可） | `pa_data_collector`, `pa_viewer` |
+| `ml_admin` | ML Admin | `ml_predictor_results`、`ml_predictor_results_task` テーブルへの CRUD | `pa_data_collector`, `pa_viewer` |
 | `ml_labeler` | ML Labeler | `ml_label_candidate` テーブルへの CRUD | `sn_ace.ace_user`, `nlu_user` |
 | `ml_report_user` | ML Report User | `ml_predictor_results`、`ml_predictor_results_task` テーブルの参照のみ | `pa_viewer` |
 
-- ソリューション定義（Classification / Similarity / Clustering）の作成手順の必要ロールは `admin` または `ml_admin`。[出典](https://www.servicenow.com/docs/r/australia/intelligent-experiences/predictive-intelligence/create-solution-definition.html)
+- ソリューション定義（Classification / Similarity / Clustering）の作成・学習手順の必要ロールは `admin` または `ml_admin`（手順ページの記載。ロールページの `ml_admin` の説明には作成・学習権限の記載はない）。[出典](https://www.servicenow.com/docs/r/australia/intelligent-experiences/predictive-intelligence/create-solution-definition.html)
 - Now Assist Skill Kit に PI ツールを追加する場合は `sn_skill_builder.admin` が必要（後述）。[出典](https://www.servicenow.com/docs/r/_yCRwrQYX6H0b46tCsDNZA/kxAsV60soGmyMn7lHur8Jg)
 
 ## 主要テーブル
@@ -428,9 +456,33 @@ Incident Management 向けには既定のソリューション定義が提供さ
 - 同種の既定ソリューションは CSM、HR、Legal Service Delivery、PPM 等にも提供されている（各製品の詳細は [Incident Management](../itsm/incident-management.md)、[Customer Service Management](../customer/customer-service-management.md)、[HR Service Delivery](../employee/hr-service-delivery.md) を参照）。[出典](https://www.servicenow.com/docs/r/5M2H7PAkXUuakbtz~5Kfeg/kcCD~6wu0anJrM22u4Zt0Q)
 - 公式の利用例として、関連記事の提案、タスクの割り当て・分類・優先度付け、メジャーインシデント検知、ケース解決策の推奨、重複する記事・アイデアの防止、フィッシング検知が挙げられている。[出典](https://www.servicenow.com/docs/r/intelligent-experiences/predictive-intelligence/using-predictive-intelligence.html)
 
-### Predictive Intelligence Workbench（PIWB）
+### Task Intelligence（タスクインテリジェンス）
 
-- ITSM、HR、PPM 等の製品別に **Predictive Intelligence Workbench（PIWB）** が提供され、事前構築されたユースケーステンプレートからモデルを作成し、作成→学習→評価→チューニング→テスト→業務プロセスへの統合の流れで扱う。テンプレートは `piwbadmin` / `piwbmanager` ロールのユーザーが利用する（ロール名は検索結果の記載に基づく。各製品版の詳細は公開情報では十分に確認できず）。[出典](https://www.servicenow.com/docs/r/BgFKZnPHldZ62gGtzQ71Mw/fCpt584peMjRrlXE8ohtIQ)
+`Task Intelligence（タスクインテリジェンス）` は、Predictive Intelligence 基盤の上に作られた製品別のストアアプリケーションで、ノーコードの Admin Console（管理コンソール）からモデルを作成・学習・デプロイし、予測結果を Workspace 上の推奨（Recommendation）や自動入力として表示する。Australia で PI を製品に組み込んで使う主な手段であり、ITSM では Predictive Intelligence Workbench（PIWB）の後継として案内されている（次節）。
+
+| 項目 | Task Intelligence for ITSM | Task Intelligence for Customer Service |
+|---|---|---|
+| アプリケーション ID | `com.snc.itsm_ml_task`（公式インストールページ。構成要素ページに `com.snc.itsmmltask` の表記揺れあり） | `com.snc.csm_ml_task` |
+| 予測・推奨の内容 | Incident のフィールド値（Incident category モデル。リリースノートでは category、priority、assignment group 等の予測）、類似 Incident、類似のオープン Change request・Problem、Major Incident Recommendation | Case・Interaction レコードのフィールド値予測（英・仏・独・西）、感情分析（英語のみ）、言語検出（最大20言語）、添付 PDF・画像からのデータ抽出（Document Intelligence）、類似ケース |
+| 表示先 | Service Operations Workspace の Incident フォーム（サイドパネルの推奨）。表示方法・タイミングは Advanced Recommended Actions for ITSM で制御 | CRM Workspace（CSM Configurable Workspace）および Core UI。AI 予測バナーは Workspace の既定ページのみで、`displayBanner` プロパティの既定は false |
+| 管理 UI | Task Intelligence for ITSM の Admin Console（作成・学習・構成・デプロイ・監視）、ITSM Task Intelligence Monitoring Dashboard | Task Intelligence Admin Console、DocIntel Admin |
+| ロール | インストールは `admin`。管理者（Admin）・アナリスト（Analyst）向けのロールがあり、ストアアプリ 8.2.1（2025-12）で監視ダッシュボード閲覧専用の `sn_itsm_ml_task.ti_user` が追加された | 公式ページに専用ロールの明記なし（公開情報では確認できず） |
+| 必要サブスクリプション | **ITSM Pro Package**（公式インストールページ「Installing Task Intelligence for ITSM requires the ITSM Pro Package subscription」） | 公式ページに明記なし。【第三者情報】Community では CSM Pro が必要とされる |
+| 対応リリース | Utah Patch 5 以降（Australia 版ページ） | ストアの互換性情報を参照 |
+
+[出典（ITSM 概要・Australia）](https://www.servicenow.com/docs/r/t~YvqQkg2oQX4L7ySrpyuQ/Tcvqw~Q_2KxL8Ea4zF_i5Q) [出典（ITSM インストール・Australia）](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/MAe_MZnea_9WMemT034LxQ) [出典（ITSM モデル管理・Zurich）](https://www.servicenow.com/docs/r/MlbQAgTiiiMOLOw9T36wJg/7ougNE51beqzg62IvA7u5g) [出典（ITSM ストアリリースノート）](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-task-intelligence.html) [出典（CSM・Brazil）](https://www.servicenow.com/docs/r/customer-service-management/csm-task-intelligence.html) [出典（CSM 構成要素）](https://www.servicenow.com/docs/r/5M2H7PAkXUuakbtz~5Kfeg/40pUFf3JG3QPhlf7yaM1ZA)
+
+- 【第三者情報】Community のクイックスタートガイドでは、ITSM 版の既定モデルは Assignment group、Configuration item、Service を予測するよう事前構成され、予測は「推奨として表示」「自動入力（autofill）」「バックグラウンドのみ」のいずれかでデプロイでき、既定では最低 10,000 件の学習データが必要とされている。[出典](https://www.servicenow.com/community/ai-intelligence-articles/task-intelligence-for-itsm-quick-start-guide/ta-p/2639239) [出典（CSM）](https://www.servicenow.com/community/ai-intelligence-articles/task-intelligence-case-field-prediction-guide/ta-p/2597155)
+- HR Service Delivery 等、ITSM・CSM 以外の製品向け Task Intelligence の提供状況は公開情報では十分に確認できず。
+- 製品側の詳細は [Incident Management](../itsm/incident-management.md)、[ITSM Pro/Enterprise 固有機能](../itsm/itsm-pro-features.md)、[Customer Service Management](../customer/customer-service-management.md) を参照。
+
+### Predictive Intelligence Workbench（PIWB、Yokohama で非推奨）
+
+- **ITSM Predictive Intelligence Workbench（PIWB）** は、事前構築されたユースケーステンプレートから ML モデルを作成・学習・評価・業務プロセスへ統合するためのアプリケーションだった。Xanadu で将来の非推奨化が予告され、**Yokohama リリースで完全に非推奨となり、デプロイ・機能強化・サポートのいずれも終了した**（公式記載「completely deprecated and no longer deployed, enhanced, or supported」）。[出典（Yokohama 版 PIWB）](https://www.servicenow.com/docs/r/yokohama/it-service-management/predictive-intelligence-workbench/itsm-piwb-landing-page.html) [出典（Xanadu 版有効化ページ）](https://www.servicenow.com/docs/r/xanadu/it-service-management/predictive-intelligence-workbench/itsm-piwb-activation.html)
+- 後継として **Task Intelligence for ITSM（`com.snc.itsm_ml_task`）** の導入が案内されている。Yokohama→Australia の PI 差分リリースノートの Deprecations 表にも「With the Yokohama release, ITSM Predictive Intelligence Workbench is deprecated and no longer supported」と記載されている。Yokohama 版 PIWB ページは代替として Predictive Intelligence プラグイン（`com.glide.platform_ml`）も挙げ、既存モデル・ワークフローを見直して移行または再開発を計画するよう求めている（非推奨プロセスは Now Support KB0867184）。[出典（差分 RN）](https://www.servicenow.com/docs/r/AWjfoG0XNF6COBtQI5zL~A/AlwxOt~2fh1tkuUYmQHTkQ)
+- 基準リリースの Australia で新規に設計する場合は PIWB を使わず、Task Intelligence または PI のソリューション定義を直接使う。
+- 旧 PIWB には「Predictive Intelligence Workbench Migration Utility」という機能があったが、これは既存の PI ソリューション定義を PIWB のユースケースへ変換するもの（`piwb_manager` ロール）であり、PIWB から Task Intelligence への移行ツールではない。PIWB のロール名は資料により `piwbadmin` / `piwb_admin` などの表記揺れがある。[出典](https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/brjyI98msVprkdVZeRPong)
+- HR 版など ITSM 以外の PIWB の非推奨状況は公開情報では確認できず。
 
 ### Flow Designer（Workflow Studio）からの利用
 
@@ -747,10 +799,11 @@ Australia リリース（パッチ／ストアアプリ更新を含む）の AI 
 | 2026-09 | 新機能 | ServiceNow Otto for AI Search（エージェント機能、Web・モバイル・メッセージングでのマルチモーダル対応） |
 | 2026-09 | 新機能 | MCP Server Console：AI Search の機能を Model Context Protocol（MCP）の Search ツールカテゴリとして提供 |
 | 2026-09 | 変更 | 名称変更（Now Assist in AI Search → ServiceNow Otto for AI Search、各 Genius Results 名） |
+| 2026-10 頃【推定】（Australia Patch 7） | 新機能 | 検索候補リンク・検索結果タイトルリンクを標準 HTML アンカーで表示（ブラウザの右クリック・長押しで新しいタブに開ける）。リリースノートでは Australia Patch 7 の節に記載され、月は明記されていないため時期はパッチ番号からの推定 |
 
 - 非推奨・アップグレード注意事項はリリースノートに記載なし。
 
-> **Brazil での変更:** 差分リリースノート上、Brazil 固有の AI Search 変更はない（上記はすべて Australia ファミリーの更新として記録）。ローカライズ面では「索引化と検索はプラットフォームが提供する全言語で動作」と記載されている。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-aisearch-release-notes.html)
+> **Brazil での変更:** 差分リリースノートの Brazil 見出しには次の項目がある。(1) 新機能：high-churn フィールドの索引化除外（Exclude high-churn fields from indexing。索引化の処理回数と索引サイズを削減）、検索候補・検索結果タイトルリンクの標準 HTML アンカー表示（上表の Australia Patch 7 と同内容）。(2) 変更：semantic vector indexing を構成したすべての Indexed source でハイブリッド検索をサポート（Expanded support for hybrid search）。(3) 非推奨：Now LLM Service（2026-09 リリース以降 Gemma 4 を追加し、旧モデルは既存の公開済みスキル・エージェントでは継続利用可、新規開発では利用不可。Action Genius Results が Now LLM Service を使うため要確認）。Removed / Important information / Additional requirements / Accessibility は「No updates for this release」。ローカライズ面では「索引化と検索はプラットフォームが提供する全言語で動作」と記載されている。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-aisearch-release-notes.html)
 
 ## 多言語・日本語対応
 
@@ -781,7 +834,7 @@ Australia リリース（パッチ／ストアアプリ更新を含む）の AI 
 
 | 観点 | Zing | AI Search |
 |---|---|---|
-| 位置付け | 従来のテキストインデックス・検索エンジン | Zing を置き換える検索エンジン [出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/1Ch~zWUnQ7p_tovUGVS6hA) |
+| 位置付け | 従来のテキストインデックス・検索エンジン（EOL 日は公開情報では確認できず。Zing への切り戻し手順も公式提供 [出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/I~HVOp9UUqA8qkQvzfUW6A)） | Zing を置き換える検索エンジン（Utah 以降、CRM Workspace で Zing を置き換え）[出典](https://www.servicenow.com/docs/r/wLYnGFihvmNxBr5heMf_jw/mP6YBAs2d9mEKZnD3boB6A) |
 | 検索対象 | プラットフォーム内のテーブルレコード | テーブル＋外部ドキュメント（External Content for AI Search、要サブスクリプション） |
 | 構成単位 | テーブルのディクショナリ属性（テキストインデックス、ストップワード等） | Indexed source / Search source / Search profile / Search application configuration |
 | 検索方式 | キーワード（語彙）検索 | キーワード検索＋ML 関連性。Otto for AI Search ではハイブリッド（セマンティックベクトル）検索 |
@@ -789,7 +842,7 @@ Australia リリース（パッチ／ストアアプリ更新を含む）の AI 
 | 調整機能 | ストップワード、同義語、フィールド重み付け、添付ファイル検索【第三者情報】 | 同義語・ストップワード辞書、タイポ処理、結果改善ルール（ブースト／ブロック／プロモート、ユーザーコンテキスト）、ファセット、検索候補 |
 | 即答カード | なし | Genius Results（非 LLM／LLM） |
 | 日本語 | 1文字単位の索引化（Japanese tokenizer の構成で改善） | 文脈トークン化をサポート。タイポ補正は非対応 |
-| 利用 UI | Core UI のリスト・グローバル検索、Next Experience の Unified Navigation 検索（既定） | Service Portal、Employee Center、Virtual Agent、Now Mobile、CSM、Workspace、Next Experience（AI Search for Next Experience 導入時） |
+| 利用 UI | Core UI のリスト・グローバル検索、Next Experience の Unified Navigation 検索（主にアップグレードしたインスタンスでの既定。公式には「Utah の zBoot インスタンスでは AI Search がグローバル検索と CRM Workspace の既定」と記載。後続リリースの新規インスタンスの既定は公開情報では明記を確認できず [出典](https://www.servicenow.com/docs/r/wLYnGFihvmNxBr5heMf_jw/mP6YBAs2d9mEKZnD3boB6A)） | Service Portal、Employee Center、Virtual Agent、Now Mobile、CSM、Workspace、Next Experience（AI Search for Next Experience 導入時。公式には Utah の zBoot インスタンスでグローバル検索・CRM Workspace の既定と記載） |
 | ライセンス | 【第三者情報】全ユーザーが利用可能 | 【第三者情報】AI Search 本体はプラットフォーム機能として利用可能だが、外部コンテンツ連携等の追加要素は別ライセンスとされる。LLM 系（Otto for AI Search）は Now Assist 系 SKU が必要 |
 
 - 順位付け・調整機能・ライセンスの比較は、パートナー（NIWATO 社）の公開資料および Community 回答に基づく第三者情報であり、契約上の利用範囲は営業担当への確認が必要である。[出典1](https://speakerdeck.com/niwato/servicenow-snug-meetup-lt-deck-servicenow-jian-suo-xing-nojin-hua-zingkaranow-assistmade) [出典2](https://www.servicenow.com/community/employee-center-forum/ai-search-spoke-license/td-p/3079820)
@@ -797,6 +850,9 @@ Australia リリース（パッチ／ストアアプリ更新を含む）の AI 
 ## Next Experience のグローバル検索：Zing から AI Search への切替
 
 Next Experience の Unified Navigation（統合ナビゲーション）の検索フィールドは、既定では Zing を使い、ストアアプリ **AI Search for Next Experience**（プラグイン `sn_aisearch_global`）とプロパティで AI Search に切り替える。以下は Zurich 版の記載。[出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/1Ch~zWUnQ7p_tovUGVS6hA)
+
+- 上記の「既定は Zing」は主にアップグレードしたインスタンスに当てはまる（`glide.ui.polaris.ais_ready` の既定値 false により Zing が使われる）。一方、公式には「Utah の zBoot（新規構築）インスタンスでは、AI Search がグローバル検索と CRM Workspace アプリケーションの既定の検索アプリケーション」と記載されている（後続リリースの新規インスタンスにも当てはまるかは公開情報では明記を確認できず）。実環境ではプロパティ値を確認すること。[出典](https://www.servicenow.com/docs/r/wLYnGFihvmNxBr5heMf_jw/mP6YBAs2d9mEKZnD3boB6A)
+- AI Search for Next Experience を無効化して Zing に戻す公式手順（Revert to Zing as the Unified Navigation search engine）がある。無効化後、ユーザーはログアウト・再ログインすると Unified Navigation の検索フィールドで Zing 検索が使われる。[出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/I~HVOp9UUqA8qkQvzfUW6A)
 
 | プロパティ | 型 | 既定 | 説明 |
 |---|---|---|---|
@@ -847,6 +903,8 @@ Next Experience の Unified Navigation（統合ナビゲーション）の検索
 - Search source、Result improvement rule 等の AI Search テーブル名の一部、Search application configuration のメニュー位置。
 - Australia での `glide.ui.polaris.ais_ready` の既定値変更有無。
 - Predictive Intelligence の Brazil 固有の変更点。
+- ITSM・CSM 以外（HR 等）の Task Intelligence の提供状況、および ITSM 以外の PIWB の非推奨状況。
+- AI Search の標準 HTML アンカー表示（Australia Patch 7）の正確な提供月。
 - Predictive Intelligence / AI Search の正式なライセンス・エディション上の位置付け（公式な明記なし）。
 
 ## 参照元
@@ -865,7 +923,15 @@ Next Experience の Unified Navigation（統合ナビゲーション）の検索
 - Predictive Intelligence for Incident Management: https://www.servicenow.com/docs/r/it-service-management/predictive-intelligence-for-incident.html
 - Predictive Intelligence for CSM solution definitions: https://www.servicenow.com/docs/r/5M2H7PAkXUuakbtz~5Kfeg/kcCD~6wu0anJrM22u4Zt0Q
 - Components installed with Task Intelligence for Customer Service: https://www.servicenow.com/docs/r/5M2H7PAkXUuakbtz~5Kfeg/40pUFf3JG3QPhlf7yaM1ZA
-- ITSM Predictive Intelligence Workbench: https://www.servicenow.com/docs/r/BgFKZnPHldZ62gGtzQ71Mw/fCpt584peMjRrlXE8ohtIQ
+- Task Intelligence for Customer Service（Brazil）: https://www.servicenow.com/docs/r/customer-service-management/csm-task-intelligence.html
+- Exploring Task Intelligence for ITSM（Australia）: https://www.servicenow.com/docs/r/t~YvqQkg2oQX4L7ySrpyuQ/Tcvqw~Q_2KxL8Ea4zF_i5Q
+- Install Task Intelligence for ITSM（Australia）: https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/MAe_MZnea_9WMemT034LxQ
+- Managing Task Intelligence for ITSM models（Zurich）: https://www.servicenow.com/docs/r/MlbQAgTiiiMOLOw9T36wJg/7ougNE51beqzg62IvA7u5g
+- Task Intelligence for ITSM release notes（Store）: https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-task-intelligence.html
+- ITSM Predictive Intelligence Workbench（Yokohama、非推奨）: https://www.servicenow.com/docs/r/yokohama/it-service-management/predictive-intelligence-workbench/itsm-piwb-landing-page.html
+- Activate ITSM Predictive Intelligence Workbench（Xanadu）: https://www.servicenow.com/docs/r/xanadu/it-service-management/predictive-intelligence-workbench/itsm-piwb-activation.html
+- Predictive Intelligence Workbench Migration Utility（Yokohama）: https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/brjyI98msVprkdVZeRPong
+- Combined Predictive Intelligence release notes Yokohama→Australia: https://www.servicenow.com/docs/r/AWjfoG0XNF6COBtQI5zL~A/AlwxOt~2fh1tkuUYmQHTkQ
 - Machine Learning solutions for Flow Designer（Australia）: https://www.servicenow.com/docs/r/HGWDpzjgkfvaJWTdMzNy2w/of3c3wLKuRfrpti~VcHbZQ
 - ClassificationSolution API: https://www.servicenow.com/docs/r/api-reference/server-api-reference/ClassificationSolutionAPI.html
 - MLSolutionFactory API: https://www.servicenow.com/docs/r/api-reference/server-api-reference/MLSolutionFactoryAPI.html
@@ -887,6 +953,8 @@ Next Experience の Unified Navigation（統合ナビゲーション）の検索
 - Internationalization support for AI Search（Yokohama）: https://www.servicenow.com/docs/r/yokohama/platform-administration/ai-search/international-language-support-ais.html
 - Searching translated content: https://www.servicenow.com/docs/r/platform-administration/ai-search/searching-translated-content-ais.html
 - AI Search for Next Experience reference（Zurich）: https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/1Ch~zWUnQ7p_tovUGVS6hA
+- Using AI Search with CRM Workspace（Yokohama）: https://www.servicenow.com/docs/r/wLYnGFihvmNxBr5heMf_jw/mP6YBAs2d9mEKZnD3boB6A
+- Revert to Zing as the Unified Navigation search engine（Zurich）: https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/I~HVOp9UUqA8qkQvzfUW6A
 - Migrate Zing search application configurations to AI Search（Zurich）: https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/h4FGFcOayHtjg~c981fNUA
 - Zing indexes words（Yokohama）: https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/LAWI_0XHmB8iRfSnR1xFIw
 - Configure tables to use the Japanese tokenizer: https://www.servicenow.com/docs/r/eFUFU9smnpvS4o_KRK5TFA/TrnJkeJcGEF3An6lzPOutg
@@ -902,4 +970,6 @@ Next Experience の Unified Navigation（統合ナビゲーション）の検索
 - 【Community】AI Search spoke license: https://www.servicenow.com/community/employee-center-forum/ai-search-spoke-license/td-p/3079820
 - 【Community】Unable to create AI Search Indexed Source for Business Application table: https://www.servicenow.com/community/developer-forum/unable-to-create-ai-search-indexed-source-for-business/m-p/3291642
 - 【Community】AI Search Zing to AI Search migration issue: https://www.servicenow.com/community/servicenow-ai-platform-forum/ai-search-zing-to-ai-search-migration-issue/m-p/3291316
+- 【Community】Task Intelligence for ITSM Quick Start Guide: https://www.servicenow.com/community/ai-intelligence-articles/task-intelligence-for-itsm-quick-start-guide/ta-p/2639239
+- 【Community】Task Intelligence Case Field Prediction Guide: https://www.servicenow.com/community/ai-intelligence-articles/task-intelligence-case-field-prediction-guide/ta-p/2597155
 - 【第三者】NIWATO「ServiceNow 検索性の進化 Zing から Now Assist まで」: https://speakerdeck.com/niwato/servicenow-snug-meetup-lt-deck-servicenow-jian-suo-xing-nojin-hua-zingkaranow-assistmade

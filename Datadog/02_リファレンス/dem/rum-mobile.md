@@ -75,7 +75,7 @@ RUM（モバイル）の主な機能を次の表に示す。
 | 課金 | RUM Measure / RUM Investigate / Session Replay / Error Tracking | [17](#17-課金への影響) |
 | 制限値 | セッション・イベント・シンボルファイル・端末内保存の上限 | [18](#18-制限値クォータデフォルト値) |
 
-本ファイルはモバイル SDK の仕様リファレンスである。セッション・サンプリング・RUM without Limits・RUM Monitor などブラウザと共通の仕組みの詳細は [RUM（ブラウザ）](./rum-browser.md)、モバイル Session Replay と Product Analytics は [Session Replay と Product Analytics](./session-replay-and-product-analytics.md)、モバイルアプリの合成テスト（Mobile App Testing）は [Synthetic Monitoring](./synthetic-monitoring.md)、エラーの Issue 化は [Error Tracking](../apm/error-tracking.md) を参照。料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。
+本ファイルはモバイル SDK の仕様リファレンスである。セッション・サンプリング・RUM without Limits・RUM Monitor などブラウザと共通の仕組みの詳細は [RUM（ブラウザ）](./rum-browser.md)、モバイル Session Replay と Product Analytics は [Session Replay と Product Analytics](./session-replay-and-product-analytics.md)、モバイルアプリの合成テスト（Mobile App Testing）は [Synthetic Monitoring](./synthetic-monitoring.md)、エラーの Issue 化は [Error Tracking](../apm/error-tracking.md) を参照。料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)。
 
 ### 本書の基準
 
@@ -217,7 +217,7 @@ RUM（モバイル）の SDK は既定で US1 に送信する（Flutter は `sit
 
 > 注: React Native のセットアップページは例として `US1`・`US3`・`EU1`・`US1_FED`・`US2_FED`・`UK1` を挙げているだけで、全値の一覧ではない。AP1 で利用する場合は SDK の型定義で値を確認する。
 
-> **サイト差異:** モバイル SDK の送信先 Intake は Android SDK のソースでは `browser-intake-<site>-datadoghq.com` 形式（AP1 は `browser-intake-ap1-datadoghq.com`、US1 は `browser-intake-datadoghq.com`、EU1 は `browser-intake-datadoghq.eu`、US1-FED は `browser-intake-ddog-gov.com`）である。ファイアウォールやプロキシで許可するドメインは [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md) と [Datadog Sites](../platform/datadog-sites.md) を参照。SDK は `UK1` サイトにも対応するが、本ナレッジのサイト一覧（US1〜AP2、US1-FED）には含まれていない。[出典](https://github.com/DataDog/dd-sdk-android/blob/develop/dd-sdk-android-core/src/main/kotlin/com/datadog/android/DatadogSite.kt)
+> **サイト差異:** モバイル SDK の送信先 Intake は Android SDK のソースでは `browser-intake-<site>-datadoghq.com` 形式（AP1 は `browser-intake-ap1-datadoghq.com`、US1 は `browser-intake-datadoghq.com`、EU1 は `browser-intake-datadoghq.eu`、US1-FED は `browser-intake-ddog-gov.com`）である。ファイアウォールやプロキシで許可するドメインは [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md) と [Datadog Sites](../platform/datadog-sites.md) を参照。SDK は `UK1` サイトにも対応するが、本ナレッジのサイト一覧（US1〜AP2、US1-FED）には含まれていない。[出典](https://github.com/DataDog/dd-sdk-android/blob/develop/dd-sdk-android-core/src/main/kotlin/com/datadog/android/DatadogSite.kt)
 
 ---
 
@@ -824,7 +824,7 @@ RUM（モバイル）が収集するイベント種別と保持期間は次の�
 | Long Task | 15 日 | 閾値を超えてメインスレッドをブロックした処理 |
 | Vital | 15 日（公式料金ページの RUM Investigate の保持仕様。モバイルの Data Collected ページには記載なし） | アプリ起動（`@vital.type:app_launch`）等 |
 
-[出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/data_collected/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/application_launch_monitoring/) / [出典](https://www.datadoghq.com/pricing/)（[製品別料金表 §11.1](../../03_導入編/pricing-by-product.md#111-rumsession-replayproduct-analyticsexperiments)：保持セッションは 30 日、resources・long tasks・vitals は 15 日）
+[出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/data_collected/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/application_launch_monitoring/) / [出典](https://www.datadoghq.com/pricing/)（[製品別料金表 §11.1](../../03_導入編/02-pricing-by-product.md#111-rumsession-replayproduct-analyticsexperiments)：保持セッションは 30 日、resources・long tasks・vitals は 15 日）
 
 ### 9.2 共通の既定属性
 
@@ -1210,7 +1210,7 @@ RUM（モバイル）の SDK は、GDPR 等への対応のため初期化時に�
 
 ### 14.2 IP アドレス・位置情報・ユーザー情報
 
-RUM（モバイル）のアプリケーションは、作成時または設定画面で**クライアント IP と位置情報の自動収集を無効化**できる。位置情報（`geo.*`）は IP アドレスからサーバー側で解決される。ユーザー情報は `setUserInfo` で明示的に設定した場合のみ付与され、`trackAnonymousUser`（既定 `true`）は起動をまたぐ匿名 ID を保持する。データ保護の詳細は [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md)、機微データのマスキングは [Sensitive Data Scanner](../security/sensitive-data-scanner.md) を参照。[出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/setup/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/ios/advanced_configuration/)
+RUM（モバイル）のアプリケーションは、作成時または設定画面で**クライアント IP と位置情報の自動収集を無効化**できる。位置情報（`geo.*`）は IP アドレスからサーバー側で解決される。ユーザー情報は `setUserInfo` で明示的に設定した場合のみ付与され、`trackAnonymousUser`（既定 `true`）は起動をまたぐ匿名 ID を保持する。データ保護の詳細は [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md)、機微データのマスキングは [Sensitive Data Scanner](../security/sensitive-data-scanner.md) を参照。[出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/setup/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/ios/advanced_configuration/)
 
 ### 14.3 イベントマッパーによる加工・破棄
 
@@ -1301,14 +1301,14 @@ RUM（モバイル）は Web と同じく **1,000 セッション単位**で課�
 | Real User Monitoring (RUM) - Investigate | Retention Filters で保持したセッション（filtered sessions） | 1,000 セッション／月 | $3 | $3.60 | $4.50 | $3.75 | $4.50 | $5.625 |
 | Session Replay（RUM と Product Analytics のアドオン） | リプレイ付きで保持されたセッション | 1,000 セッション／月 | $2.50 | $3 | $3.60 | $3.125 | $3.75 | $4.50 |
 | RUM Profiling（RUM Measure のアドオン） | プロファイリング対象セッション | 1,000 セッション／月 | $3 | $3.60 | $4.50 | $3.75 | $4.50 | $5.625 |
-| Error Tracking（RUM セッション外のエラー、最初の 50K） | エラー件数 | 50K エラーまで／月 | $25 | $30 | $36 | [製品別料金表](../../03_導入編/pricing-by-product.md) を参照 | 同左 | 同左 |
+| Error Tracking（RUM セッション外のエラー、最初の 50K） | エラー件数 | 50K エラーまで／月 | $25 | $30 | $36 | [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照 | 同左 | 同左 |
 | Mobile App Testing（Synthetic Monitoring） | テスト実行回数 | 100 テスト実行／月 | $50 | $60 | $72 | $62.50 | $75 | $90 |
 
-価格は公式料金ページの定価（USD、**2026-11-02 時点**）。RUM Managed Archive・Export Pipelines・Error Tracking の段階料金は [RUM（ブラウザ）の課金](./rum-browser.md#14-課金への影響) と [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。[出典](https://www.datadoghq.com/pricing/list/)
+価格は公式料金ページの定価（USD、**2026-11-02 時点**）。RUM Managed Archive・Export Pipelines・Error Tracking の段階料金は [RUM（ブラウザ）の課金](./rum-browser.md#14-課金への影響) と [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照。[出典](https://www.datadoghq.com/pricing/list/)
 
-> **サイト差異:** 公式料金ページの価格は Datadog サイトによって異なり、AP1 は US/EU1 と別価格（上表の SKU では US/EU1 の 1.25 倍）である。AP1 列の値は [製品別料金表 §11](../../03_導入編/pricing-by-product.md#11-digital-experiencerumproduct-analyticsexperimentssynthetic) に合わせた。[出典](https://www.datadoghq.com/pricing/list/)
+> **サイト差異:** 公式料金ページの価格は Datadog サイトによって異なり、AP1 は US/EU1 と別価格（上表の SKU では US/EU1 の 1.25 倍）である。AP1 列の値は [製品別料金表 §11](../../03_導入編/02-pricing-by-product.md#11-digital-experiencerumproduct-analyticsexperimentssynthetic) に合わせた。[出典](https://www.datadoghq.com/pricing/list/)
 
-> **サイト差異:** Mobile App Testing について、[製品別料金表 §11.2](../../03_導入編/pricing-by-product.md#112-synthetic-monitoringmobile-app-testingcontinuous-testing) は公式料金ページの記載として「US1 / US5 / EU1 で提供、テストは AWS US West で実行」としている。基準サイトの AP1 は提供サイトに含まれない。一方、公式ドキュメント（Mobile App Testing）が非対応として明記しているのは `app.ddog-gov.com`・`us2.ddog-gov.com` だけで、AP1 については記載がない。AP1 で利用できるかどうかは製品画面か Datadog に確認する。[出典](https://docs.datadoghq.com/synthetics/mobile_app_testing/)
+> **サイト差異:** Mobile App Testing について、[製品別料金表 §11.2](../../03_導入編/02-pricing-by-product.md#112-synthetic-monitoringmobile-app-testingcontinuous-testing) は公式料金ページの記載として「US1 / US5 / EU1 で提供、テストは AWS US West で実行」としている。基準サイトの AP1 は提供サイトに含まれない。一方、公式ドキュメント（Mobile App Testing）が非対応として明記しているのは `app.ddog-gov.com`・`us2.ddog-gov.com` だけで、AP1 については記載がない。AP1 で利用できるかどうかは製品画面か Datadog に確認する。[出典](https://docs.datadoghq.com/synthetics/mobile_app_testing/)
 
 ### 17.2 モバイル特有の課金の考え方
 
@@ -1332,7 +1332,7 @@ RUM（モバイル）の課金で注意すべき点は次のとおり。
 
 > 旧来のモバイル向けプラン名（「Mobile RUM」「Mobile RUM & Session Replay」など）の現行定価は、2026-11-02 時点の公式料金一覧ページでは確認できず。既存契約の条件は契約書・Usage 画面で確認する。
 
-利用量は `datadog.estimated_usage.rum.sessions`（タグ `application.id`・`source`・`sku` など）で監視できる（[RUM（ブラウザ）の 14.3](./rum-browser.md#143-利用量の監視)）。組織全体の利用量は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md)、コスト削減策は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+利用量は `datadog.estimated_usage.rum.sessions`（タグ `application.id`・`source`・`sku` など）で監視できる（[RUM（ブラウザ）の 14.3](./rum-browser.md#143-利用量の監視)）。組織全体の利用量は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md)、コスト削減策は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ---
 
@@ -1442,11 +1442,11 @@ RUM（モバイル）の技術的制限値は次のとおり。
 - [API とキー管理](../platform/api-and-keys.md)
 - [Sensitive Data Scanner](../security/sensitive-data-scanner.md)
 - [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md)
-- [製品別料金表（料金の正本）](../../03_導入編/pricing-by-product.md)
-- [課金計算の仕組み](../../03_導入編/billing-mechanics.md)
-- [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md)
-- [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md)
-- [コスト最適化](../../04_応用編/cost-optimization.md)
+- [製品別料金表（料金の正本）](../../03_導入編/02-pricing-by-product.md)
+- [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)
+- [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md)
+- [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md)
+- [コスト最適化](../../04_応用編/01-cost-optimization.md)
 
 ## 参照元
 

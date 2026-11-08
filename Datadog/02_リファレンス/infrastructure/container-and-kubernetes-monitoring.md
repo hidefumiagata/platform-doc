@@ -68,8 +68,8 @@ Datadog Container Monitoring を構成する画面（2026-11-02 時点の公式�
 | コンテナイメージの脆弱性 | [Cloud Security（旧 CSM）](../security/cloud-security.md) |
 | コンテナのランタイム脅威検知 | [Workload Protection（旧 CWS）](../security/workload-protection.md) |
 | タグ・Unified Service Tagging | [Tagging（タグ）](../platform/tagging.md) |
-| Kubernetes 監視の実務ノウハウ | [Kubernetes 監視の実践](../../04_応用編/kubernetes-monitoring-practices.md) |
-| 料金（正本） | [製品別料金表](../../03_導入編/pricing-by-product.md) |
+| Kubernetes 監視の実務ノウハウ | [Kubernetes 監視の実践](../../04_応用編/07-kubernetes-monitoring-practices.md) |
+| 料金（正本） | [製品別料金表](../../03_導入編/02-pricing-by-product.md) |
 
 ---
 
@@ -128,7 +128,7 @@ flowchart LR
 
 Datadog UI では、左ナビゲーションの **Infrastructure** 配下から Containers / Kubernetes / ECS の各画面に入る。Kubernetes 画面の上部には **Overview**・**Explorer**・**Map**・**Resource Utilization** などのタブがあり、左側の **Select Resources** パネルで Processes、Containers、Container Images、Kubernetes（Pods、Clusters、Namespaces、Nodes、Workloads、Network、Storage、Access Control、Autoscaling、Custom Resources 等）、ECS を切り替える（公式スクリーンショットに基づく。UI は継続的に更新されるため、現行画面と一部異なる可能性がある）。[出典](https://docs.datadoghq.com/containers/monitoring/kubernetes_explorer/) [出典](https://docs.datadoghq.com/infrastructure/containers/kubernetes_resource_utilization/)
 
-全体の UI ナビゲーションは [画面構成とナビゲーション](../../01_入門編/ui-navigation.md) を参照。
+全体の UI ナビゲーションは [画面構成とナビゲーション](../../01_入門編/06-ui-navigation.md) を参照。
 
 ---
 
@@ -735,7 +735,7 @@ Datadog Kubernetes Autoscaling（DKA）は、Kubernetes リソースを継続的
 
 **提供状況の経緯:** Kubernetes Autoscaling は 2024-06-26 のプレスリリースでベータとして発表され、2025-06-10 公開の公式ブログで一般提供（GA）が告知された。[出典](https://www.datadoghq.com/about/latest-news/press-releases/datadog-announces-kubernetes-autoscaling-to-help-teams-intelligently-optimize-resources-and-cloud-costs/)（2024-06-26 公開） [出典](https://www.datadoghq.com/blog/datadog-kubernetes-autoscaling/)（2025-06-10 公開）
 
-> **サイト差異:** 料金ページの US1-FED（Datadog for Government）価格データには Kubernetes Autoscaling の SKU が存在しない（＝US1-FED では購入不可または非掲載。[製品別料金表 §18.2](../../03_導入編/pricing-by-product.md#182-us1-fedgovcloudで提供されない製品)）。[出典](https://www.datadoghq.com/pricing/list/)
+> **サイト差異:** 料金ページの US1-FED（Datadog for Government）価格データには Kubernetes Autoscaling の SKU が存在しない（＝US1-FED では購入不可または非掲載。[製品別料金表 §18.2](../../03_導入編/02-pricing-by-product.md#182-us1-fedgovcloudで提供されない製品)）。[出典](https://www.datadoghq.com/pricing/list/)
 
 ### 7.2 要件
 
@@ -986,7 +986,7 @@ Datadog は直近 **8 日間**のコンテナ使用量データから CPU とメ
 
 Datadog は自社の Kubernetes Autoscaling 導入事例を公式ブログ（2026-06-25 公開）で紹介している。社内プラットフォームチームは 1 日で 3,000 Deployment のオートスケーリングを設定し、多次元スケーリングを約 30,000 Deployment に適用、年換算 300 万ドル超のアイドルコンピュートコストを削減したとしている。教訓として、推奨値を適用前に確認・調整すること、CPU 100% に張り付いていた過少プロビジョニングのサービスでは requests が増え費用が上がる場合があること、成果を共有して他チームの採用を促すことが挙げられている（ベンダー自社の報告値）。[出典](https://www.datadoghq.com/blog/how-we-saved-with-kubernetes-autoscaling/)（2026-06-25 公開）
 
-導入・運用の実践は [Kubernetes 監視の実践](../../04_応用編/kubernetes-monitoring-practices.md)、[コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+導入・運用の実践は [Kubernetes 監視の実践](../../04_応用編/07-kubernetes-monitoring-practices.md)、[コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ---
 
@@ -1079,9 +1079,9 @@ Datadog の Kubernetes Remediation（Bits AI Kubernetes Remediation）は、Bits
 
 ## 課金への影響
 
-Containers Explorer、Kubernetes Explorer、ECS Explorer、Kubernetes Resource Utilization は Infrastructure Monitoring（Pro / Enterprise）の一部として提供され、画面単位の追加料金は公式料金ページに記載がない。課金はホスト数・コンテナ数（または Fargate タスク／Pod 数）と、有償オプション（Kubernetes Autoscaling、Cloud Security など）で発生する。以下の金額は公式料金ページの定価（**2026-11-02 時点、USD**）。料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、課金計算の詳細は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+Containers Explorer、Kubernetes Explorer、ECS Explorer、Kubernetes Resource Utilization は Infrastructure Monitoring（Pro / Enterprise）の一部として提供され、画面単位の追加料金は公式料金ページに記載がない。課金はホスト数・コンテナ数（または Fargate タスク／Pod 数）と、有償オプション（Kubernetes Autoscaling、Cloud Security など）で発生する。以下の金額は公式料金ページの定価（**2026-11-02 時点、USD**）。料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、課金計算の詳細は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 
-> **サイト差異:** 以下の表の金額は US（US1/US3/US5）・EU1 の価格。**AP1（日本）では価格が異なる**（年契約 / 月契約 / オンデマンド）。Infrastructure Pro $18.75 / $22.50 / $22.50、Enterprise $28.75 / $33.75 / $33.75、追加コンテナ $1.25/月（年・月契約）/ $0.0025/時（オンデマンド）、Serverless Workload Monitoring - Apps $3.75 / $5 / $5.40、Kubernetes Autoscaling $3.75 / $4.50 / $5.40。AP2・UK1・US1-FED を含む詳細は [製品別料金表](../../03_導入編/pricing-by-product.md)（AP1 列および §18）を参照。[出典](https://www.datadoghq.com/pricing/list/)
+> **サイト差異:** 以下の表の金額は US（US1/US3/US5）・EU1 の価格。**AP1（日本）では価格が異なる**（年契約 / 月契約 / オンデマンド）。Infrastructure Pro $18.75 / $22.50 / $22.50、Enterprise $28.75 / $33.75 / $33.75、追加コンテナ $1.25/月（年・月契約）/ $0.0025/時（オンデマンド）、Serverless Workload Monitoring - Apps $3.75 / $5 / $5.40、Kubernetes Autoscaling $3.75 / $4.50 / $5.40。AP2・UK1・US1-FED を含む詳細は [製品別料金表](../../03_導入編/02-pricing-by-product.md)（AP1 列および §18）を参照。[出典](https://www.datadoghq.com/pricing/list/)
 
 ### コンテナ（Kubernetes / Docker / ECS on EC2）
 
@@ -1118,8 +1118,8 @@ Containers Explorer、Kubernetes Explorer、ECS Explorer、Kubernetes Resource U
 | 定価 | **$3**（年契約）/ **$3.60**（月契約）/ **$4.32**（オンデマンド） | [Pricing list](https://www.datadoghq.com/pricing/list/) |
 | 割引 | 複数年・ボリューム割引、Cloud Cost Management とのバンドル割引あり（料金ページ記載。割引率は非公開） | [Pricing](https://www.datadoghq.com/pricing/) |
 | vCPU の数え方 | 推奨表示のみ（自動スケーリング未適用）のワークロードが課金対象か、vCPU を requests・ノード容量のどちらで数えるか、計測間隔などは公開情報では確認できず | — |
-| AP1 価格 | **$3.75**（年契約）/ **$4.50**（月契約）/ **$5.40**（オンデマンド） | [製品別料金表 §2.3](../../03_導入編/pricing-by-product.md#23-infrastructure-の追加-skuコンテナカスタムメトリクスイベントほか) |
-| 提供サイト | 料金ページの US1-FED 価格データに SKU が存在しない（[製品別料金表 §18.2](../../03_導入編/pricing-by-product.md#182-us1-fedgovcloudで提供されない製品)） | [Pricing list](https://www.datadoghq.com/pricing/list/) |
+| AP1 価格 | **$3.75**（年契約）/ **$4.50**（月契約）/ **$5.40**（オンデマンド） | [製品別料金表 §2.3](../../03_導入編/02-pricing-by-product.md#23-infrastructure-の追加-skuコンテナカスタムメトリクスイベントほか) |
+| 提供サイト | 料金ページの US1-FED 価格データに SKU が存在しない（[製品別料金表 §18.2](../../03_導入編/02-pricing-by-product.md#182-us1-fedgovcloudで提供されない製品)） | [Pricing list](https://www.datadoghq.com/pricing/list/) |
 
 ### 機能別の課金への影響
 
@@ -1133,7 +1133,7 @@ Containers Explorer、Kubernetes Explorer、ECS Explorer、Kubernetes Resource U
 | Kubernetes Remediation（Bits AI） | 公開情報では確認できず | [Bits AI と AI 機能](../ai/bits-ai.md) |
 | Kubernetes Autoscaling の節約額を実費で表示 | Cloud Cost Management の課金（任意） | [Cloud Cost Management](cloud-cost-management.md) |
 
-コスト最適化の実践は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+コスト最適化の実践は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ---
 

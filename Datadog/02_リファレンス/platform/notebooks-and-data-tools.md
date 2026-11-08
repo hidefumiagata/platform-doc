@@ -296,7 +296,7 @@ Log Workspaces（Logs Workspaces）は、2025-05-23 公開の公式ブログで�
 
 [出典](https://docs.datadoghq.com/logs/workspaces/)、[出典](https://docs.datadoghq.com/notebooks/advanced_analysis/)、[出典](https://docs.datadoghq.com/account_management/rbac/permissions/)
 
-関連プレビュー: **Advanced Log Analytics**【Preview】は、(1) Splunk などの既存ログツールのクエリを Datadog Notebook へ自動変換する「Bring Your Own Query」と、(2) Notebook 内で自然言語によりクエリ・変換・結合・可視化のセルを連鎖生成する「Bits AI Data Analyst」から成る。[出典](https://www.datadoghq.com/product-preview/advanced-log-analytics)。他ツールからの移行全般は [他製品からの移行](../../03_導入編/migration-from-other-tools.md) を参照。
+関連プレビュー: **Advanced Log Analytics**【Preview】は、(1) Splunk などの既存ログツールのクエリを Datadog Notebook へ自動変換する「Bring Your Own Query」と、(2) Notebook 内で自然言語によりクエリ・変換・結合・可視化のセルを連鎖生成する「Bits AI Data Analyst」から成る。[出典](https://www.datadoghq.com/product-preview/advanced-log-analytics)。他ツールからの移行全般は [他製品からの移行](../../03_導入編/14-migration-from-other-tools.md) を参照。
 
 ### Analysis Features の概要
 
@@ -947,7 +947,7 @@ RUM・Product Analytics 本体は [RUM（ブラウザ）](../dem/rum-browser.md)
 
 [出典](https://www.datadoghq.com/pricing/list/)
 
-料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、課金計算の仕組みは [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、コスト最適化は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、課金計算の仕組みは [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、コスト最適化は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ## 実務上の使い分けと注意点
 
@@ -970,7 +970,7 @@ RUM・Product Analytics 本体は [RUM（ブラウザ）](../dem/rum-browser.md)
 - Notebook の Analysis セルから Save to Dashboard した後に Notebook 側のクエリを修正しても、**Publish** するまでダッシュボードには反映されない。[出典](https://docs.datadoghq.com/notebooks/advanced_analysis/)
 - DDSQL のタグ値は複数値のときソート済みのカンマ区切り文字列として返るため、`=` 比較で一致しないことがある。複数値タグは `LIKE` や `STRING_TO_ARRAY` 等での扱いを検討する【推定】。[出典](https://docs.datadoghq.com/ddsql_reference/)
 - Flex ストレージのログは Analysis Monitor の対象外であるため、アラートが必要なログは Standard Indexing 側に置く必要がある。[出典](https://docs.datadoghq.com/monitors/types/analysis/)
-- 運用設計全般（ダッシュボード・ノートブックの棚卸し、オーナー設定）は [運用設計](../../03_導入編/operations-design.md) と [ダッシュボード設計の実践](../../04_応用編/dashboard-design-practices.md) を参照。
+- 運用設計全般（ダッシュボード・ノートブックの棚卸し、オーナー設定）は [運用設計](../../03_導入編/13-operations-design.md) と [ダッシュボード設計の実践](../../04_応用編/04-dashboard-design-practices.md) を参照。
 
 ## 参照元
 

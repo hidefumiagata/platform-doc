@@ -339,7 +339,7 @@ Agentic Onboarding（フロントエンドのみ）による導入も選択肢�
 
 検証済み SDK バージョン：`@sentry/node@9.13.0`・`@sentry/browser@9.13.0`、`sentry-sdk==2.26.1`（Python）、`io.sentry:sentry:8.6.0`（Java）、`Sentry 5.5.1`（.NET）、`sentry-go v0.32.0`、`sentry-ruby 5.23.0`。[出典](https://docs.datadoghq.com/error_tracking/guides/sentry_sdk/)
 
-他製品からの移行全般は [他製品からの移行](../../03_導入編/migration-from-other-tools.md) を参照。
+他製品からの移行全般は [他製品からの移行](../../03_導入編/14-migration-from-other-tools.md) を参照。
 
 ---
 
@@ -613,7 +613,7 @@ Exception Replay は、APM で計装されたアプリで例外が発生した�
 
 ## 8. Error Tracking Explorer（画面）
 
-Error Tracking Explorer は Issue の閲覧・フィルター・調査を行う画面で、メインナビゲーションの Error Tracking（RUM 文脈では Digital Experience > Error Tracking）から開く。画面全般の操作は [画面構成とナビゲーション](../../01_入門編/ui-navigation.md) を参照。[出典](https://docs.datadoghq.com/error_tracking/explorer/) / [出典](https://docs.datadoghq.com/real_user_monitoring/error_tracking/)
+Error Tracking Explorer は Issue の閲覧・フィルター・調査を行う画面で、メインナビゲーションの Error Tracking（RUM 文脈では Digital Experience > Error Tracking）から開く。画面全般の操作は [画面構成とナビゲーション](../../01_入門編/06-ui-navigation.md) を参照。[出典](https://docs.datadoghq.com/error_tracking/explorer/) / [出典](https://docs.datadoghq.com/real_user_monitoring/error_tracking/)
 
 ### 8.1 Issue 一覧
 
@@ -710,7 +710,7 @@ error-tracking("{filter}").source("browser").impact().rollup("count").by("issue.
 - `issue.age`・`issue.regression.age` によるフィルターは既定で追加されず、アラートの取りこぼしを招くため非推奨（キー名も製品により `@issue.age` / `issue.age` と異なる）。
 - ノイズが多い場合は、Issue をトリアージ（Reviewed / Ignored / Resolved）する、評価ウィンドウを 1 日より広げる、閾値を 0 より上げる。
 
-[出典](https://docs.datadoghq.com/error_tracking/monitors/) / アラート設計の実践は [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md) を参照。
+[出典](https://docs.datadoghq.com/error_tracking/monitors/) / アラート設計の実践は [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md) を参照。
 
 ---
 
@@ -855,7 +855,7 @@ Datadog MCP Server には `update_datadog_error_tracking_issue` ツールがあ�
 
 ## 13. 課金への影響
 
-Error Tracking の課金単位は**月間の課金対象エラー件数**である。料金の数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md) とし、以下は公式料金ページの掲載値（2026-11-02 取得）。[出典](https://www.datadoghq.com/pricing/?product=error-tracking) / [出典](https://www.datadoghq.com/pricing/list/)
+Error Tracking の課金単位は**月間の課金対象エラー件数**である。料金の数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md) とし、以下は公式料金ページの掲載値（2026-11-02 取得）。[出典](https://www.datadoghq.com/pricing/?product=error-tracking) / [出典](https://www.datadoghq.com/pricing/list/)
 
 ### 13.1 課金対象と非課金
 
@@ -885,7 +885,7 @@ Error Tracking の課金単位は**月間の課金対象エラー件数**であ�
 - Exception Replay の個別料金は料金ページに掲載がない。スナップショットは `source:dd_debugger` のログとして送られるため、Log Management の取り込み・インデックス課金の対象になると考えられる【推定】（公式の明記は確認できず）。[出典](https://docs.datadoghq.com/error_tracking/backend/exception_replay/)
 - Standalone Backend 構成で `core_agent.enabled: false` にした Agent ホストがインフラホストとして課金されるかどうかの明記は公開情報では確認できず（同構成は「ホストが Datadog に表示されない」ようにする設定として説明されている）。[出典](https://docs.datadoghq.com/error_tracking/guides/enable_apm/)
 
-課金計算の仕組み（月次集計、コミットとオンデマンド）は [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、コスト削減策は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+課金計算の仕組み（月次集計、コミットとオンデマンド）は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、コスト削減策は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ---
 
@@ -956,7 +956,7 @@ Error Tracking の課金単位は**月間の課金対象エラー件数**であ�
 
 [出典](https://docs.datadoghq.com/error_tracking/troubleshooting/) / [出典](https://docs.datadoghq.com/error_tracking/monitors/) / [出典](https://docs.datadoghq.com/error_tracking/ticketing_systems/jira/)
 
-APM 運用全体の実践は [APM 運用の実践](../../04_応用編/apm-practices.md)、よくある失敗は [よくある失敗とアンチパターン](../../04_応用編/common-pitfalls.md) を参照。
+APM 運用全体の実践は [APM 運用の実践](../../04_応用編/05-apm-practices.md)、よくある失敗は [よくある失敗とアンチパターン](../../04_応用編/12-common-pitfalls.md) を参照。
 
 ---
 
@@ -968,7 +968,7 @@ APM 運用全体の実践は [APM 運用の実践](../../04_応用編/apm-practi
 - [ログ収集](../logs/log-collection.md) / [Log Pipelines と処理](../logs/log-pipelines-and-processing.md) / [Indexes・保持・アーカイブ](../logs/log-indexes-retention-archives.md)
 - [Monitors（モニター）](../platform/monitors.md) / [Software Catalog（旧 Service Catalog）](../platform/software-catalog.md) / [Tagging（タグ）](../platform/tagging.md)
 - [Work Management（旧称：Case Management）](../service-management/case-management.md) / [Bits AI と AI 機能](../ai/bits-ai.md)
-- [製品別料金表](../../03_導入編/pricing-by-product.md) / [課金計算の仕組み](../../03_導入編/billing-mechanics.md) / [他製品からの移行](../../03_導入編/migration-from-other-tools.md)
+- [製品別料金表](../../03_導入編/02-pricing-by-product.md) / [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) / [他製品からの移行](../../03_導入編/14-migration-from-other-tools.md)
 
 ## 参照元
 

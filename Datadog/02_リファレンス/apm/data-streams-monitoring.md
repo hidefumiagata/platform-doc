@@ -430,7 +430,7 @@ Data Streams Monitoring の手動計装は、自動計装の対象外のメッ�
 
 ## 画面構成と分析機能
 
-Data Streams Monitoring の画面は、公式ドキュメントでは直接 URL `https://app.datadoghq.com/data-streams/map`（Map）と `https://app.datadoghq.com/data-streams/measure`（Measure）で案内されている（US1 以外のサイトはドメインを読み替える）。ナビゲーションメニュー上の位置は公式本文に明記がなく、公開情報では確認できず。画面上部のタブは公式スクリーンショット上で **Explore**、**Measure**、**Schemas**、**Kafka**、**Transactions**、**Setup** が確認できる（スクリーンショットからの読み取り）。画面全般のナビゲーションは [画面構成とナビゲーション](../../01_入門編/ui-navigation.md) を参照。[出典](https://docs.datadoghq.com/data_streams/) [出典](https://docs.datadoghq.com/data_streams/kafka/)
+Data Streams Monitoring の画面は、公式ドキュメントでは直接 URL `https://app.datadoghq.com/data-streams/map`（Map）と `https://app.datadoghq.com/data-streams/measure`（Measure）で案内されている（US1 以外のサイトはドメインを読み替える）。ナビゲーションメニュー上の位置は公式本文に明記がなく、公開情報では確認できず。画面上部のタブは公式スクリーンショット上で **Explore**、**Measure**、**Schemas**、**Kafka**、**Transactions**、**Setup** が確認できる（スクリーンショットからの読み取り）。画面全般のナビゲーションは [画面構成とナビゲーション](../../01_入門編/06-ui-navigation.md) を参照。[出典](https://docs.datadoghq.com/data_streams/) [出典](https://docs.datadoghq.com/data_streams/kafka/)
 
 | タブ／ビュー | 内容 | 出典 |
 |---|---|---|
@@ -761,7 +761,7 @@ Business Transaction Tracking は `【Preview】`（Datadog の Product Preview 
 
 ## 課金への影響
 
-Data Streams Monitoring の課金単位は **クライアントホスト（DSM 計装済みのプロデューサー／コンシューマーが動くホスト）単位の月額**である。APM Pro・APM Enterprise には DSM が含まれる。Kafka Console は **ブローカーホスト単位**の別課金である。料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、計算方法は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+Data Streams Monitoring の課金単位は **クライアントホスト（DSM 計装済みのプロデューサー／コンシューマーが動くホスト）単位の月額**である。APM Pro・APM Enterprise には DSM が含まれる。Kafka Console は **ブローカーホスト単位**の別課金である。料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、計算方法は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 
 ### 料金（US 表示、2026-11-02 取得）
 
@@ -826,7 +826,7 @@ Data Streams Monitoring の課金単位は **クライアントホスト（DSM �
 - `data_streams.*` メトリクスのカスタムメトリクス課金、Lambda 上の DSM の課金は公開情報では確認できず。
 - Kafka Consumer／Kafka Broker・RabbitMQ・AWS などのインテグレーションメトリクスは Infrastructure Monitoring 側の扱いとなる（[Integrations](../platform/integrations.md)、[Infrastructure Monitoring](../infrastructure/infrastructure-monitoring.md) を参照）。
 
-見積り手法は [コスト見積り手法](../../03_導入編/cost-estimation.md)、エディションの選び方は [エディション・プラン](../../03_導入編/editions-and-plans.md)、削減策は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+見積り手法は [コスト見積り手法](../../03_導入編/05-cost-estimation.md)、エディションの選び方は [エディション・プラン](../../03_導入編/04-editions-and-plans.md)、削減策は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ---
 
@@ -847,7 +847,7 @@ Data Streams Monitoring を導入するときの確認事項を、公式ドキ�
 | 9 | 課金対象ホストに Pro／Enterprise Infrastructure Monitoring があること | [料金ページ FAQ](https://www.datadoghq.com/pricing/?product=data-streams-monitoring) |
 | 10 | Kafka Console のメッセージ取得・トピック操作を使う場合、Remote Configuration（組織・Agent・API キー）、ACL、RBAC 権限を準備し、削除権限を絞る | [Kafka Console Setup](https://docs.datadoghq.com/data_streams/kafka/setup) |
 
-Agent の展開設計は [Agent 展開設計](../../03_導入編/agent-rollout-design.md)、APM 運用の実践は [APM 運用の実践](../../04_応用編/apm-practices.md) を参照。
+Agent の展開設計は [Agent 展開設計](../../03_導入編/10-agent-rollout-design.md)、APM 運用の実践は [APM 運用の実践](../../04_応用編/05-apm-practices.md) を参照。
 
 ![Confluent Cloud コネクターのトポロジー表示](../../assets/images/data-streams-monitoring/connectors-topology.png)
 
@@ -865,7 +865,7 @@ Agent の展開設計は [Agent 展開設計](../../03_導入編/agent-rollout-d
 - [OpenTelemetry サポート](../platform/opentelemetry.md) / [Fleet Automation と Remote Configuration](../platform/fleet-automation.md)
 - [Monitors](../platform/monitors.md) / [Software Catalog](../platform/software-catalog.md) / [Audit Trail](../platform/audit-trail.md) / [Datadog Sites](../platform/datadog-sites.md)
 - [Serverless Monitoring](../infrastructure/serverless.md) / [Data Jobs Monitoring](../data/data-jobs-monitoring.md) / [Data Observability](../data/data-observability.md)
-- [製品別料金表](../../03_導入編/pricing-by-product.md) / [課金計算の仕組み](../../03_導入編/billing-mechanics.md)
+- [製品別料金表](../../03_導入編/02-pricing-by-product.md) / [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)
 
 ## 参照元
 

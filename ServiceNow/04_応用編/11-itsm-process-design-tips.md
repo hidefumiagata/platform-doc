@@ -5,12 +5,13 @@ domain: itsm
 release: Australia
 last_verified: 2026-11-02
 summary: ServiceNow ITSM のプロセス設計で議論になりやすい6つのテーマ（優先度設計、割り当てルール、SLA設計、カテゴリ設計、Major Incident、変更承認の簡素化）について、標準機能の仕様（テーブル、ロール、プロパティ、実行順序）と、ServiceNow 社員・実務者の知見を出典付きで整理する。「何を標準のまま使い、どこを設計で決めるべきか」に答える。
-keywords: [ITSM, プロセス設計, process design, Priority, 優先度, Impact, 影響度, Urgency, 緊急度, Priority Lookup Rules, data_lookup_admin, "Priority is managed by Data Lookup - set as read-only", Assignment rules, 割り当てルール, Assignment Lookup Rules, assignment_rule_admin, Data lookup, precedence, 実行順序, Predictive Intelligence, Incident Assignment, Advanced Work Assignment, AWA, support group, reassignment, SLA, OLA, Underpinning contract, contract_sla, task_sla, Retroactive start, pause condition, 一時停止条件, schedule, timezone, Category, Subcategory, カテゴリ, CSDM, Service, Service offering, resolution code, Major Incident, 重大インシデント, MIM, major_incident_manager, major_incident_state, Proposed, Accepted, Rejected, Canceled, major incident trigger rules, major_incident_trigger_rule, sn_major_inc_mgmt.com.snc.incident.min.major_incident_creation, communication plan, post incident report, Change Management, 変更管理, Standard change, 標準変更, Normal change, Emergency change, change model, Change Approval Policy, 変更承認ポリシー, chg_policy_applied, manager_approved, CAB, Change success score, sn_change_admin, change lockdown, Australia, Brazil]
+keywords: [ITSM, プロセス設計, process design, Priority, 優先度, Impact, 影響度, Urgency, 緊急度, Priority Lookup Rules, data_lookup_admin, "Priority is managed by Data Lookup - set as read-only", Assignment rules, 割り当てルール, Assignment Lookup Rules, assignment_rule_admin, Data lookup, precedence, 実行順序, Predictive Intelligence, Incident Assignment, Advanced Work Assignment, AWA, support group, reassignment, SLA, OLA, Underpinning contract, contract_sla, task_sla, Retroactive start, Retroactive pause, pause condition, 一時停止条件, schedule, timezone, Category, Subcategory, カテゴリ, CSDM, Service, Service offering, resolution code, Major Incident, 重大インシデント, MIM, major_incident_manager, major_incident_state, Proposed, Accepted, Rejected, Canceled, major incident trigger rules, major_incident_trigger_rule, sn_major_inc_mgmt.com.snc.incident.min.major_incident_creation, communication plan, post incident report, Change Management, 変更管理, Standard change, 標準変更, Normal change, Emergency change, change model, Change Approval Policy, 変更承認ポリシー, chg_policy_applied, manager_approved, CAB, Change success score, sn_change_admin, change lockdown, Australia, Brazil]
 sources:
   - https://www.servicenow.com/docs/r/it-service-management/incident-management/def-prio-lookup-rules.html
   - https://www.servicenow.com/docs/r/zurich/it-service-management/incident-management/def-prio-lookup-rules.html
   - https://www.servicenow.com/community/itsm-blog/managing-incident-priority/ba-p/2294101
   - https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/BPxjOtOQ2ssDk92rudCDcA
+  - https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/O3rxQR~3wlEEyvUlhYALiw
   - https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/RTyTvCtgzgtRvsQglpVyIg
   - https://www.servicenow.com/community/itsm-blog/best-practices-for-implementing-the-incident-management/ba-p/2293421
   - https://www.servicenow.com/community/developer-forum/how-are-you-assigning-incidents-in-your-itsm-projects/m-p/3383882
@@ -21,6 +22,7 @@ sources:
   - https://www.emergys.com/blog/handling-assignment-rules-in-servicenow
   - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/WYN6nXXIBmOElVN~7E1oiQ
   - https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/tNst0i0VqJTCN_WBMuSkEA
+  - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/zfGpNtxq2x5IcxGwpJa_BQ
   - https://www.servicenow.com/community/community-central-forum/the-complete-practitioner-s-guide-to-servicenow-slas-from/m-p/3453748
   - https://www.servicenow.com/community/developer-forum/how-does-pause-condition-work-in-sla-and-why-is-it-important/m-p/3522547
   - https://www.servicenow.com/community/itsm-articles/aligning-incident-categorization-to-csdm-a-service-centric/ta-p/3394669
@@ -59,7 +61,7 @@ sources:
 |---|---|---|
 | 1. 優先度設計 | Impact × Urgency のマトリクスをどう決めるか。Priority を手入力にしてよいか | [Incident Management](../02_リファレンス/itsm/incident-management.md) |
 | 2. 割り当てルール | Assignment rules / Data lookup / Predictive Intelligence / CI の Support group をどう組み合わせるか | [Incident Management](../02_リファレンス/itsm/incident-management.md)、[Predictive Intelligence と AI Search](../02_リファレンス/platform/predictive-intelligence-ai-search.md) |
-| 3. SLA設計 | SLA 定義を何本作るか。一時停止条件・スケジュール・Retroactive start をどう使うか | [SLAとスケジュール](../02_リファレンス/platform/sla-schedules.md) |
+| 3. SLA設計 | SLA 定義を何本作るか。一時停止条件・スケジュール・Retroactive start をどう使うか | [SLAとスケジュール](../02_リファレンス/platform/sla-schedules.md)、[Service Level Management（ITSM）](../02_リファレンス/itsm/service-level-management-itsm.md) |
 | 4. カテゴリ設計 | Category / Subcategory を作り込むべきか。Service / CI 中心にすべきか | [CMDB と CSDM](../02_リファレンス/platform/cmdb-csdm.md) |
 | 5. Major Incident | 重大インシデントの宣言基準、Trigger rules、コミュニケーション、事後レビュー | [Incident Management](../02_リファレンス/itsm/incident-management.md) |
 | 6. 変更承認の簡素化 | Standard change の拡大、Change model、Change Approval Policy、CAB の役割転換 | [Change Management](../02_リファレンス/itsm/change-management.md) |
@@ -137,7 +139,7 @@ ServiceNow でインシデントの `Assignment group`（割り当てグルー�
 
 | 手段 | 何を決めるか | 主な仕様 | 出典 |
 |---|---|---|---|
-| Assignment rules（割り当てルール） | `assignment_group`、`assigned_to` | 条件に一致したとき自動設定。「レコードを開いた時点で実行されるよう設計されている」。タスクテーブルに適用 | [出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/BPxjOtOQ2ssDk92rudCDcA) |
+| Assignment rules（割り当てルール） | `assignment_group`、`assigned_to` | 条件に一致したとき自動設定。タスクテーブルに適用。タスクレコードの insert / update 時に before エンジン（2.2 の図）として実行され、`assigned_to` と `assignment_group` がいずれも空のタスクにのみ適用される。フォーム上の未保存の変更には適用されない（Australia 版「Assignment rules module」）。なお Precedence ページの関連タスク説明には「Assignment rules are designed to run at the time you open a record」とある。同じ Australia 版「Assignment rules module」の説明（insert / update 時に、`assigned_to` と `assignment_group` がともに空のタスクにのみ適用）と照らすと、フォームを開いただけで動くという意味ではないと解釈できる（`【推定】`） | [出典（Australia）](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/O3rxQR~3wlEEyvUlhYALiw) / [出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/BPxjOtOQ2ssDk92rudCDcA) |
 | Assignment Lookup Rules（割り当てデータルックアップ） | `assignment_group`、`assigned_to` | All > System Policy > Rules > Assignment Lookup Rules。Matcher（Category、Subcategory、Configuration item、Location）と Setter（Assignment group、Assigned to）を最低 1 つずつ指定。`Order` が最も小さい一致ルールが実行される。必要ロール `assignment_rule_admin` または `admin`（Australia 版） | [出典](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/RTyTvCtgzgtRvsQglpVyIg) |
 | Data lookup rules 全般 | 任意のフィールド | 割り当てに限らず任意のフィールド値を変更する汎用の仕組み | [出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/BPxjOtOQ2ssDk92rudCDcA) |
 | Predictive Intelligence「Incident Assignment」 | `assignment_group` の予測 | Classification 型ソリューション定義。`Short description` から Assignment group を予測。必要プラグイン `com.glide.platform_ml`、`com.snc.incident.ml_solution`（Yokohama 版記載） | [出典](https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/zy8jQKycmMnI4dM2py_Ucg) |
@@ -154,7 +156,7 @@ flowchart TD
   B --> C["3. before Business rules（Order >= 1000）"]
   C --> D["4. データベース操作（insert / update / delete）"]
   D --> E["5. after Business rules（Order < 1000）"]
-  E --> F["6. after エンジン群（label / listener / table notifications /<br/>text indexing / update sync / deferred workflow / Workflow Studio flow triggers）"]
+  E --> F["6. after エンジン群（label / listener / table notifications / role /<br/>text indexing / update sync / deferred workflow / Workflow Studio flow triggers）"]
   F --> G["7. Email notifications（weight 順）"]
   G --> H["8. after Business rules（Order >= 1000、アクティブレコードのみ）"]
 ```
@@ -165,8 +167,8 @@ flowchart TD
 |---|---|---|
 | 1 | Assignment rules エンジンと Data lookup エンジンは**同じ「before エンジン群」に属し、両者の間の順序は規定されていない（順不同）**。同じレコードに両方が割り当てを設定し得る設計にすると、結果が予測しにくくなる。**割り当ての主手段はどちらか一方に寄せる** | 公式の順序 [出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/BPxjOtOQ2ssDk92rudCDcA)＋`【経験則】` |
 | 2 | Order 1000 以上の before Business rule は両エンジンの**後**に動くため、そこで `assignment_group` を設定すると Assignment rules / Data lookup の結果を上書きする。独自の割り当て Business rule は「最後に勝つ」ことを意識する | 公式の順序から導出 [出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/BPxjOtOQ2ssDk92rudCDcA) |
-| 3 | Assignment rules は、`assigned_to` と `assignment_group` がいずれも空の場合にのみ動作し、既存の割り当てを上書きしないと説明されることが多い。一方 Data lookup は既存値を上書きできる、とするパートナー解説がある | `【第三者情報】` [出典](https://www.emergys.com/blog/handling-assignment-rules-in-servicenow) |
-| 4 | Assignment rules 同士が競合した場合は、実行順序（Order）が最も小さいルールが優先される | `【第三者情報】` [出典](https://www.emergys.com/blog/handling-assignment-rules-in-servicenow) |
+| 3 | Assignment rules は、`assigned_to` と `assignment_group` がいずれも空の場合にのみ動作し、既存の割り当て（既定値や先に動いた Assignment rule が設定した値を含む）を上書きしない（公式）。一方 Data lookup は既存値を上書きできる、とするパートナー解説がある（後半は `【第三者情報】`） | 公式（Australia）[出典](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/O3rxQR~3wlEEyvUlhYALiw)、後半 `【第三者情報】` [出典](https://www.emergys.com/blog/handling-assignment-rules-in-servicenow) |
+| 4 | 複数の Assignment rules がテーブルと条件に一致した場合は、Order の値が最も小さいルールだけが実行される | 公式（Australia）[出典](https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/O3rxQR~3wlEEyvUlhYALiw) |
 | 5 | Workflow Studio のフロートリガーは「after エンジン群」に属するため、フローで割り当てる場合はレコード保存後に再更新が走る（通知や SLA 付与のタイミングに影響し得る） | 公式の順序から導出 [出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/BPxjOtOQ2ssDk92rudCDcA)＋`【推定】` |
 
 ### 2.3 割り当て戦略：Service Desk 経由か、直接ルーティングか
@@ -222,7 +224,7 @@ flowchart TD
 
 ### 3.1 前提となる仕様
 
-SLA の仕様（`contract_sla` テーブルの SLA Definition、計測レコード `task_sla`、Type、Target、Duration type、Schedule source、Timezone source）の詳細は [SLAとスケジュール](../02_リファレンス/platform/sla-schedules.md) にまとめている。設計判断に直結する仕様のみ再掲する。
+SLA の仕様（`contract_sla` テーブルの SLA Definition、計測レコード `task_sla`、Type、Target、Duration type、Schedule source、Timezone source）の詳細は [SLAとスケジュール](../02_リファレンス/platform/sla-schedules.md) と [Service Level Management（ITSM）](../02_リファレンス/itsm/service-level-management-itsm.md) にまとめている。設計判断に直結する仕様のみ再掲する。
 
 | 仕様 | 内容 | 出典 |
 |---|---|---|
@@ -230,6 +232,7 @@ SLA の仕様（`contract_sla` テーブルの SLA Definition、計測レコー�
 | When to cancel | **Start conditions are not met**（既定。Start 条件が成り立たなくなったらキャンセル）／**Cancel conditions are met**（Start 条件は一度一致すればよく、以後は Cancel 条件でのみキャンセル）／**Never** | 公式（Australia）[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/WYN6nXXIBmOElVN~7E1oiQ) |
 | When to resume | **Pause conditions are not met**（Pause 条件が成り立たなくなったら再開）／**Resume conditions are met**（既定。Resume 条件一致で再開） | 公式（Australia）[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/WYN6nXXIBmOElVN~7E1oiQ) |
 | Retroactive start | チェックすると `Set start to` でタスクの日時フィールドを選択でき、SLA の開始時刻をそのフィールドの値にする（例：Priority 1 SLA で Created を選ぶと、インシデントの作成日時から計測） | 公式（Australia）[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/WYN6nXXIBmOElVN~7E1oiQ) |
+| Retroactive pause | Retroactive start と併用する Start Condition セクションのチェックボックス。オンにすると、新しい task SLA に「遡及開始時刻から現在までに発生していたはずの一時停止時間」を含め、その分だけ違反時刻を後ろへずらす。公式は「Retroactive pause prevents immediate breaches and notifications when retroactive start is enabled」と説明し、Retroactive start だけを有効にすると task SLA が付与と同時に違反し、通知が多発し得ると注意している（違反済み SLA でワークフロー／フローを動かさないためのプロパティ `com.snc.sla.workflow.run_for_breached` / `com.snc.sla.flow.run_for_breached` を false にする方法も記載） | 公式（Australia「Configure SLA retroactive start and pause」）[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/zfGpNtxq2x5IcxGwpJa_BQ) |
 | Type / Target | `Type`（SLA / OLA / Underpinning contract）と `Target`（None / Response / Resolution）は**レポート目的のみ**で、計測ロジックには影響しない | 公式（Yokohama）[出典](https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/tNst0i0VqJTCN_WBMuSkEA) |
 | Duration と Schedule | Duration の日数は 24 時間ブロックに換算される。1 日 8 時間のスケジュールで Duration 1 Day を指定すると、違反は 3 営業日後になる | 公式（Yokohama）[出典](https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/tNst0i0VqJTCN_WBMuSkEA) |
 
@@ -240,7 +243,7 @@ SLA の仕様（`contract_sla` テーブルの SLA Definition、計測レコー�
 | パターン | 何が起きるか | 対策 |
 |---|---|---|
 | Start 条件が Stop 条件の部分集合 | Start 条件が一致するときは常に Stop 条件も一致するため、**SLA が付与されない** | Stop 条件を「Start 条件が成り立たない状態」（例：State が Resolved / Closed）で書く |
-| Pause 条件が Start 条件の部分集合 | SLA は付与されるが一時停止状態のままになり、Pause 条件が外れると Start 条件も外れて**キャンセル**される | Start 条件を状態に依存しない書き方にする |
+| Pause 条件が Start 条件の部分集合 | SLA は付与されるが、**ずっと一時停止状態のまま**になる（公式：「the SLA will attach but will permanently be in Paused state」）。公式ページはさらに「As soon as the Pause condition does not match, the equivalent Start condition will also not match and that task SLA record will be canceled」（Pause 条件が外れると対応する Start 条件も外れ、task SLA はキャンセルされる）と続けている | Pause 条件が Start 条件の部分集合にならないよう、両者の条件を見直す（`【経験則】`） |
 | Start 条件と Pause 条件が相互排他 | 例：Start「State is one of New, Active」＋ Pause「State is On Hold」。On Hold に移った時点で Start 条件が外れ、**一時停止する前にキャンセル**される | Start 条件に On Hold も含める、または When to cancel を「Cancel conditions are met」にする |
 
 ```mermaid
@@ -265,12 +268,12 @@ stateDiagram-v2
 |---|---|---|
 | 1 | **SLA 定義は少なく、意味のあるものに。** 重複する多数の SLA より、少数の意味のある SLA を優先する。1 タスクに Response と Resolution など複数の SLA が付く場合、どれを主たる SLA とするかを文書化する | `【第三者情報】` [出典](https://www.servicenow.com/community/community-central-forum/the-complete-practitioner-s-guide-to-servicenow-slas-from/m-p/3453748) |
 | 2 | **パイロットは 1 Response ＋ 1 Resolution から。** 4〜6 週間運用してから拡張する | `【第三者情報】` 同上 |
-| 3 | **一時停止は「外部依存で本当に作業が止まっている」場合に限定する。** 例：Awaiting User、Awaiting Vendor。社内の都合での保留を Pause にすると SLA が実態を表さなくなる | `【第三者情報】` [出典](https://www.servicenow.com/community/developer-forum/how-does-pause-condition-work-in-sla-and-why-is-it-important/m-p/3522547) |
+| 3 | **一時停止は「外部依存で本当に作業が止まっている」場合に限定する。** 例：On hold reason が Awaiting Caller（呼び出し元待ち）、Awaiting Vendor（ベンダー待ち）（出典の表現は「Awaiting User」。ベースの On hold reason の選択肢 Awaiting Caller / Awaiting Change / Awaiting Problem / Awaiting Vendor では Awaiting Caller に当たる）。社内の都合での保留を Pause にすると SLA が実態を表さなくなる | `【第三者情報】` [出典](https://www.servicenow.com/community/developer-forum/how-does-pause-condition-work-in-sla-and-why-is-it-important/m-p/3522547) |
 | 4 | **Resume ロジックは Pause ロジックの鏡にする。** そうしないと SLA が無期限に一時停止したままになる。Stop 条件と Pause 条件も重ねない | `【第三者情報】` [出典](https://www.servicenow.com/community/community-central-forum/the-complete-practitioner-s-guide-to-servicenow-slas-from/m-p/3453748) |
 | 5 | **Business time と Elapsed time を使い分ける。** ユーザー向けサポートは業務時間スケジュール（`cmn_schedule`）、24 時間対応が必要な業務（P1 インシデント、セキュリティ対応）は 24x7 スケジュールまたはスケジュールなしで計測する | `【第三者情報】` 同上 |
 | 6 | **スケジュールを事後変更すると残り時間が再計算され、監査が複雑になる。** 祝日の後追い登録は年初にまとめて行う | `【第三者情報】` 同上 |
 | 7 | **タイムゾーンを明示する。** スケジュールは組織の主たるタイムゾーンで保持し、レポートにタイムゾーンを明記する。Timezone source（Caller、CI の所在地、タスクの所在地など）の選択は、グローバル展開時に特に重要 | `【第三者情報】` 同上。Timezone source の仕様は [出典](https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/tNst0i0VqJTCN_WBMuSkEA) |
-| 8 | **Retroactive start は慎重に。** 遡及開始はトレンド分析を歪めることがある。典型的な正しい用途は「優先度が後から 1 に引き上げられたとき、作成時刻から P1 SLA を計測する」ケース | `【第三者情報】` [出典](https://www.servicenow.com/community/community-central-forum/the-complete-practitioner-s-guide-to-servicenow-slas-from/m-p/3453748)。仕様は [出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/WYN6nXXIBmOElVN~7E1oiQ) |
+| 8 | **Retroactive start は慎重に。** 遡及開始はトレンド分析を歪めることがある。典型的な正しい用途は「優先度が後から 1 に引き上げられたとき、作成時刻から P1 SLA を計測する」ケース。この場合は **Retroactive pause を併用するかどうか**で結果が大きく変わる。併用しないと、格上げ前に On Hold だった時間も経過時間に含まれ、P1 SLA が付与と同時に違反し得る。併用すると、遡及期間中の一時停止時間が差し引かれる（公式）。どちらにするかは顧客合意の定義に合わせて決める（`【経験則】`） | `【第三者情報】` [出典](https://www.servicenow.com/community/community-central-forum/the-complete-practitioner-s-guide-to-servicenow-slas-from/m-p/3453748)。仕様は [出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/WYN6nXXIBmOElVN~7E1oiQ) / [出典（Retroactive pause）](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/zfGpNtxq2x5IcxGwpJa_BQ) |
 | 9 | **エスカレーションは「ノイズ」ではなく「行動」を生むように。** 段階例：50% で Warning、90% で Urgent（担当者とマネージャーへ通知）、違反約 10 分前に Pre-breach（上位者を呼び出し）、Breach で管理職エスカレーションと監査記録。低重要度は定期ダイジェストにまとめる | `【第三者情報】` [出典](https://www.servicenow.com/community/community-central-forum/the-complete-practitioner-s-guide-to-servicenow-slas-from/m-p/3453748) |
 | 10 | **OLA / Underpinning contract は SLA と同じ仕組みで計測できる。** OLA は社内チーム間、UC は外部ベンダーとの約束。ベンダー OLA には契約 ID を記録して監査に備える | `【第三者情報】` 同上。`Type` 自体はレポート目的のみ [出典](https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/tNst0i0VqJTCN_WBMuSkEA) |
 | 11 | **SLA にはオーナーを置く。** オーナー不在、目標値変更の履歴がない、レビュー頻度が決まっていない、はガバナンス上の典型的な欠落 | `【第三者情報】` [出典](https://www.servicenow.com/community/community-central-forum/the-complete-practitioner-s-guide-to-servicenow-slas-from/m-p/3453748) |
@@ -351,12 +354,12 @@ Major Incident Management は、通常のインシデントでは対応しきれ
 | 項目 | 内容 |
 |---|---|
 | メニュー | All > Major Incidents > Administration > Major Incident Trigger Rules（Admin Center の Major Incident Management 設定ページからも可） |
-| 必要ロール | `incident_manager` または `admin`（Australia 版の作成手順ページ）。Zurich 版の設定ページでは `sn_mim_sow_admin` ＋ `major_incident_manager` または `incident_manager`、`admin` と記載 |
+| 必要ロール | `incident_manager` または `admin`（Australia 版「Create trigger rules for major incidents」）。Australia 版「Configure major incident trigger rules」の必要ロールは `admin` |
 | フォーム項目 | Name、Table、Application、Execution order、Action to be taken、Active、Conditions |
 | Action | **Propose major incident**（候補として提案し、承認後に有効）／ **Promote to major incident**（直接昇格） |
 | 評価 | インシデントの作成・更新時に**非同期**で評価。対象は「Primary incident がない」「まだ提案・承認されていない」「アクティブ」のインシデントのみ。Execution order が小さいルールから評価し、いずれかの条件に一致したら残りのルールは評価しない |
 | ベースのルール | ベースシステムの Trigger rules は**既定で非アクティブ** |
-| 関連プロパティ | `sn_major_inc_mgmt.com.snc.incident.min.major_incident_creation`（Create major incident from candidate）。値 **Create new** では、承認／昇格時に新しい重大インシデントを作成し、元のインシデントは子（secondary）になる。値 **Promote** では、Promote アクションで既存インシデントをそのまま昇格する |
+| 関連プロパティ | `sn_major_inc_mgmt.com.snc.incident.min.major_incident_creation`（Create major incident from candidate）。値 **Create new** では、承認／昇格時に新しい重大インシデントを作成し、元のインシデントは子（secondary）になる。値 **Promote** では、Promote アクションで既存インシデントをそのまま昇格する。プロパティ名は公式ドキュメントの表記どおり（公式ページ上では「incident .min」と空白が入っており、「min」が MIM の誤記である可能性も否定できない）。実際の名前は `sys_properties` で `major_incident_creation` を含むプロパティを検索して確認すること |
 
 [出典](https://www.servicenow.com/docs/r/UMl~97STJe3fa_KTmzD1Gg/p5ldvJGfaA1MpnZYYh4V~w) / [出典](https://www.servicenow.com/docs/r/UMl~97STJe3fa_KTmzD1Gg/a_qUQhkDTdZ0e4Has1QO8g)
 
@@ -484,6 +487,8 @@ Standard change は「事前承認済みで、成功実績のある低リスク�
 | 5 | **Standard change でも例外的に承認を差し込める。** Change Approval Policy は事前承認済みの Standard change にも承認を発生させられる（例：1,000 を超える CI に影響する場合）。ただしこの例は Standard change のワークフローには接続されていない説明用のもの | ServiceNow 社員ブログ [出典](https://www.servicenow.com/community/in-other-news/using-change-approval-policies/ba-p/2286835) |
 
 > **Australia での変更:** Change templates を特定の Change model に紐付けて構成し、テンプレートのフィールドポリシーで必須・読み取り専用を制御し、テンプレートのライフサイクル（提案・レビュー・バージョン・廃止）を管理できるようになった。新規作成する Standard change では**改善された Change template データモデル**を任意で使える（既存の標準変更カタログには影響せず、移行は不要）。また、Change Management の設定権限は単一の granular admin ロール **`sn_change_admin`** に集約され、従来の一般的な admin / ITIL ロールによる設定を置き換える（`sn_change_admin` は変更管理の書き込みロール、`change_manager`、`sn_change_cab.cab_manager` 等を含む）。変更要求を競合検出から除外する **Exclude from conflict detection** オプションも追加された。[出典](https://www.servicenow.com/docs/r/8_SIK58xmFJIEc2bL5YTYg/boWeBD1EB9spWQm_TQp4Jw)
+>
+> 注記：一方で Australia 版「Configure the Normal change model」のページ（6.1）には、引き続き `sn_itsm_chg_admin.change_models_config`、`sn_itsm_chg_admin.admin`、`admin` が必要ロールとして記載されている。`sn_change_admin` と `sn_itsm_chg_admin.*` の関係（包含か併存か）は公開情報では確認できず。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/KUkqPh5VH0ZPOZjsznULjA)
 
 ### 6.5 データ駆動の承認：Change success score とリスク階層
 
@@ -542,7 +547,7 @@ flowchart LR
 | 割り当ての主手段 | Assignment rules か Assignment Lookup Rules のどちらかに寄せ、Business rule での上書きを避ける | [出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/BPxjOtOQ2ssDk92rudCDcA) |
 | Service Desk 経由か直接ルーティングか | CI / サービスが明確で再割り当てが少ないパターンのみ直接、それ以外は Service Desk（`【第三者情報】`） | [出典](https://www.servicenow.com/community/developer-forum/how-are-you-assigning-incidents-in-your-itsm-projects/m-p/3383882) |
 | SLA 定義の本数 | 少数（まず Response 1 ＋ Resolution 1）から（`【第三者情報】`） | [出典](https://www.servicenow.com/community/community-central-forum/the-complete-practitioner-s-guide-to-servicenow-slas-from/m-p/3453748) |
-| SLA の一時停止 | 外部依存（Awaiting User / Vendor）に限定。Start と Pause を相互排他にしない | [出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/WYN6nXXIBmOElVN~7E1oiQ) |
+| SLA の一時停止 | 外部依存（On hold reason が Awaiting Caller / Awaiting Vendor）に限定。Start と Pause を相互排他にしない | [出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/WYN6nXXIBmOElVN~7E1oiQ) |
 | カテゴリの主軸 | Service / CI（CSDM）を主、Category / Subcategory は補助（`【第三者情報】`） | [出典](https://www.servicenow.com/community/itsm-articles/aligning-incident-categorization-to-csdm-a-service-centric/ta-p/3394669) |
 | Major Incident の宣言 | 明確な閾値を定義。Trigger rules は Propose（候補提案）から始める（後半は `【経験則】`） | [出典](https://www.servicenow.com/community/itsm-blog/major-incident-management-common-pitfalls/ba-p/3389617) |
 | MIM の規模 | 小規模組織は MIM Lite。CMDB 整備を待たずに開始可 | [出典](https://www.servicenow.com/community/itsm-blog/implementation-office-hours-q-amp-a-major-incident-management/ba-p/3525865) |
@@ -570,7 +575,7 @@ flowchart LR
 ## 8. 公開情報で確認できなかった事項
 
 - Australia 版「Define priority lookup rules」ページのサンプル表本文（Zurich 版と Brazil 版でサンプル値が異なることのみ確認）。
-- Assignment rules が「`assigned_to` と `assignment_group` の両方が空の場合のみ動作し、既存値を上書きしない」ことの Australia 版公式ドキュメント上の記述（第三者情報としてのみ確認）。
+- Australia で導入された `sn_change_admin` と、Normal change model の設定ページに記載された `sn_itsm_chg_admin.*` ロールとの関係（包含・併存）。
 - Predictive Intelligence、Assignment rules、Advanced Work Assignment の三者の公式な実行優先順位。
 - Australia 版「Create an SLA definition」のフォーム項目一覧の本文（Yokohama 版で確認）。
 - インシデントのカテゴリ階層数・選択肢数についての公式な推奨値。
@@ -586,10 +591,12 @@ flowchart LR
 - Define priority lookup rules（Brazil）：https://www.servicenow.com/docs/r/it-service-management/incident-management/def-prio-lookup-rules.html
 - Define priority lookup rules（Zurich）：https://www.servicenow.com/docs/r/zurich/it-service-management/incident-management/def-prio-lookup-rules.html
 - Precedence between data lookup, assignment, and business rules（Zurich）：https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/BPxjOtOQ2ssDk92rudCDcA
+- Assignment rules module（Australia）：https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/O3rxQR~3wlEEyvUlhYALiw
 - Create an assignment data lookup rule（Australia）：https://www.servicenow.com/docs/r/fBdxWC~8p08POQuUubVDig/RTyTvCtgzgtRvsQglpVyIg
 - Predictive Intelligence for Incident Management（Yokohama）：https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/zy8jQKycmMnI4dM2py_Ucg
 - SLA conditions（Australia）：https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/WYN6nXXIBmOElVN~7E1oiQ
 - Create an SLA definition（Yokohama）：https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/tNst0i0VqJTCN_WBMuSkEA
+- Configure SLA retroactive start and pause（Australia）：https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/zfGpNtxq2x5IcxGwpJa_BQ
 - Major Incident Management process（Zurich）：https://www.servicenow.com/docs/r/MlbQAgTiiiMOLOw9T36wJg/MS3W5c~PCcn_EGgcM48hsQ
 - View major incident information on the Incident form（Australia）：https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/OOarIgr5LKo8qkcMu9xxaQ
 - Create trigger rules for major incidents（Australia）：https://www.servicenow.com/docs/r/UMl~97STJe3fa_KTmzD1Gg/p5ldvJGfaA1MpnZYYh4V~w

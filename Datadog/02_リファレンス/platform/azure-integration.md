@@ -508,7 +508,7 @@ Azure Integration のメトリクス収集は、Datadog のクローラーが Az
 | Usage and Quota（`azure.usage.*`） | `usage_category`、`usage_name` |
 
 出典: [Azure Integrations](https://docs.datadoghq.com/integrations/guide/azure-integrations/)
-- タグ設計は [Tagging](./tagging.md) と [タグ戦略の実践](../../04_応用編/tagging-strategy.md) を参照。
+- タグ設計は [Tagging](./tagging.md) と [タグ戦略の実践](../../04_応用編/02-tagging-strategy.md) を参照。
 
 ### 収集対象の絞り込み（タグフィルター構文）
 
@@ -778,7 +778,7 @@ Azure Integration（API 経由）だけでは、OS のプロセス情報、ア�
 | **VM 拡張機能**（Datadog Agent extension） | Windows VM、Linux x64 VM、Linux ARM VM | Azure ポータルで VM の **Settings > Extensions + applications** → Datadog Agent 拡張機能を追加 → API キーとサイトを入力 → OK | **ドメインコントローラーは非対応** |
 | **AKS Cluster Extension** | AKS クラスター | クラスターの **Extensions + applications** → Datadog AKS Cluster Extension → **Create** → 資格情報とサイトを入力 | — |
 | **App Service 拡張機能 / 計装** | App Service | Azure Native の App Service extension、または Serverless の各手順 | 詳細は [Serverless Monitoring](../infrastructure/serverless.md) |
-| 通常の Agent インストール | その他の OS、CI/CD での配布 | Agent のインストール手順に従う | [Agent 展開設計](../../03_導入編/agent-rollout-design.md) |
+| 通常の Agent インストール | その他の OS、CI/CD での配布 | Agent のインストール手順に従う | [Agent 展開設計](../../03_導入編/10-agent-rollout-design.md) |
 
 出典: [Getting Started with Azure](https://docs.datadoghq.com/getting_started/integrations/azure/)、[Azure Manual Setup](https://docs.datadoghq.com/integrations/guide/azure-manual-setup/)
 
@@ -863,7 +863,7 @@ resource "datadog_integration_azure" "main" {
 }
 ```
 
-Terraform 運用全般は [Terraform と IaC](./terraform-and-iac.md) と [Monitoring as Code](../../04_応用編/monitoring-as-code.md) を参照。
+Terraform 運用全般は [Terraform と IaC](./terraform-and-iac.md) と [Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) を参照。
 
 ### API（v1）
 
@@ -979,7 +979,7 @@ Azure Integration そのものに追加料金はかからない。Datadog が課
 
 出典: [Azure Integration Billing](https://docs.datadoghq.com/account_management/billing/azure/)、[Datadog Pricing List](https://www.datadoghq.com/pricing/list/)、[Serverless Monitoring Pricing](https://www.datadoghq.com/pricing/?product=serverless-monitoring#products)
 
-> **サイト差異:** 上表の金額は US/EU1 サイトの定価である。基準サイトの AP1（日本）では価格が異なり、上表の項目は次のとおり（US の約 1.25 倍。見積りでは比率ではなく掲載値を使う）。Infrastructure Pro：年契約 $18.75、月契約 / オンデマンド $22.50。Infrastructure Enterprise：年契約 $28.75、月契約 / オンデマンド $33.75。Custom Metrics：100 個あたり月 $6.25。Logs の取り込み：1 GB あたり $0.125。Serverless Application Monitoring：$3.75（年）/ $5（月）/ $5.40（オンデマンド）。Serverless Application APM：$7.50 / $9 / $11.25。詳細は [製品別料金表](../../03_導入編/pricing-by-product.md) の [§2 Infrastructure Monitoring](../../03_導入編/pricing-by-product.md#2-infrastructure-monitoringインフラ監視)、[§4 Serverless Monitoring](../../03_導入編/pricing-by-product.md#4-serverless-monitoringサーバーレス監視)、[§7 Log Management](../../03_導入編/pricing-by-product.md#7-log-management-と関連製品) を参照。[出典](https://www.datadoghq.com/pricing/list/)
+> **サイト差異:** 上表の金額は US/EU1 サイトの定価である。基準サイトの AP1（日本）では価格が異なり、上表の項目は次のとおり（US の約 1.25 倍。見積りでは比率ではなく掲載値を使う）。Infrastructure Pro：年契約 $18.75、月契約 / オンデマンド $22.50。Infrastructure Enterprise：年契約 $28.75、月契約 / オンデマンド $33.75。Custom Metrics：100 個あたり月 $6.25。Logs の取り込み：1 GB あたり $0.125。Serverless Application Monitoring：$3.75（年）/ $5（月）/ $5.40（オンデマンド）。Serverless Application APM：$7.50 / $9 / $11.25。詳細は [製品別料金表](../../03_導入編/02-pricing-by-product.md) の [§2 Infrastructure Monitoring](../../03_導入編/02-pricing-by-product.md#2-infrastructure-monitoringインフラ監視)、[§4 Serverless Monitoring](../../03_導入編/02-pricing-by-product.md#4-serverless-monitoringサーバーレス監視)、[§7 Log Management](../../03_導入編/02-pricing-by-product.md#7-log-management-と関連製品) を参照。[出典](https://www.datadoghq.com/pricing/list/)
 
 - **Azure SQL Database や Azure Cache for Redis など VM・App Service Plan 以外のリソースのメトリクスは、月額料金に影響しない**。[出典](https://docs.datadoghq.com/account_management/billing/azure/)
 - **ホスト数の削減**：Metric Collection タブの「Optionally limit metrics collection to hosts with tag:」で VM を絞り込める。ただし**Agent が動いている VM は引き続き表示・課金される**ため、この絞り込みが効くのは Agent のない VM だけである。App Service Plan は、課金ドキュメントでは **Configuration** タブの「Optionally limit metrics collection to App Service Plans with tag:」で絞り込めると記載されている（現行 UI では App Registration の Metric Collection の Advanced Configuration にも App Service Plan の絞り込みがある。UI の世代によって配置が異なる可能性がある）。[出典](https://docs.datadoghq.com/account_management/billing/azure/)
@@ -988,7 +988,7 @@ Azure Integration そのものに追加料金はかからない。Datadog が課
 - **Azure Native（Marketplace 課金）**：Azure で作成した組織の利用料は Azure の請求書に計上され、MACC（Microsoft Azure Consumption Commitment）に算入できる場合がある。課金期間は月次で、プラン変更は **Change Plan** から行う。既存組織にリンクした場合は課金プランは変わらない。[出典](https://docs.datadoghq.com/integrations/guide/azure-native-integration/)、[出典](https://learn.microsoft.com/en-us/azure/partner-solutions/datadog/overview)
 - 課金の問い合わせは担当の Customer Success Manager、技術的な問い合わせは Datadog サポートへ。[出典](https://docs.datadoghq.com/account_management/billing/azure/)
 
-料金の数値は `03_導入編/pricing-by-product.md` を正本とする（上表の値は 2026-11-02 時点で公式料金ページから取得したもの）。詳細は [製品別料金表](../../03_導入編/pricing-by-product.md)、[課金計算の仕組み](../../03_導入編/billing-mechanics.md)、[購入経路と契約](../../03_導入編/procurement-and-contracts.md)（Azure Marketplace 経由の購入）、[Usage・Usage Attribution・Cost Visibility](./usage-and-cost-attribution.md) を参照。
+料金の数値は `03_導入編/02-pricing-by-product.md` を正本とする（上表の値は 2026-11-02 時点で公式料金ページから取得したもの）。詳細は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、[課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、[購入経路と契約](../../03_導入編/06-procurement-and-contracts.md)（Azure Marketplace 経由の購入）、[Usage・Usage Attribution・Cost Visibility](./usage-and-cost-attribution.md) を参照。
 
 ### Azure 側で発生する費用
 
@@ -1009,7 +1009,7 @@ Datadog との連携に伴い、Azure の請求に次の費用が発生しうる
 - Datadog は、自動ログ転送が Event Hub ではなく Storage Account を使うことでコストを削減できると説明している。[出典](https://docs.datadoghq.com/logs/guide/azure-automated-log-forwarding/)
 - 同じサブスクリプションを複数の App Registration で監視すると、Azure Monitor のコストが増える可能性がある。[出典](https://docs.datadoghq.com/integrations/guide/azure-troubleshooting/)
 
-コスト削減の実践は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+コスト削減の実践は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ## 設計時のチェックリスト
 
@@ -1025,7 +1025,7 @@ Datadog との連携に伴い、Azure の請求に次の費用が発生しうる
 | Cloud Cost / アーカイブ | Cloud Cost Management と Log Archives は App Registration が必要 |
 | 運用 | Terraform で管理するか（`automute` などの既定値差に注意）、インテグレーションエラーの通知先 |
 
-本チェックリストは本ファイル内の公式情報を整理したもの。導入設計の全体像は [要件定義とアーキテクチャ設計](../../03_導入編/requirements-and-architecture-design.md)、[ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md)、[セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md) を参照。
+本チェックリストは本ファイル内の公式情報を整理したもの。導入設計の全体像は [要件定義とアーキテクチャ設計](../../03_導入編/09-requirements-and-architecture-design.md)、[ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md)、[セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md) を参照。
 
 ## 参照元
 

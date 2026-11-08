@@ -5,7 +5,7 @@ domain: itsm
 release: Australia
 last_verified: 2026-11-02
 summary: ServiceNow IT Service Management (ITSM) の全体像、旧パッケージ（Standard / Professional / Pro Plus / Enterprise / Enterprise Plus）と 2026-04 以降の新パッケージ（Foundation / Advanced / Prime）の機能差、ITSM のアプリケーション（モジュール）一覧、Service Operations Workspace (SOW) の構成・ロール・設定、Simplified ITSM、主要テーブルに答える。
-keywords: [ITSM, IT Service Management, ITサービス管理, ITSM Standard, ITSM Professional, ITSM Pro, Pro Plus, ITSM Enterprise, Enterprise Plus, ITSM Foundation, ITSM Advanced, ITSM Prime, Service Operations Workspace, SOW, Simplified ITSM, AI-Native ITSM, Employee Slate, ServiceNow Otto, Now Assist for ITSM, L1 Service Desk AI Specialist, incident, problem, change_request, sc_request, task, パッケージ, エディション, ライセンス]
+keywords: [ITSM, IT Service Management, ITサービス管理, ITSM Standard, ITSM Professional, ITSM Pro, Pro Plus, ITSM Enterprise, Enterprise Plus, ITSM Foundation, ITSM Advanced, ITSM Prime, Service Operations Workspace, SOW, Simplified ITSM, AI-Native ITSM, Employee Slate, ServiceNow Otto, Now Assist for ITSM, L1 IT Service Desk AI Specialist, L1 Service Desk AI Specialist, Agent Workspace, incident, problem, change_request, sc_request, task, パッケージ, エディション, ライセンス]
 sources:
   - https://www.servicenow.com/docs/bundle/australia-it-service-management/page/product/it-service-management/reference/r_ITServiceManagement.html
   - https://www.servicenow.com/docs/bundle/zurich-it-service-management/page/product/it-service-management/reference/r_ITServiceManagement.html
@@ -35,6 +35,20 @@ sources:
   - https://www.servicenow.com/community/itsm-forum/what-are-the-plugins-for-itsm-professional-suite/m-p/790072
   - https://www.servicenow.com/community/service-operations-workspace/quickly-setup-service-operations-workspace-for-itsm/ta-p/3119974
   - https://redresscompliance.com/servicenow-standard-vs-pro-vs-enterprise-which-edition.html
+  - https://www.servicenow.com/community/architect-articles/navigating-the-april-2026-servicenow-itom-licensing-model/ta-p/3555121
+  - https://redresscompliance.com/research-notes/servicenow-foundation-advanced-prime-mapping
+  - https://docs.oracle.com/en/cloud/paas/integration-cloud/servicenow-adapter/servicenow-adapter-capabilities.html
+  - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/N6Ae_uGIHaMRyVn~fuQjZA
+  - https://www.servicenow.com/docs/r/BgFKZnPHldZ62gGtzQ71Mw/xQq0flhMvW5wWqKrEG_KMg
+  - https://www.servicenow.com/docs/r/Recj91eIo1YnsOabQjgskg/oaFpaGppL4vikcuz5Qdeng
+  - https://www.servicenow.com/docs/r/it-service-management/incident-management/work-on-incidents.html
+  - https://www.servicenow.com/docs/r/zurich/release-notes/employee-slate-rn.html
+  - https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-migration-utility-sow.html
+  - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/DkrtAbz5bi4lTcYZODfaIQ
+  - https://www.servicenow.com/docs/r/a3E8xg0zsiQLBPKbKO15Mg/oh_4a25uHd4yAlH~7cjYTQ
+  - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/57sZCFMepzfRqczlrJWdrg
+  - https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/piagnfa0AAofnNdqrl7agw
+  - https://www.servicenow.com/docs/r/ddas8k04yNRw8I2YLfjRzg/M2FMDRGFJfhRExHO3APhwA
 ---
 
 # ITSM 概要とパッケージ（IT Service Management Overview and Packaging）
@@ -50,7 +64,7 @@ ServiceNow **IT Service Management（ITSM、ITサービス管理）** は、Now 
 | ITSM にはどんなアプリケーション（モジュール）があるか | [ITSM アプリケーション一覧](#itsm-アプリケーションモジュール一覧) |
 | ITSM のパッケージ（エディション）は何があり、何が違うか | [ITSM パッケージ](#itsm-パッケージエディション) |
 | 2026 年 4 月のパッケージ変更（Foundation / Advanced / Prime）で何が変わったか | [新パッケージ](#新パッケージfoundation--advanced--prime2026-04-以降) |
-| Service Operations Workspace（SOW）とは何か、ロール・設定は | [Service Operations Workspace](#service-operations-workspacesow-for-itsm) |
+| Service Operations Workspace（SOW）とは何か、ロール・設定は | [Service Operations Workspace](#service-operations-workspacesowfor-itsm) |
 | Simplified ITSM（AI-Native ITSM）とは何か | [Simplified IT Service Management](#simplified-it-service-managementai-native-itsm) |
 | ITSM のテーブル構造は | [ITSM 関連テーブル](#itsm-関連テーブル) |
 
@@ -85,7 +99,12 @@ ITSM のエージェント（フルフィラー、fulfiller）向け UI は Aust
 | Service Operations Workspace（SOW）for ITSM | ITSM と ITOM を統合した構成可能なワークスペース。現在の推奨エージェント UI | Tier 1/Tier 2 エージェント、Major Incident Manager、Change Manager | [出典](https://www.servicenow.com/docs/r/it-service-management/service-operations-workspace/sow-landing-page.html) |
 | Simplified ITSM の AI-first フルフィラー体験 | Simplified IT Service Management（Store アプリ）が提供する AI ファーストの簡素化 UI。高度なワークフローは SOW へ誘導 | 小〜中規模のサービスデスク | [出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/25qrl_cqlBpZ4BR44nhlkw) |
 
-依頼者（requester、従業員）向け UI は、Employee Center（Service Portal ベース）、Employee Slate（Moveworks を基盤とする会話型ポータル、2026 年に登場）、Virtual Agent、Microsoft Teams / Slack、メールである。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/XTNmje13cyowJFfBr4GFRA)
+> **Agent Workspace for ITSM（旧エージェント UI）:** 従来の ITSM Agent Workspace は非推奨で、ServiceNow のサポート対象外になっている。Migration Utility for Service Operations Workspace 2.0.0（2024-08）のリリースノートに「ITSM Agent Workspace is deprecated, and is no longer supported by ServiceNow」と記載がある。構成とカスタマイズは、Store アプリ「Migration Utility for Service Operations Workspace」で SOW へ移行する。ただし Brazil では、この Migration Utility（`sn_sow_migration`）自体が代替なしで非推奨になる。[出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-migration-utility-sow.html) / [出典](https://www.servicenow.com/docs/r/release-notes/service-operations-workspace-itsm-rn.html)
+
+依頼者（requester、従業員）向け UI は、Employee Center（Service Portal ベース）、Employee Slate、Virtual Agent、Microsoft Teams / Slack、メールである。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/XTNmje13cyowJFfBr4GFRA)
+
+- **Employee Slate** は AI ファーストの従業員体験で、Zurich で登場した。Zurich Patch 9 以降と、AI アシスタント（Moveworks または Now Assist）が必要である。Moveworks と組み合わせる構成は「Employee Slate for Moveworks」として別にドキュメント化されている。[出典](https://www.servicenow.com/docs/r/zurich/release-notes/employee-slate-rn.html)
+- Simplified ITSM では、Store 版 3.0.2（2026-06）で Employee Slate が導入された。リリースノートでは「conversation-first portal with a unified Activity Hub」と説明されている。Activity Hub には未完了のインシデントと要求アイテム、履行の進捗、Needs Attention 領域が表示され、簡素化された Request 体験も含まれる。[出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-ai-native-itsm.html)
 
 - Employee Center の詳細は [Service Portal と Employee Center](../platform/portals-employee-center.md) を参照。
 
@@ -133,7 +152,7 @@ ServiceNow 公式ドキュメントの IT Service Management ランディング�
 
 | アプリケーション | 日本語 | 概要 | 詳細ファイル |
 |---|---|---|---|
-| Service Operations Workspace for ITSM | サービスオペレーションワークスペース | 統合・構成可能なエージェントワークスペース | 本ファイル [SOW](#service-operations-workspacesow-for-itsm) |
+| Service Operations Workspace for ITSM | サービスオペレーションワークスペース | 統合・構成可能なエージェントワークスペース | 本ファイル [SOW](#service-operations-workspacesowfor-itsm) |
 | Walk-up Experience | ウォークアップ体験 | 対面およびリモートでの IT 支援窓口（予約、キュー、キオスク） | [itsm-pro-features.md](itsm-pro-features.md) |
 | Knowledge Management in Service Operations Workspace | SOW のナレッジ管理 | セルフヘルプ・トラブルシュート・タスク解決用ナレッジ記事 | [knowledge-management.md](../platform/knowledge-management.md) |
 | Employee Center | 従業員センター | 従業員向けポータル | [portals-employee-center.md](../platform/portals-employee-center.md) |
@@ -157,7 +176,7 @@ ServiceNow 公式ドキュメントの IT Service Management ランディング�
 | ITSM Success Dashboard | ITSM 成功ダッシュボード | ITSM 実装の成果を測る KPI | [reporting-analytics.md](../platform/reporting-analytics.md) |
 | Benchmarks | ベンチマーク | 他社比較の KPI | [reporting-analytics.md](../platform/reporting-analytics.md) |
 | Process Mining for ITSM | ITSM 向けプロセスマイニング | プロセスの分析・最適化 | [process-automation-rpa-mining.md](../platform/process-automation-rpa-mining.md) |
-| L1 IT Service Desk AI Specialist | L1 サービスデスク AI スペシャリスト | 大量の L1 インシデントを自律的に調査・解決（Prime 系） | 本ファイル [ITSM - Prime](#itsm---primestore-アプリ) |
+| L1 IT Service Desk AI Specialist（Store リリースノートでは L1 Service Desk AI Specialist と表記。同じ機能） | L1 サービスデスク AI スペシャリスト | 大量の L1 インシデントを自律的に調査・解決（Prime 系） | 本ファイル [ITSM - Prime](#itsm---primestore-アプリ) |
 | ITSM MCP Server | ITSM MCP サーバー | MCP クライアント（外部 AI）からインシデント・変更・要求・オンコールを操作（Brazil リリースノートに掲載） | [now-assist-ai-agents.md](../platform/now-assist-ai-agents.md) |
 
 #### DevOps・その他
@@ -172,7 +191,7 @@ ServiceNow 公式ドキュメントの IT Service Management ランディング�
 
 ### Brazil の ITSM リリースノート掲載アプリケーション
 
-> **Brazil での変更:** Brazil の IT Service Management リリースノートのランディングページは、次の 14 アプリケーションを掲載している：ServiceNow Otto for ITSM、Change Management、DevOps Change Velocity、Digital End-User Experience、Digital Product Release、Employee Slate for ITSM、Incident Management、ITSM MCP Server、L1 IT Service Desk AI Specialist、On-Call Scheduling、Process Mining for ITSM、Request Management、Service Operations Workspace for ITSM、Workforce Optimization for ITSM。Employee Slate for ITSM、ITSM MCP Server、L1 IT Service Desk AI Specialist が新たに独立項目として登場している。[出典](https://www.servicenow.com/docs/r/release-notes/it-service-management-rn-landing.html)
+> **Brazil での変更:** Brazil の IT Service Management リリースノートのランディングページは、次の 13 アプリケーションを掲載している（2026-11-08 確認）：ServiceNow Otto for ITSM、Change Management、DevOps Change Velocity、Digital Product Release、Employee Slate for ITSM、Incident Management、ITSM MCP Server、L1 IT Service Desk AI Specialist、On-Call Scheduling、Process Mining for ITSM、Request Management、Service Operations Workspace for ITSM、Workforce Optimization for ITSM。Employee Slate for ITSM、ITSM MCP Server、L1 IT Service Desk AI Specialist が新たに独立項目として登場している。Digital End-User Experience（DEX）はこのランディングページには掲載されていない（Digital Product Release とは別製品）。[出典](https://www.servicenow.com/docs/r/release-notes/it-service-management-rn-landing.html)
 
 ### 主要プラグイン ID
 
@@ -232,12 +251,12 @@ flowchart LR
 
 | 機能 | Standard | Professional（Pro） | Pro Plus | Enterprise | Enterprise Plus | 出典 |
 |---|:-:|:-:|:-:|:-:|:-:|---|
-| Incident / Problem / Change and Release / Request Management | ○ | ○ | ○ | ○ | ○ | [出典](https://www.servicenow.com/community/itsm-forum/what-are-the-plugins-for-itsm-professional-suite/m-p/790072) |
-| Asset and Cost Management | ○ | ○ | ○ | ○ | ○ | 同上 |
-| Knowledge / Configuration Management（CMDB） / Service Level Management | ○ | ○ | ○ | ○ | ○ | 同上 |
-| Reports and Dashboards / Benchmarks / Surveys and Assessments | ○ | ○ | ○ | ○ | ○ | 同上 |
-| Now Mobile / Mobile Agent | ○ | ○ | ○ | ○ | ○ | 同上 |
-| Walk-Up Experience / Agent Workspace | ○（2019 時点の掲載） | ○ | ○ | ○ | ○ | 同上 |
+| Incident / Problem / Change and Release / Request Management | ○`【推定】` | ○ | ○ | ○ | ○ | 【第三者情報】（Community フォーラム回答、2019-10）[出典](https://www.servicenow.com/community/itsm-forum/what-are-the-plugins-for-itsm-professional-suite/m-p/790072) |
+| Asset and Cost Management | ○`【推定】` | ○ | ○ | ○ | ○ | 同上 |
+| Knowledge / Configuration Management（CMDB） / Service Level Management | ○`【推定】` | ○ | ○ | ○ | ○ | 同上 |
+| Reports and Dashboards / Benchmarks / Surveys and Assessments | ○`【推定】` | ○ | ○ | ○ | ○ | 同上 |
+| Now Mobile / Mobile Agent | ○`【推定】` | ○ | ○ | ○ | ○ | 同上 |
+| Walk-Up Experience / Agent Workspace | 公開情報では確認できず | ○ | ○ | ○ | ○ | 同上 |
 | Virtual Agent（NLU 付き） | — | ○ | ○ | ○ | ○ | [出典](https://www.servicenow.com/community/itsm-articles/itsm-pro-solution-brief/ta-p/2295873) |
 | Predictive Intelligence | — | ○ | ○ | ○ | ○ | 同上 |
 | Performance Analytics（ITSM 向け） | — | ○ | ○ | ○ | ○ | 同上 |
@@ -251,6 +270,8 @@ flowchart LR
 | Now Assist for ITSM（生成 AI） | — | — | ○ | — | ○ | 【第三者情報】同上 |
 
 凡例: ○＝含まれる、—＝含まれない、△＝情報源により記載が揺れる（2021 年の公式ソリューションブリーフは Pro と Enterprise をまとめて記載しており、どちらに属するか区別していない）。
+
+> **Standard 列の根拠について:** 出典の 2019 年 Community フォーラム投稿（優先度⑤、非公式）に載っているのは、Professional の機能一覧と「Standard との差分 6 項目」だけで、Standard 自体の一覧はない。Standard 列の ○`【推定】` は、Professional の一覧から差分 6 項目を除いて推定した値である。投稿には説明のないアスタリスク付きの項目もある。Walk-Up Experience と Agent Workspace は、差分に入っていないことが Standard に含まれる根拠にならないため、「公開情報では確認できず」とした。なお新体系では、Walk-up Experience は Advanced 以上に限られる。【推定】
 
 補足:
 
@@ -296,9 +317,9 @@ flowchart LR
 | Process Mining for Platform | — | ○ | ○ | 同上 |
 | AI Voice Agents | — | ○ | ○ | [出典](https://www.servicenow.com/community/architect-articles/understanding-servicenow-licensing-packaging-tiers-standard/ta-p/3532073) |
 | DevOps Change Velocity | — | — | ○ | [出典](https://www.servicenow.com/community/itsm-articles/itsm-licensing-in-april-2026-foundation-advanced-and-prime-in/ta-p/3544380) |
-| L1 Service Desk AI Specialist | — | — | ○ | [出典](https://www.servicenow.com/community/architect-articles/understanding-servicenow-licensing-packaging-tiers-standard/ta-p/3532073) |
+| L1 IT Service Desk AI Specialist | — | — | ○ | [出典](https://www.servicenow.com/community/architect-articles/understanding-servicenow-licensing-packaging-tiers-standard/ta-p/3532073) |
 | AI Agents for ITSM / DEX agent | — | — | ○ | 同上 |
-| 新規カスタム AI スキル・AI エージェントの構築（AI Agent Studio） | — | — | ○ | [出典](https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/ai-native-sku-overview.html) |
+| 新規カスタム AI エージェントの構築（自然言語指示から、AI Agent Studio）※Foundation / Advanced は既製エージェントの構成のみ。カスタム AI スキル（Now Assist Skill Kit）の層別可否は公開情報では確認できず | — | — | ○ | [出典](https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/ai-native-sku-overview.html) |
 | AI Action Fabric：アウトバウンド A2A | ○ | ○ | ○ | 同上 |
 | AI Action Fabric：インバウンド MCP Server Console | — | — | ○ | 同上 |
 | AI Control Tower（ServiceNow 内 AI 資産） | ○ | ○ | ○ | 同上 |
@@ -351,7 +372,7 @@ flowchart LR
 |---|---|---|---|
 | Simplified IT Service Management（AI-Native ITSM） | AI ファーストの簡素化 ITSM。管理者・従業員・フルフィラー体験を統合 | 公開情報では層の指定を確認できず（エンタイトルメント申請が必要） | [出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/25qrl_cqlBpZ4BR44nhlkw) |
 | ServiceNow Otto for ITSM（旧 Now Assist for ITSM） | ITSM 向け生成 AI スキルと AI エージェント | 全層（範囲は層により異なる） | [出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-now-assist.html) |
-| ITSM - Prime | L1 Service Desk AI Specialist 等の自律型 AI | Prime | [出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-prime.html) |
+| ITSM - Prime | L1 IT Service Desk AI Specialist 等の自律型 AI | Prime | [出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-prime.html) |
 | Service Operations Workspace for ITSM | 統合エージェントワークスペース | 公式ドキュメント上は「ITSM Professional and Enterprise」に含まれると記載（旧名称のまま） | [出典](https://www.servicenow.com/docs/r/it-service-management/service-operations-workspace/sow-landing-page.html) |
 
 ---
@@ -388,7 +409,7 @@ ServiceNow Otto for ITSM は ITSM 向けの生成 AI スキルと AI エージ�
 
 ### SOW との関係
 
-Otto for ITSM（Now Assist for ITSM）は SOW 上の Now Assist Panel（Otto パネル）で利用される。Community では、Australia Patch 5 で SOW のインシデント画面からコンテキストサイドバー（Playbooks、Recommendations、Agent Assist）が消えたという報告があり、KB3222535 として「SRP レコードページの代わりに AI-Native ITSM Record Page が表示される。UI Builder で AI-Native ITSM Record Page を無効化すると元に戻る」旨が案内されている。【第三者情報】（Community 投稿）[出典](https://www.servicenow.com/community/itsm-articles/itsm-licensing-in-april-2026-foundation-advanced-and-prime-in/ta-p/3544380)
+Otto for ITSM（Now Assist for ITSM）は SOW 上の Now Assist Panel（Otto パネル）で利用される。Community では、Australia Patch 5 で SOW のインシデント画面からコンテキストサイドバー（Playbooks、Recommendations、Agent Assist）が消えたという報告があり、KB3222535 として「SRP レコードページの代わりに AI-Native ITSM Record Page が表示される。UI Builder で AI-Native ITSM Record Page を無効化すると元に戻る」旨が案内されている。【第三者情報】（ServiceNow Community 記事のコメント欄でユーザーが引用した KB3222535 の文言。記事本文ではない）なお、同スレッドでは記事著者が、KB の引用より前のコメントで「サイドバーが Problem / Change レコードでは表示されている」ことから、意図的な機能削除ではなくビュー構成または UX ページプロパティの不整合（構成上の問題）を示唆している。正確な内容は Now Support で KB3222535 本体を確認すること。[出典](https://www.servicenow.com/community/itsm-articles/itsm-licensing-in-april-2026-foundation-advanced-and-prime-in/ta-p/3544380)
 
 ---
 
@@ -398,7 +419,7 @@ ITSM - Prime は、AI がサービスタスクを自律的に完了し、人間�
 
 | 機能 | 内容 | バージョン |
 |---|---|---|
-| L1 Service Desk AI Specialist | AI が分類するインシデントフィールド（カテゴリ、割り当てグループ、CI 等）の選択、解決できない場合のフォールバック割り当てグループ、CI 予測の信頼度しきい値、On Hold インシデントの 2 日無応答での自動解決、ダッシュボード指標。L1 SDS プラグインが必要 | 1.0.6（2026-05、Zurich/Australia） |
+| L1 IT Service Desk AI Specialist（Store 上の表記は L1 Service Desk AI Specialist） | AI が分類するインシデントフィールド（カテゴリ、割り当てグループ、CI 等）の選択、解決できない場合のフォールバック割り当てグループ、CI 予測の信頼度しきい値、On Hold インシデントの 2 日無応答での自動解決、ダッシュボード指標。L1 SDS プラグインが必要 | 1.0.6（2026-05、Zurich/Australia） |
 | ナレッジギャップ検知 | Knowledge Feedback Task の作成（未完了タスクとの重複排除） | 2.0.3 以降 |
 | Teams / Slack での対話 | Microsoft Teams または Slack でのリアルタイム会話 | 2.0.3 以降 |
 | AI Quality Assessment | Coaching アプリで AI の解決品質を採点 | 2.2.2 以降 |
@@ -407,7 +428,7 @@ ITSM - Prime は、AI がサービスタスクを自律的に完了し、人間�
 | Service Portal の提案 | 起票前にナレッジ記事・カタログアイテムを提案 | 2.3.3 以降 |
 | Incident Analyzer | 新規インシデントを調査し作業メモに要約を記載。既定は無効、P1/P2 対象、1 回 4 assists | 2.4.2（2026-10） |
 
-- 2.4.2 では Gemma 4 26B-A4B がサポートモデル（自己ホスト含む）となり、Apriel と GPT-OSS の Now LLM モデルは非推奨になった。[出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-prime.html)
+- 2.4.2 では、Gemma 4 26B-A4B が ServiceNow ホストのサポートモデルとして追加された。リリースノートは「including for self-hosted deployments」とも記載しており、既定モデルではない。Gemma 4 は Guardian のモデレーションで GPT-OSS を置き換えた。Now LLM の Apriel と GPT-OSS は非推奨になり、長期サポートの対象外である。[出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-prime.html)
 
 ---
 
@@ -422,7 +443,7 @@ ITSM - Prime は、AI がサービスタスクを自律的に完了し、人間�
 | 体験 | 内容 | 出典 |
 |---|---|---|
 | 管理者（Administrator） | コンテキストヘルプ付きのガイド付きセットアップ、顧客ごとの既定プリセット（自動適用され、後から確認・変更可能）、学習リソース、単一の管理ページから自然言語で ITSM ワークフローを構成する AI エージェント | [出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/XTNmje13cyowJFfBr4GFRA) |
-| 従業員/依頼者（Employee / Requester） | Employee Center ポータル（チャット・カタログ・ナレッジ）、要求者 AI エージェントと AI Search による問題の回避（deflection）とトリアージ、Microsoft Teams / Slack 対応、インシデント・要求アイテムのアンケート。3.0.2 以降は Employee Slate（会話型ポータル） | 同上 |
+| 従業員/依頼者（Employee / Requester） | Employee Center ポータル（チャット・カタログ・ナレッジ）、要求者 AI エージェントと AI Search による問題の回避（deflection）とトリアージ、Microsoft Teams / Slack 対応、インシデント・要求アイテムのアンケート。3.0.2（2026-06）以降は Employee Slate（Activity Hub を備えた会話ファーストのポータル）[出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-ai-native-itsm.html) | 同上（3.0.2 の記述を除く） |
 | フルフィラー/サービスデスク担当（Fulfiller） | AI ファーストのワークスペース、トリアージ・返信ドラフト・解決手順提案を行うエージェント型ワークフロー、要約・解決メモ・ナレッジ記事生成、インシデントと要求アイテムのバックログを示すロール別マネージャーダッシュボード | 同上 |
 
 ### Simplified ITSM のバージョン履歴（Store）
@@ -537,7 +558,9 @@ ITSM - Prime は、AI がサービスタスクを自律的に完了し、人間�
 | 変更 | Record information サイドパネルの Recent incidents / Recent interaction / Recent tasks が「直近 7 日」ではなく「直近 10 件」を表示、View All を追加 | — |
 | ハイライト | Request / RITM のチェックリストをワークスペースで作成・追跡 | — |
 | 2026-06 新機能（9.2） | インシデントの Overview タブで AI インシデント要約と解決計画の提案を確認（Overview 非表示の L1 エージェントは Details タブ） | — |
-| 2026-06 変更（9.2） | `incident_write` を持つ PIR 共同作成者（co-contributor）が状態更新・公開、Incident Summary の更新、PIR カスタムイベント作成、共同作成者の検索・追加・編集・保存を実行可能 | `incident_write` |
+| 2026-06 変更（9.2） | `incident_write` を持つ PIR 共同作成者（co-contributor）が状態更新・公開、Incident Summary の更新、PIR カスタムイベント作成、共同作成者の検索・追加・編集・保存を実行可能 | `incident_write`（※） |
+
+※ 公式リリースノート上の表記は `incident_write` である。ITSM Roles プラグインのロールとして確認できるのは `sn_incident_write` だけなので、両者が同じロールかどうかはインスタンスで確認すること。
 
 [出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/WR7g~P9UDo0UEa48SL6vdQ)
 
@@ -566,7 +589,9 @@ SOW for ITSM のロールは以下のとおり（Xanadu 版のロール一覧を
 
 [出典](https://www.servicenow.com/docs/r/Recj91eIo1YnsOabQjgskg/9doWPFLWXSivPx4mR1BfFg)
 
-#### Zurich で追加された細分化 Admin Center ロール
+#### Zurich で追加された SOW 関連ロール（細分化 Admin Center ロールほか）
+
+SOW の Zurich リリースノートが細分化 Admin Center ロールとして挙げるのは上 5 つ（`sn_sow_admin.sn_sow_admin` 〜 `sn_sow_problem.sn_problem_sow_admin`）である。`rota_admin` と `sn_reacf.sn_remedial_action_admin` は同リリースノートに記載された SOW 関連ロールだが、Admin Center ロールではない。
 
 | ロール | 説明 |
 |---|---|
@@ -575,8 +600,8 @@ SOW for ITSM のロールは以下のとおり（Xanadu 版のロール一覧を
 | `sn_sow_mim.sn_mim_sow_admin` | Major Incident Management の Admin Center ページ |
 | `sn_sow_on_call.sn_on_call_sow_admin` | On-Call Scheduling の Admin Center ページ |
 | `sn_sow_problem.sn_problem_sow_admin` | Problem Management の Admin Center ページ |
-| `rota_admin` | SOW の Teams / Schedules / Home ページ（8.2 以降） |
-| `sn_reacf.sn_remedial_action_admin` | 修復アクションパラメータ（`sn_reacf_remedial_action_parameter`）の Help / Order フィールドの構成 |
+| `rota_admin` | SOW の Teams / Schedules / Home ページ（8.2 以降）。オンコールシフト管理者向けで、Admin Center ロールではない |
+| `sn_reacf.sn_remedial_action_admin` | Remedial action admin（修復アクション管理者）。修復アクションパラメータ（`sn_reacf_remedial_action_parameter`）の Help / Order フィールドの構成。Admin Center ロールではない（リリースノートでは Admin Center ロールとして挙げられていない） |
 
 [出典](https://www.servicenow.com/docs/r/u1slaAtcFiiXFQcd9RcR_A/ZrYUQ4m1VLOmQivznqG56w)
 
@@ -618,7 +643,7 @@ Australia の Incident Management では、`admin` ロールに頼らず機能�
 
 [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-incidentmanagement-release-notes.html)
 
-> **Brazil での変更（ロール・セキュリティ）:** 新規（zboot）インスタンスでは `incident_manager` が `itil` を継承しなくなり `incident_write` を継承する。`major_incident_manager` と Communication Plan Manager も `itil` の代わりに `sn_incident_write`、`sn_problem_write`、`sn_change_write`、`sn_request_write` を継承する（アップグレードインスタンスは `itil` を維持）。ITSM Enhanced Security Features プラグインがアップグレード時に自動有効化され、ITSM テーブルに「deny unless authenticated」ACL を追加する（戻すにはサポートへの連絡が必要）。`glide.ui.autoclose.time`（解決済みインシデントの自動クローズ）が暦日ではなく営業日でカウントされるようになった（0 で無効）。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-incidentmanagement-release-notes.html)
+> **Brazil での変更（ロール・セキュリティ）:** 新規（zboot）インスタンスでは `incident_manager` が `itil` を継承しなくなり、`incident_write` を継承する（公式リリースノート上の表記。ITSM Roles プラグインの `sn_incident_write` と同じロールかどうかはインスタンスで確認すること）。`major_incident_manager` と Communication Plan Manager も `itil` の代わりに `sn_incident_write`、`sn_problem_write`、`sn_change_write`、`sn_request_write` を継承する（アップグレードインスタンスは `itil` を維持）。ITSM Enhanced Security Features プラグインがアップグレード時に自動有効化され、ITSM テーブルに「deny unless authenticated」ACL を追加する（戻すにはサポートへの連絡が必要）。`glide.ui.autoclose.time`（解決済みインシデントの自動クローズ）が暦日ではなく営業日でカウントされるようになった（0 で無効）。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-incidentmanagement-release-notes.html)
 
 ### SOW のエージェントペルソナ
 
@@ -665,15 +690,15 @@ flowchart TD
   CP[comm_plan<br/>Communication Plan] --> IA[incident_alert<br/>Incident Communication Plan]
 ```
 
-> 上図のうち `incident`、`problem` の `task` 拡張、`incident_alert` の `comm_plan` 拡張、`incident_alert_task` の `comm_task` 拡張は公式ドキュメントで確認。その他の継承関係は一般的に知られた構造（`【経験則】`）であり、正確な定義はインスタンスの System Dictionary（`sys_db_object`）で確認すること。[出典](https://www.servicenow.com/docs/r/BgFKZnPHldZ62gGtzQ71Mw/JDMQZ2EwMDf2Rg71l27yjA)
+> 上図のうち `incident`、`problem` の `task` 拡張、`incident_alert` の `comm_plan` 拡張、`incident_alert_task` の `comm_task` 拡張は公式ドキュメントで確認した。`sc_request`、`sc_req_item`、`sc_task`、`problem_task` は、テーブルが存在することは公式ドキュメントで確認したが、`task` を拡張していることは参照した公式ページには明記されていない。その他の継承関係は一般的に知られた構造（`【経験則】`）であり、正確な定義はインスタンスの System Dictionary（`sys_db_object`）で確認すること。[出典](https://www.servicenow.com/docs/r/BgFKZnPHldZ62gGtzQ71Mw/JDMQZ2EwMDf2Rg71l27yjA)
 
 ### プロセス別主要テーブル一覧
 
 | プロセス | テーブル名 | ラベル | 用途 | 確度 |
 |---|---|---|---|---|
 | 共通 | `task` | Task | ITSM レコードの親テーブル | 公式 |
-| 共通 | `task_sla` | Task SLA | タスクに付与された SLA の進捗 | `【経験則】` |
-| 共通 | `contract_sla` | SLA Definition | SLA 定義 | `【経験則】` |
+| 共通 | `task_sla` | Task SLA | タスクに付与された SLA の進捗 | 公式（[Task SLA table](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/DkrtAbz5bi4lTcYZODfaIQ)） |
+| 共通 | `contract_sla` | SLA Definition | SLA 定義 | 公式（[Service Level Agreement API - ServiceNow Fluent](https://www.servicenow.com/docs/r/a3E8xg0zsiQLBPKbKO15Mg/oh_4a25uHd4yAlH~7cjYTQ)） |
 | 共通 | `task_ci` | Affected CI | タスクの影響を受ける CI | `【経験則】` |
 | 共通 | `interaction` | Interaction | 電話・チャット・ウォークアップ等の接点記録 | `【経験則】` |
 | Incident | `incident` | Incident | インシデント | 公式 |
@@ -682,17 +707,17 @@ flowchart TD
 | Incident | `incident_alert_task` | Incident Communication Task | コミュニケーションタスク（`comm_task` 拡張） | 公式 |
 | Incident | `cmdb_ci_outage` | Outage | CI の停止記録（Task Outage で使用） | `【経験則】` |
 | Problem | `problem` | Problem | 問題 | 公式 |
-| Problem | `problem_task` | Problem Task | 問題タスク（調査、RCA など） | `【経験則】` |
+| Problem | `problem_task` | Problem Task | 問題タスク（調査、RCA など） | 公式（[Create a task type for problem or change in SOW](https://www.servicenow.com/docs/r/ddas8k04yNRw8I2YLfjRzg/M2FMDRGFJfhRExHO3APhwA)） |
 | Change | `change_request` | Change Request | 変更要求 | 公式（Change Management API） |
 | Change | `change_task` | Change Task | 変更タスク | 公式（Change Management API） |
 | Change | `std_change_record_producer` | Standard Change Template | 標準変更テンプレート | `【経験則】` |
 | Change | `chg_model` | Change Model | 変更モデル | `【経験則】` |
 | Change | `cab_meeting` | CAB Meeting | CAB 会議 | `【経験則】` |
-| Request | `sc_request` | Request | 要求（ヘッダー） | `【経験則】` |
-| Request | `sc_req_item` | Requested Item（RITM） | 要求アイテム | `【経験則】` |
-| Request | `sc_task` | Catalog Task | カタログタスク | `【経験則】` |
-| Request | `sc_cat_item` | Catalog Item | カタログアイテム定義 | `【経験則】` |
-| Knowledge | `kb_knowledge` | Knowledge | ナレッジ記事 | `【経験則】` |
+| Request | `sc_request` | Request | 要求（ヘッダー） | 公式（[Request Management architecture](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/57sZCFMepzfRqczlrJWdrg)） |
+| Request | `sc_req_item` | Requested Item（RITM） | 要求アイテム | 公式（同上） |
+| Request | `sc_task` | Catalog Task | カタログタスク | 公式（同上） |
+| Request | `sc_cat_item` | Catalog Item | カタログアイテム定義 | 公式（同上） |
+| Knowledge | `kb_knowledge` | Knowledge | ナレッジ記事 | 公式（[Components installed with Knowledge Management Core](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/piagnfa0AAofnNdqrl7agw)、Zurich） |
 | On-Call | `cmn_rota` | On-Call Rota | オンコールのローテーション | `【経験則】` |
 | CMDB | `cmdb_ci` / `cmdb_ci_service` / `cmdb_ci_computer` | Configuration Item ほか | 構成アイテム | 公式（SOW Investigate タブの記載） |
 | SOW | `sn_sow_investigate_ci_ux_rule` | Investigate CI Experience Rules | SOW Investigate タブのビュー規則 | 公式 |
@@ -722,7 +747,7 @@ flowchart TD
 
 [出典](https://www.servicenow.com/docs/r/api-reference/rest-apis/change-management-api.html)
 
-- API の詳細は [Web Services / REST API](../platform/web-services-api.md) を参照。Change Management API の URL パス（`sn_chg_rest`）は `【経験則】`。
+- API の詳細は [Web Services / REST API](../platform/web-services-api.md) を参照。Change Management API の URL パスは、公式 API リファレンスで `/api/sn_chg_rest/{api_version}/change`、`/api/sn_chg_rest/change/{sys_id}`、`/api/sn_chg_rest/change/{sys_id}/conflict` などとして確認できる。[出典](https://www.servicenow.com/docs/r/api-reference/rest-apis/change-management-api.html)
 
 ---
 
@@ -735,7 +760,7 @@ flowchart TD
 | SOW | 既定 9.0（9.2 で AI インシデント要約、PIR 共同作成） | 既定 9.5、zboot での自動インストール、`sn_sow_migration` 非推奨 |
 | 管理委任 | 細分化管理ロール（`sn_incident_admin` 等） | `incident_manager` 等が `itil` 非継承へ（zboot） |
 | セキュリティ | — | ITSM Enhanced Security Features 自動有効化 |
-| 生成 AI | Now Assist for ITSM | ServiceNow Otto for ITSM へ改称（2026-08 以降の Store 版） |
+| 生成 AI | Now Assist for ITSM（2026-08 の Store 版 15.1.4 / 16.0.6 / 17.0.5 以降は ServiceNow Otto for ITSM。改称は Store アプリ側で行われたため Australia インスタンスにも適用される） | リリースノート上の名称も ServiceNow Otto for ITSM |
 | 非推奨 | — | Workforce Optimization for ITSM が将来非推奨予定 |
 
 出典: 各節の出典を参照。
@@ -783,6 +808,13 @@ flowchart TD
 - Incident Management release notes（Zurich→Brazil 統合）: https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-incidentmanagement-release-notes.html
 - Work on incidents: https://www.servicenow.com/docs/r/it-service-management/incident-management/work-on-incidents.html
 - Change Management API: https://www.servicenow.com/docs/r/api-reference/rest-apis/change-management-api.html
+- Employee Slate release notes（Zurich）: https://www.servicenow.com/docs/r/zurich/release-notes/employee-slate-rn.html
+- Migration Utility for Service Operations Workspace（Store release notes）: https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-migration-utility-sow.html
+- Task SLA table（Australia）: https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/DkrtAbz5bi4lTcYZODfaIQ
+- Service Level Agreement API - ServiceNow Fluent（`contract_sla`）: https://www.servicenow.com/docs/r/a3E8xg0zsiQLBPKbKO15Mg/oh_4a25uHd4yAlH~7cjYTQ
+- Request Management architecture（Australia）: https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/57sZCFMepzfRqczlrJWdrg
+- Components installed with Knowledge Management Core（Zurich）: https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/piagnfa0AAofnNdqrl7agw
+- Create a task type for problem or change in Service Operations Workspace（`problem_task`）: https://www.servicenow.com/docs/r/ddas8k04yNRw8I2YLfjRzg/M2FMDRGFJfhRExHO3APhwA
 
 ### ServiceNow Community
 
@@ -790,7 +822,7 @@ flowchart TD
 - Understanding ServiceNow Licensing Packaging Tiers（2026-04-26）: https://www.servicenow.com/community/architect-articles/understanding-servicenow-licensing-packaging-tiers-standard/ta-p/3532073
 - Navigating the April 2026 ServiceNow ITOM Licensing Model: https://www.servicenow.com/community/architect-articles/navigating-the-april-2026-servicenow-itom-licensing-model/ta-p/3555121
 - ITSM Pro Solution Brief（2021-04-14）: https://www.servicenow.com/community/itsm-articles/itsm-pro-solution-brief/ta-p/2295873
-- What are the plugins for ITSM Professional Suite（2019-10）: https://www.servicenow.com/community/itsm-forum/what-are-the-plugins-for-itsm-professional-suite/m-p/790072
+- What are the plugins for ITSM Professional Suite（2019-10、フォーラム回答・非公式）: https://www.servicenow.com/community/itsm-forum/what-are-the-plugins-for-itsm-professional-suite/m-p/790072
 - Quickly setup Service Operations Workspace for ITSM（2024-12-06、画像出典）: https://www.servicenow.com/community/service-operations-workspace/quickly-setup-service-operations-workspace-for-itsm/ta-p/3119974
 
 ### 第三者情報

@@ -28,7 +28,7 @@ sources:
   - https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/RfkCCSzO5u2FpHvok1cjlA
   - https://www.servicenow.com/docs/r/it-asset-management/contract-management/c_ContractManagement.html
   - https://www.servicenow.com/docs/r/it-asset-management/contract-management/c_Contracts.html
-  - https://www.servicenow.com/docs/r/xUi4EDRoQXDqROOshinXwQ/0TMYhsUUid6M5u_9hJ9XdQ
+  - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/w00qfaVp08fHRKVNnqIX7w
   - https://www.servicenow.com/docs/r/MHWk7MBhhaTZFcUaTavonw/wX7I8afw6p4TeurCQJViGg
   - https://www.servicenow.com/docs/r/1zMxrAxr2iK81FYv03BwFA/els2cPg8CzX0crK~vUAmrA
   - https://www.servicenow.com/docs/r/w3Hg5id41C9xrkzqBsUMhA/NId3qs9wnQAhQkaY54cm_g
@@ -43,6 +43,13 @@ sources:
   - https://www.servicenow.com/community/itam-forum/what-is-the-purpose-of-the-the-parent-category-field-on-a-model/m-p/1308414
   - https://www.servicenow.com/community/developer-articles/execution-of-contract-management-in-servicenow/ta-p/2330225
   - https://www.slideshare.net/slideshow/service-now-csdm-and-product-models-1-pptx/276448763
+  - https://www.servicenow.com/docs/r/xUi4EDRoQXDqROOshinXwQ/0z9XqKRQR5i8AYR6Wq1MsQ
+  - https://www.servicenow.com/docs/r/it-asset-management/hardware-asset-management/ham-landing-page.html
+  - https://www.servicenow.com/docs/r/MHWk7MBhhaTZFcUaTavonw/2tfDgA49~HpC2G36QyHSOw
+  - https://www.servicenow.com/community/cmdb-forum/assigned-to-sync-not-working-between-cmdb-ci-computer-and-alm/m-p/2606724
+  - https://www.servicenow.com/community/itsm-forum/documentation-of-state-and-sub-state-of-asset-in-alm-hardware/td-p/2460389
+  - https://www.servicenow.com/community/sam-articles/how-to-manage-leased-hardware-assets-effectively/ta-p/2339843
+  - https://www.servicenow.com/community/sam-forum/how-can-i-update-an-consumable-asset-information-after-marking/m-p/3000578
 ---
 
 # ITAM 概要（IT Asset Management Overview）
@@ -92,8 +99,9 @@ Australia の公式ドキュメント「Asset Management」は、Asset Managemen
 
 Base Asset Management は、`alm_asset` テーブル群・Model category・Asset と CI の同期・Stockroom・Transfer Order などの基盤機能を提供し、HAM や SAM はその上に追加されるライセンス対象アプリケーションである。HAM の公式ドキュメントでは HAM を「licensable application（ライセンス対象アプリケーション）」としている。[出典](https://www.servicenow.com/docs/r/pyt4lF0aAin_R6wVyV414Q/OdMIVFxPKFcaM1_eOBz29Q)
 
-- `Hardware Asset Management Professional`（プラグイン `com.sn_hamp`）は、資産フォームの Aisle / Space（通路・棚位置）、Lease 関連フィールド、Mobile タブなど一部フィールドの前提条件になっている。[出典](https://www.servicenow.com/docs/r/w3Hg5id41C9xrkzqBsUMhA/YQFqhdpQ2HbfHwt8whnwQQ)
-- Hardware Asset Workspace を使うには `Asset Management Workspace`（`sn_itam_workspace`）と `Hardware Asset Management`（`sn_hamp`）の両プラグインの有効化が必要。[出典](https://www.servicenow.com/docs/r/1zMxrAxr2iK81FYv03BwFA/FKo_qJuoa_jeRs4Fb9Pzpw)
+- 本ファイルでいう HAM は **Hardware Asset Management Professional**（ServiceNow Store アプリ）を指す。アプリのスコープは `sn_hamp` で、ドキュメントによってはプラグイン ID を `com.sn_hamp` と書いている。どちらも同じアプリで、以降は `sn_hamp` と書く。
+- HAM（`sn_hamp`）は、資産フォームの Aisle / Space（通路・棚位置）、Lease 関連フィールド、Mobile タブなど、一部のフィールドを使うための前提条件になっている。[出典](https://www.servicenow.com/docs/r/w3Hg5id41C9xrkzqBsUMhA/YQFqhdpQ2HbfHwt8whnwQQ)
+- Hardware Asset Workspace を使うには、`Asset Management Workspace`（`sn_itam_workspace`）と HAM（`sn_hamp`）の両方を有効にする必要がある。[出典](https://www.servicenow.com/docs/r/1zMxrAxr2iK81FYv03BwFA/FKo_qJuoa_jeRs4Fb9Pzpw)
 - ITAM 各製品のライセンス・エディションは [ライセンスモデル](../../03_導入編/01-licensing-model.md)、[エディション比較](../../03_導入編/03-edition-comparison.md) を参照。
 
 ### ITAM の主要ユーザーインターフェース
@@ -105,7 +113,7 @@ Base Asset Management は、`alm_asset` テーブル群・Model category・Asset
 | Software Asset Workspace | SAM の業務 UI（License operations など） | [Software Asset Management](./software-asset-management.md) |
 | Enterprise Asset Workspace | EAM の業務 UI（Contract and lease management view 等） | EAM ライセンスが必要 |
 
-[出典](https://www.servicenow.com/docs/r/w3Hg5id41C9xrkzqBsUMhA/NId3qs9wnQAhQkaY54cm_g)
+[出典（Contract management view 等）](https://www.servicenow.com/docs/r/w3Hg5id41C9xrkzqBsUMhA/NId3qs9wnQAhQkaY54cm_g) / [出典（HAM の Core UI 限定サポート）](https://www.servicenow.com/docs/r/it-asset-management/hardware-asset-management/ham-landing-page.html)
 
 ---
 
@@ -134,7 +142,8 @@ ServiceNow では、同じ物理機器（例: 1台のノート PC）を**2種類
 |---|---|---|---|
 | `alm_asset` | `ci`（Configuration Item） | `cmdb_ci` | 資産と同時に自動生成された CI。値は Model と（CI を持つモデルカテゴリかつシリアル番号がある場合）Serial number から生成される [出典](https://www.servicenow.com/docs/r/w3Hg5id41C9xrkzqBsUMhA/YQFqhdpQ2HbfHwt8whnwQQ) |
 | `cmdb_ci` | `asset`（Asset） | `alm_asset` | CI に対応する資産レコード 【第三者情報】[出典](https://www.servicenow.com/community/ham-forum/how-asset-and-ci-are-linked-to-each-other/m-p/3566796) |
-| `alm_asset` / `cmdb_ci` | `model_id`（Model） | `cmdb_model` | 両者が同じ Product Model を参照する。CI 側のモデルは `model_id` に格納 [出典](https://www.servicenow.com/docs/r/1zMxrAxr2iK81FYv03BwFA/pqIcegBJhTxzPI4JiMe5xg) |
+| `alm_asset` | `model`（Model） | `cmdb_model` | 両者が同じ Product Model を参照する。フィールド名は資産側が `model`、CI 側が `model_id` で異なる [出典](https://www.servicenow.com/docs/r/1zMxrAxr2iK81FYv03BwFA/pqIcegBJhTxzPI4JiMe5xg) |
+| `cmdb_ci` | `model_id`（Model ID） | `cmdb_model` | 同上（CI 側のモデル参照） [出典](https://www.servicenow.com/docs/r/4AA65edJ2a~o5pASflQppQ/6Sq0lyZJbFbprBO674SbnQ) |
 | `alm_asset` | `model_category` | `cmdb_model_category` | 対応する CI クラス（＝生成される CI）を決める [出典](https://www.servicenow.com/docs/r/w3Hg5id41C9xrkzqBsUMhA/YQFqhdpQ2HbfHwt8whnwQQ) |
 
 `cmdb_ci_hardware` クラスの公式説明では、Manufacturer と Model ID がそれぞれ Company（`core_company`）と Product Model（`cmdb_model`）への参照属性であるとされる。[出典](https://www.servicenow.com/docs/r/4AA65edJ2a~o5pASflQppQ/6Sq0lyZJbFbprBO674SbnQ)
@@ -145,7 +154,7 @@ ServiceNow では、同じ物理機器（例: 1台のノート PC）を**2種類
 
 ```mermaid
 erDiagram
-    cmdb_model_category ||--o{ cmdb_model : "Model categories（多対多で所属可）"
+    cmdb_model_category }o--o{ cmdb_model : "Model categories（複数所属可）"
     cmdb_model ||--o{ alm_asset : "model（Model）"
     cmdb_model ||--o{ cmdb_ci : "model_id（Model ID）"
     cmdb_model_category ||--o{ alm_asset : "model_category"
@@ -156,7 +165,7 @@ erDiagram
     core_company ||--o{ cmdb_model : "manufacturer"
 ```
 
-- Model category は「CI クラス」と「資産クラス」の対応表であり、Product Model はどの Model category に属するかを持つ（1つのモデルが複数カテゴリに属することが可能）。[出典](https://www.servicenow.com/docs/r/cCCsnXLy_7vD00AGlASipQ/lXKfwKOD8TD6tX1oNxdZXA)
+- Model category は「CI クラス」と「資産クラス」の対応表であり、Product Model はどの Model category に属するかを持つ（1つのモデルが複数カテゴリに属することが可能）。モデル側の Model categories はリスト型のフィールドで、複数のカテゴリを持てる。そのため図では多対多（`}o--o{`）で表している。このフィールドの物理名は公開情報では確認できず。[出典](https://www.servicenow.com/docs/r/cCCsnXLy_7vD00AGlASipQ/lXKfwKOD8TD6tX1oNxdZXA)
 - 契約と資産は `clm_m2m_contract_asset`（Covered Asset）で多対多に関連付く（[Contract Management](#contract-management契約管理) 参照）。
 
 ### Asset と CI の自動生成
@@ -196,9 +205,11 @@ Base Asset Management は、Model category の設定に従って**CI から資�
 | `glide.asset.create_ci_with_ire` | 資産から CI を生成する際に CMDB の **IRE（Identification and Reconciliation Engine）** を経由させる。CI 名は「Serial number - Model name」、データソースは `SNAssetManagement` | Orlando 以前からのアップグレードでは false |
 | `sn_itam_enable_cache_for_asset_ci_mapping` | 資産・CI のフィールドマッピング、State / Status マッピングをキャッシュして性能を改善 | 公開情報では確認できず |
 | `sn_itam_common.mac_address_sync` | シリアル番号ではなく MAC アドレスで資産と CI を同期（CI から資産へ日次） | false |
-| `sn_itam_restrict_asset_read` | `snc_internal` ロールのみのユーザーが読めるのを、自分に割り当てられた資産や Reserved for / Managed by / Owned by で参照される資産に限定 | false |
+| `sn_itam_restrict_asset_read` | `snc_internal` ロールしか持たないユーザーが `alm_asset` とその子テーブルで読める資産を、自分に割り当てられた資産か、Reserved for / Managed by / Owned by で参照される資産に限定する（Australia Patch 5 で追加） | **true** |
 
 [出典](https://www.servicenow.com/docs/r/1zMxrAxr2iK81FYv03BwFA/pqIcegBJhTxzPI4JiMe5xg) / `sn_itam_restrict_asset_read` は Australia Patch 5 で追加 [出典](https://www.servicenow.com/docs/bundle/australia-release-notes/page/release-notes/it-asset-management/hardware-asset-management-rn.html)
+
+> **注意（`sn_itam_restrict_asset_read`）:** Australia HAM リリースノートの Upgrade information には「By default, this property is set to true.」とある。既定が true のため、Patch 5 を適用すると、`snc_internal` しか持たないユーザーが読める資産は、自分に割り当てられた資産か、Reserved for / Managed by / Owned by で自分が参照されている資産だけになる。ほかのロールを1つでも持つユーザーは、引き続き全件を読める。セルフサービス利用者向けのポータル・レポート・連携で資産を表示している場合は、適用前に影響を確認すること。新規インスタンスとアップグレードとで既定値が違うかどうかは、公開情報では確認できず。[出典](https://www.servicenow.com/docs/bundle/australia-release-notes/page/release-notes/it-asset-management/hardware-asset-management-rn.html)
 
 > 注: 公式ページの要約部分では `glide.createalmasset.async` のようにアンダースコアが欠落した表記もあるが、詳細部の表記（上表）が正しい名称である。MAC アドレス同期プロパティは、Asset 側の記述では `snitamcommon.macaddresssync`（表記揺れ）として紹介され、`asset_property` テーブルで有効化する。
 
@@ -385,7 +396,7 @@ classDiagram
 | State / Substate | 状態 / サブ状態 | ライフサイクル状態。Substate の選択肢は State に依存 |
 | Assigned to | 割当先 | 使用者・責任者。State が In use のとき表示、他の状態に移るとクリア |
 | Stockroom | 在庫場所 | State が In stock または Build のとき表示 |
-| Aisle / Space | 通路 / 棚 | `com.sn_hamp` が必要 |
+| Aisle / Space | 通路 / 棚 | HAM（`sn_hamp`）が必要 |
 | Managed by | 管理者 | 資産を保守する人 |
 | Owned by | 所有者 | 財務上の所有者 |
 | Parent | 親資産 | 子資産の割当と状態は読み取り専用になり親から継承 |
@@ -618,6 +629,7 @@ flowchart LR
 
 - State / Substate の一覧は Zurich 版ドキュメント（2025-07 更新）による。[出典](https://www.servicenow.com/docs/r/1zMxrAxr2iK81FYv03BwFA/geimElf9Uzmtlw6cNeh2gw) 括弧内の数値（`install_status` の内部値）は公式ダウンロード資料「OOTB Asset - CI State」図による。[出典](https://downloads.docs.servicenow.com/resource/enus/infocard/predefined-asset-ci-state.pdf)
 - 資産の State フィールドの物理名は `install_status`（CI と同名だが選択肢は資産用）である。【第三者情報】コミュニティでは「In stock に設定すると `install_status` が 6 になる」と報告されている。[出典](https://www.servicenow.com/community/itsm-forum/documentation-of-state-and-sub-state-of-asset-in-alm-hardware/td-p/2460389)
+- 消耗品（`alm_consumable`）では、消費時に State「Consumed（消費済み）」のレコードが使われる。公式「Consumables life cycle」（Australia）は、Consumed 状態でライフサイクルを終えた消耗品を In stock に戻す手順に触れている。[出典](https://www.servicenow.com/docs/r/MHWk7MBhhaTZFcUaTavonw/2tfDgA49~HpC2G36QyHSOw) ただし、Consumed は上表の公式の State 一覧（Set asset states and substates）には載っておらず、内部値は公開情報では確認できない。【第三者情報】コミュニティでは、Consumed の内部値を 10 とする投稿がある。[出典](https://www.servicenow.com/community/sam-forum/how-can-i-update-an-consumable-asset-information-after-marking/m-p/3000578) 値と扱いは、インスタンスの `alm_asset.install_status` の選択肢（`sys_choice`）で確認すること。
 - 一部の Substate は複数の State に現れ、**State と Substate の組み合わせで意味が決まる**（例: In stock + Pending disposal＝未使用で在庫場所にあり廃棄待ち）。
 - 耐用年数に達した資産は Retired にする。資産レコードの削除は、誤って作成した場合に限る。
 - `Assigned to` は State が In use のとき表示され、他の State に移るとクリアされる（ビジネスルール `Clear Assigned To on update`）。[出典](https://www.servicenow.com/docs/r/w3Hg5id41C9xrkzqBsUMhA/YQFqhdpQ2HbfHwt8whnwQQ)
@@ -669,7 +681,7 @@ CSDM（Common Service Data Model）は、資産・CI・Install Base Item（IBI�
 
 #### 資産・CI・IBI 間の CSDM ライフサイクル同期
 
-CSDM ライフサイクル同期の動作は、CSDM プラグイン（`csdm.lifecycle.migration.activated`）とプロパティ **`csdm.lifecycle.sync.between.ci.and.asset.activated`** で変わる。このプロパティは Xanadu へのアップグレード時に既定 false となる（Xanadu で導入されたと推定される）。[出典](https://www.servicenow.com/docs/r/1zMxrAxr2iK81FYv03BwFA/pqIcegBJhTxzPI4JiMe5xg)
+CSDM ライフサイクル同期の動作は、CSDM プラグイン（`csdm.lifecycle.migration.activated`）とプロパティ **`csdm.lifecycle.sync.between.ci.and.asset.activated`** で変わる。公式ページには「Xanadu へのアップグレード時は既定で false」とだけ書かれており、導入リリースは記載されていない。Xanadu で導入されたと考えられる。【推定】[出典](https://www.servicenow.com/docs/r/1zMxrAxr2iK81FYv03BwFA/pqIcegBJhTxzPI4JiMe5xg)
 
 | プロパティ値 | 同期の仕組み |
 |---|---|
@@ -687,13 +699,13 @@ CSDM ライフサイクル同期の動作は、CSDM プラグイン（`csdm.life
 | リリース | 変更点 |
 |---|---|
 | Washington DC | HAM の Core UI は限定サポート扱いとなり、Hardware Asset Workspace が主 UI に |
-| Xanadu | `csdm.lifecycle.sync.between.ci.and.asset.activated`（アップグレード時既定 false） |
+| Xanadu | `csdm.lifecycle.sync.between.ci.and.asset.activated`（Xanadu へのアップグレード時の既定値は false。導入リリースは【推定】） |
 | Yokohama | `alm_asset` の `mac_addr` を用いた MAC アドレス関連の値設定 |
-| Australia | 資産レコード上の生成 AI による資産分析サマリー（Patch 1）、ハードウェア / 消耗品製品のライフサイクル推定日（Patch 0）、メーカー未公表モデルの EoL / EoS 推定、退役資産の再販（Disposal workflow の Documentation ステージ拡張）、ハードウェア＋エンタープライズ資産の単一棚卸、CMDB success advisor for HAM（ハードウェア CI の欠落・重複・不整合の検出） |
+| Australia | 資産レコード上の生成 AI による資産分析サマリー（Patch 1）、ハードウェア / 消耗品製品のライフサイクル推定日（Patch 0）、メーカー未公表モデルの EoL / EoS 推定、退役資産の再販（Disposal workflow の Documentation ステージ拡張）、ハードウェア＋エンタープライズ資産の単一棚卸、CMDB success advisor for HAM（ハードウェア CI の欠落・重複・不整合の検出）、Configuration Console（HAM 16.0.0、Store 更新で利用） |
 
 [出典（Australia RN）](https://www.servicenow.com/docs/bundle/australia-release-notes/page/release-notes/it-asset-management/hardware-asset-management-rn.html)
 
-> **Brazil での変更:** HAM 16.0.0（Brazil）で **Configuration Console** が追加され、資産ライフサイクル、在庫、資産連携、ユーザー・ロール、生成 AI スキルを1か所で設定できる（グループ・ユーザー・Content Service 設定を支援する AI 会話インターフェース付き）。HAM と依存アプリは Product Hub からインストール可能になった。Brazil の HAM リリースノートには Asset-CI 同期の変更、廃止事項の記載はない。[出典](https://www.servicenow.com/docs/r/release-notes/hardware-asset-management-rn.html)
+> **Australia / Brazil での変更:** HAM 16.0.0 で **Configuration Console** が追加され、資産ライフサイクル、在庫、資産連携、ユーザー・ロール、生成 AI スキルを1か所で設定できる（グループ・ユーザー・Content Service 設定を支援する AI 会話インターフェース付き）。この項目は Australia 版 HAM リリースノート（Version 15.0.0〜16.0.0 を扱い、16.0.0 の項目として掲載）と Brazil 版 HAM リリースノートの双方に記載されており、Australia でも Store から HAM 16.0.0 に更新すれば利用できる。また、HAM と依存アプリは Product Hub からインストールできるようになった。Brazil の HAM リリースノートには、Asset-CI 同期の変更や廃止事項は記載されていない。[出典（Australia）](https://www.servicenow.com/docs/bundle/australia-release-notes/page/release-notes/it-asset-management/hardware-asset-management-rn.html) / [出典（Brazil）](https://www.servicenow.com/docs/r/release-notes/hardware-asset-management-rn.html)
 
 ---
 
@@ -728,7 +740,7 @@ CSDM ライフサイクル同期の動作は、CSDM プラグイン（`csdm.life
 
 [出典](https://www.servicenow.com/docs/r/MHWk7MBhhaTZFcUaTavonw/wX7I8afw6p4TeurCQJViGg)
 
-- `contract_manager`、`itil`、`inventory_admin`、`procurement_user` ロールはレポートのみアクセス可能と記載されている。`procurement_user` には Procurement（`com.snc.procurement`）、`itil` と `inventory_admin` には Hardware Asset Management Professional（`com.sn_hamp`）プラグインが必要。
+- 公式の表では、`clm_m2m_contract_asset`（Covered Asset）テーブルの行に「`contract_manager`、`itil`、`inventory_admin`、`procurement_user` はレポートにのみアクセスできる」と注記されている。これは Covered Asset テーブルに限った注記で、契約（`ast_contract`）全体の権限ではない（`contract_manager` は契約の作成・編集・削除ができる。[後述](#contract-management-のロール)）。この注記では、`procurement_user` には Procurement（`com.snc.procurement`）、`itil` と `inventory_admin` には Hardware Asset Management Professional（`sn_hamp`）が必要。
 - 契約の Related list「Contract used by」は契約を利用する CI を示す（CI 側の契約参照）。[出典](https://www.servicenow.com/docs/r/w3Hg5id41C9xrkzqBsUMhA/NId3qs9wnQAhQkaY54cm_g)
 
 ### Contract Management のロール
@@ -786,47 +798,57 @@ CSDM ライフサイクル同期の動作は、CSDM プラグイン（`csdm.life
 
 主な関連リスト: **Assets Covered**、**Users Covered**、**Contract used by**（契約を利用する CI）、Terms and Conditions、**Expense Lines**、**Contract History**、Approval History、Service Offerings / Service Commitments for Contracts（Service Portfolio Management が必要）。[出典](https://www.servicenow.com/docs/r/w3Hg5id41C9xrkzqBsUMhA/NId3qs9wnQAhQkaY54cm_g)
 
-> 注: 上記フィールド一覧は Xanadu 版の「Create a contract」による。Substate の選択肢は同ページでは Awaiting Review / Under Review / Approved / Rejected と記載されているが、Australia 版「Contract life cycle」では下記のとおり Review pending / Review in progress 等の名称で、版により表記が異なる。
+> 注: 上記フィールド一覧は Xanadu 版の「Create a contract」による。Substate の選択肢（Awaiting Review / Under Review / Approved / Rejected 等）は、Australia 版（en-US）の「Contract life cycle」と同じ名称である。
 
 ### 契約のライフサイクル（状態）
 
-契約は作成から終了までのライフサイクルを持ち、それによって編集可能なフィールドが決まる。Australia の公式ドキュメントでは以下の Status / Substatus を定義している。[出典](https://www.servicenow.com/docs/r/xUi4EDRoQXDqROOshinXwQ/0TMYhsUUid6M5u_9hJ9XdQ)
+契約は作成から終了までのライフサイクルを持ち、どのフィールドを編集できるかはその状態で決まる。Australia の公式ドキュメント（en-US）は、次の State（状態）と Substate（サブ状態）を定義している。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/w00qfaVp08fHRKVNnqIX7w)
 
-| Status | 説明 |
+| State | 説明 |
 |---|---|
-| Draft（下書き） | 契約詳細を入力し承認者を設定。ほぼ全フィールドが編集可能 |
-| Active（有効） | 承認済みで開始日に到達 |
-| Expired（期限切れ） | 終了日に到達。Substatus は更新状況による |
-| Cancelled（取消） | 中止され有効でない |
+| Draft（下書き） | 契約の情報を入力し、承認者を指定する。ほぼすべてのフィールドが編集可能 |
+| Active（有効） | 承認済みで、開始日に到達した |
+| Expired（期限切れ） | 終了日に到達した。Substate は更新の状況で決まる（下記） |
+| Canceled（取消） | 中止され、有効ではない |
 
-Substatus: Review pending、Review in progress、Approved、Rejected、Renewal approved、Renewal rejected、Renewal in progress、Renewed、Extension approved、Extension rejected、None。
+Substate: Awaiting Review、Under Review、Approved、Rejected、Renewal Approved、Renewal Rejected、Renewal in process、Renewed、Extension Approved、Extension Rejected、None。
 
-- Draft を離れると、日付・更新・延長・財務のフィールドは読み取り専用になる。Status と Substatus は常に読み取り専用（システムが設定）。
-- コストライン（Cost line）は Active または Expired の契約に対してのみ生成される。
+- Draft から次の状態に進むと、日付・更新・延長・財務の一部のフィールドが読み取り専用になる。State と Substate の両フィールドは常に読み取り専用（システムが設定する）。
+- Expense line（費用明細）は、Active または Expired の契約からのみ生成される。
 
 ```mermaid
 stateDiagram-v2
     [*] --> Draft
-    Draft --> Draft: Submit for Review<br/>Substatus: Review pending → Review in progress
+    Draft --> Draft: Submit for Review<br/>Substate: Awaiting Review → Under Review
     Draft --> Active: 承認済み かつ 開始日到達<br/>（夜間ジョブ）
     Active --> Expired: 終了日到達（夜間ジョブ）
-    Active --> Active: 更新承認・更新開始日到達で更新<br/>Substatus: Renewal in progress → Renewed
+    Active --> Active: 更新承認・更新開始日到達で更新<br/>Substate: Renewal in process → Renewed
     Expired --> Active: 更新承認後に更新開始日到達
-    Draft --> Cancelled
-    Active --> Cancelled
+    Draft --> Canceled
+    Active --> Canceled
     Expired --> [*]
-    Cancelled --> [*]
+    Canceled --> [*]
 ```
 
-上図は公式記述の遷移条件を整理したもの。Expired から Active への戻りの扱い等の細部は【推定】。
+上図は、公式ドキュメントに書かれた遷移条件を整理したものである。Expired から Active に戻るときの扱いなどの細部は【推定】。
 
 #### 状態を変更する夜間ジョブ
 
-- スケジュールジョブ **Contract Compliance Check**（ドイツ語版ドキュメントでは「Vertrags-Compliance prüfen」）が毎晩 `ast_contract` に対して実行され、上記の状態変更（Draft → Active、更新、Active → Expired）を適用する。
-- 更新ワークフローが保留中の Expired 契約の Substatus は Review pending、更新承認済みで日付未到来なら Renewal approved。
-- プロパティ `contract_compliance_check_job.enable_override`（既定 true）: true のとき、同一フィールドについて子テーブルのチェック条件が親テーブルの条件を上書きする。
+スケジュールジョブ **Contract Compliance Checks** は、毎晩自動で `ast_contract`（Contract）テーブルに対して実行され、次の処理を行う。
 
-[出典](https://www.servicenow.com/docs/r/xUi4EDRoQXDqROOshinXwQ/0TMYhsUUid6M5u_9hJ9XdQ)
+- 承認済みで開始日に到達した契約を Active にする
+- 更新が承認され、更新の開始日に到達した契約を更新（Renew）する
+- Active で終了日に到達した契約を Expired にする
+
+Expired 契約の Substate は次のように決まる。
+
+- 有効な更新ワークフローがあり、承認を待っている場合は Awaiting Review
+- 更新は承認されたが、更新日をまだ過ぎていない場合は Renewal Approved
+- 有効な更新・延長ワークフローが無い場合は空
+
+プロパティ `contract_compliance_check_job.enable_override`（既定 true）を true にしていると、Contract Compliance Checks ジョブは、階層内のチェック条件を上書きする。つまり、同じフィールドについて子テーブルの条件が親テーブルの条件より優先される。この動作を止めるには false にする。
+
+[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/w00qfaVp08fHRKVNnqIX7w)
 
 ### 契約の期限通知と更新
 
@@ -874,7 +896,7 @@ stateDiagram-v2
 | 同期の落とし穴 | `setWorkflow(false)` を使う連携では BR が動かず同期されない可能性 | 【第三者情報】 |
 | アップグレード | `AssetAndCISynchronizer` のカスタマイズはアップグレード時に戻してマッピング再作成が必要。カスタマイズせず Mapping テーブルで調整する | 公式 / 【経験則】 |
 | CSDM 対応 | `csdm.lifecycle.sync.between.ci.and.asset.activated` で Life Cycle Stage / Status の直接同期に切替。カスタム State がある場合は先にマッピング | 公式 |
-| 契約 | `ast_contract` ＋ `clm_m2m_contract_asset`。状態は夜間の Contract Compliance Check ジョブで変わる。ドメインセパレーション非対応 | 公式 |
+| 契約 | `ast_contract` ＋ `clm_m2m_contract_asset`。状態は夜間の Contract Compliance Checks ジョブで変わる。ドメインセパレーション非対応 | 公式 |
 
 CMDB 品質と資産データの整合を保つ実務上の知見は [CMDB成功の要因](../../04_応用編/05-cmdb-success-factors.md)、ライセンスコストの最適化は [ライセンスコスト最適化](../../04_応用編/06-license-cost-optimization.md) を参照。
 
@@ -904,9 +926,11 @@ CMDB 品質と資産データの整合を保つ実務上の知見は [CMDB成功
 - Definitions of life-cycle values for tangible/physical CIs（Australia）: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/3qG1LesqC_qn3vsiHuSnnQ
 - CSDM life-cycle terms: https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/RfkCCSzO5u2FpHvok1cjlA
 - Hardware Asset Workspace（Zurich）: https://www.servicenow.com/docs/r/1zMxrAxr2iK81FYv03BwFA/FKo_qJuoa_jeRs4Fb9Pzpw
+- Hardware Asset Management（HAM ランディングページ）: https://www.servicenow.com/docs/r/it-asset-management/hardware-asset-management/ham-landing-page.html
+- Consumables life cycle（Australia）: https://www.servicenow.com/docs/r/MHWk7MBhhaTZFcUaTavonw/2tfDgA49~HpC2G36QyHSOw
 - Contract Management（Brazil）: https://www.servicenow.com/docs/r/it-asset-management/contract-management/c_ContractManagement.html
 - Contracts（Brazil）: https://www.servicenow.com/docs/r/it-asset-management/contract-management/c_Contracts.html
-- Contract life cycle（Australia）: https://www.servicenow.com/docs/r/xUi4EDRoQXDqROOshinXwQ/0TMYhsUUid6M5u_9hJ9XdQ
+- Contract life cycle（Australia, en-US）: https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/w00qfaVp08fHRKVNnqIX7w
 - Business rules installed with Contract Management: https://www.servicenow.com/docs/r/xUi4EDRoQXDqROOshinXwQ/0z9XqKRQR5i8AYR6Wq1MsQ
 - Tables installed with Contract Management（Australia）: https://www.servicenow.com/docs/r/MHWk7MBhhaTZFcUaTavonw/wX7I8afw6p4TeurCQJViGg
 - User roles installed with Contract Management: https://www.servicenow.com/docs/r/1zMxrAxr2iK81FYv03BwFA/els2cPg8CzX0crK~vUAmrA
@@ -922,6 +946,7 @@ CMDB 品質と資産データの整合を保つ実務上の知見は [CMDB成功
 - Issue in Asset CI Field Mapping table（Community）: https://www.servicenow.com/community/developer-forum/issue-in-asset-ci-field-mapping-table-in-servicenow/m-p/2657882
 - Assigned to sync not working between cmdb_ci_computer and alm_hardware（Community）: https://www.servicenow.com/community/cmdb-forum/assigned-to-sync-not-working-between-cmdb-ci-computer-and-alm/m-p/2606724
 - Documentation of state and sub state of asset in alm_hardware（Community）: https://www.servicenow.com/community/itsm-forum/documentation-of-state-and-sub-state-of-asset-in-alm-hardware/td-p/2460389
+- How can I update a consumable asset information after marking as consumed?（Community）: https://www.servicenow.com/community/sam-forum/how-can-i-update-an-consumable-asset-information-after-marking/m-p/3000578
 - Understanding the AI Inventory Data Model in ServiceNow Product（Community blog）: https://www.servicenow.com/community/cmdb-blog/understanding-the-ai-inventory-data-model-in-servicenow-product/ba-p/3546771
 - What is the purpose of the parent category field on a model category?（Community）: https://www.servicenow.com/community/itam-forum/what-is-the-purpose-of-the-the-parent-category-field-on-a-model/m-p/1308414
 - Execution of Contract Management in ServiceNow（Community）: https://www.servicenow.com/community/developer-articles/execution-of-contract-management-in-servicenow/ta-p/2330225

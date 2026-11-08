@@ -5,7 +5,7 @@ domain: platform
 release: Australia
 last_verified: 2026-11-02
 summary: ServiceNow インスタンスで「遅い」と言われたときの調査手順（Transaction log、Session Debug、Slow Queries、Explain Plan）と、遅いリスト・フォーム、Business Rule、インデックス（Index Suggestion Engine）、GlideRecord、大量データ（テーブルローテーション、アーカイブ、Table Cleaner、インポート）の改善策を、ServiceNow 公式ドキュメントと ServiceNow Technical Support Performance チーム（GTSPerformance）の公開知見に基づいてまとめる。
-keywords: [パフォーマンス, performance, チューニング, tuning, 遅い, slow, Slow Queries, Slow Scripts, Slow Transactions, sys_query_pattern, sys_script_pattern, sys_transaction_pattern, syslog_transaction, Transaction log, Session Debug, Debug SQL, Explain Plan, Index Suggestion Engine, ISE, com.glide.index_suggestion, sys_index_suggestion, Collect Column Stats, インデックス, index, 複合インデックス, cardinality, selectivity, rowcount, glide.ui.per_page, glide.ui.record_count, glide.ui.related_list_timing, glide.ui.defer_related_lists, glide.ui.goto_use_starts_with, sysparm_fixed_query, glide.ui.list.seismic.omit.count, glide.ui.fetch.list.record.count.asynchronously, Business Rule, async, display, query business rule, current.update, g_scratchpad, GlideAjax, isLoading, GlideRecord, setLimit, getRowCount, GlideAggregate, setGroup, addExtraField, GlideQuery, getValue, chooseWindow, OFFSET, glide.invalid_query.returns_no_rows, Transaction Quota Rules, 298秒, semaphore, scheduler worker, sys_trigger, stats.do, table rotation, sys_created_on, System Archive, ar_, Table Cleaner, sys_auto_flush, Data Management, delete job, Concurrent Imports, 100,000 rows, RaptorDB, Live Archive]
+keywords: [パフォーマンス, performance, チューニング, tuning, 遅い, slow, Slow Queries, Slow Scripts, Slow Transactions, sys_query_pattern, sys_script_pattern, sys_transaction_pattern, syslog_transaction, Transaction log, Session Debug, Debug SQL, Explain Plan, Index Suggestion Engine, ISE, com.glide.index_suggestion, sys_index_suggestion, Collect Column Stats, インデックス, index, 複合インデックス, cardinality, selectivity, rowcount, glide.ui.per_page, glide.ui.record_count, glide.ui.related_list_timing, glide.ui.defer_related_lists, glide.ui.goto_use_starts_with, sysparm_fixed_query, glide.ui.list.seismic.omit.count, glide.ui.fetch.list.record.count.asynchronously, Business Rule, async, display, query business rule, current.update, g_scratchpad, GlideAjax, isLoading, GlideRecord, setLimit, getRowCount, GlideAggregate, setGroup, addExtraField, GlideQuery, getValue, chooseWindow, OFFSET, glide.invalid_query.returns_no_rows, Transaction Quota Rules, 298秒, semaphore, scheduler worker, sys_trigger, stats.do, table rotation, sys_created_on, System Archive, ar_, Table Cleaner, sys_auto_flush, Data Management, delete job, Concurrent Imports, 100,000 rows, RaptorDB, Live Archive, ACL, ACL 評価順, Zing, text index, テキストインデックス, 123TEXTQUERY321]
 sources:
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/B~HI2mXDY182PrrOR~jYnA
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/YVUaVOByZDLgszbI9JNr8A
@@ -26,6 +26,7 @@ sources:
   - https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/gTHKMNpw8kIcgcG0U39aMA
   - https://docs.servicenow.com/bundle/xanadu-api-reference/page/app-store/dev_portal/API_reference/GlideQuery/concept/GlideQueryGlobalAPI.html
   - https://www.servicenow.com/docs/r/servicenow-platform/raptordb.html
+  - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/jdtu9CkREkfuKqRvW_YWvw
   - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-performanceanalytics-release-notes.html
   - https://servicenow.com/community/developer-articles/performance-best-practice-for-efficient-queries-top-10-practices/ta-p/2306409
   - https://www.servicenow.com/community/developer-articles/performance-best-practices-for-server-side-coding-in-servicenow/ta-p/2324426
@@ -42,6 +43,20 @@ sources:
   - https://www.servicenow.com/community/servicenow-ai-platform-articles/caching-data-to-improve-performance/ta-p/2308096
   - https://www.servicenow.com/community/now-platform-articles/demystifying-table-rotation-extension-and-table-cleaner/ta-p/2323658
   - https://www.servicenow.com/community/workflow-data-fabric-blog/raptordb-pro-what-s-new-in-australia/ba-p/3525741
+  - https://www.servicenow.com/docs/r/SmYvGPN0OygSQs53fsexIQ/Bf6_jqcZUcnyv0sBBis1Lw
+  - https://www.servicenow.com/docs/bundle/yokohama-platform-administration/page/administer/managing-data/concept/deleting-records-safely.html
+  - https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/~bX4xmh94WVoO8HkStlWyQ
+  - https://dev.mysql.com/doc/refman/8.0/en/explain-output.html
+  - https://www.servicenow.com/community/developer-articles/performance-best-practice-for-before-query-business-rules/ta-p/2303806
+  - https://www.servicenow.com/community/secops-blog/secure-your-data-and-perfect-performance/ba-p/2282412
+  - https://www.servicenow.com/community/now-platform-articles/security-setup-acl-evaluation-order-best-practice/ta-p/2317900
+  - https://www.servicenow.com/community/developer-forum/healthscan-scorecard-performance-max-page-list-size-best/m-p/2033469
+  - https://www.servicenow.com/community/developer-forum/g-scratchpad-vs-glideajax-is-there-really-a-winner/td-p/1665244
+  - https://www.servicenow.com/community/developer-articles/business-rule/ta-p/2329993
+  - https://www.servicenow.com/community/developer-forum/indexing-cmdb-tables/m-p/2095258
+  - https://www.servicenow.com/community/developer-forum/best-practices-for-purging-archiving-800m-records-from-the-sys/m-p/3579432
+  - https://www.servicenow.com/community/developer-blog/optimizing-pagination-in-gliderecord-with-choosewindow-and/ba-p/3269136
+  - https://itdigest.com/cloud-computing-mobility/analytics/servicenow-unveils-data-enhancements-for-ultra-scale/
 ---
 
 # パフォーマンスチューニング（Performance Tuning）
@@ -58,8 +73,8 @@ ServiceNow は SaaS であり、サーバー・DB・ネットワークの基盤�
 | 2 | Slow transaction の分析手順 | Transaction log（`syslog_transaction`）、Session Debug、Node Log File Browser、Stats Tools（Slow Queries／Slow Scripts／Slow Transactions） |
 | 3 | 遅いリストの改善 | `rowcount`、`glide.ui.per_page`、演算子、`active=true`、Go to 検索、OR 条件、ソート、列数 |
 | 4 | 遅いフォームの改善 | 関連リストの遅延ロード（`glide.ui.related_list_timing`）、フィールド数、Client Script、Display Business Rule |
-| 5 | Business Rule の最適化 | Condition、`current.update()` 禁止、Async、Query Business Rule、キャッシュ |
-| 6 | インデックス | Slow Queries、Explain Plan、Index Suggestion Engine（ISE）、複合インデックスの列順 |
+| 5 | Business Rule と ACL の最適化 | Condition、`current.update()` 禁止、Async、Query Business Rule、キャッシュ、ACL の評価順 |
+| 6 | インデックス | Slow Queries、Explain Plan、Index Suggestion Engine（ISE）、複合インデックスの列順、テキストインデックス（Zing） |
 | 7 | GlideRecord の最適化 | `setLimit`、`GlideAggregate`、`getValue`、`addExtraField`、`get(name, value)`、null 値の罠、OFFSET |
 | 8 | Workspace（Next Experience）の性能 | Data Resource の評価モード、リスト件数表示のプロパティ |
 | 9 | 大量データへの対応 | Table rotation、System Archive、Table Cleaner（`sys_auto_flush`）、Delete job、インポート分割、Concurrent Imports、RaptorDB |
@@ -104,12 +119,12 @@ ServiceNow のアプリケーションノードは、同期トランザクショ
 
 | 資源 | 既定値（記事時点） | 枯渇したときの症状 |
 |---|---|---|
-| Default セマフォ | ノードあたり 16 | 新しいユーザートランザクションがキューに積まれ、全ユーザーの応答が遅くなる |
+| Default セマフォ | 16（記事時点の `stats.do` 表示。ノード単位の値と考えられる【推定】。現行値は `stats.do` で確認する） | 新しいユーザートランザクションがキューに積まれ、全ユーザーの応答が遅くなる |
 | スケジューラワーカー | ノードあたり 8 | Async Business Rule、SLA 更新、イベント処理、メール送信（SMTP Sender）、Discovery 等のジョブが遅延する |
 
 - 長時間実行される Async Business Rule は、実行中ずっとワーカーを 1 つ占有する。大量に投入されると全ワーカーが埋まり、SLA やメール送信など無関係なジョブまで遅延する（同上）。
 - GTSPerformance 記事は「少量の作業を一度に大量に発生させない（Avoid spawning too much work too quickly）」ことを強調し、パイプの容量・1 件の大きさ・同時投入数を意識するよう説明している。例として、共有ページ（`sc_cart` 等）に広すぎる Record Watcher を設定すると、100 ユーザー × 100 回のリフレッシュ＝1 万トランザクションの「トランザクションストーム」が起きうるとしている（[Server-side coding](https://www.servicenow.com/community/developer-articles/performance-best-practices-for-server-side-coding-in-servicenow/ta-p/2324426)）。
-- 同記事は、ヘッダー・フッター等の毎回表示される部品のクエリは **10 ms 未満**で実行されるべきで、そうでなければオンデマンド（ホバー時など）でロードするよう推奨している（同上）。
+- 同記事の本文は、Service Portal のヘッダー・フッターやメニューのウィジェットが自動でロードされることを「短時間に多くの作業を生む」リスクとして挙げている。さらに同記事のコメント欄（GTSPerformance、2020-10-28）では、Service Portal でページロードのたびに自動実行されるクエリは **10 ms 未満**（即時）であるべきで、そうでなければ自動実行せず、ユーザーがメニューにホバーしたりリンクをクリックしたりしたときにオンデマンドでロードするよう推奨している（同上）。
 - 同一ユーザーは同時に 1 トランザクションしか実行できない（セッション同期）ため、重いホームページの自動リフレッシュはそのユーザーの次の操作を待たせる（[Efficient queries top practices](https://servicenow.com/community/developer-articles/performance-best-practice-for-efficient-queries-top-10-practices/ta-p/2306409)）。
 
 セマフォ・スケジューラの監視指標（Semaphore Default Qdepth、Scheduler Queue Length 等）と閾値の目安は [サポートと監視 7.5](../03_導入編/14-support-monitoring.md) を参照。
@@ -172,7 +187,7 @@ Transaction log（All > System Logs > Transactions）は、公式ドキュメン
 | IP address、GZipped、Protocol、HTTP Response Code | クライアント IP、圧縮有無、HTTP プロトコル、HTTP ステータス |
 
 - バックグラウンド・スケジューラのトランザクションは**実行時間が 1,000 ms を超えた場合のみ**記録される（同上）。
-- ServiceNow 社員の記事では、UI トランザクションは**応答時間 100 ms 超**のものだけがログに出るとされる（[How to troubleshoot a slow transaction](https://www.servicenow.com/community/now-platform-articles/how-to-troubleshoot-a-slow-transaction/ta-p/2322007)）。
+- ServiceNow 社員の記事では、**応答時間 100 ms 超**のトランザクションのみがログに表示されるとされる（[How to troubleshoot a slow transaction](https://www.servicenow.com/community/now-platform-articles/how-to-troubleshoot-a-slow-transaction/ta-p/2322007)）。記録対象となるトランザクションの完全な一覧は、公式ページが案内している **KB0778299** を参照する（[Transaction logs（Brazil）](https://www.servicenow.com/docs/r/platform-security/r_TransactionLogs.html)）。
 - 同記事は、リストの列を個人設定して **Business rule time、Client network time、Semaphore wait time、Session wait time、Session ID、Transaction Number、Total page load time、Transaction processing time、UI policy time** を表示することを推奨している。公式ドキュメントのフィールド表にない SQL time、ACL time 等の列も、リストの列として存在する（記事のスクリーンショットで SQL time 列を確認）。インスタンスの列ピッカーで確認すること。
 
 ### 2.3 手順 A：Session Debug（推奨）
@@ -299,7 +314,7 @@ GTSPerformance 記事「Performance Best Practice for Efficient Queries」（201
 ### 3.3 Go to 検索（リスト上部の検索ボックス）
 
 - リスト上部の「Go to」検索の既定演算子は **以上（`>=`）** である（[Efficient queries top practices](https://servicenow.com/community/developer-articles/performance-best-practice-for-efficient-queries-top-10-practices/ta-p/2306409)）。
-- 前方一致にするには `glide.ui.goto_use_starts_with` を `true` にする（Kingston 以降）。フィールド単位では `sys_dictionary` レコードに `goto_use_starts_with=true` 属性を付ける。
+- 前方一致にするには `glide.ui.goto_use_starts_with` を `true` にする。Kingston 以降は、フィールド単位で `sys_dictionary` レコードに `goto_use_starts_with=true` 属性を付けることもできる。
 - 前方一致検索はワイルドカード `SAP%` で行う。`goto_use_contains`（部分一致）は効率が悪いため避ける（同上）。
 
 ### 3.4 ホームページ・ダッシュボード
@@ -344,7 +359,7 @@ GTSPerformance 記事は、**関連リストがフォーム表示の遅延の 75
 
 | 推奨 | 詳細 | 出典 |
 |---|---|---|
-| フィールド数を最小限にする | フォームのフィールドが多いほどロードが遅くなる。常に必要なフィールドを最上部のセクションに置き、他はセクションに分ける | 公式ドキュメントの記述として検索結果で確認（[Primary interfaces](https://www.servicenow.com/docs/r/SmYvGPN0OygSQs53fsexIQ/Bf6_jqcZUcnyv0sBBis1Lw)）。個別ページの全文は未確認 |
+| フィールド数を最小限にする | 公式ドキュメントは「フォームのフィールドが多いほどロードに時間がかかり、ユーザー体験が悪くなる（The more fields on a form, the longer the form takes to load）」とし、フォームセクションでフィールドを論理的にまとめてスクロールを減らすよう推奨している | [Primary interfaces（Yokohama、Build or modify applications）](https://www.servicenow.com/docs/r/SmYvGPN0OygSQs53fsexIQ/Bf6_jqcZUcnyv0sBBis1Lw) |
 | 関連リスト・埋め込みリストを必要最小限にする | 関連リスト・埋め込みリストはその行をすべて DB から読み込むため、プラットフォーム全体の負荷になる。rowcount はこれらにも適用される | [Just enough data](https://www.servicenow.com/community/in-other-news/improve-performance-by-displaying-quot-just-enough-quot-data/ba-p/2268746) |
 | 参照フィールドの多用に注意 | 参照のプレビュー（i アイコン）はフォーム描画前に関連を組み立てて実現している | 同上 |
 
@@ -367,7 +382,7 @@ Client Script の仕様詳細は [クライアントサイドスクリプト](..
 
 ---
 
-## 5. Business Rule の最適化
+## 5. Business Rule と ACL の最適化
 
 ### 5.1 公式ベストプラクティス
 
@@ -403,7 +418,7 @@ ServiceNow 社員の記事（2016-01、Geneva 期の記述）による Async Bus
 - 保存後、`sys_trigger` テーブルにスケジュールジョブが挿入され、ユーザーには即座に制御が戻る。ジョブ名は **`ASYNC: <Business Rule 名>`** で、ジョブのコンテキストが Business Rule の sys_id を参照するため発生源を特定しやすい。
 - 完了したジョブは `sys_trigger` から削除されるため、**調査の証跡は素早く取る**必要がある。
 - 記事のシナリオ 1：`gs.sleep()` を含む Async Business Rule がノードの 8 ワーカーすべてを占有し、キューが増え続けた。
-- 記事のシナリオ 2：`gr.next` の括弧漏れという構文誤りで、ジョブが無期限にハングし、burst worker が 12 まで増えた。完全な解消にはノード再起動が必要だった。
+- 記事のシナリオ 2：`while (gr.next)` と括弧を書き忘れたことで、関数参照が常に真と評価されて無限ループになり（JavaScript としては構文上正しいコードだが、記事では「構文誤り」と表現）、ジョブが無期限にハングし、burst worker が 12 まで増えた。完全な解消にはノード再起動が必要だった。
 - 対処：問題の Business Rule を無効化し、All Active Transactions でトランザクションを Kill（ServiceNow サポートと協力）し、`sys_trigger` から該当ジョブを削除する。ノード再起動は最後の手段でサポートが行う。
 - 予防：非本番で Async Business Rule の想定応答時間を確認し、構文を検証する。
 - GTSPerformance は、テスト以外で `gs.sleep()` を使わないこと（ワーカースレッドをブロックする）、遅延実行には `gs.eventQueueScheduled()` を使うことを推奨している（[Server-side coding](https://www.servicenow.com/community/developer-articles/performance-best-practices-for-server-side-coding-in-servicenow/ta-p/2324426) のコメント欄、2024-02）。
@@ -412,7 +427,13 @@ ServiceNow 社員の記事（2016-01、Geneva 期の記述）による Async Bus
 
 Before Query Business Rule は、そのテーブルへの**すべてのクエリ**（リスト、参照検索、レポート、スクリプトの GlideRecord）で実行される。
 
-- ServiceNow 社員の記事は、毎年、不適切に書かれた before／query Business Rule による性能エスカレーションが複数発生していると述べている【第三者情報：コミュニティ検索結果の要約に基づく】（[ServiceNow Community: Business Rule 関連記事](https://www.servicenow.com/community/developer-articles/business-rule/ta-p/2329993)）。
+- GTSPerformance 記事「Performance Best Practice for Before Query Business Rules」（2020-12 初版、2025-06 更新）は、Roles、ACL、Domain Separation は性能面で最適化されており、スクリプトによる Query Business Rule より技術的負債も少ないとして、**Before Query Business Rule は最後の手段（last resort）**と位置づけている（[Performance Best Practice for Before Query Business Rules](https://www.servicenow.com/community/developer-articles/performance-best-practice-for-before-query-business-rules/ta-p/2303806)）。同記事の主な推奨：
+  - 頻出操作に対してクエリのバリエーションを増やす動的条件を避ける。`addQuery`／`addOrCondition` を呼ぶコードは共通の Script Include に集約する。
+  - データ分離用の列は JOIN が不要になるよう対象テーブルに直接持たせる。`watch_list` のような GlideList 列への CONTAINS 条件は性能に悪い。
+  - 条件を追加すると多くのクエリに影響するため、インデックスの追加・見直しが必要になることが多い。Transaction log と Slow Scripts で実行回数・時間を監視する。
+  - `GlideRecord.setWorkflow(false)` を使うとクエリが Before Query Business Rule をバイパスする（ACL やセキュリティ制約はバイパスしない）。使用には注意が必要。
+  - コメント欄（2022-05）で GTSPerformance は、「Query Business Rule は ACL より速い」という説明は単純化しすぎだとしている。キャッシュされる単純な ACL は実行回数が多くても全体では速いことがあり、Query Business Rule はセキュリティが不要な他スクリプトからのクエリにも付加され、クエリの最適化・デバッグを難しくする。
+- 別のコミュニティ記事（社員以外の投稿）のコメント欄で、ServiceNow 社員は「毎年、不適切に書かれた before／query Business Rule による性能エスカレーションが複数発生している（Every year we see multiple customer escalations for performance because of poorly written before/query business rules）」と述べ、OR 条件や CONTAINS を多用する Query Business Rule は拡張性がないと指摘している（[Business Rule（コミュニティ記事、2021-05）のコメント欄](https://www.servicenow.com/community/developer-articles/business-rule/ta-p/2329993)）。
 - GTSPerformance の事例では、個々の Query Business Rule は 100 ms 未満で速かったが、**数千回の実行の合計**が主要なコストになっていた。同じエンコードクエリを毎回再計算していたことが原因で、「関数 × テーブル × ユーザー」の組み合わせごとに一度計算してキャッシュすることで解消した（[Caching data to improve performance](https://www.servicenow.com/community/servicenow-ai-platform-articles/caching-data-to-improve-performance/ta-p/2308096)）。
 - 実務上の指針【経験則】：
   - Query Business Rule の中で GlideRecord クエリを実行しない（ユーザーのグループ一覧等はセッション内でキャッシュする）。
@@ -421,7 +442,17 @@ Before Query Business Rule は、そのテーブルへの**すべてのクエリ
 
 ### 5.5 Script Include のサイズ
 
-GTSPerformance のコメントによると、Script Include は「少数の大きなもの」の方が望ましいが、**64KB を超えるコードはキャッシュされずインタプリタ実行になる**（[Server-side coding](https://www.servicenow.com/community/developer-articles/performance-best-practices-for-server-side-coding-in-servicenow/ta-p/2324426) のコメント欄、2020-09）。
+GTSPerformance のコメント（[Server-side coding](https://www.servicenow.com/community/developer-articles/performance-best-practices-for-server-side-coding-in-servicenow/ta-p/2324426) のコメント欄、2020-09）では、JavaScript のキャッシュは「小さな」コードだけが対象で、**2020 年時点では 64KB を超えるコードはコンパイル・キャッシュされずインタプリタ実行になる**とされ、将来変わる可能性にも触れている。これは Script Include に限らずサーバーサイドのコード全般の話である。現行リリース（Australia）での挙動は公開情報では確認できず。
+
+### 5.6 ACL の性能
+
+ACL（Access Control List、アクセス制御ルール）は、1.1 の時間内訳で ACL time として現れる。ACL の仕様は [アクセス制御（ACL）](../02_リファレンス/platform/access-control-acl.md) を参照。
+
+- **ACL は取得した各レコードに対して評価される。** ServiceNow 社員の記事は「ACL はすべてのレコードで評価されるため、非効率なスクリプトを使うと性能への影響が大きい」とし、**ACL スクリプトはできるだけ単純に保つ**、スクリプト内のループはできるだけ早く抜ける、スクリプト内の DB クエリはインデックスが効くようにする、と推奨している。一方で ACL はレコード取得後に評価されるため、通常は DB 負荷をあまり増やさないとも述べている（[Secure your data and perfect performance](https://www.servicenow.com/community/secops-blog/secure-your-data-and-perfect-performance/ba-p/2282412)、2016-09）。
+- リストでは表示行数ぶん ACL が評価されるため、3.1 の rowcount を絞ることは ACL time の削減にも効く【経験則】。
+- **評価順を活かす：** ACL は Requires role（ロール）→ Condition（条件）→ Script の順に評価され、ロールを満たさないユーザーはその時点で拒否されて後続のチェックが走らない。そのため、まずロールで対象者を絞り、条件・スクリプトだけに頼る ACL を避けることが性能上望ましいとするコミュニティ記事がある【第三者情報】（[Security setup: ACL evaluation order – Best Practice](https://www.servicenow.com/community/now-platform-articles/security-setup-acl-evaluation-order-best-practice/ta-p/2317900)、2022-08）。スクリプト ACL は、ロール・条件で対象を絞った後にだけ実行されるよう設計する【経験則】。
+- **Before Query Business Rule との役割分担：** GTSPerformance は、行レベルのデータ分離にはまず Roles、ACL、Domain Separation を使い、Before Query Business Rule は最後の手段とする立場である。キャッシュされる単純な ACL は、実行回数が多くても Query Business Rule より全体として速いことがあるとしている（5.4、[Performance Best Practice for Before Query Business Rules](https://www.servicenow.com/community/developer-articles/performance-best-practice-for-before-query-business-rules/ta-p/2303806)）。
+- ACL 単体の性能に関する公式ドキュメントのベストプラクティスページは、本調査では確認できなかった。
 
 ---
 
@@ -434,11 +465,13 @@ ServiceNow 社員の記事（[What index should it be?](https://www.servicenow.c
 | 状況 | インデックスの効果 | 対策 |
 |---|---|---|
 | `=`、starts with、範囲条件（インデックス列） | 効く | — |
-| contains（`LIKE '%xxx%'`） | 先頭ワイルドカードのため効かず全表スキャン | starts with に変える、検索要件を見直す |
+| contains（`LIKE '%xxx%'`） | 先頭ワイルドカードのため効かず全表スキャン | starts with に変える、検索要件を見直す、キーワード検索はテキストインデックス（下記）を使う |
 | 異なる列の OR | 1 つのインデックスで両条件を満たせない | クエリを分割して結果を統合する |
 | 1 列で GROUP BY、別列で ORDER BY | インデックスを使えないことが多い | クエリを書き換える |
 | 選択性が低い列（例：99% がクローズ済みの `state`） | 効きにくい | 選択性の高い列と組み合わせる |
 | 長いテキスト列（TEXT、MEDIUM TEXT、LONG TEXT） | 先頭の数文字しかインデックス化されない | 短い検索文字列でのみ有効 |
+
+**全文検索の要件はテキストインデックスで満たす：** 「説明文に含まれる語で探したい」という要件を CONTAINS 条件で満たすと全表スキャンになる。代わりに、テーブルの **Zing テキストインデックス**を有効にすると、文字列値でのキーワード検索ができるようになり、そのテーブルと子テーブルのリストビューに「list search for text」オプション（リストのキーワード検索）が表示される。スクリプトからは予約名 `123TEXTQUERY321` を使った `GlideRecord.addQuery()`／`addEncodedQuery()` でテキストインデックスを検索できる。テキストインデックスを有効にすると子テーブルにも有効になる（[Configure a table for indexing and searching（Zurich）](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/~bX4xmh94WVoO8HkStlWyQ)）。ポータル・Workspace の検索は AI Search が担う（仕様は [Predictive Intelligence と AI Search](../02_リファレンス/platform/predictive-intelligence-ai-search.md) を参照）。
 
 **カーディナリティと選択性：** 選択性＝カーディナリティ（異なる値の数）÷ 総行数 × 100%。DB はインデックスが結果を十分に絞り込まないと判断すると、インデックスを使わず全表スキャンを選ぶ（同上）。例：3 万ユーザー、名前の種類約 1,000、部署 15 で「Finance の Jim」を探す場合、名前の方が絞り込みが強いので先頭に置くべきである。
 
@@ -452,7 +485,10 @@ ServiceNow 社員の記事は、約 15 万行の `task` テーブルで 3 通り
 | (`active`, `sys_class_name`, `sys_created_by`) | 約 30 秒 |
 | (`sys_created_by`, `sys_class_name`, `active`) | 約 0.12 ms |
 
-- 教訓：**カーディナリティの高い列を先頭に置く**。特に範囲比較（`sys_created_on` 等）を含む場合に重要。`active` をクエリとインデックスに含めるのは経験則として有効（同上）。
+※ 記事は比較に使ったクエリ本文を示していない。また 0.12 ms（記事表記 0.12ms）は 29 秒からの改善としては桁が大きく、キャッシュ等の影響も考えられるため、数値は参考値として扱う。
+
+- 記事の教訓：**カーディナリティの高い列を先頭に置く**。記事は範囲比較（`sys_created_on` 等）を含む場合でもカーディナリティの高い列が有利としている。`active` をクエリとインデックスに含めるのは経験則として有効（同上）。
+- B-Tree インデックスの一般原則としては、**等価条件（`=`）で使う列のうち選択性の高いものを先頭にし、範囲条件（`sys_created_on` の期間指定など）の列は複合インデックスの最後に置く**。範囲条件の列より後ろの列は、インデックスのシーク条件として使えないためである【経験則】。
 - 最適な順序は行数とデータ分布に依存するため、実データで検証する。
 
 ### 6.3 Explain Plan の読み方
@@ -466,12 +502,12 @@ Slow Queries レコードの **Explain Plan** を実行すると、**MySQL Expla
 
 | Explain Plan の列 | 見方 |
 |---|---|
-| Type（アクセス型） | 効率のよい順に `const` → `eq_ref` → `ref` → `index_merge` → `range` → `index` → `ALL`。**`ALL` は全表スキャン** |
+| Type（アクセス型） | 主なものを効率のよい順に並べると `const` → `eq_ref` → `ref` → `index_merge` → `range` → `index` → `ALL`（ほかに `system`、`fulltext`、`ref_or_null`、`unique_subquery`、`index_subquery` がある。完全な一覧は MySQL Reference Manual の EXPLAIN Output Format を参照）。**`ALL` は全表スキャン** |
 | Possible keys／Key | 候補インデックスと実際に選ばれたインデックス。Key が空ならインデックス未使用 |
 | Rows | 走査見積もり行数。インデックス追加後に大きく減れば効果がある |
 | Extra | `Using where`、`Using index`、`Using filesort`、`Using temporary`、`Using join buffer` など。`filesort`／`temporary` はソート・グループ化のコストを示す |
 
-出典：[What index should it be?](https://www.servicenow.com/community/developer-blog/what-index-should-it-be-or-slow-queries-explained/ba-p/2269311)。同記事の例では、`sys_dictionary` の `choice_table IS NOT NULL` 条件が Type `ALL`（25,629 行）だったが、`choice_table` にインデックスを追加すると Type `ref`、Key `choice_table`、Rows 5,427 に改善した。
+出典：[What index should it be?](https://www.servicenow.com/community/developer-blog/what-index-should-it-be-or-slow-queries-explained/ba-p/2269311)、[MySQL 8.0 Reference Manual: EXPLAIN Output Format](https://dev.mysql.com/doc/refman/8.0/en/explain-output.html)。上表は MySQL の Explain Plan の形式であり、RaptorDB（PostgreSQL 系）のインスタンスでは実行計画の形式が異なりうる（公開情報では確認できず）。同記事の例では、`sys_dictionary` の `choice_table IS NOT NULL` 条件が Type `ALL`（25,629 行）だったが、`choice_table` にインデックスを追加すると Type `ref`、Key `choice_table`、Rows 5,427 に改善した。
 
 ### 6.4 Index Suggestion Engine（ISE）
 
@@ -591,7 +627,7 @@ var count = ga.next() ? parseInt(ga.getAggregate('COUNT'), 10) : 0;
 | 不要なドットウォークを避ける | 2 階層目以降のドットウォークは追加クエリを発生させる。参照の sys_id だけなら `getValue('assignment_group')` で取れる | [Server-side coding](https://www.servicenow.com/community/developer-articles/performance-best-practices-for-server-side-coding-in-servicenow/ta-p/2324426) |
 | `addExtraField()` で事前取得する | Washington DC で追加。ドットウォーク先のフィールド（sys_id 以外）を同じクエリで取得する。例：`gr.addExtraField('parent.name'); gr.query();` | 同上、[Speed up GlideRecord queries with addExtraField](https://www.servicenow.com/community/servicenow-ai-platform-articles/speed-up-gliderecord-queries-with-addextrafield/ta-p/3377549)【第三者情報】 |
 | GlideElement を配列に溜めない | `arr.push(gr.caller_id)` は数十 KB の Java の GlideElement オブジェクトを保持する。`gr.getValue('caller_id')` で文字列（sys_id 32 文字で約 64 バイト）を保持する | [Server-side coding](https://www.servicenow.com/community/developer-articles/performance-best-practices-for-server-side-coding-in-servicenow/ta-p/2324426) |
-| 大きな配列・オブジェクトを解放する | JVM ヒープは 2GB。使用率 20〜80% は正常、GC が 80% 超で危険。16 万件の sys_id 配列で 10MB 弱。不要になったら `null` を代入する。`stats.do` の Free percentage で確認 | 同上 |
+| 大きな配列・オブジェクトを解放する | JVM ヒープは 2GB（記事時点）。使用率 20〜80% は正常とされ、GC 後のヒープ使用率の下限（GC floor）が 80% を超えると危険とされる（記事時点の値）。16 万件の sys_id 配列で 10MB 弱。不要になったら `null` を代入する。`stats.do` の Free percentage で確認 | 同上 |
 
 - `addExtraField()` の効果について、コミュニティ記事では `cmdb_ci_service`（1.3 万件）のループでドットウォークした場合に約 5 秒かかった処理が 73% 短縮されたと報告されている。単純化した 1 例であり、効果は環境により異なる【第三者情報】（[Speed up GlideRecord queries with addExtraField](https://www.servicenow.com/community/servicenow-ai-platform-articles/speed-up-gliderecord-queries-with-addextrafield/ta-p/3377549)）。
 
@@ -675,7 +711,7 @@ Workspace の構成要素は [Workspace と UI Builder](../02_リファレンス
 
 - ローテーションの利点：古いデータを（DROP／TRUNCATE で）現行データに影響なく削除でき、テーブルを適切なサイズに保ち、クエリの日付が分かっていれば作業セットが小さくなる（[Table rotation（Brazil）](https://www.servicenow.com/docs/r/platform-administration/c_TableRotation.html)）。
 - **最大の落とし穴：** ローテーション日付（`sys_created_on`）で絞らないクエリは、全サブテーブルの UNION クエリになり、サブテーブルが多いと非常に遅い。`sys_updated_on` で絞る、または日付条件なしのクエリも全テーブル対象になる。**クエリには必ず作成日の範囲を入れる**（同上）。
-- GTSPerformance 記事によると、論理テーブル `syslog` は 8 ローテーション × 7 日で構成され、DB 上はベーステーブル＋8 シャードを持つ。物理テーブルの情報は `sys_table_rotation_schedule` に保持される。スキーマ変更は Table Rotation レコードの「Synchronize shards」を実行しないとシャードに反映されない（[Demystifying table rotation, extension and table cleaner](https://www.servicenow.com/community/now-platform-articles/demystifying-table-rotation-extension-and-table-cleaner/ta-p/2323658)）。
+- GTSPerformance 記事によると、論理テーブル `syslog` は 8 ローテーション × 7 日で構成され、DB 上はベーステーブル＋8 シャード（ここでの「シャード」はローテーションのサブテーブルを指す）を持つ。物理テーブルの情報は `sys_table_rotation_schedule` に保持される。スキーマ変更は Table Rotation レコードの「Synchronize shards」を実行しないとシャードに反映されない（[Demystifying table rotation, extension and table cleaner](https://www.servicenow.com/community/now-platform-articles/demystifying-table-rotation-extension-and-table-cleaner/ta-p/2323658)）。
 - ログテーブルの肥大化を防ぐには、まず**過剰なログ出力（`gs.log`／`gs.info` の多用、デバッグログの出しっぱなし）を止める**ことが先決である【経験則】。
 
 ### 9.3 Table Cleaner（`sys_auto_flush`）
@@ -693,6 +729,8 @@ Workspace の構成要素は [Workspace と UI Builder](../02_リファレンス
 | 非対応 | Table rotation を構成したテーブル。拡張テーブル・シャードテーブルは Xanadu Patch 5 から対応 |
 | 除外 | テーブルの辞書レコードに Disable Table Cleaner 属性を付けるとクリーンアップ対象外 |
 | 確認画面 | Data Management Policies リストで、アーカイブ・クリーナールールを持つテーブルごとのポリシーを確認 |
+
+※ 上表の「シャードテーブル（shard tables）」は、Table rotation で構成されたローテーションテーブル（9.2 の「シャード」＝ローテーションのサブテーブル）とは別扱いである。公式は「Table rotation を構成したテーブルは非対応」「extension and shard tables は Xanadu Patch 5 から対応」と記載しているが、両者の違いの詳細は公開情報では確認できず。
 
 ### 9.4 Delete job と大量削除
 
@@ -725,13 +763,13 @@ Workspace の構成要素は [Workspace と UI Builder](../02_リファレンス
 - 順序が重要な場合はパーティションに分割し、各パーティション内で順序を保って処理する。
 - 処理と監視のオーバーヘッドが増えるため、大量データの場合にのみ使う。
 - 実行ごとに Concurrent Import Set レコードが作成される。
-- `glide.scheduled_import.max.concurrent.import_sets` が 1 回の Concurrent Import の Import Set 数の上限を制御する（既定値は検索結果の抜粋上 10 とされるが、本調査では確定できず）。
+- `glide.scheduled_import.max.concurrent.import_sets` が 1 回の Concurrent Import の Import Set 数の上限を制御する（既定 10。公式の例では 2 ノードクラスターで 4、10 ノードクラスターで 10 の Import Set が作られる。[出典](https://www.servicenow.com/docs/r/australia/integrate-applications/system-import-sets/concurrent-imports.html)、詳細は [データインポート/エクスポート 7.3](../02_リファレンス/platform/import-export-data.md)）。
 
 データ移行計画全体は [データ移行](../03_導入編/08-data-migration.md)、インポートの仕様は [データインポート/エクスポート](../02_リファレンス/platform/import-export-data.md) を参照。
 
 ### 9.6 RaptorDB
 
-- **RaptorDB Standard** は今後のプライマリ DB の既定（target state default）とされ、トランザクション性能に重点を置く。**RaptorDB Professional** は HTAP（トランザクションと分析を同じエンジン・同じデータで処理）で、カラムストアインデックス、クエリ並列化、リソース割り当てを備え、Live Archive と Live Connect（ODBC／JDBC による読み取り専用 SQL アクセス、ACL 適用）を提供する有償の DB である（[RaptorDB（Australia）](https://www.servicenow.com/docs/r/servicenow-platform/raptordb.html)）。
+- **RaptorDB Standard** は Australia 版ドキュメントで「target state default primary database（今後の既定となるプライマリ DB）」と記載され、トランザクション性能に重点を置く（[RaptorDB（Australia 版ページ）](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/jdtu9CkREkfuKqRvW_YWvw)）。Brazil 版ページ（2026-09 更新）では「the ServiceNow database that supports the ServiceNow AI Platform」という表現になっており、「target state」の文言は見当たらない。**RaptorDB Professional** は HTAP（トランザクションと分析を同じエンジン・同じデータで処理）で、カラムストアインデックス、クエリ並列化、リソース割り当てを備え、Live Archive と Live Connect（ODBC／JDBC による読み取り専用 SQL アクセス、ACL 適用）を提供する有償の DB である（[RaptorDB（Brazil 版ページ）](https://www.servicenow.com/docs/r/servicenow-platform/raptordb.html)）。
 - Australia での RaptorDB Pro の新機能として Live Connect、Live Archive（例：12 か月経過したクローズ済みインシデントをコスト最適化ストレージへ移動し、同じ SQL で照会可能）、Intraday Analytics（Data Snapshots）が紹介されている（[RaptorDB Pro - What's new in Australia](https://www.servicenow.com/community/workflow-data-fabric-blog/raptordb-pro-what-s-new-in-australia/ba-p/3525741)、ServiceNow 社員、2026-04）。
 - 報道では、初期事例として全体のトランザクション時間 53% 改善、レポート・分析・リスト表示 27 倍高速化といったベンダー発表の数値が紹介されているが、独立した検証ではない【第三者情報】（[ITdigest](https://itdigest.com/cloud-computing-mobility/analytics/servicenow-unveils-data-enhancements-for-ultra-scale/)）。
 - **実務上の注意：** ISE は公式に MySQL のみ対応と記載されている（6.4）。RaptorDB 移行後のインデックス管理・Explain Plan の扱いは公開情報では確認できず、移行時に ServiceNow 社へ確認が必要である。DB を高速化しても、非効率なクエリ・スクリプト・ページサイズの問題は残る【経験則】。
@@ -795,6 +833,8 @@ Workspace の構成要素は [Workspace と UI Builder](../02_リファレンス
 | 10 | Workspace の Data Resource のバインド変数を検証しているか | 8 |
 | 11 | Coalesce 列・Table Cleaner の条件列・頻出フィルター列にインデックスがあるか | 6、9.3、9.5 |
 | 12 | 移行・インポートが 10 万行単位に分割され、Run business rules を必要最小限にしているか | 9.5 |
+| 13 | ACL がロールで先に対象者を絞り、スクリプト ACL は単純でクエリを含まない（含む場合はインデックスが効く）か | 5.6 |
+| 14 | キーワード検索の要件を CONTAINS 条件ではなくテキストインデックスで満たしているか | 6.1 |
 
 ### 11.2 運用時（月次）【経験則】
 
@@ -838,7 +878,8 @@ Workspace の構成要素は [Workspace と UI Builder](../02_リファレンス
 - Business rules and script includes（Brazil）：https://www.servicenow.com/docs/r/application-development/business-rules-and-script-includes.html
 - Business rules and script includes（Zurich）：https://www.servicenow.com/docs/r/zurich/application-development/building-applications/business-rules-and-script-includes.html
 - Configure when a related list loads（Brazil）：https://www.servicenow.com/docs/r/platform-user-interface/t_ConfigureWhenARelatedListLoads.html
-- Primary interfaces：https://www.servicenow.com/docs/r/SmYvGPN0OygSQs53fsexIQ/Bf6_jqcZUcnyv0sBBis1Lw
+- Primary interfaces（Yokohama）：https://www.servicenow.com/docs/r/SmYvGPN0OygSQs53fsexIQ/Bf6_jqcZUcnyv0sBBis1Lw
+- Configure a table for indexing and searching（Zurich）：https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/~bX4xmh94WVoO8HkStlWyQ
 - Table rotation（Brazil）：https://www.servicenow.com/docs/r/platform-administration/c_TableRotation.html
 - System Archive（Australia）：https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/XGBitdVNdjRuBmAjtXEH1w
 - Deleting older or unwanted records（Australia）：https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/aXBkq7youOkFPAnd2FaQ8w
@@ -846,8 +887,10 @@ Workspace の構成要素は [Workspace と UI Builder](../02_リファレンス
 - Deleting records safely（Yokohama）：https://www.servicenow.com/docs/bundle/yokohama-platform-administration/page/administer/managing-data/concept/deleting-records-safely.html
 - Manage data（Zurich）：https://www.servicenow.com/docs/r/zurich/application-development/manage-data.html
 - Concurrent imports：https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/gTHKMNpw8kIcgcG0U39aMA
+- Concurrent imports（Australia 版、既定値と例）：https://www.servicenow.com/docs/r/australia/integrate-applications/system-import-sets/concurrent-imports.html
 - GlideQuery（Xanadu）：https://docs.servicenow.com/bundle/xanadu-api-reference/page/app-store/dev_portal/API_reference/GlideQuery/concept/GlideQueryGlobalAPI.html
-- RaptorDB：https://www.servicenow.com/docs/r/servicenow-platform/raptordb.html
+- RaptorDB（Brazil 版ページ）：https://www.servicenow.com/docs/r/servicenow-platform/raptordb.html
+- RaptorDB（Australia 版ページ）：https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/jdtu9CkREkfuKqRvW_YWvw
 - Brazil-Zurich Performance Analytics release notes：https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-performanceanalytics-release-notes.html
 
 ### ServiceNow Community（ServiceNow 社員・Technical Support Performance チームの記事）
@@ -855,6 +898,8 @@ Workspace の構成要素は [Workspace と UI Builder](../02_リファレンス
 - Performance Best Practice for Efficient Queries - Top 10 Practices（GTSPerformance）：https://servicenow.com/community/developer-articles/performance-best-practice-for-efficient-queries-top-10-practices/ta-p/2306409
 - Performance Best Practices for Server-side Coding in ServiceNow（GTSPerformance）：https://www.servicenow.com/community/developer-articles/performance-best-practices-for-server-side-coding-in-servicenow/ta-p/2324426
 - Performance Best Practice for Next Experience（GTSPerformance）：https://www.servicenow.com/community/developer-articles/performance-best-practice-for-next-experience/ta-p/3350236
+- Performance Best Practice for Before Query Business Rules（GTSPerformance）：https://www.servicenow.com/community/developer-articles/performance-best-practice-for-before-query-business-rules/ta-p/2303806
+- Secure your data and perfect performance（ServiceNow 社員）：https://www.servicenow.com/community/secops-blog/secure-your-data-and-perfect-performance/ba-p/2282412
 - Caching data to improve performance（GTSPerformance）：https://www.servicenow.com/community/servicenow-ai-platform-articles/caching-data-to-improve-performance/ta-p/2308096
 - Demystifying table rotation, extension and table cleaner（GTSPerformance）：https://www.servicenow.com/community/now-platform-articles/demystifying-table-rotation-extension-and-table-cleaner/ta-p/2323658
 - Improve performance: database indexes and slow queries：https://www.servicenow.com/community/developer-blog/improve-performance-database-indexes-and-slow-queries/ba-p/2289671
@@ -873,10 +918,12 @@ Workspace の構成要素は [Workspace と UI Builder](../02_リファレンス
 - Optimizing pagination in GlideRecord with chooseWindow：https://www.servicenow.com/community/developer-blog/optimizing-pagination-in-gliderecord-with-choosewindow-and/ba-p/3269136
 - Healthscan Scorecard - Max page list size best practice：https://www.servicenow.com/community/developer-forum/healthscan-scorecard-performance-max-page-list-size-best/m-p/2033469
 - g_scratchpad vs GlideAjax：https://www.servicenow.com/community/developer-forum/g-scratchpad-vs-glideajax-is-there-really-a-winner/td-p/1665244
-- Business Rule（コミュニティ記事）：https://www.servicenow.com/community/developer-articles/business-rule/ta-p/2329993
+- Business Rule（コミュニティ記事。5.4 で引用したのはコメント欄の ServiceNow 社員の発言）：https://www.servicenow.com/community/developer-articles/business-rule/ta-p/2329993
+- Security setup: ACL evaluation order – Best Practice：https://www.servicenow.com/community/now-platform-articles/security-setup-acl-evaluation-order-best-practice/ta-p/2317900
 - Indexing CMDB Tables：https://www.servicenow.com/community/developer-forum/indexing-cmdb-tables/m-p/2095258
 - Best practices for purging/archiving 800M records from the sys_audit table：https://www.servicenow.com/community/developer-forum/best-practices-for-purging-archiving-800m-records-from-the-sys/m-p/3579432
 
 ### その他
 
+- MySQL 8.0 Reference Manual: EXPLAIN Output Format：https://dev.mysql.com/doc/refman/8.0/en/explain-output.html
 - ITdigest（RaptorDB 発表記事）：https://itdigest.com/cloud-computing-mobility/analytics/servicenow-unveils-data-enhancements-for-ultra-scale/

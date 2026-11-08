@@ -1152,13 +1152,13 @@ AAP 固有の権限は、旧称「Application Security Management」の名前の
 
 > **サイト差異（関連機能）:** Bring Your Own Threat Intelligence は一部サイトで非対応（製品横断の整理では US1-FED と US2-FED）。Static Endpoint Discovery も一部サイトで非対応の警告があるが、対象サイトは公開情報では特定できず。Security Inbox では US2-FED で AAP の Findings が表示されない。サイト別の差異は [Datadog Security 概要](./security-platform-overview.md) と [Datadog Sites](../platform/datadog-sites.md) を参照する。
 
-> **サイト差異（料金）:** AAP の定価は料金ページで選んだリージョンにより異なる（次節）。2026-11-02 時点で、料金一覧ページ（/pricing/list/）では US-FED リージョン選択時に AAP の行が表示されない。一方、/pricing/ の価格データには US1-FED 価格（ホスト年契約 $38.75）がある（料金ページ内の不整合。[製品別料金](../../03_導入編/pricing-by-product.md) のサイト差異注記も参照）。[出典](https://www.datadoghq.com/pricing/list/) [出典](https://www.datadoghq.com/pricing/?product=app-and-api-protection)
+> **サイト差異（料金）:** AAP の定価は料金ページで選んだリージョンにより異なる（次節）。2026-11-02 時点で、料金一覧ページ（/pricing/list/）では US-FED リージョン選択時に AAP の行が表示されない。一方、/pricing/ の価格データには US1-FED 価格（ホスト年契約 $38.75）がある（料金ページ内の不整合。[製品別料金](../../03_導入編/02-pricing-by-product.md) のサイト差異注記も参照）。[出典](https://www.datadoghq.com/pricing/list/) [出典](https://www.datadoghq.com/pricing/?product=app-and-api-protection)
 
 ---
 
 ## 課金への影響
 
-App and API Protection の課金単位は **AAP ホスト**（ホスト／月）が基本で、AWS Fargate とサーバーレスには別単位のアドオンがある。以下は 2026-11-02 時点の公式料金ページ・料金一覧ページの定価（「Starting at」表記）である。**料金の数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)** とし、料金体系の全体像は [料金体系の全体像](../../03_導入編/pricing-overview.md)、計算方法は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照する。[出典](https://www.datadoghq.com/pricing/?product=app-and-api-protection) [出典](https://www.datadoghq.com/pricing/list/)
+App and API Protection の課金単位は **AAP ホスト**（ホスト／月）が基本で、AWS Fargate とサーバーレスには別単位のアドオンがある。以下は 2026-11-02 時点の公式料金ページ・料金一覧ページの定価（「Starting at」表記）である。**料金の数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)** とし、料金体系の全体像は [料金体系の全体像](../../03_導入編/01-pricing-overview.md)、計算方法は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照する。[出典](https://www.datadoghq.com/pricing/?product=app-and-api-protection) [出典](https://www.datadoghq.com/pricing/list/)
 
 | SKU | 課金単位 | リージョン | 年契約（Billed Annually） | 月契約（Month-to-month） | オンデマンド |
 |---|---|---|---|---|---|
@@ -1214,8 +1214,8 @@ App and API Protection の課金単位は **AAP ホスト**（ホスト／月）
 | [Software Catalog（旧 Service Catalog）](../platform/software-catalog.md) | API 定義の登録、Endpoints |
 | [Workflow Automation](../service-management/workflow-automation.md) | エッジ WAF へのブロック連携 |
 | [Case Management](../service-management/case-management.md)・[Incident Management](../service-management/incident-management.md) | シグナルからのケース・インシデント作成 |
-| [製品別料金表](../../03_導入編/pricing-by-product.md) | 料金の正本 |
-| [セキュリティ運用の実践](../../04_応用編/security-operations-practices.md) | 運用ノウハウ |
+| [製品別料金表](../../03_導入編/02-pricing-by-product.md) | 料金の正本 |
+| [セキュリティ運用の実践](../../04_応用編/11-security-operations-practices.md) | 運用ノウハウ |
 
 ---
 

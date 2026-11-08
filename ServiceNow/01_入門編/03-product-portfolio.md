@@ -18,6 +18,8 @@ sources:
   - https://newsroom.servicenow.com/press-releases/details/2026/Introducing-Flow-by-ServiceNow-a-new-AI-service-desk-that-deploys-instantly/default.aspx
   - https://www.servicenow.com/products/employeeworks.html
   - https://www.servicenow.com/solutions/finance-supply-chain.html
+  - https://www.sec.gov/Archives/edgar/data/0001373715/000137371526000056/now-20260331.htm
+  - https://www.servicenow.com/blogs/2026/pyramid-analytics-expanding-data-driven-ai
 ---
 
 # 製品ポートフォリオ一覧（Product Portfolio）
@@ -147,31 +149,44 @@ flowchart TB
 |---|---|---|---|
 | Moveworks from ServiceNow | 従業員向け AI アシスタント・エンタープライズ検索。EmployeeWorks・Otto の構成要素となった | 買収完了 2025-12-15 | [出典](https://newsroom.servicenow.com/press-releases/details/2025/ServiceNow-completes-acquisition-of-Moveworks/default.aspx) |
 | Veza™ from ServiceNow | 人・非人間・AI エージェントの ID（アイデンティティ）のリスクを管理する Identity Security | 買収完了 2026-03-02 | [出典](https://www.sec.gov/Archives/edgar/data/0001373715/000137371526000056/now-20260331.htm) |
-| Armis™ from ServiceNow | サイバーエクスポージャー管理（資産可視化）。Armis Centrix は単体製品としても販売継続 | 買収完了 2026-04-20 | `【第三者情報】` [出典](https://www.itpro.com/business/acquisition/servicenow-wraps-up-usd7-75-billion-armis-acquisition) |
+| Armis™ from ServiceNow | サイバーエクスポージャー管理（資産可視化）。Armis Centrix は単体製品としても販売継続 `【第三者情報】` [出典](https://www.itpro.com/business/acquisition/servicenow-wraps-up-usd7-75-billion-armis-acquisition) | 買収完了 2026-04-20（Form 10-Q では現金対価 約 78 億ドル。発表・報道ベースでは約 77.5 億ドル） | [出典](https://www.sec.gov/Archives/edgar/data/0001373715/000137371526000056/now-20260331.htm)（Form 10-Q Note 19 Subsequent Events） |
+| Pyramid Analytics | セマンティックレイヤーを持つ BI／分析プラットフォーム（データ準備・データサイエンスを含む）。Autonomous Data Analytics の基盤 | 2026-02-12 に買収発表、2026-03-10 に買収完了（公式ブログの追記による）。買収額は非開示 | [出典](https://www.servicenow.com/blogs/2026/pyramid-analytics-expanding-data-driven-ai)／セマンティックレイヤーの説明は `【第三者情報】` [出典](https://www.theregister.com/2026/02/14/servicenow_buys_pyramid_analytics_to/) |
 
 ### 2.5 Flow by ServiceNow（スタンドアロン AI サービスデスク）
 
-- **Flow by ServiceNow** は 2026-10-01 に発表された、会話型のスタンドアロン AI サービスデスクである。Slack・Microsoft Teams・メールの中で従業員の依頼を解決する。[出典](https://newsroom.servicenow.com/press-releases/details/2026/Introducing-Flow-by-ServiceNow-a-new-AI-service-desk-that-deploys-instantly/default.aspx)
+- **Flow by ServiceNow** は 2026-10-01 に発表された、会話型のスタンドアロン AI サービスデスクである。Slack や Microsoft Teams など、チームが既に使っているチャットチャネル上の会話で従業員の依頼を解決する。[出典](https://newsroom.servicenow.com/press-releases/details/2026/Introducing-Flow-by-ServiceNow-a-new-AI-service-desk-that-deploys-instantly/default.aspx)
 - 新規顧客は既存の ServiceNow 契約やプラットフォームがなくても直接購入できる。AI ネイティブ SKU を持つ既存顧客は、消費量ベースの利用で追加の調達なしに導入できる。発表時点ではコントロールドアベイラビリティ（限定提供）であり、北米・EMEA での GA は 2026 年 Q4 の予定とされた。
-- Flow は IT サービスデスクから始まり、他部門へ拡張する計画である。変更管理・問題管理が必要な組織はフルの ITSM を使い、両者を併用できる。
+- Flow は IT サービスデスクから始まり、他部門へ拡張する計画である。フル規模の ITSM を使う顧客も、特定部門・リモートチーム・買収した事業部門向けに Flow を併用でき、既存のナレッジ・資産・チケットシステムと連携する。
 - 名称が似ている **Flow Designer**（プラットフォームのローコードワークフロー作成ツール）とは別製品である。
 
 ### 2.6 Australia で追加された新製品
 
-Australia リリースノートの「Features and changes by product」には、新製品として次が挙がっている。[出典](https://www.servicenow.com/docs/r/australia/release-notes/new-features-changes.html)
+Australia リリースノートの「Features and changes by product」では、次の製品・アプリケーションが Australia で新しく加わったもの（"is a new application / solution / capability / plugin in the Australia release" 等）とされている。[出典](https://www.servicenow.com/docs/r/australia/release-notes/new-features-changes.html)
 
-| 製品領域 | Australia の新製品 |
+| 製品領域 | Australia の新製品・新アプリケーション |
 |---|---|
-| Employee Service Management | Now Assist for Employee Center Pro |
+| Core Business Suite | Core Business Suite（CBS。新アプリケーション） |
+| Employee Service Management | Now Assist for Employee Center Pro、Enterprise Service Management Foundation（新ソリューション） |
 | Healthcare and Life Sciences | Care Team Work Management, ServiceNow Otto for Care Team Operations |
 | HR Service Delivery | Recommended Actions for HRSD |
 | Industrial Connected Workforce | Industrial Connected Workforce Core, Industrial Connected Workforce Mobile Experience, Industrial Guided Tasks, Industrial Standards |
-| IT Operations Management | ITOM Visibility |
+| Manufacturing | Manufacturing Commercial Operations（新アプリケーション） |
 | Operational Technology | ServiceNow Otto for Operational Technology (OT) Service Management |
-| Sales Customer Relationship Management | Activity Management, Advanced Approval Management, Buying Group, Quote Management |
+| Sales Customer Relationship Management | Activity Management（新機能）, Advanced Approval Management, Buying Group |
 | ServiceNow AI Platform Capabilities | Knowledge Center |
+| Source-to-Pay Operations | ServiceNow Otto for Purchase Order Management (POM)（新プラグイン） |
+| Telecommunications, Media, and Technology | Telecommunications Customer 360 |
+
+同じページで、新製品ではなく「Australia で強化・更新された（enhanced and updated / updated in the Australia release）」とされている主な製品は次のとおりである。
+
+| 製品領域 | Australia で強化・更新 |
+|---|---|
+| IT Operations Management | ITOM Visibility |
+| Sales Customer Relationship Management | Quote Management |
+| Telecommunications, Media, and Technology | Service Exchange (formerly Service Bridge) |
 | Source-to-Pay Operations | ServiceNow Otto for Source-to-Pay Operations |
-| Telecommunications, Media, and Technology | Service Exchange (formerly Service Bridge), Telecommunications Customer 360 |
+
+Core Business Suite と Manufacturing Commercial Operations は Australia 以前から製品名として公式サイトに掲載されているが（Core Business Suite は 2025-05-07 の Knowledge 2025 で発表）、Australia リリースノートではアプリケーションとして新規提供と記載されている。[出典](https://newsroom.servicenow.com/press-releases/details/2025/ServiceNow-Introduces-Core-Business-Suite-With-AI-powered-Solutions-to-Quickly-Transform-Key-Business-Functions-and-Scale-With-Growing-Companies/default.aspx)
 
 > **Brazil での変更:** Brazil の「New features and products」ページ（2026-09-10 更新）は、製品領域として Autonomous Workforce、Build Agent and Autonomous Engineer、Data Catalog、Developer Sandboxes、Customer Success Management、Customer Engagement Sequences などを挙げている。同ページは個別製品に「新製品」のラベルを付けていない。単独の新しい提供物としては、AI Inventory Intelligence Agent、Contract Management Pro MCP Server、Enterprise Architecture for AICT プラグインが確認できる。[出典](https://www.servicenow.com/docs/r/brazil/release-notes/rn-summary-new-features.html)
 
@@ -205,8 +220,8 @@ Knowledge Center の説明は公式サイトの Australia リリース紹介に�
 |---|---|---|
 | Workflow Data Fabric | 任意のデータソースにリアルタイムでアクセスし、ワークフロー・AI・分析に供給するデータ統合層（Zero Copy Connectors 等） | [Workflow Data Fabric](../02_リファレンス/platform/workflow-data-fabric.md) |
 | RaptorDB | ServiceNow のワークロード向けに最適化された高性能データベース。データと分析を統合する（Standard / Professional） | [インスタンスアーキテクチャ](../02_リファレンス/platform/instance-architecture.md) |
-| Context Engine | 5 種類のグラフ（knowledge / action / access / asset / decision）を 1 層に統合し、AI に業務コンテキストを与える（Knowledge 2026 で発表） | [Workflow Data Fabric](../02_リファレンス/platform/workflow-data-fabric.md) |
-| Autonomous Data Analytics | Platform Analytics・CXO Dashboards・AI Data Explorer・Pyramid Analytics の機能を統合し、人と AI エージェントがデータを問い合わせられる分析製品。発表時点では 2026 年下期に提供予定 | [レポートとアナリティクス](../02_リファレンス/platform/reporting-analytics.md) |
+| Context Engine | 企業内の人・役割・資産・サービス・ポリシーをリアルタイムにマッピングし、CMDB・ワークフローデータ・分析・サードパーティシステムを統合するセマンティックレイヤー。AI に業務コンテキストを与える（Knowledge 2026 で発表） | [Workflow Data Fabric](../02_リファレンス/platform/workflow-data-fabric.md) |
+| Autonomous Data Analytics | 買収した Pyramid Analytics（2.4 参照）の技術を活用し、人と AI エージェントが自然言語で企業データ全体を問い合わせられる分析製品。Community の Knowledge 2026 まとめ記事は、Platform Analytics・CXO Dashboards・AI Data Explorer・Pyramid Analytics を統合するものと説明している。同時発表の Autonomous Data Governance は 2026 年下期の提供予定（Workflow Data Fabric with ServiceNow Otto と ServiceNow Data Catalog は発表時点で提供済み） | [レポートとアナリティクス](../02_リファレンス/platform/reporting-analytics.md) |
 | Configuration Management Database (CMDB) | 構成アイテム（CI）とその関係を管理する中核データベース | [CMDB と CSDM](../02_リファレンス/platform/cmdb-csdm.md) |
 | Service Graph Connectors | 外部ツールのデータを CMDB に正しく取り込むための認定コネクター | [Service Graph Connectors](../02_リファレンス/itom/service-graph-connectors.md) |
 | Stream Connect for Apache Kafka | Kafka との双方向ストリーミング連携 | [IntegrationHub](../02_リファレンス/platform/integrationhub.md) |
@@ -214,7 +229,7 @@ Knowledge Center の説明は公式サイトの Australia リリース紹介に�
 | Reporting | 標準のレポート・ダッシュボード | [レポートとアナリティクス](../02_リファレンス/platform/reporting-analytics.md) |
 | Benchmarks | 同業他社と KPI を比較するベンチマーク | [レポートとアナリティクス](../02_リファレンス/platform/reporting-analytics.md) |
 
-Context Engine と Autonomous Data Analytics の説明は 2026-05-06 の公式発表に基づく。[出典](https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-launches-the-real-time-data-foundation-that-puts-autonomous-AI-to-work-across-the-enterprise/default.aspx)
+Context Engine と Autonomous Data Analytics の説明は 2026-05-06 の公式発表に基づく。[出典](https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-launches-the-real-time-data-foundation-that-puts-autonomous-AI-to-work-across-the-enterprise/default.aspx) Autonomous Data Analytics が統合する 4 製品の記述は ServiceNow Community の記事に基づく。[出典](https://www.servicenow.com/community/workflow-data-fabric-articles/knowledge-2026-data-amp-analytics-recap/ta-p/3554070) Context Engine を構成するグラフの種類は、公式発表には記載がなく、公開情報では確認できなかった。
 
 ### 3.3 Workflows（自動化・連携）
 
@@ -228,7 +243,7 @@ Context Engine と Autonomous Data Analytics の説明は 2026-05-06 の公式�
 | Process Mining | ワークフローや AI エージェントの実際の実行経路を分析し、改善する | [プロセス自動化](../02_リファレンス/platform/process-automation-rpa-mining.md) |
 | Automation Center | 自動化の取り組みとその価値を一元管理する | [プロセス自動化](../02_リファレンス/platform/process-automation-rpa-mining.md) |
 | Automation Discovery | インシデント等のデータを分析して自動化候補を見つける | [プロセス自動化](../02_リファレンス/platform/process-automation-rpa-mining.md) |
-| Surveys and Assessments | アンケート・評価 | [システム管理](../02_リファレンス/platform/system-administration.md) |
+| Surveys and Assessments | アンケート・評価 | [Survey・Assessment](../02_リファレンス/platform/surveys-assessments.md) |
 | Visual Task Boards | カンバン形式のタスクボード | [UIの基本](./05-ui-basics.md) |
 | Guided Tour Designer | 画面上のガイド付きツアーを作成する | [システム管理](../02_リファレンス/platform/system-administration.md) |
 
@@ -279,10 +294,10 @@ Technology workflows は、IT 部門が技術ライフサイクル全体（計�
 | Continual Improvement Management | 継続的改善（CSI）の取り組みを管理する | [ITSM Pro/Enterprise 固有機能](../02_リファレンス/itsm/itsm-pro-features.md) |
 | Service Operations Workspace | インシデントを予測・予防・解決するための単一ワークスペース | [ITSM 概要とパッケージ](../02_リファレンス/itsm/itsm-overview.md) |
 | Service Owner Workspace | サービスオーナー向けにサービスの健全性・リスクを可視化する `【推定】` | [ITSMにおけるサービスレベル管理](../02_リファレンス/itsm/service-level-management-itsm.md) |
-| Digital End-user Experience (DEX) | 従業員端末の体験（性能・安定性）を計測・改善する | [ITSM Pro/Enterprise 固有機能](../02_リファレンス/itsm/itsm-pro-features.md) |
+| Digital End-user Experience (DEX) | 従業員端末の体験（性能・安定性）を計測・改善する | [Digital End-user Experience](../02_リファレンス/itom/digital-end-user-experience.md) |
 | Walk-Up Experience | 対面 IT サポート窓口（IT バー）の受付・待ち行列管理 | [ITSM Pro/Enterprise 固有機能](../02_リファレンス/itsm/itsm-pro-features.md) |
-| Workforce Optimization | 担当者のスケジュール・スキル・品質・コーチングを管理する | [ITSM Pro/Enterprise 固有機能](../02_リファレンス/itsm/itsm-pro-features.md) |
-| Flow by ServiceNow | Slack/Teams/メールで動くスタンドアロンの会話型 AI サービスデスク（2026-10 発表） | 本ファイル「2.5」 |
+| Workforce Optimization | 担当者のスケジュール・スキル・品質・コーチングを管理する | [Workforce Optimization](../02_リファレンス/itsm/workforce-optimization.md) |
+| Flow by ServiceNow | Slack/Teams などのチャットチャネルで動くスタンドアロンの会話型 AI サービスデスク（2026-10 発表） | 本ファイル「2.5」 |
 
 ITSM の基礎概念は [ITILとITSMの基礎](./06-itil-itsm-basics.md) を参照。
 
@@ -305,7 +320,7 @@ ITSM の基礎概念は [ITILとITSMの基礎](./06-itil-itsm-basics.md) を参�
 | IT Operations Management | 可視化・AIOps・クラウド管理を含む ITOM 製品の総称 | [ITOM 概要とパッケージ](../02_リファレンス/itom/itom-overview.md) |
 | Discovery | ネットワーク上の機器・ソフトウェアを自動検出して CMDB に登録する | [Discovery](../02_リファレンス/itom/discovery.md) |
 | Service Mapping | アプリケーションサービスを構成する CI と依存関係を自動マッピングする | [Service Mapping](../02_リファレンス/itom/service-mapping.md) |
-| Agent Client Collector | エージェント型でデータ収集・監視を行う（ACC） | [Discovery](../02_リファレンス/itom/discovery.md) |
+| Agent Client Collector | エージェント型でデータ収集・監視を行う（ACC） | [Agent Client Collector](../02_リファレンス/itom/agent-client-collector.md) |
 | Certificate Management | 証明書の棚卸し・期限管理（リリースノート上は Certificate Inventory and Management） | [ITOM 概要とパッケージ](../02_リファレンス/itom/itom-overview.md) |
 | Firewall Audits and Reporting | ファイアウォールルールの監査とレポート | [ITOM 概要とパッケージ](../02_リファレンス/itom/itom-overview.md) |
 | Event Management | 監視ツールのイベントを集約・相関し、アラートを管理する | [Event Management と AIOps](../02_リファレンス/itom/event-management-aiops.md) |
@@ -323,7 +338,7 @@ ITSM の基礎概念は [ITILとITSMの基礎](./06-itil-itsm-basics.md) を参�
 
 Synthetic Monitoring の説明は公式ドキュメントに基づく。[出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/ZvYQesKEgoSjF4F17vZx2w) AIOps LEAP の説明は公式ドキュメントに基づく。[出典](https://www.servicenow.com/docs/r/yokohama/it-operations-management/aiops-leap-learning-enhanced-automation-playbooks/aiops-leap.html)
 
-> **Australia での追加:** Australia では ITOM の新製品として **ITOM Visibility** が加わった。[出典](https://www.servicenow.com/docs/r/australia/release-notes/new-features-changes.html)
+> **Australia での変更:** **ITOM Visibility** は Australia で強化・更新された（Australia リリースノートでは新製品ではなく "enhanced and updated" とされている）。[出典](https://www.servicenow.com/docs/r/australia/release-notes/new-features-changes.html)
 
 ### 4.4 IT Asset Management（ITAM）
 
@@ -337,7 +352,7 @@ Synthetic Monitoring の説明は公式ドキュメントに基づく。[出典]
 | Software Asset Management | ソフトウェアライセンスのコンプライアンスと最適化 | [Software Asset Management](../02_リファレンス/itam/software-asset-management.md) |
 | SaaS License Management | SaaS のライセンス利用状況の把握と最適化 | [Software Asset Management](../02_リファレンス/itam/software-asset-management.md) |
 | Engineering License Manager | エンジニアリング系ソフトウェア（同時使用ライセンス等）の利用管理 `【推定】` | [Software Asset Management](../02_リファレンス/itam/software-asset-management.md) |
-| Enterprise Asset Management | IT 以外の複雑な資産（設備・機器等）のライフサイクル管理 | [Agile Development・APM・EAM](../02_リファレンス/spm/agile-apm-eam.md) |
+| Enterprise Asset Management | IT 以外の複雑な資産（設備・機器等）のライフサイクル管理 | [Enterprise Asset Management](../02_リファレンス/itam/enterprise-asset-management.md) |
 | Inventory Management | 在庫（部品・物品）の管理 `【推定】` | [Field Service Management](../02_リファレンス/customer/field-service-management.md) |
 
 ### 4.5 Strategic Portfolio Management（SPM）と Enterprise Architecture
@@ -402,8 +417,8 @@ AI Risk and Compliance は公式サイトの A-Z 一覧には載っていない�
 
 | 製品（英語名） | 日本語での説明 | 詳細リファレンス |
 |---|---|---|
-| Operational Technology Management | OT 環境（工場設備・制御系）を保護し、稼働率を高める | [業界向けソリューション](../02_リファレンス/industry/industry-solutions.md) |
-| ServiceNow Otto for Operational Technology (OT) Service Management | OT サービス管理向けの AI 機能（Australia の新製品） | [業界向けソリューション](../02_リファレンス/industry/industry-solutions.md) |
+| Operational Technology Management | OT 環境（工場設備・制御系）を保護し、稼働率を高める | [Operational Technology Management](../02_リファレンス/itom/operational-technology-management.md) |
+| ServiceNow Otto for Operational Technology (OT) Service Management | OT サービス管理向けの AI 機能（Australia の新製品） | [Operational Technology Management](../02_リファレンス/itom/operational-technology-management.md) |
 
 ---
 
@@ -417,8 +432,8 @@ Customer workflows は、顧客サービス・フィールドサービス・営�
 |---|---|---|
 | Customer Service Management | セルフサービスを強化し、エージェントの生産性を上げ、解決を早める | [Customer Service Management](../02_リファレンス/customer/customer-service-management.md) |
 | Communities | 顧客コミュニティ（Q&A・フォーラム） | [Customer Service Management](../02_リファレンス/customer/customer-service-management.md) |
-| Workforce Optimization | 顧客サービス担当者のスケジュール・品質管理（ITSM と共通） | [Customer Service Management](../02_リファレンス/customer/customer-service-management.md) |
-| Service Exchange（旧 Service Bridge） | プロバイダーと顧客の ServiceNow インスタンス間を、個別連携なしでサービス接続する | [業界向けソリューション](../02_リファレンス/industry/industry-solutions.md) |
+| Workforce Optimization | 顧客サービス担当者のスケジュール・品質管理（ITSM と共通） | [Workforce Optimization](../02_リファレンス/itsm/workforce-optimization.md) |
+| Service Exchange（旧 Service Bridge） | プロバイダーと顧客の ServiceNow インスタンス間を、個別連携なしでサービス接続する | [Service Bridge と eBonding](../02_リファレンス/customer/service-bridge-ebonding.md) |
 
 Service Exchange の説明は公式リリースノートに基づく。[出典](https://www.servicenow.com/docs/r/release-notes/service-bridge-rn.html)
 
@@ -449,7 +464,7 @@ Service Exchange の説明は公式リリースノートに基づく。[出典](
 | Sales and Order Management for Telecommunications | 通信事業者向け SOM | [Sales and Order Management（CRM）](../02_リファレンス/customer/sales-order-management-crm.md) |
 | Order Management | 受注のオーケストレーションと履行管理 | [Sales and Order Management（CRM）](../02_リファレンス/customer/sales-order-management-crm.md) |
 
-> **Australia での追加:** Sales CRM 領域に Activity Management、Advanced Approval Management、Buying Group、Quote Management が新製品として加わった。[出典](https://www.servicenow.com/docs/r/australia/release-notes/new-features-changes.html)
+> **Australia での追加:** Sales CRM 領域に Activity Management（新機能）と Advanced Approval Management・Buying Group（新アプリケーション）が加わった。Quote Management は Australia で強化・更新された。[出典](https://www.servicenow.com/docs/r/australia/release-notes/new-features-changes.html)
 
 ---
 
@@ -467,7 +482,7 @@ Employee workflows は、人事・職場・法務などの社内サービスを�
 | Employee Center | IT・HR・職場サービス等を 1 か所にまとめた従業員ポータル | [Service Portal と Employee Center](../02_リファレンス/platform/portals-employee-center.md) |
 | ServiceNow EmployeeWorks | 全従業員がシステム横断で検索・実行するための入口となる会話型 AI 体験（Moveworks を統合） | [Service Portal と Employee Center](../02_リファレンス/platform/portals-employee-center.md) |
 | Enterprise Service Management | IT・HR・職場サービスを AI で 1 つのプラットフォームに統合する | [Workplace・Legal 等](../02_リファレンス/employee/workplace-legal-other.md) |
-| Core Business Suite | HR・職場・安全衛生・法務・購買・財務の社内サービスを、ティア別のパッケージで提供するスイート（Knowledge 2025 で発表） | [Workplace・Legal 等](../02_リファレンス/employee/workplace-legal-other.md) |
+| Core Business Suite | HR・職場・安全衛生・法務・購買・財務の社内サービスを、ティア別のパッケージで提供するスイート（2025-05-07 の Knowledge 2025 で発表。アプリケーションとしては Australia で新規提供） | [Workplace・Legal 等](../02_リファレンス/employee/workplace-legal-other.md) |
 | Workplace Service Delivery | デスク予約・施設管理を自動化し、運用を最適化する | [Workplace・Legal 等](../02_リファレンス/employee/workplace-legal-other.md) |
 | Workplace Space Management | オフィススペースの計画と利用の最適化 | [Workplace・Legal 等](../02_リファレンス/employee/workplace-legal-other.md) |
 | Workplace Maintenance Management | 施設の保守作業の管理 | [Workplace・Legal 等](../02_リファレンス/employee/workplace-legal-other.md) |
@@ -476,9 +491,9 @@ Employee workflows は、人事・職場・法務などの社内サービスを�
 | Legal Service Delivery | 法務業務を近代化し、意思決定の高速化と生産性向上を図る | [Workplace・Legal 等](../02_リファレンス/employee/workplace-legal-other.md) |
 | Contract Management Pro | 契約の作成・交渉・承認・更新を管理する `【推定】` | [Workplace・Legal 等](../02_リファレンス/employee/workplace-legal-other.md) |
 
-EmployeeWorks の説明は公式製品ページ、Core Business Suite の構成は公式価格ページに基づく。[出典](https://www.servicenow.com/products/employeeworks.html) [出典](https://www.servicenow.com/products/business-suite/pricing.html)
+EmployeeWorks の説明は公式製品ページ、Core Business Suite の構成は公式価格ページに基づく。[出典](https://www.servicenow.com/products/employeeworks.html) [出典](https://www.servicenow.com/products/business-suite/pricing.html) Core Business Suite の発表は 2025-05-07 の公式プレスリリース、Australia での新規提供は Australia リリースノートに基づく。[出典](https://newsroom.servicenow.com/press-releases/details/2025/ServiceNow-Introduces-Core-Business-Suite-With-AI-powered-Solutions-to-Quickly-Transform-Key-Business-Functions-and-Scale-With-Growing-Companies/default.aspx) [出典](https://www.servicenow.com/docs/r/australia/release-notes/new-features-changes.html)
 
-> **Australia での追加:** Employee Service Management に Now Assist for Employee Center Pro、HR Service Delivery に Recommended Actions for HRSD が新製品として加わった。[出典](https://www.servicenow.com/docs/r/australia/release-notes/new-features-changes.html)
+> **Australia での追加:** Employee Service Management に Now Assist for Employee Center Pro、HR Service Delivery に Recommended Actions for HRSD が新製品として加わった。Enterprise Service Management Foundation も新ソリューションとして、Core Business Suite も新アプリケーションとして記載されている。[出典](https://www.servicenow.com/docs/r/australia/release-notes/new-features-changes.html)
 
 ### 6.1 画面イメージ：ServiceNow EmployeeWorks
 
@@ -488,7 +503,7 @@ EmployeeWorks の説明は公式製品ページ、Core Business Suite の構成�
 
 **画面の説明：** 左側のナビゲーションに Home、Calendar Management、World Knowledge があり、その下に Recent（最近の会話履歴）と My Apps（Enterprise Search、My canvas、Activity hub、Org chart）が並ぶ。画面中央上部には「Hi Susan, let's get it done.」という挨拶と自然言語の入力欄があり、従業員は依頼を文章で入力する。入力欄の下には「Check campaign performance」「Check PO status」「Organize my calendar」といった提案ボタンが表示される。下段にはカードが並び、Inbox（「4 to-dos need attention」等の承認待ちタスク）、社内告知、Upcoming meetings（予定一覧）が見える。
 
-**出典：** https://www.servicenow.com/products/employeeworks.html （Internet Archive 2026-10-08 スナップショット経由で取得）／取得日：2026-11-02
+**出典：** https://www.servicenow.com/products/employeeworks.html （Internet Archive 2026-10-08 スナップショット経由で取得：https://web.archive.org/web/20261008025904/https://www.servicenow.com/products/employeeworks.html ）／取得日：2026-11-02
 
 ![EmployeeWorks 上で ServiceNow Otto と会話する画面](../assets/images/03-product-portfolio/employeeworks-otto-conversation.jpg)
 
@@ -496,7 +511,7 @@ EmployeeWorks の説明は公式製品ページ、Core Business Suite の構成�
 
 **画面の説明：** 画面上部に会話のタイトル（Marketing Vendor Meeting）が表示されている。ユーザー（Susan）が「午後 2:30〜4:30 に時間を確保し、チームと外部ゲスト 3 名を招待して、ゲストバッジと会議室も手配して」と依頼している。Otto は「Thinking」欄に処理の段階を表示する。段階は、会議日時の空き確認、社内ガイダンスの検索（CVS・Box を横断）、関連リソースの発見である。左側のナビゲーションは前の画像と同じ構成である。
 
-**出典：** https://www.servicenow.com/products/employeeworks.html （Internet Archive 2026-10-08 スナップショット経由で取得）／取得日：2026-11-02
+**出典：** https://www.servicenow.com/products/employeeworks.html （Internet Archive 2026-10-08 スナップショット経由で取得：https://web.archive.org/web/20261008025904/https://www.servicenow.com/products/employeeworks.html ）／取得日：2026-11-02
 
 ---
 
@@ -550,9 +565,9 @@ Source-to-Pay Operations の構成は公式ドキュメント（2026-03-12 更�
 - **Procure-to-Pay：** AI エージェント、ガイド付き購買、明確な承認で購買を簡素化し、請求書を大量に取り込んで照合する。
 - **Supplier Relationship Management：** 仕入先のオンボード・管理・オフボードの手作業をなくし、仕入先のパフォーマンスを一元的に追跡する。
 
-> **Australia での追加:** Source-to-Pay Operations に **ServiceNow Otto for Source-to-Pay Operations** が新製品として加わった。Accounts Payable Operations には税エンジン連携と、LLM による仕入先メール解析エージェント（Email parser agent for APO）が追加された。[出典](https://www.servicenow.com/docs/r/australia/release-notes/rn-summary-new-features.html)
+> **Australia での追加:** Source-to-Pay Operations に **ServiceNow Otto for Purchase Order Management (POM)** が新プラグインとして加わり、ServiceNow Otto for Source-to-Pay Operations は更新された。[出典](https://www.servicenow.com/docs/r/australia/release-notes/new-features-changes.html) Accounts Payable Operations には税エンジン連携と、LLM による仕入先メール解析エージェント（Email parser agent for APO）が追加された。[出典](https://www.servicenow.com/docs/r/australia/release-notes/rn-summary-new-features.html)
 
-> **注意:** 2026-10 時点の公式 A-Z 一覧には Sourcing and Procurement Operations、Supplier Lifecycle Operations、Accounts Payable Operations が個別には掲載されていない。これらは Source-to-Pay Operations の構成要素として扱われている。ドキュメント・リリースノートでは個別製品名が引き続き使われている。
+> **注意:** 2026-10 時点の公式 A-Z 一覧には、Sourcing and Procurement Operations（SPO）・Supplier Lifecycle Operations（SLO）・Accounts Payable Operations（APO）も、Source-to-Pay Operations も掲載されていない。公式ドキュメント（Source-to-Pay Operations overview）では、3 製品は Source-to-Pay Operations の構成要素とされている。公式サイトでは Finance and Supply Chain ソリューションページと Core Business Suite で訴求されている。ドキュメント・リリースノートでは個別製品名が引き続き使われている。
 
 ---
 
@@ -593,7 +608,7 @@ ServiceNow 公式サイト「All products A-Z」（2026-10-13 時点、177 製�
 |---|---|---|
 | Action Fabric | 3 Platform（AI） | [ref/platform/now-assist-ai-agents.md](../02_リファレンス/platform/now-assist-ai-agents.md) |
 | Admin Center | 3 Platform（管理） | [ref/platform/system-administration.md](../02_リファレンス/platform/system-administration.md) |
-| Agent Client Collector | 4 Technology（ITOM） | [ref/itom/discovery.md](../02_リファレンス/itom/discovery.md) |
+| Agent Client Collector | 4 Technology（ITOM） | [ref/itom/agent-client-collector.md](../02_リファレンス/itom/agent-client-collector.md) |
 | Agile Development | 4 Technology（SPM） | [ref/spm/agile-apm-eam.md](../02_リファレンス/spm/agile-apm-eam.md) |
 | AI Search | 3 Platform（AI） | [ref/platform/predictive-intelligence-ai-search.md](../02_リファレンス/platform/predictive-intelligence-ai-search.md) |
 | AIOps LEAP | 4 Technology（ITOM） | [ref/itom/event-management-aiops.md](../02_リファレンス/itom/event-management-aiops.md) |
@@ -636,7 +651,7 @@ ServiceNow 公式サイト「All products A-Z」（2026-10-13 時点、177 製�
 | DevOps Change Velocity | 4 Technology（DevOps） | [ref/itsm/release-management.md](../02_リファレンス/itsm/release-management.md) |
 | DevOps Config | 4 Technology（DevOps） | [ref/itsm/release-management.md](../02_リファレンス/itsm/release-management.md) |
 | DevOps Insights | 4 Technology（DevOps） | [ref/itsm/release-management.md](../02_リファレンス/itsm/release-management.md) |
-| Digital End-user Experience | 4 Technology（ITSM） | [ref/itsm/itsm-pro-features.md](../02_リファレンス/itsm/itsm-pro-features.md) |
+| Digital End-user Experience | 4 Technology（ITSM） | [ref/itom/digital-end-user-experience.md](../02_リファレンス/itom/digital-end-user-experience.md) |
 | Digital Portfolio Management | 4 Technology（SPM） | [ref/spm/strategic-portfolio-management.md](../02_リファレンス/spm/strategic-portfolio-management.md) |
 | Digital Product Release | 4 Technology（DevOps） | [ref/itsm/release-management.md](../02_リファレンス/itsm/release-management.md) |
 | Discovery | 4 Technology（ITOM） | [ref/itom/discovery.md](../02_リファレンス/itom/discovery.md) |
@@ -647,7 +662,7 @@ ServiceNow 公式サイト「All products A-Z」（2026-10-13 時点、177 製�
 | Employee Journey Management | 6 Employee（HRSD） | [ref/employee/hr-service-delivery.md](../02_リファレンス/employee/hr-service-delivery.md) |
 | Engineering License Manager | 4 Technology（ITAM） | [ref/itam/software-asset-management.md](../02_リファレンス/itam/software-asset-management.md) |
 | Enterprise Architecture | 4 Technology（SPM/EA） | [ref/spm/agile-apm-eam.md](../02_リファレンス/spm/agile-apm-eam.md) |
-| Enterprise Asset Management | 4 Technology（ITAM/EAM） | [ref/spm/agile-apm-eam.md](../02_リファレンス/spm/agile-apm-eam.md) |
+| Enterprise Asset Management | 4 Technology（ITAM/EAM） | [ref/itam/enterprise-asset-management.md](../02_リファレンス/itam/enterprise-asset-management.md) |
 | Enterprise Service Management | 6 Employee | [ref/employee/workplace-legal-other.md](../02_リファレンス/employee/workplace-legal-other.md) |
 | ESG Management | 8 Finance（Operational Sustainability） | [ref/other/finance-supply-chain-esg.md](../02_リファレンス/other/finance-supply-chain-esg.md) |
 | Event Management | 4 Technology（ITOM） | [ref/itom/event-management-aiops.md](../02_リファレンス/itom/event-management-aiops.md) |
@@ -684,7 +699,7 @@ ServiceNow 公式サイト「All products A-Z」（2026-10-13 時点、177 製�
 | Now Mobile | 3 Platform（UI） | [ref/platform/mobile.md](../02_リファレンス/platform/mobile.md) |
 | Operational Resilience Management | 4 Technology（IRM） | [ref/irm/integrated-risk-management.md](../02_リファレンス/irm/integrated-risk-management.md) |
 | Operational Risk Management | 4 Technology（IRM） | [ref/irm/integrated-risk-management.md](../02_リファレンス/irm/integrated-risk-management.md) |
-| Operational Technology Management | 4 Technology（OT）／9 Industry | [ref/industry/industry-solutions.md](../02_リファレンス/industry/industry-solutions.md) |
+| Operational Technology Management | 4 Technology（OT）／9 Industry | [ref/itom/operational-technology-management.md](../02_リファレンス/itom/operational-technology-management.md) |
 | Order Management | 5 Customer（Sales） | [ref/customer/sales-order-management-crm.md](../02_リファレンス/customer/sales-order-management-crm.md) |
 | Performance Analytics | 3 Platform（Data） | [ref/platform/reporting-analytics.md](../02_リファレンス/platform/reporting-analytics.md) |
 | Performance Analytics for HR Service Delivery | 6 Employee（HRSD） | [ref/employee/hr-service-delivery.md](../02_リファレンス/employee/hr-service-delivery.md) |
@@ -747,7 +762,7 @@ ServiceNow 公式サイト「All products A-Z」（2026-10-13 時点、177 製�
 | Strategic Portfolio Management for Telecommunications | 4 Technology（SPM）／9 Industry | [ref/spm/strategic-portfolio-management.md](../02_リファレンス/spm/strategic-portfolio-management.md) |
 | Stream Connect for Apache Kafka | 3 Platform（Data） | [ref/platform/integrationhub.md](../02_リファレンス/platform/integrationhub.md) |
 | Subscription Management | 3 Platform（管理） `【推定】` | [ref/platform/platform-licensing-packaging.md](../02_リファレンス/platform/platform-licensing-packaging.md) |
-| Surveys and Assessments | 3 Platform（Workflows） | [ref/platform/system-administration.md](../02_リファレンス/platform/system-administration.md) |
+| Surveys and Assessments | 3 Platform（Workflows） | [ref/platform/surveys-assessments.md](../02_リファレンス/platform/surveys-assessments.md) |
 | Synthetic Monitoring | 4 Technology（ITOM） | [ref/itom/event-management-aiops.md](../02_リファレンス/itom/event-management-aiops.md) |
 | Talent Development | 6 Employee（HRSD） | [ref/employee/hr-service-delivery.md](../02_リファレンス/employee/hr-service-delivery.md) |
 | Task Intelligence | 3 Platform（AI） | [ref/platform/predictive-intelligence-ai-search.md](../02_リファレンス/platform/predictive-intelligence-ai-search.md) |
@@ -763,7 +778,7 @@ ServiceNow 公式サイト「All products A-Z」（2026-10-13 時点、177 製�
 | Visual Task Boards | 3 Platform（Workflows） | [01_入門編/05-ui-basics.md](../01_入門編/05-ui-basics.md) |
 | Walk-Up Experience | 4 Technology（ITSM） | [ref/itsm/itsm-pro-features.md](../02_リファレンス/itsm/itsm-pro-features.md) |
 | Workflow Data Fabric | 3 Platform（Data） | [ref/platform/workflow-data-fabric.md](../02_リファレンス/platform/workflow-data-fabric.md) |
-| Workforce Optimization | 4 Technology（ITSM）／5 Customer（CSM） | [ref/itsm/itsm-pro-features.md](../02_リファレンス/itsm/itsm-pro-features.md) |
+| Workforce Optimization | 4 Technology（ITSM）／5 Customer（CSM） | [ref/itsm/workforce-optimization.md](../02_リファレンス/itsm/workforce-optimization.md) |
 | Workplace Maintenance Management | 6 Employee（Workplace） | [ref/employee/workplace-legal-other.md](../02_リファレンス/employee/workplace-legal-other.md) |
 | Workplace Service Delivery | 6 Employee（Workplace） | [ref/employee/workplace-legal-other.md](../02_リファレンス/employee/workplace-legal-other.md) |
 | Workplace Space Management | 6 Employee（Workplace） | [ref/employee/workplace-legal-other.md](../02_リファレンス/employee/workplace-legal-other.md) |
@@ -787,7 +802,7 @@ ServiceNow 公式サイト「All products A-Z」（2026-10-13 時点、177 製�
 | Now Assist Center（`sn_na_center`） | AI Admin Center | Australia リリースノート |
 | Agentic Desktop | AI Desktop Actions | Australia リリースノート |
 | Service Bridge | Service Exchange | Australia リリースノート |
-| ESG Management（Environmental, Social, and Governance） | Operational Sustainability Management | 公式ドキュメント（プラグイン `com.sn_esg` は変更なし） |
+| ESG Management（Environmental, Social, and Governance） | Operational Sustainability Management | 公式ドキュメント [出典](https://www.servicenow.com/docs/r/environmental-social-governance/esg-landing-page.html)。プラグイン ID は `com.sn_esg` のまま変更なし（公式リリースノートの改名一覧に「Environmental, Social, and Governance Management (com.sn_esg): Renamed Operational Sustainability Management (com.sn_esg)」とある）[出典](https://www.servicenow.com/docs/r/de-DE/release-notes/esg-management-rn.html) |
 | Vulnerability Response | Unified Security Exposure Management（USEM） | 公式ドキュメント（単純な改名ではなくアーキテクチャ刷新を伴う） |
 | Process Automation Designer | Playbooks | 2025 年と 2026 年の A-Z 一覧の比較 |
 | Financial Services Operations | Financial Services Operations for Banking ／ for Insurance に分割 | 2025 年と 2026 年の A-Z 一覧の比較 |
@@ -814,7 +829,7 @@ Action Fabric, AIOps LEAP, Armis™ from ServiceNow, Autonomous Data Analytics, 
 
 - **AI の再編：** Now Assist が ServiceNow Otto に置き換わった。AI Control Tower、Autonomous Workforce、Action Fabric が独立した製品として掲載されるようになった。
 - **データ基盤の強化：** Context Engine と Autonomous Data Analytics が加わった。
-- **Finance：** SPO・SLO・APO の個別掲載がなくなり、Source-to-Pay Operations と Core Business Suite での訴求に変わった。
+- **Finance：** A-Z 一覧から SPO・SLO・APO の個別掲載がなくなった（Source-to-Pay Operations も A-Z 一覧には掲載されていない）。公式ドキュメントでは 3 製品は Source-to-Pay Operations の構成要素とされ、公式サイトでは Finance and Supply Chain ソリューションページと Core Business Suite で訴求されている。
 - **セキュリティ：** 買収した Armis と Veza が加わった。
 - **開発：** Guided App Creator・Service Creator がなくなり、Build Agent が加わった。
 - **旧称の整理：** 2025 年の一覧には「Vault」と「ServiceNow Vault」が両方載っていたが、2026 年は「ServiceNow Vault」に一本化された。
@@ -845,7 +860,8 @@ Action Fabric, AIOps LEAP, Armis™ from ServiceNow, Autonomous Data Analytics, 
   - 2026-10-13 スナップショット：https://web.archive.org/web/20261013200331/https://www.servicenow.com/products-by-category.html
   - 2025-03-05 スナップショット：https://web.archive.org/web/20250305120135/https://www.servicenow.com/products-by-category.html
 - Finance and Supply Chain ソリューションページ（2026-10-07 スナップショット）：https://web.archive.org/web/20261007065046/https://www.servicenow.com/solutions/finance-supply-chain.html
-- ServiceNow EmployeeWorks 製品ページ（2026-10-08 スナップショット）：https://www.servicenow.com/products/employeeworks.html
+- ServiceNow EmployeeWorks 製品ページ：https://www.servicenow.com/products/employeeworks.html
+  - 2026-10-08 スナップショット：https://web.archive.org/web/20261008025904/https://www.servicenow.com/products/employeeworks.html
 - Australia family release notes：https://www.servicenow.com/docs/r/australia/release-notes/family-release-notes.html
 - Australia Features and changes by product：https://www.servicenow.com/docs/r/australia/release-notes/new-features-changes.html
 - New features and products in Australia：https://www.servicenow.com/docs/r/australia/release-notes/rn-summary-new-features.html
@@ -855,6 +871,7 @@ Action Fabric, AIOps LEAP, Armis™ from ServiceNow, Autonomous Data Analytics, 
 - ServiceNow product tiers：https://www.servicenow.com/docs/r/australia/intelligent-experiences/ai-native-sku-overview.html
 - Source-to-Pay Operations overview：https://www.servicenow.com/docs/r/source-to-pay-operations/source-to-pay-operations-overview.html
 - Operational Sustainability Management (formerly ESG)：https://www.servicenow.com/docs/r/environmental-social-governance/esg-landing-page.html
+- Operational Sustainability Management (formerly ESG Management) release notes（プラグイン ID の改名一覧）：https://www.servicenow.com/docs/r/de-DE/release-notes/esg-management-rn.html
 - Unified Security Exposure Management (USEM) notes：https://www.servicenow.com/docs/r/australia/release-notes/secops-sem-rn.html
 - Now Assist for USEM：https://www.servicenow.com/docs/r/security-management/now-assist-for-usem-landing-ties.html
 - Service Exchange (formerly Service Bridge) release notes：https://www.servicenow.com/docs/r/release-notes/service-bridge-rn.html
@@ -865,20 +882,24 @@ Action Fabric, AIOps LEAP, Armis™ from ServiceNow, Autonomous Data Analytics, 
 - Press release: ServiceNow Otto creates the unified AI experience for the enterprise（2026-05-05）：https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-Otto-creates-the-unified-AI-experience-for-the-enterprise/default.aspx
 - Press release: ServiceNow launches the real-time data foundation…（2026-05-06）：https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-launches-the-real-time-data-foundation-that-puts-autonomous-AI-to-work-across-the-enterprise/default.aspx
 - Press release: Introducing Flow by ServiceNow（2026-10-01）：https://newsroom.servicenow.com/press-releases/details/2026/Introducing-Flow-by-ServiceNow-a-new-AI-service-desk-that-deploys-instantly/default.aspx
+- Press release: ServiceNow Introduces Core Business Suite…（2025-05-07）：https://newsroom.servicenow.com/press-releases/details/2025/ServiceNow-Introduces-Core-Business-Suite-With-AI-powered-Solutions-to-Quickly-Transform-Key-Business-Functions-and-Scale-With-Growing-Companies/default.aspx
 - Press release: ServiceNow completes acquisition of Moveworks（2025-12-15）：https://newsroom.servicenow.com/press-releases/details/2025/ServiceNow-completes-acquisition-of-Moveworks/default.aspx
-- ServiceNow Form 10-Q（2026-03-31 四半期、Veza 買収の記載）：https://www.sec.gov/Archives/edgar/data/0001373715/000137371526000056/now-20260331.htm
+- ServiceNow Form 10-Q（2026-03-31 四半期。Veza 買収の記載、Note 19 Subsequent Events に Armis 買収完了の記載）：https://www.sec.gov/Archives/edgar/data/0001373715/000137371526000056/now-20260331.htm
+- ServiceNow blog: Pyramid Analytics acquisition（2026-02-12 発表、2026-03-10 完了の追記）：https://www.servicenow.com/blogs/2026/pyramid-analytics-expanding-data-driven-ai
 
 ServiceNow Community
 
 - Otto vs. Now Assist: What actually changed（Developer Advocate Blog）：https://www.servicenow.com/community/developer-advocate-blog/otto-vs-now-assist-what-actually-changed/ba-p/3594171
 - Otto / Now Assist quick start guide：https://www.servicenow.com/community/servicenow-otto-articles/otto-now-assist-quick-start-guide/ta-p/2685044
+- Knowledge 2026 Data & Analytics recap：https://www.servicenow.com/community/workflow-data-fabric-articles/knowledge-2026-data-amp-analytics-recap/ta-p/3554070
 - Action Fabric: MCP Server, MCP Client, and A2A explained：https://www.servicenow.com/community/servicenow-otto-articles/action-fabric-mcp-server-mcp-client-and-a2a-explained/ta-p/3557794
 
 第三者情報
 
-- ServiceNow wraps up $7.75 billion Armis acquisition（ITPro）：https://www.itpro.com/business/acquisition/servicenow-wraps-up-usd7-75-billion-armis-acquisition
+- ServiceNow buys Pyramid Analytics（The Register、2026-02-14。セマンティックレイヤーの説明）：https://www.theregister.com/2026/02/14/servicenow_buys_pyramid_analytics_to/
+- ServiceNow wraps up $7.75 billion Armis acquisition（ITPro。Armis Centrix の単体販売継続）：https://www.itpro.com/business/acquisition/servicenow-wraps-up-usd7-75-billion-armis-acquisition
 - ServiceNow Foundation, Advanced, Prime compared（Redress Compliance）：https://redresscompliance.com/servicenow-foundation-advanced-prime-compared
 
 画像（取得日 2026-11-02）
 
-- `../assets/images/03-product-portfolio/employeeworks-home.jpg`、`employeeworks-otto-conversation.jpg`：https://www.servicenow.com/products/employeeworks.html 掲載画像（Internet Archive 経由）。著作権は ServiceNow, Inc. に帰属する。
+- `../assets/images/03-product-portfolio/employeeworks-home.jpg`、`employeeworks-otto-conversation.jpg`：https://www.servicenow.com/products/employeeworks.html 掲載画像（Internet Archive 2026-10-08 スナップショット経由：https://web.archive.org/web/20261008025904/https://www.servicenow.com/products/employeeworks.html ）。著作権は ServiceNow, Inc. に帰属する。

@@ -3,29 +3,33 @@ title: CMDB成功の要因（CMDB Success Factors）
 category: advanced
 domain: platform
 release: Australia
-last_verified: 2026-11-04
+last_verified: 2026-11-02
 summary: ServiceNow の CMDB が「使われないデータの墓場」にならずに成功するための要因を、目的・ユースケースの設定、CSDM 準拠、データ所有者（Managed by group 等）の明確化、Discovery の範囲設計、品質維持（CMDB Health・Data Manager・Attestation・CMDB success advisor）、段階導入（Foundation→Crawl→Walk→Run→Fly）の 6 観点で、出典付きの知見と具体的な設定項目（テーブル・フィールド・ロール・プロパティ・ジョブ）として整理する。
 keywords: [CMDB, CSDM, CMDB成功要因, 失敗パターン, データ所有者, data owner, data steward, Managed by group, managed_by_group, support_group, assignment_group, change_control, owned_by, Technology Management Service Offering, Dynamic CI Group, CSDM Data Sync, Principal Class, cmdb_class_info, com.snc.task.principal_class_filter, KB2707240, Discovery, IP range, CIDR, Global Excludes, MID Server, discovery_source, IRE, Service Graph Connectors, CMDB Health, staleness, CMDB Data Manager, Attestation, Certification, sn_cmdb_ws.attestation.smart_detection, cmdb.data.manager.stale.task.life.in.days, CMDB success advisor, sn_cmdb_advisor, CSDM Data Foundations Dashboard, Get Well Playbook, ServiceNow Otto, Crawl Walk Run Fly, 段階導入, 品質維持, ガバナンス]
 sources:
   - https://www.servicenow.com/docs/r/australia/servicenow-platform/common-service-data-model-csdm/csdm-implementation-stages.html
   - https://www.servicenow.com/docs/r/australia/servicenow-platform/common-service-data-model-csdm/csdm-implement-walk-stage.html
+  - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/caU4_szDOkdJaTAdt~sbrQ
   - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/nGVIMx3ESidUWb2Uo~WjQQ
   - https://www.servicenow.com/docs/r/ZUQIWHvhWUsSoHqqH5PGGw/jAoDav7dQALQmKoPMdLrjA
   - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/ENE4G2KZHXZ4qUyd2nyztg
   - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/nkA5kfeWIxlqopzVkJfcoA
   - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/5frqJY24lwmPr3hcMa8YQA
-  - https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/AESxAiMH2dn45hj773UQWA
+  - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/62u9ThyS52sKtt6pDr0jMQ
   - https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/cmdb-data-management.html
   - https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/overview-cmdb-health.html
   - https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/r_CMDBHealthMetrics.html
   - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/JiIaj~GJkYefIfMAJw7x1A
-  - https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/PvVLsDPiDklzpWkFxTLlDw
+  - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/0LfgpANAVJFFuKuyyr1l_g
   - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/xHHhvLJjCq25leje10bBkA
-  - https://www.servicenow.com/docs/r/it-operations-management/discovery/discovery-ip-address-configuration.html
+  - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/p2o6XUQI1ixGDVc4Q2cHog
+  - https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/bVel8DzuRlAjTCWNHuwR9Q
+  - https://www.servicenow.com/docs/r/australia/it-operations-management/discovery/discovery-ip-address-configuration.html
   - https://www.servicenow.com/docs/r/xIukoQY2A2qGfsWn8TUt1A/bm1l7lKuchKAYgnmGH4GaQ
   - https://www.servicenow.com/docs/r/4AA65edJ2a~o5pASflQppQ/2zidN_TGxaN0wzI3yCqhNg
   - https://www.servicenow.com/docs/r/australia/release-notes/cmdb-rn.html
   - https://www.servicenow.com/docs/r/release-notes/cmdb-rn.html
+  - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-servicenowotto-release-notes.html
   - https://www.servicenow.com/community/servicenow-ai-platform-blog/the-path-to-a-quality-cmdb-starts-with/ba-p/2282786
   - https://www.servicenow.com/community/cmdb-articles/5-steps-to-proactively-monitor-cmdb-health/ta-p/2470074
   - https://www.servicenow.com/community/cmdb-articles/configuration-management-database-cmdb-welcome-guide/ta-p/2301750
@@ -38,6 +42,11 @@ sources:
   - https://www.servicenow.com/community/itom-forum/why-80-cmdb-implementations-fail/m-p/3489277
   - https://www.servicenow.com/community/cmdb-forum/cmdb-ci-ownership-best-practices/td-p/3005444
   - https://www.servicenow.com/community/common-service-data-model-forum/beyond-the-diagrams-5-csdm-principles-you-need-to-know/m-p/3459088
+  - https://www.servicenow.com/community/common-service-data-model-blog/csdm-run/ba-p/3408768
+  - https://www.servicenow.com/community/common-service-data-model-forum/multiple-business-applications-per-application-service/m-p/3531765
+  - https://www.servicenow.com/community/common-service-data-model-forum/support-group-population-with-csdm/m-p/3572982
+  - https://www.servicenow.com/community/cmdb-forum/why-did-cmdb-ci-assignment-group-field-got-relabeled-to-change/m-p/251851
+  - https://www.servicenow.com/community/itom-blog/best-practices-for-setting-up-discovery-schedules/ba-p/2270853
 ---
 
 # CMDB成功の要因（CMDB Success Factors）
@@ -124,8 +133,9 @@ ServiceNow 社員による Community 記事「The path to a quality CMDB starts 
 | 1. Set your direction（方向を決める） | CMDB が支えるべき目標を最初に定義する |
 | 2. Focus your use cases（ユースケースを絞る） | 組織の戦略的取り組みに直結する **少数の重要なユースケース** に絞り、時間をかけて追加していく。例として Change Impact Analysis（変更影響分析）、Software License Compliance、Cloud-First Strategy、Information Risk、Reducing Service Outages（サービス停止の削減）が挙げられている |
 | 3. Define specific goals（具体的な目標を定義） | To / In such a way that / So that / And can be measured by の 4 要素で目標を書く（下図） |
-| 4. CMDB デプロイメントプレイブックに従う | ServiceNow のプレイブックで以降の手順を進める |
-| 5. 投入方法を計画してから構成する | Discovery、Service Mapping、サードパーティ連携、手動更新のどれで投入するかを、構成前に計画する |
+| 4. You've Defined Your Goals, Now What?（目標を定義したら次は） | 記事にリンクされたプレイブック（品質の高い CMDB に向けた残りの手順）に沿って進める |
+| （参考）Increase Your Knowledge at Knowledge | 年次イベント Knowledge（記事当時は Knowledge 19）の顧客事例セッションで、他社の CMDB の実践から学ぶ |
+| 5. Remember, Always Plan Before Doing!（投入方法を計画してから構成する） | Discovery、Service Mapping、サードパーティ連携、手動更新のどれで投入するかを、構成前に計画する |
 
 ![CMDB の目標記述テンプレート（To / In such a way that / So that / And can be measured by）](../assets/images/05-cmdb-success-factors/cmdb-goal-statement-template.png)
 
@@ -144,9 +154,9 @@ ServiceNow 社員による Community 記事「The path to a quality CMDB starts 
 | So that | 変更要求（`change_request`）の影響分析で、影響を受けるサービスとオファリングを自動で特定できる |
 | And can be measured by | 変更要求の CI 入力率、影響サービスが特定された変更の割合、変更起因インシデント件数 |
 
-### 2.2 公式の「始め方」ガイド
+### 2.2 Community の「始め方」ガイド
 
-ServiceNow Community の「CMDB Welcome Guide」（2022-09 公開、2025-02 更新）は、CMDB の始め方を次のように示している。[出典](https://www.servicenow.com/community/cmdb-articles/configuration-management-database-cmdb-welcome-guide/ta-p/2301750)
+ServiceNow Community の CMDB 記事「CMDB Welcome Guide」（2022-09 公開、2025-02 更新。著者が ServiceNow 社員かはページ上で確認できず）は、CMDB の始め方を次のように示している。【第三者情報】 [出典](https://www.servicenow.com/community/cmdb-articles/configuration-management-database-cmdb-welcome-guide/ta-p/2301750)
 
 1. 基礎を学ぶ（CMDB Workspace、Service Graph Connectors、Discovery・IntegrationHub ETL などのデータ取得ツール）
 2. **ビジネス成果（business outcomes）を定義する**（サービスの自動化、ハードウェア・ソフトウェア・クラウドコストの削減、セキュリティ強化など）。ステークホルダーとエグゼクティブスポンサーを揃える
@@ -154,14 +164,14 @@ ServiceNow Community の「CMDB Welcome Guide」（2022-09 公開、2025-02 更�
 4. 組織変更に備える（エンドユーザーとサービスデスクエージェントへの周知・教育）
 5. 本番稼働前に最新リリースへアップグレードする
 
-同ガイドは CMDB Process Guide の方針として「可能な限りすぐに使える（out-of-the-box）ServiceNow 機能を使う」ことを挙げ、Now Create 上の **CMDB and CSDM Data Foundations Success Pack** を成功ブループリントとして紹介している。[出典](https://www.servicenow.com/community/cmdb-articles/configuration-management-database-cmdb-welcome-guide/ta-p/2301750)
+同ガイドは CMDB Process Guide の方針として「可能な限りすぐに使える（out-of-the-box）ServiceNow 機能を使う」ことを挙げ、Now Create 上の **CMDB and CSDM Data Foundations Success Pack** を成功ブループリントとして紹介している。【第三者情報】 [出典](https://www.servicenow.com/community/cmdb-articles/configuration-management-database-cmdb-welcome-guide/ta-p/2301750)
 
 ### 2.3 実務上のポイント
 
 - **「消費されないデータは入れない」**：どのプロセス（Incident、Change、Event、SAM 等）がどの属性を読むかを先に決め、それ以外の属性は初期スコープから外す。【経験則】
 - **ユースケースごとに必要なクラスと関係を逆算する**：変更影響分析なら「サーバー＋アプリケーションサービス＋両者の関係」、ライセンス管理なら「サーバー＋ソフトウェアインストール＋ハードウェアモデル」のように、ユースケースから CI クラスと関係を逆算する。【経験則】
 - **測定指標は業務 KPI と結びつける**：CMDB Health のスコアだけでなく、「インシデントの CI 入力率」「変更の影響分析実施率」など、消費側プロセスの指標で効果を示す。【経験則】
-- ServiceNow の CSDM 成熟度の段階論では、Walk ステージの到達基準の一例として「インシデントの 70% 超が（インフラ CI だけでなく）アプリケーションサービスに紐づいていること」が挙げられている（Community ブログの筆者見解）。【第三者情報】 [出典](https://www.servicenow.com/community/developer-blog/achieving-csdm-maturity-moving-from-crawl-to-fly/ba-p/3506920)
+- ServiceNow Community の開発者ブログ（筆者は Tera Expert。ServiceNow 社員かはページ上で確認できず）は、Walk ステージの到達基準の一例として「インシデントの 70% 超が（インフラ CI だけでなく）アプリケーションサービスに紐づいていること」を挙げている。【第三者情報】 [出典](https://www.servicenow.com/community/developer-blog/achieving-csdm-maturity-moving-from-crawl-to-fly/ba-p/3506920)
 
 ---
 
@@ -245,15 +255,15 @@ CI の所有者・責任グループを表すフィールドは `cmdb_ci` に複
 | 機能 | `managed_by_group` の使われ方 | 出典 |
 |---|---|---|
 | CMDB Data Manager | 対象 CI の Managed By Group の値ごとに個別のタスクが作られる。承認が必要なポリシーではこのグループのメンバーが承認する。空の場合やタスクが却下された場合は管理者に回る | [Working with CMDB Data Manager（Australia）](https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/cmdb-data-management.html) |
-| Data Manager のポリシー作成 | 承認が必要なタスクでは、対象 CI に Managed By Group が設定されていることが前提 | [Create a CMDB Data Manager policy](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/AESxAiMH2dn45hj773UQWA) |
-| CMDB success advisor（Data Foundations） | 「CIs missing managed by group」（Principal Class の CI のうち Managed by group が空の件数、日次）を KPI カードとして表示 | [Monitoring CMDB data quality … CMDB success advisor for Data Foundations](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/PvVLsDPiDklzpWkFxTLlDw) |
-| ServiceNow Otto の CMDB Data Ownership Manager AI Agent | Managed by Group（既定の評価フィールド）が設定され、有効でメンバーのいるグループを指しているかを評価し、所有データの品質を Poor / Average / Healthy に分類（しきい値は設定可） | [Getting advice from Now Assist on CMDB governance（Australia）](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/nkA5kfeWIxlqopzVkJfcoA) |
+| Data Manager のポリシー作成 | 承認が必要なタスクでは、対象 CI に Managed By Group が設定されていることが前提 | [Create a CMDB Data Manager policy](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/62u9ThyS52sKtt6pDr0jMQ) |
+| CMDB success advisor（Data Foundations） | 「CIs missing managed by group」（Principal Class の CI のうち Managed by group が空の件数、日次）を KPI カードとして表示 | [Monitoring CMDB data quality … CMDB success advisor for Data Foundations](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/0LfgpANAVJFFuKuyyr1l_g) |
+| ServiceNow Otto の CMDB Data Ownership Manager AI Agent | Managed by Group（既定の評価フィールド）が設定され、有効でメンバーのいるグループを指しているかを評価し、所有データの品質を Poor / Average / Healthy に分類（しきい値は設定可） | [Getting advice from ServiceNow Otto on CMDB governance（Australia）](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/nkA5kfeWIxlqopzVkJfcoA) |
 
 つまり、`managed_by_group` が空の CI は、ライフサイクル管理・Attestation・品質評価のすべてで「宛先不明」になる。**所有者の設定は品質維持の自動化の前提条件** である。
 
 ### 4.3 所有者を「手で入れない」仕組み：TMO による同期
 
-数千〜数万の CI に手作業で所有者を入れるのは持続しない。CSDM の Walk ステージは、**Technology Management Service Offering（TMO、技術管理サービスオファリング）** を起点にグループ属性を CI へ同期する仕組みを提供している。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/common-service-data-model-csdm/csdm-implement-walk-stage.html)
+数千〜数万の CI に手作業で所有者を入れるのは持続しない。CSDM の Walk ステージは、**Technology Management Service Offering（TMO、技術管理サービスオファリング）** で CI を管理し、TMO のサポートグループ（support group）と技術承認グループ（technical approval group）を子オブジェクトに同期する方針を示している。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/common-service-data-model-csdm/csdm-implement-walk-stage.html) 具体的な手順（Dynamic CI Group と CSDM Data Sync を使い、Support group・Change group・Managed by group を CI に同期する）は、次の「Synchronize user groups for a technology management offering」に書かれている。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/nGVIMx3ESidUWb2Uo~WjQQ)
 
 **手順（Australia の「Synchronize user groups for a technology management offering」）：** 必要ロールは `itil` と `itil_admin`。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/nGVIMx3ESidUWb2Uo~WjQQ)
 
@@ -379,7 +389,7 @@ ServiceNow Community の「ServiceNow Discovery - Common Pitfalls and How to Avo
 
 ### 5.3 ネットワーク範囲の設計（公式仕様）
 
-Discovery の IP 設定の公式仕様と推奨は次のとおり。[出典](https://www.servicenow.com/docs/r/it-operations-management/discovery/discovery-ip-address-configuration.html)
+Discovery の IP 設定の公式仕様と推奨は次のとおり（Australia 版）。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/discovery/discovery-ip-address-configuration.html)
 
 | 項目 | 仕様・推奨 |
 |---|---|
@@ -419,7 +429,7 @@ Australia の **ITOM Discovery Guided Setup**（All > ITOM Guided Setup > ITOM D
 | Learn | Discovery の原則・手法・前提条件を理解する |
 | Crawl | 必要なプラグインのインストール、資格情報の構成、スケジュール作成の準備 |
 | Walk | 複数種類のスケジュール設定、資格情報の追加、MID Server のインストールと検証により Discovery を構成・有効化 |
-| Run | Discovery Administrator Space と Content 360 で監視し、継続的に最適化 |
+| Run | Discovery Admin Space と Content 360（Discovery パターン等のコンテンツ管理。5.1 の CMDB 360 とは別物）で監視し、継続的に最適化 |
 
 範囲の段階的拡大の例（本ナレッジ作成者による整理）【経験則】:
 
@@ -443,7 +453,7 @@ CMDB の品質維持は「**測る（Health）→ 直す（Remediation / De-dup�
 |---|---|
 | 1. ガバナンス委員会 | 構成管理計画（RACI、プロセス、CMDB Health の定期報告）を文書化し、定例会議を持つ |
 | 2. CMDB / CSDM Data Foundations ダッシュボード | ストアから導入（35 以上のヘルススキャン定義）。`asset`、`itil_admin`、`admin` のいずれかのロールが必要。日次ジョブ **CMDB Get Well Metric Collection** と **CMDB Data Foundations PA Metric Collection** が動いていることを確認。Best Practice、Customizations、Data Management Practices、ITSM Practices の 4 タブを確認し、低スコアは Analysis / Fix / Data Governance のプレイを持つプレイブックで修復 |
-| 3. CMDB Health Dashboard | 4 KPI（Completeness、Correctness、Compliance、Relationship Health）。ヘルスメトリクスのジョブを有効化し、CI Class Manager で Health inclusion rules（既定では無し）と完全性・コンプライアンス・孤立／陳腐化ルールを作る |
+| 3. CMDB Health Dashboard | 記事は「4 KPI（Completeness、Correctness、Compliance、Relationship Health）」と表現しているが、公式の CMDB Health KPIs and metrics（Australia）では KPI は Completeness、Correctness、Compliance の 3 つで、Relationships（重複・孤立・陳腐化した関係のメトリクス。設定不可）は KPI とは別の区分である（[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/r_CMDBHealthMetrics.html)）。ヘルスメトリクスのジョブを有効化し、CI Class Manager で Health inclusion rules（既定では無し）と完全性・コンプライアンス・孤立／陳腐化ルールを作る |
 | 4. Data Manager ポリシー | CI のリタイアなどライフサイクルイベントのポリシーを作る。ポリシーはサブフローでタスクを作る（承認あり／なし） |
 | 5. Data Certification | 何を・どの頻度で・どの指示で認定するかを決め、タスクを割り当てて完了まで追跡する |
 
@@ -480,16 +490,18 @@ CMDB Health の KPI・メトリクスの定義は [CMDB と CSDM](../02_リフ�
 | 項目 | 内容 | 出典 |
 |---|---|---|
 | アプリケーション ID | `sn_cmdb_advisor`（System Applications からインストール） | [Install CMDB success advisor](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/xHHhvLJjCq25leje10bBkA) |
-| 前提 | Next Experience のアプリ。CMDB Workspace（`sn_cmdb_ws`）と SGC Central（`sn_sgc_central`）が必要。HAM 用モジュールには Hardware Asset Management（`sn_hamp`）のエンタイトルメントが必要 | [Install CMDB success advisor](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/xHHhvLJjCq25leje10bBkA) |
+| 前提 | Next Experience のアプリ。CMDB Workspace（`sn_cmdb_ws`）と SGC Central（`sn_sgc_central`）のインストールが必要。HAM 用モジュールに Hardware Asset Management（`sn_hamp`）が必要かどうかは公開情報では確認できず（Store の掲載ページで依存関係を確認すること） | [Access CMDB success advisor（Australia）](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/p2o6XUQI1ixGDVc4Q2cHog) |
+| インストール | 必要ロール `admin`。All > System Applications > All Available Applications > All で `sn_cmdb_advisor` を検索してインストールする。未導入の依存アプリ・プラグインも同時にインストールされ、それぞれ有効なエンタイトルメントが必要 | [Install CMDB success advisor](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/xHHhvLJjCq25leje10bBkA) |
+| 閲覧場所 | `sn_cmdb_admin` は CMDB Workspace（Home の Product highlights、または Management の Optimize）や Service Graph Workspace の Governance からフルアクセスで利用する。`sn_cmdb_user` / `sn_cmdb_editor` は Service Graph Workspace の Insights ビューから Dashboard タブだけを読み取り専用で閲覧する。SAM 向けは Software Asset Workspace からも開ける | [Access CMDB success advisor（Australia）](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/p2o6XUQI1ixGDVc4Q2cHog)、[Exploring CMDB success advisor](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/JiIaj~GJkYefIfMAJw7x1A) |
 | Data Foundations の対象 | インシデント・変更・問題に重要な Principal Class。インシデント・問題・変更の活動から推奨され、データが無い場合は CMDB での使用度で順位付けされる | [Exploring CMDB success advisor](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/JiIaj~GJkYefIfMAJw7x1A) |
-| Data Foundations の指標 | CIs missing name / managed by group / location（日次）、Stale CIs（7・14・30・60・90 日で切替）、Duplicate CIs、CIs by principal class、CIs by data integration source、Data quality insights（AI による上位 5 課題の要約。分類はデータ整合性、CI 属性、調整とガバナンス、Data Manager ポリシー） | [Monitoring CMDB data quality … Data Foundations](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/PvVLsDPiDklzpWkFxTLlDw) |
+| Data Foundations の指標 | CIs missing name / managed by group / location（日次）、Stale CIs（7・14・30・60・90 日で切替）、Duplicate CIs、CIs by principal class、CIs by data integration source、Data quality insights（AI による上位 5 課題の要約。分類はデータ整合性、CI 属性、調整とガバナンス、Data Manager ポリシー） | [Monitoring CMDB data quality … Data Foundations（Australia）](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/0LfgpANAVJFFuKuyyr1l_g) |
 | 修復 | ダッシュボードのチャートに修復アクションパネルが付き、陳腐化・重複 CI、シリアル番号欠落、資産と CI の不一致などの修正を提案。KPI カードの「Ask Otto」でエージェントとの会話を開始できる | [Exploring CMDB success advisor](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/JiIaj~GJkYefIfMAJw7x1A) |
 | 構成分析 | Data Manager の所有者ポリシー、Reconciliation rules、同期ルール、資産作成ルール、ステータスマッピングのギャップ分析。Discovery パターンや Service Graph Connectors を含む連携ソースの属性単位のカバレッジ分析 | [Exploring CMDB success advisor](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/JiIaj~GJkYefIfMAJw7x1A) |
 | ロール | `sn_cmdb_admin`（構成・修復、Principal Class と連携の管理）、`sn_cmdb_user` / `sn_cmdb_editor`（Dashboard タブの参照のみ）、`sam_admin`（SAM の代替管理者）、`cmdb_inst_admin`（SGC Central の接続管理）、`pd_user` / `pd_admin`（パターンの参照／変更） | [Exploring CMDB success advisor](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/JiIaj~GJkYefIfMAJw7x1A) |
 
 CMDB のリリースノートでは、CMDB success advisor は 2026-06 にストアアプリとして提供され、2026-09 に Service Graph Workspace の Governance ビューへ ServiceNow Otto for CMDB による Data Foundations / HAM / SAM の上位データ品質問題のサマリーが追加された。[出典](https://www.servicenow.com/docs/r/australia/release-notes/cmdb-rn.html)
 
-> **Brazil での変更:** CMDB Workspace と Service Graph Workspace が統合され、Service Graph Workspace は非推奨（deprecated）になった。success advisor や Governance ビューへのアクセス経路は CMDB Workspace 側に寄るため、手順書のメニューパスを見直すこと。[出典](https://www.servicenow.com/docs/r/release-notes/cmdb-rn.html)
+> **Brazil での変更:** CMDB Workspace と Service Graph Workspace が統合され、Service Graph Workspace は非推奨（deprecated）になり、その機能は CMDB Workspace に引き継がれる。success advisor の導線（Service Graph Workspace の Insights ビューや Governance）がどう変わるかは公開情報では確認できず。CMDB Workspace 側の導線に寄ると考えられるため、手順書のメニューパスを見直すこと【推定】。[出典](https://www.servicenow.com/docs/r/release-notes/cmdb-rn.html)
 
 **成功要因としての意味：** success advisor は「Principal Class を決め、所有者（managed by group）を埋め、データソースのカバレッジを把握する」という本ファイルの成功要因 3〜5 を、そのまま KPI として可視化する。導入初期から入れておくと、改善の優先順位付けとステークホルダーへの報告に使える。【経験則】
 
@@ -501,13 +513,13 @@ CMDB のリリースノートでは、CMDB success advisor は 2026-06 にスト
 |---|---|
 | 作成場所 | CMDB Workspace の CMDB Data Manager で Attestation ポリシーを作成し、対象 CI と頻度を指定 |
 | タスク | CI を知っている／管理しているユーザー、または割り当てグループに送られる。CMDB Workspace の Tasks ビューで処理 |
-| 結果 | Attested（有効と確認）または Rejected（もう有効でない）。Rejected の CI は不要ならリタイア・アーカイブ・削除する |
+| 結果 | 担当者は CI の存在を証明（attest）するか却下（reject）する。却下された CI は不要ならリタイア・アーカイブ・削除する |
 | Smart detection（自動証明） | Discovery または Service Graph Connectors が前提。検出ウィンドウ内（既定 30 日）に検出され、除外ソース由来でない CI を自動証明の候補にでき、レビュー担当者が自動証明を選べる |
 | 関連プロパティ | `sn_cmdb_ws.attestation.smart_detection.disabled`（既定 `false`＝有効）、`sn_cmdb_ws.attestation.smart_detection.discovery_window`（既定 30 日）、`sn_cmdb_ws.attestation.smart_detection.discovery_source.exclusion`（既定 "Manual Entry"） |
 
 **Certification（認定）** は、特定の属性が必要な値を持っているかを担当者に確認させる仕組みで、非 CMDB テーブルもサポートする。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/cmdb-data-management.html)
 
-**ポリシー作成時の主な設定**（CMDB Workspace > Governance > Data Manager > Policies > Create new policy、必要ロール `sn_cmdb_admin`）[出典](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/AESxAiMH2dn45hj773UQWA):
+**ポリシー作成時の主な設定**（CMDB Workspace > Governance > Data Manager > Policies > Create new policy、必要ロール `sn_cmdb_admin`）[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/62u9ThyS52sKtt6pDr0jMQ):
 
 | ステップ | 設定項目 |
 |---|---|
@@ -518,7 +530,7 @@ CMDB のリリースノートでは、CMDB success advisor は 2026-06 にスト
 | Schedule | 繰り返し or On demand、開始時刻、曜日・日付、間隔、Run policy scheduled job as |
 | Review | Publish policy、または Save & Exit で下書き保存 |
 
-公開後の動作: 日次のスケジュールジョブがポリシーを実行し、1 タスクあたり最大 10,000 CI（超える分は追加タスク）。承認が必要なタスクは Managed By Group に通知される。承認されないまま古くなったタスクは既定 90 日でキャンセル扱いでクローズされ、日数はプロパティ `cmdb.data.manager.stale.task.life.in.days` で変更できる。[出典](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/AESxAiMH2dn45hj773UQWA)
+公開後の動作: 日次のスケジュールジョブがポリシーを実行し、1 タスクあたり最大 10,000 CI（超える分は追加タスク）。承認が必要なタスクは Managed By Group に通知される。承認されないまま古くなったタスクは既定 90 日でキャンセル扱いでクローズされ、日数はプロパティ `cmdb.data.manager.stale.task.life.in.days` で変更できる。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/62u9ThyS52sKtt6pDr0jMQ)
 
 **実務ポイント【経験則】:**
 
@@ -530,7 +542,7 @@ CMDB のリリースノートでは、CMDB success advisor は 2026-06 にスト
 
 陳腐化した CI を残し続けることは、重複・誤選択・ライセンス誤計上の原因になる。CMDB Data Manager の Retire / Archive / Delete ポリシーは、対象クラスに **Retirement definition（リタイア定義）** があることが前提で、公式は「非本番でテスト → リタイア定義 → Retire ポリシー → リタイア済み CI を対象に Delete / Archive ポリシー → 本番へ」の順序を推奨している。ポリシーの仕様は [CMDB と CSDM](../02_リファレンス/platform/cmdb-csdm.md) 4.3 節を参照。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/cmdb-data-management.html)
 
-- Asset Management が有効な場合、CI をリタイアする前に関連資産の `install_status` が Retired であるべきとされる。HAM と CMDB のライフサイクルを別々に回さず、資産側の廃棄プロセスと CI のリタイアを連動させる。[出典](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/AESxAiMH2dn45hj773UQWA)
+- Asset Management が有効な場合、CI をリタイアする前に関連資産の `install_status` が Retired であるべきとされる。HAM と CMDB のライフサイクルを別々に回さず、資産側の廃棄プロセスと CI のリタイアを連動させる。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/62u9ThyS52sKtt6pDr0jMQ)
 - 削除（Delete）は元に戻せない。まず Retire、次に Archive（保持期間中は復元可能）を基本にし、Delete は監査・保持要件を確認したクラスに限る。【経験則】
 
 > **Brazil での変更:** Data Manager のポリシー実行結果が `cmdb_data_management_policy_execution` テーブルに記録され、未処理 CI やアクセス問題が Work Notes / Activities に表示される（Inaccessible Records Indicator）。Certification タスクはリセットで認定をやり直せるようになった。[出典](https://www.servicenow.com/docs/r/release-notes/cmdb-rn.html)
@@ -538,6 +550,8 @@ CMDB のリリースノートでは、CMDB success advisor は 2026-06 にスト
 ### 6.6 AI による品質ガバナンス支援（Australia）
 
 Australia では、ServiceNow Otto（旧 Now Assist）の agentic workflow「Provide advice on CMDB governance」が、直近 90 日に更新された CI を評価して CMDB ガバナンスの助言を行う。5 つの AI エージェントで構成される。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/nkA5kfeWIxlqopzVkJfcoA)
+
+> **名称について:** Australia のパッチ途中から、ドキュメント上の「Now Assist」は「ServiceNow Otto」に改称されている（公式リリースノートは Zurich Patch 12 以降と明記 [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-servicenowotto-release-notes.html)。Australia では Patch 5 相当と推定【推定】）。本節の参照ページの現行タイトルも「Getting advice from ServiceNow Otto on CMDB governance」である。実機の表示はパッチレベルで異なる。詳細は [Now Assist と AI Agents](../02_リファレンス/platform/now-assist-ai-agents.md) 1.2 節を参照。
 
 | AI エージェント | 役割 | 対応する成功要因 |
 |---|---|---|
@@ -549,7 +563,7 @@ Australia では、ServiceNow Otto（旧 Now Assist）の agentic workflow「Pro
 
 Now Assist / AI Agents の全般は [Now Assist と AI Agents](../02_リファレンス/platform/now-assist-ai-agents.md)、導入の知見は [Now Assist / AI Agents 導入の知見](10-ai-adoption-lessons.md) を参照。
 
-> **Brazil での変更:** Now Assist / Moveworks の体験は ServiceNow Otto に名称変更された（CMDB では Duplicate CI Remediator など）。[出典](https://www.servicenow.com/docs/r/release-notes/cmdb-rn.html)
+> **Brazil での変更:** Brazil の CMDB リリースノートでも Now Assist / Moveworks の体験が ServiceNow Otto に統一され、重複 CI の修復機能は Duplicate CI Remediator となった。[出典](https://www.servicenow.com/docs/r/release-notes/cmdb-rn.html)
 
 **注意：** AI エージェントは「ポリシーがあるか」「所有者が埋まっているか」を点検・提案するが、**所有者を誰にするか、どのクラスを重点にするかという組織の意思決定は代替しない**。【経験則】
 
@@ -572,7 +586,7 @@ ServiceNow Community の ITOM ブログは、データのドリフトを早期�
 
 ### 7.1 CSDM の 5 ステージと「やらないこと」
 
-CSDM の実装ステージ（Foundation → Crawl → Walk → Run → Fly）の目的と対象テーブルは [CMDB と CSDM](../02_リファレンス/platform/cmdb-csdm.md) の 7 章にまとめてある。ステージの考え方は「各ステージは前のステージの上に積み上がる」であり、Foundation（参照データ）は ServiceNow 製品を使ったり CMDB にデータを追加したりする **前に** 必要とされる。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/common-service-data-model-csdm/csdm-implementation-stages.html)
+CSDM の実装ステージ（Foundation → Crawl → Walk → Run → Fly）の目的と対象テーブルは [CMDB と CSDM](../02_リファレンス/platform/cmdb-csdm.md) の 7 章にまとめてある。ステージの考え方は「各ステージは前のステージの上に積み上がる」である。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/common-service-data-model-csdm/csdm-implementation-stages.html) また Foundation domain のページは「Before you can use ServiceNow products, you must populate foundational data.」（ServiceNow 製品を使う **前に** 基盤データ（参照データ）を投入する必要がある）と明記している。[出典](https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/caU4_szDOkdJaTAdt~sbrQ)
 
 段階導入で成功するコツは、各ステージで **「やること」と同じくらい「まだやらないこと」を決める** ことである。【経験則】
 
@@ -687,6 +701,7 @@ flowchart LR
 
 - Implementing the CSDM framework in stages（Australia）: https://www.servicenow.com/docs/r/australia/servicenow-platform/common-service-data-model-csdm/csdm-implementation-stages.html
 - CSDM implementation stage — Walk（Australia）: https://www.servicenow.com/docs/r/australia/servicenow-platform/common-service-data-model-csdm/csdm-implement-walk-stage.html
+- Foundation domain in the CSDM model（Australia）: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/caU4_szDOkdJaTAdt~sbrQ
 - Synchronize user groups for a technology management offering（Australia）: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/nGVIMx3ESidUWb2Uo~WjQQ
 - Synchronizing group assignment attributes（Australia）: https://www.servicenow.com/docs/r/ZUQIWHvhWUsSoHqqH5PGGw/jAoDav7dQALQmKoPMdLrjA
 
@@ -694,22 +709,24 @@ flowchart LR
 
 - Principal Class（Australia）: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/ENE4G2KZHXZ4qUyd2nyztg
 - Update the list of classes in the Principal Class filter（Australia）: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/bVel8DzuRlAjTCWNHuwR9Q
-- Getting advice from Now Assist on CMDB governance（Australia）: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/nkA5kfeWIxlqopzVkJfcoA
+- Getting advice from ServiceNow Otto on CMDB governance（Australia）: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/nkA5kfeWIxlqopzVkJfcoA
 - CIs attestation（Australia）: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/5frqJY24lwmPr3hcMa8YQA
-- Create a CMDB Data Manager policy（Zurich）: https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/AESxAiMH2dn45hj773UQWA
+- Create a CMDB Data Manager policy（Australia）: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/62u9ThyS52sKtt6pDr0jMQ
 - Working with CMDB Data Manager（Australia）: https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/cmdb-data-management.html
 - Overview of CMDB Health（Australia）: https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/overview-cmdb-health.html
 - CMDB Health KPIs and metrics（Australia）: https://www.servicenow.com/docs/r/australia/servicenow-platform/configuration-management-database-cmdb/r_CMDBHealthMetrics.html
 - CI de-duplication experience in CMDB Workspace: https://www.servicenow.com/docs/r/4AA65edJ2a~o5pASflQppQ/2zidN_TGxaN0wzI3yCqhNg
 - Exploring CMDB success advisor（Australia）: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/JiIaj~GJkYefIfMAJw7x1A
 - Install CMDB success advisor（Australia）: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/xHHhvLJjCq25leje10bBkA
-- Monitoring CMDB data quality using dashboard metrics in CMDB success advisor for Data Foundations（Zurich）: https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/PvVLsDPiDklzpWkFxTLlDw
+- Access CMDB success advisor（Australia）: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/p2o6XUQI1ixGDVc4Q2cHog
+- Monitoring CMDB data quality using dashboard metrics in CMDB success advisor for Data Foundations（Australia）: https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/0LfgpANAVJFFuKuyyr1l_g
 - CMDB release notes（Australia）: https://www.servicenow.com/docs/r/australia/release-notes/cmdb-rn.html
 - CMDB release notes（Brazil）: https://www.servicenow.com/docs/r/release-notes/cmdb-rn.html
+- ServiceNow Otto release notes（Zurich→Brazil delta、Now Assist から ServiceNow Otto への改称）: https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-servicenowotto-release-notes.html
 
 **ServiceNow 公式ドキュメント（Discovery）**
 
-- Discovery IP address configuration: https://www.servicenow.com/docs/r/it-operations-management/discovery/discovery-ip-address-configuration.html
+- Discovery IP address configuration（Australia）: https://www.servicenow.com/docs/r/australia/it-operations-management/discovery/discovery-ip-address-configuration.html
 - Discovery Guided Setup（Australia）: https://www.servicenow.com/docs/r/xIukoQY2A2qGfsWn8TUt1A/bm1l7lKuchKAYgnmGH4GaQ
 
 **ServiceNow Community（ServiceNow 社員による記事）**
@@ -719,7 +736,7 @@ flowchart LR
 
 **ServiceNow Community（その他・第三者情報）**
 
-- Configuration Management Database (CMDB) Welcome Guide: https://www.servicenow.com/community/cmdb-articles/configuration-management-database-cmdb-welcome-guide/ta-p/2301750
+- Configuration Management Database (CMDB) Welcome Guide（2022-09-22、2025-02-18 更新）: https://www.servicenow.com/community/cmdb-articles/configuration-management-database-cmdb-welcome-guide/ta-p/2301750
 - List of all "Get Well Playbooks" (CSDM & CMDB): https://www.servicenow.com/community/cmdb-articles/list-of-all-quot-get-well-playbooks-quot-csdm-amp-cmdb/ta-p/2301917
 - ServiceNow Discovery - Common Pitfalls and How to Avoid Them (Part 3 of 3): https://www.servicenow.com/community/itom-articles/servicenow-discovery-common-pitfalls-and-how-to-avoid-them-part/ta-p/2321707
 - Best practices for setting up Discovery schedules: https://www.servicenow.com/community/itom-blog/best-practices-for-setting-up-discovery-schedules/ba-p/2270853

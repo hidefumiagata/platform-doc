@@ -10,16 +10,25 @@ sources:
   - https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/8fO6gIiOYt9oofvSN3tu0A
   - https://www.servicenow.com/docs/r/VD5jAD3VgRc~i0AwgqwfEQ/OtrXK8Fl8tRfUetfDjwkEg
   - https://www.servicenow.com/docs/r/tJa9Em2DAbijpCjxYUU3Pw/owLPvyPC5crPYR6oOrc8Cw
+  - https://www.servicenow.com/docs/r/australia/impact/accelerator-and-initiative-list/health-assessment.html
   - https://www.servicenow.com/docs/r/impact/accelerator-and-initiative-list/health-assessment.html
   - https://www.servicenow.com/docs/r/impact/instance-health-score-calculation.html
   - https://www.servicenow.com/docs/r/impact/scan-engine-overview.html
+  - https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/UYKQ5DxOadDGtt~FveHndA
+  - https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/ziDko6iXFc8zzvGEVXg2UA
+  - https://www.servicenow.com/docs/r/australia/impact/impact-packages1.html
   - https://www.servicenow.com/docs/r/impact/impact-packages1.html
   - https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/XIskqsHxMVp2Ge5eKDngSA
   - https://www.servicenow.com/docs/r/zurich/impact/accelerator-and-initiative-list/stakeholder-path-to-value.html
   - https://www.servicenow.com/docs/r/NYweeRocREicYwhLVBs7lg/6fBo2_9udUgJb3sxveFVPg
-  - https://www.servicenow.com/docs/r/eburD2h8Q3uNBPFY28ltRg/geEQOSE82dpIwEJ8AGbwdA
+  - https://www.servicenow.com/docs/r/NYweeRocREicYwhLVBs7lg/WCbdZRD_kNeip3~S0vw_uQ
+  - https://www.servicenow.com/docs/r/yokohama/release-notes/impact-rn.html
+  - https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-impact-release-notes.html
   - https://www.servicenow.com/docs/r/impact/accelerator-and-initiative-list/jumpstart-snow-ai-journey.html
+  - https://www.servicenow.com/docs/r/australia/it-service-management/benchmarks/exploring-benchmarks.html
   - https://www.servicenow.com/docs/r/it-service-management/benchmarks/exploring-benchmarks.html
+  - https://www.servicenow.com/docs/r/australia/platform-administration/subscription-details-v2.html
+  - https://www.servicenow.com/docs/r/australia/platform-administration/monitoring-now-assist-usage.html
   - https://www.servicenow.com/docs/r/now-intelligence/process-mining/integration-itsm.html
   - https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/uvfOC73Q0jOZzQLwDDJIrg
   - https://www.servicenow.com/docs/r/GCPjp~ldPTNRN99oH1DYFg/LJdK4ZKD0ozmnz0eLhmUog
@@ -38,6 +47,13 @@ sources:
   - https://nowben.com/how-scope-creep-is-destroying-your-servicenow-implementation/
   - https://atmarkit.itmedia.co.jp/ait/articles/1810/19/news068.html
   - https://cloud.watch.impress.co.jp/docs/news/2104011.html
+  - https://www.servicenow.com/community/servicenow-ai-platform-articles/about-servicenow-licensing-guide/ta-p/3512215
+  - https://www.servicenow.com/community/cmdb-forum/need-to-build-a-cmdb-for-my-project/m-p/3371026
+  - https://www.oxfordeconomics.com/resource/impact-ai-series/
+  - https://www.brighttalk.com/webcast/13097/383931
+  - https://www.aegissofttech.com/insights/servicenow-implementation-timeline/
+  - https://redresscompliance.com/servicenow-license-types-2026
+  - https://www.cloudnuro.ai/blog/understanding-servicenow-licensing-a-comprehensive-guide
 ---
 
 # コンサルティング実践プレイブック（Consulting Playbook）
@@ -123,16 +139,21 @@ flowchart LR
 
 ServiceNow Impact を契約している顧客は、ServiceNow 社から一部のアセスメントを Accelerator として受けられる。コンサルタントは、顧客が既に受けた（または受けられる）Accelerator の結果を**入力として活用**し、重複を避けるのが効率的である。【経験則】
 
-Impact のパッケージ（Brazil 版ドキュメント、2026-09-10 更新）は次のとおりである。[出典](https://www.servicenow.com/docs/r/impact/impact-packages1.html)
+Impact のパッケージ（Australia 版ドキュメント、2026-07-07 更新）は次のとおりである。Brazil 版（2026-09-10 更新）も同じ内容である。[出典](https://www.servicenow.com/docs/r/australia/impact/impact-packages1.html)、[出典（Brazil）](https://www.servicenow.com/docs/r/impact/impact-packages1.html)
 
 | パッケージ | 主な内容 | Accelerator の利用枠 |
 |---|---|---|
 | Guided | Impact App、24/7 サポート、限定的な Accelerator カタログ、Customer Success Manager | Technical、Strategy（一部）、Architecture（一部）の各サブカタログで同時 1 件 |
 | Total | Guided の全内容 ＋ P1/P2 の応答時間短縮、Developer Support（10 席）、Accelerator 拡大、専任 Impact Squad | Technical・Strategy・Architecture は各同時 2 件、Optimization は同時 1 件 |
+| （Managed Support add-on） | Guided / Total に追加でき、Developer Support を 5 席追加 | ― |
 | Integrated Success | Total の全内容 ＋ Impact の Free Form initiative で開始する導入サービス | Total と同じ（個別の上限記載なし） |
 | Strategic Value add-on | Guided: Strategy サブカタログ拡大＋Strategy の同時実行枠 +2。Total: Strategy の同時実行枠 +2 | ― |
+| Platform Governance add-on | Guided: Architecture サブカタログ拡大＋Architecture の同時実行枠 +2。Total: Architecture の同時実行枠 +2 | ― |
+| Platform Optimization add-on | Guided: Optimization サブカタログの利用権＋Optimization の同時実行枠 +1。Total: Optimization の同時実行枠 +1 | ― |
 
-> **注意:** Impact のパッケージ名はリリースごとに変わっている。Yokohama 以前のドキュメントには Guided / Advanced / Total の 3 段階が記載され、Australia 版の各 Accelerator ページには「Impact Guided+ (Strategic Value add-on), Advanced and Total」という対象表記が残っている。Brazil 版のパッケージ一覧では Advanced が記載されていない。顧客の契約書に記載されたパッケージ名で利用可否を確認すること。[出典](https://www.servicenow.com/docs/r/impact/impact-packages1.html)、[出典](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/8fO6gIiOYt9oofvSN3tu0A)
+このほかのアドオンとして、Preventive Care（Account Escalation Engineer による年 2 回のパフォーマンス評価。Guided 向けは改善の実装まで含み、Total 向けは推奨まで）、Platform Health（Guided 向け。Scan Engine のカスタム定義の無制限化と Proposed Fix）、Instance Observer（Features と Seats +10）がある。[出典](https://www.servicenow.com/docs/r/australia/impact/impact-packages1.html)
+
+> **注意:** Impact のパッケージ名はリリースごとに変わっている。Yokohama 以前のドキュメントには Guided / Advanced / Total の 3 段階が記載されている。Australia 版のパッケージ一覧（2026-07-07 更新）には Advanced というパッケージの説明が無い。ただし同じページの Developer Support の注記には「Developer Support is an offering to Advanced and Total Impact packages」と、Advanced の表記が 1 か所だけ残っている。また、同じ Australia 版の各 Accelerator ページ（2026-03-12 更新）には「Impact Guided+ (Strategic Value add-on), Advanced and Total」という対象表記や Health Assessment（Advanced）が残っている。Brazil 版のパッケージ一覧も Australia 版と同じく Advanced を記載していない。顧客の契約書に記載されたパッケージ名で利用可否を確認すること。[出典](https://www.servicenow.com/docs/r/australia/impact/impact-packages1.html)、[出典](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/8fO6gIiOYt9oofvSN3tu0A)
 
 コンサルティングで活用しやすい Impact Accelerator は次のとおりである（詳細は 4 章・5 章）。
 
@@ -140,11 +161,11 @@ Impact のパッケージ（Brazil 版ドキュメント、2026-09-10 更新）�
 |---|---|---|---|
 | ITSM Maturity Assessment | ITSM プロセスの成熟度スコアと上位 5 推奨 | Guided+（Strategic Value add-on）、Advanced、Total（Australia） | [出典](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/8fO6gIiOYt9oofvSN3tu0A) |
 | ITOM Maturity Assessment | ITOM の成熟度スコアと上位 5 推奨 | Guided+（Strategic Value add-on）、Advanced、Total（Australia） | [出典](https://www.servicenow.com/docs/r/tJa9Em2DAbijpCjxYUU3Pw/owLPvyPC5crPYR6oOrc8Cw) |
-| Health Assessment（Advanced / Total） | HealthScan によるインスタンス健全性診断 | Advanced、Total（Brazil） | [出典](https://www.servicenow.com/docs/r/impact/accelerator-and-initiative-list/health-assessment.html) |
+| Health Assessment（Advanced / Total） | HealthScan によるインスタンス健全性診断 | Advanced、Total（Australia。Brazil も同じ） | [出典](https://www.servicenow.com/docs/r/australia/impact/accelerator-and-initiative-list/health-assessment.html) |
 | Strategy Governance | 戦略ロードマップと事業成果の整合を取るガバナンス | Guided+（Strategic Value add-on）、Advanced、Total（Australia） | [出典](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/XIskqsHxMVp2Ge5eKDngSA) |
 | Stakeholder Path to Value | ステークホルダーインタビューと戦略／製品導入ロードマップ | Guided+（Strategic Value add-on）、Advanced、Total（Zurich） | [出典](https://www.servicenow.com/docs/r/zurich/impact/accelerator-and-initiative-list/stakeholder-path-to-value.html) |
 | Value Potential | 未導入製品の価値試算（ビジネスケース） | Advanced、Total、Strategic Value Add-on（Australia） | [出典](https://www.servicenow.com/docs/r/NYweeRocREicYwhLVBs7lg/6fBo2_9udUgJb3sxveFVPg) |
-| Jumpstart Your ServiceNow AI Journey | AI 導入ロードマップと AI Adoption Scan | Guided、Guided+、Advanced、Total（Brazil） | [出典](https://www.servicenow.com/docs/r/impact/accelerator-and-initiative-list/jumpstart-snow-ai-journey.html) |
+| Jumpstart Your ServiceNow AI Journey | AI 導入ロードマップと AI Adoption Scan | Guided、Guided+（Strategic Value または Platform Governance add-on）、Advanced、Total（Brazil） | [出典](https://www.servicenow.com/docs/r/impact/accelerator-and-initiative-list/jumpstart-snow-ai-journey.html) |
 
 いずれの Accelerator も「推奨事項の実装は ServiceNow の責任範囲外（顧客の責任）」と明記されている。推奨を実行計画に落とし、実装を支援する部分がパートナー・コンサルタントの役割になる。[出典](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/8fO6gIiOYt9oofvSN3tu0A)、[出典](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/XIskqsHxMVp2Ge5eKDngSA)
 
@@ -194,13 +215,15 @@ ITSM プロセス設計の詳しい判断基準は [ITSMプロセス設計の実
 
 **CSDM の段階（公式）:** ServiceNow 公式ドキュメント「Implementing the CSDM framework in stages」は、CSDM の実装を Foundation → Crawl → Walk → Run → Fly の 5 段階で進めるとしている（4.4 節で詳述）。[出典](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/uvfOC73Q0jOZzQLwDDJIrg)
 
-**CMDB Health の 3 指標（公式）:** CMDB Health ダッシュボードは、次の 3 つの KPI を合成して総合スコアを出す。[出典](https://www.servicenow.com/docs/r/GCPjp~ldPTNRN99oH1DYFg/LJdK4ZKD0ozmnz0eLhmUog)
+**CMDB Health の 3 指標（公式）:** CMDB Health ダッシュボードは、次の 3 つの KPI を合成して総合スコアを出す。以下は公式ページ「CMDB Health KPIs and metrics」（Xanadu 版、2024-08-01 更新）に基づく。[出典](https://www.servicenow.com/docs/r/GCPjp~ldPTNRN99oH1DYFg/LJdK4ZKD0ozmnz0eLhmUog)
 
 | KPI | 意味 | アセスメントでの使い方 |
 |---|---|---|
 | Completeness（完全性） | CI の必須・推奨フィールドが埋まっているか | 推奨フィールドが定義されていない場合、スコアが高く出ても意味が無い点に注意【経験則】 |
-| Compliance（準拠性） | 監査（Audit）やリレーションルールへの準拠 | 監査定義が無ければ測定されていない |
-| Correctness（正確性） | 重複 CI、孤立 CI、陳腐化（Stale）CI | Discovery / Service Graph Connector 導入状況と合わせて評価 |
+| Compliance（準拠性） | 指標は Audit（監査）の 1 つだけで、CMDB 監査の直近の実行結果に基づく。対象 CI は、適用されるすべての監査に合格する必要がある | Audit を有効化しないと結果が出ない。監査定義が無ければ測定されていない |
+| Correctness（正確性） | 重複（Duplicate）CI、孤立（Orphan）CI、陳腐化（Staleness）CI | Discovery / Service Graph Connector 導入状況と合わせて評価 |
+
+3 つの KPI とは別に、**Relationships（リレーション）** の指標として、重複リレーション（Duplicate relationships）、孤立リレーション（Orphan relationships）、陳腐化リレーション（Stale relationships）がある（設定変更不可）。リレーションの健全性は CMDB Health ダッシュボードではなく、別の **Relationship Health ダッシュボード**に表示される。推奨リレーション・包含ルール・ホスティングルールに準拠しないリレーションの集計も Relationship Health ダッシュボード側で確認する。リレーションの品質は Compliance ではなく、この Relationships 指標で確認する。[出典](https://www.servicenow.com/docs/r/GCPjp~ldPTNRN99oH1DYFg/LJdK4ZKD0ozmnz0eLhmUog)
 
 > CMDB Health ダッシュボードのスコアは、各 KPI のスコア計算ジョブ（Completeness / Compliance / Correctness Score Calculation）が動いていることが前提である。アセスメントでは最初に「ジョブが有効か」「ルール（推奨フィールド、監査）が定義されているか」を確認し、未定義ならスコアそのものを根拠にしない。【経験則】
 
@@ -210,17 +233,17 @@ CMDB の評価と改善の詳細は [CMDB成功の要因](./05-cmdb-success-fact
 
 ### 2.4 領域 3: プラットフォーム健全性の評価観点
 
-プラットフォーム健全性は、ServiceNow の Scan Engine / HealthScan が使う**5 カテゴリ**で評価するのが標準である。[出典](https://www.servicenow.com/docs/r/impact/scan-engine-overview.html)、[出典](https://www.servicenow.com/docs/r/impact/accelerator-and-initiative-list/health-assessment.html)
+プラットフォーム健全性は、ServiceNow の Scan Engine / HealthScan が使う**5 カテゴリ**で評価するのが標準である。[出典](https://www.servicenow.com/docs/r/impact/scan-engine-overview.html)、[出典](https://www.servicenow.com/docs/r/australia/impact/accelerator-and-initiative-list/health-assessment.html)
 
-| カテゴリ | 意味 | Instance Health スコアでの重み（概算） |
-|---|---|---|
-| Security（セキュリティ） | 侵害・コンプライアンス・アクセス制御に関わる設定 | 約 40% |
-| Performance（パフォーマンス） | 全ユーザーに影響し、放置すると悪化する問題 | 約 22% |
-| Manageability（管理容易性） | 保守性。指摘件数が最も多いカテゴリ | 約 19% |
-| Upgradeability（アップグレード容易性） | リリースアップグレードを阻害・遅延させる構成 | 約 9% |
-| User Experience（ユーザー体験） | 定着に影響するが緊急度は最も低い | 約 9% |
+| カテゴリ | 意味 |
+|---|---|
+| Security（セキュリティ） | 侵害・コンプライアンス・アクセス制御に関わる設定 |
+| Performance（パフォーマンス） | 全ユーザーに影響し、放置すると悪化する問題 |
+| Manageability（管理容易性） | 保守性。指摘件数が最も多いカテゴリ |
+| Upgradeability（アップグレード容易性） | リリースアップグレードを阻害・遅延させる構成 |
+| User Experience（ユーザー体験） | 定着に影響するが緊急度は最も低い |
 
-重みは Brazil 版の「Instance health score calculation」ページ（2026-10-08 更新）の記載である（合計 99% は丸めによる）。[出典](https://www.servicenow.com/docs/r/impact/instance-health-score-calculation.html) スコアの計算方法は 4.3 節を参照。
+> **Brazil での変更:** Brazil 版ドキュメントに「Instance health score calculation」ページ（2026-10-07 更新）があり、Instance Health スコアにおけるカテゴリの重みが Security 約 40%、Performance 約 22%、Manageability 約 19%、Upgradeability 約 9%、User Experience 約 9% と記載されている（合計 99% は丸めによる）。Australia 版に同じページがあるかは公開情報では確認できなかった（Australia 版の URL は 404）。そのため、Brazil で新設または改訂された内容である可能性がある。[出典](https://www.servicenow.com/docs/r/impact/instance-health-score-calculation.html) スコアの計算方法は 4.3 節を参照。
 
 健全性診断では、スキャン結果に加えて次の項目を確認する。【経験則】
 
@@ -316,6 +339,7 @@ NowBen の記事は、要件ごとに次の 4 つの問いで挑戦すること�
 | システム管理者・開発者 | 90 分 | インスタンス構成、カスタマイズ、リリース、テスト | 3.8 |
 | インフラ・運用チーム | 60〜90 分 | CMDB、監視、Discovery | 3.6 |
 | セキュリティ・監査 | 60 分 | 要件、監査指摘 | 3.8 |
+| ESM・SecOps・IRM の業務オーナー（人事、カスタマーサービス、PMO、セキュリティ運用、リスク管理） | 60〜90 分 | 追加導入（型 B）の対象業務の現状 | 3.10 |
 
 時間目安は【経験則】。公式の Stakeholder Path to Value Accelerator は、事業部・部門ごとに約 60 分のステークホルダーインタビュー（Stakeholder Discovery Think Tank）を行い、目標と成功指標、課題、改善機会、事業価値ドライバー、要望を聞くとしている。[出典](https://www.servicenow.com/docs/r/zurich/impact/accelerator-and-initiative-list/stakeholder-path-to-value.html)
 
@@ -383,7 +407,7 @@ NowBen の記事は、要件ごとに次の 4 つの問いで挑戦すること�
 |---|---|---|
 | D1 | CMDB を「何のために」使いたいですか（影響分析、変更リスク、資産管理、監視連携、コスト） | CMDB の目的。目的が無い CMDB は失敗する（[CMDB成功の要因](./05-cmdb-success-factors.md)） |
 | D2 | CI の正本（Discovery、クラウド API、構成管理ツール、資産台帳、Excel）はどこですか | データソース・Service Graph Connector の候補 |
-| D3 | 対象範囲（本番 / 非本番、オンプレ / クラウド、ネットワーク、アプリケーション）は | スコープ。Community でも環境・クラウド・インフラ・アプリ単位で範囲を決めることが推奨されている【第三者情報】 |
+| D3 | 対象範囲（本番 / 非本番、オンプレ / クラウド、ネットワーク、アプリケーション）は | スコープ。Community の回答でも、環境（本番 / 非本番）・クラウド・インフラ・アプリ単位で範囲を決め、まずサーバーと重要アプリから始めることが推奨されている。[出典](https://www.servicenow.com/community/cmdb-forum/need-to-build-a-cmdb-for-my-project/m-p/3371026) `【第三者情報】` |
 | D4 | アプリケーション（ビジネスアプリケーション）とサービスの一覧と、その所有者はいますか | CSDM の Walk / Run 段階に進めるか |
 | D5 | Discovery の資格情報、ファイアウォール、MID Server の設置について、セキュリティ部門の合意は取れますか | 技術的阻害要因 |
 | D6 | 監視ツール（Datadog、Zabbix 等）からのアラートは今どこに集まり、誰が見ていますか | Event Management / AIOps の前提 |
@@ -424,6 +448,31 @@ NowBen の記事は、要件ごとに次の 4 つの問いで挑戦すること�
 | 技術 | インスタンス一覧、連携一覧、カスタムアプリ一覧、直近の HealthScan / Instance Scan 結果、アップグレード履歴 | 【経験則】 |
 | 契約 | ライセンス契約（製品・数量・期間）、Impact 契約、パートナー契約 | 【経験則】 |
 | データ（抽出） | 直近 6〜12 か月の Incident / Request / Change / Problem の件数・状態・処理時間、ユーザー数とロール別数 | 【経験則】 |
+
+### 3.10 ESM・SecOps・IRM の追加導入向け質問
+
+1.1 の型 B（追加導入）で ITSM 以外の製品を検討する場合は、3.3〜3.9 の共通質問に加えて、次の製品別の質問を使う。質問はいずれも【経験則】である。製品仕様は各リファレンスを参照。
+
+| 製品 | # | 質問 | 狙い・参照 |
+|---|---|---|---|
+| HR Service Delivery（HRSD） | H1 | 人事への問い合わせ・手続きの種類と件数は。上位 20 種類で全体の何割ですか | HR サービス・ケースの設計範囲 |
+| | H2 | 機密性の高いケース（ハラスメント、懲戒、健康情報等）をどう扱い、誰が閲覧できますか | 機密区分とアクセス制御の要件 |
+| | H3 | 従業員データの正本（HCM: Workday、SAP SuccessFactors、自社システム等）はどこで、どの頻度で連携しますか | 連携方式・データ鮮度 |
+| | H4 | 入社・異動・退職のライフサイクルイベントで、人事以外（IT、総務、施設）の作業はどう連携していますか | Lifecycle Events の範囲。[HR Service Delivery](../02_リファレンス/employee/hr-service-delivery.md) |
+| | H5 | ライセンス課金の対象になる従業員数（全従業員か、一部か）は | 課金区分の確認。7.2 Q4 |
+| Customer Service Management（CSM） | S1 | 顧客の問い合わせチャネル（電話、メール、Web、チャット、SNS）の比率と件数は | チャネル設計 |
+| | S2 | 顧客・契約・製品の正本となる CRM（Salesforce、Dynamics 等）は何で、ServiceNow とどう役割分担しますか | CRM 連携・重複排除 |
+| | S3 | 顧客は B2B（法人・取引先）ですか、B2C（個人）ですか。顧客ポータルの利用者数は | データモデルと外部ユーザー数 |
+| | S4 | 顧客の問題の根本原因が IT・製造・現場作業にある場合、社内のどの部門へどう引き継いでいますか | ITSM・FSM との連携。[Customer Service Management](../02_リファレンス/customer/customer-service-management.md) |
+| Strategic Portfolio Management（SPM） | M1 | 投資案件・デマンドはどこで受け付け、どの会議体で承認していますか | Demand Management の範囲 |
+| | M2 | ポートフォリオ・プロジェクト・アジャイルの管理ツール（Excel、MS Project、Jira 等）は何ですか。どれを置き換えますか | 置き換え・連携の範囲 |
+| | M3 | 予算・工数（タイムシート）・リソースの計画と実績を、どの粒度で管理していますか | Resource / Financial Management の要否。[Strategic Portfolio Management](../02_リファレンス/spm/strategic-portfolio-management.md) |
+| Security Operations（SecOps） | X1 | セキュリティインシデントと脆弱性は、どのツール（SIEM、脆弱性スキャナー、EDR）から検知し、誰が対応していますか | 連携元と運用体制 |
+| | X2 | 脆弱性の修正対象 CI（サーバー、アプリ）とその所有者を、CMDB で特定できますか | CMDB の到達段階が前提。[Security Operations](../02_リファレンス/secops/security-operations.md) |
+| Integrated Risk Management（IRM） | R1 | 対象とする規制・フレームワーク（J-SOX、ISO 27001、NIST 等）と、統制・リスクの台帳はどこにありますか | コンテンツの範囲 |
+| | R2 | 統制テスト・証跡収集は手作業ですか。自動化したい統制はどれですか | 継続的モニタリングの範囲。[Integrated Risk Management](../02_リファレンス/irm/integrated-risk-management.md) |
+
+> ESM 製品も、ITSM と同じく基盤データ（ユーザー・組織・拠点）とプラットフォームのガバナンスを共有する。追加導入の前に、2.3 節の基盤データと 2.6 節のガバナンスの状態を確認しておくと、追加製品だけの問題として扱わずに済む。【経験則】
 
 ---
 
@@ -475,7 +524,7 @@ ServiceNow Impact の **ITSM Maturity Assessment** は、顧客の現在のプ�
 
 ### 4.3 Health Assessment と Instance Health スコア
 
-**Health Assessment Accelerator:** HealthScan のスキャンで、インスタンスがリーディングプラクティスにどの程度沿っているかを示す Accelerator である。Brazil 版（2026-09-10 更新）では Advanced と Total の 2 種類がある。[出典](https://www.servicenow.com/docs/r/impact/accelerator-and-initiative-list/health-assessment.html)
+**Health Assessment Accelerator:** HealthScan のスキャンで、インスタンスがリーディングプラクティスにどの程度沿っているかを示す Accelerator である。Australia 版（2026-03-12 更新）では Advanced（Impact Advanced 向け）と Total（Impact Total 向け）の 2 種類があり、Brazil 版（2026-09-10 更新）も同じ構成である。下表の詳細（ロール・活動・成果物）は Brazil 版に基づき、2 種類の構成と対象外条件は Australia 版でも同じであることを確認した。[出典](https://www.servicenow.com/docs/r/australia/impact/accelerator-and-initiative-list/health-assessment.html)、[出典（Brazil）](https://www.servicenow.com/docs/r/impact/accelerator-and-initiative-list/health-assessment.html)
 
 | 項目 | Advanced | Total |
 |---|---|---|
@@ -493,20 +542,22 @@ ServiceNow Impact の **ITSM Maturity Assessment** は、顧客の現在のプ�
 
 > コンサルティングでの使い方: Health Assessment は「プラットフォーム全体の技術的健全性」に限定され、プロセスやガバナンスは見ない。したがって、コンサルタントは HealthScan の結果を技術診断の入力として使い、プロセス・ガバナンス・定着の診断（2 章の領域 1・5・6）を補完する形で役割を分けるのがよい。【経験則】
 
-**Instance Health スコアの計算方法（Brazil 版、2026-10-08 更新）:** スコアは 0〜100 で、次の手順で計算される。[出典](https://www.servicenow.com/docs/r/impact/instance-health-score-calculation.html)
+**Instance Health スコアの計算方法:** Australia 版ドキュメントでは、Instance Health スコアの算出式を説明するページは公開情報では確認できなかった。算出式は Brazil 版で次のとおり公開されている。
 
-| 手順 | 計算式 | 説明 |
-|---|---|---|
-| 1. Magnitude（規模係数） | `min(2, 1 + ln(1+F) ÷ ln(1+R))`（F=0 なら 0） | F はチェックの指摘件数、R は固定の基準値（テーブル単位のチェックは 10、それ以外は 20,000） |
-| 2. Penalty（減点） | チェックの重み W × Magnitude | 指摘件数が増えても減点は最大 2W で頭打ち |
-| 3. カテゴリの健全性 | `100 × (1 − ΣPenalty ÷ ΣCeiling)`（0〜100 に丸め） | 各有効チェックの上限（Ceiling）は 2W |
-| 4. 総合スコア | Σ（カテゴリの重み × カテゴリの健全性） | カテゴリの重みは 2.4 節の表（Security 約 40% 等） |
+> **Brazil での変更:** Brazil 版の「Instance health score calculation」ページ（2026-10-07 更新）で、スコア（0〜100）の算出式が公開された。Brazil で新設または改訂された内容である可能性がある。[出典](https://www.servicenow.com/docs/r/impact/instance-health-score-calculation.html)
+>
+> | 手順 | 計算式 | 説明 |
+> |---|---|---|
+> | 1. Magnitude（規模係数） | `min(2, 1 + ln(1+F) ÷ ln(1+R))`（F=0 なら 0） | F はチェックの指摘件数、R は固定の基準値（テーブル単位のチェックは 10、それ以外は 20,000） |
+> | 2. Penalty（減点） | チェックの重み W × Magnitude | 指摘件数が増えても減点は最大 2W で頭打ち |
+> | 3. カテゴリの健全性 | `100 × (1 − ΣPenalty ÷ ΣCeiling)`（0〜100 に丸め） | 各有効チェックの上限（Ceiling）は 2W |
+> | 4. 総合スコア | Σ（カテゴリの重み × カテゴリの健全性） | カテゴリの重みは 2.4 節の Brazil 注記（Security 約 40% 等） |
+>
+> 同ページには「新しい定義（チェック）を公開しても、それだけではスコアは変わらない」と記載されている。スコア解釈の閾値（何点以上が良好か）は公開されていない（公開情報では確認できず）。
 
-同ページには「新しい定義（チェック）を公開しても、それだけではスコアは変わらない」と記載されている。スコア解釈の閾値（何点以上が良好か）は公開されていない（公開情報では確認できず）。[出典](https://www.servicenow.com/docs/r/impact/instance-health-score-calculation.html)
+> **解釈上の注意（Brazil の算出式に基づく）:** 指摘件数は対数で効くため、「指摘を半分にしてもスコアはあまり上がらない」一方で、「重みの大きい Security カテゴリの特定チェックをゼロにする」とスコアが大きく動く。改善施策の優先順位を「スコアを上げるため」だけで決めると、実際の業務リスクとずれることがある。スコアは傾向把握に使い、施策の優先順位は業務影響で決める。【推定】（計算式からの推定）
 
-> **解釈上の注意:** 指摘件数は対数で効くため、「指摘を半分にしてもスコアはあまり上がらない」一方で、「重みの大きい Security カテゴリの特定チェックをゼロにする」とスコアが大きく動く。改善施策の優先順位を「スコアを上げるため」だけで決めると、実際の業務リスクとずれることがある。スコアは傾向把握に使い、施策の優先順位は業務影響で決める。【推定】（計算式からの推定）
-
-**Instance Scan（顧客が自分で実行するスキャン）:** Impact を契約していない顧客でも、プラットフォーム標準の Instance Scan で同じ 5 カテゴリのチェックを実行できる。アセスメントでは、顧客の非本番インスタンスで Full scan を実行してもらい、結果を入力とする。Instance Scan はドメインセパレーションを完全にはサポートしない点に注意する。仕様は [システム管理](../02_リファレンス/platform/system-administration.md)、運用は [ガバナンスとCoEの実践](./09-governance-coe-practice.md) を参照。
+**Instance Scan（顧客が自分で実行するスキャン）:** Impact を契約していない顧客でも、プラットフォーム標準の Instance Scan で同じ 5 カテゴリのチェックを実行できる。アセスメントでは、顧客の非本番インスタンスで Full scan を実行してもらい、結果を入力とする。公式ページ「Exploring Instance Scan」（Zurich 版・Yokohama 版、いずれも 2026-07-03 更新）は「Instance Scan doesn't fully support domain separation.」と記載しており、指摘（Finding）はソースレコードのドメインに基づいて分離表示されるとしている。ドメインセパレーション環境では結果の見え方に注意する（Australia 版の同ページは公開情報では確認できず）。[出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/UYKQ5DxOadDGtt~FveHndA)、[出典](https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/ziDko6iXFc8zzvGEVXg2UA) 仕様は [システム管理](../02_リファレンス/platform/system-administration.md)、運用は [ガバナンスとCoEの実践](./09-governance-coe-practice.md) を参照。
 
 ### 4.4 CSDM の段階（Foundation / Crawl / Walk / Run / Fly）
 
@@ -553,7 +604,7 @@ ServiceNow 公式ドキュメント（Zurich 版、2025-07-31 更新）は、CSD
 
 ### 4.5 Benchmarks による KPI 比較
 
-ServiceNow **Benchmarks** アプリケーションは、ITSM の KPI を業界平均、トップパフォーマー、同業同規模と比較する。Brazil 版（2026-09-10 更新）の仕様は次のとおりである。[出典](https://www.servicenow.com/docs/r/it-service-management/benchmarks/exploring-benchmarks.html)
+ServiceNow **Benchmarks** アプリケーションは、ITSM の KPI を業界平均、トップパフォーマー、同業同規模と比較する。仕様は次のとおりである。表は Brazil 版（2026-09-10 更新）に基づき、主要項目（対象 KPI、参加条件と対象外、2,850 社以上、20 社未満は Other）は Australia 版（2026-03-12 更新）でも同じであることを確認した。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/benchmarks/exploring-benchmarks.html)、[出典（Brazil）](https://www.servicenow.com/docs/r/it-service-management/benchmarks/exploring-benchmarks.html)
 
 | 項目 | 内容 |
 |---|---|
@@ -572,7 +623,7 @@ ServiceNow Community の記事は、ITSM 成熟度の測定に使う代表的な
 
 ### 4.6 AI 成熟度
 
-**Enterprise AI Maturity Index 2025（ServiceNow と Oxford Economics の調査）:** ServiceNow は、企業の AI 成熟度を測る調査レポートを公開している。2025 年版（2025-07 公開、約 4,500 人のリーダーを対象、5 つの柱で評価）の主な数値は次のとおりである。[出典](https://www.servicenow.com/uk/workflow/ai/enterprise-ai-maturity-index-2025.html) `【第三者情報】`（ServiceNow 委託の調査のため。本文はアクセス制限で直接確認できず、検索結果の要約に基づく）
+**Enterprise AI Maturity Index 2025（ServiceNow と Oxford Economics の調査）:** ServiceNow は、企業の AI 成熟度を測る調査レポートを公開している。2025 年版（2025-05 公開。Oxford Economics のリソースページは 2025-05-02 付。ServiceNow のランディングページと地域別の発表は 2025-07。約 4,500 人のリーダーを対象、5 つの柱で評価）の主な数値は次のとおりである。[出典](https://www.servicenow.com/uk/workflow/ai/enterprise-ai-maturity-index-2025.html)、[出典](https://www.oxfordeconomics.com/resource/impact-ai-series/) `【第三者情報】`（ServiceNow 委託の調査のため。本文はアクセス制限で直接確認できず、検索結果の要約に基づく）
 
 | 指標 | 値 |
 |---|---|
@@ -669,7 +720,15 @@ flowchart TB
 
 ### 5.4 価値の測定と Value Report
 
-ロードマップには、各段階の「価値をどう測るか」を書く。ServiceNow Impact では、報告期間の終わりに Impact Squad が **Value Realization Assessment** を行い、報告期間の結果を過去のベースラインと比較して **Value Report** にまとめる（旧名 Business Value Report）。[出典](https://www.servicenow.com/docs/r/eburD2h8Q3uNBPFY28ltRg/geEQOSE82dpIwEJ8AGbwdA)
+ロードマップには、各段階の「価値をどう測るか」を書く。ServiceNow Impact の **Value report（価値レポート）** は、Impact チームが顧客と協力して、ServiceNow で得た運用上または金額換算の価値を算出するものである。Australia 版（2026-03-12 更新）の内容は次のとおりである。[出典](https://www.servicenow.com/docs/r/NYweeRocREicYwhLVBs7lg/WCbdZRD_kNeip3~S0vw_uQ)
+
+- 導入前後の比較を行うため、成功指標のベースラインデータが必要である。
+- 歴史的ベースライン（Historical baseline）: 通常、少なくとも 1 年前に終わった 12 か月間。導入前後を全体で比較する場合は、旧システムを廃止する前に 12 か月分のデータを集めておく。
+- 現在の実績（Current actual results）: 通常、直近 12 か月の実績をベースラインと比較する。
+- 価値の報告: 主要な前提を検証し、改善を金額換算する。Value Realization Assessment（価値実現の評価）の結果として Value report が提供される。
+- 作成・管理は Impact 専用インスタンス（Impact > Value Management > Value reports）で行う。Impact ストアアプリでは公開済みレポートの閲覧のみできる。
+
+> **名称の変遷:** Yokohama の Impact リリースノート（2025-03-24 更新）の「Value Management name changes」で、Business Value Report は Value Report に、Impact Value Journey は Impact Value に改名された。古いドキュメントや契約書には旧名称が残っている場合がある。Brazil の Impact リリースノートには Value 関連の変更は記載されていない（Brazil 行は「No updates for this release」）。[出典](https://www.servicenow.com/docs/r/yokohama/release-notes/impact-rn.html)、[出典](https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-impact-release-notes.html)
 
 未導入製品の価値を試算する **Value Potential Accelerator**（Australia 版、2026-03-12 更新）は、ビジネスケース作成に直接使える。[出典](https://www.servicenow.com/docs/r/NYweeRocREicYwhLVBs7lg/6fBo2_9udUgJb3sxveFVPg)
 
@@ -679,9 +738,9 @@ flowchart TB
 | 対象 | Impact Advanced、Total、Strategic Value Add-on SKU。製品は**既にライセンス済み**であることが条件 |
 | 活動 | 導入セッション（最大 60 分）→ ディスカバリーワークショップ（最大 4 時間。事業課題、目標成果、期待される標準成果、展開予定範囲とデータ、ギャップと前提）→ レビューセッション（最大 60 分、価値モデル案の検証）→ 任意フォローアップ（最大 60 分） |
 | 成果物 | 価値モデル案と資料、最終の価値ポテンシャルレポートと資料、主要成功指標、任意の導入ロードマップ入力 |
-| 必須の顧客リソース | Executive Sponsor、Platform Owner、Process Leads（Reporting Leads は任意）。顧客はデータ提供、前提の検証、コスト情報の提供、最終レポートの承認を行う |
-| 制約 | 1 回あたり最大 3 製品 |
-| 対象外 | 対象アプリケーションの実装・管理、未ライセンスの製品 |
+| 必須の顧客リソース | Application sponsor（アプリケーションスポンサー。組織全体でアプリケーションを推進するエグゼクティブアドボケート）、Platform Owner（プラットフォームオーナー）、Process Leads（プロセスリード。該当プロセスを管理する SME）。Reporting Leads は任意。顧客はデータ提供、前提の検証、コスト情報の提供、最終レポートの承認を行う |
+| 制約 | 1 回あたり 3 製品まで（例外は CSE と Value Strategist に相談できる） |
+| 対象外 | 対象アプリケーションの実装・管理、未ライセンスの製品。ServiceNow の製品進化のペースにより、まだ対象にならない製品もあるため、CSE に適格性を確認する |
 
 > 「購入済みだが未導入」の製品がある顧客には、Value Potential を Impact で実施してもらい、その価値モデルをロードマップの投資根拠に使うと、コンサル側の試算と ServiceNow 側の試算が整合し、社内承認が通りやすい。未ライセンスの製品は対象外なので、新規購入の検討にはコンサル側でビジネスケースを作る必要がある。【経験則】
 
@@ -754,7 +813,11 @@ ServiceNow は設定（Configuration）優先のプラットフォームであ�
 
 ### 6.4 ビジネスケース（ROI）の作り方
 
-ServiceNow ITSM の公開 ROI 調査としては、Forrester の Total Economic Impact（TEI）調査（2017 年、ServiceNow 委託、ITSM・ITOM・Performance Analytics 対象）が知られ、ROI 195%、便益の現在価値 1,730 万ドル、NPV 1,140 万ドル、回収期間 9 か月という数値が示されている。[出典](https://servicenow.com/lpwbr/total-economic-impact-itsm-forrester.html) `【第三者情報】`（ベンダー委託の調査であり、合成モデル企業に基づく。2024〜2025 年の ITSM 版の更新は公開情報では確認できず）
+ServiceNow ITSM の公開 ROI 調査としては、Forrester の Total Economic Impact（TEI）調査（2017 年、ServiceNow 委託、ITSM・ITOM・Performance Analytics 対象）が知られ、ROI 195%、便益の現在価値 1,730 万ドル、NPV 1,140 万ドル、回収期間 9 か月という数値が示されている。[出典](https://servicenow.com/lpwbr/total-economic-impact-itsm-forrester.html)（ServiceNow のランディングページ。機械取得では HTTP 403 になることがあり、数値は 2026-11-02 時点の検索結果の要約で確認） `【第三者情報】`
+
+その後、2019 年 6 月公開とされる Forrester TEI「The Total Economic Impact of ServiceNow IT Applications」（ServiceNow 委託、ITSM・ITOM・ITAM・ITBM を含む IT アプリケーション群が対象）では、ROI 229%、回収期間 7 か月、3 年間で旧ソリューションのコスト 420 万ドルを回避、という数値が紹介されている。[出典](https://www.brighttalk.com/webcast/13097/383931) `【第三者情報】`（Forrester による Web セミナーの紹介文に基づく。レポート本文の要約表は確認できず）
+
+> 2017 年版（ITSM・ITOM・Performance Analytics、ROI 195%）と 2019 年版（IT アプリケーション群、ROI 229%）は対象範囲も合成モデル企業も異なる別の調査である。数値を混ぜて引用しない。いずれもベンダー委託の調査で、合成モデル企業に基づく。2024〜2025 年に ITSM を対象とした更新版が出ているかは公開情報では確認できず。
 
 > 古いベンダー委託調査の ROI をそのまま顧客のビジネスケースに使うのは避ける。顧客自身のベースライン（件数、処理時間、人件費単価）から試算し、外部調査は「参考値」として脚注に置く。【経験則】
 
@@ -794,7 +857,7 @@ NowBen の記事は、前提事項を合意前に明示的なリスクとして�
 **Q1. 導入にどれくらいの期間がかかりますか。**
 
 - ServiceNow は導入期間の公式な標準値を公開していない（公開情報では確認できず）。
-- 第三者の公開値では、OOTB 中心の Basic ITSM で 6〜8 週、承認・SLA・基本 CMDB・標準連携を含む中規模 ITSM で 10〜14 週、ITSM＋CMDB で 12〜16 週という目安がある。`【第三者情報】`
+- 第三者の公開値（Aegis Softtech、2026-10-23）では、OOTB 中心の Basic ITSM で 6〜8 週、承認・SLA・基本 CMDB・標準連携を含む中規模 ITSM で 10〜14 週、ITSM＋CMDB で 12〜16 週という目安がある。[出典](https://www.aegissofttech.com/insights/servicenow-implementation-timeline/) `【第三者情報】`
 - 期間はスコープ、連携数、CMDB の準備状況、プロセス成熟度、意思決定の速さで大きく変わる。
 - 詳細と出典: [導入方法論](../03_導入編/04-implementation-methodology.md) の「期間・工数の目安」
 
@@ -815,8 +878,8 @@ NowBen の記事は、前提事項を合意前に明示的なリスクとして�
 **Q4. 全社員分のライセンスが必要ですか。**
 
 - ITSM では、チケットを処理する **Fulfiller（処理担当者）** が主な課金対象であり、ポータルで依頼を起票し自分の依頼を確認するだけの **Requester（依頼者）** は通常追加課金されないとされる。`【第三者情報】` [出典](https://www.servicenow.com/community/servicenow-ai-platform-forum/are-requestor-not-charged-by-servicenow/m-p/2487515)
-- ただし製品によって異なり、HRSD は全従業員課金（Unrestricted User）、SPM や Legal Service Delivery では Requester も課金対象とされる。必ず製品ごとに契約を確認する。
-- 承認だけを行うユーザーは Business Stakeholder の区分になり得る。
+- ただし製品によって異なり、HRSD は全従業員課金（Unrestricted User）、SPM / APM や Legal Service Delivery では Fulfiller に加えて Requester も課金対象とする解説がある。[出典](https://www.servicenow.com/community/servicenow-ai-platform-articles/about-servicenow-licensing-guide/ta-p/3512215) `【第三者情報】`（Community 記事による。公式ドキュメントでは製品ごとの課金区分は公開されておらず、必ず製品ごとに契約書で確認する）
+- 承認だけを行うユーザーは Business Stakeholder の区分になり得る。現行の公式メーターに Approver という名称は無く、Business Stakeholder User メーターに統合されているとされる。[出典](https://redresscompliance.com/servicenow-license-types-2026)、[出典](https://www.cloudnuro.ai/blog/understanding-servicenow-licensing-a-comprehensive-guide) `【第三者情報】` なお、Fulfiller より権限の少ないユーザーを Business Stakeholder User メーターで追跡すること自体は公式ドキュメントに記載がある。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/subscription-details-v2.html)
 - 詳細: [ライセンスモデル](../03_導入編/01-licensing-model.md)
 
 **Q5. 価格はいくらですか。**
@@ -828,7 +891,8 @@ NowBen の記事は、前提事項を合意前に明示的なリスクとして�
 **Q6. AI（Now Assist）を使うと追加費用がかかりますか。**
 
 - 2026 年のパッケージ刷新では、最下位ティアでも AI を利用可能にし、定額サブスクリプションに従量課金を組み合わせる方針と報じられている。[出典](https://cloud.watch.impress.co.jp/docs/news/2104011.html) `【第三者情報】`
-- Now Assist は Assist（アシスト）単位の消費型で、ティアごとに付与量が異なるとされる。付与量を超える利用の扱いは契約で確認する。
+- Now Assist の利用は Assist（アシスト）単位で計測される。Assist の購入数・使用数・残量は Subscription Management の Now Assist usage 画面で確認できる（公式）。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/monitoring-now-assist-usage.html)
+- 2026 年 4 月のパッケージでは、ITSM の各ティアに Now Assist が同梱され、ティアごとに Assist の割当量が異なるとされる。[出典](https://www.servicenow.com/community/itsm-articles/itsm-licensing-in-april-2026-foundation-advanced-and-prime-in/ta-p/3544380) `【第三者情報】`（Community 記事。著者は Bill Martin、Community ランクは Tera Sage（MVP）、2026-05-28 公開。具体的な割当量は記載なし）割当量を超える利用の扱いは契約で確認する。
 - 詳細: [ライセンスモデル](../03_導入編/01-licensing-model.md)、[Now Assist と AI Agents](../02_リファレンス/platform/now-assist-ai-agents.md)、[Now Assist / AI Agents 導入の知見](./10-ai-adoption-lessons.md)
 
 ### 7.3 アップグレード・運用に関する質問
@@ -957,25 +1021,34 @@ OOTB との関係: OOTB で実現 / 設定で実現 / カスタマイズ（理�
 - ITSM Maturity Assessment（Australia）: https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/8fO6gIiOYt9oofvSN3tu0A
 - ITSM Maturity Assessment（Yokohama）: https://www.servicenow.com/docs/r/VD5jAD3VgRc~i0AwgqwfEQ/OtrXK8Fl8tRfUetfDjwkEg
 - ITOM Maturity Assessment（Australia）: https://www.servicenow.com/docs/r/tJa9Em2DAbijpCjxYUU3Pw/owLPvyPC5crPYR6oOrc8Cw
+- Health Assessment（Australia）: https://www.servicenow.com/docs/r/australia/impact/accelerator-and-initiative-list/health-assessment.html
 - Health Assessment（Brazil）: https://www.servicenow.com/docs/r/impact/accelerator-and-initiative-list/health-assessment.html
-- Instance health score calculation（Brazil）: https://www.servicenow.com/docs/r/impact/instance-health-score-calculation.html
+- Instance health score calculation（Brazil。Australia 版は確認できず）: https://www.servicenow.com/docs/r/impact/instance-health-score-calculation.html
 - Scan Engine overview: https://www.servicenow.com/docs/r/impact/scan-engine-overview.html
+- Exploring Instance Scan（Zurich、2026-07-03 更新）: https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/UYKQ5DxOadDGtt~FveHndA
+- Exploring Instance Scan（Yokohama、2026-07-03 更新）: https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/ziDko6iXFc8zzvGEVXg2UA
+- Impact Packages（Australia、2026-07-07 更新）: https://www.servicenow.com/docs/r/australia/impact/impact-packages1.html
 - Impact Packages（Brazil）: https://www.servicenow.com/docs/r/impact/impact-packages1.html
 - Strategy Governance（Australia）: https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/XIskqsHxMVp2Ge5eKDngSA
 - Stakeholder Path to Value（Zurich）: https://www.servicenow.com/docs/r/zurich/impact/accelerator-and-initiative-list/stakeholder-path-to-value.html
 - Value Potential（Australia）: https://www.servicenow.com/docs/r/NYweeRocREicYwhLVBs7lg/6fBo2_9udUgJb3sxveFVPg
-- Business value reports / Value Report: https://www.servicenow.com/docs/r/eburD2h8Q3uNBPFY28ltRg/geEQOSE82dpIwEJ8AGbwdA
+- Value reports（Australia、2026-03-12 更新）: https://www.servicenow.com/docs/r/NYweeRocREicYwhLVBs7lg/WCbdZRD_kNeip3~S0vw_uQ
+- Impact release notes（Yokohama、Value Management name changes、2025-03-24 更新）: https://www.servicenow.com/docs/r/yokohama/release-notes/impact-rn.html
+- Combined Impact release notes（Yokohama → Brazil）: https://www.servicenow.com/docs/r/delta-yokohama-brazil/brazil-yokohama-impact-release-notes.html
 - Jumpstart Your ServiceNow AI Journey（Brazil）: https://www.servicenow.com/docs/r/impact/accelerator-and-initiative-list/jumpstart-snow-ai-journey.html
+- Exploring Benchmarks（Australia）: https://www.servicenow.com/docs/r/australia/it-service-management/benchmarks/exploring-benchmarks.html
 - Exploring Benchmarks（Brazil）: https://www.servicenow.com/docs/r/it-service-management/benchmarks/exploring-benchmarks.html
 - Process Mining – Integration with Benchmarks: https://www.servicenow.com/docs/r/now-intelligence/process-mining/integration-itsm.html
 - Implementing the CSDM framework in stages（Zurich）: https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/uvfOC73Q0jOZzQLwDDJIrg
-- CMDB Health KPIs and metrics: https://www.servicenow.com/docs/r/GCPjp~ldPTNRN99oH1DYFg/LJdK4ZKD0ozmnz0eLhmUog
+- CMDB Health KPIs and metrics（Xanadu、2024-08-01 更新）: https://www.servicenow.com/docs/r/GCPjp~ldPTNRN99oH1DYFg/LJdK4ZKD0ozmnz0eLhmUog
 - Continual Improvement Management roles: https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/VSrZSYTVhywmKSfJzHJlKA
+- Subscription details（Australia、ユーザー区分とメーター）: https://www.servicenow.com/docs/r/australia/platform-administration/subscription-details-v2.html
+- Monitoring Now Assist usage（Australia）: https://www.servicenow.com/docs/r/australia/platform-administration/monitoring-now-assist-usage.html
 
 ### ServiceNow 公式サイト（調査・マーケティング資料）
 
 - Enterprise AI Maturity Index 2025: https://www.servicenow.com/uk/workflow/ai/enterprise-ai-maturity-index-2025.html
-- Forrester Total Economic Impact of ServiceNow ITSM: https://servicenow.com/lpwbr/total-economic-impact-itsm-forrester.html
+- Forrester Total Economic Impact of ServiceNow ITSM（2017 年版。機械取得では 403 の場合あり）: https://servicenow.com/lpwbr/total-economic-impact-itsm-forrester.html
 
 ### ServiceNow Community
 
@@ -984,8 +1057,10 @@ OOTB との関係: OOTB で実現 / 設定で実現 / カスタマイズ（理�
 - CSDM Is Not a Project You Finish. It's a Direction You Commit To.（2026-03-12）: https://www.servicenow.com/community/developer-blog/achieving-csdm-maturity-moving-from-crawl-to-fly/ba-p/3506920
 - What is Best Practices? Does it replace Now Create?（2025-04-01、2026-01 更新）: https://www.servicenow.com/community/grc-blog/what-is-best-practices-does-it-replace-now-create/ba-p/3224712
 - Request for best practices: discovery workshops for Incident（2025-07-18）: https://www.servicenow.com/community/product-launch-forum/request-for-best-practices-discovery-workshops-for-incident/m-p/3326001
-- ITSM licensing in April 2026: Foundation, Advanced and Prime: https://www.servicenow.com/community/itsm-articles/itsm-licensing-in-april-2026-foundation-advanced-and-prime-in/ta-p/3544380
+- ITSM licensing in April 2026: Foundation, Advanced and Prime（2026-05-28）: https://www.servicenow.com/community/itsm-articles/itsm-licensing-in-april-2026-foundation-advanced-and-prime-in/ta-p/3544380
 - Are requestor not charged by ServiceNow: https://www.servicenow.com/community/servicenow-ai-platform-forum/are-requestor-not-charged-by-servicenow/m-p/2487515
+- About ServiceNow licensing guide: https://www.servicenow.com/community/servicenow-ai-platform-articles/about-servicenow-licensing-guide/ta-p/3512215
+- Need to Build a CMDB for my project: https://www.servicenow.com/community/cmdb-forum/need-to-build-a-cmdb-for-my-project/m-p/3371026
 - N-1 / N-2 サポート（Washington DC "nearing" status）: https://www.servicenow.com/community/product-launch-forum/i-am-on-washington-dc-why-am-i-getting-status-of-quot-nearing/m-p/3112765
 - Data backup for my ServiceNow instances（2023-12-26）: https://www.servicenow.com/community/platform-privacy-security-blog/data-backup-for-my-servicenow-instances/ba-p/2772922
 
@@ -994,6 +1069,11 @@ OOTB との関係: OOTB で実現 / 設定で実現 / カスタマイズ（理�
 - NowBen: How Scope Creep Is Destroying Your ServiceNow Implementation（2026-06-26）: https://nowben.com/how-scope-creep-is-destroying-your-servicenow-implementation/
 - ITmedia @IT（2018-10、日本データセンター）: https://atmarkit.itmedia.co.jp/ait/articles/1810/19/news068.html
 - クラウド Watch（2026-04、ServiceNow Japan 事業戦略）: https://cloud.watch.impress.co.jp/docs/news/2104011.html
+- Oxford Economics: Impact AI series（Enterprise AI Maturity Index 2025、2025-05-02）: https://www.oxfordeconomics.com/resource/impact-ai-series/
+- BrightTALK: The Total Economic Impact of ServiceNow IT Applications with Forrester: https://www.brighttalk.com/webcast/13097/383931
+- Aegis Softtech: ServiceNow implementation timeline（2026-10-23）: https://www.aegissofttech.com/insights/servicenow-implementation-timeline/
+- Redress Compliance: ServiceNow license types 2026: https://redresscompliance.com/servicenow-license-types-2026
+- CloudNuro: Understanding ServiceNow licensing: https://www.cloudnuro.ai/blog/understanding-servicenow-licensing-a-comprehensive-guide
 
 ### 画像
 

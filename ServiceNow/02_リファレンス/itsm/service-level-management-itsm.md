@@ -25,7 +25,7 @@ sources:
   - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/s5awpLFxzWNQtkPXNs8Y5Q
   - https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/Z7VP0Or6kejzjAxhIxQJfw
   - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/g8yof6L6ysqPuFFJGuGUAA
-  - https://www.servicenow.com/docs/r/UMl~97STJe3fa_KTmzD1Gg/Ka~KPDT6bcDEqIAOlNcMnQ
+  - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/gcsF3AOHGwzVYEMicoGQ7w
   - https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/lkDwbbPUbtlEHUtmFwQe5A
   - https://www.servicenow.com/docs/r/Recj91eIo1YnsOabQjgskg/l5h6hecevY1jaYyzlZIP_A
   - https://www.servicenow.com/docs/r/Recj91eIo1YnsOabQjgskg/Xk7DoGpSadWg_c8eucM_kA
@@ -37,6 +37,23 @@ sources:
   - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-serviceportfoliomanagement-release-notes.html
   - https://www.servicenow.com/community/spm-blog/all-about-digital-portfolio-management/ba-p/2422251
   - https://www.servicenow.com/community/itsm-articles/digital-portfolio-management-faqs/ta-p/2899678
+  - https://www.servicenow.com/docs/r/Recj91eIo1YnsOabQjgskg/LLIj4u2ge1XPwn2S85mlOQ
+  - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/3EZKo85zdvW0nDuq7qEAOQ
+  - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/Om2dlufOxp0d8XuyJSs8jg
+  - https://www.servicenow.com/docs/r/MlbQAgTiiiMOLOw9T36wJg/FDvtDhgouv1YB1R62TAfnw
+  - https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/YO9~nS73A2CUXGgC7Mjz6g
+  - https://www.servicenow.com/docs/r/australia/servicenow-platform/common-service-data-model-csdm/foundation-domain.html
+  - https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/create-an-incident.html
+  - https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/problem-form.html
+  - https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/pm-use-case-product-view.html
+  - https://www.servicenow.com/community/itsm-articles/how-to-configure-incident-management-to-align-with-csdm-a/ta-p/2340041
+  - https://www.servicenow.com/community/itsm-forum/how-sla-results-are-recorded/m-p/3550853
+  - https://www.servicenow.com/community/common-service-data-model-forum/service-commitment-sla-results-not-populating-correctly/m-p/3409019
+  - https://www.servicenow.com/community/common-service-data-model-forum/subscribe-to-service-offering/m-p/339230
+  - https://www.servicenow.com/community/itsm-articles/managing-outages-within-a-service-management-environment/ta-p/2751849
+  - https://www.servicenow.com/community/cmdb-articles/csdm-4-0-vs-csdm-5-0/ta-p/3400542
+  - https://www.servicenow.com/community/common-service-data-model-forum/top-features-of-csdm-5-what-you-need-to-know/m-p/3294791
+  - https://guidevision.eu/insights/service-level-management-part-2-2
 ---
 
 # ITSMにおけるサービスレベル管理とサービスポートフォリオ
@@ -123,7 +140,7 @@ flowchart TB
 ```
 
 - 図中の `service_commitment` と `service_offering_commitment` の関係は 5.1 を参照。
-- `service_sla_result` は公式ドキュメントでテーブル名が明記されておらず、Community 情報に基づく（5.6 参照）。`cmdb_ci_outage` も Community 情報に基づく（5.4 参照）。
+- `service_sla_result` は公式ドキュメントでテーブル名が明記されておらず、Community 情報に基づく（5.6 参照）。`cmdb_ci_outage`（Outage）は Australia 公式ドキュメント（Task-Outage Relationship プラグイン）に記載がある（5.4 参照）。
 
 ---
 
@@ -147,7 +164,7 @@ Australia の「Installed with Service Portfolio Management」に記載された
 | CSDM Activation | `com.snc.cmdb.csdm.activation` | CSDM のライフサイクル項目（Life cycle stage / status）を使う場合に必要 | [出典](https://www.servicenow.com/docs/r/MlbQAgTiiiMOLOw9T36wJg/c2lHegE0bXtcpy2WSy_nog) |
 | Financial Management for SPM / SPM Estimated Spend | `com.snc.financial_management_for_spm` / `com.snc.spm.spend` | オファリングのコスト・推定支出（Service Builder の Financials タブ任意項目）。ITSM Pro SKU が必要と記載 | [出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/s5awpLFxzWNQtkPXNs8Y5Q) |
 | Service Portfolio Management Premium | `com.snc.spm` | 非推奨の Service Owner Workspace を駆動（パフォーマンススコア等） | [出典](https://www.servicenow.com/docs/r/Recj91eIo1YnsOabQjgskg/l5h6hecevY1jaYyzlZIP_A) |
-| Digital Portfolio Management | `sn_dpm`（スコープ） | DPM ワークスペース（ServiceNow Store アプリ） | [出典](https://www.servicenow.com/docs/r/UMl~97STJe3fa_KTmzD1Gg/Ka~KPDT6bcDEqIAOlNcMnQ) |
+| Digital Portfolio Management | `sn_dpm`（スコープ） | DPM ワークスペース（ServiceNow Store アプリ） | [出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/gcsF3AOHGwzVYEMicoGQ7w) |
 
 **プラグイン ID 表記の揺れ:** Xanadu→Australia および Zurich→Brazil の統合リリースノートでは、冒頭の AI 生成要約に `com.snc.serviceportfoliocore` と記載され、本文のアクティベーション表には `com.snc.service_portfolio_core` と記載されている。Installed with ページの表記である `com.snc.service_portfolio_core` を正とする。[出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/pDR4~n4iSYAMrf_1MLRd4g) [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-serviceportfoliomanagement-release-notes.html)
 
@@ -256,7 +273,7 @@ Australia の Installed with ページに記載されたテーブルは次のと
 | All > Service Portfolio Management > Service Builder | Service Builder（アプリケーションルートは `now/builder`） | [出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/s5awpLFxzWNQtkPXNs8Y5Q) |
 | Service Portfolio Management > Migration Dashboard | レガシー構造からの移行状況（Xanadu 版の記載） | [出典](https://www.servicenow.com/docs/r/Recj91eIo1YnsOabQjgskg/46c1DuwMFrwtHKHMvbqFeg) |
 | All > Service Level Management > SLA > SLA Definitions | SLA Definition（`contract_sla`） | [出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/VjdZWS94BLQajtyl5XK5jg) |
-| All > Digital Portfolio Management > DPM Admin Center | DPM の管理設定 | 【第三者情報】Community 投稿に基づく（7.3 参照） |
+| All > Digital Portfolio Management > DPM Admin Center | DPM の管理設定（`sn_dpm.dpm_admin` が必要。Zurich 版ドキュメントの記載） | [出典](https://www.servicenow.com/docs/r/MlbQAgTiiiMOLOw9T36wJg/FDvtDhgouv1YB1R62TAfnw) |
 
 SLA Results のメニューは公式ページ上で区切り記号なしに記載されており、上記の階層表記は推定を含む。
 
@@ -283,7 +300,7 @@ Yokohama で、サービスポートフォリオの編集・管理に次の機�
 | 再親付け（Reparent） | ノードをポートフォリオ内の新しい位置に移動 |
 | ノードの挿入 | 2 つのノードの間、またはノードとサービスの間に新しいノードを挿入 |
 
-Zurich では、DORA（EU デジタル運用レジリエンス法）対応として、サービスポートフォリオのレコードビューに Managed by、Department、Company フィールドが追加され、Contracts フィールドで複数契約を選択できるようになった。また Digital Portfolio Management（DPM）スコープからサービスポートフォリオやタクソノミーノードを削除できるようになった。[出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/pDR4~n4iSYAMrf_1MLRd4g)
+Zurich では、DORA（EU デジタル運用レジリエンス法）対応として、サービスポートフォリオのレコードビューに Managed by、Department、Company フィールドが追加され、Contracts フィールドで複数契約を選択できるようになった。また、サービスポートフォリオやタクソノミーノードを Digital Portfolio Management（DPM）の対象範囲から除外できるようになった（原文 "remove ... from the DPM scope"。レコード自体の削除ではない）。[出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/pDR4~n4iSYAMrf_1MLRd4g)
 
 ### 3.3 レガシー構造からの移行（Migration Dashboard）
 
@@ -328,7 +345,7 @@ Australia の CSDM 用語集による定義は次のとおり。[出典](https:/
 | Australia「Service offerings in SPM」 | Australia 以降、`cmdb_ci_service_technical` は Technology Management Service、`service_offering` は Technology Management Service Offering とラベル付け [出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/Epxu5PTcYV0VoUT_Nxkraw) |
 | Australia「Use SPM services」 | `service_offering` のラベルは Service Offering、`cmdb_ci_service_technical` は Technology Management Service（Australia 以降、CSDM 5 整合） [出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/SCsUS3iPlZ40ZeOkeNQvag) |
 
-> **ドキュメント間の差異:** ラベル変更の導入リリースは Yokohama / Zurich / Australia と情報源ごとに異なる。また `service_offering` 自体のラベルが変わったかについても記載が割れている。`service_offering` は Business と Technical の両方のオファリングを格納するため、「Technology Management Service Offering」は Service classification = Technical Service のオファリングを指す呼称と理解するのが整合的である。【推定】 実際の表示ラベルはインスタンスの Dictionary（`sys_db_object`）で確認すること。
+> **ドキュメント間の差異:** ラベル変更の導入リリースは Yokohama / Zurich / Australia と情報源ごとに異なる。また `service_offering` 自体のラベルが変わったかについても記載が割れている。`service_offering` は Business と Technical の両方のオファリングを格納するため、「Technology Management Service Offering」は Service classification = Technical Service のオファリングを指す呼称と理解するのが整合的である。【推定】 実際の表示ラベルはインスタンスの System Definition > Tables（`sys_db_object`）の Label で確認すること。
 
 ### 4.3 サービスフォーム（Service）
 
@@ -404,7 +421,7 @@ Australia の CSDM 用語集による定義は次のとおり。[出典](https:/
 
 **関連リスト:** Service Commitments、Service Offerings I Depend On、Service Offerings Dependent On Me、Outages、Incidents、Problems、Change Requests、Other Tasks、Knowledge Articles、Catalog Items、Subscribed by Group / Location / Department / User / Company、Performance Metrics、Improvement Initiatives。
 
-> **ドキュメント間の差異:** Consumer type の選択肢は、オファリングフォームのページでは Internal / External の 2 つ、サービスフォームと Service Builder では Internal / External / Internal and External の 3 つと記載されている。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/goZ_avjpLRSNafB97vdNLg) [出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/s5awpLFxzWNQtkPXNs8Y5Q)
+> **ドキュメント間の差異:** Consumer type の選択肢は、オファリングフォームのページでは Internal / External の 2 つ、サービスフォームと Service Builder では Internal / External / Internal and External の 3 つと記載されている。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/goZ_avjpLRSNafB97vdNLg) [出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/s5awpLFxzWNQtkPXNs8Y5Q) ただし Service Builder 3.5.0（2025-05）の Store リリースノートは、オファリングの consumer フィールドに「internal and external」の選択肢が表示される不具合を修正した（PRB1844774）としており、オファリングの選択肢は Internal / External の 2 つが正しいとみられる。【推定】 [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/Z7VP0Or6kejzjAxhIxQJfw)
 
 ### 4.5 継承・価格・再親付けのルール
 
@@ -483,7 +500,7 @@ Service Commitment は、オファリングの可用性保証、範囲、価格�
 
 | 種別 | 動作 |
 |---|---|
-| Availability / Maintenance window | システム処理に使う。Schedule フィールドが必須になる。オファリングの停止（Outage）に基づいて可用性レコードを作成し、ダウンタイムと可用性の追跡を開始する |
+| Availability / Maintenance window | システム処理に使う。Maintenance window を選んだ場合に Schedule フィールドが必須になる（Availability では必須ではない）。オファリングの停止（Outage）に基づいて可用性レコードを作成し、ダウンタイムと可用性の追跡を開始する |
 | Response time / Delivery / Other | サービスカタログに情報を表示するだけで、追加機能やホームページのゲージはない |
 | Recovery time objective（RTO） | 復旧ポイントからシステムを復旧するまでの時間の保証。Time value フィールドで設定（ベンダーチケットレコードで使用） |
 | Recovery point objective（RPO） | バックアップ頻度の保証。Time value フィールドで設定（ベンダーチケットレコードで使用） |
@@ -519,11 +536,11 @@ Service Commitment は、オファリングの可用性保証、範囲、価格�
 | Committed uptime（約束稼働時間） | 期間終了 − 期間開始 |
 | Acceptable downtime（許容ダウンタイム） | スケジュール期間の長さ × コミットメント率 |
 | Total downtime（総ダウンタイム） | 停止終了 − 停止開始（壁時計時間。スケジュールを無視） |
-| Total availability %（総可用性率） | （利用可能稼働時間 − 総ダウンタイム）÷ 利用可能稼働時間 |
+| Total availability %（総可用性率） | （Available uptime（利用可能稼働時間）− 総ダウンタイム）÷ Available uptime。スケジュールに依存しない期間全体の可用性率。Available uptime の定義は公式ページに記載がなく、公開情報では確認できず |
 | Commitment downtime（コミットメントダウンタイム） | スケジュールされた稼働時間内の停止時間 |
 | Commitment availability %（コミットメント可用性率） | （Committed uptime − Commitment downtime）÷ Committed uptime |
 | Met commitment（達成） | コミットメント可用性率がサービスコミットメントを上回れば true |
-| MTBF（平均故障間隔） | 期間内の総稼働時間 ÷ コミットメント停止回数 |
+| MTBF（平均故障間隔） | 期間内の総稼働時間（Total uptime）÷ コミットメント停止回数。総稼働時間 = Committed uptime − Commitment downtime（公式ページの表記は "Committed downtime"） |
 | MTRS（平均サービス復旧時間） | コミットメントダウンタイム ÷ コミットメント停止回数 |
 
 その他の表示項目：Display name、Service offering、Service commitment、Start、End、Total outages、Commitment outages。
@@ -556,7 +573,8 @@ Service Commitment は、オファリングの可用性保証、範囲、価格�
 
 Service Portfolio Management では、停止（Outage）はコミットメントの可用性を減じるイベントとして記録される。Service editor は停止を記録できる。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/uEH8ytf_0VcMhfySZ7dSsw) オファリングフォームには Outages 関連リストがある。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/goZ_avjpLRSNafB97vdNLg)
 
-- 停止レコードのテーブルは `cmdb_ci_outage`、種別（Type）は Outage / Degradation / Planned Outage とされる。タスクとの対応は Task Outage（`task_outage`）テーブルで管理される。【第三者情報】 [出典](https://www.servicenow.com/community/itsm-articles/managing-outages-within-a-service-management-environment/ta-p/2751849)
+- 停止レコードのテーブルは Outage（`cmdb_ci_outage`）である。Task-Outage Relationship プラグイン（`com.snc.task_outage`）を有効化すると、Task（`task`）と Outage（`cmdb_ci_outage`）の多対多の関係を管理する Task Outage テーブル（`task_outage`）がインストールされ、Incident・Problem・Change フォームに Outages 関連リストと Create Outage アクションが追加される。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/3EZKo85zdvW0nDuq7qEAOQ) [出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/Om2dlufOxp0d8XuyJSs8jg)
+- 停止の種別（Type）の選択肢は Outage / Degradation / Planned Outage とされる（Australia 公式の「Create an outage from a task」は「Type of the outage」とのみ記載し、選択肢は列挙していない）。【第三者情報】 [出典](https://www.servicenow.com/community/itsm-articles/managing-outages-within-a-service-management-environment/ta-p/2751849)
 - Degradation（劣化）の停止が可用性計算にどう反映されるかは、公開情報では確認できず。
 - インシデントからの停止作成など Incident 側の操作は [Incident Management](incident-management.md) を参照。
 
@@ -570,14 +588,17 @@ ITSM のチケット（Incident、Request 等）の SLA は、SLA Definition（`
 
 **SLA の定義場所:** サービスオファリングは SLA を定義し、メトリクスを収集する場所とされている。関連アプリケーションの Service Level Management（SLM）が SLA の定義と結果を扱う。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/Epxu5PTcYV0VoUT_Nxkraw)
 
-**オファリングと SLA を結び付ける典型的な構成**
+**オファリングと SLA を結び付ける構成例**
+
+以下の図は、公式ドキュメント（SLA Definition の Service Commitment 項目、SLA Results ページ）と、パートナー記事・Community 情報をもとに構成した例である。【推定】 SLA Definition の Start condition に Service offering を入れる部分は設計判断の一例であり、公式の既定構成ではない。SLA Result は Task SLA ごとではなく、オファリングとコミットメントの単位で日次ジョブが集計する（5.6 参照）。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/VjdZWS94BLQajtyl5XK5jg) [出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/00UyqDvl67_Al9IpP8upQA) [出典](https://guidevision.eu/insights/service-level-management-part-2-2)
 
 ```mermaid
 flowchart LR
     SO["Service Offering<br/>(例: Email - Gold)"] --> SC["Service Commitment<br/>Type = SLA"]
     SC --> SLAD["SLA Definition<br/>contract_sla<br/>Service Commitment = true"]
-    SLAD -- "Start condition に<br/>Service offering = Email - Gold" --> TSLA["Task SLA<br/>task_sla"]
-    TSLA --> RES["SLA Result<br/>(日次集計)"]
+    SLAD -- "(設計例) Start condition に<br/>Service offering = Email - Gold" --> TSLA["Task SLA<br/>task_sla"]
+    SC -- "日次ジョブで集計<br/>(オファリング×コミットメント単位)" --> RES["SLA Result"]
+    TSLA -. "集計の入力" .-> RES
 ```
 
 - コミットメント（Type = SLA）を作成して SLA Definition を選び、SLA コミットメントのレコードで要求達成率と違反時のペナルティを定義する、という構成手順がパートナー記事で紹介されている。【第三者情報】 [出典](https://guidevision.eu/insights/service-level-management-part-2-2)
@@ -665,7 +686,7 @@ Service Builder は、ビジネスサービスと Technology Management Service�
 
 | タブ | 主な項目 |
 |---|---|
-| Details | Offering name、Consumer type（Internal / External / Internal and External）、Business criticality、Lifecycle status（CSDM またはレガシー Phase/Status）、Description、Prerequisites |
+| Details | Offering name、Consumer type（ドキュメント記載は Internal / External / Internal and External。ただし 3.5.0 で「internal and external」が表示される不具合が修正されており、実際は Internal / External の 2 つとみられる【推定】。4.4 の注記参照）、Business criticality、Lifecycle status（CSDM またはレガシー Phase/Status）、Description、Prerequisites |
 | Team | Owned by（`service_author`）、Managed by、Delegate（`service_editor`）、Delivery manager、Support group（通常 L2）、Change group、Vendor、Department、Company、Stakeholders |
 | Operations | Selected groups / departments / locations / users / companies（サブスクライバー）、Selected commitments（SLA や可用性コミットメント）、Service level requirements、Active contract、Additional contracts、Selected catalog items、Offerings I depend on、Service instance I depend on（ビジネスサービスのみ） |
 | Financials | Price model（Per unit / Fixed）、Price unit（Per unit のみ）、Price（Fixed のみ、通貨記号付き）、Unit description（Per unit のみ） |
@@ -674,7 +695,7 @@ Service Builder は、ビジネスサービスと Technology Management Service�
 
 **公開と承認:** 公開版は、ドラフトが新しい公開版になるまで有効なまま残る。管理者は標準の承認フローを有効化でき、Workflow Studio のサブフローでカスタマイズできる。サービスは承認に向けていくつかの状態を遷移する。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/qug~MeYO8P4ze3SZeDwSVQ)
 
-**Service Builder のバージョン履歴（Store リリースノート）** [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/Z7VP0Or6kejzjAxhIxQJfw)
+**Service Builder の主なバージョン履歴（Store リリースノートから抜粋）** [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/Z7VP0Or6kejzjAxhIxQJfw)
 
 | バージョン（時期） | 主な変更 |
 |---|---|
@@ -688,7 +709,8 @@ Service Builder は、ビジネスサービスと Technology Management Service�
 | 3.5.0（2025-05） | DORA 対応で Managed by、Department、Company を各フローに追加 |
 | 202507.0.0（2025-08） | Application service → Service instance に名称変更。運用ステータスの移動を制限していた旧ライフサイクル業務ルールを削除 |
 | 202601.0.0（2026-01） | バージョン番号体系の変更 |
-| 202607.0.0 / 202609.0.2（2026-09、Zurich+） | セキュリティ強化（最新掲載版は 202609.0.2） |
+| 202607.0.0 / 202609.0.2（2026-07〜09、Zurich+） | セキュリティ強化 |
+| 202609.1.0（2026-11、Zurich+） | 不具合修正のみ（2026-11 時点の最新掲載版） |
 
 ### 7.2 Service Owner Workspace（非推奨）
 
@@ -697,7 +719,7 @@ Service Owner Workspace は、Service Portfolio Management Premium プラグイ�
 **非推奨の状況**
 
 - San Diego リリースの時点で **planned deprecation（計画的非推奨）** となっている。新規顧客は Service Owner Workspace を見つけることも有効化することもできず、既存顧客は引き続きサポートされる（Xanadu 版ドキュメントの記載）。[出典](https://www.servicenow.com/docs/r/Recj91eIo1YnsOabQjgskg/l5h6hecevY1jaYyzlZIP_A)
-- 新しい標準ポートフォリオ構造を採用する顧客の移行先として Digital Portfolio Management が案内され、非推奨プロセスは KB0867184 で説明されている（Washington DC 版ドキュメントの記載を検索結果で確認。KB 本文は未確認）。
+- 既存顧客のうち新しい標準ポートフォリオ構造（standard portfolio structure）を採用する顧客は Digital Portfolio Management（DPM）を導入する必要がある（"customers who opt in for the new standard portfolio structure must implement Digital Portfolio Management (DPM)"）。非推奨化の手順は「Deprecation Process [KB0867184]」を参照するよう記載されている（Xanadu 版 Service Owner Workspace ページの記載。KB0867184 は特定製品向けではない一般的な非推奨プロセスの記事とみられ、本文は公開情報では確認できず）。[出典](https://www.servicenow.com/docs/r/Recj91eIo1YnsOabQjgskg/LLIj4u2ge1XPwn2S85mlOQ)
 - Australia の SPM ドキュメントでは、Performance score と CSAT score のフィールドは「非推奨の Service Owner Workspace プラグインがある場合のみ表示」と記載されている。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/goZ_avjpLRSNafB97vdNLg)
 - Australia 版の Service Owner Workspace 専用ドキュメントは、公開情報では確認できず。
 
@@ -744,17 +766,17 @@ Digital Portfolio Management は、DPM Workspace で自分が所有または関�
 - **図の説明:** 横軸に Plan、Build、Deliver & Run、Retire の 4 フェーズが縦線で区切られている。上部の「Digital Portfolio Capabilities」として Service Management、Project Management、Application Management の 3 本の緑色の矢印が全フェーズを横断する。下部の「Supporting Capabilities」として、Incident Management と Request Management が Deliver & Run フェーズのみ、Change Management が Build 以降、Continual Improvement Management、Resource & Financial Management、& More が全フェーズにわたる灰色の矢印で示される。最下段に Capability Management の水色の帯が全体を支える。
 - **出典:** [All about Digital Portfolio Management（ServiceNow Community SPM Blog, 2022-12-20）](https://www.servicenow.com/community/spm-blog/all-about-digital-portfolio-management/ba-p/2422251)（取得日：2026-11-03）
 
-**ロール** [出典](https://www.servicenow.com/docs/r/UMl~97STJe3fa_KTmzD1Gg/Ka~KPDT6bcDEqIAOlNcMnQ)
+**ロール** [出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/gcsF3AOHGwzVYEMicoGQ7w)
 
 | ロール | 説明 | 含むロール |
 |---|---|---|
-| `sn_dpm.dpm_admin`（DPM Administrator） | DPM Workspace の設定。DPM システムプロパティと管理ページの参照・更新、全個人ポートフォリオの CRUD、DPM Manager ロールのグループ付与、KPI グループの作成・更新・削除・マッピング。**サービスポートフォリオの CRUD には別途 SPM の管理系ロールが必要** | `sn_dpm.dpm_manager`、`sn_ep.enterprise_portfolio_admin`（Enterprise Portfolio プラグイン導入時のみ） |
-| `sn_dpm.dpm_manager`（DPM Manager） | DPM Workspace のエンドユーザー。自分が作成した個人ポートフォリオのみ CRUD、エディター/ビューアーとして共有されたポートフォリオの更新/参照、DPM データの参照、デマンドと CIM 項目の作成、ロードマップ更新、KPI 参照。**サービス、オファリング、Business application、Service instance とその関係は編集できず、Service Builder でのサービス作成・編集もできない** | `sn_devops.viewer`、`cmdb_read`、`sn_team_perf.team_performance_user`、`service_viewer`、`sn_ep.enterprise_portfolio_viewer` |
+| `sn_dpm.dpm_admin`（DPM admin） | DPM Workspace の設定。DPM システムプロパティと管理ページの参照・更新、全個人ポートフォリオの CRUD、DPM Manager ロールのグループ付与、KPI グループの作成・更新・削除・マッピング。**サービスポートフォリオの CRUD には別途 SPM の管理系ロールが必要** | `sn_dpm.dpm_manager`、`sn_ep.enterprise_portfolio_admin`（Enterprise Portfolio プラグイン導入時のみ） |
+| `sn_dpm.dpm_manager`（DPM manager） | DPM Workspace のエンドユーザー。自分が作成した個人ポートフォリオのみ CRUD、エディター/ビューアーとして共有されたポートフォリオの更新/参照、DPM データの参照、デマンドと CIM 項目の作成、ロードマップ更新、KPI 参照。**サービス、オファリング、Business application、Service instance とその関係は編集できず、Service Builder でのサービス作成・編集もできない** | `sn_devops.viewer`、`cmdb_read`、`sn_team_perf.team_performance_user`、`service_viewer`、`sn_ep.enterprise_portfolio_viewer` |
 
 - Service Builder でサービスとオファリングを DPM から編集するには `service_editor` が必要（DPM 3.1.3 で `dpm_manager` から編集権限が分離された）。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/lkDwbbPUbtlEHUtmFwQe5A)
 - DPM 7.5.0 / 7.6.2（2026-07、Zurich+）で、`sn_dpm.dpm_manager` から 700 を超える直接の read ACL が削除された。新規・既存インストールとも影響を受け、必要なテーブルへのアクセスは管理者がロール、サブロール、またはユーザーへの直接付与で再設定する必要がある。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/lkDwbbPUbtlEHUtmFwQe5A)
 
-**テーブル** [出典](https://www.servicenow.com/docs/r/UMl~97STJe3fa_KTmzD1Gg/Ka~KPDT6bcDEqIAOlNcMnQ)
+**テーブル** [出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/gcsF3AOHGwzVYEMicoGQ7w)
 
 | テーブル | 説明 |
 |---|---|
@@ -778,7 +800,8 @@ Digital Portfolio Management は、DPM Workspace で自分が所有または関�
 | 7.2.0（2025-08） | CSDM 命名に合わせ Application Service → Service Instance |
 | 7.3.2（2025-12） | `spm_premium` プラグインへのハード依存を削除。DPM 管理作業の必須ロールは `dpm_admin` |
 | 7.5.0 / 7.6.2（2026-07） | Enterprise agile planning テーブル対応。`dpm_manager` から 700 超の read ACL 削除 |
-| 7.8.0（2026-10、Zurich+） | 不具合・アクセシビリティ修正（最新掲載版） |
+| 7.8.0（2026-10、Zurich+） | 不具合・アクセシビリティ修正 |
+| 7.9.1（2026-11、Zurich+） | 不具合修正（2026-11 時点の最新掲載版） |
 
 **ライセンス:** ServiceNow 社員による Community FAQ（2024-04 公開、2025-12 更新）は、DPM は ITSM の標準ライセンスに含まれ、Strategic Portfolio Management または Enterprise Architecture Workspace を含む ITSM/SPM ライセンスにも追加できると記載している。Enterprise Architecture 機能には APM プラグイン（`com.snc.apm`）と EA Workspace ライセンス、技術リスクには `sn_apm_tpm`（`com.snc.apm` と `com.snc.sams` に依存）が必要とされる。【第三者情報】 [出典](https://www.servicenow.com/community/itsm-articles/digital-portfolio-management-faqs/ta-p/2899678) ライセンスの全体像は [ライセンスモデル](../../03_導入編/01-licensing-model.md) を参照。
 
@@ -788,7 +811,7 @@ Digital Portfolio Management は、DPM Workspace で自分が所有または関�
 
 | 文脈 | 内容 | 参照先 |
 |---|---|---|
-| CSDM 5 の考え方 | CSDM 5 は、IT/アプリケーションサービス中心からデジタルプロダクト中心のモデルへと重心を移し、Ideation & Strategy、Manage Portfolio などのドメインを加えた 7 ドメイン構成とした。プロダクトは Product model（`cmdb_model` とその拡張）で表現される | [CMDB と CSDM](../platform/cmdb-csdm.md) |
+| CSDM 5 の考え方 | CSDM 5 は、IT/アプリケーションサービス中心からデジタルプロダクト中心のモデルへと重心を移し、Ideation & Strategy、Manage Portfolio などのドメインを加えた 7 ドメイン構成とした（デジタルプロダクト中心への移行という整理は【第三者情報】）。プロダクトは Product model（`cmdb_model` とその拡張）で表現される。[出典](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/YO9~nS73A2CUXGgC7Mjz6g)（CSDM data domains、Zurich） [出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/common-service-data-model-csdm/foundation-domain.html)（Foundation domain、Australia） [出典](https://www.servicenow.com/community/cmdb-articles/csdm-4-0-vs-csdm-5-0/ta-p/3400542)（CSDM 4.0 vs CSDM 5.0、Community） | [CMDB と CSDM](../platform/cmdb-csdm.md) |
 | DPM の「ソリューション」 | DPM はサービス、オファリング、Business application、Service instance を「ソリューション」として扱い、Plan/Build/Run の観点で一元管理する。公式ドキュメントでは「digital product」を独立したオブジェクト種別としては定義していない | 7.3 |
 | Digital Product Release（DPR） | リリース/プロダクト/プログラムマネージャー向けのリリースプロセス管理アプリケーション（ITSM Pro 以上） | [Release Management と DevOps](release-management.md) |
 
@@ -804,9 +827,9 @@ Digital Portfolio Management は、DPM Workspace で自分が所有または関�
 
 Incident、Problem、Change などのタスクは、Service（`business_service`）と Service offering（`service_offering`）を参照するフィールドを持つ。各プロセスのフィールド定義は以下を参照。
 
-- [Incident Management](incident-management.md)：`service_offering`、`com.snc.incident.service_offering_assignment_group.field_name`（オファリングから割り当てグループを取得するフィールド）
-- [Problem Management](problem-management.md)：`task_service_offering`（影響を受けるオファリング）、`com.snc.problem.service_offering_assignment_group.field_name`
-- [Change Management](change-management.md)：`business_service` / `service_offering`
+- [Incident Management](incident-management.md)：`service_offering`、`com.snc.incident.service_offering_assignment_group.field_name`（オファリングから割り当てグループを取得するフィールド。ビジネスルール「Populate Assignment Group based on CI/SO」が使用。プロパティの既定値は公開情報では確認できず）[出典](https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/create-an-incident.html)
+- [Problem Management](problem-management.md)：`task_service_offering`（Service Offerings 関連リスト。影響を受けるオファリング）[出典](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/pm-use-case-product-view.html)、`com.snc.problem.service_offering_assignment_group.field_name`（Service offering のどのフィールドで Assignment group を設定するか）[出典](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/problem-form.html)
+- [Change Management](change-management.md)：`business_service` / `service_offering`（`change_request` の列名。個々の列名を網羅した公式一覧は確認できず）【経験則】
 
 Service / Service Offering フォームの関連リスト（Incidents、Problems、Change Requests、Other tasks）から、サービス単位でタスクを参照できる。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/blDUGvk1DT9T9E9uorDH_g)
 
@@ -822,7 +845,7 @@ ServiceNow Community で公開されている「CSDM に沿ったインシデン
 
 ### 8.3 Continual Improvement Management との連携
 
-Service / Service Offering フォームには Improvement Initiatives 関連リストがあり、サービスのパフォーマンス問題から改善施策（Continual Improvement Management、CIM）につなげられる。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/goZ_avjpLRSNafB97vdNLg) DPM の `dpm_manager` も CIM 項目を作成できる。[出典](https://www.servicenow.com/docs/r/UMl~97STJe3fa_KTmzD1Gg/Ka~KPDT6bcDEqIAOlNcMnQ) CIM の詳細は [ITSM Pro/Enterprise 固有機能](itsm-pro-features.md) を参照。
+Service / Service Offering フォームには Improvement Initiatives 関連リストがあり、サービスのパフォーマンス問題から改善施策（Continual Improvement Management、CIM）につなげられる。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/goZ_avjpLRSNafB97vdNLg) DPM の `dpm_manager` も CIM 項目を作成できる。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/gcsF3AOHGwzVYEMicoGQ7w) CIM の詳細は [ITSM Pro/Enterprise 固有機能](itsm-pro-features.md) を参照。
 
 ---
 
@@ -836,7 +859,7 @@ Service / Service Offering フォームには Improvement Initiatives 関連リ�
 | ライフサイクル項目 | 新規導入では CSDM Activation プラグインを導入し、Life cycle stage / status に統一する。レガシー Phase/Status との二重管理を避ける | 公式＋【経験則】 |
 | 可用性計算 | 既存顧客は `com.snc.availability.v2` のオプトインを検討する。可用性計算のタイムゾーンは日本の運用時間に合わせて設定する | 公式＋【経験則】 |
 | SLA Results の検証 | SLA Results が集計されない事例が報告されているため、テスト環境でコミットメント→SLA Definition→Task SLA→結果の一連を確認する | 【第三者情報】 |
-| Service Owner Workspace | 新規導入では選択できない。サービスオーナー向け UI は DPM と Service Builder で構成する | 公式 |
+| Service Owner Workspace | 新規導入では選択できない。標準ポートフォリオ構造では DPM の導入が必要とされる（7.2）。サービスオーナー向け UI を DPM と Service Builder の組み合わせで構成する | 公式（非推奨化・DPM 導入）＋【推定】（Service Builder を含む後継の構成） |
 | DPM のアップグレード | DPM 7.5.0 以降の ACL 削除により、`dpm_manager` ユーザーが参照できなくなるテーブルが出る可能性がある。アップグレード後のアクセス確認を計画に入れる | 公式 |
 
 ITSM プロセス設計の実践知は [ITSMプロセス設計の実践知](../../04_応用編/11-itsm-process-design-tips.md)、CMDB/CSDM の成功要因は [CMDB成功の要因](../../04_応用編/05-cmdb-success-factors.md) を参照。
@@ -848,7 +871,7 @@ ITSM プロセス設計の実践知は [ITSMプロセス設計の実践知](../.
 - Australia 版の Service Owner Workspace 専用ドキュメント、および KB0867184 の本文。
 - Brazil における Service Portfolio Management、Service Builder、DPM の機能変更（SPM の統合リリースノートは「No updates」、Service Builder・DPM の Brazil 版統合リリースノートは見つからず）。
 - SLA Results を生成する日次ジョブの正式名、`service_sla_result` テーブル名の公式記載。
-- Availability コミットメントの可用性率（%）を入力するフィールド名。
+- Availability コミットメントの可用性率（%）を入力するフィールド名、および Total availability % の式に使われる Available uptime の定義。
 - Degradation 種別の停止が可用性計算に与える影響。
 - Service Builder の承認フローにおける状態値の一覧。
 - サービスの Status（Phase 内ステータス）の公式な選択肢一覧（4.6 の対応表は Zurich 版ドキュメントによる）。
@@ -876,7 +899,13 @@ ITSM プロセス設計の実践知は [ITSMプロセス設計の実践知](../.
 - Service Builder：https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/qug~MeYO8P4ze3SZeDwSVQ
 - Create a service offering in Service Builder：https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/s5awpLFxzWNQtkPXNs8Y5Q
 - Digital Portfolio Management：https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/g8yof6L6ysqPuFFJGuGUAA
-- Roles for Digital Portfolio Management：https://www.servicenow.com/docs/r/UMl~97STJe3fa_KTmzD1Gg/Ka~KPDT6bcDEqIAOlNcMnQ
+- Roles for Digital Portfolio Management（en-US 版）：https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/gcsF3AOHGwzVYEMicoGQ7w
+- Foundation domain（CSDM）：https://www.servicenow.com/docs/r/australia/servicenow-platform/common-service-data-model-csdm/foundation-domain.html
+- Activate Task-Outage Relationship：https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/3EZKo85zdvW0nDuq7qEAOQ
+- Create an outage from a task：https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/Om2dlufOxp0d8XuyJSs8jg
+- Create an incident：https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/create-an-incident.html
+- Problem form：https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/problem-form.html
+- Problem Management use case（product view）：https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/pm-use-case-product-view.html
 - Service Consumption domain in the CSDM model：https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/J59yFfgHNoDkjjO0r~Ef5w
 - CSDM terms：https://www.servicenow.com/docs/r/q4dSP2Icgr1SFv5wanVXvQ/iHT9SvSAjIhuKWFdxOMovw
 
@@ -888,6 +917,9 @@ ITSM プロセス設計の実践知は [ITSMプロセス設計の実践知](../.
 - Digital Portfolio Management release notes（Store）：https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/lkDwbbPUbtlEHUtmFwQe5A
 - Installed with Service Portfolio Management（Zurich）：https://www.servicenow.com/docs/r/MlbQAgTiiiMOLOw9T36wJg/L1ip4OWdmrXqu4syfsqiRQ
 - Applying the CSDM guidelines to Service Portfolio Management（Zurich）：https://www.servicenow.com/docs/r/MlbQAgTiiiMOLOw9T36wJg/c2lHegE0bXtcpy2WSy_nog
+- CSDM data domains（Zurich）：https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/YO9~nS73A2CUXGgC7Mjz6g
+- Use the Admin Center in Digital Portfolio Management（Zurich）：https://www.servicenow.com/docs/r/MlbQAgTiiiMOLOw9T36wJg/FDvtDhgouv1YB1R62TAfnw
+- Service Owner Workspace（Xanadu）：https://www.servicenow.com/docs/r/Recj91eIo1YnsOabQjgskg/LLIj4u2ge1XPwn2S85mlOQ
 - Exploring Service Owner Workspace（Xanadu）：https://www.servicenow.com/docs/r/Recj91eIo1YnsOabQjgskg/l5h6hecevY1jaYyzlZIP_A
 - Setting up Service Owner Workspace（Xanadu）：https://www.servicenow.com/docs/r/Recj91eIo1YnsOabQjgskg/Xk7DoGpSadWg_c8eucM_kA
 - Service Owner Workspace Migration Dashboard（Xanadu）：https://www.servicenow.com/docs/r/Recj91eIo1YnsOabQjgskg/46c1DuwMFrwtHKHMvbqFeg
@@ -901,5 +933,6 @@ ITSM プロセス設計の実践知は [ITSMプロセス設計の実践知](../.
 - Service commitment SLA results not populating correctly：https://www.servicenow.com/community/common-service-data-model-forum/service-commitment-sla-results-not-populating-correctly/m-p/3409019
 - Subscribe to service offering：https://www.servicenow.com/community/common-service-data-model-forum/subscribe-to-service-offering/m-p/339230
 - Managing outages within a service management environment：https://www.servicenow.com/community/itsm-articles/managing-outages-within-a-service-management-environment/ta-p/2751849
+- CSDM 4.0 vs CSDM 5.0：https://www.servicenow.com/community/cmdb-articles/csdm-4-0-vs-csdm-5-0/ta-p/3400542
 - Top Features of CSDM 5：https://www.servicenow.com/community/common-service-data-model-forum/top-features-of-csdm-5-what-you-need-to-know/m-p/3294791
 - GuideVision - Service Level Management part 2：https://guidevision.eu/insights/service-level-management-part-2-2

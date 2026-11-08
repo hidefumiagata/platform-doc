@@ -91,7 +91,7 @@ Datadog Database Monitoring（DBM、データベースモニタリング）は�
 
 - **リリース**：Datadog 公式ブログは 2021-08-17 に「Today, we're excited to announce the release of Database Monitoring.」として DBM のリリースを発表している。[出典](https://www.datadoghq.com/blog/database-performance-monitoring-datadog/)（2021-08-17 公開）
 - **旧称**：DBM に製品名の改称はない（公開情報で改称は確認できず）。機能単位では「Database Investigator」が Bits Chat に統合されている（後述）。[出典](https://docs.datadoghq.com/database_monitoring/database_investigator/)
-- **製品区分**：料金ページの製品メニューでは Data 区分に置かれている。本ナレッジではリファレンスを `infrastructure/` に置く（[製品ポートフォリオ全体像](../../01_入門編/product-map.md) を参照）。
+- **製品区分**：料金ページの製品メニューでは Data 区分に置かれている。本ナレッジではリファレンスを `infrastructure/` に置く（[製品ポートフォリオ全体像](../../01_入門編/04-product-map.md) を参照）。
 - **前提製品**：DBM は単体購入できず、Infrastructure Monitoring の契約が前提である（料金ページ FAQ「No, you need to be an existing Infrastructure Monitoring customer to purchase Database Monitoring.」）。データベースホストの一部だけに DBM を購入することはできる。[出典](https://www.datadoghq.com/pricing/?product=database-monitoring)
 
 ### 標準の DB インテグレーションと DBM の違い
@@ -282,7 +282,7 @@ Database Monitoring のデータは、通常のメトリクス・ログとは別
 | DBM メトリクス | `dbm-metrics-intake.<YOUR_DATADOG_SITE>` |
 | DBM クエリデータ（サンプル、実行計画等） | `dbquery-intake.<YOUR_DATADOG_SITE>` |
 
-> **サイト差異:** エンドポイントのホスト名はサイトにより異なる（例：AP1 は `dbm-metrics-intake.ap1.datadoghq.com`、`dbquery-intake.ap1.datadoghq.com`）。サイト一覧は [Datadog Sites](../platform/datadog-sites.md)、全エンドポイントとファイアウォール設計は [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md) を参照。
+> **サイト差異:** エンドポイントのホスト名はサイトにより異なる（例：AP1 は `dbm-metrics-intake.ap1.datadoghq.com`、`dbquery-intake.ap1.datadoghq.com`）。サイト一覧は [Datadog Sites](../platform/datadog-sites.md)、全エンドポイントとファイアウォール設計は [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md) を参照。
 
 ### Agent のオーバーヘッド
 
@@ -894,7 +894,7 @@ Database Monitoring は、パラメーターだけが異なる同一クエリを
 
 [出典](https://docs.datadoghq.com/database_monitoring/guide/parameterized_queries/)
 
-全社的なデータ保護方針は [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md)、ログ側のマスキングは [Sensitive Data Scanner](../security/sensitive-data-scanner.md) を参照。
+全社的なデータ保護方針は [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md)、ログ側のマスキングは [Sensitive Data Scanner](../security/sensitive-data-scanner.md) を参照。
 
 ## APM との連携
 
@@ -1054,7 +1054,7 @@ API キー・アプリケーションキーの管理は [API とキー管理](..
 
 ## 課金への影響
 
-Database Monitoring の課金単位は **データベースホスト / 月** である。料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、計算の仕組みは [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+Database Monitoring の課金単位は **データベースホスト / 月** である。料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、計算の仕組みは [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 
 ### 定価（公式料金ページ掲載値、2026-11-02 基準、2026-11-03 再確認）
 
@@ -1089,7 +1089,7 @@ Database Monitoring の課金単位は **データベースホスト / 月** で
 
 - 正規化クエリの割当（ホストあたり 200）を超えた場合の追加単価は、公式料金ページ・価格表に個別の項目がなく、公開情報では確認できず。
 - DBM の `postgresql.queries.*` などのクエリメトリクスがカスタムメトリクスとして別途課金されるかどうかは、公開情報では明記されていない。
-- DBM で監視する DB ホストのうち、クラウドマネージド DB（RDS 等）を Infrastructure ホストとしてどう数えるかは [Infrastructure Monitoring](./infrastructure-monitoring.md) と [AWS Integration](../platform/aws-integration.md) を参照。使用量の確認は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md)、見積りは [コスト見積り手法](../../03_導入編/cost-estimation.md)、削減策は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+- DBM で監視する DB ホストのうち、クラウドマネージド DB（RDS 等）を Infrastructure ホストとしてどう数えるかは [Infrastructure Monitoring](./infrastructure-monitoring.md) と [AWS Integration](../platform/aws-integration.md) を参照。使用量の確認は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md)、見積りは [コスト見積り手法](../../03_導入編/05-cost-estimation.md)、削減策は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ## トラブルシューティングの要点
 
@@ -1120,7 +1120,7 @@ Datadog は、最新の安定版 Agent を使い、最新のセットアップ�
 | パーティションテーブル | 数字違いのテーブル名が大量の正規化クエリを生む場合は `obfuscator_options.replace_digits: true` でまとめ、200 クエリの枠を有効に使う | 公式推奨。[出典](https://docs.datadoghq.com/database_monitoring/setup_postgres/advanced_configuration/) |
 | 機密情報 | DB ログ、`auto_explain` ログ、パラメーター値収集は生の値を含みうる。ログの RBAC、Sensitive Data Scanner、`dbm_parameterized_queries_read` の付与範囲を設計する | 公式注意事項に基づく。[出典](https://docs.datadoghq.com/database_monitoring/data_collected/) |
 
-導入計画全体は [導入方法論](../../03_導入編/implementation-methodology.md)、Agent 展開は [Agent 展開設計](../../03_導入編/agent-rollout-design.md)、APM 運用は [APM 運用の実践](../../04_応用編/apm-practices.md)、よくある失敗は [よくある失敗とアンチパターン](../../04_応用編/common-pitfalls.md) を参照。
+導入計画全体は [導入方法論](../../03_導入編/08-implementation-methodology.md)、Agent 展開は [Agent 展開設計](../../03_導入編/10-agent-rollout-design.md)、APM 運用は [APM 運用の実践](../../04_応用編/05-apm-practices.md)、よくある失敗は [よくある失敗とアンチパターン](../../04_応用編/12-common-pitfalls.md) を参照。
 
 ## 関連ファイル
 
@@ -1130,7 +1130,7 @@ Datadog は、最新の安定版 Agent を使い、最新のセットアップ�
 - [APM の概念とインジェスト制御](../apm/apm-concepts-and-ingestion.md) / [APM インスツルメンテーション](../apm/apm-instrumentation.md) / [Universal Service Monitoring](../apm/universal-service-monitoring.md)
 - [Data Observability](../data/data-observability.md) / [Data Jobs Monitoring](../data/data-jobs-monitoring.md)
 - [Monitors](../platform/monitors.md) / [Dashboards](../platform/dashboards.md) / [Bits AI と AI 機能](../ai/bits-ai.md)
-- [製品別料金表](../../03_導入編/pricing-by-product.md) / [課金計算の仕組み](../../03_導入編/billing-mechanics.md) / [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md)
+- [製品別料金表](../../03_導入編/02-pricing-by-product.md) / [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) / [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md)
 
 ## 参照元
 

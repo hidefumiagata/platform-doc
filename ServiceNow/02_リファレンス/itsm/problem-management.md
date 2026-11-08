@@ -153,7 +153,7 @@ erDiagram
 
 ### 3.1 フィールド一覧（UI16 / Core UI）
 
-以下は Madrid 以降の新規顧客向け Problem フォームのフィールドである。ラベルは公式ドキュメント記載、列名は公式ページに明記がないものを `【推定】` としている（サンプルデータで列名が確認できたもの：`first_reported_by_task`、`cause_notes`、`fix_notes`、`resolution_code`【第三者情報】）。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/problem-form.html)
+以下は Madrid 以降の新規顧客向け Problem フォームのフィールドである。ラベルは公式ドキュメント記載、列名は公式ページに明記がないものを `【推定】` としている（第三者が公開している開発インスタンス由来のサンプルデータ（Hugging Face 上のフォーム入力テスト構成データ）で列名が確認できたもの：`first_reported_by_task`、`cause_notes`、`fix_notes`、`resolution_code`、`short_description`【第三者情報】。特定インスタンスの構成であり、製品既定を保証するものではない）。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/problem-form.html)、[出典（第三者サンプルデータ）](https://huggingface.co/datasets/AI-Agent/forms_filling_test_configs/blob/main/Level-3/create_problem_task.json)
 
 #### ヘッダー部
 
@@ -177,7 +177,7 @@ erDiagram
 | Description（説明） | `description` | 問題の詳細な説明 |
 | Related Search（関連検索） | — | 検索結果。Known Error 記事・ナレッジ記事を **Attach** で問題に添付 |
 
-> **Problem Statement** は画面ラベルであり、実体の列は `short_description` とされる `【第三者情報】`（テスト構成データでラベル "Problem statement" が `short_description` に対応）。
+> **Problem Statement** は画面ラベルであり、実体の列は `short_description` とされる `【第三者情報】`（第三者公開のテスト構成データの `fields` 定義で、ラベル "Problem statement" が `short_description` に対応）。[出典（第三者サンプルデータ）](https://huggingface.co/datasets/AI-Agent/forms_filling_test_configs/blob/main/Level-3/create_problem_task.json)
 
 Assignment group の自動設定を既定から変更するには、次のプロパティを新規作成して値に使用するフィールド名を設定する（優先順）。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/problem-form.html)
 
@@ -217,7 +217,7 @@ Assignment group の自動設定を既定から変更するには、次のプロ
 | Confirmed by / Confirmed | `confirmed_by` / `confirmed_at`【推定】 | 読み取り専用。問題が有効で解決が必要と確認（Confirm）したユーザーと日時（新規顧客のみ） |
 | Fix by / Fix | `fix_by` / `fix_at`【推定】 | 読み取り専用。修正（Fix）を開始したユーザーと日時 |
 
-上記に加え、Accept Risk 時には **Risk accepted reason（リスク受容理由）** の入力が求められ、その内容は関連インシデントの Work notes にコピーされる（[7.3 節](#73-インシデントとの同期)参照）。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/sync-btwn-inci-prob.html)
+上記に加え、Accept Risk により Resolution code = **Risk Accepted** となった問題の **Risk accepted reason（リスク受容理由）** は、関連インシデント（On Hold / On hold reason = Awaiting Problem）の Work notes にコピーされる（[7.3 節](#73-インシデントとの同期)参照）。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/sync-btwn-inci-prob.html)
 
 ### 3.2 フォームの関連リスト
 
@@ -319,7 +319,7 @@ stateDiagram-v2
 | インシデントから | インシデントを開き、コンテキストメニューの **Create Problem**。コピーされる項目は `com.snc.problem.create_from_incident.attributes` で指定 |
 | サービスカタログから | Record producer（レコードプロデューサー）を作成して問題を起票 |
 | メールから | 適切な Inbound email action（受信メールアクション）を構成 |
-| インタラクションから | `glide.problem.interaction.allow_create` を有効化（SOW の Interaction から **Create problem**） |
+| インタラクションから | `glide.problem.interaction.allow_create`（Allow problem creation from interaction、既定 false）を有効化（SOW の Interaction から **Create problem**）。`com.snc.problem.create_from_interaction.save`（Create saved problem）で作成時に保存するかを制御（既定：新規顧客 Yes、アップグレード顧客 No）。[出典（Problem Created from Interaction Properties）](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/problem-mgmt-properties.html) |
 | 重大インシデントから自動作成 | 後述の条件を満たす場合 |
 
 インシデントが重大インシデント（Major incident）に昇格した際、次の条件をすべて満たすと問題レコードが自動作成される。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/create-a-problem-v2.html)
@@ -480,8 +480,8 @@ stateDiagram-v2
 |---|---|---|---|---|
 | New | **Assess** | Assess | 必須項目を入力 | [出典](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/assess-a-problem-task.html) |
 | Assess | **Start Work** | Work in Progress | 作業準備が整った場合 | 同上 |
-| Work in Progress | **Re-assess** | Assess | 作業中に再評価 | 同上 |
-| Assess / Work in Progress | **Cancel** | Closed（Canceled） | 重複・不要な場合。Canceled reason の入力が必要 | 同上 |
+| Work in Progress | **Re-assess** | Assess | 作業中に再評価（Xanadu で導入） | 同上、[出典（Xanadu リリースノート）](https://www.servicenow.com/docs/r/yokohama/delta-xanadu-yokohama/yokohama-xanadu-problemmanagement-release-notes.html) |
+| Assess / Work in Progress | **Cancel** | Closed（Canceled） | 重複・不要な場合。Canceled reason の入力が必要。Work in Progress からの Cancel は公式遷移図に基づく（手順ページに記載があるのは Assess からの Cancel のみ） | [出典](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/assess-a-problem-task.html)、[出典（遷移図）](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/understanding-state-trans-prob-task.html) |
 | Work in Progress | **Complete** | Closed（Complete） | — | [出典](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/complete-a-problem-task.html) |
 | Closed | **Re-assess** | Assess | `problem_task.closed.role.reaassess_from_closed` で許可ロールを制御 | 同上 |
 
@@ -676,14 +676,14 @@ SOW では、Fix Tasks タブに表示される Fix タスクとして構成さ�
 
 ### 9.2 ITSM Roles（細分化ロール）
 
-`com.snc.itsm.roles.problem_management` でインストールされるロール。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/prob-roles-instld-itsm-roles.html)
+Problem Management に関係する ITSM Roles 系のロールは次のとおり。`sn_problem_read` / `sn_problem_write` は `com.snc.itsm.roles.problem_management`、`business_stakeholder` は `com.snc.business_stakeholder`、`sn_service_desk_agent` は ITSM Roles（Yokohama で追加）によって提供される。`sn_service_desk_agent` と `business_stakeholder` は Problem 専用ではなく、ITSM 全体向けのロールである。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/prob-roles-instld-itsm-roles.html)
 
-| ロール名 | タイトル | 説明 | 含むロール |
-|---|---|---|---|
-| `sn_problem_read` | Problem read | Problem Management アプリと関連レコードの読み取り | — |
-| `sn_problem_write` | Problem write | Problem Management アプリと関連レコードの書き込み | `sn_problem_read`、`template_editor` |
-| `sn_service_desk_agent` | （Service desk agent） | Tier 1 サービスデスク向け（Yokohama で導入、SOW 6.1 以降で使用可） | `sn_incident_write`、`sn_problem_write`、`sn_change_write`、`sn_request_write`、`tracked_file_reader`（ITSM Gen AI 有効時は `knowledge_user`、`now_assist_panel_user` も） |
-| `business_stakeholder` | Business Stakeholder | 全 ITSM 製品のレコード参照・承認（`com.snc.business_stakeholder`） | `sn_problem_read` 等 |
+| ロール名 | タイトル | インストール元プラグイン | 説明 | 含むロール |
+|---|---|---|---|---|
+| `sn_problem_read` | Problem read | `com.snc.itsm.roles.problem_management` | Problem Management アプリと関連レコードの読み取り | — |
+| `sn_problem_write` | Problem write | `com.snc.itsm.roles.problem_management` | Problem Management アプリと関連レコードの書き込み | `sn_problem_read`、`template_editor` |
+| `sn_service_desk_agent` | （Service desk agent） | ITSM Roles（Yokohama で追加。ITSM 全体の Tier 1 向け） | Tier 1 サービスデスク向け（Yokohama で導入、SOW 6.1 以降で使用可） | `sn_incident_write`、`sn_problem_write`、`sn_change_write`、`sn_request_write`、`tracked_file_reader`（ITSM Gen AI 有効時は `knowledge_user`、`now_assist_panel_user` も） |
+| `business_stakeholder` | Business Stakeholder | `com.snc.business_stakeholder` | 全 ITSM 製品のレコード参照・承認 | `sn_problem_read` 等 |
 
 [出典（Business Stakeholder）](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/installed-with-business-stakeholder-problem.html)、[出典（Yokohama リリースノート）](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/3SNCqWF0PNO4Y21UCsTC7w)
 
@@ -955,9 +955,9 @@ Now Assist for ITSM の公式ドキュメントで確認できる主要スキル
 | リリース | 主な変更 | 出典 |
 |---|---|---|
 | Jakarta | Problem Management Best Practice — Jakarta：Impact / Urgency / Priority ルックアップ、Major problem | [出典](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/act-pm-best-prac-jakarta.html) |
-| Madrid | ベストプラクティス State Model（New〜Closed の 6 状態、Guided actions）、Problem 専用ロール、Known Error 記事（Knowledge Integration）、Contextual search | [出典](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/understanding-state-mgmt-transitions.html) |
+| Madrid | ベストプラクティス State Model（New〜Closed の 6 状態、Guided actions）、Problem 専用ロール、Known Error 記事（Knowledge Integration）、Contextual search | [出典（State Model）](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/understanding-state-mgmt-transitions.html)、[出典（ロール）](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/installed-with-madrid-best-prac.html)、[出典（Knowledge Integration）](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/act-pm-best-prac-madrid-know-int.html)、[出典（Contextual search："available for problems in instances starting with the Madrid release"）](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/problem-with-contextual-search.html) |
 | Paris | CI 選択時の Principal Class フィルター（新規顧客） | [出典](https://www.servicenow.com/docs/r/australia/it-service-management/problem-management/add-multiple-cis-to-problem.html) |
-| Xanadu | Problem Management models のプロパティ導入、Known Error 記事を新規顧客で既定有効化 | [出典](https://www.servicenow.com/docs/r/yokohama/delta-xanadu-yokohama/yokohama-xanadu-problemmanagement-release-notes.html) |
+| Xanadu | Problem Management models のプロパティ導入、Known Error 記事を新規顧客で既定有効化、Problem task の Work in Progress からの Re-assess、メール通知の問題レコードリンクから SOW の問題レコードへリダイレクト（ITSM Notifications Redirection プラグイン `com.snc.itsm.notifications_redirection`。自動でインストール・有効化）、Migration Utility がカスタマイズを検出できるよう Xanadu ベース問題ファイル一覧を更新 | [出典](https://www.servicenow.com/docs/r/yokohama/delta-xanadu-yokohama/yokohama-xanadu-problemmanagement-release-notes.html) |
 | Yokohama | Problem Models を新規 / zBoot 顧客で既定有効化、`sn_service_desk_agent` ロール | [出典](https://www.servicenow.com/docs/r/Cz0Un5C85RB3j2nhhAK1aQ/3SNCqWF0PNO4Y21UCsTC7w) |
 | Zurich | Problem Management の更新なし | 同上 |
 | Australia | Problem Management の更新なし（廃止・削除もなし） | 同上 |
@@ -982,7 +982,7 @@ Now Assist for ITSM の公式ドキュメントで確認できる主要スキル
 
 ## 15. 確認できなかった事項
 
-- `problem` テーブルの各フィールドの正式な列名（`workaround`、`duplicate_of`、`known_error_article`、`confirmed_by` / `confirmed_at`、`fix_by` / `fix_at`、`resolved_by` / `resolved_at` 等）は公式ドキュメントで明記されておらず、本書では `【推定】` / `【第三者情報】` とした。
+- `problem` テーブルの各フィールドの正式な列名（`workaround`、`duplicate_of`、`known_error_article`、`confirmed_by` / `confirmed_at`、`fix_by` / `fix_at`、`resolved_by` / `resolved_at` 等）は公式ドキュメントで明記されておらず、本書では `【推定】` / `【第三者情報】` とした。`first_reported_by_task`、`cause_notes`、`fix_notes`、`resolution_code`、`short_description` は第三者公開のサンプルデータで確認した `【第三者情報】`。[出典（第三者サンプルデータ）](https://huggingface.co/datasets/AI-Agent/forms_filling_test_configs/blob/main/Level-3/create_problem_task.json)
 - Problem の状態値 102（Assess）、103（Root Cause Analysis）、106（Resolved）と Problem task の 152（Assess）は Community 情報に基づく。
 - Known Errors モジュール / リストの正式なフィルター条件。
 - `com.snc.problem.create_from_incident.copy_attachments` の既定値。
@@ -1090,6 +1090,10 @@ Now Assist for ITSM の公式ドキュメントで確認できる主要スキル
 - https://www.servicenow.com/community/virtual-agent-forum/quot-known-error-quot-field-on-the-problem-table/m-p/3144203
 - https://www.servicenow.com/community/itsm-forum/why-was-known-error-removed-as-a-state-on-the-problem-record/m-p/2488764
 - https://www.servicenow.com/community/now-assist-forum/when-is-now-assist-expected-to-be-available-for-use-with/m-p/3341867
+
+### その他の第三者情報（【第三者情報】）
+
+- https://huggingface.co/datasets/AI-Agent/forms_filling_test_configs/blob/main/Level-3/create_problem_task.json （開発インスタンス由来の Problem サンプルデータ。列名 `first_reported_by_task` / `cause_notes` / `fix_notes` / `resolution_code` / `short_description` の確認に使用）
 
 ### 画像の出典（取得日：2026-11-03）
 

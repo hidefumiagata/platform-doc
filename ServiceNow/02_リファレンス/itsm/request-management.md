@@ -43,6 +43,23 @@ sources:
   - https://www.servicenow.com/docs/r/australia/release-notes/service-catalog-rn.html
   - https://www.servicenow.com/docs/r/release-notes/service-catalog-rn.html
   - https://www.servicenow.com/docs/r/release-notes/request-management-rn.html
+  - https://www.servicenow.com/docs/r/australia/it-service-management/walk-up-experience/walkup-experience-configuration.html
+  - https://www.servicenow.com/docs/r/t~YvqQkg2oQX4L7ySrpyuQ/gx_At7iohW~n~HmQ_saRLg
+  - https://www.servicenow.com/docs/r/australia/servicenow-platform/service-catalog/c_ExecutionPlans.html
+  - https://www.servicenow.com/docs/r/australia/servicenow-platform/service-catalog/c_EnableATwoStepCheckout.html
+  - https://www.servicenow.com/docs/r/australia/servicenow-platform/service-catalog/config-default-behavior-request-other-user.html
+  - https://www.servicenow.com/docs/r/australia/servicenow-platform/service-catalog/view-request-notification.html
+  - https://www.servicenow.com/docs/r/australia/servicenow-platform/service-catalog/configure-my-requests.html
+  - https://www.servicenow.com/docs/r/australia/servicenow-platform/service-catalog/itsm-mobile-request-approval.html
+  - https://www.servicenow.com/docs/r/australia/servicenow-platform/service-catalog/fulfillers-request-catalog-items-for-others.html
+  - https://www.servicenow.com/docs/r/australia/servicenow-platform/service-catalog/configure-flow-sf-flow.html
+  - https://www.servicenow.com/docs/r/australia/build-workflows/workflow-studio/submit-catalog-item-request-flow-designer.html
+  - https://www.servicenow.com/docs/r/GCPjp~ldPTNRN99oH1DYFg/2PF2w4lFEOoAD8bJJkVJYg
+  - https://www.servicenow.com/docs/r/MlbQAgTiiiMOLOw9T36wJg/hGBZ3BoEcEd7AK2U0gjgpQ
+  - https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/2NKDnpaR5b09hkyRFLEvHw
+  - https://www.servicenow.com/docs/r/GOfWgam_hnLy1~sy07BOkA/MZuInPEIrlYUN0ddxvNBmg
+  - https://www.servicenow.com/docs/r/it-service-management/request-management/request-fulfillment.html
+  - https://www.servicenow.com/docs/r/it-service-management/request-management/configure-my-requests.html
 ---
 
 # Request Management（リクエスト管理）
@@ -89,7 +106,7 @@ Request Management では、ユーザーがカタログアイテムを要求す�
 | 2 | `sc_req_item`（Requested Item／要求アイテム） | RITM | 注文内の個々のカタログアイテム。変数（Variables）はこのテーブルにのみ紐づく | 1 REQ に 1..n 件 |
 | 3 | `sc_task`（Catalog Task／カタログタスク） | SCTASK（TASK） | RITM を充足するための作業単位。フルフィルメントグループに割り当てる | 1 RITM に 0..n 件（図では 1..n） |
 
-3テーブルとも Task [`task`] テーブルを拡張しており、Assignment group（割り当てグループ）、Assigned to（担当者）、State（状態）、Approval（承認）、Work notes（作業メモ）等のタスク共通フィールドを持つ。【経験則】（`sc_request` が `task` を拡張している点は Community の回答でも言及されている。[出典](https://www.servicenow.com/community/itsm-forum/sc-request-state-and-dictionary-choices-no-values-appearing-but/m-p/2431948)）番号接頭辞 REQ/RITM/SCTASK はベースシステムの慣用値で、インスタンスの Number Maintenance（番号管理）設定で変更可能である。【経験則】
+3テーブルとも Task [`task`] テーブルを拡張しており、Assignment group（割り当てグループ）、Assigned to（担当者）、State（状態）、Approval（承認）、Work notes（作業メモ）等のタスク共通フィールドを持つ。【第三者情報】（`sc_request` が `task` を拡張している点は Community の回答で言及されている。[出典](https://www.servicenow.com/community/itsm-forum/sc-request-state-and-dictionary-choices-no-values-appearing-but/m-p/2431948)）番号接頭辞 REQ/RITM/SCTASK はベースシステムの慣用値で、インスタンスの Number Maintenance（番号管理）設定で変更可能である。【経験則】
 
 公式ドキュメントの例では、PC 2台・椅子1脚・机1台を1回で注文すると、次のように1件の Request と3件の Requested Item が生成される（数量は RITM の Quantity で表現される）。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/service-catalog/c_RequestingAServiceCatalogItem.html)
 
@@ -154,7 +171,7 @@ Request Management の処理には、3層テーブルのほかに次のテーブ
 | 注文シナリオ | 使われるカート | 処理 |
 |---|---|---|
 | 直接注文（カートに入れない） | 一時カート | 上記の手順 |
-| カートに入れてからチェックアウト | デフォルトカート | 上記と同じ。複数アイテムの場合は手順2〜4（RITM 単位の初期化〜コミット）がアイテムごとに繰り返される |
+| カートに入れてからチェックアウト | デフォルトカート | 上記と同じ。複数アイテムの場合は手順2〜4（カートアイテムの追加〜チェックアウトの各サブステップ）がアイテムごとに繰り返される（公式の記述 "step 2 through step 4 of the checkout process are repeated for each item" どおり） |
 | Order Guide（2ステップチェックアウト） | 一時カート（全アイテム） | 直接注文と同じ手順 |
 | Order Guide（3ステップチェックアウト） | デフォルトカート | 直接注文と同じ手順 |
 
@@ -328,7 +345,7 @@ Workflow Studio（旧 Flow Designer）では **Ask for Approval** アクショ�
 | フィールド | 説明 |
 |---|---|
 | Approver | 承認責任者（ユーザー） |
-| State | Not Yet Requested / Requested / Approved / Rejected |
+| State | Not Yet Requested、Requested、Approved、Rejected 等（Cancelled、No Longer Required、Skipped を含む全7値は前掲の「Approval（承認状態）フィールドの値」の表を参照） |
 | Approving | 承認対象レコードへの document_id 参照（任意のテーブル） |
 | Comments | 承認に関するコメント（ジャーナル） |
 | Approval Summarizer | 承認対象の主要フィールドを表示するフォーマッター |
@@ -463,7 +480,7 @@ Request Management では、**State（状態）** がタスクとしての作業
 
 | 観点 | State | Stage |
 |---|---|---|
-| 主な対象 | `sc_task`、`sc_req_item`、`sc_request` | `sc_req_item`（ステージフィールドが既定で存在） |
+| 主な対象 | `sc_task`、`sc_req_item`、`sc_request` | `sc_req_item`（ワークフロー／フローのステージ表示の対象）。`sc_request` にも `stage` フィールドがあるが用途は限定的【第三者情報】 |
 | 更新者 | フルフィラー、ビジネスルール、フロー | ワークフロー／フローが自動更新 |
 | 見る人 | フルフィラー、レポート | 要求者（ポータル、注文状況画面） |
 | 表示 | 選択肢の値 | ステージ名＋状態アイコン（ステージウィジェット） |
@@ -612,7 +629,7 @@ flowchart LR
 
 ### 定義上の違い
 
-ITIL では、**Incident（インシデント）** は「サービスの計画外の中断または品質低下」、**Service Request（サービス要求）** は「ユーザーが合意済みのサービス提供の一部として何かを提供してほしいと求める正式な要求」と区別される（ITIL の定義の詳細は [ITILとITSMの基礎](../../01_入門編/06-itil-itsm-basics.md) を参照）。ServiceNow Community の解説記事も、Service Request を「情報や不足しているものなど、何かを提供してほしいという利用者からの正式な要求」と説明している。[出典](https://www.servicenow.com/community/itsm-articles/what-is-a-service-request-in-itsm/ta-p/2307381)【第三者情報】
+ITIL 4 では、**Incident（インシデント）** は「サービスの計画外の中断、またはサービス品質の低下」（"An unplanned interruption to a service or reduction in the quality of a service"）、**Service Request（サービス要求）** は「ユーザーまたはその権限を与えられた代理人からの要求で、サービス提供の通常の一部として合意済みのサービスアクションを開始させるもの」（"A request from a user or a user's authorized representative that initiates a service action which has been agreed as a normal part of service delivery"）と区別される。【第三者情報】（AXELOS/PeopleCert の ITIL 4 Foundation 用語集の定義。公式用語集は一般公開の URL がないため、二次情報に基づく。なお ITIL v3 では Service Request を「ユーザーからの、何かを提供してほしいという正式な要求」と定義していた。）（ITIL の定義の詳細は [ITILとITSMの基礎](../../01_入門編/06-itil-itsm-basics.md) を参照）。ServiceNow Community の解説記事も、Service Request を「情報や不足しているものなど、何かを提供してほしいという利用者からの正式な要求」と説明している。[出典](https://www.servicenow.com/community/itsm-articles/what-is-a-service-request-in-itsm/ta-p/2307381)【第三者情報】
 
 | 観点 | Incident Management | Request Management |
 |---|---|---|
@@ -786,7 +803,9 @@ Universal Request の詳細は [HR Service Delivery](../employee/hr-service-deli
 
 ### Business Stakeholder ロール
 
-**Business Stakeholder** プラグイン（`com.snc.business_stakeholder`、事前に `com.snc.itsm.roles` の有効化が必要）は `business_stakeholder` ロールをインストールする。このロールは Change Management、Request Management を含む全 ITSM 製品で共通の単一ロールで、ITSM 全体のレコードの参照と承認ができる。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/request-management/installed-with-business-stakeholder.html)
+**Business Stakeholder** プラグイン（`com.snc.business_stakeholder`）は `business_stakeholder` ロールをインストールする。このロールは Change Management、Request Management を含む全 ITSM 製品で共通の単一ロールで、ITSM 全体のレコードの参照と承認ができる。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/request-management/installed-with-business-stakeholder.html)（Business Stakeholder プラグイン固有の前提プラグインは、同ページには記載されていない。）
+
+> **プラグイン ID の表記ゆれ:** 公式ドキュメント内で、installed-with-business-stakeholder ページは `com.snc.business_stakeholder`、ITSM Roles — Request Management のページの表は `com.snc_business_stakeholder` と記載しており、表記が一致しない。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/request-management/installed-with-business-stakeholder.html) [出典](https://www.servicenow.com/docs/r/australia/it-service-management/request-management/request-itsm-roles-rm.html) インスタンスの **All > System Applications > All Available Applications > All** で実際の ID を確認すること。
 
 | ロール | 含むロール（公式記載） |
 |---|---|

@@ -37,7 +37,7 @@ ServiceNow では、開発（DEV）→テスト（TEST/UAT）→本番（PROD）
 - Update Set は「構成変更の XML 集合」であり、インシデント等のトランザクションデータは原則として運ばない。[出典](https://www.servicenow.com/docs/r/australia/application-development/system-update-sets/customizations-tracked-update-sets.html)
 - Clone は移送先（Target）のデータと構成を移送元（Source）で**上書き**する。Target 側で守りたいデータは Preserver（保持）、運びたくないデータは Exclusion（除外）で制御する。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/system-clone-landing.html)
 - スコープ付きアプリケーションの配布は Application Repository / ServiceNow Store / Source Control が本来の手段であり、Update Set と混在させない（後述）。アプリ開発全般は [アプリケーション開発](app-development.md) を参照。
-- 2026 年時点では、Update Set のパイプライン自動化製品として **ReleaseOps**（Zurich で登場、Store アプリ）がある（後述）。
+- 2026 年時点では、Update Set のパイプライン自動化製品として **ReleaseOps**（Zurich で登場、Store アプリ）がある（後述）。[出典](https://www.servicenow.com/docs/r/zurich/delta-yokohama-zurich/zurich-yokohama-releaseops-release-notes.html)
 
 本ファイルの基準リリースは **Australia**（2026-05 GA）。Brazil での変更は判明分を「> **Brazil での変更:**」として併記する。
 
@@ -71,7 +71,8 @@ ServiceNow では、開発（DEV）→テスト（TEST/UAT）→本番（PROD）
 
 - **スコープ付きアプリの開発で Update Set と Application Repository を併用してはならない**。併用すると変更のスキップやコミットエラーが起きる。Application Repository からインストールしたアプリは、以後も Repository で開発・公開を続ける。[出典](https://www.servicenow.com/docs/r/australia/application-development/system-update-sets/exploring-system-update-sets.html)
 - Update Set が運べるアプリケーションファイルには限りがある。大量データの移送には Import Set や Web サービスを使う（[データインポート/エクスポート](import-export-data.md)）。
-- **リリース差の警告**：古いリリースの Update Set を新しいリリースへ適用するのは問題ないが、新しいリリース→古いリリース、または異なる Store アプリバージョン間の移送は互換性問題・データ損失のリスクがあるため避ける。[出典](https://www.servicenow.com/docs/r/australia/application-development/system-update-sets/t_RetrieveAnUpdateSet.html)
+- **リリース差の警告**：古いリリース→新しいリリースへの移送は可能だが、カスタマイズが変更されたコードに依存している場合があり問題のリスクが高まる（[Get started](https://www.servicenow.com/docs/r/australia/application-development/system-update-sets/get-started-update-sets.html)）。新しいリリース→古いリリース、または異なる Store アプリバージョン間の移送は互換性問題・データ損失のリスクがあるため避ける。[出典](https://www.servicenow.com/docs/r/australia/application-development/system-update-sets/t_RetrieveAnUpdateSet.html)
+- なお Update Source の URL には**同じリリースファミリー**のリモートしか指定できない（4.1）。そのため異なるファミリー間の移送は Update Source によるプルではなく XML エクスポート/インポート（4.2）で行うことになる。
 
 ### 1.3 基本ワークフロー
 
@@ -331,7 +332,7 @@ Commit 済みの Update Set について、既存レコードへの変更を取�
 
 手順（ロール：admin）：
 
-1. `All > System Update Sets > Local Update Sets` で対象を開く（Complete で Release date が設定されていること。選択中のアプリケーションが Update Set の内容（例：Global）と一致していること）。
+1. `All > System Update Sets > Local Update Sets` で対象を開く（前提：Update Set が Commit 済みで、Release date が設定されており、選択中のアプリケーションが Update Set の内容（例：Global）と一致していること）。
 2. Back out で問題が起きそうなら、**変更を打ち消す新しい Update Set を作って Commit する**方を選ぶ。
 3. `Back Out` を選ぶ。新しい Update Set による影響（Problems）が表示される。
 4. 各問題を解決：最新版を残すなら `Decide to Keep Current`、前の版に戻すなら `Decide to Use Previous`。
@@ -342,6 +343,7 @@ Commit 済みの Update Set について、既存レコードへの変更を取�
 - Update Set を削除できるのは、カレントでなく、かつ `sys_update_xml` エントリを含まない場合のみ（`sys_update_set` の ACL による制御）。
 - **`sys_update_xml` エントリを削除してはならない**：①変更は元に戻らない、②誰が適用したかの記録が消える、③Customer Update がなくなるため**アップグレード時にカスタマイズが上書きされる**。
 - 変更を戻したいときは削除ではなく Back out する。[出典](https://www.servicenow.com/docs/r/australia/application-development/system-update-sets/delete-update-set-cautions.html)
+- **例外**：Merge（7.1）後に元セットを削除・空にする手順や、Collision 解決（7.2）で重複した Customer Update を削除する手順は公式手順として認められている。これらは最新の変更が別の Update Set に既に存在する重複分の整理であり、それでもカスタマイズ自体は元に戻らない。変更そのものを取り消したい場合は Back out（5.4）を使う。
 
 ### 5.6 アップグレードとの関係（Replace on upgrade）
 
@@ -389,11 +391,11 @@ Commit 済みの Update Set について、既存レコードへの変更を取�
 
 ### 7.1 Merge update sets
 
-複数の Update Set を 1 つに統合する機能。**後方互換のために残されている機能で、公式は Batch の方が予測可能で堅牢としている**。[出典](https://www.servicenow.com/docs/r/australia/application-development/system-update-sets/t_MergeUpdateSets.html)
+複数の Update Set を 1 つに統合する機能。**公式は、同じ結果を得るなら Batch（6 章）の方が予測可能で堅牢（more predictable and robust）としている**。[出典](https://www.servicenow.com/docs/r/australia/application-development/system-update-sets/t_MergeUpdateSets.html)
 
 手順（ロール：admin）：
 
-1. `All > System Update Sets > Merge Update Sets`（In progress を対象）または `Merge Completed Sets`（Complete を対象）。
+1. `All > System Update Sets > Merge Update Sets` または `Merge Completed Sets`（モジュール名から、前者は In progress、後者は Complete の Update Set を対象とすると考えられる【推定】）。
 2. マージしたい Update Set だけが表示されるようリストをフィルター（**同じアプリケーションの Update Set 同士のみ**マージ可）。
 3. 新しい Update Set の Name（必須）と Description（任意）を入力し `Merge` → 確認ダイアログで OK。
 4. 各オブジェクトの**最新の変更**だけが元のセットから新セットへ移動する。移動数・スキップ数がメッセージ表示される。最新判定は Customer Update の `Updated` フィールドで行い、ペイロード内の `sys_updated_on` ではない。
@@ -527,7 +529,7 @@ Cleanup script の実行状態：`Ready to schedule` → `Scheduled` → `Execut
 
 ## 9. Clone Admin Console
 
-`Clone Admin Console` は Clone の管理・申請・監視を行う UI。Store アプリとして提供され、Australia では全 Clone 機能が `Clone Admin Console` メニュー配下に集約された。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/Clone-UI.html)
+`Clone Admin Console` は Clone の管理・申請・監視を行う UI。Australia では ServiceNow AI Platform の機能として**既定で有効**（active by default）であり、全 Clone 機能が `Clone Admin Console` メニュー配下に集約された（Zurich では ServiceNow Store から申請してインストールする提供形態だった）。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/Clone-UI.html)、[出典（Washington DC→Australia 統合リリースノート）](https://www.servicenow.com/docs/r/delta-washingtondc-australia/australia-washingtondc-cloneadminconsole-release-notes.html)
 
 | タブ | 内容 |
 |---|---|
@@ -540,7 +542,7 @@ Cleanup script の実行状態：`Ready to schedule` → `Scheduled` → `Execut
 
 **Multi-Instance View**：1 つのプライマリインスタンスから、リンクされた複数インスタンスの Clone 申請・状態・履歴・Cleanup script 状態（Australia Patch 5 以降）を一元監視する。Source・Target とも Australia Patch 2 以降が必要。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/clone-multi-instance-view.html)
 
-**レガシー UI**：Australia から `clone_instance.do` は Clone Admin Console へリダイレクトされ（30 秒後）、リスト/フォームからのレガシー Clone 申請はサポート外。Australia 以前の履歴は Clone History（`clone_instance` テーブル、`clone_instance_list.do`）に残り、Console のダッシュボードには表示されない。Console で申請した Clone は別の新テーブルに保存される（Xanadu で導入）。[出典](https://www.servicenow.com/docs/r/delta-washingtondc-australia/australia-washingtondc-cloneadminconsole-release-notes.html)
+**レガシー UI**：Australia から `clone_instance.do` は Clone Admin Console へリダイレクトされ（30 秒後）、リスト/フォームからのレガシー Clone 申請はサポート外。Australia 以前の履歴は Clone History（`clone_instance` テーブル、`clone_instance_list.do`）に残り、Console のダッシュボードには表示されない。Console で申請した Clone は別の新テーブルに保存される（Washington DC で導入、Xanadu のリリースノートでも再掲）。[出典](https://www.servicenow.com/docs/r/delta-washingtondc-australia/australia-washingtondc-cloneadminconsole-release-notes.html)
 
 ### 9.1 Target の登録と認証（OAuth 2.0）
 
@@ -605,9 +607,9 @@ Australia では Target 認証が username/password から **JWT 証明書ベー
 ### 10.3 Preservers（保持）
 
 - Preserver は Target 上のデータを上書きから守る。Preserver は **Source 側で定義**する（Target で定義しても効果はない）。保持データは Exclusion 処理の後に Target に再適用される。[出典（Brazil 版）](https://www.servicenow.com/docs/r/platform-administration/data-preservation.html)
-- **子テーブルの扱いは Exclusion と逆**：Preserver はテーブルを保持しても子テーブルを自動では保持しないため、子テーブルを個別に追加する必要がある。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/clone-configurations-tab.html)
-  - ただし **RaptorDB** インスタンスでは、テーブルを保持すると階層と子孫テーブルが自動で保持される（RaptorDB のみ）。
-  - Brazil 版の Data preservation ページは「親を保持すると子も保持されるが、MariaDB 間 Clone では子テーブルは自動保持されず手動追加が必要」と記載しており、DB エンジンによって挙動が異なる。自インスタンスの DB 種別を確認すること。
+- Preserver でテーブルを保持すると、**子孫テーブル（descendant tables）も自動で保持される**。既存の子テーブル用 Preserver はそのまま動作するため削除は不要。親テーブルを保持すると保持レコード数が大幅に増え得る点に注意する。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/clone-configurations-tab.html)
+  - 例外：Source または Target インスタンスが **MariaDB** の場合、子孫テーブルは自動保持されない。保持したい子テーブルごとに Preserver を追加する。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/clone-configurations-tab.html)
+- `sys_attachment` / `sys_attachment_doc` への Preserver は無視され、代わりに他の保持対象テーブルのレコードに属する添付ファイルが自動で保持される。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/clone-configurations-tab.html)
 - 典型用途：インスタンス固有の認証設定、`sys_ui_bookmark`、`sys_ui_recent_selection`、`sys_user_preference`、テーマ、MID Server（`ecc_agent`）等。
 - データベースビューは保持できない。Preserver は空にできない（空だと Clone を申請できない）。
 - 大量データ（ユーザー・グループ・ロール等）の保持は Clone 時間を大きく延ばすため避け、ファイルにエクスポートして Clone 後にインポートする。Preserver には Condition を付けて必要分だけ保持する。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/clone-duration-optimization.html)
@@ -698,7 +700,7 @@ Digest / Identity Providers / SAML2 の 3 つは揃えて削除しないと Clon
 | Backup options | — | `Most recent`（最新の夜間バックアップ。アップグレードや大きな変更があった場合を除く）/ `On-demand backup`（開始時刻にバックアップを取得してから開始） |
 | Exclude tables specified in Exclusion List | 除外する | Exclusion List のテーブル（と子テーブル）のレコードをコピーしない。スキーマは残る。既定の除外（監査・ライセンス使用量・ログ・通知）はこの設定に関わらず除外 |
 | Exclude audit and log data | 除外する | 監査・ログを空のテーブルとして作成。**レコードの Activity stream が Source と一致しなくなる**（Activity stream は監査テーブルから生成されるため） |
-| Exclude attachment data | 除外する | `sys_attachment` の動画・画像・大きなバイナリを除外。`ZZ_` で始まるテーブル名、`sys_certificate`、`sc_cat_item`、`sys_upgrade_manifest`、`ecc_agent_jar`、`ecc_agent_mib`、`sys_store_app`、`invisible.sys_store_app` の添付等のシステム関連ファイルは除外されない |
+| Exclude attachment data | 除外する | `sys_attachment` の動画・画像・大きなバイナリを除外。カタログアイテムの画像、テーマ画像、アイコンなどの既定ファイル・システム関連ファイルは除外されない（除外されないテーブルの詳細一覧は Australia の公式ページでは確認できず） |
 | Preserve theme | 保持する | Target のテーマと CSS を維持 |
 | No. of days of In-progress Global Update Sets to be preserved | 保持しない | 直近 90 日以内の**グローバル**スコープの In progress Update Set を Target に保持。**スコープ付き Update Set は保持されない**。90 日超も保持されない |
 
@@ -740,7 +742,7 @@ Clone では Source のデータが Target を置き換えるため、**Target �
 
 ## 12. ReleaseOps（Update Set 移送の自動化）
 
-`ReleaseOps` は Update Set／アプリインストールのデプロイを自動化し、本番への不用意な変更のリスクを減らす Store アプリ（Zurich で登場）。規制環境・オンプレミスでは非サポート。[出典](https://www.servicenow.com/docs/r/application-development/releaseops/exploring-release-ops.html)
+`ReleaseOps` は Update Set／アプリインストールのデプロイを自動化し、本番への不用意な変更のリスクを減らす Store アプリ（Zurich で登場。ServiceNow Store からリクエストしてインストールする）。[出典（Zurich リリースノート）](https://www.servicenow.com/docs/r/zurich/delta-yokohama-zurich/zurich-yokohama-releaseops-release-notes.html) 規制環境・オンプレミスでは非サポート。[出典](https://www.servicenow.com/docs/r/application-development/releaseops/exploring-release-ops.html)
 
 | 要素 | 内容 |
 |---|---|
@@ -753,11 +755,11 @@ Clone では Source のデータが Target を置き換えるため、**Target �
 
 Update Set を Complete にすると Update Set フォームに `Promote update set` ボタンが表示され、押すと本番インスタンスの Deployment request フォームへ遷移する（ロール：developer または release_admin。開発インスタンスに `sn_releaseops.deployment_controller` プロパティが必要）。[出典](https://www.servicenow.com/docs/r/australia/application-development/releaseops/promote-update-set-for-deployment.html)
 
-Australia での追加：AI エージェントによる Update Set 説明文・リリースノートの生成、Guided setup、Runbook tasks、ATF コードカバレッジ。[出典](https://www.servicenow.com/docs/r/australia/delta-zurich-australia/australia-zurich-releaseops-release-notes.html)
+Australia での追加：AI エージェントによる Update Set 説明文・リリースノートの生成、Guided setup（Zurich の ReleaseOps v1.2.1 で先行提供、Australia のリリースノートにも再掲）、Runbook tasks、ATF コードカバレッジ。[出典](https://www.servicenow.com/docs/r/australia/delta-zurich-australia/australia-zurich-releaseops-release-notes.html)
 
 > **Brazil での変更:** Release を作成・選択する前に Deployment request の評価を開始できるようになった（リリースサイクルより長い評価に対応）。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-releaseops-release-notes.html)
 
-関連：Update Set の操作（create / complete / retrieve / preview / commit）は Yokohama から Flow Designer のアクション・サブフローとしても利用できる。[出典](https://www.servicenow.com/docs/r/zurich/delta-yokohama-zurich/zurich-yokohama-systemupdatesets-release-notes.html)。ATF は [Automated Test Framework (ATF)](automated-test-framework.md)、パイプライン全般は [Release Management と DevOps](../itsm/release-management.md) を参照。
+関連：Update Set の操作（create / complete / retrieve / preview / commit）用のアクションとサブフローが Yokohama で追加された（Workflow Studio / Flow Designer から利用する想定【推定】）。[出典](https://www.servicenow.com/docs/r/zurich/delta-yokohama-zurich/zurich-yokohama-systemupdatesets-release-notes.html)。ATF は [Automated Test Framework (ATF)](automated-test-framework.md)、パイプライン全般は [Release Management と DevOps](../itsm/release-management.md) を参照。
 
 ---
 
@@ -775,7 +777,7 @@ Australia での追加：AI エージェントによる Update Set 説明文・�
 | 4 | ベースレコードの sys_id をインスタンス間で一致させる（本番から非本番を Clone して揃える） |
 | 5 | 本番への Commit は業務時間外 |
 | 6 | 命名規約を決める（例：`PR10005 - Duplicate Email Issues Fix`、複数必要なら `PR10005.2 - …` と連番を付けて作成順を明示） |
-| 7 | Update Set を削除しない。Customer Update の Update Set フィールドを手で変えない |
+| 7 | Update Set を削除しない。Customer Update の Update Set フィールドを手で変えない（Merge・Collision 解決時の重複 Customer Update 削除は例外。5.5 参照） |
 | 8 | 移送準備ができるまで Complete にしない。Complete から In progress に戻さない |
 | 9 | 手作業でマージしない（Merge モジュールまたは Batch を使う） |
 | 10 | Commit 前に必ず Preview する |
@@ -808,7 +810,7 @@ Australia での追加：AI エージェントによる Update Set 説明文・�
 - 開発者ごと・ストーリーごとに Update Set を分け、レビュー（Peer review）後に Complete にする運用が多い。
 - 複数開発者が同一オブジェクトを触ると Collision の温床になるため、Compare Update Sets で事前検出する。
 
-環境設計（インスタンス数・用途）は [インスタンス戦略と環境](../../03_導入編/07-instance-strategy.md)、リリース運用・ガバナンスは [運用とガバナンス](../../03_導入編/12-operations-governance.md)、カスタマイズの技術的負債は [カスタマイズと技術的負債](../../04_応用編/02-customization-technical-debt.md) を参照。
+環境設計（インスタンス数・用途）は [インスタンス戦略と環境](../../03_導入編/07-instance-strategy.md)、リリース運用・ガバナンスは [運用とガバナンス](../../03_導入編/12-operations-governance.md)、開発ガバナンス（CoE）は [ガバナンスと CoE の実践](../../04_応用編/09-governance-coe-practice.md)、スクリプトの品質は [スクリプティングのベストプラクティス](../../04_応用編/07-scripting-best-practices.md) を参照。
 
 ---
 
@@ -912,6 +914,7 @@ Australia での追加：AI エージェントによる Update Set 説明文・�
 - https://www.servicenow.com/docs/r/application-development/releaseops/exploring-release-ops.html
 - https://www.servicenow.com/docs/r/australia/application-development/releaseops/promote-update-set-for-deployment.html
 - https://www.servicenow.com/docs/r/australia/delta-zurich-australia/australia-zurich-releaseops-release-notes.html
+- https://www.servicenow.com/docs/r/zurich/delta-yokohama-zurich/zurich-yokohama-releaseops-release-notes.html
 - https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-releaseops-release-notes.html
 
 ServiceNow Community

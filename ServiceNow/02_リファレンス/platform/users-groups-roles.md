@@ -4,7 +4,7 @@ category: reference
 domain: platform
 release: Australia
 last_verified: 2026-11-02
-summary: ServiceNow のユーザー（sys_user）・グループ（sys_user_group）・ロール（sys_user_role）のテーブル構造、ロール継承、エレベーテッドロール（security_admin）、ロール委任と承認・作業の Delegation、ドメインセパレーションとの関係、LDAP 連携、主要ロール一覧（admin、itil、catalog_admin、Australia のグラニュラー管理ロール等）を網羅的に解説する。
+summary: ServiceNow のユーザー（sys_user）・グループ（sys_user_group）・ロール（sys_user_role）のテーブル構造、ロール継承、昇格ロール（security_admin）、ロール委任と承認・作業の Delegation、ドメインセパレーションとの関係、LDAP 連携、主要ロール一覧（admin、itil、catalog_admin、Australia のグラニュラー管理ロール等）を網羅的に解説する。
 keywords: [sys_user, sys_user_group, sys_user_role, sys_user_has_role, sys_user_grmember, sys_group_has_role, sys_user_role_contains, ロール継承, Contains Roles, elevated privilege, security_admin, glide.security.strict_elevate_privilege, role_delegator, delegation, sys_user_delegate, granular delegation, sys_granular_delegate, delegation_admin, impersonation, impersonator, user_admin, admin, itil, itil_admin, catalog_admin, granular admin roles, instance_operator, identity_type, ai_user_admin, LDAP, ldap_import, LDAPUtils, snc_internal, snc_external, domain separation, visibility domains, ユーザー管理, グループ, ロール]
 sources:
   - https://www.servicenow.com/docs/r/platform-administration/user-administration/c_UserAdministration.html
@@ -30,6 +30,10 @@ sources:
   - https://www.servicenow.com/docs/r/1nuU0tTksWZZbL8T4WKSDg/7xX9uKkZd5PIOr2CyaQ9Aw
   - https://www.servicenow.com/docs/r/GypxAX2jEErwkCxugICKdg/QeeX7ay14VRIqnHl3Qx5AQ
   - https://www.servicenow.com/docs/r/zurich/platform-security/ldap-integration/c_LDAPTransformMaps.html
+  - https://www.servicenow.com/docs/r/zurich/platform-security/ldap-integration/c_LDAPIntegration.html
+  - https://www.servicenow.com/docs/r/baBFTRuHLgu7HSwp0SUEQQ/hqHNC192MDfIET3W8bdP~Q
+  - https://support.servicenow.com/kb?id=kb_article_view&sysparm_article=KB0696657
+  - https://support.servicenow.com/kb?id=kb_article_view&sysparm_article=KB0814842
   - https://www.servicenow.com/docs/r/platform-security/explicit-roles.html
   - https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-identity-release-notes.html
   - https://www.servicenow.com/community/itsm-articles/expanded-role-inheritance-for-itil-and-itil-admin-australia/ta-p/3516134
@@ -51,7 +55,7 @@ ServiceNow の **User administration（ユーザー管理）** は、「誰が�
 | **Group（グループ）** | `sys_user_group` | ユーザーの集合。作業の割り当て先（Assignment group）、承認、通知、ロール付与の単位 |
 | **Role（ロール）** | `sys_user_role` | 権限の束。ACL（アクセス制御）、モジュール表示、UI アクション等の判定に使われる |
 
-本ファイルは、上記3テーブルとその中間テーブル、ロール継承、エレベーテッドロール（`security_admin`）、Role delegation（ロール委任）と承認・作業の Delegation（代理）、Impersonation（なりすまし）、ドメインセパレーションとの関係、LDAP 連携、主要ロール一覧（Australia で追加された Granular admin roles を含む）を扱う。
+本ファイルは、上記3テーブルとその中間テーブル、ロール継承、昇格ロール（`security_admin`）、Role delegation（ロール委任）と承認・作業の Delegation（代理）、Impersonation（なりすまし）、ドメインセパレーションとの関係、LDAP 連携、主要ロール一覧（Australia で追加された Granular admin roles を含む）を扱う。
 
 - 入門者向けの解説は [ユーザー・ロール・ライセンスの基本](../../01_入門編/08-users-roles-licensing-basics.md) を参照。
 - ロールが実際にどのレコード／フィールドへのアクセスを許可するかの評価ロジックは [アクセス制御（ACL）](./access-control-acl.md) を参照。
@@ -127,7 +131,7 @@ erDiagram
 | Password | パスワード | レコード保存後に **Set Password** で設定。恒久／一時を選べる |
 | Password needs reset | パスワード要リセット | 初回ログイン時にパスワード変更を強制する |
 | Locked out（`locked_out`） | ロックアウト | ユーザーをインスタンスから締め出し、アクティブなセッションをすべて終了する。admin 自身が自分をロックアウトしないよう保護がある |
-| Active（`active`） | 有効 | 無効ユーザーはリスト・参照フィールド・オートコンプリートで管理者にしか表示されない |
+| Active（`active`） | 有効 | 無効ユーザーは、リスト・参照フィールド・オートコンプリートで非管理者に表示されなくなる。ログイン不可になる点は 2.5 を参照 |
 | Web service access only | Web サービスアクセスのみ | 非対話型（API 専用）ユーザーとしてマークする。Non-Interactive Sessions プラグインで利用可能 |
 | Internal Integration User | 内部連携ユーザー | サービスアカウントを内部連携ユーザーとしてマークする |
 | Identity type（`identity_type`） | アイデンティティ種別 | Human / Machine / AI。後述 |
@@ -173,7 +177,8 @@ ServiceNow Community の記事は、Australia 時点の `sys_user` に以下の�
 
 ### 2.5 ユーザーの無効化・ロックアウト・削除
 
-- **Active = false**：ログインできなくなる。レコードは残るため、過去チケットの参照（Caller、Assigned to 等）は維持される。[出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/3VaN0iZLSqAEHZDp2SGJGQ)
+- **Active = false**：無効ユーザーは、リスト・参照フィールド・オートコンプリートで非管理者に表示されなくなる。レコードは残るため、過去チケットの参照（Caller、Assigned to 等）は維持される。[出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/3VaN0iZLSqAEHZDp2SGJGQ)
+  - 無効化されたユーザーはログインできなくなる。ベースシステムのビジネスルール **Lock Out Inactive Users** が、`active` が false になったユーザーの `locked_out` を true にするためである。このルールには逆方向の処理がないので、再度 Active = true にしてもロックアウトは解除されない。再有効化するときは `locked_out` も手動で false に戻す。Now Support KB0696657 の表題「Business Rule 'Lock Out Inactive Users' does not have reverse logic. Inactive users who are re-activated remain locked out.」が根拠で、KB 本文は取得できなかった。【経験則】 [出典](https://support.servicenow.com/kb?id=kb_article_view&sysparm_article=KB0696657)
 - **Locked out = true**：ログインを拒否し、既存セッションを即時終了する。[出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/3VaN0iZLSqAEHZDp2SGJGQ)
 - **削除**：LDAP 連携の公式解説は、LDAP から消えたユーザーを自動削除しない理由として「削除するとユーザー履歴が消え参照がクリアされる」ことを挙げており、削除の判断は顧客に委ねている。実務では削除ではなく無効化が一般的である。[出典](https://www.servicenow.com/docs/r/GypxAX2jEErwkCxugICKdg/QeeX7ay14VRIqnHl3Qx5AQ) 【経験則】
 
@@ -357,15 +362,15 @@ Australia では `itil` と `itil_admin` の包含ロールが拡大された。
 
 ### ロール継承の注意点
 
-- **ロール包含はロールの付与のみを伝播し、エレベーテッドロールのエレベーションは伝播しない。** エレベーテッドロール A がエレベーテッドロール B を包含していても、A にエレベートしただけでは B の権限は得られず、B にも個別にエレベートする必要がある。[出典](https://www.servicenow.com/docs/r/platform-security/c_ElevatedPrivilege.html)
+- **ロール包含はロールの付与のみを伝播し、昇格ロールのエレベーションは伝播しない。** 昇格ロール A が昇格ロール B を包含していても、A にエレベートしただけでは B の権限は得られず、B にも個別にエレベートする必要がある。[出典](https://www.servicenow.com/docs/r/platform-security/c_ElevatedPrivilege.html)
 - グループからユーザーを外しても継承ロールが残る、あるいはグループ所属がないのに継承ロールが表示される、という事象がコミュニティで報告されている。多くは別ロールの包含経由で付与されているケースである。【第三者情報】 [出典](https://www.servicenow.com/community/developer-forum/user-is-not-part-any-group-but-still-has-the-roles/m-p/2787679)
 - `itil` のような包含ロールの多いベースシステムロールは、リリースごとに包含内容が変わる（上記 Australia の例）。アップグレード時はリリースノートとロールの Contains Roles を確認する。【経験則】
 
 ---
 
-## 6. Elevated privilege roles（エレベーテッドロール）と `security_admin`
+## 6. Elevated privilege roles（昇格ロール）と `security_admin`
 
-### 6.1 エレベーテッドロールの仕組み
+### 6.1 昇格ロールの仕組み
 
 **Elevated privilege role（昇格権限ロール）** は、ユーザーに付与されていてもログイン時には有効にならず、ユーザーが手動で **エレベート（Elevate：昇格）** して初めて有効になるロールである。
 
@@ -378,7 +383,7 @@ Australia では `itil` と `itil_admin` の包含ロールが拡大された。
 | ベースシステムの該当ロール | `security_admin` のみ（ACL と High Security Settings へのアクセスを付与） |
 | ロール一覧での表示 | `security_admin` はエレベートするまでロール一覧に表示されない |
 | カスタム | 任意のロールをロールフォームの Elevated privilege で昇格権限ロールに指定できる |
-| `admin` ロール | `admin` 自体をエレベーテッドロールにする使い方はサポートされない（代わりに下記の強制エレベートプロパティを使う） |
+| `admin` ロール | `admin` 自体を昇格ロールにする使い方はサポートされない（代わりに下記の強制エレベートプロパティを使う） |
 
 出典：[Elevated privilege roles](https://www.servicenow.com/docs/r/platform-security/c_ElevatedPrivilege.html)、[Create a role](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/krUISFxXaAluOpxq825IKg)
 
@@ -386,7 +391,7 @@ Australia では `itil` と `itil_admin` の包含ロールが拡大された。
 
 ### 6.2 `security_admin` ロール
 
-`security_admin` は High Security Settings に含まれるエレベーテッドロールで、保持者は **ACL（Access Control）の作成・変更** と **High Security Settings の変更** を行える。[出典](https://www.servicenow.com/docs/r/platform-security/security-admin-role.html)
+`security_admin` は High Security Settings に含まれる昇格ロールで、保持者は **ACL（Access Control）の作成・変更** と **High Security Settings の変更** を行える。[出典](https://www.servicenow.com/docs/r/platform-security/security-admin-role.html)
 
 - ベースシステムでは既定の System Administrator（`admin` ユーザー）のみが `security_admin` を持つ。`admin` ユーザーもログイン時点では保持しておらず、エレベートした後はセッション中保持し続ける。
 - エレベーションが必要なため、少数のユーザー・グループにのみ付与するよう推奨されている。
@@ -394,8 +399,6 @@ Australia では `itil` と `itil_admin` の包含ロールが拡大された。
 - High Security の各プロパティは read_roles = `admin`、write_roles = `security_admin` であり、`admin` は値を参照できるが、変更には `security_admin` へのエレベートが必要である。
 
 出典：[Security_admin role](https://www.servicenow.com/docs/r/platform-security/security-admin-role.html)、[Elevated privilege roles](https://www.servicenow.com/docs/r/platform-security/c_ElevatedPrivilege.html)
-
-> 公式ドキュメント（Elevated privilege roles）の要約部分では "securityadmin" と表記されている箇所があるが、ロール名は `security_admin` である。
 
 ACL 側から見た `security_admin` の位置付けは [アクセス制御（ACL）](./access-control-acl.md)、High Security Settings の内容は [プラットフォームセキュリティと暗号化](./platform-security-encryption.md) を参照。
 
@@ -501,7 +504,7 @@ ACL 側から見た `security_admin` の位置付けは [アクセス制御（AC
 | 管理ロール | `delegation_admin`（Granular delegation の管理とデリゲーションルールの設定。他ロールを包含しない） |
 | Granular Delegate（`sys_granular_delegate`） | 誰が代理人で、いつ代理し、どの通知を受け取るか |
 | Delegation Rule（`sys_delegation_rule`） | どのタスクレコードを代理させるかの条件。承認用／割り当て用を区別 |
-| Delegation Rule Table（`sys_delegation_rule_table`） | 代理対象にできるタスクテーブル（限定されたテーブルのみ） |
+| Delegation Rule Table（`sys_delegation_rule_table`） | 代理対象にできるタスクテーブル（限定されたテーブルのみ）。テーブル名は Australia 版 Exploring Granular Delegation で確認 [出典](https://www.servicenow.com/docs/r/baBFTRuHLgu7HSwp0SUEQQ/hqHNC192MDfIET3W8bdP~Q) |
 | User Criteria（`user_criteria`） | 誰が委任者（Delegator）になれ、誰が代理人（Delegate）になれるか |
 | `com.glide.delegation.default_days_since_update` | 非アクティブな代理レコードの保持日数（既定 7、最大 30） |
 | スケジュールジョブ | Notify New Delegates（10 分ごとに代理期間開始を通知）、Clean Granular Delegation Records（日次で非アクティブレコードを削除） |
@@ -613,10 +616,10 @@ ServiceNow は LDAP ディレクトリ（Microsoft Active Directory、Novell、D
 | 方式 | 内容 |
 |---|---|
 | Scheduled refresh（定期取り込み） | 1日1回の完全な LDAP Browse（オフピーク時間帯推奨）。大規模 AD ではページング（既定で対応）を使い、1,000 オブジェクト上限を回避する |
-| LDAP Listener | 永続検索（Persistent search）により、LDAP 側の変更（追加を含む）を数秒〜10 秒程度でインスタンスに反映する |
-| On-demand（ログイン時） | LDAP User Import マップでログイン時にユーザーを作成する |
+| LDAP Listener | 永続検索（Persistent search）により、LDAP 側の変更（追加を含む）をインスタンスに反映する。Understanding LDAP integration は「数秒以内（within seconds）」、Zurich 版 LDAP integration は「約 10 秒以内（within approximately 10 seconds）」と記載している |
+| On-demand（ログイン時） | インスタンスにアカウントがないユーザーがログインすると、入力されたユーザー名を LDAP で検索してパスワードを検証し、有効ならアカウントを作成して LDAP のデータを設定する。作成時のマッピングには LDAP User Import の Transform Map が使われる |
 
-出典：[Understanding LDAP integration](https://www.servicenow.com/docs/r/GypxAX2jEErwkCxugICKdg/QeeX7ay14VRIqnHl3Qx5AQ)、[LDAP integration](https://www.servicenow.com/docs/r/1nuU0tTksWZZbL8T4WKSDg/o7EnKZISO18mtBrxD8Frsw)（取得時点で URL が 404。検索結果の要約に基づく）
+出典：[Understanding LDAP integration](https://www.servicenow.com/docs/r/GypxAX2jEErwkCxugICKdg/QeeX7ay14VRIqnHl3Qx5AQ)、[LDAP integration（Zurich）](https://www.servicenow.com/docs/r/zurich/platform-security/ldap-integration/c_LDAPIntegration.html)、On-demand 行は [LDAP transform maps（Zurich）](https://www.servicenow.com/docs/r/zurich/platform-security/ldap-integration/c_LDAPTransformMaps.html) も参照
 
 - LDAP から削除されたエントリはインスタンス側で削除されない（履歴と参照を守るため）。無効化の扱いは顧客側で設計する。[出典](https://www.servicenow.com/docs/r/GypxAX2jEErwkCxugICKdg/QeeX7ay14VRIqnHl3Qx5AQ)
 
@@ -626,7 +629,7 @@ ServiceNow は LDAP ディレクトリ（Microsoft Active Directory、Novell、D
 - ユーザーレコードの **Source** が `ldap` で始まる場合、そのユーザーは LDAP で認証される。**LDAP Server** フィールドが認証先サーバーを決める。
 - MID Server をローカルネットワークに置くと LDAP サーバーを外部トラフィックから保護できるが、**LDAP のパスワード認証は MID Server を経由できない** ため、認証にはインスタンスから LDAP サーバーへの直接接続が必要となる。
 
-出典：[Understanding LDAP integration](https://www.servicenow.com/docs/r/GypxAX2jEErwkCxugICKdg/QeeX7ay14VRIqnHl3Qx5AQ)、MID Server 経由不可は検索結果の要約に基づく [LDAP integration overview](https://www.servicenow.com/docs/r/GypxAX2jEErwkCxugICKdg/4zEYyzFYoRfqnySPk2g26w)
+出典：[Understanding LDAP integration](https://www.servicenow.com/docs/r/GypxAX2jEErwkCxugICKdg/QeeX7ay14VRIqnHl3Qx5AQ)、MID Server 経由不可は [LDAP integration（Zurich）](https://www.servicenow.com/docs/r/zurich/platform-security/ldap-integration/c_LDAPIntegration.html)（"The system does not support LDAP password authentication through a MID Server."）
 
 - 近年は LDAP 連携に代わり、IdP（Microsoft Entra ID、Okta 等）からの SCIM プロビジョニングと SAML／OIDC SSO を組み合わせる構成が一般的である（[認証とSSO](./authentication-sso.md) 参照）。【経験則】 Australia の Granular admin roles には SCIM プロバイダー設定を管理する `scim_config_admin` がある。[出典](https://www.servicenow.com/docs/r/platform-security/granular-admin-roles.html)
 - Active Directory からの CI・ユーザー情報取り込みには Service Graph Connector for Active Directory もある（[Service Graph Connectors](../itom/service-graph-connectors.md) 参照）。
@@ -640,14 +643,14 @@ ServiceNow は LDAP ディレクトリ（Microsoft Active Directory、Novell、D
 | ロール | 説明 | 注意点 |
 |---|---|---|
 | `admin` | システム管理者。全機能・全データへのアクセスを持ち、ACL をオーバーライドし、すべてのロールチェックを通過する | より限定的なロールがあればそちらを使う。`admin` の付与には `admin` が必要 |
-| `security_admin` | ACL と High Security Settings の変更（エレベーテッドロール） | 6 章参照 |
+| `security_admin` | ACL と High Security Settings の変更（昇格ロール） | 6 章参照 |
 | `maint` | ServiceNow 社内利用のために予約されたロール | 顧客は使用しない |
 | `nobody` | admin や maint を含む全アクセスを拒否する | 誤用すると元に戻せない場合がある。ユーザーに付与しない |
 | `public` | ログインなしでのアクセスを許可する | 委任不可 |
 | `user` | 顧客が利用可能なロールだが、ベースシステムでは機能を持たない | — |
-| `snc_internal` / `snc_external` | Explicit Roles プラグイン（`com.glide.explicit_roles`）有効時に、内部ユーザー／外部ユーザーを明示するロール | Paris 以降、両方を同時に保持することはできない。プラグイン有効化時に既存ユーザー全員へ `snc_internal` が付与される。CSM（`com.sn_customerservice`）等の有効化でも自動的に有効化される |
+| `snc_internal` / `snc_external` | Explicit Roles プラグイン（`com.glide.explicit_roles`）有効時に、内部ユーザー／外部ユーザーを明示するロール | Paris 以降、両方を同時に保持することはできない。プラグイン有効化時に既存ユーザー全員へ `snc_internal` が付与される。Explicit Roles プラグインは Contextual Security Manager プラグインを前提とする。CSM（`com.sn_customerservice`）の有効化に伴って Explicit Roles も有効化される（Now Support KB0814842 の表題「CSM プラグインにより追加された snc_external／snc_internal ロールの削除」が示す挙動。KB 本文と現行版の公式ドキュメントでは確認できず）【推定】 |
 
-出典：[Base system roles](https://www.servicenow.com/docs/r/platform-administration/user-administration/base-system-roles.html)、[Explicit Roles](https://www.servicenow.com/docs/r/platform-security/explicit-roles.html)、[Prevent a role from being delegated](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/Sjh7X8fM_kayfrIQtszkRQ)
+出典：[Base system roles](https://www.servicenow.com/docs/r/platform-administration/user-administration/base-system-roles.html)、[Explicit Roles](https://www.servicenow.com/docs/r/platform-security/explicit-roles.html)、[KB0814842: Removing the snc_external and snc_internal roles from system added by the CSM Plugin](https://support.servicenow.com/kb?id=kb_article_view&sysparm_article=KB0814842)、[Prevent a role from being delegated](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/Sjh7X8fM_kayfrIQtszkRQ)
 
 ### 11.2 ベースシステムロール（主要なもの）
 
@@ -783,7 +786,7 @@ Australia では、従来 `admin`（や `itil_admin`）が必要だった管理�
 | Platform | `update_set_admin` | Update Set の作成・削除・管理 |
 | Platform | `source_control_admin` | ソース管理機能 |
 | Server-side scripting | `script_include_admin` | `sys_script_include` への限定アクセス |
-| Background scripts | `background_script_admin` | バックグラウンドスクリプトの管理 |
+| Code Assist Experience | `background_script_admin` | バックグラウンドスクリプトの管理 |
 | Flow Designer | `flow_admin` | Flow Designer テーブルへの管理アクセス |
 | Audit | `audit_admin` | `sys_audit` への書き込み・削除 |
 | Notification | `notification_admin` / `email_admin` | 通知の構成／メールの再送・受信メールの再処理 |
@@ -795,7 +798,8 @@ Australia では、従来 `admin`（や `itil_admin`）が必要だった管理�
 | ITSM | `sla_admin` | Service Level Management の設定 |
 | ITOM | `discovery_admin` | Discovery の構成・監視・実行 |
 | CMDB | `sn_cmdb_admin` | CMDB の構成とレコードの CRUD |
-| Encryption | `security_admin` / `sn_kmf.admin` | セキュリティ操作／鍵操作 |
+| Encryption | `security_admin` | admin としてセキュリティ操作を行うためのロール |
+| Key Management Framework | `sn_kmf.admin` | KMF 操作用ロールを他ユーザーに付与する管理ロール（公式一覧では Encryption 区分にも掲載され、`sn_kmf.cryptographic_manager` / `sn_kmf.cryptographic_auditor` を付与できると記載） |
 | HRSD | `sn_hr_core.admin` | HR 管理者 |
 | CSM | `csm_admin` | CSM の全機能・データ |
 | UI Builder | `ui_builder_admin` | UI Builder の管理 |
@@ -870,7 +874,9 @@ Australia では、従来 `admin`（や `itil_admin`）が必要だった管理�
 | `glide.ui.schedule_slushbucket_save_for_group_roles` | `true` でバックグラウンド | グループロール保存をバックグラウンド処理 | [Create a group role](https://www.servicenow.com/docs/r/platform-administration/user-administration/t_CreateAGroupRole.html) |
 | `glide.approval.delegation.version` | `v3`（既定） | `v1` 標準のみ／`v2` 詳細のみ／`v3` 両方 | [Exploring Granular Delegation](https://www.servicenow.com/docs/r/SogDT~k7ktsbe1ZYegnaLg/f1ST0lQMraDFT3t9mJYGwQ) |
 | `com.glide.delegation.default_days_since_update` | 7（最大 30） | Granular delegation の非アクティブ代理レコード保持日数 | [Setting up Granular Delegation](https://www.servicenow.com/docs/r/zurich/employee-service-management/granular-delegation/granular-delegation-setup.html) |
-| `glide.security.explicit_roles.internal_user_blacklist` | — | `snc_internal` を付与しないユーザー種別の除外指定（Explicit Roles） | [Explicit Roles](https://www.servicenow.com/docs/r/platform-security/explicit-roles.html)（検索結果の要約に基づく） |
+| `glide.security.explicit_roles.do_not_fix` | false / true | false：`snc_internal` をメモリ上と `sys_user_has_role` の両方に追加する。true：どちらにも追加しない（Explicit Roles） | [Explicit Roles](https://www.servicenow.com/docs/r/platform-security/explicit-roles.html) |
+| `glide.security.explicit_roles.do_not_fix_in_memory` | — | `glide.security.explicit_roles.do_not_fix` の以前の動作に戻す（Explicit Roles） | [Explicit Roles](https://www.servicenow.com/docs/r/platform-security/explicit-roles.html) |
+| `glide.security.explicit_roles.ignore.snc_internal.exclude_role_list` | — | 特定のユーザーに `snc_internal` を付与しないための除外指定（Explicit Roles。値の書式は公開情報では確認できず） | [Explicit Roles](https://www.servicenow.com/docs/r/platform-security/explicit-roles.html) |
 
 ---
 
@@ -930,16 +936,21 @@ Australia では、従来 `admin`（や `itil_admin`）が必要だった管理�
 - Delegate approvals and tasks（Brazil）: https://www.servicenow.com/docs/r/servicenow-platform/self-service/t_DelegateApprovalsTasks.html
 - Exploring Granular Delegation（Zurich）: https://www.servicenow.com/docs/r/SogDT~k7ktsbe1ZYegnaLg/f1ST0lQMraDFT3t9mJYGwQ
 - Setting up Granular Delegation（Zurich）: https://www.servicenow.com/docs/r/zurich/employee-service-management/granular-delegation/granular-delegation-setup.html
+- Exploring Granular Delegation（Australia）: https://www.servicenow.com/docs/r/baBFTRuHLgu7HSwp0SUEQQ/hqHNC192MDfIET3W8bdP~Q
 - Impersonating users（Brazil）: https://www.servicenow.com/docs/r/platform-administration/user-administration/c_ImpersonateAUser.html
 - Domain assignment（Brazil）: https://www.servicenow.com/docs/r/platform-security/c_DomainAssignment.html
 - Visibility domains and Contains domains: https://www.servicenow.com/docs/r/1nuU0tTksWZZbL8T4WKSDg/7xX9uKkZd5PIOr2CyaQ9Aw
 - Understanding LDAP integration（Yokohama）: https://www.servicenow.com/docs/r/GypxAX2jEErwkCxugICKdg/QeeX7ay14VRIqnHl3Qx5AQ
-- LDAP integration overview: https://www.servicenow.com/docs/r/GypxAX2jEErwkCxugICKdg/4zEYyzFYoRfqnySPk2g26w
-- LDAP integration（取得時 404）: https://www.servicenow.com/docs/r/1nuU0tTksWZZbL8T4WKSDg/o7EnKZISO18mtBrxD8Frsw
+- LDAP integration（Zurich）: https://www.servicenow.com/docs/r/zurich/platform-security/ldap-integration/c_LDAPIntegration.html
 - Define LDAP organizational units: https://www.servicenow.com/docs/r/oJu9n0q6rU~F9UHAnNCt5w/_9i1bao0g0LkiPwuaeumTg
 - LDAP transform maps（Zurich）: https://www.servicenow.com/docs/r/zurich/platform-security/ldap-integration/c_LDAPTransformMaps.html
 - Explicit Roles: https://www.servicenow.com/docs/r/platform-security/explicit-roles.html
 - Combined Identity release notes（Australia → Brazil）: https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-identity-release-notes.html
+
+**Now Support（ナレッジ記事。本文は取得できず、表題で確認）**
+
+- KB0696657 Business Rule 'Lock Out Inactive Users' does not have reverse logic: https://support.servicenow.com/kb?id=kb_article_view&sysparm_article=KB0696657
+- KB0814842 Removing the snc_external and snc_internal roles from system added by the CSM Plugin: https://support.servicenow.com/kb?id=kb_article_view&sysparm_article=KB0814842
 
 **ServiceNow Community（【第三者情報】を含む）**
 

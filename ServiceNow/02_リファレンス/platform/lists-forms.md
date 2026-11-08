@@ -3,7 +3,7 @@ title: Lists and Forms（リストとフォーム）
 category: reference
 domain: platform
 release: Australia
-last_verified: 2026-11-03
+last_verified: 2026-11-02
 summary: ServiceNow の classic environment（クラシック環境）におけるリスト（List v2/v3、List Control、List editor、フィルタ・条件ビルダー・エンコードクエリ）とフォーム（Form Builder / Form Designer / Form Layout、セクション、ビュー、関連リスト、Formatter、UI Policy、Data Policy、Client Script との関係、パーソナライズ）の仕様、関連テーブル、ロール、システムプロパティをまとめる。
 keywords: [list, リスト, form, フォーム, List v2, List v3, List Control, リストコントロール, list editor, リストエディタ, filter, フィルタ, condition builder, 条件ビルダー, breadcrumbs, ブレッドクラム, encoded query, エンコードクエリ, sys_filter, Form Builder, Form Designer, Form Layout, フォームレイアウト, form section, セクション, view, ビュー, view rule, ビュールール, navigation handler, related list, 関連リスト, embedded list, 埋め込みリスト, sys_relationship, formatter, フォーマッター, annotation, アノテーション, UI Policy, UIポリシー, Data Policy, データポリシー, Client Script, クライアントスクリプト, personalize, パーソナライズ, personalize_list, personalize_form, personalize_control, read only option, Strict Read Only, sys_ui_list_control, sys_ui_policy, sys_data_policy2, sys_ui_view, sys_ui_section, sys_ui_element]
 sources:
@@ -239,7 +239,7 @@ List Control フォームのフィールドは以下のとおり（Australia）�
 | 選択肢 | 動作 | 格納値（SDK） |
 |---|---|---|
 | Save immediately | セル編集モード。新しい値を入力するとその行が即時保存される | `NULL_OVERRIDE` |
-| Save data by rows | 行を離れるか Save を選んだときに保存（複数セルの編集後にまとめて保存） | `save_by_row` |
+| Save data by rows | ユーザーがその行を離れたときにのみ保存（複数セルを変更してからまとめて保存できる） | `save_by_row` |
 | Disable list editing | インライン編集を無効化 | `disabled` |
 
 上記のほか、`sys_ui_list_control` には条件スクリプト（`new_condition`、`edit_condition`、`link_condition`、`filter_condition`、`empty_condition`、`columns_condition`。`answer` が `true` で非表示）、`edit_roles`、`omit_count_views`、`edit_default_filter` などの列がある。`omit_*` フラグと条件スクリプトのどちらかが真なら非表示になるため、同じ要素に `omit_*` とロール制限を併用しても意味がない [出典](https://servicenow.github.io/sdk/guides/list-control-guide)。
@@ -348,7 +348,7 @@ Incidents リストの上に「Personalize List Columns」ダイアログが表�
 - **Quick filters（クイックフィルタ）：** フィールド値を右クリックして **Show Matching**（一致を表示）または **Filter Out**（除外）。日付フィールドでは **Show Before** / **Show After** / **Filter Out**。
 - **フィルタ済みリストからの New：** フィルタ済みリストで New をクリックすると、フィルタ条件の値が新規レコードにプリセットされる（例：Active かつ Priority 1 のリストからは Active = true、Priority = 1 - Critical の新規レコード）。特定フィールドをプリセット対象外にするには、辞書属性 `ignore_filter_on_new=true` を付与する。
 - **ロールなしユーザー：** デフォルトでロールを持たないユーザーにはブレッドクラムとフィルタが表示されない。管理者は Script Include により、未認証ユーザーに ESS ポータルで表示させることもできる。
-- ブレッドクラムの最大表示項目数は `glide.ui.breadcrumb_max_entries`（デフォルト 10）、条件ビルダーの選択肢フィールドの最大表示文字数は `glide.ui.export.choice_list_max_characters`（デフォルト 80） [出典](https://www.servicenow.com/docs/r/B5UZKOeMGcpyrvR2CNl5Dw/ZQVOVSeKCf75U6R_c9ekmQ)。
+- Core UI のリストのブレッドクラムが長い場合に切り詰める設定として、ブレッドクラムの最大表示項目数は `glide.ui.breadcrumb_max_entries`（デフォルト 10）、ブレッドクラムに表示する選択肢（choice list）値の最大文字数は `glide.ui.export.choice_list_max_characters`（デフォルト 80）で指定する [出典](https://www.servicenow.com/docs/r/B5UZKOeMGcpyrvR2CNl5Dw/ZQVOVSeKCf75U6R_c9ekmQ)。
 - 条件ビルダーのクエリ最大文字長は `glide.list.filter_max_length`（デフォルト 0） [出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/tZG20M4o7c0~GIjUctC8Qg)。
 - 週の始まり（フィルタ・チャートの曜日計算）は `glide.ui.filter.first_day_of_week`（1=日曜、2=月曜。デフォルト 2） [出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/tZG20M4o7c0~GIjUctC8Qg)。
 
@@ -457,7 +457,7 @@ Incidents リストの上に「Personalize List Columns」ダイアログが表�
 
 [出典](https://www.servicenow.com/docs/access?context=access-form-builder&version=australia&pubname=australia-application-development&ft:locale=en-US) / [出典](https://www.servicenow.com/docs/r/zurich/delta-washingtondc-zurich/zurich-washingtondc-tablebuilder-release-notes.html) / [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-tablebuilder-release-notes.html) / [出典](https://www.servicenow.com/docs/r/zurich/platform-administration/c_FormDesign.html)
 
-> **リリース表記の揺れ：** Table Builder のリリースノート（Zurich→Brazil 統合版）では、Form Designer の「将来の廃止準備」が Zurich と Australia の両方の行に記載されているが、Australia 行の本文は「Starting with the Australia release」と明記している。本ファイルは Australia からとする [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-tablebuilder-release-notes.html)。
+> **リリース表記の揺れ：** Table Builder のリリースノート（Zurich→Brazil 統合版）は、Form Designer の「将来の廃止準備」について Zurich 行・Australia 行の両方に「Starting with the &lt;release&gt; release」と記載している。ただし Washington DC→Zurich 統合版の Zurich 行は全セクションで「No updates for this release」で、該当する記載がないため、本ファイルは Australia 導入として扱う 【推定】 [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-tablebuilder-release-notes.html) / [出典](https://www.servicenow.com/docs/r/zurich/delta-washingtondc-zurich/zurich-washingtondc-tablebuilder-release-notes.html)。
 
 #### Form Builder の主な機能
 
@@ -494,7 +494,7 @@ Australia の「Configuring the form layout」ページに記載された作業�
 | セクションの削除 | — | System UI > Form Sections でテーブルを絞り込み、削除 |
 | フォーム分割の移動 | `admin` | Selected 内の `\|- begin_split -\|`、`\|- split -\|`、`\|- end_split -\|` を矢印で移動 |
 | 埋め込みリストの追加 | `personalize_form` | Form Layout の Available 末尾に赤字で表示されるリストを Selected に移動 |
-| タブ表示 | なし（ユーザー設定） | User Menu > Preferences > Display の「Organize form sections and related lists into tabs in classic forms」。新規インスタンスではデフォルト有効（システム設定 `tabbed.forms`） |
+| タブ表示 | `personalize_form`（公式ページの記載） | User Menu > Preferences > Display の「Organize form sections and related lists into tabs in classic forms」（ユーザー設定から切り替え可能）。新規インスタンスではデフォルト有効（システム設定 `tabbed.forms`） |
 | Customer updates indicator | `admin` | ユーザー設定 `owned_by_indicator.form` を管理者に `true` で設定 |
 | フォームへのチャート追加 | `personalize_form` | System UI > Forms でフォームを選択、Form Layout で Chart を追加し Configure chart でレポートを選択。List、Pivot、Multilevel Pivot、Calendar、Single Score 型は非対応 |
 
@@ -532,7 +532,7 @@ ServiceNow 社員によるフォーム設計のベストプラクティスは次
 | `glide.ui.update_on_iterate` | 青い矢印（前後レコード移動）クリック時に更新を保存するか | `false` |
 | `glide.ui.escape_form_message` | GlideForm 関数の文字列をサニタイズ | `false` |
 | `glide.ui.ui_policy_debug` | UI Policy の処理を JavaScript デバッグウィンドウに記録 | `false` |
-| `glide.ui.buttons_bottom` | UI Action をフォームの上下に表示（旧 UI のみ） | `false` |
+| `glide.ui.buttons_bottom` | UI Action をフォームの上部と下部の両方に表示（true）するか、上部のみ（false）にするか | `false` |
 
 [出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/tZG20M4o7c0~GIjUctC8Qg)
 
@@ -544,7 +544,7 @@ Australia では、辞書（`sys_dictionary` / `sys_dictionary_override`）に *
 
 | 選択肢 | UI 表示 | Client Script（例：`g_form.setValue()`） | サーバー側（Table API、GraphQL、`GlideRecordSecure()`） |
 |---|---|---|---|
-| Instance Configured | 読み取り専用 | プロパティに従う | プロパティに従う |
+| Instance Configured | プロパティに従う（どの値でも UI 上は読み取り専用） | プロパティに従う | プロパティに従う |
 | Display Read Only | 読み取り専用 | 変更可 | 変更可 |
 | Client Script Modifiable | 読み取り専用 | 変更可 | 変更不可（バックグラウンドスクリプトも不可） |
 | Strict Read Only | 読み取り専用 | 変更不可 | 変更不可 |
@@ -556,7 +556,7 @@ Australia では、辞書（`sys_dictionary` / `sys_dictionary_override`）に *
 
 [出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/C9Dn7DtqTKg8A5Q2HpwUJw)
 
-> **公開情報の不一致：** Display Read Only の説明は言語版・ページによって揺れがある（Australia の別ページ「Make a field read only」の検索結果要約では「Client Script は可、サーバー API は不可」と読める記述もあった）。本表は Australia 英語版「Configuring read-only security options」ページに従う。導入リリースについても Table Builder リリースノートでは Zurich 行にも同様の記載があるが、公式ページは「Australia より前に作成されたフィールド」を基準にしているため、本ファイルは Australia 導入として扱う 【推定】。
+> **公開情報の不一致：** Display Read Only の説明は言語版・ページによって揺れがある（Australia の別ページ「Make a field read only」の検索結果要約では「Client Script は可、サーバー API は不可」と読める記述もあった）。本表は Australia 英語版「Configuring read-only security options」ページに従う。導入リリースについても Table Builder リリースノート（Zurich→Brazil 統合版）では Zurich 行・Australia 行の両方に同様の記載があるが、Washington DC→Zurich 統合版の Zurich 行には該当する記載がなく [出典](https://www.servicenow.com/docs/r/zurich/delta-washingtondc-zurich/zurich-washingtondc-tablebuilder-release-notes.html)、公式ページも「Australia より前に作成されたフィールド」を基準にしているため、本ファイルは Australia 導入として扱う 【推定】。
 >
 > **Brazil での変更:** Brazil 版「Make a field read only」ページでも Display Read Only（Client Script・サーバー側操作とも変更可）、Client Script Modifiable（Client Script のみ変更可）、Strict Read Only（Client Script・サーバー側 API とも変更不可）の 3 選択肢が同じ意味で説明されており、仕様の変更は確認されない [出典](https://www.servicenow.com/docs/r/platform-administration/table-administration-and-data-management/make-field-read-only.html)。
 
@@ -570,7 +570,7 @@ Australia では、辞書（`sys_dictionary` / `sys_dictionary_override`）に *
 
 | 項目 | 内容 |
 |---|---|
-| ビューの作成 | 管理者と personalize 系ロールのユーザーは、任意のリスト・フォームにビューを作成できる。リスト・フォームのどちらからでも作成・削除可能 |
+| ビューの作成 | 管理者と `personalize` ロールを持つユーザーは、任意のリスト・フォームにビューを作成できる。リスト・フォームのどちらからでも作成・削除可能 |
 | ビューの削除 | 管理者は自分が作成したビューのみ削除可能 |
 | ビューの切り替え（リスト） | 左上のリストコンテキストメニューから View を選択 |
 | ビューの切り替え（フォーム） | 切り替えるとフォームが送信され、変更が保存され onSubmit Client Script が実行される。未保存の新規レコードではビューを切り替えられない |
@@ -820,7 +820,7 @@ Data Policy（`sys_data_policy2`）と Data Policy Rule（`sys_data_policy_rule`
 | conditions | 空（全レコード） | エンコードクエリ |
 | active | `true` | 有効 |
 | Apply to import sets（`applyToImportSets`） | `true` | Import Set に適用 |
-| Apply to SOAP（`applyToSOAP`） | `true` | SOAP / REST に適用 |
+| Apply to SOAP（`applyToSOAP`） | `true` | SOAP Web Service の対象レコードに適用（公式ドキュメントでは REST Table API・Scripted REST API は GlideRecord 操作として常に適用される。SDK ガイドは「REST/SOAP」と表記しており、公式ドキュメントと記述が一致しない） [出典](https://www.servicenow.com/docs/r/australia/platform-administration/c_DataPolicy.html) |
 | Use as UI Policy on client（`useAsUiPolicyOnClient`） | `true` | クライアント側でも適用 |
 | Reverse if false（`reverseIfFalse`） | `true` | 条件 false で必須→任意、読み取り専用→編集可に戻す |
 | Inherit（`inherit`） | `false` | 子テーブル（例：`task` → `incident`）に継承 |
@@ -850,7 +850,7 @@ UI Policy の Related Links にある **Convert this to Data Policy** で Data P
 | 実行場所 | クライアント（ブラウザ） | サーバー（＋任意でクライアント） |
 | 格納テーブル | `sys_ui_policy` / `sys_ui_policy_action` | `sys_data_policy2` / `sys_data_policy_rule` |
 | 制御できる状態 | Mandatory / Visible / Read only（＋スクリプト、値設定、フィールドメッセージ） | Mandatory / Read only のみ |
-| Import Set・API | 適用されない | デフォルトで適用（オプトアウト可） |
+| Import Set・API | 適用されない | デフォルトで適用。Import Set・SOAP はオプトアウト可、REST Table API・Scripted REST API は常に適用 |
 | List editor | List v2 では適用されない | サーバー側で適用 【推定】（GlideRecord 操作に適用されるため） |
 | スクリプト | 可（Execute if true / false） | 不可 |
 | ビュー指定 | 可（Global / View） | なし |
@@ -883,7 +883,7 @@ Client Script の主なフィールドは Name、Table、**UI Type**（Desktop�
 ### 9.2 適用範囲と制約
 
 - Client Script はフォームと検索ページにのみ適用される（例外：onCellEdit() はリストで動作）。
-- Client Script は ServiceNow のモバイルアプリではサポートされない。
+- Client Script は ServiceNow のモバイルアプリではサポートされない。ここでいうモバイルアプリは ServiceNow のネイティブモバイルアプリ（Now Mobile、Agent アプリ等）を指す。UI Type の Mobile / Service Portal はモバイル向けブラウザ UI・Service Portal・Configurable Workspace を対象とし、ネイティブアプリ上での実行を保証するものではない 【推定】。
 - Client Script はデータ保護のための仕組みではない。機密フィールドの非表示・ロックには ACL や Data Policy を使う。
 - リスト上の値を制御するには、ACL、Business Rule、Data Policy、onCellEdit() Client Script を使うか、テーブルのリスト編集を無効化する。
 
@@ -971,6 +971,7 @@ ServiceNow では、本人だけに効く **Personalize**（パーソナライ�
 | ロール | 主な権限 | 根拠 |
 |---|---|---|
 | `admin` | すべての構成。フォーム分割の移動、ビュールール作成、Data Policy 編集等 | 各公式ページ |
+| `personalize` | ビューの作成（任意のリスト・フォームに対して） | [出典](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/ILzGiSsejKZ~fDlfUs5RuA) |
 | `personalize_list` | Personal list（リストのパーソナライズ）。List Layout の構成にも一般に使われる | [出典](https://www.servicenow.com/docs/r/EJbK9aB62eTqc6muCLNt9A/5iPPqZz17KuaclN6BnqZ5Q) / List Layout は【経験則】 |
 | `personalize_form` | Form Layout／Form Designer によるフィールド・関連リスト・アノテーション・埋め込みリスト・チャートの構成、フォームのパーソナライズ | [出典](https://www.servicenow.com/docs/r/australia/platform-administration/configure-form-layout.html) |
 | `form_admin` | フォームセクションの作成 | [出典](https://www.servicenow.com/docs/r/australia/platform-administration/configure-form-layout.html) |
@@ -1009,7 +1010,7 @@ Configurable Workspace のフォームは classic フォームとは別にリリ
 | Washington DC | Form Builder をフォームの Additional actions から単独で起動可能に。任意テーブルの Related Links、UI Builder ステージからも Form Builder を起動可能に | [出典](https://www.servicenow.com/docs/r/zurich/delta-washingtondc-zurich/zurich-washingtondc-tablebuilder-release-notes.html) |
 | Zurich | Table Builder の検索で `tablename.view` 等によりテーブルを直接開けるように | [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-tablebuilder-release-notes.html) |
 | Australia | Form Designer が「将来の廃止に向けた準備」段階に（非表示化・新規有効化不可、サポートは継続、機能は Form Builder へ）。辞書に Read only option を追加し、`glide.read_only.legacy_read_only_behavior` を導入 | [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-tablebuilder-release-notes.html) / [出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/C9Dn7DtqTKg8A5Q2HpwUJw) |
-| Australia | UI11 / UI15 と呼ばれる旧 UI の廃止。一部機能（印刷用ビュー等）は旧レンダリングパスで表示される場合がある | [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-nextexperience-release-notes.html) |
+| Australia | UI11 / UI15 と呼ばれる旧 UI が非推奨（Deprecated）となり、機能強化・不具合修正・サポートの対象外になった（Removed ではなく、削除はされていない）。一部機能（印刷用ビュー等）は旧レンダリングパスで表示される場合がある | [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-nextexperience-release-notes.html) |
 | Brazil | Table Builder・Next Experience のリリースノートでは「No updates for this release」。classic のリスト・フォームに関する Brazil 固有の変更は公開リリースノートでは確認できず。`GlideListV3` は Brazil 版でも「no longer supported」 | [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-tablebuilder-release-notes.html) / [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-nextexperience-release-notes.html) / [出典](https://www.servicenow.com/docs/r/api-reference/c_GlideListV3API.html) |
 
 > **Brazil での変更:** 上表のとおり、2026-11 時点で確認できた Brazil の公開リリースノート（Table Builder、Next Experience）には classic のリスト・フォーム機能の変更は記載されていない。Platform Administration 全体の Brazil リリースノートは本調査では取得できなかったため、変更がないことを保証するものではない。

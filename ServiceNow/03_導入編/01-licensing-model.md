@@ -164,7 +164,7 @@ Business Stakeholder は、管理職や業務部門の責任者が承認やレ�
 
 - **できること（第三者の解説）:** Requester の全操作に加え、承認、任意のレコードの閲覧、レポートの閲覧とドリルダウンができる。[出典](https://www.cloudnuro.ai/blog/understanding-servicenow-licensing-a-comprehensive-guide) `【第三者情報】`
 - **対象製品:** Business Stakeholder サブスクリプションは ITSM、ITBM（現 SPM）、CSM、FSO、TSM、App Engine に限られる。[出典](https://www.cloudnuro.ai/blog/understanding-servicenow-licensing-a-comprehensive-guide) `【第三者情報】`
-- **プラグインとロール（公式）:** `business_stakeholder` ロールは Business Stakeholder プラグイン（`com.snc.business_stakeholder`）の有効化でインストールされる。公式の「Installed with Business Stakeholder」ページでは、このロールを「すべての ITSM 製品のレコードを閲覧・承認できる」ロールと説明している（本ファイル作成時は検索結果の抜粋で確認。包含ロールの全一覧は取得できず）。[出典](https://www.servicenow.com/docs/bundle/zurich-it-service-management/page/reuse/itsm/reference/installed-with-business-stakeholder_1.html)
+- **プラグインとロール（公式）:** `business_stakeholder` ロールは Business Stakeholder プラグイン（`com.snc.business_stakeholder`）の有効化でインストールされる。Australia 版の公式ページ「Installed with Business Stakeholder」では、このロールを「すべての ITSM 製品のレコードを閲覧・承認できる」ロールと説明している。包含ロールとして `pa_viewer.business_stakeholder`、`approver_user.business_stakeholder`、`cmdb_read.business_stakeholder` が記載されている（Australia 版はポルトガル語ロケールのページで確認）。[出典](https://www.servicenow.com/docs/r/UMl~97STJe3fa_KTmzD1Gg/4RZ_lXZu9Po6aq4hZFkvkQ)
 - **代表ロール:** `business_stakeholder`。ITSM の場合、`approver_user` に加えて incident / problem / change / request の参照権限を含む。コミュニティでは `business_stakeholder`、`approver_user`、カスタムロールが典型例として挙がっている。[出典](https://www.servicenow.com/community/developer-forum/need-help-understanding-itsm-roles-for-requesters-fulfillers-and/td-p/3412974) `【第三者情報】`
 - **計測ロジック（コミュニティ解説）:** BSH は「Approver ロールを持ち、Fulfiller ロールを持たない」ユーザーである。計測には、ロール割り当てテーブルと承認アクティビティの 2 つを使う。Fulfiller マッピング済みロールを付与されると BSH の計測から外れ、Fulfiller として計上される。[出典](https://www.servicenow.com/community/servicenow-ai-platform-articles/about-servicenow-licensing-guide/ta-p/3512215) `【第三者情報】`
 - **重複計上:** Business Stakeholder ロールと Fulfiller ロールの両方を持つユーザーは、1 ライセンス（Fulfiller）だけを消費するとされる。[出典](https://www.servicenow.com/community/developer-forum/how-to-track-per-user-licenses-for-business-stakeholders/td-p/3206240) `【第三者情報】`
@@ -185,13 +185,14 @@ Business Stakeholder は、管理職や業務部門の責任者が承認やレ�
 
 ### 2.5 Unrestricted User（無制限ユーザー）
 
-- **公式定義:** Unrestricted User は、ロールに関係なく組織のアクティブユーザー数に対してエンタイトルメントを与える。インスタンスが自動で割り当てる。Unrestricted User サブスクリプションは単一の製品サブスクリプションに統合（consolidate）されない。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/types-subscription-v2.html)
+- **公式定義:** Unrestricted User は、ロールに関係なく組織のアクティブユーザー数に対してエンタイトルメントを与える。インスタンスが自動で割り当てる。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/types-subscription-v2.html) Unrestricted User サブスクリプションは単一の製品サブスクリプションに統合（consolidate）されない。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/subscription-details-v2.html)
 - **対象製品:** HRSD、Employee Center Pro など、全従業員が利用者になる製品。[出典](https://www.servicenow.com/community/servicenow-ai-platform-articles/about-servicenow-licensing-guide/ta-p/3512215) `【第三者情報】`
 - **HRSD の計測:** HRSD は「HR Users」、つまり HR Profile テーブル上で雇用期間内にあるアクティブな人数を数えるという報告がある。応募者や退職者のうち雇用期間外の人は除外される。[出典](https://www.servicenow.com/community/hrsd-forum/hrsd-is-it-required-to-buy-licenses-for-all-existing-sys-users/td-p/3490867) `【第三者情報】`
 - **CSM の外部ユーザー:** `snc_external` ロールを持つ CSM の外部ユーザーは、Unrestricted User のカウントから除外されるとされる。[出典](https://www.cloudnuro.ai/blog/understanding-servicenow-licensing-a-comprehensive-guide) `【第三者情報】`
 - **運用上のポイント `【経験則】`:**
   - Unrestricted User 課金の製品を契約している場合、退職者や連携用アカウントを `sys_user` で Active のまま放置すると、カウントが膨らむ。
-  - 連携用アカウントには「Web service access only」を設定する。
+  - **Web service access only の効果は計測によって異なる:** 連携用アカウントに「Web service access only」を設定すると、Per-User サブスクリプションの割り当て集計からは除外される（公式の Active users 定義）。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/subscription-details-v2.html) 一方、Unrestricted User メーターの公式定義は「`sys_user` で User ID に値があり Active=true のユーザー」であり、Web service access only や 365 日未ログインのユーザーを除外するとは書かれていない。Unrestricted User メーターから除外されるかは、公開情報では確認できず。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/types-subscription-v2.html) / [出典](https://www.servicenow.com/docs/r/australia/platform-administration/viewing-instance-level-entitlements.html)
+  - Unrestricted User のカウントを確実に減らすには、不要なアカウント（退職者、使わなくなった連携用アカウント）を Active=false にする。
   - 退職者を無効化するプロセスを ID 連携（SCIM/LDAP）で自動化しておく。
 
 ### 2.6 Creator / Creator Plus（クリエーター）
@@ -219,7 +220,7 @@ flowchart TD
   A --> U[Unrestricted User 製品は<br/>全アクティブユーザーを計上]
 ```
 
-注: 365 日ログイン条件と Web service access only の除外は公式ドキュメントの「Active users」定義に基づく。Fulfiller / BSH の判定順は前掲のコミュニティ解説に基づく。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/subscription-details-v2.html) / [出典](https://www.servicenow.com/community/servicenow-ai-platform-articles/about-servicenow-licensing-guide/ta-p/3512215)
+注: 365 日ログイン条件と Web service access only の除外は公式ドキュメントの「Active users」定義（Per-User 割り当て集計）に基づく。Unrestricted User メーターは公式定義上「Active=true かつ User ID あり」のユーザーを数え、これらの除外を通らない（図で A から直接分岐させている理由）。Fulfiller / BSH の判定順は前掲のコミュニティ解説に基づく。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/subscription-details-v2.html) / [出典](https://www.servicenow.com/community/servicenow-ai-platform-articles/about-servicenow-licensing-guide/ta-p/3512215)
 
 ---
 
@@ -246,7 +247,9 @@ flowchart TD
 | 新ティア（ITSM） | **Foundation / Advanced / Prime** の 3 段階 | [出典](https://www.servicenow.com/community/itsm-articles/itsm-licensing-in-april-2026-foundation-advanced-and-prime-in/ta-p/3544380) `【第三者情報】` |
 | 新ティア（ITOM） | **ITOM Advanced / ITOM Prime** の 2 段階（Foundation なし） | [出典](https://www.servicenow.com/community/architect-articles/navigating-the-april-2026-servicenow-itom-licensing-model/ta-p/3555121) `【第三者情報】` |
 | 旧 SKU 販売終了 | 2026-07-01 以降の更新見積は新ティアで作成されるとの情報あり | [出典](https://redresscompliance.com/servicenow-2026-pricing-tiers-pillar) `【第三者情報】` |
-| AI の扱い | 生成 AI（Now Assist）が各ティアに同梱され、ティアごとに Assist 割当量が異なる。旧 Pro Plus / Enterprise Plus のような AI 専用アドオン SKU は不要になった | [出典](https://www.servicenow.com/community/itsm-articles/itsm-licensing-in-april-2026-foundation-advanced-and-prime-in/ta-p/3544380) `【第三者情報】` |
+| AI の扱い（ITSM） | 生成 AI（Now Assist）が各ティアに同梱され、ティアごとに Assist 割当量が異なる | [出典](https://www.servicenow.com/community/itsm-articles/itsm-licensing-in-april-2026-foundation-advanced-and-prime-in/ta-p/3544380) `【第三者情報】` |
+| AI の扱い（ITOM） | ITOM では、別建ての GenAI アドオン SKU は deprecated（非推奨）とされる | [出典](https://www.servicenow.com/community/architect-articles/navigating-the-april-2026-servicenow-itom-licensing-model/ta-p/3555121) `【第三者情報】` |
+| 旧 AI アドオン SKU（ITSM Pro Plus / Enterprise Plus 等） | 新ティアで不要になったかどうかは、公開情報では確認できず | ― |
 
 **ITSM の各ティアの概要（コミュニティ記事）:** [出典](https://www.servicenow.com/community/itsm-articles/itsm-licensing-in-april-2026-foundation-advanced-and-prime-in/ta-p/3544380) `【第三者情報】`
 
@@ -268,14 +271,16 @@ flowchart TD
 
 ### 3.2 旧パッケージ（2026 年 3 月以前の契約）
 
-2026 年 4 月以前に締結された契約は、契約期間中は旧 SKU のまま有効である。旧 SKU は Subscription Management の製品名に現れる（例: `ITSM Professional Plus - Fulfiller User`、`HR Service Delivery Enterprise`、`ITOM AIOps Professional`）。
+2026 年 4 月以前に締結された契約は、契約期間中は旧 SKU のまま有効と考えられる `【経験則】`（サブスクリプションは Order Form で合意した期間について有効であるため。旧 SKU の扱いに関する公式の一般規定は公開情報では確認できず）。旧 SKU は Subscription Management の製品名に現れる（例: `ITSM Professional Plus - Fulfiller User`、`HR Service Delivery Enterprise`、`ITOM AIOps Professional`）。
+
+旧ティアの概要は次のとおり。[出典](https://redresscompliance.com/servicenow-2026-pricing-tiers-pillar) `【第三者情報】`（各ティアの機能概要は一般的な整理であり、製品ごとの正式な機能範囲は [エディション比較](03-edition-comparison.md) を参照）
 
 | 旧ティア | 概要 |
 |---|---|
 | Standard | 基本 ITSM プロセス |
-| Professional（Pro） | Performance Analytics、Predictive Intelligence、Virtual Agent などを追加 |
-| Pro Plus / Enterprise Plus | Pro / Enterprise に Now Assist（生成 AI）と Assist 付与量を追加したアドオン型 SKU |
+| Professional（Pro） | Standard に Performance Analytics、Predictive Intelligence、Virtual Agent などを追加 |
 | Enterprise | Pro に DevOps など上位機能を追加 |
+| Pro Plus / Enterprise Plus（AI アドオン型） | Pro / Enterprise に Now Assist（生成 AI）と Assist 付与量を追加した SKU |
 
 旧 Pro Plus の Assist 付与量は「Fulfiller 1 人あたり年間約 6,000」とする第三者情報がある。ただし製品や契約によって 5,000〜25,000 と幅があるとされる。[出典](https://redresscompliance.com/servicenow-now-assist-ai-pricing.html) `【第三者情報】`
 
@@ -319,9 +324,9 @@ ITOM（IT Operations Management）は、ユーザー数ではなく**管理対�
 | Service Instances | サービスインスタンス |
 
 **SU 比率の例:**
-- ITOM の公式 SU 概要文書（Tanium 関連、2026-04-09 発効）では、サーバーが 1:1 とされている。[出典](https://www.servicenow.com/content/dam/servicenow-assets/public/en-us/doc-type/legal/it-operations-management-itom-servicenow-subscription-unit-overview-tanium.pdf)（公式 PDF。本ファイル作成時は検索結果の抜粋でのみ確認）
+- ITOM の公式 SU 概要文書（Tanium 関連、2026-04-09 発効）では、サーバーが 1:1 とされている。`【推定】`（公式 PDF の検索抜粋による。PDF 本文は HTTP 403 で取得できず、未検証）[出典](https://www.servicenow.com/content/dam/servicenow-assets/public/en-us/doc-type/legal/it-operations-management-itom-servicenow-subscription-unit-overview-tanium.pdf)
 - コミュニティや第三者からは、FaaS 20:1、メッセージングサービス 3:1、Networking Devices Advanced 1:25 などの値が報告されている。ただしバージョンによって比率は異なる。[出典](https://www.servicenow.com/community/itom-forum/article-for-itom-licensing-calculations-servicenow-it-operations/td-p/3596603) `【第三者情報】`
-- 2026 年 4 月のパッケージ刷新で、管理対象エンティティの SU マッピング表が変わったとされる。旧比率（例: サーバー 1:1、未解決管理デバイス 4:1）が引き続き適用されるかは、公開情報では確認できず。[出典](https://www.servicenow.com/community/architect-articles/navigating-the-april-2026-servicenow-itom-licensing-model/ta-p/3555121) `【第三者情報】`
+- 2026 年 4 月のパッケージ刷新で、管理対象エンティティの SU マッピング表が変わったとされる。2023-05-04 発効版の SU Overview（PDF 本文確認済み）ではサーバー 1 SU : 1 台、Unresolved Monitored Object（未解決の監視対象）1 SU : 1 件、Container 1 SU : 3 件だったが、2026-04-09 発効版では Unresolved Monitored Object が 1 SU : 4 件、Container が 1 SU : 10 件に変わったとする第三者の転記がある（2026 版の PDF 本文は未確認）。どちらの比率が適用されるかは、契約が参照する SU Overview の版で決まるとされる。比率の新旧対照表は [ITOM 概要 5.4](../02_リファレンス/itom/itom-overview.md#54-su-比率managed-it-resource-type-と比率) を参照。[出典](https://www.servicenow.com/community/architect-articles/navigating-the-april-2026-servicenow-itom-licensing-model/ta-p/3555121) `【第三者情報】`
 - 自社の比率は、インスタンスの **ITOM License > License Summary** で該当サブスクリプションを開き、**ITOM CI subscription unit ratio** タブで確認するのが正確である。
 
 **ITOM 製品ごとの計上方法（Australia 公式）:** [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-license-module.html)
@@ -333,8 +338,8 @@ ITOM（IT Operations Management）は、ユーザー数ではなく**管理対�
 | ITOM AIOps | アラート・イベント・メトリックを取得した CI（全 CI カテゴリ） |
 | Health Log Analytics | ライセンス対象リソースから受信したログに基づく CI。ITOM AIOps でも同時に計上されるため、AIOps のサブスクリプションも必要 |
 | ITOM Cloud Accelerate | Cloud Migration Assessment、Cloud Configuration Governance、Cloud Action Library が管理・監視する CI。複数機能が同じ CI を報告した場合は重複を除去する |
-| ITOM Optimization | クラウドリソースのライフサイクル管理 |
-| Service Observability 等 | Service Reliability Management、SLO Management、Synthetic monitoring も課金対象として列挙されている |
+| ITOM Optimization | 計上方法は公式ページでは説明されていない（課金対象製品として列挙されているのみ。[itom-su-licensing-landing-page](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-su-licensing-landing-page.html) 参照）。「クラウドリソースのライフサイクル管理」は製品の説明であり、SU の計上対象を示すものではない |
+| Service Observability 等 | 計上方法は公式ページでは説明されていない。Service Reliability Management、SLO Management、Synthetic monitoring は課金対象製品として列挙されているのみ（[itom-su-licensing-landing-page](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-su-licensing-landing-page.html) 参照） |
 
 ### 4.2 バンドル購入と単品（a la carte）購入
 
@@ -350,17 +355,17 @@ ITOM は、単品（a la carte）、バンドル、またはその併用で購�
 
 ITOM の SU 消費は、ServiceNow Store から入手する **ITOM/OT SU Licensing** アプリで計算・表示する。最新版を常にインストールしておく必要がある。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/view-itom-license-statistics.html)
 
-| 項目 | 内容 |
-|---|---|
-| 必要ロール | `sn_itom_license.reader` |
-| License Summary | All > ITOM License > License Summary。バンドルと単品の購入数・消費数を表示する |
-| Licenses by CI Type | All > ITOM License > Licenses by CI Type。CI カテゴリを展開すると、課金対象の CI タイプが表示される |
-| ITOM Licensing Dashboard | All > ITOM License > ITOM Licensing Dashboard |
-| OTM Licensing Dashboard | All > OTM License > OTM Licensing Dashboard（Operational Technology 用） |
-| メタデータテーブル | ITOM Licensing MetaData [`itom_lu_metadata`]。CI カテゴリと親 CI タイプを保持する。子 CI タイプ（例: Apache Web Server は Web Server の子）は既定で含まれる |
-| 日次カウント | ITOM Licensing CI Counts [`itom_lu_ci_counts`] |
-| 課金カウント | UsageAnalytics Counts for Tables [`usageanalytics_count`] |
-| 関連 KB | KB0748149「ITOM Subscription Unit license calculation logic」 |
+| 項目 | 内容 | 出典 |
+|---|---|---|
+| 必要ロール | `sn_itom_license.reader` | [view-itom-license-statistics](https://www.servicenow.com/docs/r/australia/it-operations-management/view-itom-license-statistics.html) |
+| License Summary | All > ITOM License > License Summary。バンドルと単品の購入数・消費数を表示する | [view-itom-license-statistics](https://www.servicenow.com/docs/r/australia/it-operations-management/view-itom-license-statistics.html) |
+| Licenses by CI Type | All > ITOM License > Licenses by CI Type。CI カテゴリを展開すると、課金対象の CI タイプが表示される | [check-ci-type-require-license](https://www.servicenow.com/docs/r/australia/it-operations-management/check-ci-type-require-license.html) |
+| ITOM Licensing Dashboard | All > ITOM License > ITOM Licensing Dashboard | [itom-licensing-dashboard](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-dashboard.html) |
+| OTM Licensing Dashboard | All > OTM License > OTM Licensing Dashboard（Operational Technology 用） | [view-itom-license-statistics](https://www.servicenow.com/docs/r/australia/it-operations-management/view-itom-license-statistics.html) |
+| メタデータテーブル | ITOM Licensing MetaData [`itom_lu_metadata`]。CI カテゴリと親 CI タイプを保持する。子 CI タイプ（例: Apache Web Server は Web Server の子）は既定で含まれる | [check-ci-type-require-license](https://www.servicenow.com/docs/r/australia/it-operations-management/check-ci-type-require-license.html) |
+| 日次カウント | ITOM Licensing CI Counts [`itom_lu_ci_counts`] | [itom-licensing-dashboard](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-dashboard.html) |
+| 課金カウント | UsageAnalytics Counts for Tables [`usageanalytics_count`] | [itom-licensing-dashboard](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-dashboard.html) |
+| 関連 KB | KB0748149「ITOM Subscription Unit license calculation logic」 | [view-itom-license-statistics](https://www.servicenow.com/docs/r/australia/it-operations-management/view-itom-license-statistics.html) |
 
 **License Report フォームの主な項目:** [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/license-report-form.html)
 
@@ -392,9 +397,9 @@ ITOM の SU 消費は、ServiceNow Store から入手する **ITOM/OT SU Licensi
 
 ITAM 製品（Hardware Asset Management、Software Asset Management、Enterprise Asset Management）も、管理対象資産数を SU に換算する容量課金である。Subscription Management の画面例では、`Hardware Asset Management Professional` が Type = Capacity で表示されている。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/subscriptions-overview-v2.html)
 
-**ITAM の SU 比率の例:** ServiceNow 公式の「ITAM Financial Services overview」（2025-07-31 発効、金融業向け ITAM の SU 概要）には次の比率が記載されている。[出典](https://www.servicenow.com/content/dam/servicenow-assets/public/en-us/doc-type/legal/itam-financial-services-overview.pdf)（公式 PDF。本ファイル作成時は検索結果の抜粋でのみ確認し、PDF 本文は取得できず）
+**ITAM の SU 比率の例:** ServiceNow 公式の「ITAM Financial Services overview」（2025-07-31 発効、金融業向け ITAM の SU 概要）には次の比率が記載されているとみられる。`【推定】`（公式 PDF の検索抜粋による。PDF 本文は HTTP 403 で取得できず未検証のため、行と値の対応に誤りがありうる）[出典](https://www.servicenow.com/content/dam/servicenow-assets/public/en-us/doc-type/legal/itam-financial-services-overview.pdf)
 
-| リソース種別 | SU 比率（リソース数 : SU） |
+| リソース種別 | SU 比率（リソース数 : SU）`【推定】`（本文未検証） |
 |---|---|
 | Server | 1:1 |
 | End User Computing Device | 4:1（1 SU = 4 台） |
@@ -496,7 +501,7 @@ Workflow Data Fabric（WDF）のサブスクリプションには**トークン*
 - **demo インスタンス:** demo インスタンスで使った Assist は Total used assists から除外される。
 - **カード:** Total purchased（購入合計）、Total used assists（使用合計）、Available assists（残量）。View details で消費推移を表示し、契約期間中に購入数を超えた時点を確認できる。
 - **Instances 一覧:** インスタンスごとの Used assists。Washington DC Patch 2 以降のインスタンスだけが表示される。データ共有が制限されたインスタンスは「Data sharing restricted」と表示される。
-- **Subscriptions 一覧:** 製品ごとに Meter type（Assist）、Entitlement type（Primary = Assist パック自体、Secondary = 製品に付随する Assist）、Start date、End date、Purchased assists を表示する。
+- **Subscriptions 一覧:** 製品ごとに Meter type（Assist）、Entitlement type（購入明細における Assist が Primary 明細か Secondary 明細かを示す）、Start date、End date、Purchased assists を表示する。なお、画面例では Assist パック単体が Primary、製品付随分が Secondary と表示されている `【推定】`（画面例からの解釈であり、公式の定義文ではない）。
 - **Domain 一覧:** ドメインセパレーション環境では、ドメイン別の消費を表示する。
 - **スキル別の使用量（現在のインスタンス、夜間更新）:**
   - Number of actions: 実行回数
@@ -635,7 +640,7 @@ True-up は、契約数量を超えて利用した分を精算する仕組みで
 | Over-allocated | 割り当て数 > 購入数 |
 | Account-level only | ステータスを計算しない（Creator Plus のみ） |
 
-> **Brazil での変更:** Product subscriptions overview のステータス説明が「allocated subscription **entitlements**」ベースの表現に変わった。超過ステータスは「Over-allocated」から「Over-consumed（over-consumed）」系の表記に変わり、Insights の説明も「over-consumed」になった。[出典](https://www.servicenow.com/docs/r/platform-administration/subscriptions-overview-v2.html)
+> **Brazil での変更:** Product subscriptions overview のステータスの定義文が「allocated subscription **entitlements**」ベースの表現に変わった（例: Over-allocated = 割り当て済みエンタイトルメント数 > 購入エンタイトルメント数）。ステータス名（Compliant / Near capacity / Even / Over-allocated / Account-level only）は変わっていない。ユースケースの説明文では「over-consumed」という語も使われている。[出典](https://www.servicenow.com/docs/r/platform-administration/subscriptions-overview-v2.html)
 
 ### 7.3 更新（Renewal）時の注意
 
@@ -725,7 +730,7 @@ Usage Analytics は、全インスタンスの使用データを収集し、使�
 - 検出したハードウェア CI 数（Discovery 利用インスタンス）
 - Cloud Management のサービスカタログアイテム数
 
-**ダッシュボード（`admin` または `usage_admin`、Self-Service > Dashboards から選択）:** [出典](https://www.servicenow.com/docs/r/australia/platform-administration/platform-performance/app-usage-overview-dashboard.html)
+**ダッシュボード:** `admin` または `usage_admin` ロールを持つユーザーが、Application Usage Overview と ServiceNow Store Usage Overview を閲覧できる。Application Usage Overview は Self-Service > Dashboards を開き、ダッシュボード一覧から Usage Overview を選んで表示する。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/platform-performance/usage-analytics-module-subscription.html) 各ダッシュボードのレポート内容は次のとおり。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/platform-performance/app-usage-overview-dashboard.html)
 
 | ダッシュボード | 主なレポート |
 |---|---|
@@ -768,8 +773,8 @@ ServiceNow は SaaS で、インスタンスの使用データを日常的に収
 | 1 | 製品ごとの Status が Over-allocated / Near capacity になっていないか | Subscription Management > Subscriptions | [公式](https://www.servicenow.com/docs/r/australia/platform-administration/viewing-instance-level-entitlements.html) |
 | 2 | 未マッピングのカスタムテーブル・カスタムアプリがないか | Subscription Management > Issues | [公式](https://www.servicenow.com/docs/r/australia/platform-administration/subscriptions-overview-v2.html) |
 | 3 | Fulfiller 型ロールを持つが実際には処理をしていないユーザーがいないか | ロール割り当て（`sys_user_has_role`）と業務実績の突合 | `【経験則】` |
-| 4 | 365 日以上ログインしていないロール保有者、退職者が Active のまま残っていないか | `sys_user`（Active、Last login） | [公式（Active users 定義）](https://www.servicenow.com/docs/r/australia/platform-administration/subscription-details-v2.html) |
-| 5 | 連携用アカウントに Web service access only が設定されているか | `sys_user` | 同上 |
+| 4 | 365 日以上ログインしていないロール保有者、退職者が Active のまま残っていないか（注: 365 日未ログインの除外は Per-User 割り当て集計の定義。Unrestricted User メーターは Active=true の全ユーザーを数える公式定義のため、Unrestricted 製品では Active=false 化が必要） | `sys_user`（Active、Last login） | [公式（Active users 定義）](https://www.servicenow.com/docs/r/australia/platform-administration/subscription-details-v2.html) / [公式（Unrestricted User 定義）](https://www.servicenow.com/docs/r/australia/platform-administration/types-subscription-v2.html) |
+| 5 | 連携用アカウントに Web service access only が設定されているか（注: Per-User 割り当て集計からは除外される。Unrestricted User メーターから除外されるかは公開情報では確認できず。不要な連携用アカウントは Active=false にする） | `sys_user` | 同上 |
 | 6 | ITOM の SU が契約数を超えていないか。Discovery 範囲の拡大による急増がないか | ITOM License > ITOM Licensing Dashboard | [公式](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-dashboard.html) |
 | 7 | Integration Hub トランザクションの年間消費ペース | Integration Hub Usage Dashboard | [公式](https://www.servicenow.com/docs/r/australia/integrate-applications/integration-hub/use-the-integration-hub-usage-dashboard.html) |
 | 8 | Assist の消費ペース（契約記念日までに枯渇しないか）、非本番での過剰消費 | Subscription Management > Now Assist usage | [公式](https://www.servicenow.com/docs/r/australia/platform-administration/monitoring-now-assist-usage.html) |
@@ -850,7 +855,7 @@ ServiceNow は SaaS で、インスタンスの使用データを日常的に収
 **ServiceNow 公式発表・公式文書（本文確認済み）**
 - https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-moves-beyond-the-sidecar-AI-era-giving-customers-a-complete-AI-native-experience-across-all-products-and-packages/default.aspx （2026-04-09 プレスリリース）
 - https://www.servicenow.com/community/s/cgfwn76974/attachments/cgfwn76974/now-assist-forum/2134/1/sn-assist-overview%20(1).pdf （Now Assist Overview、2025-09-10 発効版、Community 添付）
-- https://www.servicenow.com/docs/bundle/zurich-it-service-management/page/reuse/itsm/reference/installed-with-business-stakeholder_1.html （Installed with Business Stakeholder、検索抜粋で確認）
+- https://www.servicenow.com/docs/r/UMl~97STJe3fa_KTmzD1Gg/4RZ_lXZu9Po6aq4hZFkvkQ （Installed with Business Stakeholder、Australia 版）
 
 **ServiceNow 公式の契約関連 PDF（本文未取得、検索結果の抜粋またはドキュメントからのリンクで確認）**
 - https://www.servicenow.com/content/dam/servicenow-assets/public/en-us/doc-type/legal/snc-addendum-integrationhub.pdf

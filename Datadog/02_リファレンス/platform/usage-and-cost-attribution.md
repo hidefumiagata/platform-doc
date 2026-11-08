@@ -30,7 +30,7 @@ sources:
 
 ## 概要
 
-このファイルは、**Datadog 自身の利用量（Usage）と Datadog への支払いコスト（Cost）**を、画面・メトリクス・API の 3 つの経路でどう確認・配賦・監視するかをまとめたリファレンスである。AWS などクラウド事業者のコスト管理は [Cloud Cost Management](../infrastructure/cloud-cost-management.md) を、料金表の数値は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照する。
+このファイルは、**Datadog 自身の利用量（Usage）と Datadog への支払いコスト（Cost）**を、画面・メトリクス・API の 3 つの経路でどう確認・配賦・監視するかをまとめたリファレンスである。AWS などクラウド事業者のコスト管理は [Cloud Cost Management](../infrastructure/cloud-cost-management.md) を、料金表の数値は [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照する。
 
 Datadog の利用量・コスト可視化機能は、目的別に次のように分かれる。
 
@@ -48,11 +48,11 @@ Datadog の利用量・コスト可視化機能は、目的別に次のように
 
 関連ファイル:
 
-- 課金単位と計算方法の詳細: [課金計算の仕組み](../../03_導入編/billing-mechanics.md)
-- 料金の数値（正本）: [製品別料金表](../../03_導入編/pricing-by-product.md)、[料金体系の全体像](../../03_導入編/pricing-overview.md)
-- コスト削減の実践: [コスト最適化](../../04_応用編/cost-optimization.md)
-- タグ設計: [Tagging（タグ）](tagging.md)、[タグ戦略の実践](../../04_応用編/tagging-strategy.md)
-- マルチ org 運用: [組織・ユーザー・権限管理](account-and-access-management.md)、[大規模・マルチorg運用](../../04_応用編/large-scale-and-multi-org.md)
+- 課金単位と計算方法の詳細: [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)
+- 料金の数値（正本）: [製品別料金表](../../03_導入編/02-pricing-by-product.md)、[料金体系の全体像](../../03_導入編/01-pricing-overview.md)
+- コスト削減の実践: [コスト最適化](../../04_応用編/01-cost-optimization.md)
+- タグ設計: [Tagging（タグ）](tagging.md)、[タグ戦略の実践](../../04_応用編/02-tagging-strategy.md)
+- マルチ org 運用: [組織・ユーザー・権限管理](account-and-access-management.md)、[大規模・マルチorg運用](../../04_応用編/15-large-scale-and-multi-org.md)
 - カスタムメトリクスの利用量: [Custom Metrics と DogStatsD](custom-metrics-and-dogstatsd.md)
 
 ## 全体構成（データの流れ）
@@ -100,7 +100,7 @@ Plan & Usage のタブ構成は次のとおり。タブ名は時期と組織に�
 
 ### Billing（請求）の基本ルール
 
-Plan & Usage の数値を読むには、Datadog の請求ルールを押さえておく必要がある。詳細は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+Plan & Usage の数値を読むには、Datadog の請求ルールを押さえておく必要がある。詳細は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 
 | 項目 | 仕様 |
 |---|---|
@@ -170,7 +170,7 @@ Usage 画面に表示される MTD 利用量の集計方法は製品ごとに次
 
 [出典](https://docs.datadoghq.com/account_management/plan_and_usage/usage_details/)
 
-> **注記（ドキュメント間の差異）:** Fargate Tasks の集計方法は、Usage Details ページでは「合計（sum）」とされている。一方 Cost Details ページの課金集計の説明では「月平均（monthly average）」とされ、APM 用の Usage ページの説明でも APM Fargate Tasks は「5 分間隔の一意タスク数の平均」とされている。請求上の扱いは [課金計算の仕組み](../../03_導入編/billing-mechanics.md) と契約書で確認すること。[出典](https://docs.datadoghq.com/account_management/plan_and_usage/cost_details/)、[出典](https://docs.datadoghq.com/account_management/billing/usage_monitor_apm/)
+> **注記（ドキュメント間の差異）:** Fargate Tasks の集計方法は、Usage Details ページでは「合計（sum）」とされている。一方 Cost Details ページの課金集計の説明では「月平均（monthly average）」とされ、APM 用の Usage ページの説明でも APM Fargate Tasks は「5 分間隔の一意タスク数の平均」とされている。請求上の扱いは [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) と契約書で確認すること。[出典](https://docs.datadoghq.com/account_management/plan_and_usage/cost_details/)、[出典](https://docs.datadoghq.com/account_management/billing/usage_monitor_apm/)
 
 ### Usage Trends（利用量トレンド）
 
@@ -496,7 +496,7 @@ Usage Attribution は、Datadog の利用量を**最大 3 つのタグキー**�
 
 > **ポイント:** Usage Attribution で設定したタグキーは、Estimated Usage Metrics の `.by_tag` メトリクスと、Datadog Costs（CCM）のタグにも使われる。タグキーを変えると、これら 3 つの分解軸がまとめて変わる。`.by_tag` への反映は次の 00:00 UTC から。[出典](https://docs.datadoghq.com/account_management/billing/usage_metrics/)、[出典](https://docs.datadoghq.com/cloud_cost_management/datadog_costs/)
 
-タグキーの選び方（`team`、`service`、`env`、`cost-center` など）と、付与率を高める方法は [Tagging（タグ）](tagging.md) と [タグ戦略の実践](../../04_応用編/tagging-strategy.md) を参照。
+タグキーの選び方（`team`、`service`、`env`、`cost-center` など）と、付与率を高める方法は [Tagging（タグ）](tagging.md) と [タグ戦略の実践](../../04_応用編/02-tagging-strategy.md) を参照。
 
 ### Monthly usage attribution（月次）
 
@@ -804,7 +804,7 @@ Datadog の利用量・コストを監視する手段は、次の 5 つである
 4. Alert threshold と、必要なら Warning threshold を、割当量の **80% や 90%** に設定する。
 5. モニター名と通知先を設定する。
 
-インデックスされたスパンは `datadog.estimated_usage.apm.indexed_spans` で同じように監視できる。参考として、公式ドキュメントでは APM ホスト 1 台あたりの割当量を**取り込みスパン 150 GB、インデックススパン 100 万件**、APM Fargate タスク 1 つあたりを**取り込みスパン 30 GB、インデックススパン 19.5 万件**としている。割当量の正本は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。[出典](https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/)、[出典](https://www.datadoghq.com/pricing/allotments/)
+インデックスされたスパンは `datadog.estimated_usage.apm.indexed_spans` で同じように監視できる。参考として、公式ドキュメントでは APM ホスト 1 台あたりの割当量を**取り込みスパン 150 GB、インデックススパン 100 万件**、APM Fargate タスク 1 つあたりを**取り込みスパン 30 GB、インデックススパン 19.5 万件**としている。割当量の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照。[出典](https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/)、[出典](https://www.datadoghq.com/pricing/allotments/)
 
 > **注記（ドキュメント間の差異）:** APM の利用量監視ページ（usage_monitor_apm）は APM Fargate タスク 1 つあたりの割当量を「取り込みスパン 10 GB、インデックススパン 6.5 万件」としている。APM Billing ページの計算例（20 タスクで 130 万件）もこの値に基づく。一方、APM Billing ページの料金表と料金ページの allotments は「30 GB／19.5 万件」としている。本書は正本に合わせて 30 GB／19.5 万件とする。しきい値を設定する際は契約書で確認すること。[出典](https://docs.datadoghq.com/account_management/billing/usage_monitor_apm/)、[出典](https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/)
 
@@ -857,7 +857,7 @@ Datadog Costs を対象にする場合は、`datadog_product` や `dimension`、
 - 推定値は請求値と平均 10〜20% ずれるので、①のしきい値には余裕をもたせる（例: 割当量の 80% で Warning）。
 - 日本の技術コミュニティでも、`datadog.estimated_usage.*` でログ量・ホスト数・カスタムメトリクス数・Synthetics 実行回数を監視して高額請求を防ぐ運用が紹介されている。【第三者情報】[出典](https://speakerdeck.com/shiroigit/jddug-number-13-datadog-no-liao-jin-wojian-shi-sitemita)（JDDUG #13「Datadog「の」料金を監視してみた」、2025-11-15 公開）
 
-コスト削減策の全体は [コスト最適化](../../04_応用編/cost-optimization.md)、アラート設計は [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md) を参照。
+コスト削減策の全体は [コスト最適化](../../04_応用編/01-cost-optimization.md)、アラート設計は [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md) を参照。
 
 ## AI Credit Limits と Usage Quotas（利用上限の設定）
 
@@ -1051,7 +1051,7 @@ AP1（日本）固有の機能制限は、本ファイルで参照した公開�
 | Usage Attribution | Enterprise プランに含まれる。他のプランは営業担当に問い合わせ | [multi_organization](https://docs.datadoghq.com/account_management/multi_organization/) |
 | Estimated Usage Metrics | 個別料金の記載なし。カスタムメトリクスとして課金されるかは公開情報では確認できず | [usage_metrics](https://docs.datadoghq.com/account_management/billing/usage_metrics/) |
 | Datadog Costs（CCM） | **追加料金なし** | [datadog_costs](https://docs.datadoghq.com/cloud_cost_management/datadog_costs/) |
-| Cloud Cost Management 本体（クラウド事業者のコスト） | 有料製品。料金は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照 | [Cloud Cost Management](../infrastructure/cloud-cost-management.md) |
+| Cloud Cost Management 本体（クラウド事業者のコスト） | 有料製品。料金は [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照 | [Cloud Cost Management](../infrastructure/cloud-cost-management.md) |
 | Usage Metering API | Pro と Enterprise の顧客が利用できる。API 呼び出しの課金の記載なし | [API](https://docs.datadoghq.com/api/latest/usage-metering/) |
 
 利用量の確認で注意すべき課金の仕組み:
@@ -1060,17 +1060,17 @@ AP1（日本）固有の機能制限は、本ファイルで参照した公開�
 - **契約外の製品**を使うとオンデマンドで課金される。初回利用通知（Beta）で検知できる。[出典](https://docs.datadoghq.com/account_management/plan_and_usage/usage_details/)
 - **合計（sum）型の製品**（ログ、スパン、Synthetics、RUM など）は量の増減がそのままコストになるので、推定使用量メトリクスでの監視の効果が大きい。[出典](https://docs.datadoghq.com/account_management/plan_and_usage/cost_details/)
 
-課金単位・集計方式の詳細は [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、定価は [製品別料金表](../../03_導入編/pricing-by-product.md)、プランごとの差は [エディション・プラン](../../03_導入編/editions-and-plans.md)、見積りは [コスト見積り手法](../../03_導入編/cost-estimation.md) を参照。
+課金単位・集計方式の詳細は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、定価は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、プランごとの差は [エディション・プラン](../../03_導入編/04-editions-and-plans.md)、見積りは [コスト見積り手法](../../03_導入編/05-cost-estimation.md) を参照。
 
 ## 運用上の注意・ベストプラクティス
 
 - **数値の種類を区別する。** 推定使用量メトリクス（準リアルタイム・誤差 10〜20%）、Usage 画面（最大 72 時間遅れ）、Estimated MTD コスト、Projected コスト、Historical コスト（翌月 16 日頃に確定）は、それぞれ鮮度と精度が違う。請求の照合には Historical を使う。[出典](https://docs.datadoghq.com/account_management/billing/usage_metrics/)、[出典](https://docs.datadoghq.com/account_management/plan_and_usage/cost_details/)
 - **Usage Attribution のタグキーは慎重に決める。** 上限は 3 つで、変更すると Usage Attribution のレポート、`.by_tag` メトリクス、Datadog Costs のタグがまとめて変わる。過去のレポートは古いタグのまま残るので、途中で変えると月をまたいだ比較がしにくくなる。【経験則】（仕様の出典は [usage_attribution](https://docs.datadoghq.com/account_management/billing/usage_attribution/)、[usage_metrics](https://docs.datadoghq.com/account_management/billing/usage_metrics/)）
-- **未タグ付けの利用量を減らす。** Usage Attribution では、タグキーのないリソースの利用量は「値なし」として集計されるので、チャージバックの精度はタグ付与率で決まる。統合タグ（`env`、`service`、`version`）と `team` タグの付与を徹底する。【経験則】詳細は [タグ戦略の実践](../../04_応用編/tagging-strategy.md)
+- **未タグ付けの利用量を減らす。** Usage Attribution では、タグキーのないリソースの利用量は「値なし」として集計されるので、チャージバックの精度はタグ付与率で決まる。統合タグ（`env`、`service`、`version`）と `team` タグの付与を徹底する。【経験則】詳細は [タグ戦略の実践](../../04_応用編/02-tagging-strategy.md)
 - **推定使用量メトリクスは `sum by` で集計する。** 平均や既定の集約では、子組織やタグで分かれた時系列が合算されず、過小評価になる。[出典](https://docs.datadoghq.com/account_management/billing/usage_metrics/)
 - **マルチ org では親組織で見る。** コスト系 API、Usage Summary、Billable Summary は親組織でしか使えない。子組織で Usage Attribution を有効にしても親組織には集約されない。[出典](https://docs.datadoghq.com/api/latest/usage-metering/)、[出典](https://docs.datadoghq.com/account_management/multi_organization/)
 - **FinOps 用の権限を分ける。** `usage_read`＋`billing_read` を持つカスタムロールを作り、Admin を渡さずにコストを見られるようにする。子組織だけ見せたい場合は、Sub-org Cost Summary（Limited Availability）を申請する。[出典](https://docs.datadoghq.com/account_management/plan_and_usage/cost_details/)
-- **Zendesk の事例:** 公式ブログでは、Zendesk が Usage Attribution と推定使用量メトリクスでコスト最適化の対象を特定し、施策の効果を測った事例が紹介されている。[出典](https://www.datadoghq.com/blog/zendesk-cost-optimization/)（公開日は本ファイルでは未確認）。事例全般は [導入事例](../../04_応用編/case-studies.md) を参照。
+- **Zendesk の事例:** 公式ブログでは、Zendesk が Usage Attribution と推定使用量メトリクスでコスト最適化の対象を特定し、施策の効果を測った事例が紹介されている。[出典](https://www.datadoghq.com/blog/zendesk-cost-optimization/)（公開日は本ファイルでは未確認）。事例全般は [導入事例](../../04_応用編/13-case-studies.md) を参照。
 
 ## 参照元
 

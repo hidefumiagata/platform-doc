@@ -1088,7 +1088,7 @@ using (Activity? activity = Telemetry.ActivitySource.StartActivity("<RESOURCE NA
 }
 ```
 
-OTel SDK＋OTLP で直接送る構成、Datadog SDK と OTel SDK の機能差、セマンティック規約のマッピング、OTel 環境変数（`OTEL_SERVICE_NAME` 等）のサポートは [OpenTelemetry サポート](../platform/opentelemetry.md) を、OTel 採用方針の考え方は [OpenTelemetry 活用戦略](../../04_応用編/opentelemetry-strategy.md) を参照。
+OTel SDK＋OTLP で直接送る構成、Datadog SDK と OTel SDK の機能差、セマンティック規約のマッピング、OTel 環境変数（`OTEL_SERVICE_NAME` 等）のサポートは [OpenTelemetry サポート](../platform/opentelemetry.md) を、OTel 採用方針の考え方は [OpenTelemetry 活用戦略](../../04_応用編/10-opentelemetry-strategy.md) を参照。
 
 ## ログとトレースの相関
 
@@ -1288,14 +1288,14 @@ Datadog 形式のヘッダー：`x-datadog-trace-id`（128 ビット ID の下�
 | 取り込みスパン（Ingested Spans） | 超過分 $0.10 / GB（ホストあたり150 GB を含む） |
 | インデックス化スパン（Indexed Spans、15日保持） | 超過分 100万スパンあたり $1.70（年契約）（ホストあたり100万スパンを含む） |
 
-- 上表の APM ホスト単価（$31 / $35 / $40）は、すべての APM ホストに Infrastructure Pro または Enterprise が必要な**併用モデル**の価格である。Infrastructure を使わない**スタンドアロン**価格（年契約 $36 / $41 / $47）も別にある。併用モデルの月契約 $36 とスタンドアロン年契約 $36 は別物なので取り違えないこと（[製品別料金表 §5.1](../../03_導入編/pricing-by-product.md#51-apm-エディションinfrastructure-併用スタンドアロン)）。
+- 上表の APM ホスト単価（$31 / $35 / $40）は、すべての APM ホストに Infrastructure Pro または Enterprise が必要な**併用モデル**の価格である。Infrastructure を使わない**スタンドアロン**価格（年契約 $36 / $41 / $47）も別にある。併用モデルの月契約 $36 とスタンドアロン年契約 $36 は別物なので取り違えないこと（[製品別料金表 §5.1](../../03_導入編/02-pricing-by-product.md#51-apm-エディションinfrastructure-併用スタンドアロン)）。
 
 - ホストは1時間ごとに計測され、月末に上位の値を除いて課金される（99パーセンタイル方式／ハイウォーターマーク方式）。Kubernetes では Pod ではなく基盤ノード単位。1コンテナに1 Agent を置く構成では各コンテナがホストとして数えられる [出典](https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/)。
 - 計装で有効化する付随機能（`DD_PROFILING_ENABLED`、`DD_APPSEC_ENABLED`、`DD_DATA_STREAMS_ENABLED`、`DD_IAST_ENABLED` など）は、それぞれの製品の課金対象になりうる。特に SSI で `DD_PROFILING_ENABLED=auto` を全体に適用すると Profiler の課金対象ホスト／コンテナが増える可能性がある【推定】。
 - ランタイムメトリクスがカスタムメトリクスとして課金されるかは、ランタイムメトリクスのページでは明記されていない（公開情報では確認できず）。
 - 計装範囲が広がるほど取り込みスパン量が増えるため、取り込み制御（サンプリング）で調整する（[APM の概念とインジェスト制御](./apm-concepts-and-ingestion.md)）。
 
-料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、計算方法は [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、削減策は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、計算方法は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、削減策は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ## 関連ファイル
 
@@ -1309,7 +1309,7 @@ Datadog 形式のヘッダー：`x-datadog-trace-id`（128 ビット ID の下�
 - [Software Catalog（旧 Service Catalog）](../platform/software-catalog.md)
 - [ログ収集](../logs/log-collection.md)、[Log Pipelines と処理](../logs/log-pipelines-and-processing.md)
 - [Serverless Monitoring](../infrastructure/serverless.md)
-- [Agent 展開設計](../../03_導入編/agent-rollout-design.md)、[APM 運用の実践](../../04_応用編/apm-practices.md)、[OpenTelemetry 活用戦略](../../04_応用編/opentelemetry-strategy.md)、[よくある失敗とアンチパターン](../../04_応用編/common-pitfalls.md)
+- [Agent 展開設計](../../03_導入編/10-agent-rollout-design.md)、[APM 運用の実践](../../04_応用編/05-apm-practices.md)、[OpenTelemetry 活用戦略](../../04_応用編/10-opentelemetry-strategy.md)、[よくある失敗とアンチパターン](../../04_応用編/12-common-pitfalls.md)
 
 ## 参照元
 

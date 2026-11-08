@@ -936,7 +936,7 @@ DogStatsD クライアント（Agent 経由のカスタムメトリクス送信�
 
 ### 12.4 Infrastructure as Code
 
-Terraform provider（公式）、Pulumi などの IaC ツールからの API 利用・認証方式（API キー + アプリケーションキー、WIF）は [Terraform と IaC](./terraform-and-iac.md)、運用ノウハウは [Monitoring as Code](../../04_応用編/monitoring-as-code.md) を参照。
+Terraform provider（公式）、Pulumi などの IaC ツールからの API 利用・認証方式（API キー + アプリケーションキー、WIF）は [Terraform と IaC](./terraform-and-iac.md)、運用ノウハウは [Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) を参照。
 
 ---
 
@@ -1096,7 +1096,7 @@ Dogshell は datadogpy（`pip install datadog`）に同梱される `dog` コマ
 - API キー、アプリケーションキー、クライアントトークン、PAT、SAT、サービスアカウント、WIF、REST API の利用自体に**個別の課金単位は公式料金ページで確認できない**（公開情報では確認できず）。
 - 課金は API で送信・生成したデータに対して、各製品の課金単位で発生する。例：API で送ったメトリクスは**カスタムメトリクス**、ログ送信 API で送ったログは **Log Management の取り込み / インデックス**、RUM SDK（クライアントトークン）のデータは **RUM のセッション**、datadog-ci でアップロードしたテスト結果は **Test Optimization** の課金対象となる。
 - API 呼び出しの監査を長期間保持する場合は **Audit Trail** の保持期間設定に応じた課金が発生する。
-- 単価・課金計算の詳細は [製品別料金表（料金の正本）](../../03_導入編/pricing-by-product.md)、[課金計算の仕組み](../../03_導入編/billing-mechanics.md)、使用量の把握は [Usage・Usage Attribution・Cost Visibility](./usage-and-cost-attribution.md) を参照。
+- 単価・課金計算の詳細は [製品別料金表（料金の正本）](../../03_導入編/02-pricing-by-product.md)、[課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、使用量の把握は [Usage・Usage Attribution・Cost Visibility](./usage-and-cost-attribution.md) を参照。
 
 > 補足【経験則】: 漏洩した API キーやクライアントトークンを悪用されると、意図しないカスタムメトリクスやログの大量送信で**課金が急増**する可能性がある。用途別キーの分離と、使用量・`datadog.estimated_usage.*` 系メトリクスのモニタリングがコスト面でも重要である。
 
@@ -1116,7 +1116,7 @@ Dogshell は datadogpy（`pip install datadog`）に同梱される `dog` コマ
 | 監視 | Datadog API Rate Limit Visibility ダッシュボード、`*_pct` メトリクスへのモニター、Audit Trail | 公式 Rate Limits ドキュメント |
 | ネットワーク制御 | 管理 API へのアクセス元を IP Allowlist で制限（intake は対象外） | [組織・ユーザー・権限管理](./account-and-access-management.md) |
 
-運用面の実践は [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md)、[運用設計](../../03_導入編/operations-design.md)、[大規模・マルチorg運用](../../04_応用編/large-scale-and-multi-org.md)、[よくある失敗とアンチパターン](../../04_応用編/common-pitfalls.md) を参照。
+運用面の実践は [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md)、[運用設計](../../03_導入編/13-operations-design.md)、[大規模・マルチorg運用](../../04_応用編/15-large-scale-and-multi-org.md)、[よくある失敗とアンチパターン](../../04_応用編/12-common-pitfalls.md) を参照。
 
 ---
 

@@ -1071,7 +1071,7 @@ App Builder Overview ダッシュボードは、組織の Datadog アプリの�
 
 > **サイト差異:** Datadog Apps `【Preview】` で US1 以外を使う場合は `vite.config.ts` の `auth.site` の設定が必要（us3、us5、eu、ap1、ap2、uk1）。[出典](https://docs.datadoghq.com/actions/datadog_apps/)
 
-> **サイト差異:** 価格はサイトによって異なる。AP1 の価格は年契約 $43.75 / 月契約 $52.50 / オンデマンド $63.75（公開済みアプリ 1 つ / 月、2026-11-02 時点）で、US/EU1 の $35 / $42 / $51 とは異なる。詳細は [課金への影響](#課金への影響) を参照。正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。[出典](https://www.datadoghq.com/pricing/list/)
+> **サイト差異:** 価格はサイトによって異なる。AP1 の価格は年契約 $43.75 / 月契約 $52.50 / オンデマンド $63.75（公開済みアプリ 1 つ / 月、2026-11-02 時点）で、US/EU1 の $35 / $42 / $51 とは異なる。詳細は [課金への影響](#課金への影響) を参照。正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)。[出典](https://www.datadoghq.com/pricing/list/)
 
 AP1（日本）での App Builder の機能差異は、公開情報では確認できず。サイトの一般的な情報は [Datadog Sites](../platform/datadog-sites.md) を参照。
 
@@ -1136,7 +1136,7 @@ App Builder の課金単位は **公開済み（published）アプリ 1 つあ�
 | App Builder | 公開済みアプリ 1 つ / 月 | US/EU1 | $35 | $42 | $51 |
 | App Builder | 公開済みアプリ 1 つ / 月 | AP1（日本） | $43.75 | $52.50 | $63.75 |
 
-> **サイト差異:** 価格はサイトによって異なる。AP1 の価格は US/EU1 と同じではない（上表、2026-11-02 時点）。その他のサイトの価格と、料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。[出典](https://www.datadoghq.com/pricing/list/)
+> **サイト差異:** 価格はサイトによって異なる。AP1 の価格は US/EU1 と同じではない（上表、2026-11-02 時点）。その他のサイトの価格と、料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照。[出典](https://www.datadoghq.com/pricing/list/)
 
 価格ページの FAQ に書かれている課金の扱いは次のとおり。[出典](https://www.datadoghq.com/pricing/?product=app-builder)
 
@@ -1158,9 +1158,9 @@ App Builder を使うときに、別の製品の課金が発生しうるもの�
 | Datadog Apps `【Preview】` | 料金は公開情報では確認できず | — |
 | Datastores、Forms | 料金は公開情報では確認できず（料金ページに項目なし） | [Pricing list](https://www.datadoghq.com/pricing/list/) |
 
-> **補足:** 「公開済みアプリ」の月内の数え方（月内の最大数か、日割りか、時間平均か）は、公開情報では確認できず。Datadog の一般的な請求は暦月（UTC の毎月1日開始）単位である。課金計算の一般論は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+> **補足:** 「公開済みアプリ」の月内の数え方（月内の最大数か、日割りか、時間平均か）は、公開情報では確認できず。Datadog の一般的な請求は暦月（UTC の毎月1日開始）単位である。課金計算の一般論は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 
-料金の数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。料金体系の全体は [料金体系の全体像](../../03_導入編/pricing-overview.md) を参照。
+料金の数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)。料金体系の全体は [料金体系の全体像](../../03_導入編/01-pricing-overview.md) を参照。
 
 ## 設計・運用上の注意
 
@@ -1230,8 +1230,8 @@ A. 編集画面の Debug Console で、Action Executions（入出力）、Errors
 - [Datadog Sites（サイト）](../platform/datadog-sites.md)
 - [AWS Integration](../platform/aws-integration.md)
 - [Bits AI と AI 機能](../ai/bits-ai.md)
-- [製品別料金表](../../03_導入編/pricing-by-product.md)
-- [製品ポートフォリオ全体像](../../01_入門編/product-map.md)
+- [製品別料金表](../../03_導入編/02-pricing-by-product.md)
+- [製品ポートフォリオ全体像](../../01_入門編/04-product-map.md)
 
 ## 参照元
 

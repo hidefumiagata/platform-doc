@@ -21,6 +21,13 @@ sources:
   - https://www.servicenow.com/docs/r/a3E8xg0zsiQLBPKbKO15Mg/7IOu6vhY96xl__WOafBx~w
   - https://www.servicenow.com/docs/r/zurich/application-development/servicenow-studio-classic/source-control-integration.html
   - https://www.servicenow.com/docs/r/zurich/intelligent-experiences/ai-control-tower/roles-installed-with-ai-control-tower.html
+  - https://www.servicenow.com/docs/r/it-business-management/strategic-planning/demand-process-flow.html
+  - https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/N7UlF_9mlCgZmtICks6a0Q
+  - https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/puoonuu7YQnaAqcFsxmASg
+  - https://www.servicenow.com/docs/r/zurich/release-notes/creator-studio-rn.html
+  - https://www.servicenow.com/community/training-and-certifications/certified-professional-platform-owner-beta-exam-is-now-available/ta-p/3464550
+  - https://www.servicenow.com/community/platform-owners-forum/platform-owner-career-journey-is-now-live/m-p/3253345
+  - https://www.servicenow.com/community/platform-owners-forum/the-expert-platform-owner-career-journey-level-is-live/m-p/3520919
   - https://www.servicenow.com/community/developer-articles/governance-or-no-governance-that-is-the-question/ta-p/3158504
   - https://www.servicenow.com/community/platform-owners-blog/platform-owners-wear-many-hats/bc-p/3128660
   - https://www.servicenow.com/community/platform-owners-forum/responsibility-of-platform-ownership-at-your-company/td-p/3508791
@@ -151,11 +158,11 @@ ServiceNow Community の Chris Pearson による連載（2025-02）は、Service
 
 ### 2.1 公式の定義
 
-ServiceNow の Impact ドキュメントは、ガバナンス支援を受ける顧客側の**必須ロール**として Platform Owner を定義している。[出典](https://www.servicenow.com/docs/r/VD5jAD3VgRc~i0AwgqwfEQ/Nvj8oOhwhdW2rvC43pyEqA)
+ServiceNow の Impact ドキュメント「ServiceNow Governance」オファリングは、ガバナンス支援を受ける顧客側の**必須ロール**として ServiceNow Executive Sponsor（ServiceNow に対する主たる戦略上の窓口）と Platform Owner の 2 つを定義している。Platform Owner の定義は次のとおり。[出典](https://www.servicenow.com/docs/r/VD5jAD3VgRc~i0AwgqwfEQ/Nvj8oOhwhdW2rvC43pyEqA)
 
 > Platform Owner は、プラットフォーム全体の説明責任（overall accountability）を負い、System Administrator を率いて監督し、チームをビジネス戦略および ServiceNow ロードマップと整合させ、プラットフォームガバナンスに能動的に参加する。（要旨）
 
-Impact の「Technical Governance」アクセラレーター（Advanced / Total パッケージで提供）は、必須ロールとして Platform Owner を、関与ロールとして Platform Architect と Executive Sponsor を挙げる。[出典](https://www.servicenow.com/docs/bundle/yokohama-impact/page/product/impact/reference/technical-governance.html)
+Impact の「Technical Governance」アクセラレーター（Advanced / Total パッケージで提供）は、要請する顧客側リソース（Requested customer resources）のうち Platform Owner のみを必須（required）とし、その他の顧客側リソースとして Platform Architect と Executive Sponsor を挙げる。[出典](https://www.servicenow.com/docs/bundle/yokohama-impact/page/product/impact/reference/technical-governance.html)
 
 | ロール | Technical Governance アクセラレーターでの定義（要旨） |
 |---|---|
@@ -163,7 +170,7 @@ Impact の「Technical Governance」アクセラレーター（Advanced / Total 
 | Platform Architect | プラットフォーム、関連プロセス・システム、ポリシーや組織要件を俯瞰的に把握する |
 | Executive Sponsor | ServiceNow に対する主たる戦略上の窓口 |
 
-同アクセラレーターは、顧客に次のインプットを求める：ガバナンス体制文書（憲章、ボード参加者）、組織図、IT ガバナンス文書、現状のアーキテクチャブループリント、Platform team の役割と責任、技術ポリシー文書（プラットフォーム管理ポリシー、連携概要、クローン手順、SLA）。また **ServiceNow は顧客の技術ガバナンスプロセスやポリシーを開発・運営する責任を負わない**と明記している。[出典](https://www.servicenow.com/docs/bundle/yokohama-impact/page/product/impact/reference/technical-governance.html)
+同アクセラレーターは、顧客に次のインプットを求める：ガバナンス体制文書（憲章、ボード参加者）、前提となる Strategy Governance・Portfolio Governance・Architecture Blueprint の各 Impact アクセラレーターの完了（CoE 憲章作成の前提）、組織図、IT ガバナンス文書、現状のアーキテクチャブループリント、Platform team の役割と責任、技術ポリシー文書（プラットフォーム管理ポリシー、連携概要、クローン手順、SLA）。また **ServiceNow は顧客の技術ガバナンスプロセスやポリシーを開発・運営する責任を負わない**と明記している。[出典](https://www.servicenow.com/docs/bundle/yokohama-impact/page/product/impact/reference/technical-governance.html)
 
 → 実務上の含意：ガバナンスは ServiceNow 社やパートナーに「外注」できない。Platform Owner を顧客社内に置くことが前提である。`【経験則】`
 
@@ -251,8 +258,8 @@ ServiceNow は Platform Owner 向けの学習パスと認定を提供してい�
 |---|---|---|
 | Certified Platform Owner Associate（CPOA） | 中級（Intermediate）。ServiceNow または Platform Owner の経験 3〜5 年を想定。ロードマップへの貢献、ユーザーフィードバックの取り込み、チーム横断の協働を行い、「上位者の指導の下で戦術的責務を遂行する準備」を認定する。取得要件：Platform Owner Career Journey の修了または 3〜5 年の経験、監督付き試験の合格、年次の Certification Maintenance Program 費用支払いとデルタ試験 | [Credly](https://www.credly.com/org/servicenow-new/badge/certified-platform-owner-associate-cpoa) `【第三者情報】`（認定発行元は ServiceNow） |
 | Credly 上のスキル | Compliance Expertise、Conflict Resolution、Data Analytics、Organizational Change Management、Platform Security、Roadmap Development、ServiceNow Governance、Stakeholder Management、Strategic Planning、Technical Leadership | 同上 |
-| Certified Professional Platform Owner（上位） | ServiceNow Community で Beta 試験が告知されている（受験には CPOA が前提）。GA 時期・要件の詳細は公開情報では確認できず | Community 告知（ServiceNow University Community） `【第三者情報】` |
-| Platform Owner Career Journey | ServiceNow University の学習パス。2025-05 に公開が告知 | Community 告知 `【第三者情報】` |
+| Certified Professional Platform Owner（上位） | ServiceNow Community で Beta 試験が告知されている（2026-01-09、ServiceNow 社員の投稿。受験には CPOA が前提）。GA 時期・要件の詳細は公開情報では確認できず | [Community 告知](https://www.servicenow.com/community/training-and-certifications/certified-professional-platform-owner-beta-exam-is-now-available/ta-p/3464550) `【第三者情報】` |
+| Platform Owner Career Journey | ServiceNow University の学習パス。2025-05-02 に公開が告知（Platform Owner 向けコース、K25 でのベータ試験を案内）。2026-04 に Expert レベルの公開も告知 | [Community 告知](https://www.servicenow.com/community/platform-owners-forum/platform-owner-career-journey-is-now-live/m-p/3253345)、[Expert レベル告知](https://www.servicenow.com/community/platform-owners-forum/the-expert-platform-owner-career-journey-level-is-live/m-p/3520919) `【第三者情報】` |
 
 認定体系全体は [学習パスと認定資格](../01_入門編/09-learning-path.md) を参照。
 
@@ -633,7 +640,7 @@ ServiceNow 社員 Jakob Anker のガバナンス「チートシート」（2023-
 
 ### 5.4 命名規約
 
-ServiceNow 公式ドキュメント「Plan before you build」は、アプリのスコープ名は会社コードとアプリ名から `x_[会社コード]_[アプリ名]` の形で提案され、**18 文字に切り詰められる**こと、スコープはすべてのアプリケーションファイルに継承されアプリ資源を一意に識別するため命名が重要であることを述べている。[出典](https://www.servicenow.com/docs/r/a3E8xg0zsiQLBPKbKO15Mg/7IOu6vhY96xl__WOafBx~w)
+ServiceNow 公式ドキュメント「Plan before you build」（Xanadu 版、2024-08-01 更新。Australia 版での変更は公開情報では確認できず）は、アプリのスコープ名は会社コードとアプリ名から `x_[会社コード]_[アプリ名]` の形で提案され、**18 文字に切り詰められる**こと、スコープはすべてのアプリケーションファイルに継承されアプリ資源を一意に識別するため命名が重要であることを述べている。[出典](https://www.servicenow.com/docs/r/a3E8xg0zsiQLBPKbKO15Mg/7IOu6vhY96xl__WOafBx~w)
 
 ServiceNow 社員 Sascha Wildgruber の Community 記事「Application naming convention」（2026-06-01 更新）は、議論の出発点として次の規約を提案している（規範ではないと明記）。`【第三者情報】` [出典](https://www.servicenow.com/community/developer-articles/application-naming-convention/ta-p/3551785)
 
@@ -718,15 +725,15 @@ flowchart TB
 
 ### 6.2 スコープ方針
 
-公式ドキュメント「Plan before you build」は、新規アプリはスコープアプリを既定とし、グローバルスコープは「アプリがグローバルデータを削除する必要がある」など限られたケースに使うとしている。スコープアプリはソース管理連携と委任開発をサポートするがグローバルアプリはサポートしない。また本番用アプリは、個人開発インスタンス（PDI）ではなく組織の開発インスタンスで構築し、組織のテスト・デプロイプロセスに乗せるべきとしている。[出典](https://www.servicenow.com/docs/r/a3E8xg0zsiQLBPKbKO15Mg/7IOu6vhY96xl__WOafBx~w)
+公式ドキュメント「Plan before you build」（Xanadu 版、2024-08-01 更新。Australia 版での変更は公開情報では確認できず）は、業務アプリは原則スコープアプリで作成し、次のいずれかに該当する場合に限りグローバルスコープを使うとしている：①アプリがグローバルデータを削除する必要がある、②動作のために複数の既定テーブルのアプリケーションアクセス設定を変更する必要がある、③グローバルスコープでのみ利用可能な API を使う必要がある。同ページは、スコープアプリはソース管理連携と委任開発を使えること、グローバルアプリは委任開発を使えないことを述べている（グローバルアプリのソース管理連携については同ページに記述なし。6.6 節のとおり ServiceNow Studio ではグローバルアプリもリンク可能）。また本番用アプリは、個人開発インスタンス（PDI）ではなく組織の開発インスタンスで構築し、組織のテスト・デプロイプロセスに乗せるべきとしている。[出典](https://www.servicenow.com/docs/r/a3E8xg0zsiQLBPKbKO15Mg/7IOu6vhY96xl__WOafBx~w)
 
 | 判断 | スコープアプリ | グローバル |
 |---|---|---|
 | 既定 | ○ | 例外（ARB 承認） |
-| 委任開発（6.3 節） | 可（privately scoped のみ） | 不可 |
-| ソース管理連携（6.6 節） | 可 | 不可 |
-| 他アプリからのアクセス制御 | Application Cross-Scope Access で制御 | 制御が弱い |
-| 典型的な例外 | — | OOTB グローバル機能の拡張が不可避な場合、グローバルデータの削除が必要な場合 |
+| 委任開発（6.3 節） | 可 | 不可（公式） |
+| ソース管理連携（6.6 節） | 可（非本番のみ） | 可（ServiceNow Studio、非本番のみ。Zurich 版公式で確認） |
+| 他アプリからのアクセス制御 | Application Cross-Scope Access で制御 | 制御が弱い `【経験則】` |
+| 典型的な例外 | — | 公式の 3 条件（グローバルデータの削除、複数の既定テーブルのアプリケーションアクセス設定変更、グローバル専用 API の利用）。加えて OOTB グローバル機能の拡張が不可避な場合 `【経験則】` |
 
 `global` での変更が不可避な場合は、Wildgruber 記事のように「スコープアプリ＋グローバル側の相棒アプリ（Global sidekick）」の組み合わせにし、グローバル側を最小化する設計が提案されている。`【第三者情報】` [出典](https://www.servicenow.com/community/developer-articles/application-naming-convention/ta-p/3551785)
 
@@ -774,7 +781,7 @@ flowchart TB
 
 **システム管理ロール**：権限を付与するとシステム管理の委任開発ロールが付く。`delegated_developer`（1 つ以上の開発者権限を持つ）と、`sn_dd_<app_name>_upgrade_app`（会社アプリを `sn_appclient.app_client_company_installer` ロールのユーザーがインストールした後に自動付与され、当該アプリのアップグレードを許可）がある。委任開発ロールのユーザーはシステムの `admin` ロールを追加・削除できない。[出典](https://www.servicenow.com/docs/r/application-development/delegated-development-and-deployment/delegated-dev-deploy-user-roles.html)（Brazil 版）
 
-検索結果で確認した公式ページの記述によると、委任開発者が開発者権限の機能を使うにはアプリケーション管理者ロール（application administrator）も必要であり、委任開発者は既存アプリとファイルを扱えるが、アプリを新規作成できるのは `admin` と Guided Application Creator のユーザーに限られる。[出典](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/puoonuu7YQnaAqcFsxmASg)
+公式ページ「Delegated development and deployment」（Australia 版、2026-03-12 更新）によると、Application administration が有効なアプリでは、委任開発者に application administrator（アプリケーション管理者）ロールも付与しないと開発者権限を使えない。また、アプリに開発者を委任できるのは対象アプリの application administrator のみであり、アプリ固有の admin ロールを付与された委任開発者はアプリを作成できる。[出典](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/puoonuu7YQnaAqcFsxmASg)
 
 **ガバナンス上の使い方**（`【経験則】`）：
 
@@ -806,7 +813,7 @@ Instance Scan はインスタンスの健全性を評価するツールで、テ
 | ロール | `scan_user`：スキャン実行、チェックの読取と実行、検出結果の参照。`scan_check_writer`：`scan_user` を含み、新規チェックの作成が可能 |
 | 制約 | ドメインセパレーションを完全にはサポートしない（Findings はソースレコードのドメインで分離）。`sys_metadata` を拡張したテーブルをスキャン可能 |
 
-> 注：Australia 版の「Instance Scan roles」ページには `scan_user` のみが掲載されている。[出典](https://www.servicenow.com/docs/r/EqTdsLocR0Ylm0TDB1E9xw/2rssDN1WHGWLp1emuAtNcg) `scan_check_writer` は「Exploring Instance Scan」ページ側の記載に基づく。旧リリースの資料や Community では `scan_admin` の記載もあるが、Australia での有無は公開情報では確認できず。
+> 注：Australia 版の「Instance Scan roles」ページには `scan_user` のみが掲載されている。[出典](https://www.servicenow.com/docs/r/EqTdsLocR0Ylm0TDB1E9xw/2rssDN1WHGWLp1emuAtNcg) `scan_check_writer` は「Exploring Instance Scan」ページ側の記載に基づく。`scan_admin` は、Zurich 版公式ドキュメントの App Engine Studio のペルソナ・ロール表（App Engine Studio Admins グループとプロ開発者の付与ロール）に掲載されている（[アプリ開発 4.4](../02_リファレンス/platform/app-development.md)、[出典](https://www.servicenow.com/docs/r/zurich/application-development/app-engine-studio/aes-personas-roles.html)）。ただし Instance Scan 側のロールページには載っておらず、Australia での権限範囲は公開情報では確認できず。
 
 #### 開発標準のカスタムチェック例
 
@@ -844,7 +851,7 @@ AEMC のリリースノートによると、次の機能がある。[出典](htt
 | 27.2.1（2025-05） | App Readiness and Compliance report に詳細セクションを追加 |
 | 28.2.1（2025-12） | ReleaseOps のリリースとデプロイ要求の管理、App Engine パイプラインから ReleaseOps への移行 |
 
-Pipelines and Deployments の公式ドキュメント（検索結果で確認）によると、テスト環境へのデプロイ時に Application Deployment Test Suite と Scoped App Definitions の Instance Scan が実行され、結果はデプロイ要求の Deployment Environment Results タブで確認できる。[出典](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/N7UlF_9mlCgZmtICks6a0Q) パイプラインの詳細は [運用とガバナンス 5.4 節](../03_導入編/12-operations-governance.md) を参照。
+Pipelines and Deployments の公式ドキュメント（Australia 版、2026-05-07 更新）によると、Testing 環境へのデプロイ時に ATF の Application Deployment Test Suite と、Scoped App Definitions の Instance Scan および Scan Suites テーブルに登録された Suite が実行される（Scan Suites テーブルは Controller インスタンス側に登録する）。結果は Deployment Environment Result テーブルに書き込まれ、デプロイ要求の Activity Stream にも表示される。[出典](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/N7UlF_9mlCgZmtICks6a0Q) パイプラインの詳細は [運用とガバナンス 5.4 節](../03_導入編/12-operations-governance.md) を参照。
 
 **自社開発標準を AEMC に乗せる手順**（`【経験則】`）：
 
@@ -875,7 +882,7 @@ ATF の詳細は [Automated Test Framework (ATF)](../02_リファレンス/platf
 
 ### 6.6 ソース管理と移送の標準
 
-ServiceNow Studio のソース管理連携の公式ドキュメント（Zurich 版。検索結果で確認）によると、アプリをリポジトリへリンクするには `admin` ロールが必要で、ソース管理連携は**非本番インスタンスでのみ**サポートされる。本番ではアプリケーションリポジトリ、Update Set、ServiceNow Studio でアプリを管理する。各アプリは独自の Git リポジトリを持つ。リポジトリ認証情報はリポジトリごとに 1 組で、そのインスタンスの開発者全員が共有する。ファイアウォール内のリポジトリには MID Server 経由で接続できる。[出典](https://www.servicenow.com/docs/r/zurich/application-development/servicenow-studio-classic/source-control-integration.html)
+ServiceNow Studio のソース管理連携の公式ドキュメント（Zurich 版、2025-07-31 更新）によると、ソース管理連携は**グローバルアプリとスコープアプリの両方**を対象に、非本番インスタンスから複数バージョンを保存・管理できる。アプリをリポジトリへリンクするには `admin` ロールが必要で、ソース管理連携は**非本番インスタンスでのみ**サポートされる。本番ではアプリケーションリポジトリ、Update Set、ServiceNow Studio でアプリを管理する。各アプリは独自の Git リポジトリを持つ。リポジトリ認証情報はリポジトリごとに 1 組で、そのインスタンスの開発者全員が共有する。ファイアウォール内のリポジトリには MID Server 経由で接続できる。[出典](https://www.servicenow.com/docs/r/zurich/application-development/servicenow-studio-classic/source-control-integration.html)
 
 開発ガイドラインに書く標準（`【経験則】`）：
 
@@ -904,11 +911,11 @@ App Engine Studio / Creator Studio による市民開発は、3.3 節の Intake 
 | 棚卸し | 利用されていないアプリの廃止、所有者不在アプリの引取り | AEMC の Custom apps ページ（アプリ状態、利用状況、デプロイ履歴） |
 | ライセンス | App Engine のサブスクリプションとカスタムテーブル数 | [ライセンスモデル](../03_導入編/01-licensing-model.md) |
 
-Creator Studio は App Engine Enterprise ライセンスが必要とされる（Creator Studio リリースノート、検索結果で確認）。[出典](https://www.servicenow.com/docs/r/zurich/release-notes/creator-studio-rn.html)
+Creator Studio は App Engine Enterprise ライセンスが必要とされる（Creator Studio リリースノート、Zurich 版、2025-12-08 更新）。[出典](https://www.servicenow.com/docs/r/zurich/release-notes/creator-studio-rn.html)
 
 ### 6.8 AI ガバナンスとの接続
 
-Wildgruber の 9 ロールモデルは Artificial Intelligence を独立したステークホルダーにしている（2.3 節）。ServiceNow は AI のガバナンス製品として AI Control Tower を提供しており、AI Steward ロールが AI Control Tower の構成、ガバナンスプラクティスの定着、AI 資産のライフサイクル、承認プレイブック、サードパーティ LLM／SLM 連携などを管理するとされる（Zurich 版ドキュメント、検索結果で確認）。[出典](https://www.servicenow.com/docs/r/zurich/intelligent-experiences/ai-control-tower/roles-installed-with-ai-control-tower.html)
+Wildgruber の 9 ロールモデルは Artificial Intelligence を独立したステークホルダーにしている（2.3 節）。ServiceNow は AI のガバナンス製品として AI Control Tower を提供しており、公式の「Roles installed with AI Control Tower」（Zurich 版）によると、AI Steward（`sn_ai_governance.ai_steward`）は AI stewards グループ経由で付与され、AI Control Tower の構成、AI ガバナンスの定着推進、AI 資産とそのライフサイクルの管理、サードパーティ LLM やマルチインスタンス管理を含む AI 関連要求の承認を担う。AI Asset Owner（`sn_ai_asset_mgmt.ai_asset_owner`）は AI システム・モデル・データセット・プロンプトなどの AI 資産レコードを受付から廃止まで正確に保つ。[出典](https://www.servicenow.com/docs/r/zurich/intelligent-experiences/ai-control-tower/roles-installed-with-ai-control-tower.html)
 
 実務上は、新規 AI Agent や外部 LLM の接続を ARB の Lane 3 対象にし（4.2 節）、AI 固有のリスク評価は AI Steward 側のプロセスで行う、という役割分担にする。`【経験則】` 詳細は [Now Assist と AI Agents](../02_リファレンス/platform/now-assist-ai-agents.md) と [Now Assist / AI Agents 導入の知見](./10-ai-adoption-lessons.md) を参照。
 
@@ -953,7 +960,7 @@ Wildgruber の 9 ロールモデルは Artificial Intelligence を独立した�
 - ServiceNow 公式の Platform Owner の職務記述書（ジョブディスクリプション）、Platform team の FTE 比率。
 - 公式の ARB 憲章テンプレート、カスタマイズ申請の公式スコアリング基準。Customer Success Center の「Best practices for customization」「Get started with ServiceNow governance」の PDF は存在を Community 記事で確認したが、取得時にアクセスが拒否され本文を確認できなかった。
 - Impact の ServiceNow Governance オファリング／Technical Governance アクセラレーターの Australia 版での内容変更（確認できたのは Yokohama 版、2025-01-30 更新）。
-- Australia 版 Instance Scan での `scan_admin` ロールの有無（`scan_user` と `scan_check_writer` は確認）。
+- Australia 版 Instance Scan での `scan_admin` ロールの権限範囲（`scan_user` と `scan_check_writer` は確認。`scan_admin` は Zurich 版 AES ロール表には掲載）。
 - AEMC の OOTB Best Practice suite に含まれる 11 個のチェックの具体的な一覧。
 - Australia から Brazil へのガバナンス関連機能（AEMC Intake、委任開発、Instance Scan）の仕様変更。AEMC・委任開発ロールのページは Brazil 版として公開されているが、Australia との差分は明示されていない。
 - Certified Professional Platform Owner の正式提供時期と要件。
@@ -970,14 +977,14 @@ Wildgruber の 9 ロールモデルは Artificial Intelligence を独立した�
 - Manage intake requests（AEMC、Brazil 版）：https://www.servicenow.com/docs/r/de-DE/application-development/app-engine-management-center/manage-intake-application-requests.html
 - App Engine Management Center user interface（Brazil 版）：https://www.servicenow.com/docs/r/application-development/app-engine-management-center/aemc-user-interface.html
 - App Engine Management Center release notes（Store）：https://www.servicenow.com/docs/r/store-release-notes/store-rn-plat-app-engine-mgmt-center.html
-- Pipelines and Deployments workflow：https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/N7UlF_9mlCgZmtICks6a0Q
+- Pipelines and Deployments workflow（Australia 版、2026-05-07 更新）：https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/N7UlF_9mlCgZmtICks6a0Q
 - Developer and deployment permissions（Australia 版）：https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/dRJoutYEQeZMRpn60rprlQ
-- Delegated development and deployment：https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/puoonuu7YQnaAqcFsxmASg
+- Delegated development and deployment（Australia 版、2026-03-12 更新）：https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/puoonuu7YQnaAqcFsxmASg
 - System-managed developer and deployment roles（Brazil 版）：https://www.servicenow.com/docs/r/application-development/delegated-development-and-deployment/delegated-dev-deploy-user-roles.html
 - Exploring Instance Scan（Australia 版）：https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/8S4QcFvEX3qC749Q8ZqTGg
 - Instance Scan roles（Australia 版）：https://www.servicenow.com/docs/r/EqTdsLocR0Ylm0TDB1E9xw/2rssDN1WHGWLp1emuAtNcg
 - Customization vs configuration（Zurich 版）：https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/HbXqNzgkFujD_JafM1cAng
-- Plan before you build：https://www.servicenow.com/docs/r/a3E8xg0zsiQLBPKbKO15Mg/7IOu6vhY96xl__WOafBx~w
+- Plan before you build（Xanadu 版、2024-08-01 更新。Australia 版での変更は公開情報では確認できず）：https://www.servicenow.com/docs/r/a3E8xg0zsiQLBPKbKO15Mg/7IOu6vhY96xl__WOafBx~w
 - Source control integration in ServiceNow Studio（Zurich 版）：https://www.servicenow.com/docs/r/zurich/application-development/servicenow-studio-classic/source-control-integration.html
 - AI Control Tower roles（Zurich 版）：https://www.servicenow.com/docs/r/zurich/intelligent-experiences/ai-control-tower/roles-installed-with-ai-control-tower.html
 - Creator Studio release notes（Zurich 版）：https://www.servicenow.com/docs/r/zurich/release-notes/creator-studio-rn.html
@@ -1003,6 +1010,9 @@ Wildgruber の 9 ロールモデルは Artificial Intelligence を独立した�
 - Your Governance Cheat Sheet（Jakob Anker、2023-04-14）：https://www.servicenow.com/community/in-other-news/your-governance-cheat-sheet/ba-p/2534513
 - Kick-starting your ServiceNow Technical Governance journey – Part 2 – Platform Management（Stephen Farrar、2025-04-11）：https://www.servicenow.com/community/in-other-news/kick-starting-your-servicenow-technical-governance-journey-part/ba-p/3235452
 - Enforcing best practices and development standards for your instance（Luke Van Epen、2022-10-12）：https://www.servicenow.com/community/developer-articles/enforcing-best-practices-and-development-standards-for-your/ta-p/2349946
+- Certified Professional Platform Owner Beta Exam is now available（ServiceNow 社員、2026-01-09）：https://www.servicenow.com/community/training-and-certifications/certified-professional-platform-owner-beta-exam-is-now-available/ta-p/3464550
+- Platform Owner Career Journey is now live（2025-05-02）：https://www.servicenow.com/community/platform-owners-forum/platform-owner-career-journey-is-now-live/m-p/3253345
+- The Expert Platform Owner Career Journey level is live（2026-04）：https://www.servicenow.com/community/platform-owners-forum/the-expert-platform-owner-career-journey-level-is-live/m-p/3520919
 
 ### その他
 

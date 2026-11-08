@@ -23,6 +23,12 @@ sources:
   - https://www.servicenow.com/docs/r/If4ZEK~2WHMkIrdZtEn~Ig/tLU_eT2oyD~Q_~srF5~t4A
   - https://www.servicenow.com/docs/r/BiOQwsCGg2QNfxnoczjlZA/dSibjxvkrM1caMCpys2Ruw
   - https://www.servicenow.com/docs/r/release-notes/service-portal-rn.html
+  - https://www.servicenow.com/docs/r/If4ZEK~2WHMkIrdZtEn~Ig/rkQ0LFqPlpIYiHdbyahevA
+  - https://www.servicenow.com/docs/r/platform-user-interface/service-portal/user-crit-search-source.html
+  - https://www.servicenow.com/docs/r/platform-user-interface/service-portal/enable-ais-sp.html
+  - https://www.servicenow.com/docs/r/platform-user-interface/service-portal/ai-search.html
+  - https://www.servicenow.com/docs/r/B5UZKOeMGcpyrvR2CNl5Dw/Jx4230HwB1F7AT447Qi1pw
+  - https://servicenow.github.io/sdk/api/service-portal/spmenu-api
   - https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-serviceportal-release-notes.html
   - https://www.servicenow.com/docs/r/release-notes/employee-center-rn.html
   - https://www.servicenow.com/docs/r/AWjfoG0XNF6COBtQI5zL~A/gpNH5rvmtCiPp9~jpIy~eA
@@ -33,6 +39,8 @@ sources:
   - https://www.servicenow.com/docs/r/store-release-notes/store-rn-hr-employee-center-pro.html
   - https://www.servicenow.com/docs/r/H8yQl2SqBqnT6LbpTm28UQ/D9dD0SBA7iFLr~FmzNWdLA
   - https://www.servicenow.com/docs/r/xGHm5nN1KlkEq58WJHJoPw/u__YOlGtguwiGs5i~wTw0Q
+  - https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/8GylNR0OcdIr50ct4l0kNw
+  - https://www.servicenow.com/docs/r/xGHm5nN1KlkEq58WJHJoPw/RehJdPOy~Q7JlynWKOTcbQ
   - https://www.servicenow.com/docs/r/H8yQl2SqBqnT6LbpTm28UQ/d62ph1_DtwmrMGcEet~_Vg
   - https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/fYtKZERcix6kFnWyw2I9JQ
   - https://www.servicenow.com/docs/r/xanadu/employee-service-management/employee-experience-foundation/emp-center-user-interface.html
@@ -211,12 +219,28 @@ Portal レコードの注意点は次のとおりである。[出典](https://ww
 |---|---|---|
 | Service Portal | `/sp` | 汎用の従業員セルフサービス（従来型） |
 | Employee Center | `/esc` | 部門横断の従業員ポータル（後述） |
-| Customer Service Portal | `/csm` | CSM の B2B 顧客ポータル（旧来型） |
-| Business Portal | `/business_portal` | CSM の B2B 顧客ポータル（新型） |
+| Customer Service Portal | `/csm` | CSM の B2B 顧客ポータル（旧来型。Yokohama より前の既定） |
+| Business Portal | `/business_portal` | CSM の B2B 顧客ポータル（新型。Yokohama 以降の既定） |
 | Consumer Service Portal | `/csp` | CSM の B2C ポータル（旧来型） |
 | Consumer Portal | `/consumer_portal` | CSM の B2C ポータル（新型） |
 
 CSM 系の URL は [Customer Portals（ServiceNow Community、ServiceNow 社員執筆）](https://www.servicenow.com/community/csm-articles/customer-portals/ta-p/3383969)、`/sp` は[ポータル作成](https://www.servicenow.com/docs/r/B5UZKOeMGcpyrvR2CNl5Dw/yVQqjPRSHaokLYazPgDpDg)、`/esc` は【第三者情報】[Community](https://www.servicenow.com/community/employee-center-forum/redirecting-from-service-portal-sp-to-employee-center-esc/td-p/3548433) による。
+
+### 検索・メニュー・アナウンスの構成
+
+Service Portal の検索、ヘッダーメニュー、アナウンス（お知らせ）は、それぞれ専用のテーブルで構成する。
+
+| 要素 | テーブル | 構成方法 | 出典 |
+|---|---|---|---|
+| Search source（検索ソース） | `sp_search_source`（ポータルとは多対多で関連付け） | Service Portal > Portals でポータルを開き、Search Sources 関連リストで New。Basic（インスタンスのテーブルを Conditions で検索）と、Is scripted source をオンにして Data fetch script を書く Advanced（複数テーブル・外部データを検索）がある。インデックス済みテーブルのみ結果を返す。Typeahead（Enable typeahead、Typeahead glyph、遷移先 Page）も設定できる | [Define a search source（Yokohama 版）](https://www.servicenow.com/docs/r/If4ZEK~2WHMkIrdZtEn~Ig/rkQ0LFqPlpIYiHdbyahevA) |
+| 検索ソース単位の User criteria | 検索ソースの関連リスト Who Can View Search Sources／Who Cannot View Search Sources | Service Portal Configuration ページ > Portal Tables > Search Source でレコードを開き、Can View／Cannot View の User criteria を追加（ロール `admin`） | [User criteria for search sources（Brazil 版）](https://www.servicenow.com/docs/r/platform-user-interface/service-portal/user-crit-search-source.html) |
+| AI Search 有効時の検索 | Portal レコードの Search Application（search application configuration：検索エンジン、結果件数上限、サジェスト件数上限）と Search Results Configuration | Portal レコードで Enable AI Search をオンにし、Search Application と Search Results Configuration を選択（ロール `sp_admin` または `admin`）。新規・zBoot 顧客は既定で有効、アップグレード顧客は既定で無効で、無効のままなら従来（Zing）検索になる | [Enable and configure AI Search in Service Portal（Brazil 版）](https://www.servicenow.com/docs/r/platform-user-interface/service-portal/enable-ais-sp.html)、[AI Search in Service Portal（Brazil 版）](https://www.servicenow.com/docs/r/platform-user-interface/service-portal/ai-search.html) |
+| ヘッダーメニュー | `sp_instance_menu`（メニュー本体。Portal の Main menu で参照）、`sp_rectangle_menu_item`（メニュー項目） | メニュー項目の Type は page、url、sc、sc_category、sc_cat_item、kb、kb_topic、kb_article、kb_category、filtered、scripted。Order（既定 100）、Glyph、Roles、Condition などで表示を制御し、子項目は 1 階層までネストできる | [ServiceNow SDK SPMenu API](https://servicenow.github.io/sdk/api/service-portal/spmenu-api) |
+| Announcements（アナウンス） | `announcement`（スタイルは `announcement_style`） | All > Service Portal > Announcements で New（ロール `announcement_admin`、`sp_admin` または `admin`）。Type（Banner：バナーフレーム上部／Widget：アナウンス Widget のインスタンス）、Portals（空欄なら全ポータル）、Dismiss options、From／To（To が空欄なら無効化するまで表示）、Display style（既定 Normal＝青、Urgent＝赤）、Click target を設定 | [Create an announcement（Xanadu 版）](https://www.servicenow.com/docs/r/B5UZKOeMGcpyrvR2CNl5Dw/Jx4230HwB1F7AT447Qi1pw) |
+
+- AI Search 有効時に検索対象を決めるのは AI Search 側の構成（Search Application 配下の Search Profile と AI Search の検索ソース）であり、`sp_search_source` が AI Search 有効時にどう扱われるかは上記の公式ページでは明記されていない。AI Search の構成要素は [Predictive Intelligence と AI Search](predictive-intelligence-ai-search.md) を参照。【推定】
+- 検索ソースのテーブル名 `sp_search_source`、ポータルとの多対多関連、ポータルに検索ソースが未設定の場合に `glide.service_portal.default_search_sources`（`sp_search_source` の sys_id のカンマ区切り）が既定として使われる点は、上記の公式ページには明記がなく ServiceNow Community のブログに基づく。【第三者情報】[出典](https://www.servicenow.com/community/now-platform-blog/introduction-to-search-sources-in-service-portal/ba-p/2282892)
+- アナウンスの並び順は `glide.service_portal.announcement.default_sort_order` で変更できる（「システムプロパティ」節を参照）。
 
 ---
 
@@ -404,7 +428,7 @@ Widget（ウィジェット）は Service Portal ページの部品であり、�
 
 Widget Editor（ウィジェットエディター）は、Widget の作成・編集・リアルタイムプレビューを行うフルページの IDE 風エディターで、各構成要素ペインの表示／非表示を切り替えられる。[出典](https://www.servicenow.com/docs/r/zurich/platform-user-interface/service-portal/widget-dev-guide.html)
 
-- Server script は、アプリケーションが ES5 または Compatibility モードの場合でも ECMAScript 2021（ES12）を使用でき、ES12 に設定されたアプリケーションでは既定で ES12 になる。
+- Server script は ECMAScript 2021（ES12）に対応する。アプリケーションが ES5 Standards モードまたは Compatibility モードの場合は、Widget の ES2021 JavaScript モードを有効化して使う。ES2021 に設定されたアプリケーションでは既定で ES2021 になる。
 - コントローラー変数は既定で `c` であり、Widget の作成・複製時に変更できる。
 - ベースシステム Widget を直接編集せず、複製（Clone）してから編集するのが推奨される。
 
@@ -507,8 +531,8 @@ Option schema は、Service Portal 管理者（`sp_admin`）が Widget instance 
 
 - 定義したスキーマは `sp_widget` の Option schema フィールドに JSON で保存される。
 - インスタンスごとの値は `sp_instance` テーブルの「Additional options, JSON format」フィールドに JSON で保存される（列名は `widget_parameters`【経験則】）。
-- 既定値はサーバースクリプトで設定する（公式推奨）。
-- Australia のドキュメントでは、任意の ServiceNow フィールドタイプ（高度なカスタマイズを含む）をオプションスキーマに追加できるとされる。旧リリース（Xanadu 期）のドキュメントでは String／Boolean／Integer のみで、それ以外の型が必要な場合は `sp_instance` を拡張したテーブルを作り Widget の Data table に指定する方式が案内されていた。
+- 既定値は Widget のサーバースクリプトで設定する（公式推奨）。公式の例は `options.text_color = options.text_color || "blue";`、`options.maximum_entry_count = options.maximum_entry_count || 5;` である。[出典](https://www.servicenow.com/docs/r/platform-user-interface/service-portal/c_WidgetInstanceOptions.html)
+- Option schema で使える型は String、Boolean、Integer、Reference、Choice、Field_list、Field_name、Glide_list である。それ以外の型が必要な場合は、`sp_instance`（または `sp_instance_table`）を拡張したテーブルを作り、Widget の Data table に指定して Fields（スラッシュバケット）で列を選ぶ。公式ドキュメントは、テーブルに格納するのは複雑なオプションや検索可能なオプションが必要な場合に限るよう勧めている。[出典](https://www.servicenow.com/docs/r/platform-user-interface/service-portal/c_WidgetInstanceOptions.html)（Brazil 版、2026-09-10 更新を確認）
 
 ```json
 [
@@ -770,10 +794,11 @@ Employee Center は Service Portal フレームワークを拡張したもので
 | Content Analytics | `sn_cda` | 陳腐化コンテンツの特定とエンゲージメント測定 | — | 任意拡張 |
 | Content Governance | `sn_cg` | 公開前のコンテンツ申請・追跡・プレビュー・承認 | — | 任意拡張 |
 | Communities | `com.sn_communities` | 従業員フォーラム（Employee Forums） | — | 任意拡張 |
+| Content Engagement | `sn_ce` | ポータル・モバイルのコンテンツへのリアクション、コメント、共有 | — | 任意拡張（Xanadu 版の記載） |
 
-出典：[Understanding Employee Center plugins（Xanadu 版）](https://www.servicenow.com/docs/r/xGHm5nN1KlkEq58WJHJoPw/u__YOlGtguwiGs5i~wTw0Q)。Content Publishing のプラグイン ID は [Components installed with Content Publishing](https://www.servicenow.com/docs/bundle/zurich-employee-service-management/page/product/employee-center/reference/installed-with-content-delivery.html) による。依存関係：`sn_ex_sp_pro` は `sn_ex_sp`・`sn_hr_sp`・`sn_ect`・`sn_ex_emp_fd`・`sn_hr_integ_fw` に依存し、Content Experiences・Content Analytics・Content Governance は Content Publishing（`sn_cd`）に依存する。
+出典：[Understanding Employee Center plugins（Xanadu 版）](https://www.servicenow.com/docs/r/xGHm5nN1KlkEq58WJHJoPw/u__YOlGtguwiGs5i~wTw0Q)。Content Publishing のプラグイン ID は [Components installed with Content Publishing](https://www.servicenow.com/docs/bundle/zurich-employee-service-management/page/product/employee-center/reference/installed-with-content-delivery.html) による。依存関係：`sn_ex_sp_pro` は `sn_ex_sp`・`sn_hr_sp`・`sn_ect`・`sn_ex_emp_fd`・`sn_hr_integ_fw` に依存する。Content Experiences は Content Publishing に依存し、Content Analytics、Content Governance、Communities は Content Publishing と Content Experiences の両方に依存する。Content Engagement（`sn_ce`）の依存関係は同ページに記載がない。なお、プラグイン一覧ページでは Content Publishing のスコープが `sn_sd` と表記されている（本ファイルではテーブル・ロール名に合わせ `sn_cd` と表記）。
 
-> 注意：プラグイン一覧の公式ページは Xanadu 版を最新として確認した。Australia 版での差分は公開情報では確認できず。
+> **Australia 版での差分:** Australia 版の [Employee Center Pro plugins](https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/8GylNR0OcdIr50ct4l0kNw)（2026-03-12 更新）では、Content Publishing と Content Experiences が「Employee Center Pro と共にインストールされるプラグイン」に分類され、Employee Profile が任意拡張に移っている。Communities、Content Analytics、Content Governance は引き続き任意拡張で、Content Publishing と Content Experiences の両方を前提とする。同ページには Content Engagement（`sn_ce`）の記載がなく、Australia での扱いは公開情報では確認できず。
 
 ### Employee Center のロール
 
@@ -906,7 +931,7 @@ Mega menu の構成には Employee Experience Taxonomy プラグイン（`sn_ect
 - 移行を自動化するスクリプトは提供されていない。Service Portal のカスタマイズが多いほど移行工数が増える。【第三者情報】[出典](https://www.servicenow.com/community/employee-slate-and-employee/faqs-on-employee-center-adoption-and-deployment/ta-p/2320148)
 - Service Portal（`/sp`）を無効化すると `/sp` の URL は Employee Center（`/esc`）へ自動リダイレクトされたという報告がある（ただし標準メッセージが表示される事例も報告されている）。【第三者情報】[出典](https://www.servicenow.com/community/employee-center-forum/redirecting-from-service-portal-sp-to-employee-center-esc/td-p/3548433)
 - ServiceNow の Employee Center Essentials コースに Service Portal からの移行手順が含まれる。【第三者情報】（同上 FAQ）
-- 実務上の論点（カスタム Widget の棚卸し、タクソノミー設計、カタログ・ナレッジのトピック紐付け、User criteria の見直し）は [要件定義と設計](../../03_導入編/06-requirements-design.md)、[カスタマイズと技術的負債](../../04_応用編/02-customization-technical-debt.md) を参照。
+- 実務上の論点（カスタム Widget の棚卸し、タクソノミー設計、カタログ・ナレッジのトピック紐付け、User criteria の見直し）は [要件定義と設計](../../03_導入編/06-requirements-design.md)、[アップグレードの教訓](../../04_応用編/04-upgrade-lessons.md)、[スクリプティングのベストプラクティス](../../04_応用編/07-scripting-best-practices.md) を参照。
 
 ### Employee Center のリリース別変更
 
@@ -930,7 +955,7 @@ Employee Center の Store アプリは月次で更新される。2026-10 時点�
 
 ### Employee Center Pro とは
 
-Employee Center Pro（EC Pro）は、Employee Center にコンテンツ作成、多段階・マルチチャネルのコンテンツ配信、ポータルアナリティクスを加えるサブスクリプション型アプリケーションで、追加ライセンスが必要である。[出典](https://www.servicenow.com/docs/r/H8yQl2SqBqnT6LbpTm28UQ/D9dD0SBA7iFLr~FmzNWdLA) EC Pro は購入後に ServiceNow Store から申請してインストールする。[出典](https://www.servicenow.com/docs/r/release-notes/ec-pro-rn.html) EC Pro は単体製品として提供されるほか、HR Service Delivery の一部ティアにバンドルされる。【第三者情報】（検索結果上の公式ドキュメント記述。原文ページは本調査で開けず）
+Employee Center Pro（EC Pro）は、Employee Center にコンテンツ作成、多段階・マルチチャネルのコンテンツ配信、ポータルアナリティクスを加えるサブスクリプション型アプリケーションで、追加ライセンスが必要である。[出典](https://www.servicenow.com/docs/r/H8yQl2SqBqnT6LbpTm28UQ/D9dD0SBA7iFLr~FmzNWdLA) EC Pro は購入後に ServiceNow Store から申請してインストールする。[出典](https://www.servicenow.com/docs/r/release-notes/ec-pro-rn.html) EC Pro が HR Service Delivery の Professional／Enterprise に含まれるとする回答が ServiceNow Community にある（2021 年の採用済み回答）。【第三者情報】[出典](https://www.servicenow.com/community/hrsd-forum/is-quot-employee-center-pro-quot-included-in-hrsd-professional/td-p/1319565) 現行（Australia／Brazil）の公式ドキュメントでのバンドル条件は公開情報では確認できず。
 
 ### EC Pro の機能（公式）
 
@@ -1005,7 +1030,7 @@ Unified Taxonomy（統合タクソノミー）は、リクエスト、記事、Q
 | Employee Experience Taxonomy（`sn_ect`） | ServiceNow Store からダウンロードするプラグイン | ライセンス済み製品（IT、HR、Workplace、Legal、Procurement 等）の既定コンテンツをタクソノミーにマッピング |
 
 - データモデルはトピック階層の上位 3 レベル（例：IT → Hardware → Printers）を対象とする。[出典](https://www.servicenow.com/docs/r/zurich/employee-service-management/employee-experience-foundation/config-taxonomy.html)
-- Employee Experience Taxonomy は `admin` ロールでインストールし、User criteria レコードは `user_criteria_admin` ロールで管理する。前提プラグインがある場合は先にインストールする。【第三者情報】（検索結果上の Washington DC 版インストールガイドの記述）
+- Employee Experience Taxonomy のインストールに必要なロールと、インストールされるロールは、公開情報では確認できず（インストール手順の公式ページを本調査で開けなかったため）。
 
 ### データモデル
 
@@ -1057,7 +1082,7 @@ Connected content（接続コンテンツ）の自動管理機能は、Knowledge
 - トピックページで、カタログカテゴリ・KB カテゴリをトピックにリンクできる。リンクしたカテゴリにコンテンツが追加・削除されると、Taxonomy Manager／Topic Manager が新規コンテンツの追加・削除・移動・レビューを行う（通知でレビューするか、カテゴリレコードで手動追加・破棄）。
 - 「Outdated Connected Content（期限切れの接続コンテンツ）」専用タブで、古くなった Connected content を追跡・削除できる（Zurich で導入）。
 - 自動同期（タクソノミーカテゴリのコンテンツの自動同期）のシステムプロパティを有効にすると、手動レビューの代わりに新しいコンテンツ更新を自動で同期する（プロパティ名は公開情報では確認できず）。
-- カタログアイテムとトピックの関連付けは、Catalog Builder の Topics カード（Topic list selector）でも統一的に行える。【第三者情報】（検索結果上の公式ドキュメント記述）
+- カタログアイテムとトピックの関連付けは、Catalog Builder の Topics カード（Topic list selector）でも行える（Xanadu で導入）。Topics カードの「Edit selected topics」から、有効な任意のタクソノミーのトピックを複数まとめて選択でき、サブツリーは 8 階層まで指定できる。必要ロールは `catalog_builder_editor` と `taxonomy_admin`、対象 User criteria は Taxonomy Manager／Taxonomy Contributor／Topic Manager／Topic Contributor である。[出典](https://www.servicenow.com/docs/r/xGHm5nN1KlkEq58WJHJoPw/RehJdPOy~Q7JlynWKOTcbQ)
 
 ### 既定（OOTB）のタクソノミーモデル
 
@@ -1073,7 +1098,7 @@ ServiceNow Community の記事（ServiceNow 社員執筆、2026-09 更新）は�
 
 Content Publishing（コンテンツ公開、旧称 Content Delivery、プラグイン `com.sn_content_delivery`、スコープ `sn_cd`）は、従業員向けのニュース、バナー、イベント、To-do、メール、コミュニティ投稿などのコンテンツを作成・スケジュールし、Employee Center 等へ配信する EC Pro の拡張機能である。Content Experiences（コンテンツエクスペリエンス、スコープ `sn_ca`）は、Content Publishing の上で特定オーディエンス向けのマルチチャネルキャンペーンを実現する。Employee Center の Store アプリ一覧でも Content Publishing（`sn_cd`）が関連プラグインとして挙げられている。[出典1](https://www.servicenow.com/docs/bundle/zurich-employee-service-management/page/product/employee-center/reference/installed-with-content-delivery.html) [出典2](https://www.servicenow.com/docs/r/xGHm5nN1KlkEq58WJHJoPw/u__YOlGtguwiGs5i~wTw0Q)
 
-旧称 Content Delivery は、プラグイン ID（`com.sn_content_delivery`）と旧ドキュメントのページ名（installed-with-content-delivery）からの推定である。【推定】
+プラグイン ID（`com.sn_content_delivery`）と公式ページの有効化手順では、旧名称の Content Delivery が使われている（「Content Delivery [com.sn_content_delivery] plugin」の有効化でコンポーネントがインストールされる、という記述）。同じページは同じプラグインを「Content Publishing [com.sn_content_delivery]」とも呼んでいる。ただし、Content Delivery が旧称であることを明示した公式記述は公開情報では確認できず。[出典](https://www.servicenow.com/docs/bundle/zurich-employee-service-management/page/product/employee-center/reference/installed-with-content-delivery.html)
 
 ### Content Publishing のロール
 
@@ -1106,7 +1131,7 @@ Content Publishing（コンテンツ公開、旧称 Content Delivery、プラグ
 | `sn_cd_content_visibility` | Schedule Content | どのコンテンツを、どのオーディエンスに、いつ表示するか |
 | `sn_cd_audience` | Audience | 対象ユーザーグループ（オーディエンス） |
 | `sn_cd_audience_data` | Audience Data | Audience type が Upload File の場合のアップロードユーザー |
-| `sn_cd_task` | Content Task | HR タスクテーブルを拡張した Employee Center To-do 用タスク |
+| `sn_cd_task` | Content Task | HR タスク（`sn_hr_core_task`）を拡張した Employee Center To-do 用タスク（HRSD の `sn_hr_core` スコープに依存） |
 | `sn_cd_config_org_chart` | Org Chart Configuration | 組織図に表示する情報の制御 |
 | `sn_cd_user_display_configuration` | User Display Configuration | 組織図ページと HRI My Team Widget にユーザーを表示する条件 |
 
@@ -1175,26 +1200,25 @@ Customer Service Management（CSM）には、顧客（B2B）・消費者（B2C�
 
 | ポータル | 対象 | 種別 | URL suffix | 備考 |
 |---|---|---|---|---|
-| Customer Service Portal | B2B | 標準（旧来型） | `/csm` | Yokohama Q1 以前の B2B ポータル。移行推奨 |
-| Business Portal | B2B | 拡張（Configurable Portal Widgets） | `/business_portal` | Yokohama Q1 以降の既定 B2B ポータル |
+| Customer Service Portal | B2B | 標準（旧来型） | `/csm` | Yokohama より前の既定 B2B ポータル（出典記事の表記は「Yokohama Q1 以前」）。移行推奨 |
+| Business Portal | B2B | 拡張（Configurable Portal Widgets） | `/business_portal` | Yokohama 以降の既定 B2B ポータル（出典記事の表記は「Yokohama Q1 以降」） |
 | Consumer Service Portal | B2C | 標準（旧来型） | `/csp` | Australia 以前の B2C ポータル |
 | Consumer Portal | B2C | 拡張（Configurable Portal Widgets） | `/consumer_portal` | Australia 以降の B2C ポータル |
 
 出典：種別は [Self-service for CSM（Brazil 版）](https://www.servicenow.com/docs/r/customer-service-management/self-service-options-csm-customers.html)、URL suffix と時期は [Customer Portals（ServiceNow Community、ServiceNow 社員執筆、2026-06 更新）](https://www.servicenow.com/community/csm-articles/customer-portals/ta-p/3383969)
 
 - Customer Service Portal プラグインをインストールすると Business Portal プラグインも自動インストールされ、Consumer Service Portal プラグインをインストールすると Consumer Portal プラグインも自動インストールされる。既存顧客は標準ポータルから拡張ポータルへ移行できる。[出典](https://www.servicenow.com/docs/r/customer-service-management/self-service-options-csm-customers.html)
-- プラグイン ID として Customer Service Portal Classic（`com.glide.service-portal.customer-portal`、Service Portal ベースの顧客向け Web ポータル）、Customer Service Portal（`com.snc.customer_service_portal`）、Consumer Service Portal（`com.snc.consumer_service_portal`）が挙がっている（後 2 者は System Definitions > Plugins または Store から有効化）。【第三者情報】（検索結果上の公式ドキュメント記述。リリースごとの差異は公開情報では確認できず）[出典](https://www.servicenow.com/docs/r/KaYjekDQOApluDhDTuH_UA/RS4VkTjKliWgOK89Yzyv7Q)
+- Customer Service Management プラグインを有効化すると、関連プラグインの 1 つとして Customer Service Portal Classic（`com.glide.service-portal.customer-portal`）も有効化される（Australia 版「Plugins activated with Customer Service Management」、2026-03-12 更新）。[出典](https://www.servicenow.com/docs/r/KaYjekDQOApluDhDTuH_UA/RS4VkTjKliWgOK89Yzyv7Q) Customer Service Portal／Consumer Service Portal（拡張ポータル側を含む）のプラグイン ID は公開情報では確認できず。
 - `/csp` と `/consumer_portal` の違いや `/csp` の廃止時期は、2026-09 時点のコミュニティで質問されているが回答は公開情報では確認できず。[出典](https://www.servicenow.com/community/csm-articles/customer-portals/ta-p/3383969)
 
 ### CSM ポータルの機能
 
 | 機能 | 説明 |
 |---|---|
-| Case creation | 顧客が自身のケース・リクエストを登録 |
-| Knowledge | トラブルシューティング・作業手順のナレッジ検索 |
-| Communities | コミュニティコンテンツの検索 |
-| Virtual Agent | セルフサービスへの誘導、要望時に Connect Support でライブエージェントへ引き継ぎ |
-| Chat | ポータルからのライブチャット（CRM Workspace のエージェントへルーティング） |
+| Case management | ポータルから顧客がケースとリクエストを登録（Self-service portals 節の記述。独立した機能見出しはない） |
+| Knowledge base | トラブルシューティング・作業手順のナレッジ検索 |
+| Community | コミュニティコンテンツの検索 |
+| Chat | ポータルからのライブチャット（CRM Workspace のエージェントへルーティング）。Virtual Agent がセルフサービスへ誘導し、必要に応じて Connect Support でライブエージェントへ引き継ぐ |
 | Service catalog | 品目の申請と申請状況の追跡（`sn_customerservice.customer_admin` がポータルとカタログを関連付け） |
 
 出典：[Self-service for CSM](https://www.servicenow.com/docs/r/customer-service-management/self-service-options-csm-customers.html)
@@ -1249,7 +1273,7 @@ ServiceNow は 2026 年に、Moveworks の会話型 AI・エンタープライ�
 
 | 項目 | 内容 |
 |---|---|
-| Employee Slate（EmployeeWorks Web App） | 従業員ポータルの次世代版で「Employee Center Pro の次のバージョン」。単体販売はされず、EmployeeWorks または AI ネイティブパッケージの一部として提供 |
+| Employee Slate（EmployeeWorks Web App） | Employee Center（Pro）の次世代（the next generation of Employee Center (Pro)）。EmployeeWorks SKU および BU AI SKU を通じて提供される（"available through EmployeeWorks SKUs and BU-AI SKUs"。単体 SKU の有無は公開情報では確認できず） |
 | Employee Slate Advanced（Web App Extended） | App Launcher と Employee Communications を追加 |
 | 技術 | Lux（旧称 AIUX）フレームワーク、Lit／daisyUI のフロントエンド、サーバーサイドレンダリング、ServiceNow 管理の Kubernetes 上のオフインスタンスサービス。開発には Now SDK、コードエージェント、VS Code の Lux Lab |
 | AI エンジン | 推奨は Moveworks（エンタープライズ検索の 100 以上のコネクター、World Knowledge は Moveworks パスのみ）。Moveworks が未提供の場合は Now Assist |
@@ -1343,6 +1367,12 @@ ServiceNow Otto と Now Assist の詳細は [Now Assist と AI Agents](now-assis
 - https://www.servicenow.com/docs/r/application-development/servicenow-sdk/fluent-service-portal-api.html
 - https://servicenow.github.io/sdk/guides/service-portal-guide
 - https://www.servicenow.com/docs/r/release-notes/service-portal-rn.html
+- https://www.servicenow.com/docs/r/If4ZEK~2WHMkIrdZtEn~Ig/rkQ0LFqPlpIYiHdbyahevA
+- https://www.servicenow.com/docs/r/platform-user-interface/service-portal/user-crit-search-source.html
+- https://www.servicenow.com/docs/r/platform-user-interface/service-portal/enable-ais-sp.html
+- https://www.servicenow.com/docs/r/platform-user-interface/service-portal/ai-search.html
+- https://www.servicenow.com/docs/r/B5UZKOeMGcpyrvR2CNl5Dw/Jx4230HwB1F7AT447Qi1pw
+- https://servicenow.github.io/sdk/api/service-portal/spmenu-api
 - https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-serviceportal-release-notes.html
 
 ### Employee Center／Employee Center Pro（公式）
@@ -1356,6 +1386,9 @@ ServiceNow Otto と Now Assist の詳細は [Now Assist と AI Agents](now-assis
 - https://www.servicenow.com/docs/r/store-release-notes/store-rn-hr-employee-center-pro.html
 - https://www.servicenow.com/docs/r/H8yQl2SqBqnT6LbpTm28UQ/D9dD0SBA7iFLr~FmzNWdLA
 - https://www.servicenow.com/docs/r/xGHm5nN1KlkEq58WJHJoPw/u__YOlGtguwiGs5i~wTw0Q
+- https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/8GylNR0OcdIr50ct4l0kNw
+- https://www.servicenow.com/docs/r/xGHm5nN1KlkEq58WJHJoPw/RehJdPOy~Q7JlynWKOTcbQ
+- https://www.servicenow.com/community/hrsd-forum/is-quot-employee-center-pro-quot-included-in-hrsd-professional/td-p/1319565
 - https://www.servicenow.com/docs/r/H8yQl2SqBqnT6LbpTm28UQ/d62ph1_DtwmrMGcEet~_Vg
 - https://www.servicenow.com/docs/r/XbpkTdWa3HBo31srdD0Rdg/fYtKZERcix6kFnWyw2I9JQ
 - https://www.servicenow.com/docs/r/xanadu/employee-service-management/employee-experience-foundation/emp-center-user-interface.html
@@ -1402,6 +1435,7 @@ ServiceNow Otto と Now Assist の詳細は [Now Assist と AI Agents](now-assis
 - https://www.servicenow.com/community/service-portal-articles/is-service-portal-being-deprecated/ta-p/2505827
 - https://www.servicenow.com/community/in-other-news/what-s-in-a-service-portal/ba-p/2292909
 - https://www.servicenow.com/community/developer-blog/service-portal-getting-familiar-with-advanced-widget-options/ba-p/2282884
+- https://www.servicenow.com/community/now-platform-blog/introduction-to-search-sources-in-service-portal/ba-p/2282892
 - https://www.servicenow.com/community/developer-forum/can-anyone-provides-me-different-api-s-which-are-used-in-service/m-p/3409076
 - https://www.servicenow.com/community/developer-articles/walkup-user-with-appropriate-roles-unable-to-access-walkup/ta-p/2313377
 - https://www.servicenow.com/community/employee-center-forum/what-s-the-use-of-taxonomy-topic-field-on-catalog-items/m-p/2340305

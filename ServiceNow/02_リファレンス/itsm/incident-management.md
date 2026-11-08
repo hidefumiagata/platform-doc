@@ -263,8 +263,9 @@ State を **On Hold** にすると **On hold reason（保留理由、列名 `hol
 | On Hold | Awaiting caller | 更新されない | 更新されない |
 | Resolved | ― | Resolved（親の Resolution notes が子のアクティビティログにコピーされる） | ― |
 | Closed | ― | **クローズされない**（子は発信者または自動クローズで閉じる） | ― |
-| Canceled | ― | ― | ― |
+| Canceled | ― | NA（公式の表の表記のまま） | NA |
 
+- 公式の表では、親が Canceled の行は子の State と On hold reason がどちらも「NA」になっている。「更新されない」とも「伝播する」とも書かれていない。そのため、親をキャンセルしたときに子がどうなるかは、公開情報では確認できず。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/parent-child-state-sync.html)
 - 上表は標準ライフサイクルのみに適用され、親が重大インシデントとして Proposed / Accepted の場合、子の状態は自動では変わらない（ただし重大インシデントを解決すると関連する子インシデントもすべて解決される。[7.1](#71-定義とプロセス) 参照）。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/parent-child-state-sync.html)、[出典](https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/major-incident-management-process.html)
 - ITIL ユーザーが親を再オープンすると、親と子の両方が In Progress で再オープンされる。ESS ユーザー（ロールなし）が親を再オープンした場合、親のみ In Progress になり子は再オープンされない。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/parent-child-state-sync.html)
 
@@ -308,7 +309,7 @@ Australia 公式ドキュメントに記載されたサンプルのマトリク�
 | **2 - Medium** | 2 - High | 3 - Moderate | 4 - Low |
 | **3 - Low** | 3 - Moderate | 4 - Low | 4 - Low |
 
-> 注意：Priority の選択肢自体には一般に **5 - Planning** も存在し、旧リリースのドキュメントや多くのインスタンスでは Impact 3 × Urgency 3 が **5 - Planning** になっていることが Community 等で知られている【第三者情報】。Australia 版ドキュメントのサンプル表は 3×3 を「4 - Low」と記載しているため、実際の値はインスタンスの Priority Lookup Rules（`dl_u_priority` テーブルとして知られる【第三者情報】）で確認すること。
+> 注意：ServiceNow Community の ITSM ブログ「Managing incident priority」によると、ベースシステムの優先度ルックアップ表では Impact 3 - Low × Urgency 3 - Low が **5 - Planning** になる。[出典](https://www.servicenow.com/community/itsm-blog/managing-incident-priority/ba-p/2294101) 一方、Australia 版ドキュメントのサンプル表は 3×3 を「4 - Low」としている。実際の値は、インスタンスの Priority Lookup Rules で確認すること。Community の回答によると、このルールは `dl_u_priority` テーブル（リストの URL は `dl_u_priority_list.do`）に格納されている【第三者情報】。[出典](https://www.servicenow.com/community/incident-management-forum/unable-to-find-newly-added-impact-and-urgency-choices-under/m-p/3415628)
 
 Priority は SLA 定義の開始条件等で使われることが多い（SLA の仕組みは [SLAとスケジュール](../platform/sla-schedules.md) を参照）。公式ドキュメントも Priority lookup rules を「インシデントの優先度と、優先度ごとの SLA を決める組み合わせ」と説明している。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/def-prio-lookup-rules.html)
 
@@ -422,7 +423,7 @@ Resolved のインシデントは、スケジュールジョブ **Autoclose Inci
 |---|---|
 | メニュー | Incident > Administration > Incident Properties（ロール：`admin`） |
 | `glide.ui.autoclose.time` | Resolved のインシデントを自動クローズするまでの日数（整数）。**0 で無効** |
-| `com.snc.incident.autoclose.basedon.resolved_at` | true：Resolution date（解決日）基準、No：Updated（最終更新日）基準。London 以降の新規顧客は true、それ以前からの既存顧客は手動で true にする必要がある |
+| `com.snc.incident.autoclose.basedon.resolved_at` | true：Resolution date（解決日）基準、false（UI 上は No）：Updated（最終更新日）基準。London 以降の新規顧客は true、それ以前からの既存顧客は手動で true にする必要がある |
 | 実行ユーザー | 既定ではジョブ実行時にログインしている管理者の名前が Updated by に入る。ジョブの Job context に `fcRunAs=<user_name>` と `fcScriptName=incident autoclose` を追加すると変更できる |
 
 出典：[Configure incidents to close automatically](https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/configure-incident-auto-close.html)、[Configure default user for auto-closing incidents](https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/change-default-user.html)
@@ -494,7 +495,7 @@ Problem・Change 側の仕様は [Problem Management](./problem-management.md)�
 - 有効化メニュー：All > System Applications > All Available Applications > All。ドメインセパレーションと委任管理が有効な場合、管理ユーザーはグローバルドメインにいる必要がある。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/activate-major-incident-management-plugin.html)
 - 有効化前に、アプリケーションと関連 ServiceNow Store アプリのエンタイトルメント（権利）が有効であることを確認する。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/activate-major-incident-management-plugin.html)
 - SOW で MIM を使う場合は「Major Incident Management（sn-sow-mim）」を Admin Center で有効化・設定する。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/service-operations-workspace/incident-sow.html)
-- MIM のアプリケーションスコープは `sn_major_inc_mgmt`（プロパティ名の接頭辞より）。
+- MIM のアプリケーションスコープは `sn_major_inc_mgmt`（`sn_major_inc_mgmt.major_incident_management_group` などのプロパティ名の接頭辞より）【推定】。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/incident-management-properties.html)
 
 > **Brazil での変更:** 新規プロビジョニング（zboot）インスタンスで、エンタイトルメントがある場合に Major Incident Management 等のアプリケーションを一括自動インストールするスケジュールジョブが追加された。[出典](https://www.servicenow.com/docs/r/release-notes/incident-management-rn.html)
 
@@ -758,7 +759,7 @@ On-Call Scheduling はタスクの応答時間を監視し、確認（Acknowledg
 | `incident_manager` | Incident Manager | インシデントプロパティと重大インシデントのトリガールールを管理。Communication Plan Definitions の作成・編集 | `itil` | ITSM Roles（既存ロールに責務追加） |
 | `sn_incident_admin` | Incident Admin | Incident Management の全機能（プロパティ含む）を設定 | `incident_manager`、`sn_sow_inc.sn_incident_sow_admin`、`sn_bm_client_benchmark_data_viewer` | ITSM Roles（**Australia で追加**） |
 | `sn_incident_task_assigned_user` | Incident task assigned user | 割り当てられたインシデントタスクの読み書き | ― | Incident プラグイン |
-| `major_incident_manager` | Major Incident Manager | 候補の承認・却下、昇格、降格、重大インシデントのクローズ | （Australia 時点は `itil` を含む【推定】。下記 Brazil 参照） | MIM |
+| `major_incident_manager` | Major Incident Manager | 候補の承認・却下、昇格、降格、重大インシデントのクローズ | `itil`（Brazil リリースノートに「アップグレードインスタンスは itil の継承を保持する」とあることから、Australia 時点では `itil` を継承。[出典](https://www.servicenow.com/docs/r/release-notes/incident-management-rn.html)。下記 Brazil 参照） | MIM |
 | `communication_manager` | Communication Manager | 重大インシデントのコミュニケーション担当 | ― | MIM【第三者情報】 |
 | `sn_mim_admin` | ― | MIM の全機能（重大インシデントプロパティ、トリガールール）を設定 | ― | **Australia で追加** |
 | `sn_tcm_admin` | ― | Task Communications Management の全機能（コミュニケーションプラン・タスク） | ― | **Australia で追加** |
@@ -780,7 +781,7 @@ On-Call Scheduling はタスクの応答時間を監視し、確認（Acknowledg
 - `itil_admin` がクローズに必要と公式手順に記載されている一方、発信者によるクローズや自動クローズも可能である（[6.1](#61-解決の考え方)）。実際にどのロールが Close Incident UI アクションを表示できるかはインスタンスの UI アクション条件で確認すること。
 
 > **Brazil での変更（ロール）:** [出典](https://www.servicenow.com/docs/r/release-notes/incident-management-rn.html)
-> - `incident_manager` から `itil` が外され、`incident_write` に置き換えられる（zboot のみ）。
+> - `incident_manager` から `itil` が外され、`incident_write` に置き換えられる（zboot のみ）。※ `incident_write` はリリースノートの表記どおり。ITSM Roles にこの名前のロールはなく、`sn_incident_write` の誤記と考えられる【推定】。
 > - `major_incident_manager` は `itil` を継承しなくなり、ITSM Roles プラグイン（`com.snc.itsm.roles`）の `sn_incident_write`、`sn_problem_write`、`sn_change_write`、`sn_request_write` を継承する。アップグレードインスタンスは `itil` を保持（変更は zboot のみ）。
 > - `sn_comm_management.comm_plan_mgr` も同様に変更（zboot のみ）。`sn_comm_management.comm_plan_viewer` から `sn_dex_desktop.notification_template_admin` が除かれ、`com.snc.itsm.roles` があれば `sn_incident_write`、なければ `itil` に追加される（zboot のみ）。
 > - `comm_channel` の create / write ACL から `itil` チェックが除かれ、`commTaskGr.state.canWrite` スクリプトと `sn_comm_management.comm_plan_mgr`、`sn_comm_management.comm_plan_admin`、`sn_tcm_admin`、`sn_incident_write` 等のロールでアクセス制御される。
@@ -791,7 +792,7 @@ On-Call Scheduling はタスクの応答時間を監視し、確認（Acknowledg
 
 | プロパティ | 説明 | 既定値 |
 |---|---|---|
-| `com.snc.incident.autoclose.basedon.resolved_at` | 自動クローズを解決日基準にする（No で更新日基準） | 新規顧客 true（London 以降）。既存顧客は手動 |
+| `com.snc.incident.autoclose.basedon.resolved_at` | true：Resolution date（解決日）基準、false（UI 上は No）：Updated（最終更新日）基準 | 新規顧客 true（London 以降）。既存顧客は手動 |
 | `glide.ui.autoclose.time` | Resolved から自動クローズまでの日数。0 で無効 | 公開情報では確認できず |
 | `com.snc.incident.incident_task.closure` | インシデントのクローズ／キャンセル時に未完了インシデントタスクをクローズ | 新規顧客 true |
 | `com.snc.incident.incident_alert.closure` | インシデントのクローズ／キャンセル時に未完了コミュニケーションプランをクローズ（`com.snc.iam` 有効時のみ表示） | false |
@@ -854,12 +855,12 @@ On-Call Scheduling はタスクの応答時間を監視し、確認（Acknowledg
 | Incident Updates | `com.snc.incident.updates` | インシデント更新通知 |
 | Incident Management — ATF Tests | `com.snc.incident.atf` | Incident Management 用 ATF テスト |
 | ITSM Enhanced Security Features | `com.snc.itsm.enhanced_security` | インシデント関連テーブルへの「deny unless authenticated」ACL（サポート申請で有効化） |
-| Incident Management - Major Incident Management | `com.snc.incident.mim` | MIM（[7.2](#72-プラグイン)） |
-| On-Call Scheduling | `com.snc.on_call_rotation` | オンコール |
-| Special Handling Notes | `com.sn_shn` | 特別対応メモ |
-| Predictive Intelligence for Incident | `com.snc.incident.ml_solution` 等 | [5.4](#54-predictive-intelligence-による予測) |
+| Incident Management - Major Incident Management | `com.snc.incident.mim` | MIM（[7.2](#72-プラグイン)）。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/activate-major-incident-management-plugin.html) |
+| On-Call Scheduling | `com.snc.on_call_rotation` | オンコール。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/on-call-scheduling/t_ActivateOnCallScheduling.html) |
+| Special Handling Notes | `com.sn_shn` | 特別対応メモ。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/create-special-handling-notes.html) |
+| Predictive Intelligence for Incident | `com.snc.incident.ml_solution` 等 | [5.4](#54-predictive-intelligence-による予測)。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/predictive-intelligence-for-incident.html) |
 
-出典：[Incident Management plugins（Australia）](https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/incident-mgmt-plugins.html)、[Activate ITSM Enhanced Security Features](https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/activate-itsm-enhanced-security-inci-mangmnt.html)
+出典：[Incident Management plugins（Australia）](https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/incident-mgmt-plugins.html)、[Activate ITSM Enhanced Security Features](https://www.servicenow.com/docs/r/australia/it-service-management/incident-management/activate-itsm-enhanced-security-inci-mangmnt.html)。MIM、On-Call Scheduling、Special Handling Notes、Predictive Intelligence の 4 行は、各行の出典を参照。
 
 > **Brazil での変更:** ITSM Enhanced Security Features（`com.snc.itsm.enhanced_security`）が**アップグレード時に自動的に有効化**され、複数の ITSM テーブルに「deny unless authenticated」ACL が追加される。元に戻すには ServiceNow サポートへの連絡が必要。[出典](https://www.servicenow.com/docs/r/release-notes/incident-management-rn.html)
 
@@ -922,9 +923,10 @@ SOW 全般は [Workspace と UI Builder](../platform/workspaces-ui-builder.md)�
 ## 12. 確認できなかった事項
 
 - `incident.state` / `hold_reason` / `impact` / `urgency` / `priority` の選択肢の内部値（整数値）は、Australia 公式ドキュメントでは一覧が確認できなかった（本文の State 値は【第三者情報】）。
-- Australia の Priority Lookup Rules サンプル表は 3×3 を「4 - Low」としているが、ベースシステムの実データが「5 - Planning」かどうかは公開情報では確認できず。
+- Australia の Priority Lookup Rules サンプル表は 3×3 を「4 - Low」としている。Community ブログはベースシステムの値を「5 - Planning」としている。Australia のベースシステムの実データがどちらなのかは、公式情報では確認できず。
+- 親インシデントを Canceled にしたときの子インシデントの挙動は、公式の表に「NA」としか書かれておらず、公開情報では確認できず。
 - 多くのプロパティ（`glide.ui.autoclose.time` 等）の既定値は公式ドキュメントに記載がなく、公開情報では確認できず。
-- `major_incident_manager` ロールの Australia 時点での含有ロールの公式一覧は公開情報では確認できず。
+- `major_incident_manager` ロールの Australia 時点での含有ロールのうち、`itil` 以外を含む完全な一覧は未確認（公開情報では確認できず）。
 - Brazil の GA 日付と、Brazil での On-Call Scheduling 固有の変更点は公開情報では確認できず。
 
 ---
@@ -1015,6 +1017,8 @@ ServiceNow Community・第三者情報（【第三者情報】の根拠）
 - https://www.servicenow.com/community/itsm-blog/the-power-of-major-incident-management-part-1-activation-and/ba-p/2293735
 - https://www.servicenow.com/community/developer-forum/on-call-scheduling-permissions/m-p/2012617
 - https://www.servicenow.com/community/upgrades-and-patching-forum/licensing-information-about-sn-incident-read-and-sn-incident/m-p/3196407
+- https://www.servicenow.com/community/itsm-blog/managing-incident-priority/ba-p/2294101
+- https://www.servicenow.com/community/incident-management-forum/unable-to-find-newly-added-impact-and-urgency-choices-under/m-p/3415628
 - https://blog.certifhub.com/?p=908122
 
 画像出典（いずれも ServiceNow 公式ドキュメント Australia 版に掲載の図・画面。取得日：2026-11-03。著作権は ServiceNow, Inc. に帰属）

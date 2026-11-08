@@ -4,21 +4,25 @@ category: reference
 domain: itom
 release: Australia
 last_verified: 2026-11-02
-summary: ServiceNow IT Operations Management（ITOM）の製品構成（ITOM Visibility / Discovery / AIOps（旧 ITOM Health）/ Health Log Analytics / Optimization / Cloud Accelerate / Service Observability ほか）、旧パッケージ（Visibility・Health・Optimization の3領域、ITOM Standard / Professional / Enterprise）と 2026-04 以降の新パッケージ（ITOM Advanced / ITOM Prime）、Subscription Unit（SU）による課金の仕様（CI カテゴリ、SU 比率、90日平均、バンドルとアラカルト、除外・重複排除）、ITOM/OT SU Licensing アプリのメニュー・テーブル・ロール・スケジュールジョブに答える。
+summary: ITOM の製品構成と、旧（Standard/Pro/Enterprise）・新（Advanced/Prime）パッケージ、Subscription Unit（SU）による課金の仕様（CI カテゴリ・比率・90日平均・バンドル/アラカルト）を説明する。ITOM/OT SU Licensing アプリのメニュー・テーブル・ロール・ジョブにも答える。
 keywords: [ITOM, IT Operations Management, IT運用管理, ITOM Visibility, ITOM Discovery, ITOM Health, ITOM AIOps, Health Log Analytics, HLA, ITOM Optimization, ITOM Cloud Accelerate, Service Observability, Service Reliability Management, SLO Management, Synthetic Monitoring, ITOM Standard, ITOM Professional, ITOM Pro, ITOM Enterprise, ITOM Operator, ITOM Advanced, ITOM Prime, Service Ops, Subscription Unit, SU, サブスクリプションユニット, SU比率, CI category, CIカテゴリ, Managed IT Resource, Unresolved Monitored Object, em_unique_nodes, ITOM/OT SU Licensing, sn_itom_licensing, com.snc.itom.license, sn_itom_license.reader, itom_lu_ci_counts, itom_lu_metadata, itom_lu_licensable_cis, license_exclusion_list, License Summary, Licenses by CI Type, ITOM Licensing Dashboard, バンドル, アラカルト, a la carte, overdrawn, 2026 Packaging SKU, OTM, Operational Technology Management, Australia, Brazil]
 sources:
   - https://www.servicenow.com/docs/r/australia/it-operations-management/r_ITOMApplications.html
   - https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/y5L~1SujMuCHZYScdrbXLQ
-  - https://www.servicenow.com/docs/r/it-operations-management/itom-licensing-subscription-types.html
-  - https://www.servicenow.com/docs/r/it-operations-management/itom-licensing-bundle-subscription.html
-  - https://www.servicenow.com/docs/r/it-operations-management/itom-licensing-bundle-individual-subscription.html
-  - https://www.servicenow.com/docs/r/it-operations-management/itom-subscriptions-form.html
-  - https://www.servicenow.com/docs/r/it-operations-management/license-report-form.html
-  - https://www.servicenow.com/docs/r/it-operations-management/itom-licensing-dashboard.html
-  - https://www.servicenow.com/docs/r/it-operations-management/components-installed-with-itom-su-licensing.html
-  - https://www.servicenow.com/docs/r/it-operations-management/check-ci-type-require-license.html
-  - https://www.servicenow.com/docs/r/it-operations-management/itom-licensing-count.html
-  - https://www.servicenow.com/docs/r/it-operations-management/explore-itom-licensing.html
+  - https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-subscription-types.html
+  - https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-bundle-subscription.html
+  - https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-bundle-individual-subscription.html
+  - https://www.servicenow.com/docs/r/australia/it-operations-management/itom-subscriptions-form.html
+  - https://www.servicenow.com/docs/r/australia/it-operations-management/license-report-form.html
+  - https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-dashboard.html
+  - https://www.servicenow.com/docs/r/australia/it-operations-management/components-installed-with-itom-su-licensing.html
+  - https://www.servicenow.com/docs/r/australia/it-operations-management/check-ci-type-require-license.html
+  - https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-count.html
+  - https://www.servicenow.com/docs/r/australia/it-operations-management/explore-itom-licensing.html
+  - https://www.servicenow.com/docs/r/australia/it-operations-management/itom-license-module.html
+  - https://www.servicenow.com/docs/r/brazil/it-operations-management/itom-license-module.html
+  - https://www.servicenow.com/docs/r/australia/it-operations-management/itom-optimization-landing-page.html
+  - https://www.servicenow.com/docs/r/australia/operational-technology/otm-licensing-dashboard.html
   - https://www.servicenow.com/docs/r/store-release-notes/store-rn-itom-su-licensing.html
   - https://www.servicenow.com/docs/r/store-release-notes/store-rn-itom-prime.html
   - https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/0GjkrppnhBYMGV8qrvwZoQ
@@ -48,7 +52,7 @@ sources:
 | 構成モジュールのプラグイン ID は何か | [8. 構成モジュールとプラグイン](#8-構成モジュールとプラグイン) |
 | Brazil で何が変わるか | [9. Brazil での変更](#9-brazil-での変更点) |
 
-> **重要な前提（2026-11 時点）:** ITOM の商用パッケージは 2026-04 に刷新され、旧体系（ITOM Standard / Professional / Enterprise）から **ITOM Advanced / ITOM Prime** の2層に移行した。一方、製品ドキュメント（Australia / Brazil）の課金説明は製品単位（ITOM Visibility、ITOM AIOps など）とバンドル単位の SU 消費を説明しており、パッケージ名には触れていない。公式ドキュメントは「価格・パッケージ・その他の契約で決まる詳細は記載しない」と明記している。契約上の権利（Entitlement）と SU 比率は、必ず契約書（Order Form）と ServiceNow アカウントチームで確認する。[出典](https://www.servicenow.com/docs/r/it-operations-management/explore-itom-licensing.html)
+> **重要な前提（2026-11 時点）:** ITOM の商用パッケージは 2026-04 に刷新され、旧体系（ITOM Standard / Professional / Enterprise）から **ITOM Advanced / ITOM Prime** の2層に移行した。一方、製品ドキュメント（Australia / Brazil）の課金説明は製品単位（ITOM Visibility、ITOM AIOps など）とバンドル単位の SU 消費を説明しており、パッケージ名には触れていない。公式ドキュメントは、適用する CI カテゴリと比率は顧客契約で決まる（The customer contract for your organization determines the CI categories from the available options）と説明している。契約上の権利（Entitlement）と SU 比率は、必ず契約書（Order Form）と ServiceNow アカウントチームで確認する。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-license-module.html)
 
 ---
 
@@ -74,24 +78,26 @@ sources:
 
 ### 2.1 課金対象の ITOM 製品一覧
 
-Australia 版の「Subscriptions for IT Operations Management」は、利用に応じて課金される ITOM 製品として次の10製品を挙げている。[出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/y5L~1SujMuCHZYScdrbXLQ)
+Australia 版の「Subscriptions for IT Operations Management」（2026-10-18 更新）は、利用に応じて課金される ITOM 製品として次の10製品を挙げている。[出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/y5L~1SujMuCHZYScdrbXLQ)
 
-| # | 製品（英語正式名） | 日本語 | 含まれるアプリケーション / 機能（公式ドキュメント記載） | SU のカウント方法 |
+このページが含まれるアプリケーションを挙げているのは #1〜#3 と #6 だけである。#4・#5・#9 は短い説明だけで、#7・#8・#10 は製品名しか載っていない。そのため、それらの行の「含まれるアプリケーション / 機能」列は、行内に示した別ページの情報で補っている。
+
+| # | 製品（英語正式名） | 日本語 | 含まれるアプリケーション / 機能 | SU のカウント方法 |
 |---|---|---|---|---|
 | 1 | **ITOM Visibility** | ITOM 可視化 | Discovery、Firewall Audits and Reporting、Certificate Inventory and Management、Service Mapping、Cryptographic Asset Compliance、AI Agent Topology Mapping、ITOM Content Service、Tag Governance（機能限定）、Cloud Discovery Workspace、Cloud License Estimator。Service Graph Connectors と CMDB 360 がデータを供給する | Horizontal Discovery（水平検出）と Top-down Discovery（Service Mapping）で検出した CI 数＋Service Graph Connectors が CMDB に投入した CI 数 |
 | 2 | **ITOM Discovery** | ITOM ディスカバリー | Discovery、Service Graph Connectors、CMDB 360（エントリーレベルの代替パッケージ。ITOM Visibility の「サブセット」） | Discovery で検出した CI 数＋Service Graph Connectors で取り込んだ CI 数 |
 | 3 | **ITOM AIOps** | ITOM AIOps | Event Management、Metric Intelligence | アラート・イベント・メトリクスを取得した CI 数（全 CI カテゴリ） |
-| 4 | **Health Log Analytics (HLA)** | ヘルスログ分析 | Health Log Analytics | ライセンス対象リソースから受信したログデータに基づく CI 数。消費は ITOM AIOps 側にも反映されるため、**HLA には ITOM AIOps サブスクリプションも必要** |
-| 5 | **ITOM Optimization** | ITOM 最適化 | Cloud Provisioning and Governance（CPG。現在は Cloud Services Catalog に移行） | 公式ドキュメントに記載なし（専用の使用量カウントジョブあり。[7.5](#75-テーブルとスケジュールジョブ) 参照） |
+| 4 | **Health Log Analytics (HLA)** | ヘルスログ分析 | Health Log Analytics（Subscriptions ページにはアプリの列挙なし。ITOM 製品一覧ページより [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/r_ITOMApplications.html)） | ライセンス対象リソースから受信したログデータに基づく CI 数。消費は ITOM AIOps 側にも反映されるため、**HLA には ITOM AIOps サブスクリプションも必要** |
+| 5 | **ITOM Optimization** | ITOM 最適化 | Cloud Provisioning and Governance（CPG。現在は Cloud Services Catalog に移行）。Subscriptions ページはクラウドリソースのライフサイクル管理の自動化と説明するだけで、アプリは挙げていない。CPG は ITOM 製品一覧ページと ITOM Optimization ランディングページより [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/r_ITOMApplications.html) / [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-optimization-landing-page.html) | 公式ドキュメントに記載なし（専用の使用量カウントジョブあり。[7.5](#75-テーブルとスケジュールジョブ) 参照） |
 | 6 | **ITOM Cloud Accelerate** | ITOM クラウドアクセラレート | Tag Governance、Cloud Migration Assessment、Cloud Configuration Governance、Cloud Action Library（製品ページでは Cloud Account Management、Cloud Services Catalog も説明） | Cloud Migration Assessment / Cloud Configuration Governance / Cloud Action Library が管理・監視する CI 数。複数機能が同じ CI を報告した場合は重複を除く |
-| 7 | **Service Reliability Management (SRM)** | サービス信頼性管理 | アラート・インシデントへの対応・追跡・自己修復 | ドキュメントでは「ITSM Standard と ITOM Operator Professional の両サブスクリプションが必要」と記載 |
-| 8 | **SLO Management** | SLO 管理 | SLI / SLO / エラーバジェットによるサービス品質目標の定義・追跡 | 記載なし |
-| 9 | **Service Observability** | サービスオブザーバビリティ | 他社監視ツールのテレメトリを集約したダッシュボード・Observability タブ | 記載なし（ライセンスダッシュボード上は個別に集計） |
-| 10 | **Synthetic Monitoring** | 合成監視 | API エンドポイントに対するユーザートランザクションのシミュレーション | 記載なし |
+| 7 | **Service Reliability Management (SRM)** | サービス信頼性管理 | アラート・インシデントへの対応・連携・追跡・自己修復（Subscriptions ページには製品名のみ。ITOM 製品一覧ページより [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/r_ITOMApplications.html)） | 記載なし（前提：ITSM Standard と ITOM Operator Professional の両サブスクリプションが必要。ITOM 製品一覧ページの記載 [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/r_ITOMApplications.html)） |
+| 8 | **SLO Management** | SLO 管理 | 合意したサービス品質目標の定義・追跡・達成。SLA と併用する（Subscriptions ページには製品名のみ。ITOM 製品一覧ページより [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/r_ITOMApplications.html)。SLI / エラーバジェットについては [Event Management と AIOps](./event-management-aiops.md) を参照） | 記載なし |
+| 9 | **Service Observability** | サービスオブザーバビリティ | 複数の監視ツールのテレメトリを1つのワークフローに集約し、分散システムのインシデントをトリアージ・管理する（Subscriptions ページは「既存の他社監視ツールのデータを集約できる」と書くだけで、アプリは挙げていない。ITOM 製品一覧ページより [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/r_ITOMApplications.html)） | 記載なし（ライセンスダッシュボード上は個別に集計） |
+| 10 | **Synthetic Monitoring** | 合成監視 | API エンドポイントに対してユーザートランザクションをシミュレーションし、性能のボトルネックを見つける（Subscriptions ページには製品名のみ。ITOM 製品一覧ページより [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/r_ITOMApplications.html)） | 記載なし |
 
 補足：
 
-- ITOM/OT SU Licensing アプリのランディングページと ITOM Licensing Dashboard は、上記に加えて **Digital End-User Experience（DEX）** も SU 集計対象として表示する。DEX の SU 比率は EUC（End User Computing）デバイス 4 台 = 1 SU と DEX のドキュメントに記載されている。[出典](https://www.servicenow.com/docs/r/it-operations-management/itom-licensing-dashboard.html) / [出典](https://www.servicenow.com/docs/r/australia/it-service-management/digital-end-user-experience-dex/dex-subscription.html)
+- ITOM/OT SU Licensing アプリのランディングページと ITOM Licensing Dashboard は、上記に加えて **Digital End-User Experience（DEX）** も SU 集計対象として表示する。DEX の SU 比率は EUC（End User Computing）デバイス 4 台 = 1 SU と DEX のドキュメントに記載されている。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-dashboard.html) / [出典](https://www.servicenow.com/docs/r/australia/it-service-management/digital-end-user-experience-dex/dex-subscription.html)
 - ITOM Visibility を使うには Discovery と Service Mapping のプラグインの有効化が必要であり、これらのプラグインは ITOM Visibility サブスクリプションに依存する。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-visibility/itom-visibility-landing-page.html)
 - ITOM アプリケーションの多くは ServiceNow Store 経由で更新され、ファミリーリリースとは独立した独自のリリーススケジュールを持つ。最新機能を使うには Store アプリの更新が必要である。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/r_ITOMApplications.html)
 
@@ -116,9 +122,9 @@ ITOM のヘルス領域の製品名は、ドキュメント上で次のように
 |---|---|---|
 | Xanadu 版（2025-01-30 更新） | **ITOM Health** | Event Management など。「HLA には ITOM Health サブスクリプションも必要」と記載 [出典](https://www.servicenow.com/docs/r/LZHoJyH9VPKmhdIph_6gSw/P1uAlkn352WkEJxmmYC0Xw) |
 | Zurich 版（2026-03-12 更新） | **ITOM AIOps** | Event Management など。HLA の前提も ITOM AIOps に変更 [出典](https://www.servicenow.com/docs/r/guxhDnVk8OUAJKLm7WZsYA/8XAnPqUIHAXKSJUAjYY0Mw) |
-| Australia 版（2026-03-12 更新） | **ITOM AIOps** | Event Management と Metric Intelligence を含むと明記 [出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/y5L~1SujMuCHZYScdrbXLQ) |
+| Australia 版（2026-10-18 更新） | **ITOM AIOps** | Event Management と Metric Intelligence を含むと明記 [出典](https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/y5L~1SujMuCHZYScdrbXLQ) |
 
-Yokohama 版の表記は本調査では確認できなかった。ITOM Licensing Dashboard のタブ名とスケジュールジョブ名（`ITOM Health Licensing Usage Count`）には、今も「Health」という名称が残っている。[出典](https://www.servicenow.com/docs/r/it-operations-management/components-installed-with-itom-su-licensing.html)
+Yokohama 版の表記は本調査では確認できなかった。ITOM Licensing Dashboard のタブ名とスケジュールジョブ名（`ITOM Health Licensing Usage Count`）には、今も「Health」という名称が残っている。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/components-installed-with-itom-su-licensing.html)
 
 ### 2.4 ITOM のデータの流れ（全体像）
 
@@ -184,9 +190,9 @@ Optimization の CPG プラグイン（`com.snc.cloud.mgmt`）は、Orchestratio
 
 | 箇所 | 記載 | 出典 |
 |---|---|---|
-| ITOM/OT SU Licensing のバンドル説明 | 「ITOM Pro bundle」がバンドル消費の例として登場 | [出典](https://www.servicenow.com/docs/r/it-operations-management/itom-licensing-bundle-individual-subscription.html) |
+| ITOM/OT SU Licensing のバンドル説明 | 「ITOM Pro bundle」がバンドル消費の例として登場 | [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-bundle-individual-subscription.html) |
 | Subscriptions 画面のサンプル図 | 「ITOM Pro」（Type: Capacity）と「ITOM Health」（アラカルト）が並ぶ 2019 年日付のサンプル | 同上（[6.3 の図](#63-バンドルとアラカルトの併用) 参照） |
-| Service Reliability Management | 「ITSM Standard と ITOM Operator Professional の両サブスクリプションが必要」 | [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/r_ITOMApplications.html) |
+| Service Reliability Management | 「SRM is available when you have both ITSM Standard and ITOM Operator Professional subscriptions」（ITSM Standard と ITOM Operator Professional の両サブスクリプションがある場合に利用可能） | [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/r_ITOMApplications.html) |
 
 ### 3.3 旧パッケージに付属する Protocols と Spokes
 
@@ -197,12 +203,12 @@ Optimization の CPG プラグイン（`com.snc.cloud.mgmt`）は、Orchestratio
 | Protocols | PowerShell、SSH |
 | Spokes | Jenkins、Microsoft Active Directory、Microsoft Azure Active Directory、Microsoft SCCM for Client Software Distribution、Kubernetes、F5 Networks |
 
-Australia 版のドキュメントは、ITOM バンドルが「選択された Spoke と Protocol について Integration Hub / Workflow Data Fabric の権利を提供する」と記載している。権利の詳細は次のとおり。[出典](https://www.servicenow.com/docs/r/it-operations-management/itom-licensing-subscription-types.html)
+Australia 版のドキュメントは、ITOM バンドルが「選択された Spoke と Protocol について Integration Hub / Workflow Data Fabric の権利を提供する」と記載している。権利の詳細は次のとおり。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-subscription-types.html)
 
 - ITOM バンドルには、選択された Spoke・Protocol を使う Integration Hub の権利が含まれる。
 - ITOM Cloud Accelerate には追加で **Integration Hub Enterprise** バンドルの権利が必要である。
 - ITOM バンドルには、選択された Spoke・Protocol を使う Workflow Data Fabric の権利も含まれる。ITOM Cloud Accelerate アプリ以外から Cloud Action Library を使う場合は、追加で **Workflow Data Fabric Enterprise** バンドルの権利が必要である。
-- Cloud Account Management には **Cloud Governance Suite** SKU が必要である（旧 SKU 体系での記載。新パッケージでは ITOM Advanced に Cloud Account Management が含まれる。[4.2](#42-itom-advanced--itom-prime-の構成公式-pricing-ページ) 参照）。
+- Cloud Account Management には **Cloud Governance Suite** SKU が必要である（Australia 版ドキュメントの現行記述「Cloud Account Management requires the Cloud Governance Suite SKU.」）。一方、2026 年の pricing ページは ITOM Advanced に Cloud Account Management を含めている（[4.2](#42-itom-advanced--itom-prime-の構成公式-pricing-ページ) 参照）。両者の関係（新 SKU では Cloud Governance Suite が不要になるのか）は公開情報では確認できないため、新 SKU での扱いは契約で確認する【推定】。
 
 関連：[IntegrationHub](../platform/integrationhub.md)、[Workflow Data Fabric](../platform/workflow-data-fabric.md)
 
@@ -274,6 +280,8 @@ servicenow.com の ITOM pricing ページ（Wayback Machine 2026-08-11 取得の
 | | Service Observability | × | ○ |
 | | Synthetic Monitoring | × | ○ |
 | Platform Capabilities | AI Control Tower、Workflow Data Fabric、CMDB、CSDM、Knowledge Management、Employee Center、Now Mobile、Workflow Automation、Application Development、Predictive Intelligence、App Engine Starter、Universal Request Pro、Mobile Publishing、Platform Analytics Advanced、Process Mining | ○ | ○ |
+
+※ 名称は 2026-08-11 時点の pricing ページの表記である。2026-08 以降、Now Assist 製品は ServiceNow Otto にリブランドされている（ITOM - Advanced 1.1.3。[4.3](#43-store-アプリitom---advanceditom---primeのバージョン履歴) 参照）。たとえば「Now Assist for Setup」は [8.2](#82-itom-のセットアップ導線) の「ServiceNow Otto for Setup」と同じものである。
 
 pricing ページの脚注は「App Engine Starter のテーブルは、パッケージ化されたアプリケーションの構成用である」としている。
 
@@ -375,7 +383,7 @@ flowchart TD
 
 ### 5.3 CI カテゴリ（Australia）
 
-Australia 版の ITOM/OT SU Licensing の最新版は、次の14カテゴリをサポートする。どのカテゴリを適用するかは顧客契約による。[出典](https://www.servicenow.com/docs/r/it-operations-management/check-ci-type-require-license.html)
+Australia 版の「Check which CI types require an ITOM subscription」ページと「Subscriptions for IT Operations Management」ページ（2026-10-18 更新）は、「The latest version ... supports the following CI categories:」（最新版は次の CI カテゴリをサポートする）の下に**15項目**を挙げている。どのカテゴリを適用するかは顧客契約による。15項目めの「UMOs」は、6番めの Unresolved Monitored Object の略記と見られ、同じものが重複して載っている可能性がある【推定】。Brazil 版の同じページ（2026-10-18 更新）も、同じ15項目を挙げている。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/check-ci-type-require-license.html) / [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-license-module.html) / [出典（Brazil）](https://www.servicenow.com/docs/r/brazil/it-operations-management/itom-license-module.html)
 
 | # | CI カテゴリ（英語） | 日本語 | 主な CMDB クラス（判明分） |
 |---|---|---|---|
@@ -393,20 +401,21 @@ Australia 版の ITOM/OT SU Licensing の最新版は、次の14カテゴリを�
 | 12 | AI Agents | AI エージェント | 2026 版 SU Overview では `cmdb_ci_function_ai` が挙げられているとされる【第三者情報】 |
 | 13 | GPUs | GPU | 公開情報では確認できず |
 | 14 | Service Instances | サービスインスタンス | 公開情報では確認できず |
+| 15 | UMOs | （Unresolved Monitored Objects の略記と見られる【推定】） | 公開情報では確認できず（#6 と同じものなら `em_unique_nodes`） |
 
 出典：Servers / PaaS / Containers / EUC / Unresolved Monitored Object の CMDB クラスは 2023-05-04 発効の SU Overview。[出典](https://www.servicenow.com/community/s/cgfwn76974/attachments/cgfwn76974/configuration-management-db-forum/6069/1/it-operations-management-itom-servicenow-subscription-unit-overview.pdf) FaaS / IoT はリリースノート。[出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itom-su-licensing.html) Customer Prem Devices / APIs / EUC の追加クラスは Community 投稿（2026-09）。[出典](https://www.servicenow.com/community/itom-forum/article-for-itom-licensing-calculations-servicenow-it-operations/td-p/3596603)
 
 補足：
 
-- **Networking Devices / Networking Devices Advanced** というカテゴリも存在する（SU Licensing 1.1.0 で「Networking Devices Advanced」カテゴリを追加）。Community 投稿は Networking Devices に `cmdb_ci_netgear`、Networking Devices Advanced に `cmdb_ci_site`、`cmdb_ci_ni_interface` などを挙げている。ただし Australia 版の14カテゴリ一覧には含まれていない。[出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itom-su-licensing.html) / [出典](https://www.servicenow.com/community/itom-forum/article-for-itom-licensing-calculations-servicenow-it-operations/td-p/3596603)
-- **CI クラスの継承:** `itom_lu_metadata` テーブルは親 CI タイプだけを保持し、親を拡張した子 CI タイプは既定でカウント対象に含まれる。例：Apache Web Server は Web Server の拡張なので CI カウントに含まれる。[出典](https://www.servicenow.com/docs/r/it-operations-management/check-ci-type-require-license.html)
+- **Networking Devices / Networking Devices Advanced** というカテゴリも存在する（SU Licensing 1.1.0 で「Networking Devices Advanced」カテゴリを追加）。Community 投稿は Networking Devices に `cmdb_ci_netgear`、Networking Devices Advanced に `cmdb_ci_site`、`cmdb_ci_ni_interface` などを挙げている。ただし Australia 版の15項目の CI カテゴリ一覧には含まれていない。[出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itom-su-licensing.html) / [出典](https://www.servicenow.com/community/itom-forum/article-for-itom-licensing-calculations-servicenow-it-operations/td-p/3596603)
+- **CI クラスの継承:** `itom_lu_metadata` テーブルは親 CI タイプだけを保持し、親を拡張した子 CI タイプは既定でカウント対象に含まれる。例：Apache Web Server は Web Server の拡張なので CI カウントに含まれる。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/check-ci-type-require-license.html)
 - **Non-Human Identity:** SU Licensing 3.13.0（2026-06）で `Non_human_identity` カテゴリが追加されたが、3.16.0（2026-09）で削除された。[出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itom-su-licensing.html)
 
 ### 5.4 SU 比率（Managed IT Resource Type と比率）
 
 SU 比率は契約付属の **ITOM Subscription Unit Overview**（servicenow.com の legal 文書）で定義され、表記は「Subscription Unit : Managed IT Resource」（1 SU あたりのリソース数）である。2023 版と 2026 版で比率が変わっている。
 
-| Managed IT Resource Type | 2023-05-04 発効版 | 2026-04-09 発効版 |
+| Managed IT Resource Type | 2023-05-04 発効版 | 2026-04-09 発効版【第三者情報】（PDF 本文未確認。下記出典参照） |
 |---|---|---|
 | Server（物理・仮想サーバー） | 1 : 1 | 1 : 1 |
 | PaaS Resource | 1 : 3 | 1 : 3 |
@@ -427,7 +436,7 @@ SU 比率は契約付属の **ITOM Subscription Unit Overview**（servicenow.com
 > **注意:**
 > - 比率は**契約が参照する SU Overview の版**で決まる。新しい比率（例：Container 1:10）は、契約がその版の SKU を参照している場合にのみ適用され、旧契約の顧客は旧比率のまま、と第三者は説明している。【第三者情報】[出典](https://redresscompliance.com/servicenow-itom-licensing-guide.html)
 > - 比率の書き方は資料によって逆になる。SU Overview と License Report 画面は「1:3」（1 SU : 3 リソース）と書き、Community 投稿は「3:1」（3 リソース = 1 SU）と書く。意味は同じである。
-> - 製品ドキュメントのダッシュボード説明（Zurich 以前の版の例示）では「1 server、3 PaaS、3 containers、1 unresolved monitored object = 1 SU」としている。これは 2023 版の比率に対応する。
+> - 製品ドキュメントの OTM Licensing dashboard ページ（Zurich 版・Australia 版とも 2026-10-08 更新）は、「one server, three PaaS resources, three containers, or one unresolved monitored object equal 1 SU」（1 server、3 PaaS、3 containers、1 unresolved monitored object がそれぞれ 1 SU）と例示している。これは 2023 版の比率に対応し、2026 版の比率は反映されていない。[出典](https://www.servicenow.com/docs/r/australia/operational-technology/otm-licensing-dashboard.html) / [出典（Zurich）](https://www.servicenow.com/docs/r/zurich/operational-technology/otm-licensing-dashboard.html)
 > - SU Licensing 3.5.0（2024-05）のリリースノートは「SU ベースの ITOM サブスクリプションを持たないインスタンス向けの既定 SU 比率を更新した」と記載している。サブスクリプション記録がない場合（オンプレミスや非本番など）は既定比率で試算表示される。[出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itom-su-licensing.html)
 
 ### 5.5 Managed IT Resource Type の定義（2023 版 SU Overview）
@@ -466,7 +475,7 @@ ITOM/OT SU Licensing は、除外ルール（`itom_license_exclusion_metadata`�
 | 種別 | 内容 | 導入バージョン |
 |---|---|---|
 | 重複排除 | Discovery と Service Mapping が同じ CI を検出した場合は1回 | 公式ドキュメント |
-| 重複排除 | VM インスタンスとサーバー CI の重複（VM-server exclusion）。片方が直近90日に検出されていない場合の補正（2.2.0） | 2.x |
+| 重複排除 | VM インスタンスとサーバー CI の重複（VM-server exclusion）。2.2.0 で、片方が直近90日に検出されていない場合の除外条件を修正。3.3.0 で、VM Server レコードと Virtualization Instance の除外関係の向きを Discovery に合わせて反転 | 2.2.0 以前（導入版は公開情報では確認できず） |
 | 重複排除 | UCS Blade を Runs On::Runs 関係でカウント済みサーバーと重複排除 | 2.4.0 |
 | 重複排除 | KVM VM と Server の重複排除（KVM Discovery の関係方向を考慮） | 3.4.0 |
 | 除外 | Container Image と関係を持つ Container | 公式ドキュメント |
@@ -481,7 +490,7 @@ ITOM/OT SU Licensing は、除外ルール（`itom_license_exclusion_metadata`�
 
 ### 5.8 SU 計算例
 
-以下は公式の比率表（2026 版）を使った**説明用の試算例**である。実際の比率は契約で確認する。
+以下は 2026 版 SU Overview の比率（第三者の転記で確認、【第三者情報】。[5.4](#54-su-比率managed-it-resource-type-と比率) 参照）を使った**説明用の試算例**である。実際の比率は契約で確認する。
 
 | CI カテゴリ | 90日平均 CI 数 | 比率（SU : リソース） | SU |
 |---|---|---|---|
@@ -500,7 +509,7 @@ ITOM/OT SU Licensing は、除外ルール（`itom_license_exclusion_metadata`�
 
 ### 6.1 種類
 
-ITOM のサブスクリプションは次の3通りで購入できる。[出典](https://www.servicenow.com/docs/r/it-operations-management/itom-licensing-subscription-types.html)
+ITOM のサブスクリプションは次の3通りで購入できる。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-subscription-types.html)
 
 | 種類 | 内容 |
 |---|---|
@@ -512,7 +521,7 @@ ITOM のサブスクリプションは次の3通りで購入できる。[出典]
 
 ### 6.2 バンドルの仕様
 
-[出典](https://www.servicenow.com/docs/r/it-operations-management/itom-licensing-bundle-subscription.html)
+[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-bundle-subscription.html)
 
 | 仕様 | 内容 |
 |---|---|
@@ -524,7 +533,7 @@ ITOM のサブスクリプションは次の3通りで購入できる。[出典]
 
 ### 6.3 バンドルとアラカルトの併用
 
-同じ ITOM アプリについてバンドルとアラカルトの両方を持つ場合の消費順序は次のとおり。[出典](https://www.servicenow.com/docs/r/it-operations-management/itom-licensing-bundle-individual-subscription.html)
+同じ ITOM アプリについてバンドルとアラカルトの両方を持つ場合の消費順序は次のとおり。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-bundle-individual-subscription.html)
 
 1. ライセンスモジュールは、まず**バンドル**から差し引く。
 2. バンドルを使い切った後に、**アラカルト**から差し引く。
@@ -538,14 +547,14 @@ ITOM のサブスクリプションは次の3通りで購入できる。[出典]
 *図2：Licensing module calculates bundle and a la carte subscriptions for the same ITOM applications（同じ ITOM アプリに対するバンドルとアラカルトの計算）*
 
 画面説明：左側に灰色の枠「Bundle 500」があり、その中に緑の棒「ITOM Visibility 500 SUs」と「ITOM Health 500 SUs」が並ぶ（下に「Purchased: Bundle 500 SUs」）。右側の「A la carte」には、緑の棒「ITOM Visibility 250 SUs」と「ITOM Health 250 SUs」があり、それぞれの上にオレンジの超過分「100 SUs」「81 Sus」が載っている（下に「Purchased: 250 SUs a la carte」）。バンドル分を使い切った後にアラカルト分が消費され、さらに超えた分がオレンジ（超過）として表示されることを示す図である。製品名は旧称の「ITOM Health」（現 ITOM AIOps）で描かれている。
-出典：https://www.servicenow.com/docs/r/it-operations-management/itom-licensing-bundle-individual-subscription.html （Australia 版、2026-03-12 更新）／取得日：2026-11-03
+出典：https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-bundle-individual-subscription.html （Australia 版、2026-03-12 更新）／取得日：2026-11-03
 
 ![バンドルとアラカルトの超過表示](../../assets/images/itom-overview/subscriptions-overdrawn-bundle-a-la-carte.png)
 
 *図3：Subscriptions window showing overdrafts on the bundle and a la carte subscriptions（バンドルとアラカルトの超過を示す Subscriptions ウィンドウ）*
 
 画面説明：Subscriptions リストに2行が表示されている。列は Name、Type、Category、Start date、End date、Display only、Purchased、Allocated。1行目は Name「ITOM Health」、Type「Capacity」、Category「ServiceNow」、Purchased「250」、Allocated「310」（赤い点＝超過）。2行目は Name「ITOM Pro」、Type「Capacity」、Purchased「500」、Allocated「550」（赤い点＝超過）。旧パッケージ名「ITOM Pro」がバンドル、「ITOM Health」がアラカルトとして表示されるサンプルで、日付は 2019 年である。図の数値（Health のアラカルト Allocated 310）は本文の例（AIOps 860 SU）と一致しないため、図は表示形式の参考として扱う。
-出典：https://www.servicenow.com/docs/r/it-operations-management/itom-licensing-bundle-individual-subscription.html （Australia 版、2026-03-12 更新）／取得日：2026-11-03
+出典：https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-bundle-individual-subscription.html （Australia 版、2026-03-12 更新）／取得日：2026-11-03
 
 ### 6.4 アラカルトの仕様
 
@@ -571,7 +580,7 @@ ITOM のサブスクリプションは次の3通りで購入できる。[出典]
 | 前提 | ITOM サブスクリプションを購入していること（ない場合 ITOM License モジュールに情報が表示されない）。Store から最新版をインストールしていること |
 | 更新方法 | All > System Applications > All Available Applications > All で `sn_itom_licensing` を検索し、Updates タブから更新（admin ロール） |
 
-[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/install-itom-su-licensing.html) / [出典](https://www.servicenow.com/docs/r/it-operations-management/explore-itom-licensing.html)
+[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/install-itom-su-licensing.html) / [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/explore-itom-licensing.html)
 
 ### 7.2 ロールと機能
 
@@ -582,7 +591,7 @@ ITOM のサブスクリプションは次の3通りで購入できる。[出典]
 | 2026 Packaging SKU の CI 消費予測 | `admin` |
 | アプリの更新 | `admin` |
 
-[出典](https://www.servicenow.com/docs/r/it-operations-management/explore-itom-licensing.html) / [出典](https://www.servicenow.com/docs/r/it-operations-management/itom-licensing-dashboard.html)
+[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/explore-itom-licensing.html) / [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-dashboard.html)
 
 > **注意:** ダッシュボードの必要ロールは、ダッシュボードのページ（`sn_itom_license.reader`）と Explore ページ（admin）で記載が異なる。SU Licensing 3.14.0（2026-08）で ACL のロール権限が見直されているため、実インスタンスで確認すること。
 
@@ -597,13 +606,13 @@ ITOM のサブスクリプションは次の3通りで購入できる。[出典]
 | Report ITOM Licensable CIs | アプリ別にライセンス対象 CI の一覧を生成（Discovery、Optimization、Visibility、HLA、Governance、Health を選択 → Populate licensable CIs → Show licensable CIs）。2026 Packaging SKU の予測にも使う |
 | ITOM Licensing Dashboard | 日次リソース数・SU 推移・ライセンスアプリのバージョンを可視化（[7.7](#77-itom-licensing-dashboard)） |
 
-OTM（Operational Technology Management）は **All > OTM License** に同等のメニューがあり、Licenses by CI types ページの SKU Type 列が `otm` のものが OTM ライセンスである（既定フィルター：SKU Type contains otm）。[出典](https://www.servicenow.com/docs/r/it-operations-management/otm-license-module.html)
+OTM（Operational Technology Management）は **OTM License** メニュー（例：All > OTM License > OTM Licensing Dashboard）に同等のメニューがあり、Licenses by CI types ページの SKU Type 列が `otm` のものが OTM ライセンスである（既定フィルター：SKU Type contains otm）。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/otm-license-module.html)
 
-[出典](https://www.servicenow.com/docs/r/it-operations-management/check-ci-type-require-license.html) / [出典](https://www.servicenow.com/docs/r/it-operations-management/itom-licensing-count.html) / [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/check-ci-count.html)
+[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/check-ci-type-require-license.html) / [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-count.html) / [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/check-ci-count.html)
 
 #### Subscriptions フォームの項目
 
-[出典](https://www.servicenow.com/docs/r/it-operations-management/itom-subscriptions-form.html)
+[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-subscriptions-form.html)
 
 | 項目 | 説明 |
 |---|---|
@@ -623,7 +632,7 @@ Allocated の色分け（既定の閾値は 90%）：
 
 ### 7.4 License Report フォーム
 
-[出典](https://www.servicenow.com/docs/r/it-operations-management/license-report-form.html)
+[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/license-report-form.html)
 
 | 項目 | 説明 |
 |---|---|
@@ -647,7 +656,7 @@ License Report の情報には、バンドルで購入したサブスクリプ�
 
 #### テーブル
 
-[出典](https://www.servicenow.com/docs/r/it-operations-management/components-installed-with-itom-su-licensing.html) / [出典](https://www.servicenow.com/docs/r/it-operations-management/itom-licensing-dashboard.html)
+[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/components-installed-with-itom-su-licensing.html) / [出典](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-dashboard.html)
 
 | テーブル（ラベル） | テーブル名 | 内容 |
 |---|---|---|
@@ -670,7 +679,7 @@ SU Licensing 1.0.6（2022-02）でライセンス機能はファミリーリリ�
 
 #### スケジュールジョブ
 
-[出典](https://www.servicenow.com/docs/r/it-operations-management/components-installed-with-itom-su-licensing.html)
+[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/components-installed-with-itom-su-licensing.html)
 
 | スケジュールジョブ | 内容 |
 |---|---|
@@ -711,11 +720,11 @@ ITOM/OT SU Licensing は、現在の SU 消費と、2026 Packaging SKU（新パ�
 | 新カテゴリの識別 | **CI New Category** = true は、現在のライセンスでカバーされず 2026 Packaging SKU で新たにライセンス対象となるカテゴリ |
 | 次の作業 | 予測 SU と事前見積もりを比較し、超過する場合は ITOM の使用範囲を見直すか SU を追加購入する |
 
-> **ポイント:** 2026 版の比率では Container が 1:10 に緩和される一方、Container Image（1:3）、AI Agent（1:3）、GPU・API・Service Instance（各 1:1）が新たにカウント対象になる。Kubernetes 環境やクラウドネイティブ環境では、移行前に必ず予測機能で消費を確認する【経験則】。SU Licensing 3.13.0 では、新 SKU で Container のカウントが Container Image に移ってしまう不具合が修正されている。[出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itom-su-licensing.html)
+> **ポイント:** 2026 版の比率（【第三者情報】、[5.4](#54-su-比率managed-it-resource-type-と比率) 参照）では Container が 1:10 に緩和される一方、Container Image（1:3）、AI Agent（1:3）、GPU・API・Service Instance（各 1:1）が新たにカウント対象になる。Kubernetes 環境やクラウドネイティブ環境では、移行前に必ず予測機能で消費を確認する【経験則】。SU Licensing 3.13.0 では、新 SKU で Container のカウントが Container Image に移ってしまう不具合が修正されている。[出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itom-su-licensing.html)
 
 ### 7.7 ITOM Licensing Dashboard
 
-ITOM Licensing Dashboard は、購入済みサブスクリプションに対するリソース消費と状態の統計を ITOM アプリごとに表示する。メニューは **All > ITOM License > ITOM Licensing Dashboard**。OTM 用には **All > OTM > OTM License > OTM Licensing Dashboard** がある。[出典](https://www.servicenow.com/docs/r/it-operations-management/itom-licensing-dashboard.html)
+ITOM Licensing Dashboard は、購入済みサブスクリプションに対するリソース消費と状態の統計を ITOM アプリごとに表示する。メニューは **All > ITOM License > ITOM Licensing Dashboard**。OTM 用には **All > OTM License > OTM Licensing Dashboard** がある（OTM ダッシュボードの必要ロールは admin）。[出典](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-dashboard.html) / [出典（OTM）](https://www.servicenow.com/docs/r/australia/operational-technology/otm-licensing-dashboard.html)
 
 ![ITOM Licensing Dashboard](../../assets/images/itom-overview/itom-licensing-dashboard.png)
 
@@ -725,7 +734,7 @@ ITOM Licensing Dashboard は、購入済みサブスクリプションに対す�
 1. **Resource counts（Daily raw resource count）**：CI に分類する前の検出リソースの日次件数を、リソース種別ごとに色分けした積み上げ棒グラフ（図では1月28日に約140件、以降は約70件で推移）。棒にカーソルを合わせると、リソース種別ごとの件数と比率の表が表示される。
 2. **Subscription units（Daily consumption by resource type）**：ライセンス CI カテゴリ別の SU 数を直近120日分の棒グラフで表示し、オレンジ（茶色）の折れ線で Usage Analytics のカウント（SU 比率を用いた直近90日の平均消費）を重ねる。日付の棒にカーソルを合わせると Available CIs の一覧（CI カテゴリ別の件数と比率）が開く。
 3. **Version progression**：各日にインスタンスで使われていた ITOM Licensing アプリのバージョン（図では 3.11.1）を表示する。新バージョンのインストール時にカウントが急増した理由の説明に使う。
-出典：https://www.servicenow.com/docs/r/it-operations-management/itom-licensing-dashboard.html （Australia 版、2026-03-12 更新）／取得日：2026-11-03
+出典：https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-dashboard.html （Australia 版、2026-03-12 更新）／取得日：2026-11-03
 
 ダッシュボードの元テーブルは `itom_lu_ci_counts` と `usageanalytics_count`。ダッシュボードのユースケースは、ITOM 製品ごとのリソース使用量の検証と、特定リソースで購入 SU を超過したケースの報告である。
 
@@ -777,7 +786,7 @@ SU Licensing 3.11.0（2025-12）で、Subscription Management の ITOM サブス
 | ITOM AIOps | Event Management（`com.glideapp.itom.snac`） | イベント・アラート処理 |
 | | Metric Intelligence（`com.snc.sa.metric`、`sn_metrics_ng`） | メトリクスの異常検知 |
 | | Health Log Analytics（`sn_occ`） | ログ分析 |
-| | ITOM Licensing（`com.snc.itom.license`） | ITOM の SU 使用量管理 |
+| 共通（全 ITOM 製品） | ITOM Licensing（`com.snc.itom.license`） | ITOM の SU 使用量管理。公式ドキュメントでは ITOM AIOps のプラグイン一覧に掲載されているが、ITOM 製品をインストールすると自動的に入る共通コンポーネントである（[7.1](#71-基本情報) 参照） |
 | ITOM Optimization | Cloud Provisioning and Governance（`com.snc.cloud.mgmt`） | 依存：`com.snc.cloud.core`、Cloud Config Management（`com.snc.config.mgmt`）、Orchestration（`com.snc.runbook_automation`）、Service Portal - Core（`com.glide.service-portal`） |
 | | ITOM Optimization Licensing（`com.sn_itom_opt_licensing`） | Optimization ライセンス購入後に入れるプロキシアプリ。Optimization に含まれる全アプリをインストール可能にする |
 | ITOM Cloud Accelerate | Cloud Services Catalog、Cloud Configuration Governance、Cloud Action Library、Cloud Migration Assessment、Cloud Account Management、Cloud Discovery Workspace など | クラウドのプロビジョニング・ガバナンス・移行 |
@@ -816,9 +825,11 @@ SU Licensing 3.11.0（2025-12）で、Subscription Management の ITOM サブス
 
 > **Brazil での変更:** Brazil 版ドキュメント（2026-09-10 更新）に「AI in IT Operations Management」ページが掲載され、ITOM の AI 機能（Discovery、Service Mapping、Firewall Audits、Certificate Management、LEAP、AIOps、Service Observability、SLO Management、ACC Monitoring など）が Foundation / Advanced / Prime の AI ティアに沿って整理された。利用できる生成 AI スキル・エージェント型ワークフロー・AI エージェントはライセンスによって異なる。AI モデルプロバイダーとして Now LLM Service、Azure OpenAI、Google Gemini、Anthropic Claude on AWS を選択できる。[出典](https://www.servicenow.com/docs/r/brazil/it-operations-management/ai-in-it-operations-management.html)
 
-> **Brazil での変更:** Brazil 版の ITOM/OT SU Licensing の Explore ページは、機能一覧に「Predict CI consumption for 2026 Packaging SKU（admin）」を明記している。なお Brazil 版の「Subscriptions for IT Operations Management」ページ（2026-09-10 更新）の CI カテゴリ一覧は9カテゴリ（Containers、PaaS、FaaS、Servers、Unresolved Monitored Object、Unclassed category、End User Devices、IoT、Customer Prem Devices）で、Australia 版の14カテゴリから Container Images、APIs、AI Agents、GPUs、Service Instances が記載されていない。課金仕様の変更なのかドキュメント上の差異なのかは公開情報では確認できなかった。[出典](https://www.servicenow.com/docs/r/it-operations-management/explore-itom-licensing.html)
+> **Brazil での変更:** Brazil 版の ITOM/OT SU Licensing の Explore ページ（2026-09-10 更新）は、機能一覧に「Predict CI consumption for 2026 Packaging SKU（admin）」を明記している。[出典](https://www.servicenow.com/docs/r/brazil/it-operations-management/explore-itom-licensing.html)
 
-ITOM/OT SU Licensing、ITOM - Advanced、ITOM - Prime は Store アプリであり、ファミリーリリース（Australia / Brazil）とは独立して更新される（[4.3](#43-store-アプリitom---advanceditom---prime-のバージョン履歴)、[7.9](#79-itomot-su-licensing-の主なバージョン履歴)）。
+Brazil 版の「Subscriptions for IT Operations Management」ページ（2026-10-18 更新）は、Australia 版と同じ10製品と、同じ15項目の CI カテゴリ（UMOs を含む）を挙げている。この2点に Brazil での差異はない。[出典（Brazil）](https://www.servicenow.com/docs/r/brazil/it-operations-management/itom-license-module.html) / [出典（Australia）](https://www.servicenow.com/docs/r/australia/it-operations-management/itom-license-module.html)
+
+ITOM/OT SU Licensing、ITOM - Advanced、ITOM - Prime は Store アプリであり、ファミリーリリース（Australia / Brazil）とは独立して更新される（[4.3](#43-store-アプリitom---advanceditom---primeのバージョン履歴)、[7.9](#79-itomot-su-licensing-の主なバージョン履歴)）。
 
 ---
 
@@ -846,7 +857,7 @@ ITOM/OT SU Licensing、ITOM - Advanced、ITOM - Prime は Store アプリであ�
 - SU 計算の端数処理規則、KB0748149（ITOM Subscription Unit license calculation logic）の本文（Now Support ログインが必要）
 - 日次カウント時刻のランダム化を制御するシステムプロパティ名
 - Yokohama 版での ITOM Health / ITOM AIOps の表記
-- Brazil 版で CI カテゴリ一覧が9カテゴリに減っている理由
+- CI カテゴリ一覧の「UMOs」が Unresolved Monitored Object と同じものかどうか
 
 ---
 
@@ -858,22 +869,27 @@ ITOM/OT SU Licensing、ITOM - Advanced、ITOM - Prime は Store アプリであ�
 - Subscriptions for IT Operations Management（Xanadu）：https://www.servicenow.com/docs/r/LZHoJyH9VPKmhdIph_6gSw/P1uAlkn352WkEJxmmYC0Xw
 - ITOM Visibility（Australia）：https://www.servicenow.com/docs/r/australia/it-operations-management/itom-visibility/itom-visibility-landing-page.html
 - ITOM Optimization（Australia）：https://www.servicenow.com/docs/r/australia/it-operations-management/itom-optimization-landing-page.html
-- Exploring ITOM/OT SU Licensing：https://www.servicenow.com/docs/r/it-operations-management/explore-itom-licensing.html
-- ITOM/OT SU Licensing subscription types：https://www.servicenow.com/docs/r/it-operations-management/itom-licensing-subscription-types.html
-- ITOM/OT SU Licensing Bundle subscription：https://www.servicenow.com/docs/r/it-operations-management/itom-licensing-bundle-subscription.html
-- ITOM/OT SU Licensing Bundle and Individual (ala carte) subscription：https://www.servicenow.com/docs/r/it-operations-management/itom-licensing-bundle-individual-subscription.html
+- Exploring ITOM/OT SU Licensing：https://www.servicenow.com/docs/r/australia/it-operations-management/explore-itom-licensing.html
+- ITOM/OT SU Licensing subscription types：https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-subscription-types.html
+- ITOM/OT SU Licensing Bundle subscription：https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-bundle-subscription.html
+- ITOM/OT SU Licensing Bundle and Individual (ala carte) subscription：https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-bundle-individual-subscription.html
 - ITOM/OT SU Licensing Individual (ala carte) subscription：https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-individual-subscription.html
-- Subscriptions form for the ITOM products：https://www.servicenow.com/docs/r/it-operations-management/itom-subscriptions-form.html
-- License Report form：https://www.servicenow.com/docs/r/it-operations-management/license-report-form.html
+- Subscriptions form for the ITOM products：https://www.servicenow.com/docs/r/australia/it-operations-management/itom-subscriptions-form.html
+- License Report form：https://www.servicenow.com/docs/r/australia/it-operations-management/license-report-form.html
 - Check CI count used for ITOM subscriptions：https://www.servicenow.com/docs/r/australia/it-operations-management/check-ci-count.html
-- Check which CI types require an ITOM subscription：https://www.servicenow.com/docs/r/it-operations-management/check-ci-type-require-license.html
-- View CIs consuming ITOM subscription units：https://www.servicenow.com/docs/r/it-operations-management/itom-licensing-count.html
+- Check which CI types require an ITOM subscription：https://www.servicenow.com/docs/r/australia/it-operations-management/check-ci-type-require-license.html
+- View CIs consuming ITOM subscription units：https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-count.html
 - Predict CI consumption for 2026 Packaging SKU（Australia）：https://www.servicenow.com/docs/r/sPnEbors95h6DhgBlE~f0A/yVsPyVEyJZVo_~PhtnsNDg
 - Data collection and aggregation for licensing process：https://www.servicenow.com/docs/r/australia/it-operations-management/data-collection-aggregation-licensing-process.html
-- Components installed with ITOM/OT SU Licensing：https://www.servicenow.com/docs/r/it-operations-management/components-installed-with-itom-su-licensing.html
+- Components installed with ITOM/OT SU Licensing：https://www.servicenow.com/docs/r/australia/it-operations-management/components-installed-with-itom-su-licensing.html
 - Update ServiceNow ITOM/OT SU Licensing：https://www.servicenow.com/docs/r/australia/it-operations-management/install-itom-su-licensing.html
-- ITOM/OT SU Licensing dashboard：https://www.servicenow.com/docs/r/it-operations-management/itom-licensing-dashboard.html
-- Subscriptions for Operational Technology Management：https://www.servicenow.com/docs/r/it-operations-management/otm-license-module.html
+- ITOM/OT SU Licensing dashboard：https://www.servicenow.com/docs/r/australia/it-operations-management/itom-licensing-dashboard.html
+- Subscriptions for IT Operations Management（Brazil）：https://www.servicenow.com/docs/r/brazil/it-operations-management/itom-license-module.html
+- Subscriptions for IT Operations Management（Australia、版固定 URL）：https://www.servicenow.com/docs/r/australia/it-operations-management/itom-license-module.html
+- Exploring ITOM/OT SU Licensing（Brazil）：https://www.servicenow.com/docs/r/brazil/it-operations-management/explore-itom-licensing.html
+- OTM Licensing dashboard（Australia）：https://www.servicenow.com/docs/r/australia/operational-technology/otm-licensing-dashboard.html
+- OTM Licensing dashboard（Zurich）：https://www.servicenow.com/docs/r/zurich/operational-technology/otm-licensing-dashboard.html
+- Subscriptions for Operational Technology Management：https://www.servicenow.com/docs/r/australia/it-operations-management/otm-license-module.html
 - Plugins or applications installed with ITOM Visibility：https://www.servicenow.com/docs/r/australia/it-operations-management/itom-visibility/plugin-app-itom-visibility.html
 - Plugins or applications installed with ITOM AIOps：https://www.servicenow.com/docs/r/australia/it-operations-management/plugin-app-itom-health.html
 - Plugins activated with ITOM Optimization：https://www.servicenow.com/docs/r/australia/it-operations-management/plugin-itom-optimization.html

@@ -71,7 +71,7 @@ Serverless Monitoring の基本構成は「クラウド連携（AWS / Azure / Go
 | OpenTelemetry 全般 | [OpenTelemetry サポート](../platform/opentelemetry.md) |
 | Serverless での App and API Protection（旧称：Application Security Management / ASM） | [App and API Protection](../security/app-and-api-protection.md) |
 | Continuous Profiler 全般 | [Continuous Profiler](../apm/continuous-profiler.md) |
-| 料金の正本 | [製品別料金表](../../03_導入編/pricing-by-product.md) |
+| 料金の正本 | [製品別料金表](../../03_導入編/02-pricing-by-product.md) |
 
 ---
 
@@ -444,7 +444,7 @@ Lambda のカスタムメトリクスはすべて**ディストリビューシ�
 
 | 機能 | 内容 |
 |---|---|
-| Network | PrivateLink またはプロキシ経由での送信に対応（詳細は [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md)） |
+| Network | PrivateLink またはプロキシ経由での送信に対応（詳細は [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md)） |
 | Code signing | Datadog の署名プロファイル ARN を Lambda のコード署名設定に追加 |
 | 移行 | Forwarder → Extension、x86 → arm64 の移行手順あり |
 | Source code linking | ソースコードリンク設定あり |
@@ -782,13 +782,13 @@ AWS 側の制限（Datadog 固有ではないが計装に影響）：Lambda 関�
 
 > **サイト差異:** Azure App Service（Windows / Linux）の `DD_SITE` はデフォルト `datadoghq.com`（US1）のため、AP1 を使う場合は必ず `ap1.datadoghq.com` を設定する。Lambda・Cloud Run 等でも `DD_SITE` を明示する。
 
-> **サイト差異:** Serverless の価格はサイトによって異なる（AP1・US1-FED 等）。本ファイルの課金節は US / EU1 の価格である。サイト別の価格は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
+> **サイト差異:** Serverless の価格はサイトによって異なる（AP1・US1-FED 等）。本ファイルの課金節は US / EU1 の価格である。サイト別の価格は [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照。
 
 ---
 
 ## 課金への影響
 
-Serverless の課金は「Workload / Application Monitoring（監視の基本料）」と「APM（トレース）」の2層で構成される。以下は 2026-11-02 時点の公式料金ページ掲載の定価（USD）。数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、計算方法の詳細は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。[出典](https://www.datadoghq.com/pricing/list/)、[出典](https://www.datadoghq.com/pricing/?product=serverless-monitoring)
+Serverless の課金は「Workload / Application Monitoring（監視の基本料）」と「APM（トレース）」の2層で構成される。以下は 2026-11-02 時点の公式料金ページ掲載の定価（USD）。数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、計算方法の詳細は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。[出典](https://www.datadoghq.com/pricing/list/)、[出典](https://www.datadoghq.com/pricing/?product=serverless-monitoring)
 
 ### 監視（Workload / Application Monitoring）
 
@@ -809,9 +809,9 @@ Serverless の課金は「Workload / Application Monitoring（監視の基本料
 
 > 注意: /pricing/list/ には Step Functions 専用の行がない。Step Functions は「Serverless Workload Monitoring - Functions」と「Serverless Functions APM」の行に含まれ、価格は Lambda と同じ。[出典](https://www.datadoghq.com/pricing/list/)
 
-> 注意: Serverless App and API Protection の対象について、料金ページの FAQ で確認できるのは AWS Lambda の記述だけである。[製品別料金表](../../03_導入編/pricing-by-product.md) は対象を AWS Lambda、GCP Cloud Run、Azure App Service、Azure Container Apps、Azure Functions としているが、Lambda 以外も対象になるかどうかは公開情報では確認できなかった。契約時に Datadog へ確認すること。[出典](https://www.datadoghq.com/pricing/?product=serverless-monitoring)
+> 注意: Serverless App and API Protection の対象について、料金ページの FAQ で確認できるのは AWS Lambda の記述だけである。[製品別料金表](../../03_導入編/02-pricing-by-product.md) は対象を AWS Lambda、GCP Cloud Run、Azure App Service、Azure Container Apps、Azure Functions としているが、Lambda 以外も対象になるかどうかは公開情報では確認できなかった。契約時に Datadog へ確認すること。[出典](https://www.datadoghq.com/pricing/?product=serverless-monitoring)
 
-> **サイト差異:** 上の表は US / EU1 の価格である。AP1 や US1-FED などでは価格が異なる（例：AP1 の Serverless Workload Monitoring - Functions は年契約 $6.25）。サイト別の価格は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
+> **サイト差異:** 上の表は US / EU1 の価格である。AP1 や US1-FED などでは価格が異なる（例：AP1 の Serverless Workload Monitoring - Functions は年契約 $6.25）。サイト別の価格は [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照。
 
 ### 課金単位の定義
 
@@ -850,7 +850,7 @@ Serverless の課金は「Workload / Application Monitoring（監視の基本料
 - X-Ray トレースマージを有効化すると AWS 側の X-Ray 料金が増える可能性がある。
 - OTel で計装した GKE Autopilot ワークロードは、現時点では Serverless Apps APM のみ課金対象で、Serverless 向け Infra OTel は将来課金対象になると料金ページに記載。
 - 利用量は `Plan & Usage` の Usage ページで、Serverless の課金対象・総使用量（月初来サマリーと推移）を確認できる。詳細は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md)。
-- コスト最適化の実践は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+- コスト最適化の実践は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ---
 
@@ -866,7 +866,7 @@ Serverless の課金は「Workload / Application Monitoring（監視の基本料
 | Forwarder と Extension の併用 | Extension 導入後に CloudWatch ロググループの Forwarder サブスクリプションを残すとログが二重取り込みになり得る | 【経験則】 |
 | メモリ設定の小さい関数 | Extension の初期化・フラッシュの相対的な影響が大きいため、Remote Instrumentation では 256 MB 超が推奨とされる | 公式（Remote Instrumentation） |
 
-タグ設計全般は [タグ戦略の実践](../../04_応用編/tagging-strategy.md)、APM 運用は [APM 運用の実践](../../04_応用編/apm-practices.md)、よくある失敗は [よくある失敗とアンチパターン](../../04_応用編/common-pitfalls.md) を参照。
+タグ設計全般は [タグ戦略の実践](../../04_応用編/02-tagging-strategy.md)、APM 運用は [APM 運用の実践](../../04_応用編/05-apm-practices.md)、よくある失敗は [よくある失敗とアンチパターン](../../04_応用編/12-common-pitfalls.md) を参照。
 
 ---
 
@@ -881,7 +881,7 @@ Serverless の課金は「Workload / Application Monitoring（監視の基本料
 - [Custom Metrics と DogStatsD](../platform/custom-metrics-and-dogstatsd.md)
 - [Tagging（タグ）](../platform/tagging.md)
 - [Terraform と IaC](../platform/terraform-and-iac.md)
-- [製品別料金表](../../03_導入編/pricing-by-product.md) / [課金計算の仕組み](../../03_導入編/billing-mechanics.md)
+- [製品別料金表](../../03_導入編/02-pricing-by-product.md) / [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)
 
 ---
 

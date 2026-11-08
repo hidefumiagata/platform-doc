@@ -95,9 +95,9 @@ OP は次の2つの要素で構成される。[出典](https://docs.datadoghq.co
 | Reference Tables | [Notebooks・DDSQL・Reference Tables](../platform/notebooks-and-data-tools.md) |
 | OpenTelemetry | [OpenTelemetry サポート](../platform/opentelemetry.md) |
 | Cloud SIEM | [Cloud SIEM](../security/cloud-siem.md) |
-| 料金の正本 | [製品別料金表](../../03_導入編/pricing-by-product.md) |
-| ログコスト削減の実践 | [ログ管理の実践](../../04_応用編/log-management-practices.md)、[コスト最適化](../../04_応用編/cost-optimization.md) |
-| 他製品（Splunk 等）からの移行 | [他製品からの移行](../../03_導入編/migration-from-other-tools.md) |
+| 料金の正本 | [製品別料金表](../../03_導入編/02-pricing-by-product.md) |
+| ログコスト削減の実践 | [ログ管理の実践](../../04_応用編/06-log-management-practices.md)、[コスト最適化](../../04_応用編/01-cost-optimization.md) |
+| 他製品（Splunk 等）からの移行 | [他製品からの移行](../../03_導入編/14-migration-from-other-tools.md) |
 
 ### 世代（Worker 1.x と 2.x）
 
@@ -783,7 +783,7 @@ Worker は Datadog と HTTPS（443）で通信し、認証情報の検証、パ�
 | `apt.datadoghq.com` / `yum.datadoghq.com` | パッケージリポジトリ | Linux |
 
 - ワイルドカード `*.<DD_SITE>:443` で `api` / `config` / `obpipeline-intake` をまとめて許可できる。[出典](https://docs.datadoghq.com/observability_pipelines/configuration/network_traffic/)
-- ネットワーク設計全般は [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md) を参照。
+- ネットワーク設計全般は [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md) を参照。
 
 ### Worker のアップグレード
 
@@ -1034,7 +1034,7 @@ Observability Pipelines の課金モデルは「取り込み GB 課金」と「v
 | Observability Pipelines | 取り込み GB あたり / 月（非圧縮データ量） | $0.095 | $0.10 | $0.12 |
 | Observability Pipelines Plus | vCPU あたり / 月（Worker に割り当てた vCPU） | $1,950 | $2,340 | $2,808 |
 
-> **サイト差異:** 上表は **US/EU1 の価格**。基準サイトの AP1（日本）では価格が異なり、Observability Pipelines は年契約 $0.11875・月契約 $0.125・オンデマンド $0.15（取り込み GB あたり / 月）、Observability Pipelines Plus は年契約 $2,437.50・月契約 $2,925・オンデマンド $3,510（vCPU あたり / 月）。詳細は [製品別料金表 §7.2](../../03_導入編/pricing-by-product.md#72-sensitive-data-scanneraudit-trailobservability-pipelines) の AP1 列を参照。[出典](https://www.datadoghq.com/pricing/list/)
+> **サイト差異:** 上表は **US/EU1 の価格**。基準サイトの AP1（日本）では価格が異なり、Observability Pipelines は年契約 $0.11875・月契約 $0.125・オンデマンド $0.15（取り込み GB あたり / 月）、Observability Pipelines Plus は年契約 $2,437.50・月契約 $2,925・オンデマンド $3,510（vCPU あたり / 月）。詳細は [製品別料金表 §7.2](../../03_導入編/02-pricing-by-product.md#72-sensitive-data-scanneraudit-trailobservability-pipelines) の AP1 列を参照。[出典](https://www.datadoghq.com/pricing/list/)
 
 - **取り込み GB 課金:** Worker が取り込んだ **非圧縮** データ量で課金される。月 30 TB 未満の組織向けで、使用量に応じて支払えるが、ボリュームに比例して増える。[出典](https://www.datadoghq.com/pricing/?product=observability-pipelines)
 - **vCPU 課金:** 月 30 TB 超の組織向け。料金ページでは「Worker に割り当てた vCPU あたり年額課金」と説明され、ボリュームのスパイクや変動を吸収でき予測可能。目安は月 30 TB あたり 1 vCPU。製品ページでは問い合わせ（Contact Us）扱い。[出典](https://www.datadoghq.com/pricing/?product=observability-pipelines)
@@ -1056,9 +1056,9 @@ Observability Pipelines の課金モデルは「取り込み GB 課金」と「v
 
 [出典](https://docs.datadoghq.com/observability_pipelines/processors/generate_metrics/)、[出典](https://docs.datadoghq.com/observability_pipelines/configuration/install_the_worker/)
 
-> **注意:** 上記「他製品の課金との関係」のうち、Worker 実行基盤のホストがインフラ課金対象になる点、および Worker ログが Log Management の課金対象となる点は、各製品の一般的な課金ルールからの整理であり `【推定】` を含む。正確な判定は契約内容と [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+> **注意:** 上記「他製品の課金との関係」のうち、Worker 実行基盤のホストがインフラ課金対象になる点、および Worker ログが Log Management の課金対象となる点は、各製品の一般的な課金ルールからの整理であり `【推定】` を含む。正確な判定は契約内容と [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 
-- 料金の正本と他製品の料金は [製品別料金表](../../03_導入編/pricing-by-product.md)、全体像は [料金体系の全体像](../../03_導入編/pricing-overview.md)、見積り方法は [コスト見積り手法](../../03_導入編/cost-estimation.md) を参照。
+- 料金の正本と他製品の料金は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、全体像は [料金体系の全体像](../../03_導入編/01-pricing-overview.md)、見積り方法は [コスト見積り手法](../../03_導入編/05-cost-estimation.md) を参照。
 - Observability Pipelines の Free Trial の期間・条件の詳細は公開情報では確認できず（料金ページに「Start Free Trial」ボタンあり）。
 
 ## 参照元

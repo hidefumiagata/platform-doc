@@ -956,7 +956,7 @@ Workload Protection のシグナルのノイズ削減は、Suppressions（抑制
 | DNS / Network | プロセス属性、`@dns.question.name`、`@network.ip/port`、`@network.destination.ip/port` |
 | Kernel | プロセス属性、`@file.path`、`@file.inode`、`@file.mode`、`@process.executable.uid` |
 
-Agent 側では、Agent Rule の式を狭める（OS 指定・具体的な条件）ことでイベント量自体を減らせる。Suppressions の共通仕様は [Cloud SIEM](./cloud-siem.md) と [Datadog Security 概要](./security-platform-overview.md)、運用の実践は [セキュリティ運用の実践](../../04_応用編/security-operations-practices.md) を参照する。
+Agent 側では、Agent Rule の式を狭める（OS 指定・具体的な条件）ことでイベント量自体を減らせる。Suppressions の共通仕様は [Cloud SIEM](./cloud-siem.md) と [Datadog Security 概要](./security-platform-overview.md)、運用の実践は [セキュリティ運用の実践](../../04_応用編/11-security-operations-practices.md) を参照する。
 
 ---
 
@@ -1063,7 +1063,7 @@ IaC 全般は [Terraform と IaC](../platform/terraform-and-iac.md) を参照す
 
 ## 課金への影響
 
-Workload Protection の課金単位は**ホスト**（保護対象の物理・仮想 OS インスタンス）で、ホストあたりのコンテナ枠を超えたコンテナと AWS Fargate タスクが別単位で課金される。料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、課金計算の仕組みは [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照する。
+Workload Protection の課金単位は**ホスト**（保護対象の物理・仮想 OS インスタンス）で、ホストあたりのコンテナ枠を超えたコンテナと AWS Fargate タスクが別単位で課金される。料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、課金計算の仕組みは [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照する。
 
 ### 定価（2026-11-02 時点、US1 等の表示）
 
@@ -1092,7 +1092,7 @@ Workload Protection の課金単位は**ホスト**（保護対象の物理・�
 | イベント量による従量課金 | 料金ページに Workload Protection のイベント量単位の課金項目は掲載されていない。ただし各セットアップ手順には「イベント収集は課金に影響する」と記載されている（ホスト・コンテナ課金を指すと読める）。イベント量自体の課金有無は公開情報では明確に確認できず | [出典](https://docs.datadoghq.com/security/workload_protection/setup/agent/linux/) |
 | 値引き | ボリューム・複数年割引の条件は非公開【推定】 | ― |
 
-コスト見積りは [コスト見積り手法](../../03_導入編/cost-estimation.md)、使用量の確認は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md)、最適化は [コスト最適化](../../04_応用編/cost-optimization.md) を参照する。
+コスト見積りは [コスト見積り手法](../../03_導入編/05-cost-estimation.md)、使用量の確認は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md)、最適化は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照する。
 
 ---
 
@@ -1110,9 +1110,9 @@ Workload Protection の課金単位は**ホスト**（保護対象の物理・�
 | [Fleet Automation と Remote Configuration](../platform/fleet-automation.md) | Policy 配布の基盤、Agent の一括更新 |
 | [Terraform と IaC](../platform/terraform-and-iac.md) | Terraform による Policy・Agent Rule 管理 |
 | [Datadog Sites（サイト）](../platform/datadog-sites.md) | サイト別の提供範囲 |
-| [製品別料金表](../../03_導入編/pricing-by-product.md) | 料金の正本 |
-| [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md) | 導入時のセキュリティ要件 |
-| [セキュリティ運用の実践](../../04_応用編/security-operations-practices.md) | 検知ルール運用・チューニングの実践 |
+| [製品別料金表](../../03_導入編/02-pricing-by-product.md) | 料金の正本 |
+| [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md) | 導入時のセキュリティ要件 |
+| [セキュリティ運用の実践](../../04_応用編/11-security-operations-practices.md) | 検知ルール運用・チューニングの実践 |
 
 ---
 

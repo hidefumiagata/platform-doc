@@ -457,7 +457,7 @@ Scripted REST API の認証・認可は、API レコードの **Default ACLs**�
 
 - ACL の Type は **`REST_Endpoint`**。複数 ACL がある場合は**いずれか1つ**を満たせばよい。
 - リソース側の設定は親 API の設定を上書きする。
-- `snc_external` ロールのユーザーは、別の ACL で許可しない限り既定 ACL でブロックされる。
+- 既定では Scripted REST API に、`snc_external` ロールのユーザーからの要求を禁止する ACL（Scripted REST External Default）が含まれる。この記述は旧リリース（Tokyo）の公式ドキュメント「Create a scripted REST API」に基づく。Australia の該当ページでは明記を確認できなかったが、同様の既定動作と推定する `【推定】`。[出典（Tokyo）](https://docs.servicenow.com/bundle/tokyo-api-reference/page/integrate/custom-web-services/task/t_CreateAScriptedRESTService.html)、[出典（ServiceNow Fluent：`enforceAcl` の既定値が Scripted REST External Default）](https://www.servicenow.com/docs/r/application-development/servicenow-sdk/scripted-rest-api-api-now-ts.html)
 - パスベースの ACL（Path-based ACL）を追加し、REST API Explorer から確認することもできる。
 - 認証方式そのものは API Access Policy（[§11.6](#116-rest-api-access-policyrest-api-アクセスポリシー)）で制御する。
 
@@ -466,7 +466,7 @@ Scripted REST API の認証・認可は、API レコードの **Default ACLs**�
 ### 7.8 フォーマットとエラー応答
 
 - 既定のサポート形式は `application/json`、`application/xml`、`text/xml`。API レベル、さらにリソースレベルで上書き可能。
-- 応答形式はリクエストの `Accept` に従い、非対応の場合は JSON にフォールバック。
+- 応答のコンテンツタイプはリクエストの `Accept` ヘッダーに従う。`Accept` に非対応の形式（例：`image/jpeg`）が指定された場合、エラー応答は JSON で返される。
 - エラー時はボディに `error.message` / `error.detail` と `status: "failure"`。数値の HTTP ステータスはボディではなくヘッダーに入る。
 
 [出典](https://www.servicenow.com/docs/r/australia/api-reference/rest-api-explorer/c_CustomWebServices.html)
@@ -543,7 +543,7 @@ Rate Limit Rules（`sys_rate_limit_rules`）は、インバウンド REST API �
 2. **Users with role（ロール）** のルールは、全ユーザーのルールより優先。
 3. ユーザーが複数ロールで複数ルールに該当する場合、**最も制限の厳しい（上限が小さい）ルール**が適用。
 
-公式の例：`import_admin` ロールのルール（3件/時）と `itil` ロールのルール（5件/時）の両方に該当するユーザーには 3件/時 が適用される。
+公式の例：`import_admin` ロールのルール（500件/時）と `itil` ロールのルール（100件/時）の両方に該当するユーザーには、上限の小さい 100件/時 が適用される（同例では単一ユーザー ITIL User に 200件/時、全ユーザーに 100件/時 のルールも定義されている）。
 
 [出典](https://www.servicenow.com/docs/r/australia/api-reference/rest-api-explorer/inbound-REST-API-rate-limiting.html)
 
@@ -580,7 +580,7 @@ Rate Limit Rules（`sys_rate_limit_rules`）は、インバウンド REST API �
 {
   "error": {
     "message": "Rate limit exceeded",
-    "detail": "Rate limit of 10 requests per hour for Table API exceeded"
+    "detail": "Rate limit of 100 requests per hour for Table API exceeded"
   },
   "status": "failure"
 }
@@ -710,7 +710,7 @@ try {
 | セッション Cookie | 既存 UI セッションへの結合（UI からの呼び出し） | — |
 | MFA | Basic 認証＋ワンタイムパスワード | MFA 設定 |
 
-[出典](https://www.servicenow.com/docs/r/australia/api-reference/rest-api-explorer/c_RESTAPI.html)
+[出典](https://www.servicenow.com/docs/r/australia/api-reference/rest-api-explorer/c_RESTAPI.html)。API Key / HMAC は [出典](https://www.servicenow.com/docs/r/australia/platform-security/authentication/api-key-and-hmac-rest-apis.html)、[出典（`x-sn-apikey`）](https://www.servicenow.com/docs/r/australia/platform-security/authentication/configure-api-key.html)。OAuth は [出典](https://www.servicenow.com/docs/r/australia/platform-security/authentication/oauth-inbound.html)
 
 ### 11.2 OAuth 2.0（インバウンド）
 
@@ -743,6 +743,8 @@ curl -d "grant_type=password&client_id=<client_id>&client_secret=<client_secret>
 # 応答例: {"scope":"useraccount","token_type":"Bearer","expires_in":1799,"refresh_token":"...","access_token":"..."}
 ```
 
+> **注意:** 上記は公式の REST OAuth example に基づく **ROPC（`grant_type=password`）** の例である。ROPC は公式にレガシー／管理された環境向けとされ、Brazil では無効化するハードニング設定も追加されている（下記）。新規の M2M 連携では **Client Credentials**（`grant_type=client_credentials`、下記 Machine Identity Console で構成）または **JWT Bearer** を使うこと（[§11.8](#118-認証方式の選定指針-経験則)）。
+
 [出典（有効化）](https://www.servicenow.com/docs/r/australia/api-reference/rest-api-explorer/t_EnableOAuthWithREST.html)、[出典（例）](https://www.servicenow.com/docs/r/australia/api-reference/rest-api-explorer/r_RESTOAuthExample.html)
 
 **トークン有効期間（ServiceNow が OAuth プロバイダーの場合の既定）:** アクセストークン 30 分（1800 秒）、リフレッシュトークン 100 日。[出典](https://www.servicenow.com/docs/r/australia/platform-security/authentication/c_OAuthApplications.html)
@@ -770,20 +772,22 @@ curl -d "grant_type=password&client_id=<client_id>&client_secret=<client_secret>
 
 | 項目 | 内容 |
 |---|---|
+| 機能トグル | 機能全体の有効／無効。無効（`false`）時は `glide.authenticate.basic_auth.restriction.enforce` の値に関わらず強制されない。他の設定を変えずに機能を止める緊急停止用 |
 | メニュー | All > Basic Auth Restriction > Properties（変更には `security_admin`） |
 | プロパティ | `glide.authenticate.basic_auth.restriction.default_decision`（既定判断）、`glide.authenticate.basic_auth.restriction.enforce`（`false`＝追跡のみ、`true`＝ブロック） |
 | 個別判断 | Maintain current login（`snc_basic_auth_api_access` ロール付与）、Revoke Basic Auth API login、Convert to web service access only account、Apply default from system property |
 | 強制時に許可される条件 | Web Services Access Only アカウント、有効な MFA ワンタイムパスワード、`snc_basic_auth_api_access` ロールのいずれか |
+| Basic Auth Exception テーブル | 追跡期間中に識別されたユーザーが行として記録される。既定判断は新規行に適用され、**行ごとの判断が既定判断より優先**される |
 
 [出典](https://www.servicenow.com/docs/r/australia/platform-security/authentication/basic-auth-restriction.html)
 
-> 新規／アップグレード済みインスタンスごとの既定動作や強制開始時期は、本調査の公式ページでは確認できなかった。Basic 認証を使う既存連携がある場合は、追跡期間中に識別ユーザー一覧を確認する必要がある。
+> 強制開始日は **enforcement schedule job** で確認・調整するよう公式が案内している。新規／アップグレード済みインスタンスでの機能トグル・enforce の既定状態は公開情報では確認できず。なお公式ページ内で既定判断プロパティ名が `glide.authenticate.basicauth.restriction.defaultdecision` と表記される箇所もあり表記揺れがあるため、実機で確認すること。Basic 認証を使う既存連携がある場合は、追跡期間中に識別ユーザー一覧を確認する必要がある。
 
 ### 11.4 API Key / HMAC 認証
 
 | 項目 | 内容 |
 |---|---|
-| プラグイン | API Key and HMAC Authentication（`com.glide.tokenbased_auth`）。依存：`com.glide.rest.auth.scope`、`com.glide.rest.policy`、`com.glide.auth.scope` |
+| プラグイン | API Key and HMAC Authentication（`com.glide.tokenbased_auth`）。依存：`com.glide.rest.auth.scope`、`com.glide.rest.policy`、`com.glide.auth.scope`。インバウンド REST 向け API Key は **Washington DC で導入**（ServiceNow Community の Developer Advocate ブログ。[出典](https://www.servicenow.com/community/developer-advocate-blog/inbound-rest-api-keys/ba-p/2854924)） |
 | 目的 | Webhook URL 等にユーザー名・パスワードを露出させずに認証する |
 | 必要ロール | `api_service_admin`、`adaptive_auth_policy_admin` |
 | 渡し方 | `x-sn-apikey` を **Auth Header** または **Query Parameter** で送信（プレフィックス指定可） |
@@ -865,9 +869,11 @@ API Access Policy は、非対話セッションの API について**どの認�
 
 - ACL が適切に構成されていれば、**すべてのテーブルが Direct Web Service** として利用可能。
 - WSDL は動的生成：`https://<instance>.service-now.com/<table>.do?WSDL`（例：`incident.do?WSDL`）。テーブル・インポートセットのスキーマと操作を記述。
-- Import Set への SOAP 挿入（SOAP Web Service Import Sets）も可能で、Scripted SOAP より推奨される。
+- Import Set への SOAP 挿入（Web Service Import Sets）も可能。
 
 [出典](https://www.servicenow.com/docs/r/australia/api-reference/web-services/c_SOAPWebService.html)
+
+- Scripted SOAP のページでは、可能な限り Direct Web Services または Web Service Import Sets を使うよう推奨している（[§12.2](#122-scripted-soap-web-services)）。[出典](https://www.servicenow.com/docs/r/australia/api-reference/web-services/c_ScriptedWebServices.html)
 
 **SOAP 関連ロール:**
 
@@ -1004,9 +1010,9 @@ query {
 - Table API など各 REST API の既定トランザクションタイムアウト値（Transaction Quota Rules の値。Batch API の 30 秒のみ確認）。
 - Scripted REST（`sys_ws_definition` / `sys_ws_operation`）、REST Message（`sys_rest_message` / `sys_rest_message_fn`）、GraphQL エンドポイント（`/api/now/graphql`）の公式ページ上での明記。
 - Rate Limit Counts / Violations の格納テーブル名。
-- Basic 認証制限の新規／アップグレードインスタンスでの既定状態と強制開始時期。
+- Basic 認証制限の新規／アップグレードインスタンスでの既定状態（機能トグル・enforce）。強制開始日は各インスタンスの enforcement schedule job で確認する。
 - REST API Explorer の OpenAPI エクスポートの OpenAPI バージョン。
-- API Key and HMAC 認証が導入されたリリース（Australia ドキュメントには存在）。
+- HMAC 認証が導入されたリリース（インバウンド API Key は Washington DC 導入と確認。HMAC も同時かは公開情報では確認できず）。
 
 ---
 
@@ -1065,6 +1071,9 @@ query {
 - API Key and HMAC Authentication for inbound REST APIs: https://www.servicenow.com/docs/r/australia/platform-security/authentication/api-key-and-hmac-rest-apis.html
 - Configure API key: https://www.servicenow.com/docs/r/australia/platform-security/authentication/configure-api-key.html
 - Configure HMAC: https://www.servicenow.com/docs/r/australia/platform-security/authentication/configure-hmac.html
+- Inbound REST API Keys（ServiceNow Developer Advocate Blog, 2024-03-11）: https://www.servicenow.com/community/developer-advocate-blog/inbound-rest-api-keys/ba-p/2854924
+- Create a scripted REST API（Tokyo）: https://docs.servicenow.com/bundle/tokyo-api-reference/page/integrate/custom-web-services/task/t_CreateAScriptedRESTService.html
+- Scripted REST API - ServiceNow Fluent: https://www.servicenow.com/docs/r/application-development/servicenow-sdk/scripted-rest-api-api-now-ts.html
 - API access policy: https://www.servicenow.com/docs/r/australia/platform-security/authentication/api-access-policy.html
 - REST API access policies: https://www.servicenow.com/docs/r/australia/platform-security/authentication/inbound-authentication-profile.html
 - Create REST API access policy: https://www.servicenow.com/docs/r/australia/platform-security/authentication/create-api-access-policy.html

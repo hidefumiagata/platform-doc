@@ -8,32 +8,53 @@ summary: ServiceNow の Finance and Supply Chain（FSC）領域（Source-to-Pay 
 keywords: [Source-to-Pay, S2P, Sourcing and Procurement Operations, SPO, Shopping Hub, Procurement Case Management, Supplier Lifecycle Operations, SLO, Supplier Collaboration Portal, Accounts Payable Operations, APO, Invoice Case Management, Purchase Order Management, POM, Finance and Supply Chain, FSC, ESG, Operational Sustainability Management, OSM, Scope 3, Impact, 購買, 調達, 買掛金, 請求書, サプライヤー, サステナビリティ, sn_shop, sn_ap_apm, sn_slm, sn_poem_core, sn_esg]
 sources:
   - https://www.servicenow.com/docs/r/australia/source-to-pay-operations/source-to-pay-operations-overview.html
-  - https://www.servicenow.com/docs/r/australia/release-notes/source-to-pay-operations-rn-landing.html
-  - https://www.servicenow.com/docs/r/source-to-pay-operations/finance-supply-chain-landing.html
   - https://www.servicenow.com/docs/r/source-to-pay-operations/source-to-pay-operations-overview.html
+  - https://www.servicenow.com/docs/r/source-to-pay-operations/finance-supply-chain-landing.html
+  - https://www.servicenow.com/docs/r/12FXWPUPJJNiwgjoPO9yFQ/QEQzyy~9_KwZMTwjSKkoWw
+  - https://www.servicenow.com/docs/r/australia/release-notes/source-to-pay-operations-rn-landing.html
+  - https://www.servicenow.com/docs/r/jU~ctnBMOlCbro_3WEobbw/76dxJ042khYoArl3rYMA8w
   - https://www.servicenow.com/docs/r/JTWplvZ8VmXxZI9uJMnUeA/HYT66bIsXNniOcW~Vts57A
   - https://www.servicenow.com/docs/r/sSWqWaGiCUELM1~_M8y7eg/uC9NzrCPjw5TWjAqVLwEBg
   - https://www.servicenow.com/docs/r/sSWqWaGiCUELM1~_M8y7eg/uiXF1Nkrpns6FYd83GqqSw
   - https://www.servicenow.com/docs/r/jU~ctnBMOlCbro_3WEobbw/jy2MfzxFDPeCwsp48G~RRQ
   - https://www.servicenow.com/docs/r/jU~ctnBMOlCbro_3WEobbw/F1BhV7K5KV5R6ucvDAswYA
-  - https://www.servicenow.com/docs/r/jU~ctnBMOlCbro_3WEobbw/76dxJ042khYoArl3rYMA8w
   - https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/LgJVgHSP6u4oglLI8KbCgw
+  - https://www.servicenow.com/docs/access?context=sourcing-procurement-operations-rn-static&version=brazil&pubname=brazil-release-notes
+  - https://www.servicenow.com/docs/r/source-to-pay-operations/sourcing-and-procurement-operations/psm-overview.html
+  - https://www.servicenow.com/docs/r/source-to-pay-operations/sourcing-and-procurement-operations/spo-sourcing-pipeline-mgmt.html
+  - https://www.servicenow.com/community/s2p-articles/streamline-sourcing-and-optimize-spend-with-servicenow-s-spend/ta-p/3319949
   - https://www.servicenow.com/docs/r/australia/source-to-pay-operations/supplier-lifecycle-operations/installed-with-supp-mgmt.html
   - https://www.servicenow.com/docs/r/sSWqWaGiCUELM1~_M8y7eg/CDJqWQogtywT40tgSzGAqA
   - https://www.servicenow.com/docs/r/sSWqWaGiCUELM1~_M8y7eg/N5yEu0zofi8zLVBvgoZXvQ
   - https://www.servicenow.com/docs/r/australia/release-notes/supplier-lifecycle-operations-rn.html
+  - https://www.servicenow.com/docs/access?context=supplier-lifecycle-operations-rn-static&version=brazil&pubname=brazil-release-notes
+  - https://www.servicenow.com/docs/r/better-together/better-tprm-slo.html
+  - https://www.servicenow.com/community/s2p-articles/supplier-lifecycle-operations-updates-for-the-yokohama-release/ta-p/3299118
+  - https://www.servicenow.com/docs/r/sSWqWaGiCUELM1~_M8y7eg/p1kM_iWhwyecc0MBHGBl8g
   - https://www.servicenow.com/docs/r/jU~ctnBMOlCbro_3WEobbw/M5u3RolzRYmF9O9~9Cqr1g
   - https://www.servicenow.com/docs/r/jU~ctnBMOlCbro_3WEobbw/mNyLBdoongAfyTUFMatY9w
   - https://www.servicenow.com/docs/r/jU~ctnBMOlCbro_3WEobbw/TUubLhOZ4Vi39YOMAHNJ3w
   - https://www.servicenow.com/docs/r/sSWqWaGiCUELM1~_M8y7eg/FdK1IIP9o4T203W0bdNj0w
   - https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/nTpwfNP0I5S65iuJ0lN0RA
+  - https://www.servicenow.com/docs/access?context=accounts-payable-operations-static-rn&version=brazil&pubname=brazil-release-notes
+  - https://www.servicenow.com/docs/r/jU~ctnBMOlCbro_3WEobbw/Du1s6E4TXcIOLJaEQE2S7Q
+  - https://www.servicenow.com/community/s2p-articles/smarter-matching-less-manual-work-generative-ai-transforms-po/ta-p/3369147
   - https://www.servicenow.com/docs/r/sSWqWaGiCUELM1~_M8y7eg/CRwlypxi_jwKIOdvh2MnMQ
+  - https://www.servicenow.com/docs/r/source-to-pay-operations/now-assist-for-purch-order-magmt.html
+  - https://store.servicenow.com/store/app/8810267c4735fa9482f632c4f16d4300
   - https://www.servicenow.com/docs/r/noxsZ_bRFChHRGVDcT97yQ/BJ63pq7V7uXHuNuNchBjRQ
+  - https://www.servicenow.com/docs/r/tAoFWMNEzTkJ9v_xmb6zGw/lMk7q9YhLz41TjaBbLreEg
+  - https://www.servicenow.com/docs/r/s82Zw_idTcTEahshu77BGw/XZ7bvypo9tp4V7P4LlOcKA
+  - https://www.servicenow.com/docs/r/jU~ctnBMOlCbro_3WEobbw/c_3z3_SunsndIAnR~Hv68g
   - https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/Mz2PVi4IvmXWbg2W7kuAVw
   - https://www.servicenow.com/docs/r/s82Zw_idTcTEahshu77BGw/HjZrU1WUhZOfd52cedv8CA
+  - https://www.servicenow.com/docs/r/V~tl5nFo_tu~5UKBVqLKtw/dqrfBRimNZjgk1D3HhH~xg
+  - https://www.servicenow.com/docs/r/yokohama/delta-vancouver-xanadu/xanadu-vancouver-environmentalsocialandgovernancemanagement-release-notes.html
   - https://www.servicenow.com/docs/r/australia/impact/impact-roles.html
   - https://www.servicenow.com/docs/r/impact/impact-packages1.html
-  - https://www.servicenow.com/community/s2p-articles/smarter-matching-less-manual-work-generative-ai-transforms-po/ta-p/3369147
+  - https://www.servicenow.com/docs/r/VD5jAD3VgRc~i0AwgqwfEQ/ESVT8PKCRl~ezrcAQcVECw
+  - https://www.servicenow.com/docs/r/zurich/integrate-applications/erp-integration-framework/work-with-erp-data-models.html?contentId=VZ5kyv0mPXnN8DPRfZZUag
+  - https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/hgV12yB9XzxQFPJiY83W_g
 ---
 
 # Finance・Supply Chain・その他ワークフロー
@@ -53,14 +74,14 @@ sources:
 | FSC | Purchase Order Management（発注書管理） | POM | [Purchase Order Management](#purchase-order-managementpom) |
 | サステナビリティ | Operational Sustainability Management（旧 Environmental, Social, and Governance (ESG) Management） | OSM | [Operational Sustainability Management](#operational-sustainability-management旧-esg-management) |
 | カスタマーサクセス | ServiceNow Impact | Impact | [ServiceNow Impact](#servicenow-impact) |
-| その他 | ERP 連携（Zero Copy Connector for ERP 等）、Finance Case Management など | ― | [その他の新興製品・関連機能](#その他の新興製品関連機能) |
+| その他 | ERP 連携（Zero Copy Connector for ERP 等）、Finance Case Management、Finance Close Automation など | ― | [その他の新興製品・関連機能](#その他の新興製品関連機能) |
 
 **重要な前提（全体共通）:**
 
-- FSC 製品群・OSM・Impact はいずれも **ServiceNow Store からインストールするアプリケーション**であり、プラットフォームファミリーリリースとは別に Store バージョンで随時更新される。リリースノートも「Australia Early Availability（2026-03）」「June 2026」「September 2026」のように月次エントリーで追記される。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/nTpwfNP0I5S65iuJ0lN0RA)
+- FSC 製品群・OSM・Impact はいずれも **ServiceNow Store からインストールするアプリケーション**であり、プラットフォームファミリーリリースとは別に Store バージョンで随時更新される。リリースノートも「Australia Early Availability（2026-03）」「June 2026」「August 2026」「September 2026」のように月次エントリーで追記される。[出典（SLO リリースノート：September 2026）](https://www.servicenow.com/docs/r/australia/release-notes/supplier-lifecycle-operations-rn.html) / [出典（OSM リリースノート：June / August 2026）](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/Mz2PVi4IvmXWbg2W7kuAVw)
 - 2026 年のドキュメントでは、生成 AI 機能のブランド名 **Now Assist が「ServiceNow Otto」へ改称**された旨が APO・OSM のリリースノートに記載されている（例：Now Assist for IRM → ServiceNow Otto for IRM）。本ファイルでは原文に合わせ両名称を併記する。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/Mz2PVi4IvmXWbg2W7kuAVw)
-- 同じく 2026 年 4 月以降、AI 機能のライセンスティアとして **Foundation / Advanced / Prime** が導入され、利用可能な生成 AI スキル・エージェントはティアに依存する。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/nTpwfNP0I5S65iuJ0lN0RA)
-- AI 関連機能の一部は FedRAMP、DoD IL5、IRAP-Protected、セルフホスト等の制限環境では利用できない。[出典](https://www.servicenow.com/docs/r/impact/impact-packages1.html)
+- 同じく 2026 年 4 月以降、AI 機能のライセンスティアとして **Foundation / Advanced / Prime** が導入され、利用可能な生成 AI スキル・エージェントはティアに依存する。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/Mz2PVi4IvmXWbg2W7kuAVw)
+- FSC / OSM の生成 AI 機能が FedRAMP、DoD IL5、IRAP-Protected、セルフホスト等の制限環境で提供されるかどうかは、公開情報では確認できず（ServiceNow Impact の制限環境での制約は [Impact のパッケージ](#impact-のパッケージ) を参照）。
 
 関連ファイル：[製品ポートフォリオ一覧](../../01_入門編/03-product-portfolio.md)、[Now Assist と AI Agents](../platform/now-assist-ai-agents.md)、[プロセス自動化（Document Intelligence 等）](../platform/process-automation-rpa-mining.md)、[Workflow Data Fabric](../platform/workflow-data-fabric.md)、[Integrated Risk Management (GRC)](../irm/integrated-risk-management.md)、[Hardware Asset Management](../itam/hardware-asset-management.md)、[Workplace・Legal Service Delivery 等](../employee/workplace-legal-other.md)。
 
@@ -140,6 +161,23 @@ Source-to-Pay Operations の概要ページ（Brazil 版、2026-09-10 更新）�
 
 - Standard は「ケース管理（問い合わせ・依頼対応）＋サプライヤーポータル」、Professional は「購買・請求書処理の自動化本体」を含む構成である。
 - 公式ページは「表は主要アプリのみで、依存アプリが追加で含まれる場合がある」と注記している。
+
+**Professional エディションの各アプリの概要**
+
+| アプリ | 目的 | プラグイン ID / スコープ | 主なロール | 本ファイルの関連節 |
+|---|---|---|---|---|
+| ERP Integration Framework | ERP（SAP、Oracle 等）とのデータ連携の基盤 | 公開情報では確認できず | 公開情報では確認できず | [ERP 連携](#erp-連携erp-integration-framework--zero-copy-connector-for-erp) |
+| Source-to-Pay Common Architecture | 購買依頼・PO・検収・請求書などの共通テーブルとロール | `com.snc.sn_shop` / `sn_shop` | `sn_shop.procurement_common_admin` ほか | [共通基盤](#source-to-pay-common-architecture共通基盤) |
+| Sourcing and Purchasing Automation | ソーシング依頼・交渉・購買依頼・PO・検収のワークフロー | `com.snc.sn_pr`【第三者情報】 | `sn_shop.procurement_specialist`、`sn_shop.procurement_administrator` | [SPO](#sourcing-and-procurement-operationsspo) |
+| Spend and Savings Management | 物品・サービスを階層化したカテゴリで管理する。支出カテゴリを取り込んで製品カテゴリにマッピングし、カテゴリ単位で削減額を測る | `sn_spend_mgmt`（Sourcing Pipeline Management の依存プラグインとして記載） | 公開情報では確認できず（想定利用者はカテゴリマネージャー・ソーシングマネージャー） | ― |
+| Sourcing Pipeline Management | ソーシング施策をパイプラインプロジェクトとして作成・追跡する（ソーシングイベント・交渉・契約を紐付け）。削減額の追跡・予測も行う | `sn_spend_pipeline` | `pipeline_management_admin`（Pipeline project creation rule のデシジョンテーブルを構成）。ほかに Sourcing Manager・Fulfiller のペルソナ | [SPO の構成アプリ](#spo-の構成アプリ) |
+| Supplier Operations | SLO を構成するアプリの一つ（Australia へのアップグレード後にインストールが必要）。詳細な機能範囲は公開情報では確認できず | `com.snc.sn_so` | `sn_slm.*` | [SLO](#supplier-lifecycle-operationsslo) |
+| Supplier Payment Optimization | サプライヤーにクレジットカード払いを受け入れてもらうことで削減機会を見つける。削減額の見積もり、傾向スコア（propensity score）、カード払い対応のケース、支払最適化ダッシュボードを含む | `com.snc.sn_slm_opt`（同ページ要約部には `com.snc.snslmopt` の表記もある）。依存：Supplier Operations、Source-to-Pay Workspace、Source-to-Pay Common Architecture | 公開情報では確認できず（想定利用者はサプライヤーマネージャー） | ― |
+| Supplier Relationship and Performance Management | サプライヤー単位・契約単位の KPI、閾値、Action Plan（マイルストーン付きタスク）で関係とパフォーマンスを改善する | 公開情報では確認できず | `sn_kpi.admin` / `sn_kpi.user` | [SLO の主要機能](#slo-の主要機能) |
+| Accounts Payable Invoice Processing | 請求書の受領・マッチング・例外・承認・ERP 連携 | `com.sn_ap_apm`【第三者情報】（公式コンポーネントページには ID の記載なし） / `sn_ap_apm` | `sn_ap_apm.admin`、`sn_ap_apm.accounts_payable_specialist` | [APO](#accounts-payable-operationsapo) |
+
+[出典（Supplier Payment Optimization、Zurich 版）](https://www.servicenow.com/docs/r/sSWqWaGiCUELM1~_M8y7eg/p1kM_iWhwyecc0MBHGBl8g) / [出典（Sourcing Pipeline Management、Brazil 版）](https://www.servicenow.com/docs/r/source-to-pay-operations/sourcing-and-procurement-operations/spo-sourcing-pipeline-mgmt.html) / [出典（Spend and Savings Management、ServiceNow Community 記事）](https://www.servicenow.com/community/s2p-articles/streamline-sourcing-and-optimize-spend-with-servicenow-s-spend/ta-p/3319949)。Platform Analytics Advanced と Virtual Agent はプラットフォーム共通機能のため本表から省いた。
+
 - 価格は公開されていない。ライセンスの考え方は [ライセンスモデル](../../03_導入編/01-licensing-model.md)、[エディション比較](../../03_導入編/03-edition-comparison.md) を参照。
 
 ### Source-to-Pay Workspace
@@ -279,7 +317,7 @@ Source-to-Pay Common Architecture は 80 を超えるテーブルをインスト
 | Procurement Case Management（調達ケース管理） | スコープ `sn_spend_psd` | 従業員の調達ケース受付、ナレッジ、フルフィルメントタスク |
 | Progress Tracker | ― | 購買依頼・PO の現在状態を表示 |
 | Sourcing Pipeline Management | `sn_spend_pipeline` | ソーシング施策の作成・追跡、削減額トラッキング |
-| Spend and Savings Management | ― | 物品・サービスのカテゴリ管理 |
+| Spend and Savings Management | `sn_spend_mgmt` | 物品・サービスのカテゴリ管理 |
 | Performance Analytics for SPO | ― | 支出・効率・チームパフォーマンスの事前定義指標とダッシュボード |
 | AI Search | ― | Service Portal、Employee Center、Mobile、Virtual Agent での検索 |
 | Universal Request | Universal Request for Source-to-Pay Operations（`sn_fsc_ur_common`、第三者情報） | Employee Center での部門横断依頼。ルーティングエージェントが調達ケースを作成 |
@@ -485,16 +523,25 @@ Supplier Lifecycle Operations の Australia リリースノート。[出典](htt
 | Summarize supplier performance | スキルでサプライヤーパフォーマンスの要約・インサイト生成 |
 | Analyze sentiments in supplier cases | フルフィラーのトーンを評価 |
 | Generate an email response for supplier cases | ケース情報・過去メール・KB・関連タスクから返信案を生成 |
+| Action plan improvements | Action plan に Gantt チャート表示、メール通知、メッセージング、アクティビティストリームを追加 |
+| Automatic tasks for expiring supplier documents | 期限が近づいたサプライヤー文書について、文書オーナーに更新版の提出を求めるサプライヤータスクをポータル／ワークスペースに自動生成。期限切れ後はメールリマインダーとサプライヤーケースでのフォローアップに代わり自動タスクを使う |
+| Contact document upload without document configuration | Supplier document configuration が未設定でも、サプライヤー担当者がポータルから文書をアップロード可能（ワークスペースのサプライヤーマネージャーは従来から可能） |
 
-**September 2026（Australia ページ記載。Brazil EA と同内容）**
+**September 2026**
 
-> **Brazil での変更:** Brazil EA（2026-09）リリースノートに同一の項目が記載されている。[出典](https://www.servicenow.com/docs/access?context=supplier-lifecycle-operations-rn-static&version=brazil&pubname=brazil-release-notes)
-> - **FedEx Dataworks 連携**：Registration ステージでのサプライヤー検証（FedEx Dataworks Supplier ID 生成）、Qualification ステージでの通関リスク・制裁国スクリーニング・危険物リスク評価、サプライヤープロファイルでの物流パフォーマンスベンチマーク。
-> - **AI L1 SLO Service Desk Specialist**：公開ナレッジと FSC Common KG Tags（Enterprise knowledge graph）を使ってサプライヤー問い合わせを自律解決。
-> - クローズ済みサプライヤーケース（単一・複数）からのナレッジ記事生成（Otto for SLO）。
-> - **Relish 連携**：税情報変更依頼の検証、制裁ステータス表示（Manage Suppliers リスト）、銀行口座所有者確認（所有者検証有効時は口座番号・名義も確認）、一括制裁スクリーニング。
-> - AI オンボーディング強化：Web 検索結果からサプライヤースコアカード生成、Craft 構成時は正規化スコアカードとリスク評価、Relish 連携時は銀行情報の検証・同期。
-> - Now LLM Service：Gemma 4 追加。旧モデルは既存公開スキル等では継続利用可だが新規開発・構成には使用不可（KB3066214）。
+Australia リリースノートの September 2026 節に記載された Store 更新。[出典](https://www.servicenow.com/docs/r/australia/release-notes/supplier-lifecycle-operations-rn.html)
+
+| 区分 | 機能 | 内容 |
+|---|---|---|
+| New | FedEx Dataworks 連携 | Registration ステージでのサプライヤー検証（FedEx Dataworks Supplier ID 生成）、Qualification ステージでの通関リスク・制裁国スクリーニング・危険物リスク評価、サプライヤープロファイルでの物流パフォーマンスベンチマーク |
+| New | AI L1 SLO Service Desk Specialist | 公開ナレッジと FSC Common KG Tags（Enterprise knowledge graph）を使ってサプライヤー問い合わせを自律解決 |
+| New | ナレッジ記事生成 | クローズ済みサプライヤーケース（単一・複数）からナレッジ記事を生成（Otto for SLO） |
+| New | Relish 連携（税情報・制裁ステータス） | 税情報変更依頼の検証、Manage Suppliers リストでの制裁ステータス表示 |
+| Changed | Relish 連携（銀行口座・一括スクリーニング） | 銀行口座所有者確認（所有者検証有効時は口座番号・名義も確認）、一括制裁スクリーニング |
+| Changed | AI オンボーディング強化 | Web 検索結果からサプライヤースコアカード生成、Craft 構成時は正規化スコアカードとリスク評価、Relish 連携時は銀行情報の検証・同期 |
+| 廃止・変更（Deprecated/removed） | Now LLM Service | Gemma 4 を追加。旧モデルは既存の公開スキル・エージェント・ワークフローでは継続利用できるが、新規開発・構成には使えない（KB3066214） |
+
+> 注：Brazil EA（2026-09）の SLO リリースノートにも同じ項目が記載されている。[出典](https://www.servicenow.com/docs/access?context=supplier-lifecycle-operations-rn-static&version=brazil&pubname=brazil-release-notes)
 
 ---
 
@@ -506,14 +553,14 @@ Supplier Lifecycle Operations の Australia リリースノート。[出典](htt
 
 | プラグイン / アプリ | ID / スコープ | 説明 |
 |---|---|---|
-| Accounts Payable Operations（Accounts Payable Invoice Processing） | `com.sn_ap_apm` / `sn_ap_apm` | 請求書処理本体（S2P Professional に含まれる） |
-| Invoice Case Management | `com.sn_ap_cm` / `sn_ap_cm` | 請求書問い合わせ・処理ケース。APO の依存アプリとして自動インストール（S2P Standard に含まれる） |
+| Accounts Payable Operations（Accounts Payable Invoice Processing） | `com.sn_ap_apm`【第三者情報】 / `sn_ap_apm` | 請求書処理本体（S2P Professional に含まれる） |
+| Invoice Case Management | `com.sn_ap_cm`【第三者情報】 / `sn_ap_cm` | 請求書問い合わせ・処理ケース。APO の依存アプリとして自動インストール（S2P Standard に含まれる） |
 | Finance Common Architecture | `com.sn_fin` | 依存。サプライヤー支払情報のロール・テーブル |
 | Source-to-Pay Common Architecture | `com.snc.sn_shop` | 依存。請求書・PO 等の共通テーブル |
 | Tax Engine Integration with Vertex | `com.sn_fsc_vertex` | Australia で新規。Vertex による請求書税額検証 |
 | APO integration with Document Intelligence | ― | 請求書 PDF からの項目抽出。ステージングテーブル `sn_ap_ic_invoice_stage`、`sn_ap_ic_invoice_line_stage`【第三者情報】 |
 
-- `com.sn_ap_apm` / `com.sn_ap_cm` のプラグイン ID は検索結果に引用された公式ページ記述に基づく。
+- `com.sn_ap_apm` / `com.sn_ap_cm` のプラグイン ID は検索結果の要約に基づく。公式コンポーネントページには ID の記載なし。【第三者情報】
 - Document Intelligence の請求書抽出モデルは **英語のみ** 対応で、他の対応言語ではモデル学習が必要。日本語請求書の自動読取は追加学習前提となる点に注意。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/nTpwfNP0I5S65iuJ0lN0RA)（Document Intelligence 自体は [プロセス自動化](../platform/process-automation-rpa-mining.md) を参照）
 
 ### APO のロール
@@ -526,10 +573,9 @@ Australia 版「Components installed with Accounts Payable Invoice Processing」
 | Accounts Payable Specialist（買掛金スペシャリスト） | `sn_ap_apm.accounts_payable_specialist` | 請求書・例外の参照・更新、PO・サプライヤー詳細・支払の参照 | `sn_fin.supplier_payment_info_read`、`sla_manager`、`workspace_user`、`canvas_user`、`sn_ap_apm.reader`、`sn_ap_cm.task.owner`、`email_composer` |
 | Accounts Payable Invoice Processing Reader | `sn_ap_apm.reader` | APO 全テーブル読み取り | `vendor_reader`、`sn_shop.procurement_common_reader` |
 | Invoice tolerance admin | `sn_ap_apm.invoice_tolerance_admin` | 許容差ルール管理【第三者情報】 | ― |
-| Supplier Payment Info Read / Write | `sn_fin.supplier_payment_info_read` / `sn_fin.supplier_payment_info_write` | サプライヤー・支払情報テーブルの読み取り／書き込み（Finance Common Architecture） | ― |
+| Supplier Payment Info Read / Write | `sn_fin.supplier_payment_info_read` / `sn_fin.supplier_payment_info_write` | サプライヤー・支払情報テーブルの読み取り／書き込み（Finance Common Architecture）。Write ロールは Invoice exceptions ページでは **Supplier Enablement Manager** と呼ばれ、Supplier Legal Entity Mapping への追加や支払／転記保留の解除に使う（[出典](https://www.servicenow.com/docs/r/jU~ctnBMOlCbro_3WEobbw/TUubLhOZ4Vi39YOMAHNJ3w)） | ― |
 | Invoice Owner | `sn_shop.invoice_owner` | 業務オーナー（Source-to-Pay Common Architecture） | ― |
 | Invoice Case Management Agent / Admin | `sn_ap_cm.agent` / `sn_ap_cm.admin` | 請求書ケースの処理／管理 | ― |
-| Supplier Enablement Manager | `sn_fin.supplier_payment_info_write` | サプライヤー・法人マッピングや保留フラグの修正（例外解決で使用） | ― |
 
 ### APO のテーブル・フロー・スケジュールジョブ
 
@@ -573,8 +619,10 @@ APO の請求書は次の状態を遷移する（Australia 版「Invoice status 
 
 ```mermaid
 stateDiagram-v2
+  [*] --> No_invoice
   [*] --> Draft
   [*] --> Received
+  No_invoice --> Draft: DocIntelで補完
   Draft --> Received
   Received --> Suspected_duplicate
   Received --> Accepted
@@ -585,6 +633,7 @@ stateDiagram-v2
   PO_matching_error --> PO_matching_completed: 手動マッピング
   PO_matching_completed --> Exceptions_found
   Accepted --> Exceptions_found: Non-PO請求書
+  Accepted --> No_exceptions_found: Non-PO請求書（例外なし）
   Exceptions_found --> No_exceptions_found
   PO_matching_completed --> No_exceptions_found
   No_exceptions_found --> Pending_approval
@@ -607,6 +656,19 @@ APO は請求書明細を PO 明細へマッピング（PO matching）する。�
 - **画面の説明:** 請求書レコード（例：INVC0001039）のヘッダーに Status（Accepted）、Supplier、Supplier invoice number、Due date、Assigned to、Type（PO Invoice）が表示される。タブは Playbook / Invoice header / Invoice lines / Tax lines / Exceptions / Tasks / Purchase order lines。左ペインのプレイブックは「Validate invoice（Review header details / Review invoice lines / Review tax lines）」「Check duplicates（Review duplicates）」「Map invoice lines（Verify purchase order / Review PO line mapping）」「Review exceptions」のステージで構成される。中央の「Review PO line mapping」では Needs attention / Complete / All PO lines タブと「Confirm mapping」ボタンがあり、全明細のマッピング完了で処理が自動継続する。右ペインは Agent Assist（関連する買掛金ケースの検索結果）を表示する。
 - **出典:** https://www.servicenow.com/community/s2p-articles/smarter-matching-less-manual-work-generative-ai-transforms-po/ta-p/3369147 （ServiceNow Community 公式記事、取得日 2026-11-02）
 
+### Otto for APO の文書分類スキル（Yokohama 以前から提供）
+
+**Accounts payable document classification skill（買掛金文書分類スキル）** は、Now Assist（ServiceNow Otto）for APO の生成 AI スキルで、請求書データ抽出の前段で受信文書の種別を判定する。有効化すると、メールに添付された文書が自動的に分類され、請求書としてワークスペースに振り分けられる。分類結果は請求書ステージングレコードに書き戻され、後続の請求書データ抽出（Document Intelligence）に引き継がれる。構成ページは Yokohama 版・Zurich 版・Australia 版のドキュメントに存在し、Australia の新機能ではない。[出典（Australia 版構成ページ）](https://www.servicenow.com/docs/r/jU~ctnBMOlCbro_3WEobbw/c_3z3_SunsndIAnR~Hv68g) / [出典（Yokohama 版）](https://www.servicenow.com/docs/r/JTWplvZ8VmXxZI9uJMnUeA/6ukf~SPnY2tFkC0xvIYkCA) / [出典（Zurich 版）](https://www.servicenow.com/docs/r/sSWqWaGiCUELM1~_M8y7eg/wPcXuSFDvWBElGRvkgkViA)
+
+| 項目 | 内容 |
+|---|---|
+| 必要プラグイン | ServiceNow Otto in Document Intelligence、Account Payable Invoice Processing、ServiceNow Otto for Accounts Payable Operations (APO)、Document Intelligence for Accounts Payable Operations Content Pack |
+| 必要ロール | `admin` |
+| 有効化 | AI Admin Hub > Skills > AI skills タブ（Common Finance & Supply Chain features）で Finance and Supply Chain > Accounts Payable Operations > Accounts payable document classification を選び、Activate |
+| 必要なフロー（コピーして有効化） | Invoice processing case for invoice email ／ Process classification attachment using DI（添付を Document Intelligence に送り文書種別を判定）／ Classification values on invoice staging（分類結果を請求書レコードへ書き戻し） |
+| スケジューラ | Manual Classification on DI Error（**既定は非アクティブ**、30 分ごと）。分類処理中で滞留した請求書ケースを検出し、全ステージングレコードが滞留なら DI status を Classification failed、一部なら Classification STP failed にし、ステージングレコードを Review required にする |
+| 信頼度の閾値 | Australia 版構成ページには信頼度（confidence）閾値の記載なし。公開情報では確認できず |
+
 ### 請求書例外（Invoice exceptions）
 
 **Invoice exceptions（請求書例外）** は、支払前に解決が必要な請求書処理中の不一致で、Source-to-Pay Workspace に一覧表示される。[出典](https://www.servicenow.com/docs/r/jU~ctnBMOlCbro_3WEobbw/TUubLhOZ4Vi39YOMAHNJ3w)
@@ -625,7 +687,7 @@ APO は請求書明細を PO 明細へマッピング（PO matching）する。�
 | Insufficient Funds: Quantity variance | 明細 | PO | PO 修正または請求額修正 |
 | Insufficient Funds: Line amount variance | 明細 | PO | 同上 |
 | Insufficient Funds: Header amount variance | ヘッダー | PO | 同上 |
-| Insufficient Goods Receipt | 明細 | PO | SPO ありなら自動作成される検収タスクを完了（`sn_shop.acknowledgement_task_owner`）。なしなら例外タスクを作成し業務オーナーが Employee Center で完了 |
+| Insufficient Goods Receipt | 明細 | PO | SPO ありなら自動作成される検収タスクを完了（`sn_shop.acknowledgment_task_owner`）。なしなら例外タスクを作成し業務オーナーが Employee Center で完了 |
 | Valid coding required | 明細 | 全 | 勘定科目・コストセンター・配賦を入力 |
 | Missing required information | ヘッダー | 全 | 支払条件・請求書種別・サプライヤー・金額・日付・法人を入力 |
 | Missing or Invalid Business Owner | ヘッダー | 全 | 請求書明細の業務オーナーを更新 |
@@ -674,10 +736,12 @@ Accounts Payable Operations の主なプロパティ（Zurich 版。Australia �
 | New | Tax Engine Integration with Vertex（`com.sn_fsc_vertex`） | Vertex との連携プラグイン |
 | New | Email parser agent for APO | サプライヤー・請求書オーナーからのメール（L1 ケース・タスク）を AI エージェントが分類し請求書ケースを作成 |
 | New | Invoice rejection modes | 例外タイプ別の却下動作設定 |
-| New | Supplier case resolution / confirmation | サプライヤーがポータルを開かずに解決内容の送信・追跡・確認 |
-| New | Accounts payable document classification skill | サプライヤーからのメール添付を請求書・クレジットメモ・補足文書に分類（Now Assist for APO） |
+| Changed（概要・ハイライトに記載） | Supplier case resolution / confirmation | サプライヤーがポータルを開かずに解決内容の送信・追跡・確認 |
 | Changed | Invoice exceptions | 強化・更新 |
 | Removed | Supplier tax roll-up | 廃止。ロールアップはシステム税額のみ（サプライヤー税額の独立検証がなかったため） |
+
+- 同リリースノートの Australia 節の見出しは **What's new / What's deprecated or removed / Plugin information / New plugins** のみで、「What's new」に載るのは Tax engine integration、Email parser agent for APO、Invoice rejection modes の 3 件である。Supplier case resolution / confirmation と税明細への Jurisdiction 等の保持は、冒頭の概要（About）とハイライトにのみ記載されている。
+- Accounts payable document classification skill（文書分類スキル）は Australia の新機能ではない（Yokohama 版以前から構成ページが存在）。[Otto for APO の文書分類スキル](#otto-for-apo-の文書分類スキルyokohama-以前から提供) を参照。
 
 - 2026-06 付の Store 更新で、未登録送信元アドレスからの請求書を「Unverified Sender Source」例外として自動フラグ付けする機能が案内されている。【第三者情報】（検索結果の要約）
 
@@ -693,7 +757,13 @@ Accounts Payable Operations の主なプロパティ（Zurich 版。Australia �
 
 ### POM の概要
 
-**Purchase Order Management（POM、発注書管理）** は、PO 執行プロセスの異常（納期・数量・価格等の不一致）を検知・追跡・解決するアプリで、プラグイン ID は `com.snc.sn_poem_core`、Store からインストールする。サプライヤーは Supplier Collaboration Portal から PO 明細の納期計画の問題を自己申告し、バイヤーと SLO 上で協働できる。バイヤーは戦略バイヤーへエスカレーションでき、エスカレーション時はサプライヤーケースが作成される。【第三者情報】（検索結果の要約に基づく。プラグイン ID は公式ページ記載とされる）
+**Purchase Order Management（POM、発注書管理）** は、PO 執行プロセスの異常（PO 例外）を、自動化・サプライヤーの自己申告・協働によって検知・解決するアプリである。[出典（Australia、S2P 概要）](https://www.servicenow.com/docs/r/australia/source-to-pay-operations/source-to-pay-operations-overview.html) POM は PO 例外・PO 例外タスク・PO 確認（サプライヤーの受注確認）をテーブルとして持ち、Operational Buyer（`sn_poem_core.operational_buyer`）が PO 例外を解決する。サプライヤーは例外申告時に PO 明細を分割できる（Purchase Order Exception Split Line）。[出典（Zurich、POM コンポーネント）](https://www.servicenow.com/docs/r/sSWqWaGiCUELM1~_M8y7eg/CRwlypxi_jwKIOdvh2MnMQ)
+
+- Store からインストールする。[出典（ServiceNow Store）](https://store.servicenow.com/store/app/8810267c4735fa9482f632c4f16d4300)
+- 以下は公式ページで直接確認できなかった事項である。【第三者情報】（検索結果の要約に基づく）
+  - プラグイン ID は `com.snc.sn_poem_core`（スコープ `sn_poem_core` はロール名から確認できる）。
+  - サプライヤーは Supplier Collaboration Portal から PO 明細の納期計画の問題を自己申告し、バイヤーと協働する。
+  - バイヤーは戦略バイヤーへエスカレーションでき、エスカレーション時はサプライヤーケースが作成される。
 
 ### POM のロールとテーブル
 
@@ -714,7 +784,7 @@ Zurich 版「Components installed with Purchase Order Management」。[出典](h
 | Purchase Order Confirmation | `sn_poem_po_confirmation` | PO 確認（サプライヤー受注確認） |
 | Purchase Order Confirmation Line | `sn_poem_po_confirmation_line` | PO 確認明細 |
 
-- Australia で **Now Assist for Purchase Order Management** が新規プラグインとして追加され、サプライヤーメールを PO 例外に変換・優先度付けする。[出典](https://www.servicenow.com/docs/r/australia/release-notes/source-to-pay-operations-rn-landing.html)
+- **ServiceNow Otto for Purchase Order Management**（旧 Now Assist for POM）は、PO 例外・PO 確認の作成を自動化し、PO 例外を会話形式で解決できるようにする。エージェンティックワークフローで PO 執行の異常を追跡・解決し、構造化されていないサプライヤーメールから優先度付きの例外リストを作る。Brazil 版ドキュメントの記載で、導入リリースとプラグイン ID は公開情報では確認できず。[出典](https://www.servicenow.com/docs/r/source-to-pay-operations/now-assist-for-purch-order-magmt.html)
 
 ---
 
@@ -774,9 +844,9 @@ Australia 版「Components installed with Operational Sustainability Management�
 | `sn_esg.data_owner`（データオーナー） | 割り当てられた指標データタスクへの入力 | `sn_grc_metric.user`、`sn_grc_metric.reader`、`sn_grc_workspace.user` 等 |
 | `sn_esg.reader` | 読み取り | ― |
 | `sn_esg_risk_mgmt.risk_manager` | ESG リスク評価（フレームワーク・リスクステートメント・評価の作成と承認）。`sn_esg_risk_mgmt` 有効時のみ | ― |
-| Claims manager（`sn_grc_claims.*`） | ESG クレームの作成・編集・エクスポート | ― |
+| `sn_grc_claims.manager`（Claims manager） | ESG クレームの作成・編集・エクスポート | ― |
 
-> 注：取得したコンポーネントページは仏語機械翻訳の影響でロール名・プロパティ名の一部が翻訳表記になっていたため、`sn_esg.program_manager`、`sn_esg.data_owner` 等は英語版リリースノート・他ページの表記に合わせて記載した。インテグレーション管理ロールは `sn_esg.integrations_admin`（コンポーネント表）と `sn_esg.integration_admin`（リリースノート）で表記が揺れている。
+> 注：ロール名は英語版コンポーネントページ（Zurich、en-US）で照合した。[出典](https://www.servicenow.com/docs/r/tAoFWMNEzTkJ9v_xmb6zGw/lMk7q9YhLz41TjaBbLreEg) インテグレーション管理ロールはコンポーネントページでは `sn_esg.integrations_admin`（`sn_esg.admin` の含有ロール）、リリースノートでは `sn_esg.integration_admin` と表記が揺れている。
 
 ### OSM の主要テーブル
 
@@ -809,9 +879,9 @@ Australia 版「Components installed with Operational Sustainability Management�
 | `sn_esg.metric_campaign` | OSM ワークスペースでキャンペーンを有効化 |
 | `sn_esg.campaign_bulk_action_enabled` | キャンペーンの一括送信・承認・却下を有効化 |
 | `glide.ui.sn_esg_disclosure_activity.fields` / `glide.ui.sn_esg_material_topic_activity.fields` | 開示・マテリアル課題のアクティビティフォーマッタ項目 |
-| Scope 3 historical years（`sn_esg_scope3.*`） | Scope 3 ダッシュボードに表示する過去年数（英語の正式プロパティ名は公開情報では確認できず） |
+| `sn_esg_scope3.historical_years_selector` | Scope 3 ダッシュボードに表示する過去年数（既定 5、3〜5 で設定） |
 
-[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/Mz2PVi4IvmXWbg2W7kuAVw)
+[出典（コンポーネントページ、Zurich 英語版）](https://www.servicenow.com/docs/r/tAoFWMNEzTkJ9v_xmb6zGw/lMk7q9YhLz41TjaBbLreEg) / [出典（Scope 3 dashboard、Australia 版）](https://www.servicenow.com/docs/r/s82Zw_idTcTEahshu77BGw/XZ7bvypo9tp4V7P4LlOcKA)。`sn_esg.metric_campaign`、`sn_esg.campaign_bulk_action_enabled` はリリースノートの記載に基づく。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/Mz2PVi4IvmXWbg2W7kuAVw)
 
 ### OSM の Australia における新機能・変更
 
@@ -858,12 +928,14 @@ Brazil 版（2026-09-10 更新）のパッケージ構成。[出典](https://www
 | Impact Squad | Customer Success Manager | CSM、Customer Success Executive、Platform Architect、Support Account Manager | （Total に準拠） |
 | P1 / P2 初回応答 | 30 分 / 120 分 | 15 分 / 60 分 | （Total に準拠） |
 | Developer Support | なし | 10 席 | （Total に準拠） |
-| Accelerator サブカタログ | Technical、Strategy（一部）、Architecture（一部） | Technical、Strategy、Architecture、Optimization | ― |
-| Accelerator 同時実行 | サブカタログごと 1 | 2（Optimization は 1） | ― |
-| Scan Engine カスタム定義 / 修正案 | 最大 10 / なし | 無制限 / あり | ― |
-| Instance Observer（席 / 遡及期間 / アラート種別） | 5 / 45 日 / 6 | 10 / 6 か月 / 40 | ― |
+| Accelerator サブカタログ | Technical、Strategy（一部）、Architecture（一部） | Technical、Strategy、Architecture、Optimization | （Total に準拠） |
+| Accelerator 同時実行 | サブカタログごと 1 | Technical・Strategy・Architecture 各 2、Optimization 1 | （Total に準拠） |
+| Scan Engine カスタム定義 / 修正案 | 最大 10 / なし | 無制限 / あり | （Total に準拠） |
+| Instance Observer（席 / 遡及期間 / アラート種別） | 5 / 45 日 / 6 | 10 / 6 か月 / 40 | （Total に準拠） |
+| Instance Observer analytics | なし | あり（Total のみ含む） | （Total に準拠） |
 
 - アドオン例：Strategic Value、Platform Governance、Managed Support、Preventive Care、Platform Optimization。
+- ServiceNow Impact の一部機能は、FedRAMP、NSC DoD IL5、Australia IRAP-Protected、セルフホスト等の環境では利用できない場合がある。[出典](https://www.servicenow.com/docs/r/impact/impact-packages1.html)
 - 旧版ドキュメントには「Advanced」パッケージの記載があり、構成はバージョンで変化している。契約時は CSM に確認すること。
 
 ### Impact のロール
@@ -881,11 +953,12 @@ Australia 版「Roles installed with Impact」（IDI と Store アプリ共通�
 | Impact Developer Support | Impact Developer Support | Development / Support | 不具合サポートケース、カスタム開発依頼 |
 | Scan Engine Admin / User | `sn_se.scan_engine_admin` / `sn_se.scan_engine_user` | Scan Engine | Scan Engine の管理／参照 |
 | AI Fix User | `sn_impact_gen_ai_ai_fix_user` | Scan Engine | AI 生成コード修正の利用 |
+| Internal REST Integration | `sn_iu_internal_rest_integration` | Scan Engine | Scan Engine の REST API 連携。Scan Engine 定義・例外理由の同期、Update Set スキャンデータの同期、自動データ同期 |
 | IO Standard / IO Read Only | `io_standard` / `io_readonly` | Instance Observer | Instance Observer の全機能／参照 |
 | Impact Executive / Impact User / Impact Partner | `sn_impact_common.Impact Executive` 等 | User-Level | 経営向けダッシュボード参照、読み取り、パートナー向け参照 |
 
 - Accelerator は本番運用のハンズオン作業支援（hands-on keyboard support）を目的としない。【第三者情報】（Community 記事の要約）
-- Impact を使ったガバナンス・技術的負債管理の実践は [ガバナンスと CoE の実践](../../04_応用編/09-governance-coe-practice.md)、[カスタマイズと技術的負債](../../04_応用編/02-customization-technical-debt.md) を参照。
+- Impact を使ったガバナンス・技術的負債管理の実践は [ガバナンスと CoE の実践](../../04_応用編/09-governance-coe-practice.md)、[アップグレードの教訓](../../04_応用編/04-upgrade-lessons.md)、[スクリプティングのベストプラクティス](../../04_応用編/07-scripting-best-practices.md) を参照。
 
 ---
 
@@ -907,6 +980,23 @@ FSC 製品は ERP を System of Record とし、ServiceNow をワークフロー
 ### Finance Case Management / Common Service Delivery
 
 財務部門向けの問い合わせ・依頼をケースとして管理する機能群として、**Finance Case Management** が FSC 領域で案内されている。Common Service Delivery（`sn_spend_sdc`）は Finance Case、Finance Case Line、Finance Task、Playbook status テーブルを含むとされる。【第三者情報】（検索結果の要約。Australia 版の構成要素ページは公開情報では確認できず）
+
+### Finance Close Automation
+
+**Finance Close Automation（決算業務自動化）** は、決算タスクと仕訳（journal entry）をワークフローと自動化で管理し、決算期間の短縮と誤りのリスク低減を図る Store アプリである。公式リリースノートに記載された主な機能は次のとおり。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/hgV12yB9XzxQFPJiY83W_g)
+
+| バージョン（時期） | 主な機能 |
+|---|---|
+| 5.2.0（2019-09） | SAP・Oracle とのリアルタイムコネクター |
+| 5.2.3（2019-11） | グループ割当、タスク・仕訳の一括承認／却下 |
+| 5.2.4（2020-01） | NetSuite ERP 連携、CSV による仕訳インポート |
+| 6.1.0（2020-03） | Finance Workspace、Finance Close ダッシュボード |
+| 6.6.0（2020-05） | タスクの SLA 定義・追跡、Finance Close ダッシュボードでの SLA レポート |
+| 6.7.1（2020-06） | Finance Workspace でのグローバル検索（決算タスク・仕訳・フォローアップタスク）、Planning 状態のワークブックでのタスク依存関係作成、決算タスクの一括更新、Weighted Progress フィールド |
+
+- 公式リリースノートの最終更新は 2020-06（6.7.1）で、それ以降の更新、Australia / Brazil での提供状況、販売終了の有無は公開情報では確認できず。導入を検討する場合は ServiceNow Store の掲載状況と互換性を確認すること。
+- プラグイン ID・ロール・テーブルは公開情報では確認できず。
+- 勘定照合（account reconciliation）機能の有無は公式リリースノートに記載がなく、公開情報では確認できず。
 
 ### その他の関連製品（他ファイル参照）
 
@@ -933,7 +1023,7 @@ FSC 製品は ERP を System of Record とし、ServiceNow をワークフロー
 | 外部ユーザー | Supplier Collaboration Portal は `sn_slm.contact`（`snc_external`）。社内ロールではポータルにアクセス不可 | [出典](https://www.servicenow.com/docs/r/australia/source-to-pay-operations/supplier-lifecycle-operations/installed-with-supp-mgmt.html) |
 | ERP との役割分担 | 支払実行・会計転記は ERP 側。APO は Pending payment → Paid を ERP からの連携で反映 | [出典](https://www.servicenow.com/docs/r/jU~ctnBMOlCbro_3WEobbw/mNyLBdoongAfyTUFMatY9w) |
 | OSM の承認方式 | `sn_esg.metric_approval` はセットアップ時に決める必要がある | [出典](https://www.servicenow.com/docs/r/noxsZ_bRFChHRGVDcT97yQ/BJ63pq7V7uXHuNuNchBjRQ) |
-| AI 機能 | Foundation / Advanced / Prime ティアと制限環境（FedRAMP 等）での提供可否を確認 | [出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/nTpwfNP0I5S65iuJ0lN0RA) |
+| AI 機能 | Foundation / Advanced / Prime のどのティアで目的の生成 AI スキル・エージェントが使えるかを確認する（FedRAMP 等の制限環境で FSC / OSM の AI 機能が使えるかは公開情報では確認できず） | [出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/Mz2PVi4IvmXWbg2W7kuAVw) |
 
 ---
 
@@ -942,8 +1032,12 @@ FSC 製品は ERP を System of Record とし、ServiceNow をワークフロー
 - Source-to-Pay Operations、APO、SLO、OSM、Impact の価格（公開定価なし）。
 - Australia 版での S2P エディション（Standard/Professional）構成表（Brazil 版のみ確認）。
 - SPO の Australia 版コンポーネント一覧（プラグイン ID の全量、Procurement Case Management のテーブル一覧）。
-- POM の Australia 版コンポーネント（Zurich 版で記載）。
-- OSM の Brazil 新機能、Scope 3 履歴年数プロパティの英語正式名。
+- POM の Australia 版コンポーネント（Zurich 版で記載）、POM のプラグイン ID、Otto for POM の導入リリース。
+- Finance Close Automation の現行ステータス（公式リリースノートは 2020-06 が最終）。
+- Spend and Savings Management、Supplier Payment Optimization、Supplier Relationship and Performance Management のロール一覧。
+- FSC / OSM の生成 AI 機能の制限環境（FedRAMP 等）での提供可否。
+- OSM の Brazil 新機能。
+- Accounts payable document classification skill の信頼度閾値と導入リリース（Yokohama 版以前から存在）。
 - Brazil の GA 日付（情報源により不一致）。
 - 日本の法制度（インボイス制度・電子帳簿保存法）への標準対応状況。
 
@@ -968,6 +1062,8 @@ FSC 製品は ERP を System of Record とし、ServiceNow をワークフロー
 - https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/LgJVgHSP6u4oglLI8KbCgw （Australia、SPO リリースノート）
 - https://www.servicenow.com/docs/access?context=sourcing-procurement-operations-rn-static&version=brazil&pubname=brazil-release-notes （Brazil、SPO リリースノート）
 - https://www.servicenow.com/docs/r/source-to-pay-operations/sourcing-and-procurement-operations/psm-overview.html （Brazil、SPO 概要）
+- https://www.servicenow.com/docs/r/source-to-pay-operations/sourcing-and-procurement-operations/spo-sourcing-pipeline-mgmt.html （Brazil、Sourcing Pipeline Management）
+- https://www.servicenow.com/community/s2p-articles/streamline-sourcing-and-optimize-spend-with-servicenow-s-spend/ta-p/3319949 （Community、Spend and Savings Management）
 
 **Supplier Lifecycle Operations**
 - https://www.servicenow.com/docs/r/australia/source-to-pay-operations/supplier-lifecycle-operations/installed-with-supp-mgmt.html （Australia、コンポーネント）
@@ -977,6 +1073,7 @@ FSC 製品は ERP を System of Record とし、ServiceNow をワークフロー
 - https://www.servicenow.com/docs/access?context=supplier-lifecycle-operations-rn-static&version=brazil&pubname=brazil-release-notes （Brazil、SLO リリースノート）
 - https://www.servicenow.com/docs/r/better-together/better-tprm-slo.html （TPRM と SLO の連携）
 - https://www.servicenow.com/community/s2p-articles/supplier-lifecycle-operations-updates-for-the-yokohama-release/ta-p/3299118 （Community、Yokohama SLO 更新）
+- https://www.servicenow.com/docs/r/sSWqWaGiCUELM1~_M8y7eg/p1kM_iWhwyecc0MBHGBl8g （Zurich、Supplier Payment Optimization）
 
 **Accounts Payable Operations**
 - https://www.servicenow.com/docs/r/jU~ctnBMOlCbro_3WEobbw/M5u3RolzRYmF9O9~9Cqr1g （Australia、AP Invoice Processing コンポーネント）
@@ -986,14 +1083,20 @@ FSC 製品は ERP を System of Record とし、ServiceNow をワークフロー
 - https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/nTpwfNP0I5S65iuJ0lN0RA （Australia、APO リリースノート）
 - https://www.servicenow.com/docs/access?context=accounts-payable-operations-static-rn&version=brazil&pubname=brazil-release-notes （Brazil、APO リリースノート）
 - https://www.servicenow.com/docs/r/jU~ctnBMOlCbro_3WEobbw/Du1s6E4TXcIOLJaEQE2S7Q （Invoice Case Management）
+- https://www.servicenow.com/docs/r/jU~ctnBMOlCbro_3WEobbw/c_3z3_SunsndIAnR~Hv68g （Australia、Accounts payable document classification skill の構成）
+- https://www.servicenow.com/docs/r/JTWplvZ8VmXxZI9uJMnUeA/6ukf~SPnY2tFkC0xvIYkCA （Yokohama、同スキルの構成）
+- https://www.servicenow.com/docs/r/sSWqWaGiCUELM1~_M8y7eg/wPcXuSFDvWBElGRvkgkViA （Zurich、同スキルの構成）
 - https://www.servicenow.com/community/s2p-articles/smarter-matching-less-manual-work-generative-ai-transforms-po/ta-p/3369147 （Community、生成 AI による PO マッチング、画像出典）
 
 **Purchase Order Management**
 - https://www.servicenow.com/docs/r/sSWqWaGiCUELM1~_M8y7eg/CRwlypxi_jwKIOdvh2MnMQ （Zurich、POM コンポーネント）
-- https://www.servicenow.com/docs/r/source-to-pay-operations/now-assist-for-purch-order-magmt.html （Now Assist for POM）
+- https://www.servicenow.com/docs/r/source-to-pay-operations/now-assist-for-purch-order-magmt.html （Brazil、ServiceNow Otto for POM）
+- https://store.servicenow.com/store/app/8810267c4735fa9482f632c4f16d4300 （ServiceNow Store、Purchase Order Management）
 
 **Operational Sustainability Management（旧 ESG）**
 - https://www.servicenow.com/docs/r/noxsZ_bRFChHRGVDcT97yQ/BJ63pq7V7uXHuNuNchBjRQ （Australia、OSM コンポーネント）
+- https://www.servicenow.com/docs/r/tAoFWMNEzTkJ9v_xmb6zGw/lMk7q9YhLz41TjaBbLreEg （Zurich 英語版、OSM コンポーネント：ロール名・プロパティ名の照合）
+- https://www.servicenow.com/docs/r/s82Zw_idTcTEahshu77BGw/XZ7bvypo9tp4V7P4LlOcKA （Australia、Scope 3 dashboard）
 - https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/Mz2PVi4IvmXWbg2W7kuAVw （Australia、OSM リリースノート）
 - https://www.servicenow.com/docs/r/s82Zw_idTcTEahshu77BGw/HjZrU1WUhZOfd52cedv8CA （Australia、OSM の要素）
 - https://www.servicenow.com/docs/r/V~tl5nFo_tu~5UKBVqLKtw/dqrfBRimNZjgk1D3HhH~xg （Xanadu、Exploring ESG Management）
@@ -1004,5 +1107,6 @@ FSC 製品は ERP を System of Record とし、ServiceNow をワークフロー
 - https://www.servicenow.com/docs/r/impact/impact-packages1.html （Brazil、Impact パッケージ）
 - https://www.servicenow.com/docs/r/VD5jAD3VgRc~i0AwgqwfEQ/ESVT8PKCRl~ezrcAQcVECw （Yokohama、Impact Store Application）
 
-**ERP 連携**
+**ERP 連携・その他**
 - https://www.servicenow.com/docs/r/zurich/integrate-applications/erp-integration-framework/work-with-erp-data-models.html?contentId=VZ5kyv0mPXnN8DPRfZZUag （Zurich、ERP データモデル）
+- https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/hgV12yB9XzxQFPJiY83W_g （Finance Close Automation リリースノート）

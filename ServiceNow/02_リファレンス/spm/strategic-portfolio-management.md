@@ -3,7 +3,7 @@ title: Strategic Portfolio Management（PPM）
 category: reference
 domain: spm
 release: Australia
-last_verified: 2026-11-03
+last_verified: 2026-11-02
 summary: ServiceNow Strategic Portfolio Management（SPM、旧 ITBM）のうち PPM 系機能（Demand、Project、Program、Portfolio、Resource Management、Investment Funding、Financial Planning、Goal Framework、Strategic/Portfolio Planning Workspace）について、テーブル、ロール、状態値、フィールド、プラグイン/アプリケーション ID、プロパティ、ワークスペース、Australia での新機能と非推奨、Brazil での変更点を網羅したリファレンス。
 keywords: [SPM, Strategic Portfolio Management, 戦略的ポートフォリオ管理, PPM, Project Portfolio Management, ITBM, Demand Management, デマンド管理, dmn_demand, Project Management, pm_project, pm_project_task, planned_task, Program, pm_program, Portfolio, pm_portfolio, Resource Management, リソース管理, resource_plan, resource_allocation, sn_plng_att_core_resource_assignment, Resource Management Workspace, Investment Funding, 投資資金, sn_invst_pln_v2, Financial Planning, cost_plan, cost_plan_breakdown, benefit_plan, fm_expense_line, Goal Framework, sn_gf_goal, sn_gf_goal_target, Strategic Planning Workspace, Portfolio Planning Workspace, sn_align_core, Project Workspace, RIDAC, Playbook, it_project_manager, it_demand_manager, it_portfolio_manager, it_pps_admin, resource_manager, com.snc.financial_planning_pmo, Time Card, Rate Model, Now Assist for SPM, ServiceNow Otto, SPM Advanced, SPM Prime]
 sources:
@@ -25,6 +25,19 @@ sources:
   - https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/emMURSNx~mPGNN4uty1RXQ
   - https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/VlCo7TKcJshMoykbSKNv5A
   - https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/SaBCSxphCtT9Kleo8GLljw
+  - https://www.servicenow.com/docs/r/s8BPDWDEVTaN0SLuos4GTg/6cBy5suQKxBIHxk0FxTDpg
+  - https://www.servicenow.com/docs/r/MrftC6mNgCta3UqwXSW7Kg/1sj_NNd2uthc0x7spsBAZQ
+  - https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/gW_cPPq9eZH~xOWmFjHaVg
+  - https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/R4GwFwlMd5FzYJyXGxcF0A
+  - https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/1uTR5pY_j6WWgv~WS99dyg
+  - https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/abjni3FHJBeD~89qEKFqyg
+  - https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/~Iq7DkqjTiKv5EqPWv6HIQ
+  - https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/WNXtx9kRLnPR1FfC0gIn3A
+  - https://www.servicenow.com/docs/r/zurich/it-business-management/investment-funding/investment-funding-overview.html
+  - https://www.servicenow.com/docs/r/order-management/sales-and-order-management/plugins-activated-spm-integration.html
+  - https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/bDG7fmzo39r7qSPsgYPSYg
+  - https://www.servicenow.com/docs/r/de-DE/release-notes/project-workspace-rn.html
+  - https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/neJjFWiM6xJCQbaXFj~3eQ
   - https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/CO_f4AHsLTYW9cH41Ya20w
   - https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/11_p2voQiUcmszYxaNh8BQ
   - https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/ABIxKvZ8RODp8uPsRnnQ3w
@@ -37,6 +50,7 @@ sources:
   - https://www.servicenow.com/community/spm-articles/a-practical-guide-to-resource-assignments/ta-p/3259573
   - https://www.servicenow.com/community/spm-articles/spm-project-workspace-financial-calculations-and-rollup-flows/ta-p/3549813
   - https://www.servicenow.com/community/spm-articles/how-to-segregate-access-to-the-new-financials-using-roles/ta-p/3511602
+  - https://www.servicenow.com/community/spm-articles/alignment-planner-workspace-is-now-2-apps-strategic-planning-and/ta-p/2476642
 ---
 
 # Strategic Portfolio Management（PPM）
@@ -58,10 +72,13 @@ SPM の中核である **Project Portfolio Management（PPM、プロジェクト
 | Project / Program Management | 状態値、Project Workspace、Planning console の非推奨 |
 | Portfolio Management / Portfolio Planning | `pm_portfolio`、Strategic Planning Workspace / Portfolio Planning Workspace |
 | Resource Management | Resource plan（旧）と Resource assignment（新）、移行、Resource Management Workspace |
-| Financial Planning | Cost plan、Benefit plan、Expense line、Budget、Baseline、ロールアップ計算 |
 | Investment Funding | テーブル、ロール、トップダウン/ボトムアップ |
+| Financial Planning | Cost plan、Benefit plan、Expense line、Budget、Baseline、ロールアップ計算 |
 | Goals（Goal Framework） | テーブル、ロール、プロパティ、Target |
-| Australia の新機能・非推奨 / Brazil での変更 | リリース差分 |
+| AI 機能 | Now Assist for SPM / ServiceNow Otto の SPM スキル |
+| Australia の新機能・非推奨 | Australia でのリリース差分 |
+| Brazil での変更点 | Brazil でのリリース差分（判明分） |
+| 実装上の留意点 | Next Experience 移行、Resource assignment 採用、ストアアプリ更新等 |
 
 関連する Agile Development 2.0、Enterprise Agile Planning（EAP）、Application Portfolio Management（APM）、Enterprise Architecture（EA）は [Agile Development・APM・EAM](./agile-apm-eam.md) を参照。ライセンス全般は [ライセンスモデル](../../03_導入編/01-licensing-model.md) と [プラットフォームのパッケージ構成](../platform/platform-licensing-packaging.md) を参照。
 
@@ -110,7 +127,7 @@ ServiceNow 公式リリースノート（Brazil 版の SPM 一覧ページ）は
 | プラグイン/アプリ | ID | 用途 | 出典 |
 |---|---|---|---|
 | Customer Project Management | `com.snc.csm_ppm` | CSM と PPM Standard の連携 | [出典](https://www.servicenow.com/docs/r/order-management/sales-and-order-management/plugins-activated-spm-integration.html) |
-| Investment Funding | `sn_invst_pln_v2`（旧 `sn_invst_pln`） | 投資・資金配分（ServiceNow Store） | [出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/emMURSNx~mPGNN4uty1RXQ) |
+| Investment Funding | `sn_invst_pln_v2` / `sn_invst_pln`（公式ドキュメント内で表記不一致。§8.2 参照） | 投資・資金配分（ServiceNow Store） | [出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/emMURSNx~mPGNN4uty1RXQ) [出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/lDZCbQDlSid9rQFY3Ti2fQ) |
 | PPM–SPW integration | `com.sn_align_snow_int` | PPM（`pm_project`/`dmn_demand`）と Strategic Planning Workspace の連携 | 【第三者情報】ServiceNow 社員によるコミュニティ記事 [出典](https://www.servicenow.com/community/spm-articles/spm-project-workspace-financial-calculations-and-rollup-flows/ta-p/3549813) |
 | Scenario Planning for PPM | `com.snc.ppm_scenario_planning` | シナリオ計画（Australia で非表示・将来非推奨） | [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/11_p2voQiUcmszYxaNh8BQ) |
 | Project Status Report（モバイル） | `com.sn_store_ppm.mobile` | Australia で将来非推奨。Project Workspace の Status report を使用 | [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/11_p2voQiUcmszYxaNh8BQ) |
@@ -279,7 +296,7 @@ PPM Standard プラグインが Australia でインストールするテーブ�
 | `fm_expense_line` | Expense Line（経費明細）。実績コストのソース | Financial Management | 【第三者情報】[出典](https://www.servicenow.com/community/spm-articles/spm-project-workspace-financial-calculations-and-rollup-flows/ta-p/3549813) |
 | `sn_invst_pln_invst_*` | Investment Funding の各テーブル（§8 参照） | Investment Funding | [出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/lDZCbQDlSid9rQFY3Ti2fQ) |
 | `sn_align_core_planning_item` | Planning Item（計画項目）。サブタイプ `sn_align_core_project`、`sn_align_core_demand` 等 | Strategic Planning / Portfolio Planning | 【第三者情報】[出典](https://www.servicenow.com/community/spm-articles/spm-project-workspace-financial-calculations-and-rollup-flows/ta-p/3549813) |
-| `sn_gf_goal` ほか `sn_gf_*` | Goal Framework（§9 参照） | Goal Framework | [出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/SaBCSxphCtT9Kleo8GLljw) |
+| `sn_gf_goal` ほか `sn_gf_*` | Goal Framework（§10 参照） | Goal Framework | [出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/SaBCSxphCtT9Kleo8GLljw) |
 | `cmn_value_stream_category` | Value stream category | Portfolio Planning | [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/CO_f4AHsLTYW9cH41Ya20w) |
 
 ### 2.3 `planned_task` 階層
@@ -304,7 +321,7 @@ classDiagram
   pm_project "1" o-- "*" sn_plng_att_core_resource_assignment
 ```
 
-> 注：`pm_program` と `dmn_demand` の親テーブルは公式ページで直接確認できなかったため、上図の継承線は【推定】である（いずれも Planned task 系の計画項目として扱われる）。インスタンスの System Dictionary で確認すること。データモデル全般は [データモデルと System Dictionary](../platform/data-model-dictionary.md) を参照。
+> 注：`pm_program` と `dmn_demand` の親テーブルは公式ページで直接確認できなかったため、上図の継承線は【推定】である（上図では `pm_program` を `planned_task` の子、`dmn_demand` を `task` の直接の子として描いている）。インスタンスの System Dictionary で確認すること。データモデル全般は [データモデルと System Dictionary](../platform/data-model-dictionary.md) を参照。
 
 ---
 
@@ -336,6 +353,8 @@ classDiagram
 | `it_rate_model_admin` | Rate model admin | Rate model の全権限（属性構成、Rate line インポート/エクスポート） | `rate_model_user`、`import_set_loader`、`import_transformer`、`import_admin` |
 | `rate_model_user` | Rate model user | Rate model / Rate line の参照のみ | なし |
 
+> 注：公式ページは `it_pps_admin` の内包ロールを `rate_model_admin`、Rate model の管理ロールを `it_rate_model_admin` と記載しており、表記が一致しない（上表は公式ページの記載どおり）。実際の内包関係はインスタンスの `sys_user_role_contains` で確認すること。[出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/oK21ACshcvfKsTp8cyK2VA)
+
 > Australia の変更：Project のプロパティ（Project properties）は `pps_admin` のみが編集可能になった。Demand の `com.snc.idea.universal_request.copy_fields` プロパティは `idea_admin` または `pps_admin` のみ更新可能。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/11_p2voQiUcmszYxaNh8BQ)
 
 ```mermaid
@@ -361,17 +380,18 @@ graph TD
 
 ### 3.2 Strategic Planning Workspace / Portfolio Planning のロール
 
-| ロール | 説明 | 出典 |
-|---|---|---|
-| `sn_align_core.apw_admin` | Strategic Planning Workspace の管理者。全機能にアクセス。Australia では SPW 管理者向けガイド付きセットアップにアクセス | [出典](https://www.servicenow.com/docs/r/MrftC6mNgCta3UqwXSW7Kg/1sj_NNd2uthc0x7spsBAZQ) [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/CO_f4AHsLTYW9cH41Ya20w) |
-| `sn_align_core.apw_user` | Portfolio plan、Free-form roadmap、Planning item の作成・更新・削除。ポートフォリオ/プロダクトマネージャー、事業部リード等向け。カスタムダッシュボード作成にも必要 | [出典](https://www.servicenow.com/docs/r/MrftC6mNgCta3UqwXSW7Kg/1sj_NNd2uthc0x7spsBAZQ) |
-| `sn_align_core.ap_read_only` | 共有された Portfolio plan（Planning/Scoring ページ）と Free-form roadmap の閲覧のみ | [出典](https://www.servicenow.com/docs/r/MrftC6mNgCta3UqwXSW7Kg/1sj_NNd2uthc0x7spsBAZQ) |
-| `sn_align_ws.scenario_approver` | ポートフォリオのシナリオ承認 | [出典](https://www.servicenow.com/docs/r/MrftC6mNgCta3UqwXSW7Kg/1sj_NNd2uthc0x7spsBAZQ) |
-| `sn_align_ws.spw_funding_user` | Financials ページでの予算配分（Budget allocation）、財務変更を含むシナリオの承認 | [出典](https://www.servicenow.com/docs/r/MrftC6mNgCta3UqwXSW7Kg/1sj_NNd2uthc0x7spsBAZQ) |
-| `sn_align_ws.spw_financial_user` | Planning item の Cost plan / Expense line 作成、Prioritization での財務データ参照 | [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/CO_f4AHsLTYW9cH41Ya20w) |
-| `sn_apw_advanced.spw_goal_user_read` / `sn_apw_advanced.spw_goal_user` | SPW での Goal 閲覧 / 編集 | 【第三者情報】検索結果要約による。公式ページ本文は未確認 |
-| `sn_apw_advanced.eap_scrum_master` | EAP のイテレーション作成・日付変更・計画カレンダー管理（Australia で追加）。`eap_admin` ⊃ `eap_scrum_master` ⊃ `eap_user` | [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/ABIxKvZ8RODp8uPsRnnQ3w) |
-| `sn_value_stream.value_stream_admin` / `sn_value_stream.value_stream_user` | Value stream の管理 / 利用 | [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/CO_f4AHsLTYW9cH41Ya20w) |
+| ロール | 説明 | 内包ロール | 出典 |
+|---|---|---|---|
+| `sn_align_core.apw_admin` | Strategic Planning Workspace の管理者。全機能にアクセス。Australia では SPW 管理者向けガイド付きセットアップにアクセス | `it_portfolio_manager`、`sn_align_core.apw_user`、`sn_gf.goal_admin`、`view_changer` | [出典](https://www.servicenow.com/docs/r/MrftC6mNgCta3UqwXSW7Kg/1sj_NNd2uthc0x7spsBAZQ) [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/CO_f4AHsLTYW9cH41Ya20w) |
+| `sn_align_core.apw_user` | Portfolio plan、Free-form roadmap、Planning item の作成・更新・削除。ポートフォリオ/プロダクトマネージャー、事業部リード等向け。カスタムダッシュボード作成にも必要 | `sn_align_cmn_int.user`、`sn_milestones.milestone_editor`、`sn_gf.strategy_planner`、`sn_gf.goal_user`、`sn_align_core.ap_read_only`、`model_manager` | [出典](https://www.servicenow.com/docs/r/MrftC6mNgCta3UqwXSW7Kg/1sj_NNd2uthc0x7spsBAZQ) |
+| `sn_align_core.ap_read_only` | 共有された Portfolio plan（Planning/Scoring ページ）と Free-form roadmap の閲覧のみ | `sn_milestones.milestone_viewer`、`sn_dpr_model.product_enhancement_read`、`sn_dpr_model.product_feature_read` | [出典](https://www.servicenow.com/docs/r/MrftC6mNgCta3UqwXSW7Kg/1sj_NNd2uthc0x7spsBAZQ) |
+| `sn_align_ws.scenario_approver` | ポートフォリオのシナリオ承認 | `sn_align_core.apw_user` | [出典](https://www.servicenow.com/docs/r/MrftC6mNgCta3UqwXSW7Kg/1sj_NNd2uthc0x7spsBAZQ) |
+| `sn_align_ws.spw_funding_user` | Funding user。シナリオ比較時に財務ウィジェットを表示し、財務変更を含むシナリオを承認する | `sn_align_ws.spw_financial_user` | [出典](https://www.servicenow.com/docs/r/MrftC6mNgCta3UqwXSW7Kg/1sj_NNd2uthc0x7spsBAZQ) |
+| `sn_align_ws.spw_financial_user` | Planning item の Cost plan / Expense line 作成、Prioritization での財務データ参照。財務ベースラインの作成・比較、シナリオの財務値管理 | なし | [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/CO_f4AHsLTYW9cH41Ya20w) |
+| `sn_apw_advanced.spw_goal_user_read` | Strategic Planning Workspace の Goals ページの閲覧 | `sn_gf.goal_user_read` | [出典](https://www.servicenow.com/docs/r/MrftC6mNgCta3UqwXSW7Kg/1sj_NNd2uthc0x7spsBAZQ) |
+| `sn_apw_advanced.spw_goal_user` | Strategic Planning Workspace の Goals ページの閲覧と Goal・Target の編集。SPW コンポーネントページの注記では、Target breakdown の編集にはこのロールが必要（`sn_gf.goal_admin` であっても）。GF コンポーネントページとの記載差は §10.3 の注記を参照 | `sn_apw_advanced.spw_goal_user_read`、`sn_gf.goal_user` | [出典](https://www.servicenow.com/docs/r/MrftC6mNgCta3UqwXSW7Kg/1sj_NNd2uthc0x7spsBAZQ) |
+| `sn_apw_advanced.eap_scrum_master` | EAP のイテレーション作成・日付変更・計画カレンダー管理（Australia で追加）。`eap_admin` ⊃ `eap_scrum_master` ⊃ `eap_user` | `sn_apw_advanced.eap_user` | [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/ABIxKvZ8RODp8uPsRnnQ3w) |
+| `sn_value_stream.value_stream_admin` / `sn_value_stream.value_stream_user` | Value stream の管理 / 利用 | 公開情報では確認できず | [出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/CO_f4AHsLTYW9cH41Ya20w) |
 
 ServiceNow 社員によるコミュニティ記事（2026-03）は、新しい Financials の権限を以下2プロファイルに分けて付与する方法を示している。【第三者情報】[出典](https://www.servicenow.com/community/spm-articles/how-to-segregate-access-to-the-new-financials-using-roles/ta-p/3511602)
 
@@ -381,9 +401,11 @@ ServiceNow 社員によるコミュニティ記事（2026-03）は、新しい F
 | シナリオ承認 | 不可 | 可 |
 | Demand/Project/Epic の Financials での予算配分 | 不可 | 可 |
 
+上表の差は内包関係から読み解ける。`sn_align_ws.spw_funding_user` は `sn_align_ws.spw_financial_user` を、`sn_align_ws.scenario_approver` は `sn_align_core.apw_user` を内包するため、Budget Allocation User も Financials User と同じく Financials タブを使え、さらにシナリオ承認と予算配分ができる。[出典](https://www.servicenow.com/docs/r/MrftC6mNgCta3UqwXSW7Kg/1sj_NNd2uthc0x7spsBAZQ)
+
 同記事では、`portfolio_manager` から `sn_align_ws.spw_funding_user` を外す手順が含まれる（従来 `portfolio_manager` が内包していたため）。
 
-Investment Funding と Goal Framework のロールはそれぞれ §8.3、§9.2 を参照。ロール全般の仕組みは [ユーザー・グループ・ロール](../platform/users-groups-roles.md) を参照。
+Investment Funding と Goal Framework のロールはそれぞれ §8.3、§10.3 を参照。ロール全般の仕組みは [ユーザー・グループ・ロール](../platform/users-groups-roles.md) を参照。
 
 ---
 
@@ -428,6 +450,8 @@ Demand の状態は **Draft → Submitted → Screening → Qualified → Approv
 
 [出典](https://www.servicenow.com/docs/r/it-business-management/strategic-planning/demand-process-flow.html)
 
+- Deferred（保留）からの遷移（再審査で Screening/Qualified に戻せるか等）は公開ドキュメントでは確認できず。
+
 ```mermaid
 stateDiagram-v2
   [*] --> Draft
@@ -438,6 +462,10 @@ stateDiagram-v2
   Qualified --> Deferred: 保留
   Approved --> Completed: 変換先完了（自動）/手動
   Completed --> [*]
+  note right of Completed
+    Demand manager は任意の状態から
+    手動で Completed にできる
+  end note
 ```
 
 - Demand フォームの **Assessment Required** チェックボックス（既定オン）をオフにすると、Assessment をスキップして Qualified に直接移行する。[出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/qF3etSvFEesZNgRWjkx8MA)
@@ -476,7 +504,7 @@ stateDiagram-v2
 | Idea | 元アイデア |
 | Business Capabilities / Business Applications / Impacted Business Applications | Enterprise Architecture のケイパビリティ/アプリケーション（[Agile Development・APM・EAM](./agile-apm-eam.md) 参照） |
 
-> Zurich で Investment class / Investment type は Project と Demand テーブル上では非推奨となり、親（Planning item）レベルのフィールドに値がコピーされた。これらを使うフィルターやパーソナライズは更新が必要。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/ABIxKvZ8RODp8uPsRnnQ3w)
+> 注：上表の Investment Class / Investment Type は `dmn_demand` の現行フィールドである。Zurich での Investment class / Investment type の非推奨は Strategic Planning 側の planning item テーブルが対象（§4.7 参照）。
 
 #### Business Case
 
@@ -525,7 +553,7 @@ Strategic priority（戦略的優先事項、事業部でフィルター）、Pr
 
 - 変換でエンティティが作成されると Category と Type は読み取り専用になり、作成されたエンティティを削除すると再び編集可能になる。[出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/qF3etSvFEesZNgRWjkx8MA)
 - EAP エンティティ（Epic、Feature、Capability）への変換は Zurich で追加され、共通フィールドがコピーされてデマンドは Approved に移行する。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/11_p2voQiUcmszYxaNh8BQ)
-- Type が `No Conversion` の場合、実行エンティティを作らずにデマンドとして資金付与等を行う（1つ以上の Project/Epic/Program を含む大型案件への資金付与など）。
+- Type が `No Conversion` の場合、実行エンティティを作らずにデマンドとして資金付与に使う。公式ドキュメントは「No Conversion は大型プロジェクトへの資金付与にデマンドを使えるようにする」と説明している。[出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/qF3etSvFEesZNgRWjkx8MA)
 
 ### 4.6 Next Experience for Demand Management（Demand Workspace）
 
@@ -538,7 +566,7 @@ Strategic priority（戦略的優先事項、事業部でフィルター）、Pr
 | AI Checkpoint ステージ / AI associations | AI Control Tower プラグインがある場合に表示 |
 | Demand financials grid | Cost plan、Benefit plan、Baseline の表示・作成・比較（Australia Patch 5） |
 | Demand dashboards | Overview、Financials、Data Quality タブ。部門、事業部、ポートフォリオ、プログラム、デマンドマネージャーでフィルター |
-| Similar demand identification | Name、Description、Business Case を比較して類似デマンドを提示する AI スキル（Zurich で Now Assist として追加） |
+| Similar demand identification | Name、Description、Business Case を比較して類似デマンドを提示する AI スキル（identify similar records スキル。Australia で追加。ストアアプリでは 2026-08 更新でも拡張） |
 | Demand summarization | Summarize ボタンで構造化サマリーを生成。AI Overview タブに出力。Submitted/Screening/Qualified/Approved で自動生成が既定（Brazil で状態ごとに選択可能に変更）。Demand task、Cost plan、Benefit plan、Resource assignment、Work notes も参照 |
 | Docs 連携 | ドキュメントでの共同作業 |
 
@@ -549,6 +577,8 @@ Portfolio Planning のストアバージョン履歴では、Demand Workspace（
 Strategic Planning / Portfolio Planning の Demand planning item フォームは、Name、Description、State、Owner、Planning state、Category、Execution URL、MoSCoW（1 Must have〜4 Won't have）、Portfolio、Program、Product、Strategic program、Primary goal、Primary target、Strategic priority、承認/計画日付、Investment class/type、Priority、Business case 系、Financials（Planned cost、Planned capEx/opEx、Planned ROI、Financial return、Planned benefit）、Assessment data（Impact、Risk、Value、Score）を持つ。Description は ServiceNow Otto for SPM がインストールされていれば Write planning item スキルで推敲できる。[出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/huAuYhm0vX_SrCyFbFDV5A)
 
 > Australia では新規の planning item デマンドが新しい Execution URL を使う。既存分は「Update Demand Planning Item Execution URL」ジョブで更新する。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/ABIxKvZ8RODp8uPsRnnQ3w)
+
+> Zurich で Strategic Planning の Project [`sn_align_core_project`] と Demand [`sn_align_core_demand`] テーブル上の Investment class / Investment type は非推奨となり、親の Planning item（`sn_align_core_planning_item`）レベルのフィールドに値がコピーされた。これらを使うフィルターやパーソナライズは更新が必要。PPM の `dmn_demand` / `pm_project` のフィールドが対象ではない。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/ABIxKvZ8RODp8uPsRnnQ3w)
 
 ---
 
@@ -572,6 +602,7 @@ Strategic Planning / Portfolio Planning の Demand planning item フォームは
 - Pending / Open：計画開始日（Planned start date）を表示
 - Open / Work in Progress：実績開始日（Actual start date）を表示
 - Closed：実績終了日（Actual end date）を表示
+- Open は上の2つの規則の両方に該当するため、計画開始日と実績開始日の両方を表示する
 
 [出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/c9RS0oEzIVbECWV6RnHzmw)
 
@@ -625,7 +656,7 @@ Australia の Project Workspace 関連の変更（ローカライズ版リリー
 | Risk / Issue | `risk`、`issue` | RIDAC の R/I |
 | Project Change Request | `project_change_request` | プロジェクト変更要求 |
 | Project Stakeholder | `pm_m2m_project_stakeholder` | ステークホルダー |
-| Task Relationship | `planned_task_rel_planned_task` | 先行・後続関係（依存関係） |
+| Planned task Relationship | `planned_task_rel_planned_task` | 先行・後続の依存関係 |
 
 [出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/6OfsT~rMJEiWdR2hU_NdSg)
 
@@ -640,7 +671,8 @@ Australia の Project Workspace 関連の変更（ローカライズ版リリー
 ### 5.6 Time Card Management と Rate Model
 
 - **Time Card（タイムカード）** は `time_card` / `time_sheet` に格納され、`timecard_user` が作成、`timecard_approver` が承認する。承認済み Time card が Demand/Project の実績コスト・実績工数（Actual cost/effort）の基になる。[出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/oK21ACshcvfKsTp8cyK2VA) [出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/qF3etSvFEesZNgRWjkx8MA)
-- **Rate Model（レートモデル）** は `rate_model` / `rate_model_line` に格納され、ロール・属性ごとの単価を定義して労務コスト計算に用いる。
+- **Rate Model（レートモデル）** は `rate_model` / `rate_model_line` に格納され、プロジェクトまたはデマンドのリソースコスト（計画・実績）を計算するための、日付有効（date-effective）かつ条件（criteria）駆動の時間単価を定義する。Rate line は条件値の一意な組み合わせごとにリソース・グループ・ロールの時間単価を期間付きで定める。Rate model は Project / Demand に関連付けて初めて単価算出に使われる。[出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/WNXtx9kRLnPR1FfC0gIn3A)
+- Demand の Rate Model を変更・削除しても、関連する Resource assignment のコストフィールドは再計算されない。[出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/qF3etSvFEesZNgRWjkx8MA)
 
 ---
 
@@ -652,7 +684,9 @@ Australia の Project Workspace 関連の変更（ローカライズ版リリー
 
 ### 6.2 Strategic Planning Workspace と Portfolio Planning Workspace
 
-**Strategic Planning Workspace（SPW、旧 Alignment Planner Workspace）** と **Portfolio Planning Workspace（PPW）** は、ポートフォリオ計画、優先順位付け、ロードマップ、キャパシティ、財務を扱う Next Experience ワークスペースである。前述のとおり SPW は SPM Pro、PPW は SPM Standard に対応する。Portfolio Planning は 2023-02 の 6.0.1 で Alignment Planner Workspace から改称された。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/CO_f4AHsLTYW9cH41Ya20w) [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/11_p2voQiUcmszYxaNh8BQ)
+**Strategic Planning Workspace（SPW）** と **Portfolio Planning Workspace（PPW）** は、ポートフォリオ計画、優先順位付け、ロードマップ、キャパシティ、財務を扱う Next Experience ワークスペースである。前述のとおり SPW は SPM Pro、PPW は SPM Standard に対応する。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/11_p2voQiUcmszYxaNh8BQ)
+
+両者の前身は **Alignment Planner Workspace（APW）** である。APW は Utah 期（2023-02、Portfolio Planning 6.0.1）に、Strategic Planning（SPM Pro）と Portfolio Planning（SPM Standard）の2アプリに分割された。Portfolio Planning 8.0.0 以降、Goals やハイブリッド計画などの SPM Pro 機能は Strategic Planning Workspace でのみ利用できる。ロール名やスコープ名（`sn_align_core.apw_*`、`app-alignment-planner-core` 等）に「apw / alignment planner」が残っているのはこの経緯による。[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/CO_f4AHsLTYW9cH41Ya20w) [出典](https://www.servicenow.com/community/spm-articles/alignment-planner-workspace-is-now-2-apps-strategic-planning-and/ta-p/2476642)
 
 主要機能（Portfolio Planning リリースノートより）：[出典](https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/CO_f4AHsLTYW9cH41Ya20w)
 
@@ -772,6 +806,8 @@ Australia ドキュメントは、Resource plan、Operational resource plan、Co
 | Rejected | Unapproved |
 | Canceled、In progress | 移行対象外 |
 
+> 注：「In progress」は公式移行ページの記載どおりである。§7.2 の Resource plan 状態一覧には無い値で、移行処理中などの状態を指すと見られる【推定】。インスタンスの State 選択肢で確認すること。
+
 [出典](https://www.servicenow.com/docs/r/t50FqY34BO_zQ~d4gxe26g/QAE91u6ZAbE4khqwOvZmHw)
 
 > 移行後、移行された Resource assignment について `sn_plng_att_core_attribute_based_resource_aggregates` の Utilization がほぼ空になるという報告がある。【第三者情報】[出典](https://www.servicenow.com/community/spm-forum/attribute-based-aggregates-table-sn-plng-att-core-attribute/m-p/3527691)
@@ -818,7 +854,7 @@ SPM Prime は Strategic Planning とともに Investment Funding を含む（§1
 
 | 項目 | 内容 |
 |---|---|
-| アプリケーション ID | `sn_invst_pln_v2`（旧版は `sn_invst_pln`） |
+| アプリケーション ID | `sn_invst_pln_v2`（Install Investment Funding ページの記載。下記注記参照） |
 | 必要ロール | `admin` |
 | 手順 | System Applications > All Available Applications > All で検索 → Install → 依存関係を確認 → Install。一覧にない場合は ServiceNow Store から要求 |
 | 自動有効化される依存プラグイン | Fiscal Calendar（`com.snc.fiscal_calendar`）、Widgets（`com.snc.app.widgets`）、Ag-Grid Components Plugin（`com.snc.app.grid`）、Planned Task_v2（`com.snc.planned_task_v2`） |
@@ -826,7 +862,9 @@ SPM Prime は Strategic Planning とともに Investment Funding を含む（§1
 
 [出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/emMURSNx~mPGNN4uty1RXQ)
 
-Project/Demand 向けに Investment Funding を有効化すると、`project_manager`、`demand_manager`、`portfolio_manager`、`program_manager` に `sn_invst_pln_investment_user` ロールが追加される（検索結果要約による。名前空間表記は版により異なる可能性あり）。[出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/1uTR5pY_j6WWgv~WS99dyg)
+> 注（ID 表記の不一致）：公式ドキュメントでは、インストール手順（Install Investment Funding）が `sn_invst_pln_v2`、コンポーネント一覧（Components installed with Investment Funding）が「Investment Funding (`sn_invst_pln`) plugin」と記載しており、表記が一致しない。テーブルは `sn_invst_pln_` 接頭辞、ロールは `sn_invst_pln_v2.` スコープ、Project/Demand 有効化ページのロールは `sn_invst_pln_investment_user` と、表記が3通りある。実際のアプリケーション ID とスコープはインスタンスの `sys_store_app` / `sys_scope` で確認すること。[出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/emMURSNx~mPGNN4uty1RXQ) [出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/lDZCbQDlSid9rQFY3Ti2fQ)
+
+Project/Demand 向けに Investment Funding を有効化すると、`project_manager`、`demand_manager`、`portfolio_manager`、`program_manager` に `sn_invst_pln_investment_user` ロールが追加される。[出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/1uTR5pY_j6WWgv~WS99dyg)
 
 ### 8.3 テーブルとロール
 
@@ -845,10 +883,10 @@ Project/Demand 向けに Investment Funding を有効化すると、`project_man
 | ロール | 説明 |
 |---|---|
 | `sn_invst_pln_v2.investment_admin` | Investment entity の作成、プリファレンス・会計カレンダーの設定 |
-| `sn_invst_pln_v2.investment_planner` | 投資計画（詳細な権限記述は公開ページで確認できず） |
-| `sn_invst_pln_v2.investment_user` | Investment と資金の管理 |
+| `sn_invst_pln_v2.investment_planner` | Top investment、Investment entity、および Investment entity に関連するレコードの管理 |
+| `sn_invst_pln_v2.investment_user` | Investment と資金の管理。全 Cost plan / Benefit plan に対する作成・参照・更新・削除が可能 |
 
-[出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/lDZCbQDlSid9rQFY3Ti2fQ)（ロール説明の一部は検索結果要約による）
+[出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/lDZCbQDlSid9rQFY3Ti2fQ)
 
 > 注：PPM×SPW 財務連携では `sn_invst_pln_investment`（Demand/Project と Portfolio planning を結ぶ Investment、`funding_entity_id` で `pm_project`/`dmn_demand` を参照）、`sn_invst_pln_invst_budget`（Budget v2）といったテーブル名も使われる（コミュニティ記事）。公式の Investment Funding コンポーネント一覧とは名称が異なるため、インスタンスで確認すること。【第三者情報】[出典](https://www.servicenow.com/community/spm-articles/spm-project-workspace-financial-calculations-and-rollup-flows/ta-p/3549813)
 
@@ -868,8 +906,8 @@ SPM の財務計画は、Project Workspace の Financials タブ、Demand Worksp
 | Cost plan breakdown | `cost_plan_breakdown` | 会計期間（Fiscal period）ごとの内訳。Start/End fiscal period を変更すると内訳が自動更新 |
 | Expense line（経費明細） | `fm_expense_line` | 実績コスト。Cost plan に紐づけるか、計画外支出として単独作成 |
 | Benefit plan（ベネフィットプラン） | `benefit_plan`、`benefit_plan_breakdown` | 期待効果（金銭的・非金銭的。8.5.0 で Monetary / Non-monetary benefit plan） |
-| Budget（予算） | Budget widget、Budget vs EAC Variance widget（Demand と Project のみ） | 予算 |
-| Baseline（ベースライン） | 手動/自動で取得するスナップショット | 初期予測と最新コストの比較、差異分析 |
+| Budget（予算） | `project_funding`（v1、レガシー）/ `sn_invst_pln_invst_budget`（v2、【第三者情報】。§9.3 参照） | 予算。画面では Budget widget、Budget vs EAC Variance widget（Demand と Project のみ）で表示 |
+| Baseline（ベースライン） | 公開情報では確認できず | 手動/自動で取得するスナップショット。初期予測と最新コストの比較、差異分析 |
 | Labor cost（労務コスト） | 属性ベース Cost plan | 属性ベースの Resource assignment と財務属性から自動生成（「Generate labor costs」） |
 | Cost Type Definition | `resource_type_definition` | コストタイプ（Expense type：`capex`/`opex`） |
 | Budget Reference Rates | `itfm_fx_rate` | 予算換算レート（マルチカレンシー） |
@@ -939,15 +977,15 @@ ServiceNow 社員によるコミュニティ記事は、Project Workspace の財
 
 | ラベル | テーブル名 | 備考 |
 |---|---|---|
-| Goal | `sn_gf_goal` | Goal Core を継承 |
+| Goal | `sn_gf_goal` | 【推定】Goal Core（`sn_gf_core_goal`）との継承関係は公式ページに記載なし。インスタンスの System Dictionary で確認 |
 | Goal Core | `sn_gf_core_goal` | |
 | Target | `sn_gf_goal_target` | |
 | Units | `sn_gf_units` | Target の測定単位 |
 | Target Progress | `sn_gf_goal_target_progress` | 進捗 |
 | Goal Relationship | `sn_gf_goal_m2m_relationship` | |
-| Strategic Plan | `sn_gf_strategic_plan` | Alignment Planner Workspace がある場合のみ表示 |
+| Strategic Plan | `sn_gf_strategic_plan` | Alignment Planner Workspace（現 SPW/PPW）がある場合のみ表示 |
 | Strategic Priority | `sn_gf_strategy` | |
-| Strategy Value | `sn_gf_strategy_value` | Alignment Planner Workspace がある場合のみ表示 |
+| Strategy Value | `sn_gf_strategy_value` | Alignment Planner Workspace（現 SPW/PPW）がある場合のみ表示 |
 | Context Variable | `sn_gfa_context_variable` | Goal Framework for SPM |
 | Target Breakdown | `sn_gfa_target_breakdown` | Goal Framework for SPM |
 | Target Source | `sn_gfa_target_source` | Goal Framework for SPM |
@@ -958,14 +996,16 @@ ServiceNow 社員によるコミュニティ記事は、Project Workspace の財
 
 | ロール | 説明 | 内包ロール |
 |---|---|---|
-| `sn_gf.goal_user_read` | Goal の閲覧 | なし |
+| `sn_gf.goal_user_read` | Goal の閲覧（Project user、Demand user 等向け） | `sn_gf.strategy_planner_read` |
 | `sn_gf.goal_user` | Goal、Sub-goal、Target の作成・閲覧・編集・削除（オーナー/コントリビューター制約あり） | `sn_gf.goal_user_read` |
-| `sn_gf.goal_admin` | 他者の Goal/Target の編集、Goal プリファレンス更新、Target source と Context variable の作成（SPM） | `sn_gf.goal_user_read`、`sn_gf.goal_user` |
+| `sn_gf.goal_admin` | 他者の Goal/Target の編集、Goal プリファレンス更新、Target source と Context variable の作成（SPM） | `assessment_admin`、`sn_apw_advanced.spw_goal_user`、`sn_gf.goal_user` |
 | `sn_gf.strategy_planner_read` | 全 Strategic plan と Strategic value の閲覧 | なし |
 | `sn_gf.strategy_planner` | Strategic plan と Value の作成・閲覧・編集・削除（オーナー/スポンサー制約あり） | `sn_gf.strategy_planner_read` |
-| `sn_gf.epmo_strategy_planner` | 任意の Goal の作成・閲覧・編集・削除 | `sn_gf.goal_user_read`、`sn_gf.goal_user`、`sn_gf.goal_admin`、`sn_gf.strategy_planner` |
+| `sn_gf.epmo_strategy_planner` | 任意の Goal の作成・閲覧・編集・削除 | `sn_gf.strategy_planner`、`sn_gf.goal_user` |
 
 [出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/SaBCSxphCtT9Kleo8GLljw)
+
+> 注：Goal Framework ロールの内包関係は公式ページ間で記載が一致しない。上表は Goal Framework のコンポーネントページ（Components installed with Goal Framework and Goal Framework for SPM）に従った。Strategic Planning Workspace のコンポーネントページでは、`sn_gf.goal_user_read` は内包なし、`sn_gf.goal_admin` ⊃ `sn_gf.goal_user_read`・`sn_gf.goal_user`、`sn_gf.epmo_strategy_planner` ⊃ `sn_gf.goal_user_read`・`sn_gf.goal_user`・`sn_gf.goal_admin`・`sn_gf.strategy_planner` と記載されている。また GF ページでは `sn_gf.goal_admin` が `sn_apw_advanced.spw_goal_user` を内包するが、SPW ページには「Target breakdown の編集には `sn_gf.goal_admin` であっても `sn_apw_advanced.spw_goal_user` が必要」という注記がある（§3.2）。実際の内包関係はインスタンスの `sys_user_role_contains` で確認すること。[出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/SaBCSxphCtT9Kleo8GLljw) [出典](https://www.servicenow.com/docs/r/MrftC6mNgCta3UqwXSW7Kg/1sj_NNd2uthc0x7spsBAZQ)
 
 ### 10.4 システムプロパティ
 
@@ -974,11 +1014,13 @@ ServiceNow 社員によるコミュニティ記事は、Project Workspace の財
 | `glide.ui.sn_gf_goal_target_activity.field` | Target フィールドのアクティビティストリームを有効化 | — |
 | `sn_gf.allow_goal_deletion` | Goal の削除を許可 | `true` |
 | `sn_gf.allow_target_deletion` | Target の削除を許可 | `true` |
-| `sn_gf.goal_calendar_type` | Goal のカレンダー：Gregorian Calendar / Fiscal Period | Gregorian Calendar |
+| `sn_gf.goal_calendar_type` | Goal のカレンダー：Gregorian Calendar / Fiscal Period。Goal Framework for SPM では `sn_gfa.calendar_type` が優先される | Gregorian Calendar |
+| `sn_gf.maintain_constant_tolerance_percent` | Maintain constant 型 Target の実績が計画値を満たすかを判定する許容範囲（%）。Brazil の Maintain-type targets（§10.6）に関わる。導入リリースは公開情報では確認できず、インスタンスで確認すること | `5` |
 | `sn_gf.weighted_average_enabled` | Sub-goal と Target からの加重平均による Goal 進捗計算 | — |
 | `sn_gfa_disable_target_breakdown` | インスタンスレベルの Target breakdown 制御 | `false` |
 | `sn_gfa.target_breakdown_decimals` | Target breakdown 値の小数桁数 | `2` |
 | `sn_gfa.weeklyCheckInDayToMapMonth` | 週次内訳を月にマッピングする週末曜日 | Friday |
+| `sn_gfa.calendar_type` | Goal のカレンダーモード（`gregorian` / `fiscal`）。変更すると既存 Target が古い状態（stale）になりうる | `gregorian` |
 
 [出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/SaBCSxphCtT9Kleo8GLljw)
 
@@ -1003,7 +1045,7 @@ ServiceNow 社員によるコミュニティ記事は、Project Workspace の財
 [出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-goalframeworkforspm-release-notes.html) [出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/ABIxKvZ8RODp8uPsRnnQ3w)
 
 > **Brazil での変更:** Goal Framework for SPM に以下が追加・変更された。[出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-goalframeworkforspm-release-notes.html)
-> - **Maintain-type targets**：Maintain above / Maintain below / Maintain constant の3種（稼働率など一定水準の維持を測る指標向け）。Target distribution フィールドは非表示。進捗は「目標を満たしたチェックイン期間の割合」で、Maintain constant は許容範囲を使う。
+> - **Maintain-type targets**：Maintain above / Maintain below / Maintain constant の3種（稼働率など一定水準の維持を測る指標向け）。Target distribution フィールドは非表示。進捗は「目標を満たしたチェックイン期間の割合」で、Maintain constant は許容範囲（プロパティ `sn_gf.maintain_constant_tolerance_percent`、既定 5%）を使う。[出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/SaBCSxphCtT9Kleo8GLljw)
 > - **自動ステータス計算**：実績入力時に達成率から Green/Yellow/Red を計算（既定しきい値 Green ≥90%、Yellow 75–89%、Red <75%）。プロパティ `sn_gfa.target.auto_status.thresholds` で調整、`false` で手動選択に戻す。Target オーナーは上書き可能。
 > - Breakdown の再生成（日付や最終目標値の変更時、記録済み実績は保持）、実績記録後の Target Type 変更、定量 Target のチェックイン頻度既定値を Quarterly に、ステータス「None」を「No status」に改称。
 
@@ -1055,14 +1097,14 @@ AI 機能全般は [Now Assist と AI Agents](../platform/now-assist-ai-agents.m
 |---|---|
 | Scenario Planning for PPM（`com.snc.ppm_scenario_planning`） | 非表示・有効化不可（サポート継続）。SPW（SPM Pro）または PPW（SPM Standard）を使用 |
 | Project Status Report（`com.sn_store_ppm.mobile`） | Project Workspace の Status report を使用 |
-| PMO dashboard | Execution dashboard を使用 |
-| Investment Portal | Portfolio Planning Workspace を使用 |
+| PMO dashboard | 将来非推奨（非表示になるがサポートは継続）。Execution dashboard を使用 |
+| Investment Portal | 将来非推奨（非表示になるがサポートは継続）。Portfolio Planning Workspace を使用 |
 | Project Workbench | デプロイ・拡張・サポート・有効化の対象外 |
 | Planning console | 非推奨・サポート対象外。Project Workspace を使用 |
 | Demand Management の admin 権限 | `dmn_stakeholder_register.number` の admin 編集権限、Bubble chart workbench の admin ACL、admin 用の重複アプリモジュールを削除 |
-| Agile Development 2.0 | Australia から関連プラグインとともに非推奨予定（詳細は [Agile Development・APM・EAM](./agile-apm-eam.md)） |
+| Agile Development 2.0 | Australia から関連プラグインとともに廃止予定（planned for deprecation）。本体 `com.snc.sdlc.agile.2.0` の廃止は 2030-08 予定、代替は Collaborative Work Management（Agile Development 2.0 の Australia リリースノートによる。詳細は [Agile Development・APM・EAM](./agile-apm-eam.md)） |
 
-[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/11_p2voQiUcmszYxaNh8BQ) [出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/gW_cPPq9eZH~xOWmFjHaVg)（Agile Development 2.0 の非推奨予定は Australia の SPM リリースノートの検索結果要約によるもので、該当ページ本文は確認できず）
+[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/11_p2voQiUcmszYxaNh8BQ) [出典](https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/gW_cPPq9eZH~xOWmFjHaVg) [出典（Agile Development 2.0 release notes, Australia）](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/neJjFWiM6xJCQbaXFj~3eQ)
 
 ---
 
@@ -1075,7 +1117,7 @@ Brazil（2026-09 EA、GA 時期は情報源により不一致）での SPM 関�
 | Portfolio Insights | Budget Overrun / Cost Variance インサイトカード、固定表示順、各カードの説明ポップオーバー | [出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-projectportfoliomanagement-release-notes.html) |
 | Demand | Demand summarization スキルのカスタマイズ、状態ごとのトリガー選択（既定の全状態自動を廃止）、Employee Hub（Employee Slate）の My Demands ウィジェットで会話型のデマンド作成・追跡（Project Workspace と Employee Slate Core が必要） | [出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-projectportfoliomanagement-release-notes.html) |
 | Project Workspace | All メニューから Next Experience の Project Workspace にアクセス可能 | [出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-projectportfoliomanagement-release-notes.html) |
-| 非推奨 | Planning console（サポート終了）、Process Mining Content Pack for SPM は別ストアアプリへ移行、Now LLM Service に Gemma 4 追加（旧モデルは新規開発不可） | [出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-projectportfoliomanagement-release-notes.html) |
+| 非推奨 | Planning console（サポート終了）、Process Mining Content Pack for SPM は別ストアアプリへ移行、Now LLM Service の旧モデルは新規開発不可（非推奨。あわせて Gemma 4 がモデルとして追加） | [出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-projectportfoliomanagement-release-notes.html) |
 | Goals | Maintain-type targets、自動ステータス計算（`sn_gfa.target.auto_status.thresholds`）、Breakdown 再生成、チェックイン既定 Quarterly、「No status」改称 | [出典](https://www.servicenow.com/docs/r/delta-australia-brazil/brazil-australia-goalframeworkforspm-release-notes.html) |
 | AI / 連携 | MCP for Strategic Portfolio Management | [出典](https://www.servicenow.com/docs/r/7GoNY9eeDRD0FzxldbEmXw/6BWTobmScZ3vBhKKvvCo8A) |
 | Hybrid Project Management | PM は Project Workspace で統制、メンバーは CWM で実行、リアルタイム同期 | 【第三者情報】[出典](https://www.servicenow.com/community/spm-articles/2026-spm-delta-deck-brazil-release/ta-p/3598803) |
@@ -1131,6 +1173,7 @@ Brazil（2026-09 EA、GA 時期は情報源により不一致）での SPM 関�
 - Financial planning for Projects and Demands: https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/VlCo7TKcJshMoykbSKNv5A
 - Financial planning for planning items: https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/~Iq7DkqjTiKv5EqPWv6HIQ
 - Cost Plan form: https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/abjni3FHJBeD~89qEKFqyg
+- Rate Models: https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/WNXtx9kRLnPR1FfC0gIn3A
 - Components installed with Goal Framework and Goal Framework for SPM: https://www.servicenow.com/docs/r/4~5Anqt12idfVzJWPcxoHw/SaBCSxphCtT9Kleo8GLljw
 - Plugins activated for the SPM integration (Sales and Order Management): https://www.servicenow.com/docs/r/order-management/sales-and-order-management/plugins-activated-spm-integration.html
 
@@ -1145,12 +1188,14 @@ Brazil（2026-09 EA、GA 時期は情報源により不一致）での SPM 関�
 - Strategic Portfolio Management - Advanced release notes: https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/VWHKHBeksjxJ_i3qfbzDMA
 - Strategic Portfolio Management - Prime release notes: https://www.servicenow.com/docs/r/C17ZqvSaMwUVpMBg8Nc5sg/uogXR2eYEdvEMR54fijDfQ
 - Project Workspace release notes（de-DE, Australia）: https://www.servicenow.com/docs/r/de-DE/release-notes/project-workspace-rn.html
+- Agile Development 2.0 release notes（Australia）: https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/neJjFWiM6xJCQbaXFj~3eQ
 
 ### ServiceNow Community（【第三者情報】を含む）
 - 2026 SPM Delta Deck - Brazil Release: https://www.servicenow.com/community/spm-articles/2026-spm-delta-deck-brazil-release/ta-p/3598803
 - A Practical Guide to Resource Assignments: https://www.servicenow.com/community/spm-articles/a-practical-guide-to-resource-assignments/ta-p/3259573
 - SPM Project Workspace financial calculations and rollup flows: https://www.servicenow.com/community/spm-articles/spm-project-workspace-financial-calculations-and-rollup-flows/ta-p/3549813
 - How to Segregate Access to the New Financials Using Roles: https://www.servicenow.com/community/spm-articles/how-to-segregate-access-to-the-new-financials-using-roles/ta-p/3511602
+- Alignment Planner Workspace is now 2 apps: Strategic Planning and Portfolio Planning: https://www.servicenow.com/community/spm-articles/alignment-planner-workspace-is-now-2-apps-strategic-planning-and/ta-p/2476642
 - How to distinguish between Standard SPM and SPM Pro?: https://www.servicenow.com/community/spm-forum/how-to-distinguish-between-standard-spm-and-spm-pro/m-p/3436778
 - Understanding project states: https://www.servicenow.com/community/spm-articles/understanding-project-states/ta-p/2303762
 - Discussion notes on changing project state: https://www.servicenow.com/community/spm-articles/discussion-notes-on-changing-project-state-field-notes-on/ta-p/2297241

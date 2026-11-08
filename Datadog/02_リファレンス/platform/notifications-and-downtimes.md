@@ -55,16 +55,16 @@ Datadog の **Downtime（ダウンタイム）** は、メンテナンスやシ�
 |---|---|
 | モニターの種類・評価・しきい値・No Data | [Monitors（モニター）](./monitors.md) |
 | Slack / Teams / PagerDuty / Webhooks 等の接続とハンドル構文 | [通知・コラボレーション連携](./collaboration-integrations.md) |
-| タグ設計（Notification Rules・Downtime はタグが前提） | [Tagging（タグ）](./tagging.md)、[タグ戦略の実践](../../04_応用編/tagging-strategy.md) |
+| タグ設計（Notification Rules・Downtime はタグが前提） | [Tagging（タグ）](./tagging.md)、[タグ戦略の実践](../../04_応用編/02-tagging-strategy.md) |
 | SLO と Status Corrections | [Service Level Objectives（SLO）](./slo.md) |
 | Datadog ネイティブのページング・エスカレーション | [On-Call](../service-management/on-call.md) |
 | モニターからのインシデント自動作成 | [Incident Management](../service-management/incident-management.md) |
 | モニターからのワークフロー起動 | [Workflow Automation](../service-management/workflow-automation.md) |
 | Synthetic テストの実行停止（Synthetic Downtime） | [Synthetic Monitoring](../dem/synthetic-monitoring.md) |
 | 権限・ロール・Teams | [組織・ユーザー・権限管理](./account-and-access-management.md) |
-| Terraform 管理 | [Terraform と IaC](./terraform-and-iac.md)、[Monitoring as Code](../../04_応用編/monitoring-as-code.md) |
-| アラート設計・ノイズ削減の実践 | [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md) |
-| 運用設計（メンテナンス運用・エスカレーション） | [運用設計](../../03_導入編/operations-design.md) |
+| Terraform 管理 | [Terraform と IaC](./terraform-and-iac.md)、[Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) |
+| アラート設計・ノイズ削減の実践 | [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md) |
+| 運用設計（メンテナンス運用・エスカレーション） | [運用設計](../../03_導入編/13-operations-design.md) |
 
 ---
 
@@ -851,7 +851,7 @@ Datadog は、特定のクラウドワークロードが手動またはオート
 - EC2 と GCE で、自動ミュートの対象になるモニターの条件（`host` でグループ化が必要かなど）は、Azure ほど明確には記載されていない。公開情報では確認できず。
 - 自動ミュートがいつ解除されるか（インスタンス再起動時の挙動など）の詳細は公開情報では確認できず。
 - 各クラウド連携の設定画面は [AWS Integration](./aws-integration.md)、[Google Cloud Integration](./gcp-integration.md)、[Azure Integration](./azure-integration.md) を参照。
-- Kubernetes のように Pod やノードが頻繁に入れ替わる環境では、自動ミュートの対象外になるため、No Data の扱いやグループ保持期間（`group_retention_duration`）で対処する。詳細は [Monitors（モニター）](./monitors.md) と [Kubernetes 監視の実践](../../04_応用編/kubernetes-monitoring-practices.md) を参照。【推定】
+- Kubernetes のように Pod やノードが頻繁に入れ替わる環境では、自動ミュートの対象外になるため、No Data の扱いやグループ保持期間（`group_retention_duration`）で対処する。詳細は [Monitors（モニター）](./monitors.md) と [Kubernetes 監視の実践](../../04_応用編/07-kubernetes-monitoring-practices.md) を参照。【推定】
 
 ---
 
@@ -974,7 +974,7 @@ Datadog は、特定のクラウドワークロードが手動またはオート
 
 [出典](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/downtime.md) [出典](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/downtime_schedule.md) [出典](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/monitor_notification_rule.md)
 
-- Terraform の設定例と、プロバイダーのバージョン管理は [Terraform と IaC](./terraform-and-iac.md)、運用の考え方は [Monitoring as Code](../../04_応用編/monitoring-as-code.md) を参照。
+- Terraform の設定例と、プロバイダーのバージョン管理は [Terraform と IaC](./terraform-and-iac.md)、運用の考え方は [Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) を参照。
 
 ---
 
@@ -1024,12 +1024,12 @@ Datadog の公式料金ページ（https://www.datadoghq.com/pricing/list/、202
 | 通知・Renotify・Notification Rules・モニター Downtime | 公式料金ページに独立した課金項目はない |
 | モニター Downtime と Synthetic テスト | モニター Downtime はテストの実行を止めないため、**テスト実行の課金は減らない** |
 | Synthetic Downtime | テストの実行自体を止めるため、Synthetic API テスト（10K 実行あたり）やブラウザテスト（1K 実行あたり）の課金対象となる実行回数を減らせる |
-| On-Call（`@oncall-` ハンドル） | モニターから `@oncall-` でページを送ること自体にシートは不要。ページを受けるユーザー（スケジュール参加者、エスカレーションポリシーの登録者、ページ受信の通知設定をする人）が On-Call シートの課金対象（2026-11-02 時点。詳細は [製品別料金表](../../03_導入編/pricing-by-product.md) の On-Call） |
+| On-Call（`@oncall-` ハンドル） | モニターから `@oncall-` でページを送ること自体にシートは不要。ページを受けるユーザー（スケジュール参加者、エスカレーションポリシーの登録者、ページ受信の通知設定をする人）が On-Call シートの課金対象（2026-11-02 時点。詳細は [製品別料金表](../../03_導入編/02-pricing-by-product.md) の On-Call） |
 | 外部通知先 | Slack、PagerDuty、ServiceNow などの外部ツール側のライセンス費用は、各製品の契約による |
 
 [出典](https://www.datadoghq.com/pricing/list/) [出典](https://docs.datadoghq.com/synthetics/platform/downtime/)
 
-- On-Call と Synthetic Monitoring の単価（年契約・月契約・オンデマンド別、2026-11-02 時点）は、料金の正本である [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。課金の考え方は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+- On-Call と Synthetic Monitoring の単価（年契約・月契約・オンデマンド別、2026-11-02 時点）は、料金の正本である [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照。課金の考え方は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 
 ---
 
@@ -1051,7 +1051,7 @@ Datadog の公式料金ページ（https://www.datadoghq.com/pricing/list/、202
 
 ## 14. 設計・運用上の注意点
 
-本節は仕様に基づく注意点と、実務での知見をまとめる。運用設計の全体像は [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md)、[運用設計](../../03_導入編/operations-design.md)、[よくある失敗とアンチパターン](../../04_応用編/common-pitfalls.md) を参照。
+本節は仕様に基づく注意点と、実務での知見をまとめる。運用設計の全体像は [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md)、[運用設計](../../03_導入編/13-operations-design.md)、[よくある失敗とアンチパターン](../../04_応用編/12-common-pitfalls.md) を参照。
 
 | 論点 | 注意点 | 根拠 |
 |---|---|---|

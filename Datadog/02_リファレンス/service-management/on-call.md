@@ -60,7 +60,7 @@ Datadog On-Call は、モニタリング・ページング（呼び出し）・�
 - 課金：**シート（seat）課金**。スケジュール参加者・エスカレーションポリシー登録者・Page 受信の通知設定をしたユーザーが課金対象（「課金への影響」節）。
 - 本ファイルの扱う範囲：Team の On-Call 化、Page の発生・応答、Routing Rules、Escalation Policy、Schedule、通知設定（電話・SMS・プッシュ）、Handover（引き継ぎ）、外部連携、移行、API/Terraform、権限、制限値、課金。インシデント宣言後の運用（Severity、タイムライン、ポストモーテム、Status Pages）は [Incident Management](./incident-management.md) を参照。
 
-関連ファイル：モニター通知の書き方は [通知と Downtime](../platform/notifications-and-downtimes.md)、モニター自体は [Monitors](../platform/monitors.md)、Slack/Teams アプリ設定の一般論は [通知・コラボレーション連携](../platform/collaboration-integrations.md)、Workflow は [Workflow Automation](./workflow-automation.md)、AI 機能は [Bits AI と AI 機能](../ai/bits-ai.md)、アラート設計の実践は [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md)、他製品からの移行計画は [他製品からの移行](../../03_導入編/migration-from-other-tools.md) を参照。
+関連ファイル：モニター通知の書き方は [通知と Downtime](../platform/notifications-and-downtimes.md)、モニター自体は [Monitors](../platform/monitors.md)、Slack/Teams アプリ設定の一般論は [通知・コラボレーション連携](../platform/collaboration-integrations.md)、Workflow は [Workflow Automation](./workflow-automation.md)、AI 機能は [Bits AI と AI 機能](../ai/bits-ai.md)、アラート設計の実践は [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md)、他製品からの移行計画は [他製品からの移行](../../03_導入編/14-migration-from-other-tools.md) を参照。
 
 ---
 
@@ -702,7 +702,7 @@ Cross-org Paging は、別の Datadog org や別データセンター（サイ�
 
 [出典](https://docs.datadoghq.com/incident_response/on-call/pages/cross_org_paging/)
 
-複数 org 運用の全体設計は [大規模・マルチorg運用](../../04_応用編/large-scale-and-multi-org.md) を参照。
+複数 org 運用の全体設計は [大規模・マルチorg運用](../../04_応用編/15-large-scale-and-multi-org.md) を参照。
 
 ---
 
@@ -777,7 +777,7 @@ Datadog On-Call の ServiceNow 連携は Preview で、2 つのフローがあ�
 | Cutover | **デュアルルーティング**（旧製品と Datadog On-Call の両方に送る）期間を設けて比較。モニターの一括編集（bulk editor）で On-Call ハンドルを追加 |
 | Cleanup | 低重大度の経路から旧製品を退役、旧設定のアーカイブ。移行後 30〜60 日以内に振り返り |
 
-移行計画全般は [他製品からの移行](../../03_導入編/migration-from-other-tools.md) を参照。
+移行計画全般は [他製品からの移行](../../03_導入編/14-migration-from-other-tools.md) を参照。
 
 ### PagerDuty からの移行ツール
 
@@ -929,7 +929,7 @@ resource "datadog_on_call_escalation_policy" "payments" {
 }
 ```
 
-（公式 Provider ドキュメントの例を基に簡略化。属性の詳細は Terraform Registry を参照。）IaC 全般は [Terraform と IaC](../platform/terraform-and-iac.md)、運用の実践は [Monitoring as Code](../../04_応用編/monitoring-as-code.md) を参照。
+（公式 Provider ドキュメントの例を基に簡略化。属性の詳細は Terraform Registry を参照。）IaC 全般は [Terraform と IaC](../platform/terraform-and-iac.md)、運用の実践は [Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) を参照。
 
 ---
 
@@ -985,7 +985,7 @@ resource "datadog_on_call_escalation_policy" "payments" {
 
 ## 課金への影響
 
-Datadog On-Call は**シート（seat）課金**である。On-Call と Incident Management を別々の SKU で契約するか、両方を 1 シートでカバーする **Incident Response バンドル**で契約するかを選べる。料金の数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、課金計算の一般論は [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、Incident Management 側のシート条件は [Incident Management](./incident-management.md) を参照。[出典](https://docs.datadoghq.com/account_management/billing/incident_response/)
+Datadog On-Call は**シート（seat）課金**である。On-Call と Incident Management を別々の SKU で契約するか、両方を 1 シートでカバーする **Incident Response バンドル**で契約するかを選べる。料金の数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、課金計算の一般論は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、Incident Management 側のシート条件は [Incident Management](./incident-management.md) を参照。[出典](https://docs.datadoghq.com/account_management/billing/incident_response/)
 
 ### 定価（2026-11-02 時点、USD、1 シートあたり月額）
 
@@ -1052,7 +1052,7 @@ Datadog On-Call は**シート（seat）課金**である。On-Call と Incident
 
 [出典](https://docs.datadoghq.com/incident_response/on-call/guides/offboarding-teams-and-users/) [出典](https://docs.datadoghq.com/account_management/billing/incident_response/)
 
-コスト見積りの方法は [コスト見積り手法](../../03_導入編/cost-estimation.md) を参照。
+コスト見積りの方法は [コスト見積り手法](../../03_導入編/05-cost-estimation.md) を参照。
 
 ---
 
@@ -1071,7 +1071,7 @@ Datadog On-Call は**シート（seat）課金**である。On-Call と Incident
 | シート解除 | 通知設定の削除ではシートは外れない。Seat Management で解除 | 公式 |
 | 訓練 | 音声案内は英語のため受電・Acknowledge の訓練を行う | 【第三者情報】 |
 
-アラートの設計方針・ノイズ削減は [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md)、オンコール体制を含む運用設計は [運用設計](../../03_導入編/operations-design.md)、よくある失敗は [よくある失敗とアンチパターン](../../04_応用編/common-pitfalls.md) を参照。
+アラートの設計方針・ノイズ削減は [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md)、オンコール体制を含む運用設計は [運用設計](../../03_導入編/13-operations-design.md)、よくある失敗は [よくある失敗とアンチパターン](../../04_応用編/12-common-pitfalls.md) を参照。
 
 ---
 

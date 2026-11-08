@@ -76,10 +76,10 @@ Datadog Dashboards の主な構成要素は次のとおり。
 | Slack / Microsoft Teams 連携（Scheduled Reports の前提） | [通知・コラボレーション連携](collaboration-integrations.md) |
 | RBAC、ロール、チーム | [組織・ユーザー・権限管理](account-and-access-management.md) |
 | API キー / アプリケーションキー | [API とキー管理](api-and-keys.md) |
-| Terraform によるダッシュボード管理 | [Terraform と IaC](terraform-and-iac.md)、[Monitoring as Code](../../04_応用編/monitoring-as-code.md) |
+| Terraform によるダッシュボード管理 | [Terraform と IaC](terraform-and-iac.md)、[Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) |
 | ダッシュボード変更の監査ログ | [Audit Trail](audit-trail.md) |
-| ダッシュボード設計のベストプラクティス | [ダッシュボード設計の実践](../../04_応用編/dashboard-design-practices.md) |
-| 画面の基本操作 | [画面構成とナビゲーション](../../01_入門編/ui-navigation.md) |
+| ダッシュボード設計のベストプラクティス | [ダッシュボード設計の実践](../../04_応用編/04-dashboard-design-practices.md) |
+| 画面の基本操作 | [画面構成とナビゲーション](../../01_入門編/06-ui-navigation.md) |
 
 ## 用語
 
@@ -928,7 +928,7 @@ Restricted Datasets（データアクセス制御）を有効にした組織で�
 
 ### Terraform
 
-Datadog Terraform provider では、ダッシュボードを HCL で定義する `datadog_dashboard`、JSON をそのまま渡す `datadog_dashboard_json`、ダッシュボードリストの `datadog_dashboard_list`、Powerpack の `datadog_powerpack`、アクセス制御の `datadog_restriction_policy` などのリソースで管理できる。リソースの詳細と運用パターンは [Terraform と IaC](terraform-and-iac.md) と [Monitoring as Code](../../04_応用編/monitoring-as-code.md) を参照。[出典](https://registry.terraform.io/providers/DataDog/datadog/latest/docs)
+Datadog Terraform provider では、ダッシュボードを HCL で定義する `datadog_dashboard`、JSON をそのまま渡す `datadog_dashboard_json`、ダッシュボードリストの `datadog_dashboard_list`、Powerpack の `datadog_powerpack`、アクセス制御の `datadog_restriction_policy` などのリソースで管理できる。リソースの詳細と運用パターンは [Terraform と IaC](terraform-and-iac.md) と [Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) を参照。[出典](https://registry.terraform.io/providers/DataDog/datadog/latest/docs)
 
 ## サイト差異
 
@@ -990,13 +990,13 @@ Datadog Dashboards の作成・閲覧・共有・Scheduled Reports・Powerpacks 
 
 | 観点 | 内容 |
 |---|---|
-| 表示するデータの課金 | ダッシュボード表示用に新たなカスタムメトリクスやログ由来メトリクスを作ると、それぞれの製品の課金対象になる。詳細は [Custom Metrics と DogStatsD](custom-metrics-and-dogstatsd.md)、[製品別料金表](../../03_導入編/pricing-by-product.md) |
+| 表示するデータの課金 | ダッシュボード表示用に新たなカスタムメトリクスやログ由来メトリクスを作ると、それぞれの製品の課金対象になる。詳細は [Custom Metrics と DogStatsD](custom-metrics-and-dogstatsd.md)、[製品別料金表](../../03_導入編/02-pricing-by-product.md) |
 | Flex Logs | **Include Flex Logs** を ON にするとウィジェットが Flex Logs を参照する。Flex Logs のクエリに伴う課金・制約は [Indexes・保持・アーカイブ](../logs/log-indexes-retention-archives.md) を参照 |
 | プランによる差 | Scheduled Reports で組織外の宛先にメール送信できるのは Enterprise と Pro アカウントのみ。[出典](https://docs.datadoghq.com/dashboards/sharing/scheduled_reports/) |
 | ダッシュボード単位の閲覧制限 | 有償プランの顧客がリクエストすると利用可能。[出典](https://docs.datadoghq.com/dashboards/configure/) |
 | 標準ダッシュボード | 公式料金ページ（Infrastructure）では「Out-of-the-Box Dashboards」が各プランの機能として記載されている（2026-11-02 取得）。[出典](https://www.datadoghq.com/pricing/) |
 
-料金体系の全体像は [料金体系の全体像](../../03_導入編/pricing-overview.md)、料金の数値は正本の [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
+料金体系の全体像は [料金体系の全体像](../../03_導入編/01-pricing-overview.md)、料金の数値は正本の [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照。
 
 ## 注意点と運用上のポイント
 
@@ -1010,7 +1010,7 @@ Datadog Dashboards の作成・閲覧・共有・Scheduled Reports・Powerpacks 
 | 不要ダッシュボードの整理 | 公式ガイドは、人気度が低く 3 か月以上更新されていないもの、既定タイトル（「's timeboard」「's screenboard」「's dashboard」）、「test」「cloned」を含むものを候補として、Recently Deleted で復元可能な状態で一括削除する方法を紹介。共有中（SHARED 表示）のものは削除を避ける | [公式](https://docs.datadoghq.com/dashboards/guide/maintain-relevant-dashboards/) |
 | Wildcard ウィジェットの多用 | ネイティブウィジェットの性能最適化が効かないため、まず既存ウィジェットで要件を満たせないか確認 | [公式](https://docs.datadoghq.com/dashboards/widgets/wildcard/) |
 
-設計面のベストプラクティス（情報設計、役割別ダッシュボード、色・閾値の使い方など）は [ダッシュボード設計の実践](../../04_応用編/dashboard-design-practices.md) を参照。
+設計面のベストプラクティス（情報設計、役割別ダッシュボード、色・閾値の使い方など）は [ダッシュボード設計の実践](../../04_応用編/04-dashboard-design-practices.md) を参照。
 
 ## 参照元
 

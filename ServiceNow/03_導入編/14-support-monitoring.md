@@ -19,6 +19,14 @@ sources:
   - https://www.servicenow.com/docs/r/zurich/impact/impact-packages.html
   - https://www.servicenow.com/docs/r/impact/impact-roles.html
   - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-impact-release-notes.html
+  - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-instancescan-release-notes.html
+  - https://www.servicenow.com/blogs/2017/now-now-servicenow-uses-now-platformtm-achieve-13-point-increase-nps-25-case-deflection-rate
+  - https://support.servicenow.com/not_authorized.do
+  - https://www.servicenow.com/community/community-central-forum/can-t-login-after-changing-user-id/td-p/3456753
+  - https://www.servicenow.com/docs/r/washingtondc/customer-service-management/create-a-consumer-registration.html
+  - https://www.servicenow.com/community/csm-articles/customer-portals/ta-p/3383969
+  - https://www.servicenow.com/community/now-platform-articles/how-can-i-see-statistics-xmlstats-do-amp-stats-do-for-all-my/ta-p/2321670
+  - https://www.servicenow.com/community/developer-articles/revival-of-the-quot-system-diagnostics-quot-homepage/ta-p/2474505
   - https://www.servicenow.com/docs/r/impact/io-overview.html
   - https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/w~Q2UXlnDQpyIRD9r4xyUg
   - https://www.servicenow.com/docs/r/impact/scan-engine-overview.html
@@ -34,7 +42,9 @@ sources:
   - https://www.servicenow.com/community/servicenow-ai-platform-articles/monitoring-servicenow-platform-performance-combining-outside-in/ta-p/3431199
   - https://www.servicenow.com/community/now-platform-blog/13-reasons-why-the-stats-do-page-is-your-best-friend-for/ba-p/2286882
   - https://www.servicenow.com/community/in-other-news/avoiding-time-consuming-transactions-being-automatically/ba-p/2285862
-  - https://www.servicenow.com/docs/r/wLYnGFihvmNxBr5heMf_jw/VsmG1P11T5VtuEAyfixv_Q
+  - https://www.servicenow.com/docs/r/australia/customer-service-management/self-service-options-csm-customers.html
+  - https://www.servicenow.com/docs/r/order-management/sales-and-order-management/som-self-service-business-portal.html
+  - https://www.servicenow.com/docs/F7qiIl3J44Nkm7noFnyyzQ
   - https://www.servicenow.com/docs/r/wLYnGFihvmNxBr5heMf_jw/6kib5BYmUrjN1yF7EId_7Q
   - https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/QvuuvHVQEL6w4UT4sdWx2A
   - https://www.servicenow.com/community/upgrades-and-patching-articles/what-to-know-beyond-the-install-button-in-application-manager/ta-p/3546451
@@ -105,9 +115,10 @@ flowchart TB
 
 Now Support は、ServiceNow 社が顧客向けに提供する**セルフヘルプ・技術サポート・インスタンス管理のポータル**である（[公式ドキュメント：Now Support administration](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/nbksiM0cF01qWwz5IzcIfw)）。旧称は **HI（HI portal、`hi.service-now.com`）** で、現在の URL は `https://support.servicenow.com/` である（[コミュニティ記事](https://www.servicenow.com/community/servicenow-ai-platform-articles/administration-using-the-now-support-portal-knowledge-amp/ta-p/2496445)、[Now Support メンテナンス FAQ](https://www.servicenow.com/community/developer-articles/now-support-scheduled-maintenance-faqs-april-8-2023/ta-p/2516591)）。2020 年版 CSA では Support Portal として `https://hi.service-now.com/` が記載されている（[CSA](https://static.carahsoft.com/concrete/files/9116/2998/6889/customer-support-addendum-upgrades.pdf)）。
 
-- Now Support 自体が ServiceNow の Customer Service Management（CSM）上に構築されたポータルである（いわゆる "Now on Now"）。【第三者情報】
+- ServiceNow 社は自社の顧客サポートに自社製品の Customer Service Management（CSM）を使っており（いわゆる "Now on Now"）、パーソナライズしたセルフサービスポータルとナレッジベースでケースの 25% を自己解決に回したと公表している（[ServiceNow 公式ブログ（2017）](https://www.servicenow.com/blogs/2017/now-now-servicenow-uses-now-platformtm-achieve-13-point-increase-nps-25-case-deflection-rate)）。このことから Now Support は CSM 上に構築されていると考えられるが、現行の Now Support ポータルの構成を明示した公式記述は公開情報では確認できず。【推定】
 - 利用者：インスタンスの管理・監視・保守に責任を持つ人（管理者等）。何ができるかは Now Support 上のロールで決まる（[公式](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/nbksiM0cF01qWwz5IzcIfw)）。
-- ログインには ServiceNow ID（Now Learning・Impact と共通のアカウント）を使い、MFA が要求されうる（CSA 1.4.1「Support Portal へのアクセスに MFA が必要となりうることを顧客は了承する」）。
+- ログインには ServiceNow ID を使う。ServiceNow ID が会社の Now Support アカウントに登録されていないとログインできず、その場合は Customer Administrator にメールアドレスを登録してもらう（[Now Support のログイン不可ページ](https://support.servicenow.com/not_authorized.do)）。同じ ServiceNow ID で Now Learning（ServiceNow University）・Community・Now Support を使っていることはコミュニティ投稿で確認できる（[コミュニティ：Can't login after changing user ID](https://www.servicenow.com/community/community-central-forum/can-t-login-after-changing-user-id/td-p/3456753)）【第三者情報】。Now Learning・Now Support・Impact のユーザー作成は新しい User Management（KB1279988）に統合されている（2.2 参照）。
+- Support Portal へのアクセスには MFA が要求されうる（CSA 1.4.1「Support Portal へのアクセスに MFA が必要となりうることを顧客は了承する」、[CSA](https://static.carahsoft.com/concrete/files/9116/2998/6889/customer-support-addendum-upgrades.pdf)）。
 
 ### 2.2 Now Support の主な機能
 
@@ -209,7 +220,7 @@ ServiceNow Impact（5 章）を契約すると、P1/P2 の初回応答目標が�
 | Developer Support | なし | あり（10 seats） |
 | 24 時間 365 日の P1/P2 対応 | あり | あり |
 
-- Guided 向けアドオン **Managed Support** を追加すると、P1/P2 応答時間の改善、SAM（Support Account Manager）のカバー対象インスタンス +1、Developer Support 5 seats が付く。Total 向け Managed Support は SAM +1 インスタンスと Developer Support 5 seats（応答時間の改善は記載なし）。
+- Guided 向けアドオン **Managed Support** を追加すると、P1/P2 応答時間の改善、SAM（Support Account Manager）による 1 インスタンスのカバー、Developer Support 5 seats が付く。Guided 標準の Impact Squad には SAM が含まれない（5.3 の表）ため、Guided で SAM の支援を受けるにはこのアドオンが必要である。Total 向け Managed Support は SAM +1 インスタンスと Developer Support 5 seats（応答時間の改善は記載なし）。
 - **Developer Support** は Impact の「Impact Developer Support」ロールを持つユーザーが、Advanced／Total パッケージで break-fix のサポートケースを起票し、カスタム開発に関する支援を依頼できる仕組みである（[Impact roles](https://www.servicenow.com/docs/r/impact/impact-roles.html)）。標準サポートの範囲外であるカスタマイズに関する相談の窓口として位置付けられる。
 
 ### 3.3 第三者情報との差異
@@ -296,7 +307,7 @@ Impact はインスタンスに導入される **Impact アプリケーション
 
 | パッケージ | 位置付け | 主な内容 | 出典 |
 |---|---|---|---|
-| **Guided** | 入門パッケージ | Impact App、24/7 サポート（P1 30 分／P2 120 分）、限定的な Accelerator、Customer Success Manager（CSM） | [Impact packages（Brazil）](https://www.servicenow.com/docs/r/impact/impact-packages1.html) |
+| **Guided** | 入門パッケージ | Impact App、24/7 サポート（P1 30 分／P2 120 分）、限定的な Accelerator、Impact Squad（Zurich 版では Customer Success Manager〔CSM〕のみ） | [Impact packages（Brazil）](https://www.servicenow.com/docs/r/impact/impact-packages1.html)、Squad は [Zurich 版](https://www.servicenow.com/docs/r/zurich/impact/impact-packages.html)（5.3 の注記参照） |
 | **Total** | 完全パッケージ | Guided の全内容 ＋ 応答短縮（P1 15 分／P2 60 分）、Developer Support（10 seats）、Accelerator 全カタログ、専任 Impact Squad | 同上 |
 | **Integrated Success** | Total ＋ 実装サービス | Total の全エンタイトルメント ＋ 契約に応じた実装サービス（Impact の Free Form initiative から開始）。Squad に Engineering Manager、Business Process Consultant、Solution Architect が加わる | [Impact packages（Australia）](https://www.servicenow.com/docs/r/australia/impact/impact-packages.html) |
 | Advanced（旧） | Guided と Total の中間 | Instance Observer の比較表や Health Assessment – Advanced 等で言及が残るが、Zurich 以降のパッケージ表には掲載されていない | [Instance Observer](https://www.servicenow.com/docs/r/OLEAh14mAEPe8fUlW2F9wQ/w~Q2UXlnDQpyIRD9r4xyUg) |
@@ -314,7 +325,7 @@ Impact はインスタンスに導入される **Impact アプリケーション
 | サポートアカウントマネージャー | Support Account Manager（SAM） | サポートケースの全体管理、エスカレーション窓口、Performance Management Review | — | ✓ | ✓ |
 | Engineering Manager／Business Process Consultant／Solution Architect | EM／BPC／SA | 実装サービスの提供 | — | — | ✓ |
 
-出典：[Impact packages（Australia／Brazil）](https://www.servicenow.com/docs/r/australia/impact/impact-packages.html)。SAM との Performance Management Review の実施は [コミュニティ記事](https://www.servicenow.com/community/servicenow-ai-platform-articles/monitoring-servicenow-platform-performance-combining-outside-in/ta-p/3431199) による。
+出典：Total の 4 ロール（CSE／PA／CSM／SAM）と Integrated Success の Expert Team（EM／BPC／SA）は [Impact packages（Australia）](https://www.servicenow.com/docs/r/australia/impact/impact-packages.html)。Guided の CSM は [Impact packages（Zurich）](https://www.servicenow.com/docs/r/zurich/impact/impact-packages.html)（「Impact Squad: Customer Success Manager」）による。Australia 版は Guided について「access to an Impact Squad team」と書くのみで構成員を明記しておらず、Brazil 版（[Impact packages](https://www.servicenow.com/docs/r/impact/impact-packages1.html)）は Guided に Impact Squad を記載していない（Total には「a dedicated Impact Squad」とあるがロール名なし）。Guided の Squad 構成は契約の Package Description で確認すること。SAM との Performance Management Review の実施は [コミュニティ記事](https://www.servicenow.com/community/servicenow-ai-platform-articles/monitoring-servicenow-platform-performance-combining-outside-in/ta-p/3431199) による。
 
 ### 5.4 Platform Health（Scan Engine と Instance Observer）のエンタイトルメント
 
@@ -348,7 +359,7 @@ Impact はインスタンスに導入される **Impact アプリケーション
 |---|---|---|
 | Strategic Value | Strategy サブカタログ拡張、Strategy 同時実行 +2 | Strategy 同時実行 +2 |
 | Platform Governance | Architecture サブカタログ拡張、Architecture 同時実行 +2 | Architecture 同時実行 +2 |
-| Managed Support | P1/P2 応答時間の改善、SAM +1 インスタンス、Developer Support 5 seats | SAM +1 インスタンス、Developer Support 5 seats |
+| Managed Support | P1/P2 応答時間の改善、SAM による 1 インスタンスのカバー（Guided 標準の Squad には SAM なし）、Developer Support 5 seats | SAM のカバー対象 +1 インスタンス、Developer Support 5 seats |
 | Preventive Care | 年 2 回、Account Escalation Engineer による本番性能評価（データレビュー・改善提案・実施） | 年 2 回の性能評価（データレビュー・改善提案） |
 | Platform Optimization | Optimization サブカタログ、同時実行 +1 | Optimization 同時実行 +1 |
 | Platform Health | Scan Engine の custom definitions 無制限、proposed fixes | （Total に含まれる） |
@@ -361,7 +372,7 @@ Impact はインスタンスに導入される **Impact アプリケーション
 
 | ロール | API 名 | 権限の概要 |
 |---|---|---|
-| Impact Admin | `sn_impact_common.Impact Admin` | 全機能、プレミアムアクセス管理、ユーザーアカウント管理 |
+| Impact Admin | `sn_impact_common.Impact Admin`（出典上の表記は `sn_impact_common.Impact Admin (BDA)`） | 全機能、Instance Observer と Developer Support のプレミアムアクセス管理、ユーザーアカウント管理、日常のプラットフォーム管理 |
 | Impact App Admin | `sn_impact_common.Impact App Admin` | テーブル全権、ロール付与、Platform Health 設定、Scan Engine の設定・スキャン制御 |
 | Impact Platform Owner | `sn_impact_common.Impact Platform Owner` | Impact の広範なアクセス、Instance Observer と Developer Support のプレミアムアクセス管理（ロール付与不可） |
 | Impact Portfolio Owner | `sn_impact_common.Impact Portfolio Owner` | Impact テーブルの CRUD、Accelerator・Advisory セッションの要求 |
@@ -376,6 +387,7 @@ Impact はインスタンスに導入される **Impact アプリケーション
 | Scan Engine User | `sn_se.scan_engine_user` | 指摘事項と結果の閲覧（スキャン開始不可） |
 | Exception Approver | `sn_se.scan_engine_exception_approver` | 例外申請の承認／却下 |
 | AI Fix User | `sn_impact_gen_ai_ai_fix_user` | AI 生成のコード修正提案の閲覧・適用 |
+| Internal REST Integration | `sn_iu_internal_rest_integration` | Scan Engine の REST API 連携（Scan Engine 定義・例外理由・Update Set スキャンデータの同期などの自動データ同期）。連携用のロールであり、通常の利用者に付与するものではないと考えられる【推定】 |
 | IO Standard | `io_standard` | Instance Observer のフルアクセス（アラートルール、ダッシュボード、レポート、トリアージ、可用性） |
 | IO Read Only | `io_readonly` | Instance Observer の閲覧のみ |
 
@@ -391,11 +403,13 @@ Australia の Impact リリースノート（[Zurich→Brazil 差分](https://ww
 
 | 区分 | 内容 |
 |---|---|
-| 新機能（Impact） | 製品レベルの価値ページ（v9.0.0、拡張アウトカムは現在 ITSM のみ）、Impact Partner ロール、製品ライン別ケイパビリティマップ、Accelerator のセルフサービス提供、Impact Conversations |
-| 新機能（Instance Observer） | Long Pending Jobs アラートカード、顧客設定の Webhook 連携失敗通知（URL 検証付き） |
-| 新機能（Scan Engine） | v7.0.0：Impact Health Agent と AI 生成コード修正、v8.0.0：指摘事項の要約、統計・システムプロパティのスキャンタイプ、Recommend レベルの指摘事項に対する例外申請、v9.00：ベースシステム定義の無効化（override 不要）、Full／Suite Scan による Update Set 検証 |
-| 変更 | 製品名称の「ServiceNow Otto」へのリブランド（リリースノートでは Now Assist の改称として記載）、Optimization Accelerator の標準カタログ統合、「Recommended capabilities」→「Squad-prioritized capabilities」 |
+| 新機能（Impact） | 製品レベルの価値ページ（Version 9.0.0、拡張アウトカムは現在 ITSM のみ）、Impact Partner ロール、製品ライン別ケイパビリティマップ、Accelerator のセルフサービス提供、Impact Conversations、新しい Accelerator の追加（AI データの探索、AI ガバナンスの学習、Virtual Agent の性能改善） |
+| 新機能（Instance Observer） | Long Pending Jobs アラートカード、顧客設定の Webhook 連携で URL や認証情報の誤りによる失敗を通知 |
+| 新機能（Scan Engine） | Version 7.0.0：Impact Health Agent と AI 生成コード修正、Version 8.0.0：指摘事項の要約、統計・システムプロパティのスキャンタイプ、Recommend レベルの指摘事項に対する例外申請、Version 9.0.0（リリースノート上の表記は「9.00」）：ベースシステム定義の直接無効化（override レコードや承認が不要）、Full／Suite Scan による Update Set 検証 |
+| 変更 | ServiceNow Otto を新しい AI 体験ブランドとし、Impact を含む ServiceNow 製品名に反映（見出しは「Now Assist>ServiceNow Otto」。エンタイトルメントは変更なし）、Impact Guided Setup による Impact Store Application 設定の簡素化、Optimization Accelerator カタログをダッシュボード・カタログフィルター・ナビゲーションに表示、Scan Engine の指摘事項を重大度別タブで表示（件数表示、インスタンスへの影響順）、技術的負債ダッシュボードのデータ更新頻度の向上（ほぼリアルタイム）、「Recommended capabilities」→「Squad-prioritized capabilities」 |
 | 廃止 | On-demand value report、Value potential Accelerator |
+
+出典：[Impact release notes（Zurich→Brazil 差分、Australia 節）](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-impact-release-notes.html)。バージョン番号（7.0.0／8.0.0／9.0.0）も同ページの Australia 節の記載による。
 
 > **Brazil での変更:** Impact のリリースノートでは Brazil は「No updates for this release」（新機能・変更・廃止なし）。Instance Scan も Brazil での更新はなし（[Instance Scan 差分](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-instancescan-release-notes.html)）。
 
@@ -444,8 +458,8 @@ Australia の Impact リリースノート（[Zurich→Brazil 差分](https://ww
 
 | 項目 | 内容 |
 |---|---|
-| チェック数 | 数千の設定ポイントに対する数百のチェック |
-| Instance Health Score | 全カテゴリのリスクを統合した 0〜100 の単一指標。カテゴリごとのリスクで重み付けした 4 段階の計算（重みの値はページ上で非公開、別文書「Platform Health score calculation model」） |
+| チェック数 | 5 カテゴリにわたる数百のリーディングプラクティスチェック（hundreds of leading practice checks across five categories）。インスタンスには数千の設定ポイント（thousands of configuration points）があるとされる |
+| Instance Health Score | 全カテゴリのリスクを統合した 0〜100 の単一指標（カテゴリごとのリスクで重み付け）。計算方法は別文書 [Platform Health score calculation model](https://www.servicenow.com/docs/F7qiIl3J44Nkm7noFnyyzQ) にあり、Scan engine overview のリンク説明では「a four-step, category-weighted calculation（4 段階・カテゴリ加重の計算）」とされる。重みの値は本調査では確認していない |
 | カテゴリ | Security（侵害・コンプライアンス・アクセス制御）、Performance（応答性。放置すると悪化）、Manageability（管理・サポート容易性）、Upgradeability（アップグレードを阻害・遅延させる設定）、User Experience（定着・満足度。緊急度は低め） |
 | Full scan | スコープ内の全レコードを全アクティブ定義で評価。同時に 1 つのみ実行 |
 | Delta scan | 前回スキャン以降の変更のみ評価。Full／Delta は Scan Engine が自動選択 |
@@ -482,7 +496,7 @@ ServiceNow コミュニティの性能監視ガイドは、**利用者視点（O
 | Client Transaction Timings | （プラグイン。新規インスタンスでは有効） | `syslog_client_transaction` | ブラウザ側の時間内訳。Response Time Indicator の有効化が前提。フォーム描画は操作単位の内訳を関連リストで確認可 | [Client transaction timings](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/dzDDdxEkwhDHt~ysgIfPzQ) |
 | Client Interactions log | System Logs > Client Interactions | `sys_client_interaction` | Configurable Workspace の PAGE_LOAD／NAVIGATION／IN-PAGE の Total UI time 等 | [コミュニティ記事](https://www.servicenow.com/community/servicenow-ai-platform-articles/monitoring-servicenow-platform-performance-combining-outside-in/ta-p/3431199) |
 | Stats Tools（Slow patterns） | System Diagnostics > Stats > Slow Queries／Slow Scripts／Slow Transactions | `sys_query_pattern`、`sys_script_pattern`、`sys_transaction_pattern` | 実行パターンごとの合計・平均時間と実行回数。`syslog_transaction` のサーバー時間を集約（Semaphore・Session wait を除く）。既定で有効、`com.snc.jrobin` に依存 | [Stats Tools（Australia）](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/vbsKTCRej6eErVcbzfTwUA) |
-| Slow Patterns タブ | （Solving slow patterns） | 同上 | 選択期間で平均実行時間が全体平均より高いクエリ等を一覧化し、時系列グラフと発生源を確認 | [Solving slow patterns](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/Jeh7YecV9Rk75U0Aayfecg) |
+| Slow Patterns タブ | （Solving slow patterns） | 同上 | 選択期間で平均実行時間が全体平均より高いクエリ等を一覧化し、時系列グラフと発生源を確認 | [Solving slow patterns（Zurich 版）](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/Jeh7YecV9Rk75U0Aayfecg) |
 | System Diagnostics | System Diagnostics | — | System Events dashboard（イベント）、Scheduled Jobs dashboard（完了ジョブ）、Stats Tools | [System Diagnostics（Brazil）](https://www.servicenow.com/docs/r/platform-administration/sys-diag.html) |
 | `stats.do` | URL `https://<instance>.service-now.com/stats.do`、または System Diagnostics > Stats | — | 接続中ノードのビルド、メモリ、トランザクション数、セマフォ、スケジューラ、DB 接続、Lazy Writer、ログインセッション数。TSE がケース初動でよく確認を依頼する | [13 reasons stats.do](https://www.servicenow.com/community/now-platform-blog/13-reasons-why-the-stats-do-page-is-your-best-friend-for/ba-p/2286882) |
 | `xmlstats.do` | URL | — | `stats.do` より詳細な統計（XML）。DB 性能の詳細確認に推奨 | 同上 |
@@ -497,12 +511,12 @@ ServiceNow コミュニティの性能監視ガイドは、**利用者視点（O
 
 > 注意：
 > - `stats.do` は**接続中の 1 ノード分**しか表示しない。マルチノード構成では全ノードの状態を一度に見られない（コミュニティでも全ノード表示の方法が繰り返し質問されている）。
-> - 「System Diagnostics」ホームページと「Cluster Node Status」UI ページは San Diego 以降非推奨とされる（コミュニティ情報）。【第三者情報】
+> - 「System Diagnostics」ホームページと「Cluster Node Status」UI ページは San Diego 以降非推奨とされる（[コミュニティ記事：How can I see statistics (xmlstats.do & stats.do) for all my nodes?](https://www.servicenow.com/community/now-platform-articles/how-can-i-see-statistics-xmlstats-do-amp-stats-do-for-all-my/ta-p/2321670)、[コミュニティ記事：Revival of the "System Diagnostics" homepage](https://www.servicenow.com/community/developer-articles/revival-of-the-quot-system-diagnostics-quot-homepage/ta-p/2474505)）。【第三者情報】
 > - セマフォ設定（System Maintenance > Semaphore）は**変更前に TSE に相談**するよう案内されている（[13 reasons stats.do](https://www.servicenow.com/community/now-platform-blog/13-reasons-why-the-stats-do-page-is-your-best-friend-for/ba-p/2286882)）。
 
 ### 7.3 Application Insights の廃止
 
-**Application Insights** は Zurich リリースから**デプロイ・機能強化・サポートの対象外**となった（KB0867184 に廃止手順）。ServiceNow は代替として Impact パッケージに含まれる **Instance Observer** の評価を推奨し、アカウントチームと Impact パッケージを検討するよう案内している（[Solving slow patterns](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/Jeh7YecV9Rk75U0Aayfecg)）。過去の設計書で Application Insights を前提にしている場合は見直しが必要である。
+**Application Insights** は Zurich リリースから**デプロイ・機能強化・サポートの対象外**となった（廃止プロセス全般は Now Support の KB0867184「Deprecation Process」を参照）。ServiceNow は代替として Impact パッケージに含まれる **Instance Observer** の評価を推奨し、アカウントチームと Impact パッケージを検討するよう案内している（[Solving slow patterns（Zurich 版）](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/Jeh7YecV9Rk75U0Aayfecg)。Australia 版の英語ページは本調査では取得できなかったが、Zurich で廃止された機能であり Australia でも有効と考えられる【推定】）。過去の設計書で Application Insights を前提にしている場合は見直しが必要である。
 
 ### 7.4 Instance Observer（Impact）
 
@@ -590,7 +604,7 @@ ServiceNow 社が稼働監視を行っていても、顧客側から見た可用
 | 方式 | 内容 | 注意 |
 |---|---|---|
 | HTTP 外形監視 | 自社の監視ツールからログインページ等に定期アクセス | 認証付きの監視は専用の監視ユーザーを作り、ライセンス消費とパスワード管理に注意 |
-| REST API の応答監視 | 軽量な Table API 呼び出し（`sysparm_limit=1`）の応答時間を計測 | 高頻度の呼び出しは `API_INT` セマフォを消費する。数分間隔に抑える |
+| REST API の応答監視 | 軽量な Table API 呼び出し（`sysparm_limit=1`）の応答時間を計測 | 高頻度の呼び出しは `API_INT` セマフォを消費する。数分間隔に抑える。インバウンドの REST Table API 要求は既定の Quota rule で **60 秒**でキャンセルされる（7.9 参照） |
 | MID Server の監視 | MID Server の Status（Up/Down）とホストのリソース | MID Server は顧客側の資産であり、監視責任も顧客側。詳細は [MID Server](../02_リファレンス/platform/mid-server.md) |
 | 連携ジョブの監視 | 失敗した Import Set・Outbound REST のエラーをイベント化 | [連携設計](09-integration-design.md) を参照 |
 
@@ -599,6 +613,24 @@ ServiceNow 社が稼働監視を行っていても、顧客側から見た可用
 **Transaction Quota Rules** は、一定時間を超えたトランザクションをプラットフォームが自動的にキャンセルする仕組みで、System Definition > Transaction Quota Rules で管理する（[コミュニティ記事](https://www.servicenow.com/community/in-other-news/avoiding-time-consuming-transactions-being-automatically/ba-p/2285862)）。
 
 - 既定の「UI Transactions」ルールは、**5 分のサーバー切断の 2 秒前**に UI トランザクションをキャンセルする（[Default quota rules](https://www.servicenow.com/docs/r/platform-administration/platform-performance/c_DefaultQuotaRules.html)）。つまり **298 秒**。ServiceNow データセンターのロードバランサーが 5 分経過後に HTTP 500 を返すためである。
+- UI 以外にも次の既定ルール（Default quota rules）がある（[Default quota rules](https://www.servicenow.com/docs/r/platform-administration/platform-performance/c_DefaultQuotaRules.html)）。
+
+| ルール名 | 上限 | 対象 |
+|---|---|---|
+| UI Transactions | 約 5 分 − 2 秒（298 秒） | UI トランザクション（バックグラウンドスクリプトを除く） |
+| REST Table API request timeout | 60 秒 | インバウンドの REST Table API トランザクション |
+| REST Import Set API request timeout | 60 秒 | インバウンドの REST Import Set API トランザクション |
+| REST Aggregate API request timeout | 60 秒 | インバウンドの REST Aggregate API トランザクション |
+| REST Attachment API request timeout | 60 秒 | インバウンドの REST Attachment API トランザクション（公式ページの説明文は Import Set API と記載されており誤記と思われる） |
+| Reference Completer | 5 秒 | 参照フィールドの入力補完（reference completer） |
+| Homepage Widgets | 30 秒 | すべてのホームページウィジェット |
+| PA Diagnostics All | 30 分 | Diagnostics アプリケーション外から開始された Diagnostics トランザクション |
+| UA Count Persistor Quota | 1 時間 | UA count persistor のスケジュールジョブ |
+| Fix Script Processor | 4 時間 | Fix Script の実行 |
+| Presence | 時間指定なし（システム高負荷時に早期キャンセル） | Presence 要求 |
+| AMB Transactions | 時間指定なし（設定された最大値を超えたものをキャンセル） | AMB のメッセージ送受信 |
+
+- 「外部システムからの REST 連携が 60 秒で失敗する」という問い合わせは、上記 REST API の既定ルールが原因であることが多い。大量データの取得はページング（`sysparm_limit`／`sysparm_offset`）で 1 要求あたりの処理量を減らす【経験則】。
 - 上限の引き上げは性能に影響しうるため推奨されない。長時間処理は非同期処理（スケジュールジョブ、非同期ビジネスルール、フロー）に移す【第三者情報：コミュニティ回答】。非同期ビジネスルールはスケジュールジョブとして実行され、このクォータの対象外とされる。
 - 変更前に User Administration > Active Transactions で通常の処理時間を確認する。
 - 「処理が 5 分でエラーになる」という問い合わせの多くはこのルールが原因であり、ServiceNow 社へのケース起票の前に Transaction log で該当トランザクションの所要時間を確認する【経験則】。
@@ -611,10 +643,10 @@ ServiceNow 社が稼働監視を行っていても、顧客側から見た可用
 
 | 意味 | 説明 |
 |---|---|
-| (a) ServiceNow 社のサポートポータル | ServiceNow 自身の顧客が使う Now Support（2 章）。CSM 上に構築されている |
+| (a) ServiceNow 社のサポートポータル | ServiceNow 自身の顧客が使う Now Support（2 章）。CSM 上に構築されていると考えられる【推定】（2.1 参照） |
 | (b) CSM 製品のポータル | 自社が CSM を導入し、**自社の顧客**（法人の取引先担当者、一般消費者）向けに提供するセルフサービスポータル |
 
-(b) について、CSM のセルフサービスポータルは次の 4 種類がある（[Self-service for Customer Service Management](https://www.servicenow.com/docs/r/wLYnGFihvmNxBr5heMf_jw/VsmG1P11T5VtuEAyfixv_Q)）。
+(b) について、CSM のセルフサービスポータルは次の 4 種類がある（[Self-service for Customer Service Management（Australia、2026-03-12 更新）](https://www.servicenow.com/docs/r/australia/customer-service-management/self-service-options-csm-customers.html)）。
 
 | ポータル | 対象 | 種別 |
 |---|---|---|
@@ -623,11 +655,13 @@ ServiceNow 社が稼働監視を行っていても、顧客側から見た可用
 | Consumer Service Portal | B2C | 標準 |
 | Consumer Portal | B2C | 拡張版（ウィジェットベース） |
 
-- 公式ドキュメントは「**新規導入では拡張版ポータル（Business Portal／Consumer Portal）を使うべき**」としている。Business Portal と Consumer Portal は、Customer Service Portal／Consumer Service Portal のプラグインと一緒に自動インストールされる。
+- Australia 版の公式ドキュメントは「**New implementations should use the enhanced portals（新規導入では拡張版ポータル〔Business Portal／Consumer Portal〕を使うべき）**」とし、既存顧客は Business Portal（B2B）／Consumer Portal（B2C）へ移行できるとしている。Customer Service Portal／Consumer Service Portal は「standard portals」と呼ばれるが、非推奨（deprecated）との明示はない。Business Portal と Consumer Portal は、Customer Service Portal／Consumer Service Portal のプラグインと一緒に自動インストールされる。
+- コミュニティ記事（2026-06-10 更新）は、B2C について `/csp`（Consumer Service Portal）を「prior to Australia」「Old Consumer Portal」、`/consumer_portal`（Consumer Portal）を「After Australia」「New B2C Consumer Portal」と区分している（[コミュニティ：Customer Portals](https://www.servicenow.com/community/csm-articles/customer-portals/ta-p/3383969)）。【第三者情報】ただし同記事は Consumer Portal が Australia の「既定」になったとは明言していない。
+- 同記事のポータル一覧では、`/business_portal` は CSM の Business Portal（B2B）に加えて **Sales and Order Management の Business Portal**（B2B の販売・受注管理用）にも割り当てられている【第三者情報】。CSM と SOM を併用する場合は、同一ポータルを共用するのか別ポータルにするのかを設計時に決める【経験則】。SOM のセルフサービスは [Customer self-service for Sales CRM](https://www.servicenow.com/docs/r/order-management/sales-and-order-management/som-self-service-business-portal.html) および [Sales and Order Management／CRM](../02_リファレンス/customer/sales-order-management-crm.md) を参照。
 - 主な機能：ケースの起票・追跡、ナレッジ、サービスカタログ、チャットと Virtual Agent、コミュニティフォーラム、Web Embeddables、Engagement Messenger。
 - `sn_customerservice.customer_admin`（顧客管理者）はポータルにサービスカタログを関連付けられる。
-- 外部ユーザーには **`snc_external`** ロールが必要で、`snc_internal` と同時には持てない（Explicit Roles プラグイン。Customer Service プラグインで有効化）（[Explicit Roles in CSM](https://www.servicenow.com/docs/r/wLYnGFihvmNxBr5heMf_jw/6kib5BYmUrjN1yF7EId_7Q)）。
-- URL サフィックス（`/csm`、`/csp` 等）は公式ドキュメント上では確認できず、コミュニティ情報では Consumer Service Portal が `/csp` とされる。【第三者情報】
+- 外部ユーザーには **`snc_external`** ロールが必要で、`snc_internal` と同時には持てない（Explicit Roles プラグイン。Customer Service プラグインで有効化）（[Explicit Roles in CSM（Yokohama 版）](https://www.servicenow.com/docs/r/wLYnGFihvmNxBr5heMf_jw/6kib5BYmUrjN1yF7EId_7Q)）。
+- URL サフィックス：Consumer Service Portal はインスタンス URL に `/csp` を付けてアクセスする（[Register for the Consumer Service Portal（Washington DC 版）](https://www.servicenow.com/docs/r/washingtondc/customer-service-management/create-a-consumer-registration.html)）。コミュニティ記事（2025-10-28 投稿、2026-06-10 更新）では、B2B は `/csm`（Customer Service Management Portal、Yokohama Q1 より前）→ `/business_portal`（Business Portal、Yokohama Q1 以降）、B2C は `/csp`（Consumer Service Portal、Australia より前）→ `/consumer_portal`（Consumer Portal、Australia 以降）と整理されている（[コミュニティ：Customer Portals](https://www.servicenow.com/community/csm-articles/customer-portals/ta-p/3383969)）。【第三者情報】サフィックスはポータル設定で変更できるため、実際の値は各インスタンスの Service Portal レコードで確認する。
 
 CSM の仕様（ケースモデル、アカウント・コンタクト、エスカレーション、Major case）は [Customer Service Management](../02_リファレンス/customer/customer-service-management.md)、Service Portal 全般は [Service Portal と Employee Center](../02_リファレンス/platform/portals-employee-center.md) を参照。
 
@@ -732,7 +766,10 @@ Go-Live までにサポートと監視の体制を整えるためのチェック
 - Instance Observer のアラート 6 種（Guided）の具体名。
 - Scan Engine の Instance Health Score のカテゴリ別重み。
 - Store アプリの「24 時間以内に導入可能にならない場合は Now Support へ」の公式ページ本文（検索スニペットでのみ確認）。
-- CSM の各ポータルの URL サフィックス（公式文書上）。
+- Business Portal（`/business_portal`）・Consumer Portal（`/consumer_portal`）の URL サフィックスの Australia 版公式文書での記載（コミュニティ記事でのみ確認）。
+- 現行 Now Support ポータルが CSM 上に構築されていることの公式な明示。
+- Australia／Brazil 版での Guided パッケージの Impact Squad 構成員（Customer Success Manager を明記しているのは Zurich 版のみ）。
+- Australia で Consumer Service Portal（`/csp`）が非推奨扱いかどうか、Consumer Portal が B2C の既定になったかどうか（Australia 版公式文書は「新規導入では拡張版を使うべき」とするのみ）。
 
 ---
 
@@ -755,12 +792,19 @@ Go-Live までにサポートと監視の体制を整えるためのチェック
 - Maintaining and monitoring the ServiceNow AI Platform：https://www.servicenow.com/docs/r/platform-administration/maintain-monitor-now-platform.html
 - System Diagnostics：https://www.servicenow.com/docs/r/platform-administration/sys-diag.html
 - Stats Tools（Australia）：https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/vbsKTCRej6eErVcbzfTwUA
-- Solving slow patterns：https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/Jeh7YecV9Rk75U0Aayfecg
+- Solving slow patterns（Zurich）：https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/Jeh7YecV9Rk75U0Aayfecg
 - Client transaction timings：https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/dzDDdxEkwhDHt~ysgIfPzQ
 - Default quota rules：https://www.servicenow.com/docs/r/platform-administration/platform-performance/c_DefaultQuotaRules.html
 - Upgrade planning checklist：https://www.servicenow.com/docs/r/release-notes/upgrades-planning-checklist.html
-- Self-service for Customer Service Management：https://www.servicenow.com/docs/r/wLYnGFihvmNxBr5heMf_jw/VsmG1P11T5VtuEAyfixv_Q
-- Explicit Roles in CSM：https://www.servicenow.com/docs/r/wLYnGFihvmNxBr5heMf_jw/6kib5BYmUrjN1yF7EId_7Q
+- Self-service for Customer Service Management（Australia）：https://www.servicenow.com/docs/r/australia/customer-service-management/self-service-options-csm-customers.html
+- Customer self-service for Sales Customer Relationship Management：https://www.servicenow.com/docs/r/order-management/sales-and-order-management/som-self-service-business-portal.html
+- Platform Health score calculation model：https://www.servicenow.com/docs/F7qiIl3J44Nkm7noFnyyzQ
+- Explicit Roles in CSM（Yokohama）：https://www.servicenow.com/docs/r/wLYnGFihvmNxBr5heMf_jw/6kib5BYmUrjN1yF7EId_7Q
+- Register for the Consumer Service Portal（Washington DC）：https://www.servicenow.com/docs/r/washingtondc/customer-service-management/create-a-consumer-registration.html
+
+**ServiceNow 公式サイト・ブログ**
+- How ServiceNow uses the Now Platform to achieve a 13-point increase in NPS and a 25% case deflection rate（2017）：https://www.servicenow.com/blogs/2017/now-now-servicenow-uses-now-platformtm-achieve-13-point-increase-nps-25-case-deflection-rate
+- Now Support ログイン不可ページ：https://support.servicenow.com/not_authorized.do
 - Getting apps and trials from the ServiceNow Store：https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/QvuuvHVQEL6w4UT4sdWx2A
 
 **契約文書（第三者掲載の写し）**
@@ -778,6 +822,10 @@ Go-Live までにサポートと監視の体制を整えるためのチェック
 - What to know beyond the Install button in Application Manager：https://www.servicenow.com/community/upgrades-and-patching-articles/what-to-know-beyond-the-install-button-in-application-manager/ta-p/3546451
 - The value of certified applications from the ServiceNow Store：https://www.servicenow.com/community/in-other-news/the-value-of-certified-applications-from-the-servicenow-store/ba-p/2273039
 - Guide to getting your app certified：https://www.servicenow.com/community/app-publisher-blog/guide-to-getting-your-app-certified-and-certification/ba-p/2477630
+- Can't login after changing user ID：https://www.servicenow.com/community/community-central-forum/can-t-login-after-changing-user-id/td-p/3456753
+- Customer Portals（CSM articles、2025-10-28 投稿／2026-06-10 更新）：https://www.servicenow.com/community/csm-articles/customer-portals/ta-p/3383969
+- How can I see statistics (xmlstats.do & stats.do) for all my nodes?：https://www.servicenow.com/community/now-platform-articles/how-can-i-see-statistics-xmlstats-do-amp-stats-do-for-all-my/ta-p/2321670
+- Revival of the "System Diagnostics" homepage：https://www.servicenow.com/community/developer-articles/revival-of-the-quot-system-diagnostics-quot-homepage/ta-p/2474505
 
 **第三者**
 - Surety Systems, ServiceNow Support：https://www.suretysystems.com/insights/servicenow-support-surety-systems/

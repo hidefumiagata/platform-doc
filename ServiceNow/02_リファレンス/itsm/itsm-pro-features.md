@@ -15,6 +15,7 @@ sources:
   - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/BhBLc~i590ni4VnMshledg
   - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/tpDIL~_yqSeETA4FykEYrQ
   - https://www.servicenow.com/docs/r/now-intelligence/performance-analytics/r_StUpPAInctMgmt.html
+  - https://www.servicenow.com/docs/r/J7UfGStUvhlVOcoqiM3zlQ/YWsJrtE2zWZXcRVSg5saiA
   - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/HL9M0soJWwtVOf553k_3Sw
   - https://www.servicenow.com/docs/r/now-intelligence/process-mining/components-installed.html
   - https://www.servicenow.com/docs/r/AZQZDvc5eDr4fb4UyPv03g/TcTB_vZebwUaWCaR_3D4KA
@@ -81,7 +82,7 @@ flowchart LR
 ```
 
 - Process Mining の ITSM コンテンツパック（`sn_itsm_po`）は、Incident / Change プロセス向けの CIM 改善施策を事前定義しており、Process Mining プロジェクトと自動的にリンクされる。[出典](https://www.servicenow.com/docs/r/AZQZDvc5eDr4fb4UyPv03g/TcTB_vZebwUaWCaR_3D4KA)
-- CIM の Improvement Initiative フォームには Performance Analytics のスコアカード（Analytics Hub）が埋め込まれ、改善 KPI を継続監視する。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/~9VM~cLts7dNzxTkpTHAOA)
+- CIM の Improvement Initiative フォームには Performance Analytics のスコアカード（Analytics Hub）が埋め込まれ、改善 KPI を継続監視する（Platform Analytics 移行後の表示は §7.5 の注記を参照）。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/~9VM~cLts7dNzxTkpTHAOA)
 - DPM の Personal Portfolio から Improvement initiative を直接作成できる（CIM プラグインが必要）。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/q1kMnETv_tV7PtAuNGuoPA)
 
 ---
@@ -90,7 +91,7 @@ flowchart LR
 
 ### 2.1 旧パッケージ（Standard / Pro / Enterprise）での位置づけ
 
-ServiceNow Community の「ITSM Pro onboarding guide」（2021-04 公開、2025-09 最終更新）は、ITSM Pro と Enterprise の包含機能を次のように整理している。[出典](https://www.servicenow.com/community/itsm-articles/itsm-pro-onboarding-guide/ta-p/2296018)
+ServiceNow Community の「ITSM Pro onboarding guide」（2021-04 公開、2025-09 最終更新）は、ITSM Pro と Enterprise の包含機能を次のように整理している（表の全行がこのガイドに由来。補足注記のみ別出典）。[出典](https://www.servicenow.com/community/itsm-articles/itsm-pro-onboarding-guide/ta-p/2296018)
 
 | 区分 | 機能 | ITSM Standard | ITSM Pro | ITSM Enterprise |
 |---|---|:-:|:-:|:-:|
@@ -106,7 +107,8 @@ ServiceNow Community の「ITSM Pro onboarding guide」（2021-04 公開、2025-
 
 - ※1 Standard でも「Complimentary Performance Analytics for Incident Management」（機能限定版）がベースシステムに含まれる（§4.2）。
 - ※2 2026-04 の新階層では DevOps Change Velocity は Prime のみと指摘するコメントがある【第三者情報】。[出典](https://www.servicenow.com/community/itsm-articles/itsm-licensing-in-april-2026-foundation-advanced-and-prime-in/ta-p/3544380)
-- ※3 Process Mining FAQ（Community）は「Vancouver 以降、Process Mining は ITSM・CSM・HRSD・FSM・SPM・Creator Workflows に含まれる」と記載するが、ITSM のどの階層かは明示していない。オンボーディングガイドおよび第三者情報では Enterprise 機能として扱われることが多い。[出典](https://www.servicenow.com/community/process-mining-article/servicenow-process-mining-formerly-process-optimization-faq/ta-p/2309083)
+- ※3 オンボーディングガイドは Process Mining を「ITSM Enterprise also includes:」の見出しの下に記載しており、Pro の項目には含めていない。[出典](https://www.servicenow.com/community/itsm-articles/itsm-pro-onboarding-guide/ta-p/2296018) 一方、Process Mining FAQ（Community）は「Vancouver 以降、Process Mining は ITSM・CSM・HRSD・FSM・SPM・Creator Workflows に含まれる」とだけ記載し、ITSM のどの階層かは明示していない。[出典](https://www.servicenow.com/community/process-mining-article/servicenow-process-mining-formerly-process-optimization-faq/ta-p/2309083) 両者は矛盾しないが、Pro での利用可否は契約で確認すること。
+- 表の各行の由来：表中の機能と包含区分はすべてオンボーディングガイドの「ITSM Pro also includes」「ITSM Pro now includes the following Modern Governance capabilities」「ITSM Enterprise also includes」「ITSM Plus for Pro and Enterprise also includes」の各見出しによる。※1・※2 の補足のみ別出典（各注記に記載）。
 - Digital Portfolio Management について、Xanadu の公式ドキュメントは「表示されるデータは standard / pro ライセンスのどちらかによって異なる」と記載している。[出典](https://www.servicenow.com/docs/r/Recj91eIo1YnsOabQjgskg/ltwbyowRAQEE0kkKWPynGw)
 - 正式な包含条件は契約書（Order Form）と ServiceNow の「Product Descriptions」が唯一の根拠である。本表は公開情報の整理であり、契約判断に使う場合はアカウントチームへの確認が必要である。
 
@@ -161,12 +163,14 @@ ITSM での Predictive Intelligence の利用形態は 3 つある。
 | Incident Categorization | Classification | Short description | Category（カテゴリ） |
 | Incident Service | Classification | Short description | Service（サービス） |
 | Incident Configuration Item | Classification | Short description | Configuration item（構成アイテム） |
-| Major Incident Detection | Similarity | Short description, Description | 紐付け候補の類似アクティブ Major Incident、Major Incident として提案すべき類似インシデント |
-| Similar Incidents (Major Incident Workbench) | Similarity | Short description, Description | Major Incident に未リンクの類似インシデント |
+| Major Incident Detection | Similarity | 公開情報では明記なし | 紐付け候補の類似アクティブ Major Incident、Major Incident として提案すべき類似インシデント |
+| Similar Incidents (Major Incident Workbench) | Similarity | 公開情報では明記なし | Major Incident に未リンクの類似インシデント |
 | Similar Incidents | Similarity | Short description, Description | 類似インシデント一覧 |
 | Similar Open Incidents | Similarity | Short description, Description | 現インシデントを紐付けられる類似オープンインシデント |
 | Similar Closed Incidents | Similarity | Short description, Description | 類似クローズ済みインシデント |
-| Similar Resolved Incidents | Similarity | Short description, Description | 類似解決済みインシデント |
+| Similar Resolved Incidents | Similarity | 公開情報では明記なし | 類似解決済みインシデント |
+
+- 入力フィールドが公式ページに明記されているのは、Classification の 4 件（Short description）と、Similar Incidents / Similar Open Incidents / Similar Closed Incidents（Short description と Description）のみである。
 
 #### 必要プラグイン
 
@@ -177,7 +181,7 @@ ITSM での Predictive Intelligence の利用形態は 3 つある。
 | Major Incident Recommendation | `com.snc.contextual_search_ml`、`com.snc.incident.mim.ml_solution` |
 | Similar Open / Resolved / Similar Incidents / Similar Knowledge Articles | `com.snc.contextual_search_ml`、`com.snc.incident.mim.ml_solution` |
 
-- 同ページ内でプラグイン ID の表記揺れ（アンダースコア有無）がある。導入時はインスタンスのプラグイン一覧で正確な ID を確認すること。
+- 同ページ内でプラグイン ID の表記揺れ（アンダースコア有無）がある。また ITSM Virtual Agent のトピック一覧ページは同じ機能を `com.snc.incident.ml` と表記している（§5.2）。導入時はインスタンスのプラグイン一覧で正確な ID を確認すること。
 
 #### ビジネスルール
 
@@ -274,17 +278,21 @@ Performance Analytics（PA、パフォーマンス分析）は、レコードを
 
 ### 4.3 ITSM 向け Content Pack
 
-ITSM 上位パッケージ（旧 Pro 以上）では、ITSM 各プロセスの Content Pack を有効化できる。ServiceNow 社員による Community 記事（2017 年時点、Kingston〜New York 対象）が列挙する「Performance Analytics for Service Management」エンタイトルメントで有効化できる Content Pack は次のとおり。最新リリースでの名称・構成は差異がありうる。[出典](https://www.servicenow.com/community/platform-analytics-articles/performance-analytics-for-service-management/ta-p/2300095)
+ITSM 上位パッケージ（旧 Pro 以上）では、ITSM 各プロセスの Platform Analytics Solution（旧称 Content Pack）を有効化できる。公式ドキュメント「Available Platform Analytics Solutions」（Australia 版、2026-03-12 更新）が「Performance Analytics for Service Management」エンタイトルメントで有効化できるとして列挙する ITSM 向けソリューションは次のとおり（**Australia 版で確認**）。[出典](https://www.servicenow.com/docs/r/J7UfGStUvhlVOcoqiM3zlQ/YWsJrtE2zWZXcRVSg5saiA)
 
-| 種別 | Content Pack 名 |
-|---|---|
-| プロセス別 | Change Management / Problem Management / Request Management (Requested Item) / Request Management (Requests) / Incident SLA Management / Major Incident Management |
-| ダッシュボード | ITSM Dashboards（プラグイン `com.snc.pa.itsm_dashboards`） |
-| Context Sensitive Analytics | Change Management / Incident / Problem Management（フォーム上で関連指標を表示） |
-| Spotlight | Change / Incident / Problem / Request Spotlight（優先度付けのためのスコアリング） |
+| Solution（ソリューション） | プラグイン ID | 備考 |
+|---|---|---|
+| Change Management | `com.snc.pa.change` | ITSM Dashboards からも有効化される |
+| Incident Management | `com.snc.pa` | 既定コンテンツは限定版（§4.2）として提供。フル機能は PA の契約が必要 |
+| Incident SLA | `com.snc.pa.sla` | ITSM Dashboards からも有効化される |
+| ITSM Dashboards | `com.snc.pa.itsm_dashboards` | 有効化すると Change Management、Problem Management、Incident SLA、Major Incident Management、Fixed Costs（`com.snc.fixed_costs`）も有効化される |
+| Major Incident Management | `com.snc.pa.incident.mim` | ITSM Dashboards からも有効化される |
+| Problem Management | `com.snc.pa.problem` | ITSM Dashboards からも有効化される |
 
+- 同じ構成が Zurich 版（2025-07-31 更新）と Brazil 版（2026-09-10 更新）でも掲載されており、Brazil での変更は確認されなかった。[Zurich 版](https://www.servicenow.com/docs/r/pVA_t2FBRJGAybmbtWqZ2A/g2zNctKz7nV3IJ50TawFxQ) / [Brazil 版](https://www.servicenow.com/docs/r/now-intelligence/performance-analytics/r_AvailableContentPacks.html)
+- ITSM Dashboards Content Pack の概要（Australia 版）は、ITSM Success Dashboard（経営層・マネージャー向け）や SOW の IT Agent dashboard にも触れている。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/f8ycCqLZtcbFZSAyQQwfLA)
 - Incident Management の指標は `com.snc.pa` と `com.snc.pa.itsm_dashboards` の Content Pack に含まれる。[出典](https://www.servicenow.com/docs/r/US6ajuI5T26ee32kSvfHDw/Co4A345n_YV2Z3FHqfxA5g)
-- Incident Management（`com.snc.pa`）と Incident SLA（`com.snc.pa.sla`）は別ソリューションとして提供される。[出典](https://docs.servicenow.com/bundle/newyork-performance-analytics-and-reporting/page/use/dashboards/reference/r_AvailableContentPacks.html)
+- **旧情報（参考）：** ServiceNow 社員による Community 記事（2017 年時点、Kingston〜New York 対象）と New York 版ドキュメントは、上記に加えて Request Management (Requested Item / Requests)、Context Sensitive Analytics（Change / Incident / Problem）、Spotlight（Change / Incident / Problem / Request）を列挙していた。これらは Australia 版の一覧には ITSM ソリューションとして掲載されておらず、**現行リリースでの提供状況は公開情報では確認できず**。[Community 記事](https://www.servicenow.com/community/platform-analytics-articles/performance-analytics-for-service-management/ta-p/2300095) / [New York 版](https://docs.servicenow.com/bundle/newyork-performance-analytics-and-reporting/page/use/dashboards/reference/r_AvailableContentPacks.html)
 - 代表的な指標例（Process Mining の ITSM KPI でも使われる）：Average time to resolve incidents（平均解決時間）、% of incidents resolved on first assignment（初回割当解決率）。[出典](https://www.servicenow.com/docs/r/pVA_t2FBRJGAybmbtWqZ2A/yepYmHfjBZrawcJ8~fP66w)
 
 ### 4.4 Platform Analytics 移行の影響（ITSM 利用者向け）
@@ -315,11 +323,11 @@ Virtual Agent（仮想エージェント）は ServiceNow の会話型 AI（チ�
 
 | トピック | 内容 | 必要なプラグイン／スポーク | 状態 |
 |---|---|---|---|
-| Open IT Ticket 2.0 | インシデントを作成。類似のオープンチケットを提示して重複起票を防止（旧名 Intelligent Open IT Ticket） | Predictive Intelligence for Incident（`com.snc.incident.ml`） | 推奨 |
+| Open IT Ticket 2.0 | インシデントを作成。類似のオープンチケットを提示して重複起票を防止（旧名 Intelligent Open IT Ticket） | Predictive Intelligence for Incident（`com.snc.incident.ml`。§3.2 の `com.snc.incident.ml_solution` とは表記が異なる。公式ドキュメント間で揺れているため、インスタンスで確認すること） | 推奨 |
 | Open IT Ticket | ナレッジ記事を提示し、解決しなければインシデントを作成 | 任意で Universal Request（`com.snc.universal_request`） | **非推奨**（Open IT Ticket 2.0 を使用） |
 | Check IT Ticket Status | ユーザーのアクティブなインシデント／リクエスト一覧を表示し、コメント追加やライブエージェント接続が可能 | なし | 利用可 |
 | Check Ticket and Support Status | インシデント・顧客ケース・HR チケットを番号や説明文で検索 | なし | 利用可 |
-| Escalate IT Ticket | 理由を必須入力させてチケットの緊急度を引き上げる | なし | 利用可（Yokohama の LLM トピック一覧では Deprecated 表記あり） |
+| Escalate IT Ticket | 理由を必須入力させてチケットの緊急度を引き上げる | なし | 利用可（Yokohama の LLM トピック一覧の Core ITSM topics 表では「Deprecated」表記あり。[出典](https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/2N3VeReLoFcYRLQvu1JcKQ)） |
 | Process Approval | `approver_user` ロールを持つユーザーのアクティブな承認を一覧表示 | なし | 利用可 |
 | Service Disruptions | 計画・計画外の停止や性能劣化を表示 | なし | 利用可 |
 | My Assigned Equipment | 割り当て済み機器を表示し、資産関連インシデントを作成 | なし | 利用可 |
@@ -385,7 +393,7 @@ Process Mining（プロセスマイニング、旧称 Process Optimization）は
 | `sn_process_mining_analyst` | Process Mining Analyst | プロジェクトの作成・共有、共有されたプロジェクトの閲覧（全プロジェクトにはアクセス不可） | なし |
 
 - 一部のドキュメント（例：Security Incident Response 用 Content Pack、Australia 版）では旧名 `sn_process_optimization_admin` / `sn_process_optimization_power_user` / `sn_process_optimization_analyst` が記載されている。インスタンス上の実際のロール名を確認すること。[出典](https://www.servicenow.com/docs/r/pVA_t2FBRJGAybmbtWqZ2A/fFyMazjYyZ9AtllSYI56KQ)
-- Community FAQ は Admin / Power User / Analyst / Viewer の 4 ロールを挙げているが、上記公式ページには Viewer は掲載されていない。
+- [Community FAQ](https://www.servicenow.com/community/process-mining-article/servicenow-process-mining-formerly-process-optimization-faq/ta-p/2309083) は Admin / Power User / Analyst / Viewer の 4 ロールを挙げている。Admin は Power User を含み、Power User は Viewer と Analyst を含む（Admin ⊃ Power User ⊃ Analyst / Viewer）。Viewer は共有された分析を閲覧するだけで、プロジェクトの作成・編集・削除・共有はできない。上記の公式ページ（Brazil 版）には Viewer が載っていないため、閲覧専用ユーザーを設計するときは、インスタンスに実在するロールを確認すること【第三者情報】。
 
 ### 6.3 主要テーブル
 
@@ -491,7 +499,7 @@ Continual Improvement Management（CIM、継続的改善管理）は、サービ
 
 | プロパティ | 既定値 | 説明 |
 |---|---|---|
-| `sn_cim.need_approval` | Yes | Accepted から Approved への遷移に手動承認を必須とする |
+| `sn_cim.need_approval` | Yes | 改善施策の承認プロセスを有効にする。既定では、改善施策が Implement に進むには承認が必要（By default, an improvement requires approval before it can progress to the Implement state）。有効時は、Accepted から Approved へ進むのに Approver group の手動承認が必要。**No にすると、Accepted になった改善施策は自動的に Approved へ進み、Improvement Initiative フォームの Approver group フィールドと Approvers 関連リストは表示されない**。なお「Managing improvements」では Accepted と Approved の間に Assess（承認審査）状態がある（§7.4） |
 | `sn_cim.initiative_copy_attributes` | － | アプリケーションタスクレコードへコピーする属性の一覧 |
 | `sn_cim.create_default_phase` | No | 新規施策作成時に既定フェーズを作成する |
 
@@ -523,6 +531,8 @@ stateDiagram-v2
     New --> Rejected: 戦略に整合しない
     Accepted --> Assess: Manager が残りの属性を設定
     Assess --> Approved: Approver group が承認（sn_cim.need_approval=Yes の場合）
+    Accepted --> Approved: sn_cim.need_approval=No の場合は自動
+    Assess --> Rejected: Approver group が却下
     Approved --> InProgress: Coordinator がフェーズ・タスクを計画
     InProgress --> OnHold: 保留（未完了タスクも保留）
     OnHold --> InProgress
@@ -543,6 +553,7 @@ stateDiagram-v2
 | Review | Coordinator | 全 CIM タスク完了後に Review へ |
 | Closed | Improvement Manager | 完了を検証してクローズ |
 
+- `sn_cim.need_approval` = No の場合、Accepted から自動的に Approved へ進む（§7.2）。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/Cq7YCLEXohJzH11xiA_vzg) その際に Assess 状態を経由するかどうかは公開情報では確認できず。「Managing improvements」は承認者が却下できることのみを記載し、却下後の状態は明記していない。
 - 図中の「Rejected」「OnHold」「ClosedIncomplete」は公式記述（却下・保留・キャンセル）を図示するための表現であり、実際の State 選択肢の値は公開情報では確認できず。
 
 #### 進捗率の計算
@@ -556,7 +567,7 @@ stateDiagram-v2
 | Continual Improvement Workbench | **All > Continual Improvement > Workbench**。Overview / Planning タブ |
 | Improvement Register | Workbench で **View Standard List** を選択すると、全改善（オープン・クローズ）とタスク・フェーズを一覧できる |
 | Enterprise Strategies | **Continual Improvement > Enterprise Strategies**（または Organization > Enterprise Strategy）。施策フォームの Strategies フィールドで紐付け。作成は Improvement Manager のみ |
-| KPI 監視 | 施策フォームに Analytics Hub（PA スコアカード）が埋め込まれ、Show Records で KPI 値の元レコードを表示。Impacted KPIs 関連リストにもスコアカードが表示される |
+| KPI 監視 | 施策フォームに Analytics Hub（PA スコアカード）が埋め込まれ、Show Records で KPI 値の元レコードを表示。Impacted KPIs 関連リストにもスコアカードが表示される。ただし Platform Analytics へ移行した環境や新規顧客では、Analytics Hub が KPI Details に置き換えられている（§4.4）ため、KPI Details として表示される可能性がある。実際の表示は公開情報では確認できず |
 
 ![Continual Improvement Workbench（旧 UI）](../../assets/images/itsm-pro-features/cim-workbench.jpg)
 
@@ -695,7 +706,7 @@ Digital Portfolio Management（DPM、デジタルポートフォリオ管理）�
 
 | ロール | 説明 | 包含ロール |
 |---|---|---|
-| `sn_dpm.dpm_admin`（DPM admin） | DPM Workspace の構成、全 DPM システムプロパティと管理ページの閲覧・更新、KPI グループの作成・更新・削除とマッピング、DPM manager ロールのグループへの付与。Service Portfolio Management の admin / manager ロールがなければサービスポートフォリオの CRUD は不可 | `sn_dpm.dpm_manager`、`sn_ep.enterprise_portfolio_admin`（Enterprise portfolio プラグイン導入時のみ） |
+| `sn_dpm.dpm_admin`（DPM admin） | DPM Workspace の構成、所有者に関係なく全 Personal Portfolio の作成・参照・更新・削除（CRUD）、全 DPM システムプロパティと管理ページの閲覧・更新、KPI グループの作成・更新・削除とマッピング、DPM manager ロールのグループへの付与。Service Portfolio Management の admin / manager ロールがなければサービスポートフォリオの CRUD は不可 | `sn_dpm.dpm_manager`、`sn_ep.enterprise_portfolio_admin`（Enterprise portfolio プラグイン導入時のみ） |
 | `sn_dpm.dpm_manager`（DPM manager） | DPM Workspace のエンドユーザー。自分が所有・編集する Personal Portfolio の作成・参照・更新、閲覧権限のあるポートフォリオの参照、DPM Workspace の全データ参照、Demand と CIM アイテムの作成、ロードマップ更新、KPI 閲覧。サービス・オファリング・ビジネスアプリ・サービスインスタンスの編集や Service Builder での作成・編集は不可 | `sn_devops.viewer`、`cmdb_read`、`sn_team_perf.team_performance_user`、`service_viewer`、`sn_ep.enterprise_portfolio_viewer`（Enterprise portfolio プラグイン導入時のみ） |
 
 - Personal Portfolio をグループと共有するには、そのグループが DPM manager ロールを持つ必要がある。[出典](https://www.servicenow.com/docs/r/MlbQAgTiiiMOLOw9T36wJg/3IL5xI9EyhxjfAUOyF_C~w)
@@ -725,7 +736,7 @@ DPM のオブジェクト別タブと、データを提供する任意の関連�
 | 〃 | Plan | Strategic Planning（`com.sn_align_ws`）、CIM（`com.sn_cim`）、Demand Management | ロードマップ、改善アイデア、デマンド |
 | 〃 | Build | Strategic Planning、PPM（`com.snc.financial_planning_pmo`）、CIM。変更は追加導入不要 | ロードマップ、プロジェクト、変更グラフ、改善施策 |
 | 〃 | Run | KPI グループ（`sn_team_perf_kpi_group`、自動導入）、PA 指標 | パフォーマンス、可用性、SLA |
-| ビジネスアプリケーション | Needs attention | Audit Management（`sn_audit`）、Technology Portfolio Management（`sn_apm_tpm`） | 監査、技術リスク |
+| ビジネスアプリケーション | Needs attention | Audit Management（`sn_audit`）、Technology Lifecycle Management（旧 Technology Portfolio Management、`sn_apm_tpm`。Australia でワークスペース上の名称が TLM に変更） | 監査、技術リスク |
 | 〃 | Build | Strategic Planning、PPM、Agile Development（`com.snc.sdlc.agile.2`）、DevOps メトリクス | プロジェクト、エピック・ストーリー・スプリント、フローメトリクス |
 | 〃 | Run | APM（`com.snc.apm`）、DevOps accelerate metrics | インシデント・問題・変更件数、デプロイ、技術データ |
 | 〃 | Risk | GRC（`com.sn_risk`、`com.snc.governance` 等）、`sn_audit` | ビジネスアプリに紐づくリスク |
@@ -754,8 +765,8 @@ DPM のオブジェクト別タブと、データを提供する任意の関連�
 | Predictive Intelligence（Incident） | `com.glide.platform_ml`、`com.snc.incident.ml_solution` | `ml_admin`、`ml_report_user` | `ml_predictor_results`、`ml_predictor_results_task` | Predictive Intelligence > Solution Definitions／Dashboards |
 | Predictive Intelligence（Change） | `com.snc.change_management.ml.risk`、`com.snc.change_management.ml.sctp` | `admin`（設定）、`itil` / `sn_change_write`（閲覧） | － | 変更要求フォーム（情報メッセージ） |
 | Task Intelligence for ITSM | `com.snc.itsm_ml_task` | `admin`、`sn_itsm_ml_task.ti_user` | 公開情報では確認できず | Task Intelligence for ITSM Admin Console、SOW サイドパネル |
-| Performance Analytics for ITSM | `com.snc.pa`、`com.snc.pa.itsm_dashboards`、`com.snc.pa.sla` | PA 各ロール（[レポートとアナリティクス](../platform/reporting-analytics.md)） | PA 標準テーブル | Platform Analytics Administration |
-| ITSM Virtual Agent | ITSM VA conversations（ID は公開情報では確認できず）、`com.snc.incident.ml` | Virtual Agent 各ロール | Virtual Agent 標準テーブル | Virtual Agent Designer |
+| Performance Analytics for ITSM | `com.snc.pa`、`com.snc.pa.itsm_dashboards`、`com.snc.pa.sla`、`com.snc.pa.change`、`com.snc.pa.problem`、`com.snc.pa.incident.mim` | PA 各ロール（[レポートとアナリティクス](../platform/reporting-analytics.md)） | PA 標準テーブル | Platform Analytics Administration |
+| ITSM Virtual Agent | ITSM VA conversations（ID は公開情報では確認できず）、`com.snc.incident.ml`（Open IT Ticket 2.0 用。§3.2 の `com.snc.incident.ml_solution` と表記が揺れているため、インスタンスで確認すること） | Virtual Agent 各ロール | Virtual Agent 標準テーブル | Virtual Agent Designer |
 | Process Mining | `com.sn_po`、`sn_itsm_po` | `sn_process_mining_admin` / `_power_user` / `_analyst` | `promin_*`、`ml_capability_definition_promin` | Process Mining Workspace、Process Mining > Process Configurations |
 | CIM | `com.sn_cim` | `sn_cim.improvement_requester` / `_coordinator` / `_manager` | `sn_cim_register`、`sn_cim_task`、`sn_cim_related_kpi` | Continual Improvement > Workbench／Administration |
 | Now Assist（Otto）for ITSM | ストアアプリ（Now Assist for ITSM / ServiceNow Otto for ITSM） | `itil`（利用）、Now Assist 管理ロール | － | Now Assist パネル、SOW、Now Assist Admin Console |
@@ -765,7 +776,7 @@ DPM のオブジェクト別タブと、データを提供する任意の関連�
 
 ## 11. 確認できなかった事項
 
-以下は 2026-11-03 時点の公開情報で確認できなかった。推測で補っていない。
+以下は 2026-11-02 時点（last_verified）の公開情報で確認できなかった。推測で補っていない。
 
 - 旧 ITSM Standard / Pro / Enterprise から Foundation / Advanced / Prime への公式マッピングと、ITSM 各階層の公式な機能一覧（公式価格ページはアクセス不可）。
 - Task Intelligence for ITSM の管理ロール名・テーブル名・最小学習件数（Australia 版）。
@@ -801,7 +812,11 @@ DPM のオブジェクト別タブと、データを提供する任意の関連�
 - Try out Complimentary Performance Analytics for Incident Management: https://www.servicenow.com/docs/r/now-intelligence/performance-analytics/r_StUpPAInctMgmt.html
 - Reporting incidents（Australia）: https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/laMgfbcsN69EhM1FQaRlgw
 - Incident Management indicators: https://www.servicenow.com/docs/r/US6ajuI5T26ee32kSvfHDw/Co4A345n_YV2Z3FHqfxA5g
-- Available Platform Analytics Solutions: https://docs.servicenow.com/bundle/newyork-performance-analytics-and-reporting/page/use/dashboards/reference/r_AvailableContentPacks.html
+- Available Platform Analytics Solutions（Australia）: https://www.servicenow.com/docs/r/J7UfGStUvhlVOcoqiM3zlQ/YWsJrtE2zWZXcRVSg5saiA
+- Available Platform Analytics Solutions（Zurich）: https://www.servicenow.com/docs/r/pVA_t2FBRJGAybmbtWqZ2A/g2zNctKz7nV3IJ50TawFxQ
+- Available Platform Analytics Solutions（Brazil）: https://www.servicenow.com/docs/r/now-intelligence/performance-analytics/r_AvailableContentPacks.html
+- Platform Analytics ITSM Dashboards（Australia）: https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/f8ycCqLZtcbFZSAyQQwfLA
+- Available Platform Analytics Solutions（New York、旧情報の参考）: https://docs.servicenow.com/bundle/newyork-performance-analytics-and-reporting/page/use/dashboards/reference/r_AvailableContentPacks.html
 - Performance Analytics for Service Management（Community）: https://www.servicenow.com/community/platform-analytics-articles/performance-analytics-for-service-management/ta-p/2300095
 - Platform Analytics experience release notes（Xanadu）: https://www.servicenow.com/docs/r/3ongaT2PAVB3Cqoicgnoxg/qV~ndN2VeOyeNtcXfxuJuA
 - When is Performance Analytics deprecated（Community）: https://www.servicenow.com/community/platform-analytics-forum/when-is-performance-analytics-deprecated/m-p/3177851

@@ -37,13 +37,26 @@ sources:
   - https://www.servicenow.com/community/queensland-snug/understanding-connection-amp-credential-alias-part-2/ba-p/3011764
   - https://www.servicenow.com/community/queensland-snug/remote-tables-part-1-best-kept-secret/ba-p/3531975
   - https://www.perspectium.com/blog/servicenow-integration-hub/
+  - https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/CeroxsMHhgCxKQpMYsGFsw
+  - https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/xgysOlDxh6Tk0Kw77~tlZA
+  - https://www.servicenow.com/docs/r/store-release-notes/store-integrationhub-rn-github.html
+  - https://servicenow.github.io/sdk/guides/alias-template-guide
+  - https://www.servicenow.com/community/servicenow-ai-platform-forum/what-integration-hub-subscription-is-required-to-get-zip-step-in/m-p/2577468
+  - https://www.servicenow.com/community/developer-forum/integrationhub-transaction-packs/m-p/3074830
+  - https://www.servicenow.com/community/workflow-automation-forum/oauth-2-0-token-refresh-on-401-does-not-retry-the-original/m-p/3541972
+  - https://www.servicenow.com/community/servicenow-ai-platform-forum/how-does-servicenow-count-integration-hub-transactions/td-p/1099879/page/2
+  - https://redresscompliance.com/servicenow-integrationhub-licensing-guide.html
+  - https://www.servicenow.com/docs/r/australia/intelligent-experiences/ai-native-sku-overview.html
+  - https://www.servicenow.com/docs/r/servicenow-platform/orchestration/credentials-conn-alias-orch.html
+  - https://www.servicenow.com/docs/r/rigCt~VuB5q8tR2t1pu_Eg/7ltgQVErIDyvW80j6EqORA
+  - https://www.servicenow.com/docs/r/australia/release-notes/integration-hub-rn.html
 ---
 
 # IntegrationHub（インテグレーションハブ）
 
 ## 概要
 
-IntegrationHub（Integration Hub、インテグレーションハブ）は、ServiceNow AI Platform（旧 Now Platform）のローコード統合基盤であり、Workflow Studio（旧 Flow Designer、ワークフロースタジオ）のフロー／サブフロー／アクションから外部システムを呼び出すための部品群とライセンス体系の総称である。IntegrationHub は **ベースシステムには含まれず、別途サブスクリプションが必要** な製品である [出典](https://www.servicenow.com/docs/r/integrate-applications/integration-hub/integrationhub.html)。
+IntegrationHub（Integration Hub、インテグレーションハブ）は、ServiceNow AI Platform（旧 Now Platform）のローコード統合基盤であり、Workflow Studio（ワークフロースタジオ。Flow Designer / Action Designer を統合した開発環境）のフロー／サブフロー／アクションから外部システムを呼び出すための部品群とライセンス体系の総称である。IntegrationHub は **ベースシステムには含まれず、別途サブスクリプションが必要** な製品である [出典](https://www.servicenow.com/docs/r/integrate-applications/integration-hub/integrationhub.html)。
 
 IntegrationHub の主要な構成要素は以下のとおり。
 
@@ -124,7 +137,16 @@ IntegrationHub の機能はプラグイン単位で提供される。サブス�
 | Flow Trigger - Kafka | `com.glide.hub.flow_trigger.kafka` | フロー内で Kafka トピックのメッセージを消費 |
 | Action Step - Kafka Producer | `com.glide.hub.action_step.kafka` | フロー内で Kafka トピックにメッセージを生成 |
 | Stream Connect MID Hermes API | `com.glide.mid.hermes_api` | MID Server から Hermes Messaging Service トピックへメッセージを生成 |
+| Integration Hub Kafka Consumer | `com.glide.hub.kafka_consumer` | Kafka を扱う IntegrationHub コンポーネントを提供 |
+| IntegrationHub ETL Consumer - Kafka | `com.glide.hub.etl_consumer.kafka` | RTE、Transform map、またはスクリプトでトピックの Kafka メッセージを消費 |
+| Stream Connect Replication - Kafka | `com.glide.hub.stream_connect.replication.kafka` | MID Server 経由で Stream Connect トピックを顧客の Kafka クラスターへレプリケーション |
+| Integration Hub Stream Connect Schema | `com.glide.hub.stream_connect.schema` | Apache Avro 形式でメッセージを送受信するためのスキーマのインポート・作成 |
+| Stream Producer | `com.glide.hub.stream_connect.stream_producer` | ServiceNow テーブルの変更を Kafka トピックへ自動ストリーミング（Australia の Stream Producer 機能） |
+| Stream Connect Direct Kafka | `com.glide.hub.stream_connect.direct_kafka` | Hermes Messaging Service を介さずインスタンスを Apache Kafka に直接接続（Australia の Direct Kafka 機能） |
+| Stream Connect Installer (Direct Kafka) | `com.glide.hub.stream_connect.onprem_installer` | Direct Kafka に必要なプラグインを一括インストール |
 | Remote Tables | `com.glide.script.vtable` | Remote tables（IntegrationHub サブスクリプションとは別プラグイン。外部データ利用時は IH エンタイトルメントが必要） |
+
+> 注記: Stream Connect 関連のプラグインは抜粋である。Australia のプラグインページには、このほか Stream Connect Common Core（`com.glide.hub.stream_connect.common.core`）、Stream Connect Hermes（`com.glide.hub.stream_connect.hermes`）、Stream Connect Kafka Connection（`com.glide.hub.stream_connect.kafka_connection`）、Replication Core / Replication Certificates などが載っている。全一覧は出典（Australia プラグインページ）を参照。Stream Connect Installer を有効化すると、Kafka Producer、Flow Trigger、Kafka Consumer、ETL Consumer、Replication、Schema、Stream Producer の各プラグインも有効化される [出典（Australia）](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/EqBzLHWgmGUVzpChZ37M1w)。
 
 [出典（Zurich）](https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/lryjWJgrIfs_RXZtGCvRXw)、[出典（Australia）](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/EqBzLHWgmGUVzpChZ37M1w)、[出典（Remote tables）](https://www.servicenow.com/docs/r/zS6yb8e~gR8BPjeviYdV9g/vmxDw5c65RgjKQmXdK~zZg)
 
@@ -173,7 +195,7 @@ IntegrationHub の Spoke は、提供元と配布形態により以下に分類�
 
 | 種類 | 提供元 | 配布 | 特徴 |
 |---|---|---|---|
-| ベースシステム Spoke（Base system spokes） | ServiceNow | プラグイン（例: Slack、Microsoft Teams、Remote Process Sync） | プラグイン有効化で利用。ServiceNow がリリースごとに認定・保守 |
+| ベースシステム Spoke（Base system spokes） | ServiceNow | プラグイン（例: Slack、Microsoft Teams、Microsoft SCCM、ServiceNow eBonding） | プラグイン有効化で利用。ServiceNow がリリースごとに認定・保守 |
 | ServiceNow 製ストア Spoke（ServiceNow-developed spokes） | ServiceNow | ServiceNow Store | Store からダウンロードし本番利用。リリースと独立してバージョンアップ |
 | パートナー製 Spoke | ISV / パートナー | ServiceNow Store | Store で配布。ライセンス条件は提供元ごとに異なる【第三者情報】 |
 | カスタム Spoke（Custom spokes） | 顧客・開発者 | 自社スコープアプリ | Spoke Generator や Action Designer で作成。既存 Spoke の拡張または単独 Spoke |
@@ -293,7 +315,7 @@ Connections & Credentials（接続と資格情報）機能は、IntegrationHub �
 
 | テーブル | ラベル | 説明 | 確度 |
 |---|---|---|---|
-| `sys_alias` | Connection & Credential Alias | Alias 本体。`sys_metadata` を拡張し、作成には `admin` が必要。`credential_admin` / `connection_admin` は読み取り可 | 公式（Orchestration ドキュメントの記述として検索結果で確認）|
+| `sys_alias` | Connection & Credential Alias | Alias 本体。`sys_metadata` を拡張し、作成には `admin` が必要。`credential_admin` / `connection_admin` は読み取り可 | 公式 [出典](https://www.servicenow.com/docs/r/servicenow-platform/orchestration/credentials-conn-alias-orch.html) |
 | `sys_connection` | Connection | すべての接続テーブルの基底テーブル | 公式 |
 | `http_connection` | HTTP(s) Connection | HTTP(s) 接続（REST/SOAP 用） | 【推定】（公開ドキュメント本文では未確認。インスタンスで確認推奨） |
 | `jdbc_connection` | JDBC Connection | JDBC 接続。もとは `sys_metadata` 拡張だったが `sys_connection` を拡張するよう変更 | 公式 |
@@ -334,6 +356,7 @@ IntegrationHub は **1 つの統合先（プロバイダー）に対する複数
 | レベル | 操作手順 |
 |---|---|
 | フロー | フローを開き、More Actions メニュー → **Configure connections** を選択 → alias ごとに接続を選ぶ（既定が先頭、他はアルファベット順）→ Update |
+| サブフロー | フローと同じ手順。サブフローのメインページを開き、More Actions メニュー → **Configure connections** → alias ごとに接続を選ぶ → Update。選んだ接続は、サブフロー内で独自の上書きを持たないアクションにも適用される |
 | アクション | Action Properties の接続フィールドで接続を選択。歯車アイコン＝alias の作成/設定（Configuration template があればモーダル、なければ alias フォーム）、＋アイコン＝child alias 追加、鉛筆アイコン＝接続編集。テストアクションがあれば Save and Test |
 
 - フロー単位の「Configure connections」メニューの表示は `sn_flow_designer.connections_override_enabled` プロパティで制御され、`false` で非表示、プロパティ未定義なら表示される [出典](https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/SFUvqHBzISwCtunFf70TDA)。
@@ -754,7 +777,7 @@ Remote tables（リモートテーブル）は、サードパーティのデー�
 |---|---|---|
 | External trigger（外部トリガー） | サードパーティの Webhook を受信してフローを起動。インスタンスが Webhook を認証してから実行。Zurich で外部トリガー定義の下書き保存・公開・更新（ドメインセパレーション対応）と外部イベントソース管理が追加 | [flow-designer-workflow-studio.md](./flow-designer-workflow-studio.md) |
 | REST API trigger | REST API 呼び出しでフローを起動するトリガー（第三者情報では Enterprise パック機能とされる） | [flow-designer-workflow-studio.md](./flow-designer-workflow-studio.md) |
-| Remote Process Sync（RPS） | 複数の ServiceNow インスタンス間で一方向/双方向にプロセスを同期。レコード・添付・ジャーナルを同期し、相関エンジンとキューで順序を保証。eBonding spoke の後継。ロール `ih_process_sync`（同期定義の管理）、`ih_process_sync_run_as`（インバウンド/アウトバウンドフロー実行）。Australia で RPS Dashboard、エラーサブフローテンプレート、添付サイズ・拡張子設定、Push Attachment の再試行ポリシーが追加 | 本ファイル下記 |
+| Remote Process Sync（RPS） | 複数の ServiceNow インスタンス間で一方向/双方向にプロセスを同期。レコード・添付・ジャーナルを同期し、相関エンジンとキューで順序を保証。eBonding spoke の後継。ロール `ih_process_sync`（同期定義の管理）、`ih_process_sync_api`（RPS API へのアクセスのみ）、`ih_process_sync_run_as`（インバウンド/アウトバウンドフロー実行）。Australia で RPS Dashboard、エラーサブフローテンプレート、添付サイズ・拡張子設定、Push Attachment の再試行ポリシーが追加 | 本ファイル下記 |
 | Stream Connect for Apache Kafka | Kafka との間でデータをストリーミング。Australia で Stream Producer（CDC によるテーブル変更の Kafka 送信）、Avro シリアライズ、Direct Kafka、Topic alias、SASL（PLAIN / SCRAM-SHA-256 / SCRAM-SHA-512）、OAUTHBEARER、読み取り専用ロール等が追加 | [workflow-data-fabric.md](./workflow-data-fabric.md) |
 | Integration Hub - Import | データソース・ターゲットテーブル・フィールドマッピングをステップ形式で構成・実行・スケジュールするインポート環境 | [import-export-data.md](./import-export-data.md) |
 | IntegrationHub ETL | CMDB 向け Service Graph Connector の取り込み基盤 | [service-graph-connectors.md](../itom/service-graph-connectors.md) |
@@ -762,7 +785,7 @@ Remote tables（リモートテーブル）は、サードパーティのデー�
 [出典（Exploring Integration Hub）](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/_Z13Mf2fauK1FAT029a_WA)、[出典（RPS）](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/oZWx_TDSyhYmUV4x4_vgOA)、[出典（リリースノート）](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-integrationhub-release-notes.html)
 
 - Remote Process Sync はビジネスプロセスレベルの複雑な連携を対象とし、テーブル単位・API ベースの単純な連携には Instance Data Replication や ServiceNow Remote Instance spoke を使う、という位置付けである。RPS は IntegrationHub サブスクリプションを必要とする [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/oZWx_TDSyhYmUV4x4_vgOA)。
-- RPS のロール名 `ih_process_sync` / `ih_process_sync_run_as` は Xanadu 版ドキュメントの記載であり、Australia 版では同じ権限領域が一般的な表現で説明されている（検索結果の要約に基づく）。
+- Australia 版の RPS ドキュメントでは、次の 3 ロールが定義されている: `ih_process_sync`（process sync definition と関連レコードの作成・更新・削除）、`ih_process_sync_api`（Remote Process Sync API へのアクセスのみ）、`ih_process_sync_run_as`（process sync definition に紐づくインバウンド/アウトバウンドフローの実行。フローで作成・更新するレコードのテーブルへのアクセス権も必要）[出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/oZWx_TDSyhYmUV4x4_vgOA)。
 
 ---
 
@@ -797,7 +820,7 @@ IntegrationHub のライセンスについて、公式ドキュメントで確�
 | Professional | IT 運用の自動化 | Starter + PowerShell step、SFTP step、SSH step、JDBC step | Starter + JSON Parser + XML Parser |
 | Enterprise | HR・CRM・ERP 等の自動化 | Professional と同じ | Professional + REST API Trigger、Data Stream actions、introspection（動的入出力） |
 
-- 検索エンジンの要約上、旧リリースの公式プラグイン説明に「Standard pack は Starter pack と JDBC・XML parser step を含む」「Professional pack は Microsoft Azure AD spoke と SSH・PowerShell step を追加」「Enterprise pack は Professional pack、Microsoft SCCM spoke、Data Stream actions を含む」という記述があったとされるが、Australia / Yokohama / Zurich のプラグインページ本文ではパック内容は記載されておらず、原文を確認できなかった【第三者情報】。
+- 公式の Integration Hub plugins ページ（Xanadu・Yokohama・Australia 版を確認）には、4 つの Pack Installer の名称とプラグイン ID だけが載っており、各パックに何が含まれるかは書かれていない。パック内容は Legal schedules で確認するよう案内されている。旧リリースのプラグイン説明にパック内容の記述があったとする情報もあるが、その原文ページは公開情報では確認できず [出典（Xanadu）](https://www.servicenow.com/docs/r/rigCt~VuB5q8tR2t1pu_Eg/7ltgQVErIDyvW80j6EqORA)、[出典（Australia）](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/EqBzLHWgmGUVzpChZ37M1w)。
 - ZIP step の所属パッケージについては、Starter とする第三者情報と、Professional Pack Installer でのみ利用可能とするコミュニティ回答があり、情報が一致しない【第三者情報】 [出典](https://www.servicenow.com/community/servicenow-ai-platform-forum/what-integration-hub-subscription-is-required-to-get-zip-step-in/m-p/2577468)。
 
 ### パッケージ別トランザクション数
@@ -842,7 +865,7 @@ IntegrationHub トランザクション（Integration Hub transaction）の正�
 | 1 つのフロー内で 6 つの外部システムを呼ぶ | 6 トランザクション（フロー実行数ではなく外部呼び出し数） |
 | Remote table の Query script / Flow による外部呼び出し | 外部呼び出しごとにカウント（キャッシュで削減可能） |
 | Look Up Record、Ask for Approval 等のロジックのみのアクション | カウント対象外 |
-| 失敗した呼び出し | 成功・失敗を問わずカウントされるとの第三者情報あり |
+| 失敗した呼び出し | 「トランザクション上限には成功・失敗を問わずすべてのトランザクションが含まれる」とするコミュニティ回答（2023-01）がある【第三者情報】 [出典](https://www.servicenow.com/community/servicenow-ai-platform-forum/how-does-servicenow-count-integration-hub-transactions/td-p/1099879) |
 | フロー外のスクリプトから `RESTMessageV2` 直接呼び出し | 従来は対象外とされてきたが、計上事例の報告もあり不確定 |
 | インバウンドの REST API 呼び出し（Table API 等） | IntegrationHub トランザクションとして扱うとする公開情報は見当たらない（インバウンド API 利用はダッシュボード上で別記事扱い） |
 
@@ -893,7 +916,7 @@ IntegrationHub は、サブスクリプションが必要な Spoke・プロト�
 
 - 公式ドキュメントは、トランザクション消費には「IntegrationHub **または Workflow Data Fabric** サブスクリプション」の購入が必要になりうるとしており、IntegrationHub の販売が Workflow Data Fabric のパッケージにも組み込まれていることを示している [出典](https://www.servicenow.com/docs/r/integrate-applications/integration-hub/subscription-usage.html)。
 - 検索結果上、Workflow Data Fabric Foundation の Legal schedule（`wdf-foundation-overview.pdf`）の含有アプリケーションとして Integration Hub Enterprise、Now Assist for Spokes、External Content Connectors、RPA Hub が挙げられているが、PDF 原文はアクセス拒否（HTTP 403）のため確認できなかった【第三者情報】。
-- 価格アドバイザリーサイトは、2026 年 4 月にプラットフォームのパッケージ体系が Foundation / Advanced / Prime に移行したと主張しているが、公式情報では確認できなかった【第三者情報】。プラットフォーム全体のパッケージ構成は [platform-licensing-packaging.md](./platform-licensing-packaging.md)、ライセンスモデルは [01-licensing-model.md](../../03_導入編/01-licensing-model.md) を参照。
+- 新しい製品ティア（Foundation / Advanced / Prime）は公式ドキュメント「ServiceNow product tiers」（Australia）に記載されており、同ページは Integration Hub・RPA Hub を含む **Workflow Data Fabric Foundation が全ティアのエディションに組み込まれる**（Zero Copy Connectors・Stream Connect を加える Workflow Data Fabric Advanced は有償アップグレード）としている [出典](https://www.servicenow.com/docs/r/australia/intelligent-experiences/ai-native-sku-overview.html)。ただし新ティアへの切替日（2026-04-09 とされる）は価格アドバイザリーサイト等の第三者情報に基づき、一次発表は確認できなかった【第三者情報】。プラットフォーム全体のパッケージ構成は [platform-licensing-packaging.md](./platform-licensing-packaging.md)、ライセンスモデルは [01-licensing-model.md](../../03_導入編/01-licensing-model.md) を参照。
 
 ### 価格
 
@@ -905,16 +928,17 @@ IntegrationHub の定価は公式に公開されていない。コミュニテ�
 
 | ロール | 用途 | 出典 |
 |---|---|---|
-| `admin` | プラグイン有効化、Spoke Generator での Spoke 作成・公開、`sys_alias` の作成、Configuration template 利用 | [出典](https://www.servicenow.com/docs/r/zurich/build-workflows/workflow-studio/spoke-builder.html) |
+| `admin` | プラグイン有効化、Spoke Generator での Spoke 作成・公開、Configuration template 利用、`sys_alias` テーブルの作成権限 | [出典（Spoke Generator）](https://www.servicenow.com/docs/r/zurich/build-workflows/workflow-studio/spoke-builder.html)、[出典（`sys_alias`）](https://www.servicenow.com/docs/r/servicenow-platform/orchestration/credentials-conn-alias-orch.html) |
 | `action_designer` | Action Designer でのカスタムアクション作成（REST / SOAP / SSH 等のステップ配置）、Spoke へのアクション追加 | [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/uKxPLIVCFStvqwRsRumuog) |
 | `flow_designer` | フロー作成、接続レコード作成（SSH step の説明）、Configuration template 利用 | [出典](https://www.servicenow.com/docs/r/platform-security/connections-and-credentials/credentials-connections-alias.html) |
 | `flow_operator` | フロー・サブフローの閲覧・運用 | [出典](https://www.servicenow.com/docs/r/zurich/build-workflows/workflow-studio/spoke-builder.html) |
 | `fd_read_actions` | Spokes タブとアクションの閲覧のみ | [出典](https://www.servicenow.com/docs/r/zurich/build-workflows/workflow-studio/spoke-builder.html) |
-| `connection_admin` | 接続の管理、Retry policy の作成、`sys_alias` の読み取り | [出典](https://www.servicenow.com/docs/r/lsf5Yo~95~wig0yrxISJIA/bDj7eiMJxqf_pNxzKa~eFQ) |
-| `credential_admin` | 資格情報の管理、Retry policy の作成、`sys_alias` の読み取り | [出典](https://www.servicenow.com/docs/r/lsf5Yo~95~wig0yrxISJIA/bDj7eiMJxqf_pNxzKa~eFQ) |
+| `connection_admin` | 接続の管理、Retry policy の作成、`sys_alias` の読み取り | [出典（Retry policy）](https://www.servicenow.com/docs/r/lsf5Yo~95~wig0yrxISJIA/bDj7eiMJxqf_pNxzKa~eFQ)、[出典（`sys_alias`）](https://www.servicenow.com/docs/r/servicenow-platform/orchestration/credentials-conn-alias-orch.html) |
+| `credential_admin` | 資格情報の管理、Retry policy の作成、`sys_alias` の読み取り | [出典（Retry policy）](https://www.servicenow.com/docs/r/lsf5Yo~95~wig0yrxISJIA/bDj7eiMJxqf_pNxzKa~eFQ)、[出典（`sys_alias`）](https://www.servicenow.com/docs/r/servicenow-platform/orchestration/credentials-conn-alias-orch.html) |
 | `web_service_admin` | SOAP step の WSDL・WS-Security ポリシー操作 | [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/~lxQeTqLLVkQialozMRwng) |
-| `ih_process_sync` | Remote Process Sync の同期定義の管理（Xanadu 版記載） | [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/oZWx_TDSyhYmUV4x4_vgOA) |
-| `ih_process_sync_run_as` | Remote Process Sync のインバウンド/アウトバウンドフロー実行（Xanadu 版記載） | [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/oZWx_TDSyhYmUV4x4_vgOA) |
+| `ih_process_sync` | Remote Process Sync の同期定義（process sync definition）と関連レコードの作成・更新・削除 | [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/oZWx_TDSyhYmUV4x4_vgOA) |
+| `ih_process_sync_api` | Remote Process Sync API へのアクセスのみ | [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/oZWx_TDSyhYmUV4x4_vgOA) |
+| `ih_process_sync_run_as` | Remote Process Sync のインバウンド/アウトバウンドフロー実行（対象テーブルへのアクセス権も必要） | [出典](https://www.servicenow.com/docs/r/u~ldaY8ZPxJiUgZ1Inf6mw/oZWx_TDSyhYmUV4x4_vgOA) |
 
 ロール体系全般は [users-groups-roles.md](./users-groups-roles.md) を参照。
 
@@ -953,9 +977,11 @@ IntegrationHub の定価は公式に公開されていない。コミュニテ�
 | リリース | IntegrationHub の主な変更 |
 |---|---|
 | Zurich | Data Stream の Test REST step による自動解析・出力設定、Configuration template からの接続 alias テスト、PowerShell 6.0+ 対応、MID Server 上の SOAP step での WS-Security ポリシー対応、Spoke 固有 AI エージェント、外部トリガー定義の下書き・公開・更新、外部イベントソース管理、Spoke Generator の AI/OpenAPI/Postman 作成に Professional ライセンス必須化、Stream Connect の各種強化 |
-| Australia | 主に Stream Connect（Stream Producer〔CDC〕、Avro、Direct Kafka、Topic alias、SASL、OAUTHBEARER、読み取り専用ロール、アラート閾値）と Remote Process Sync（RPS Dashboard、エラーサブフローテンプレート、添付設定、Push Attachment の再試行ポリシー）の強化。変更・非推奨・削除は「No updates」 |
+| Australia | 主に Stream Connect（Stream Producer〔CDC〕、Avro、Direct Kafka、Topic alias、SASL、OAUTHBEARER、読み取り専用ロール、アラート閾値）と Remote Process Sync（RPS Dashboard、エラーサブフローテンプレート、添付設定、Push Attachment の再試行ポリシー）の強化。統合リリースノートでは変更・非推奨・削除は「No updates」。Australia 単独のリリースノートには Changed / Deprecated / Removed の見出し自体がない |
 
-[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-integrationhub-release-notes.html)
+[出典（統合リリースノート）](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-integrationhub-release-notes.html)、[出典（Australia Integration Hub release notes）](https://www.servicenow.com/docs/r/australia/release-notes/integration-hub-rn.html)
+
+本表の Zurich 行は、「OpenAI を利用して生成された内容で、正確性は保証されない」と注記された統合リリースノートに基づく。Australia 行の新機能は Australia 単独のリリースノート（Australia、Australia Early Availability、2026-08、2026-09 の各見出し）と一致することを確認したが、詳細は各リリースの正式なリリースノートで確認すること。
 
 > **Brazil での変更:** Zurich→Brazil の統合 IntegrationHub リリースノートでは、Brazil の New / Changed / Deprecated / Removed はいずれも「No updates for this release」と記載されている。ただし当該ページは「OpenAI を利用した新機能で生成された内容で、正確性・完全性は保証されない」と注記されているため、Brazil の正式なリリースノートで再確認が必要である [出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-integrationhub-release-notes.html)。Brazil のドキュメントでは Integration Hub 関連ページが「Brazil Workflow Data Fabric」配下で 2026-09-10 付で更新されており、Spokes 一覧には Brazil 専用の Metrikus spoke（Beta v1.0）が追加されている [出典](https://www.servicenow.com/docs/r/integrate-applications/integration-hub/spokes-list.html)。
 
@@ -1018,6 +1044,10 @@ IntegrationHub の定価は公式に公開されていない。コミュニテ�
 - Transaction reports in Integration Hub Usage Dashboard（Zurich）: https://www.servicenow.com/docs/r/oZRGKGLbfcn968v3Ubchmw/YU~AOTOCPYcjzdUECI~0TQ
 - Combined Integration Hub release notes（Zurich→Brazil）: https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-integrationhub-release-notes.html
 - GitHub spoke release notes: https://www.servicenow.com/docs/r/store-release-notes/store-integrationhub-rn-github.html
+- Integration Hub release notes（Australia）: https://www.servicenow.com/docs/r/australia/release-notes/integration-hub-rn.html
+- Integration Hub plugins（Xanadu）: https://www.servicenow.com/docs/r/rigCt~VuB5q8tR2t1pu_Eg/7ltgQVErIDyvW80j6EqORA
+- Introduction to credentials, connections, and aliases for Orchestration（Brazil）: https://www.servicenow.com/docs/r/servicenow-platform/orchestration/credentials-conn-alias-orch.html
+- ServiceNow product tiers（Australia）: https://www.servicenow.com/docs/r/australia/intelligent-experiences/ai-native-sku-overview.html
 
 ServiceNow Community
 - Integration Hub Spokes and How to Build Them（Joe Wilmoth, ServiceNow, 2024-01-10）: https://www.servicenow.com/community/automation-engine-blog/integration-hub-spokes-and-how-to-build-them/ba-p/2788254
@@ -1033,3 +1063,4 @@ ServiceNow Community
 第三者情報
 - Perspectium「ServiceNow Integration Hub」（2025-03-13）: https://www.perspectium.com/blog/servicenow-integration-hub/
 - ServiceNow SDK Alias template guide: https://servicenow.github.io/sdk/guides/alias-template-guide
+- Redress Compliance「ServiceNow IntegrationHub Licensing Guide」（検索結果要約のみ・本文未取得）: https://redresscompliance.com/servicenow-integrationhub-licensing-guide.html

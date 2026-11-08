@@ -72,8 +72,8 @@ Watchdog の検知結果に通知を付けるには **Watchdog Monitor**（API �
 | Software Catalog（旧称：Service Catalog） | [Software Catalog](./software-catalog.md) |
 | Bits AI、Bits Investigation（AI による自律調査） | [Bits AI と AI 機能](../ai/bits-ai.md) |
 | ダッシュボードの Graph Insights 全般 | [Dashboards](./dashboards.md) |
-| 料金（定価） | [製品別料金表](../../03_導入編/pricing-by-product.md) |
-| アラート設計・ノイズ削減の実践 | [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md) |
+| 料金（定価） | [製品別料金表](../../03_導入編/02-pricing-by-product.md) |
+| アラート設計・ノイズ削減の実践 | [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md) |
 
 ### 沿革
 
@@ -791,7 +791,7 @@ resource "datadog_monitor" "watchdog_monitor" {
 | `.last("30m") > 0` | 直近 30 分に 1 件以上あれば発報 |
 
 - `story_category` の値として、公式ドキュメントの画面・例で確認できるものは `apm`、`logs`、`third_party` である。`infrastructure` は Alert Explorer のファセット説明（`apm`・`infrastructure`・`logs`）に対応する値と考えられる【推定】。`story_category` の全値の公式一覧は公開情報では確認できず。
-- Terraform・IaC 全般は [Terraform と IaC](./terraform-and-iac.md)、[Monitoring as Code](../../04_応用編/monitoring-as-code.md) を参照。
+- Terraform・IaC 全般は [Terraform と IaC](./terraform-and-iac.md)、[Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) を参照。
 - 不良デプロイの通知は Watchdog Monitor ではなく、Event Monitor で `tags:deployment_analysis` を検索する方法が公式に案内されている（[Faulty Deployment Detection](#不良デプロイの通知設定)）。[出典](https://docs.datadoghq.com/watchdog/faulty_deployment_detection/)
 
 ---
@@ -896,7 +896,7 @@ Watchdog には独立した課金単位（SKU）はなく、各製品のプラ�
 
 [出典](https://www.datadoghq.com/pricing/)（取得日：2026-11-02）
 
-- Watchdog の検知・インサイトは、課金対象となる元データ（APM ホスト、インデックス済みログ、RUM セッション、インフラホストなど）に対して動作するため、Watchdog の利用自体で追加のデータ量課金が発生する旨の公式記載はない。課金単位と定価は [製品別料金表](../../03_導入編/pricing-by-product.md)、計算の仕組みは [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、プラン差は [エディション・プラン](../../03_導入編/editions-and-plans.md) を参照。
+- Watchdog の検知・インサイトは、課金対象となる元データ（APM ホスト、インデックス済みログ、RUM セッション、インフラホストなど）に対して動作するため、Watchdog の利用自体で追加のデータ量課金が発生する旨の公式記載はない。課金単位と定価は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、計算の仕組みは [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、プラン差は [エディション・プラン](../../03_導入編/04-editions-and-plans.md) を参照。
 - 料金ページでは Infrastructure の「Watchdog: Automated insights」が Enterprise のみとされる一方、公式ドキュメントは「すべての Watchdog 機能は組み込み」とし、APM の各プランには「AI-based anomaly, outlier, and root cause detection」が含まれる。Infrastructure Pro と APM を組み合わせた場合に、インフラ系 Watchdog Alerts（System、DB、AWS など）がどこまで表示されるかは公開情報では確認できず。契約前に Datadog 営業・サポートに確認することを推奨する【経験則】。
 - Flex Logs だけに保存されるログについては、Watchdog Insights を利用できない（料金ページ FAQ）。ログのティア設計は [Indexes・保持・アーカイブ](../logs/log-indexes-retention-archives.md) を参照。
 - API で Anomaly モニターを作成するには Enterprise プランが必要と公式ドキュメントに記載されている（[Monitors](./monitors.md) 参照）。
@@ -917,7 +917,7 @@ Watchdog には独立した課金単位（SKU）はなく、各製品のプラ�
 | 外部起因の切り分け | US1 では Third Party カテゴリの Watchdog Monitor で、外部 SaaS 障害を自社障害と区別して通知できる。AP1 等では External Provider Status ページと Notify Me を使う | [Faulty Cloud & SaaS API](https://docs.datadoghq.com/watchdog/faulty_cloud_saas_api_detection/)、[External Provider Status](https://docs.datadoghq.com/internal_developer_portal/external_provider_status/) |
 | 日次の確認 | Cvent 社の SRE は「毎朝 Watchdog を確認することがスタック全体の理解に役立つ」と述べている | [プレスリリース](https://www.datadoghq.com/ja/about/latest-news/press-releases/datadog-watchdog-ai-2022-04/)（2022-04）【第三者情報】（顧客コメント） |
 
-アラート設計全体の考え方は [アラート設計とノイズ削減](../../04_応用編/alert-design-and-noise-reduction.md)、よくある失敗は [よくある失敗とアンチパターン](../../04_応用編/common-pitfalls.md) を参照。
+アラート設計全体の考え方は [アラート設計とノイズ削減](../../04_応用編/03-alert-design-and-noise-reduction.md)、よくある失敗は [よくある失敗とアンチパターン](../../04_応用編/12-common-pitfalls.md) を参照。
 
 ---
 

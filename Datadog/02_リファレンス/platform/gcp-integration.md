@@ -418,7 +418,7 @@ Google Cloud Integration は、Google Cloud と Compute Engine の設定に基�
 | カスタムラベル | Google Pub/Sub、GCE、Cloud SQL、Cloud Storage のカスタムラベル |
 | アカウントタグ | `account_tags` に指定したタグを、そのアカウントのメトリクスとサービスチェックに付与（API / Terraform） |
 
-タグ設計は [Tagging（タグ）](./tagging.md) と [タグ戦略の実践](../../04_応用編/tagging-strategy.md) を参照。[出典](https://docs.datadoghq.com/integrations/google-cloud-platform/)
+タグ設計は [Tagging（タグ）](./tagging.md) と [タグ戦略の実践](../../04_応用編/02-tagging-strategy.md) を参照。[出典](https://docs.datadoghq.com/integrations/google-cloud-platform/)
 
 ### GCE の想定内停止時の自動ミュート（automute）
 
@@ -762,7 +762,7 @@ Datadog は一部のインテーク（データ受信）サービスを Google C
 
 Logs（User HTTP Intake）が PSC で公開されているため、US5 / EU1 では Dataflow のログ転送も PSC 経由にできると考えられるが、Dataflow テンプレートとの組み合わせ手順は Datadog 公式ドキュメントには記載がない（公開情報では確認できず）。[出典](https://docs.datadoghq.com/agent/guide/gcp-private-service-connect/)、[出典](https://docs.datadoghq.com/integrations/google-cloud-platform/)
 
-ネットワーク設計は [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md) を参照。
+ネットワーク設計は [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md) を参照。
 
 ## 対応サービス
 
@@ -970,7 +970,7 @@ resource "datadog_integration_gcp_sts" "foo" {
 }
 ```
 
-公式サンプルは非推奨の `host_filters` と `cloud_run_revision_filters` を使っているが、上の例では非推奨表示に従って `monitored_resource_configs` に置き換えた。`monitored_resource_configs` は属性（Set of Object）なので、ブロックではなく `= [ { ... } ]` の形で書く（provider のテストコードと同じ書き方）。[出典](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/integration_gcp_sts.md)。IaC 全般は [Terraform と IaC](./terraform-and-iac.md) と [Monitoring as Code](../../04_応用編/monitoring-as-code.md) を参照。
+公式サンプルは非推奨の `host_filters` と `cloud_run_revision_filters` を使っているが、上の例では非推奨表示に従って `monitored_resource_configs` に置き換えた。`monitored_resource_configs` は属性（Set of Object）なので、ブロックではなく `= [ { ... } ]` の形で書く（provider のテストコードと同じ書き方）。[出典](https://github.com/DataDog/terraform-provider-datadog/blob/master/docs/resources/integration_gcp_sts.md)。IaC 全般は [Terraform と IaC](./terraform-and-iac.md) と [Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) を参照。
 
 ## トラブルシューティング
 
@@ -1024,21 +1024,21 @@ resource "datadog_integration_gcp_sts" "foo" {
 
 ### Datadog 側の課金
 
-Google Cloud Integration 自体の利用料金は公式ドキュメントに記載がない。Google Cloud Integration で取り込んだデータは、次の製品の課金単位で課金される。料金は Datadog 公式料金ページ（https://www.datadoghq.com/pricing/list/ 、2026-11-02 時点）の定価で、料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md) である。
+Google Cloud Integration 自体の利用料金は公式ドキュメントに記載がない。Google Cloud Integration で取り込んだデータは、次の製品の課金単位で課金される。料金は Datadog 公式料金ページ（https://www.datadoghq.com/pricing/list/ 、2026-11-02 時点）の定価で、料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md) である。
 
 | 対象 | 課金の考え方 | 課金単位と定価（2026-11-02 時点） |
 |---|---|---|
 | **GCE インスタンス（ホスト）** | Agent が動くホストと、Google Cloud Integration が検出した**すべての GCE インスタンス**が課金対象。Agent を入れた GCE インスタンスを Integration も検出していても**二重課金されない**。Dataflow など GCE 以外のサービスが、課金対象の GCE ホストを作ることがある（ログ転送用の Dataflow ワーカーも GCE インスタンス） | Infrastructure Monitoring の 1 ホスト／月：Pro 年契約 $15、月契約・オンデマンド $18／Enterprise 年契約 $23、月契約・オンデマンド $27 |
 | GCE 以外のリソース（Cloud SQL、App Engine、Pub/Sub など） | **月額のホスト課金には含まれない**（公式記載） | ― |
-| Cloud Run / Cloud Run functions | Cloud Run services と Cloud Run functions（Gen1/Gen2）は、Serverless Application Monitoring（「Serverless Workload Monitoring - Apps」）として**一意のアクティブコンテナ**単位で同一価格で課金される（年契約 $3、月契約 $4、オンデマンド $4.32。APM を使う場合は Serverless Application APM $6）。「Serverless Workload Monitoring - Functions」（$5/アクティブ関数）は AWS Lambda と Step Functions 向けの SKU で、Cloud Run functions には適用されない。Serverless Agent を使わず Google Cloud Integration 経由でメトリクスだけを取り込む場合に課金対象となるかは、公開情報では確認できず | [料金：Serverless Monitoring（4 章）](../../03_導入編/pricing-by-product.md#4-serverless-monitoringサーバーレス監視)、[Serverless Monitoring](../infrastructure/serverless.md) |
+| Cloud Run / Cloud Run functions | Cloud Run services と Cloud Run functions（Gen1/Gen2）は、Serverless Application Monitoring（「Serverless Workload Monitoring - Apps」）として**一意のアクティブコンテナ**単位で同一価格で課金される（年契約 $3、月契約 $4、オンデマンド $4.32。APM を使う場合は Serverless Application APM $6）。「Serverless Workload Monitoring - Functions」（$5/アクティブ関数）は AWS Lambda と Step Functions 向けの SKU で、Cloud Run functions には適用されない。Serverless Agent を使わず Google Cloud Integration 経由でメトリクスだけを取り込む場合に課金対象となるかは、公開情報では確認できず | [料金：Serverless Monitoring（4 章）](../../03_導入編/02-pricing-by-product.md#4-serverless-monitoringサーバーレス監視)、[Serverless Monitoring](../infrastructure/serverless.md) |
 | ログ（Dataflow 転送、SCC の検出結果） | Log Management の取り込みとインデックス | 取り込み：1 GB あたり $0.10／月（全契約形態）。インデックスは 100 万イベント単位（料金ファイル参照） |
 | Cloud SIEM で分析する場合 | 分析イベント数 | 100 万分析イベントあたり／月：年契約 $5、月契約 $6、オンデマンド $7.50 |
 | カスタムメトリクス | `gcp.*` の標準メトリクスがカスタムメトリクスとして課金されるかの公式明記は Google Cloud Integration のページにはない。ユーザー定義のログベースメトリクスなどの扱いは公開情報では確認できず | Custom Metrics：100 カスタムメトリクスあたり／月 $5 |
-| Cloud Security、Cloud Cost Management | 各製品の課金単位 | [製品別料金表](../../03_導入編/pricing-by-product.md) |
+| Cloud Security、Cloud Cost Management | 各製品の課金単位 | [製品別料金表](../../03_導入編/02-pricing-by-product.md) |
 
 ホスト課金を抑えるには、**Limit Metric Collection Filters**（`monitored_resource_configs`）で監視対象の GCE インスタンスを絞る。ただし、フィルターは Agent が動いていない GCE インスタンスにのみ効く。課金されるホストは、Google Cloud コンソールの GCE ページで実行中のホストとして確認でき、タグで除外していない限りそれらが課金される。[出典](https://docs.datadoghq.com/account_management/billing/google_cloud/)、[出典](https://www.datadoghq.com/pricing/list/)
 
-課金計算の詳細は [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、使用量の確認は [Usage・Usage Attribution・Cost Visibility](./usage-and-cost-attribution.md) を参照。
+課金計算の詳細は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、使用量の確認は [Usage・Usage Attribution・Cost Visibility](./usage-and-cost-attribution.md) を参照。
 
 ### Google Cloud 側の課金
 
@@ -1055,7 +1055,7 @@ Google Cloud Integration とログ転送は、Google Cloud 側でも費用を発
 
 具体的な費用は Google Cloud Pricing Calculator で試算する。[出典](https://cloud.google.com/stackdriver/pricing)、[出典](https://docs.datadoghq.com/logs/guide/google-cloud-log-forwarding/)、[出典](https://docs.datadoghq.com/integrations/google-cloud-platform/)
 
-コスト最適化の実践は [コスト最適化](../../04_応用編/cost-optimization.md) と [ログ管理の実践](../../04_応用編/log-management-practices.md) を参照。
+コスト最適化の実践は [コスト最適化](../../04_応用編/01-cost-optimization.md) と [ログ管理の実践](../../04_応用編/06-log-management-practices.md) を参照。
 
 ## 設計時のチェックリスト
 
@@ -1076,7 +1076,7 @@ Google Cloud Integration とログ転送は、Google Cloud 側でも費用を発
 | 13 | ネットワーク経路（Cloud NAT、ファイアウォール、US5 / EU1 なら PSC）を決めたか | Private Service Connect |
 | 14 | `env`、`service`、`team` などのラベル（タグ）を Google Cloud 側で統一したか | タグ |
 
-設計の進め方は [要件定義とアーキテクチャ設計](../../03_導入編/requirements-and-architecture-design.md)、セキュリティ要件は [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md)、複数組織での運用は [大規模・マルチorg運用](../../04_応用編/large-scale-and-multi-org.md) を参照。
+設計の進め方は [要件定義とアーキテクチャ設計](../../03_導入編/09-requirements-and-architecture-design.md)、セキュリティ要件は [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md)、複数組織での運用は [大規模・マルチorg運用](../../04_応用編/15-large-scale-and-multi-org.md) を参照。
 
 ## 関連ファイル
 
@@ -1090,7 +1090,7 @@ Google Cloud Integration とログ転送は、Google Cloud 側でも費用を発
 - [ログ収集](../logs/log-collection.md) / [Log Pipelines と処理](../logs/log-pipelines-and-processing.md) / [Indexes・保持・アーカイブ](../logs/log-indexes-retention-archives.md)
 - [Infrastructure Monitoring](../infrastructure/infrastructure-monitoring.md) / [Serverless Monitoring](../infrastructure/serverless.md) / [Cloud Cost Management](../infrastructure/cloud-cost-management.md)
 - [Cloud Security](../security/cloud-security.md) / [Cloud SIEM](../security/cloud-siem.md)
-- [製品別料金表](../../03_導入編/pricing-by-product.md) / [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md)
+- [製品別料金表](../../03_導入編/02-pricing-by-product.md) / [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md)
 
 ## 参照元
 

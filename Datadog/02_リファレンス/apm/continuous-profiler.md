@@ -740,7 +740,7 @@ Automated Analysis は、Continuous Profiler のデータから性能問題を�
 | Isolate Outliers in Monolithic Services | モノリス内の外れ値の切り分け | [Profiler Guides](https://docs.datadoghq.com/profiler/guide/) |
 | Getting Started with Profiler | サンプルサービス（`dd-continuous-profiler-example`）で CPU・割り当てのボトルネックを発見し、p99 レイテンシを 795 ms から 218 ms へ改善する手順 | [Getting Started](https://docs.datadoghq.com/getting_started/profiler/) |
 
-APM 運用における Profiler の活用方法は [APM 運用の実践](../../04_応用編/apm-practices.md) を参照。
+APM 運用における Profiler の活用方法は [APM 運用の実践](../../04_応用編/05-apm-practices.md) を参照。
 
 ---
 
@@ -749,7 +749,7 @@ APM 運用における Profiler の活用方法は [APM 運用の実践](../../0
 - Continuous Profiler の機能提供がサイト（`US1`、`US3`、`US5`、`EU1`、`AP1`、`AP2`、`US1-FED`）で異なるかについて、Profiler ドキュメントには記載がない（公開情報では確認できず）。
 - 料金一覧ページの地域セレクターには US（US1、US3、US5）、EU1、AP1、AP2、US1-FED、UK1 の価格データがあり、いずれにも Continuous Profiler の価格が設定されている。[出典](https://www.datadoghq.com/pricing/list/)（2026-11-02 取得）
 
-> **サイト差異:** 料金は地域で異なる。料金一覧ページの地域別価格データ（2026-11-02 取得）では、AP1 と US1-FED の Continuous Profiler（単体）は年契約 $23.75／月契約・オンデマンド $28.75（ホスト／月）、AP2 と UK1 は $22.80／$27.60 で、US・EU1 の $19／$23 より高い。詳細は [課金への影響](#課金への影響) と [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
+> **サイト差異:** 料金は地域で異なる。料金一覧ページの地域別価格データ（2026-11-02 取得）では、AP1 と US1-FED の Continuous Profiler（単体）は年契約 $23.75／月契約・オンデマンド $28.75（ホスト／月）、AP2 と UK1 は $22.80／$27.60 で、US・EU1 の $19／$23 より高い。詳細は [課金への影響](#課金への影響) と [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照。
 
 サイトの一般仕様は [Datadog Sites](../platform/datadog-sites.md) を参照。
 
@@ -832,7 +832,7 @@ APM 運用における Profiler の活用方法は [APM 運用の実践](../../0
 
 ## 課金への影響
 
-Continuous Profiler の課金単位は **プロファイル対象ホスト（Profiled Host）** であり、ホストあたりの含有コンテナ数を超えた **Profiled Container（プロファイル対象コンテナ）** は追加課金となる。購入形態は、APM Enterprise に含める方法と、単体（standalone）購入の 2 通りがある。料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、計算方法は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+Continuous Profiler の課金単位は **プロファイル対象ホスト（Profiled Host）** であり、ホストあたりの含有コンテナ数を超えた **Profiled Container（プロファイル対象コンテナ）** は追加課金となる。購入形態は、APM Enterprise に含める方法と、単体（standalone）購入の 2 通りがある。料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、計算方法は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 
 ### 料金（US 表示、2026-11-02 取得）
 
@@ -906,7 +906,7 @@ Continuous Profiler の課金単位は **プロファイル対象ホスト（Pro
 - サーバーレス（AWS Lambda 等）でのプロファイリング（Preview 対象言語）の課金は公開情報では確認できず。
 - データ保持期間の延長に関する料金は公開情報では確認できず。
 
-APM 全体の料金（APM ホスト、Ingested／Indexed Spans）は [APM の概念とインジェスト制御](./apm-concepts-and-ingestion.md#課金への影響) を、見積り手法は [コスト見積り手法](../../03_導入編/cost-estimation.md)、削減策は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+APM 全体の料金（APM ホスト、Ingested／Indexed Spans）は [APM の概念とインジェスト制御](./apm-concepts-and-ingestion.md#課金への影響) を、見積り手法は [コスト見積り手法](../../03_導入編/05-cost-estimation.md)、削減策は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ---
 
@@ -924,9 +924,9 @@ APM 全体の料金（APM ホスト、Ingested／Indexed Spans）は [APM の概
 - [Dashboards](../platform/dashboards.md)
 - [Watchdog](../platform/watchdog.md)
 - [Bits AI と AI 機能](../ai/bits-ai.md)
-- [製品別料金表](../../03_導入編/pricing-by-product.md)
-- [課金計算の仕組み](../../03_導入編/billing-mechanics.md)
-- [APM 運用の実践](../../04_応用編/apm-practices.md)
+- [製品別料金表](../../03_導入編/02-pricing-by-product.md)
+- [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)
+- [APM 運用の実践](../../04_応用編/05-apm-practices.md)
 
 ---
 

@@ -3,7 +3,7 @@ title: Change Management（変更管理）
 category: reference
 domain: itsm
 release: Australia
-last_verified: 2026-11-03
+last_verified: 2026-11-02
 summary: ServiceNow Change Management の `change_request` / `change_task` テーブル、Normal・Standard・Emergency の変更タイプと Change Model（変更モデル）、State（状態）値と遷移、Change Approval Policies（変更承認ポリシー）、CAB Workbench、Conflict detection（競合検出）とブラックアウト/メンテナンス スケジュール、Risk assessment・Risk conditions・Risk Intelligence・Calculated Risk Score、Change Success Score、DevOps Change Velocity、ロール・プラグイン・プロパティ・REST API を Australia リリース基準でまとめたリファレンス。
 keywords: [change, 変更管理, change management, change_request, change_task, normal change, standard change, emergency change, 通常変更, 標準変更, 緊急変更, change model, chg_model, sttrm_model, sttrm_state, sttrm_state_transition, sttrm_transition_condition, state model, Assess, Authorize, Scheduled, Implement, Review, change approval policy, chg_policy_applied, change approval definition, decision builder, CAB, CAB Workbench, cab_definition, sn_change_cab.cab_manager, conflict detection, 競合検出, change.conflict.mode, blackout schedule, maintenance schedule, risk assessment, risk conditions, Risk Intelligence, chg_ml_prop_risk, Calculated Risk Score, sn_chg_probability_risk_lookup, Change Success Score, sn_chg_score, DevOps Change Velocity, sn_devops, standard change catalog, sn_change_admin, sn_change_read, sn_change_write, change_manager, sn_chg_rest, change lockdown, scaled change, Service Operations Workspace]
 sources:
@@ -32,6 +32,23 @@ sources:
   - https://www.servicenow.com/community/itsm-articles/modern-change-adoption-guide/ta-p/3558000
   - https://www.servicenow.com/community/itsm-blog/breaking-the-change-barrier/ba-p/2294272
   - https://www.servicenow.com/community/in-other-news/using-change-approval-policies/ba-p/2286835
+  - https://www.servicenow.com/docs/r/7GoNY9eeDRD0FzxldbEmXw/D_mhWKm2geWsLaiEnGQEjg
+  - https://www.servicenow.com/docs/r/u1slaAtcFiiXFQcd9RcR_A/L8~iAL~JJZi61HD~QCmCuw
+  - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/u8MCRun~dvfBfG4bDUlz4A
+  - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/CaYy9XJfghANjnKZkzZCeQ
+  - https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/kFr0bNzDwdRT5feChNJE2A
+  - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/aLH19NKwO9x2MAZuQuSXhg
+  - https://www.servicenow.com/docs/r/Recj91eIo1YnsOabQjgskg/V9xE5x10EugCMs~OGAmmfg
+  - https://www.servicenow.com/docs/r/it-service-management/change-management/manage-cab-meeting-using-cab-workbench.html
+  - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/7ziQ9zbuaEl1CvT9Ryp~og
+  - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/hqiDU_txsdqnItaA_4rGcg
+  - https://www.servicenow.com/docs/r/Recj91eIo1YnsOabQjgskg/mjTOaHwPpQreWciZdly3xA
+  - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/qCO_4jfSU1JwbgjB0uMsMw
+  - https://www.servicenow.com/docs/r/MlbQAgTiiiMOLOw9T36wJg/DuFv1lSncd1vmo0N7SvAsw
+  - https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/ekC~Zu6H2nTP6iQIDUtSFw
+  - https://www.servicenow.com/docs/r/MlbQAgTiiiMOLOw9T36wJg/YgjezgSonqhHOrxtmy_B7w
+  - https://www.servicenow.com/docs/r/DjdvBeNqWv6v7pa2hJg5gA/KhuZduOGvuOxt~FLflq8cA
+  - https://docs.servicenow.com/bundle/vancouver-release-notes/page/release-notes/it-service-management/change-management-rn.html
 ---
 
 # Change Management（変更管理）
@@ -257,9 +274,9 @@ ServiceNow Community の「Modern Change Adoption Guide」（2026-06 公開）�
 | Implement | 実装 | -1 | 実装作業を実施。 | 送信 |
 | Review | レビュー | 0 | 作業完了、成否を評価。Cancel は無効。 | 送信 |
 | Closed | クローズ | 3 | 完了。以降の対応なし。 | — |
-| Canceled | 取り消し | 4 | Closed 後を除きいつでも取り消し可能。 | 送信 |
+| Canceled | 取り消し | 4 | Closed と Review を除き、どの状態からでも取り消し可能。 | 送信 |
 
-スクリプトでは `ChangeRequestStateModel_normal` などの State model スクリプトインクルードや `STATE_NAMES` マップ（数値値と覚えやすい名前の対応）で状態を扱う。【第三者情報】（検索結果の公式ページ抜粋で名称を確認。詳細仕様は今回取得できず）
+レガシーの State model（状態モデル）では、変更タイプごとに `ChangeRequestStateModel_<type>` スクリプトインクルード（例：Normal 用の `ChangeRequestStateModel_normal`）が利用可能な状態、各状態の次の状態、`canMove` / `moving` 関数を定義する。`ChangeRequestStateHandler` スクリプトインクルードの `STATE_NAMES` マップは State フィールドに格納される数値値と覚えやすい名前を対応付ける。名前に SNC を含むスクリプトインクルードは読み取り専用のため、SNC なしの拡張版を編集する。なお Quebec 以降は状態の制御が Change Model に置き換えられている。[出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/u8MCRun~dvfBfG4bDUlz4A) / [出典](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/CaYy9XJfghANjnKZkzZCeQ)
 
 ### タイプ別の状態遷移
 
@@ -280,7 +297,7 @@ stateDiagram-v2
     A --> N: 却下 / Revert to New
     N --> Au: Emergency
     Au --> S: 認可
-    Au --> N: 却下 / Revert to New（Emergency）
+    Au --> N: 却下（Normal/Emergency）/ Revert to New（Emergency）
     N --> S: Standard（事前承認）
     S --> I: 計画開始
     I --> R: 実装完了
@@ -292,7 +309,7 @@ stateDiagram-v2
     I --> X
 ```
 
-図の説明：Normal は New → Assess → Authorize → Scheduled → Implement → Review → Closed の全状態を通る。Standard は Assess と Authorize を経由せず（事前承認済み）、承認により次の適切な状態へ進む。Emergency は Standard に近いが認可（Authorize）が必要。Canceled へは Closed 後と Review を除き遷移できる。[出典](https://www.servicenow.com/docs/r/it-service-management/change-management/c_ChangeStateModel.html)
+図の説明：Normal は New → Assess → Authorize → Scheduled → Implement → Review → Closed の全状態を通る。Standard は Assess と Authorize を経由せず（事前承認済み）、承認により次の適切な状態へ進む。Emergency は Standard に近いが認可（Authorize）が必要。Canceled へは Closed 後と Review を除き遷移できる。Authorize での却下は Normal・Emergency とも New に戻る。[出典](https://www.servicenow.com/docs/r/it-service-management/change-management/c_ChangeStateModel.html)
 
 ### Revert to New（新規に戻す）
 
@@ -360,7 +377,7 @@ Community の FAQ 記事は、承認タイプとして最初の応答、全承�
 
 | ポリシー | Decisions / Inputs | 挙動 |
 |---|---|---|
-| Normal Change Policy | 3 Decisions、2 Inputs（`change_request`、`manager_approved`） | **Assess Technical Approvals**：Assess 状態（`state=-4`）で割り当てグループへ承認。**Requires CAB Approval**：Authorize 状態（`state=-3`）でリスク Moderate/High なら `$cab_approval` グループへ承認。**Low Risk Manager Approval**：低リスクの Normal 変更は割り当てグループのマネージャーが最終認可でき、それ以上の承認は不要（Kingston で追加）。 |
+| Normal Change Policy | 3 Decisions、2 Inputs（`change_request`、`manager_approved`） | **Assess Technical Approvals**：Assess 状態（`state=-4`）で割り当てグループへ承認。**Requires CAB Approval**：Authorize 状態（`state=-3`）でリスク Moderate/High なら `$cab_approval` グループへ承認。**Low Risk Manager Approval**：低リスクの Normal 変更は割り当てグループのマネージャーが最終認可でき、それ以上の承認は不要（Kingston で Normal 変更 Workflow に追加された低リスク・マネージャー承認を、Policy として再現したもの）。 |
 | Emergency Change Policy | — | Authorize 状態で `$cab_approval` グループへ承認。 |
 
 [出典](https://www.servicenow.com/community/in-other-news/using-change-approval-policies/ba-p/2286835)
@@ -399,13 +416,15 @@ ServiceNow Community 記事は次を推奨している。[出典](https://www.se
 | Approval（承認） | 会議の決定に基づき変更要求を承認・却下する。 |
 | Meeting notes（会議メモ） | 会議ごとのメモを記録し出席者へ共有する。 |
 
+CAB 会議の運営（Change > Change Advisory Board > CAB Workbench）では、CAB マネージャーが会議を開始し、アジェンダ項目の一時停止・スキップ・復帰・繰り上げ・繰り下げ、Pending / All / My / Approved でのフィルタ、割り当て時間に対する経過時間のタイマー確認、出席者の接続状況と招待への回答の確認を行う。会議全体のメモは CAB Meeting レコードに保存され出席者へメール送信され、変更固有のメモは変更要求に直接追加される。カレンダー表示では競合・ブラックアウト・メンテナンス期間が強調表示される。[出典](https://www.servicenow.com/docs/r/it-service-management/change-management/manage-cab-meeting-using-cab-workbench.html)
+
 `cab_definition`（CAB Definition）テーブルは Schedule（`cmn_schedule`）テーブルから Domain と Domain path を継承し、Child Schedule と Schedule Entry テーブルを共用するため、ドメイン分離のサポートも Schedule と同様に動作する（`domain_master` 属性で親レコードからドメインを導出）。ドメイン分離の詳細は [ドメインセパレーション](../platform/domain-separation.md) を参照。[出典](https://www.servicenow.com/docs/r/it-service-management/change-management/cab-workbench.html)
 
 ### プラグイン・ロール・プロパティ
 
 | 項目 | 値 | 出典 |
 |---|---|---|
-| プラグイン | CAB workbench（`com.snc.change_management.cab`）。Service Portal（`com.snc.app_common.service_portal`）に依存。有効化には `admin` ロール。 | [Docs](https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/B9L7HE8z6XTvk1sNiONoig) |
+| プラグイン | Change Management - CAB Workbench（`com.snc.change_management.cab`）。有効化時に Service Portal（`com.glide.service-portal`）と Service Portal 共通コンポーネント（`com.snc.app_common.service_portal`）も有効化される。有効化には `admin` ロール。 | [Docs: Activate Change Management - CAB Workbench（Xanadu）](https://www.servicenow.com/docs/r/Recj91eIo1YnsOabQjgskg/V9xE5x10EugCMs~OGAmmfg) |
 | CAB マネージャー | `sn_change_cab.cab_manager` | [Docs](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/lzl1cW8mOtAt6Yx8UjgcPg) |
 | 参照 | `sn_change_read` で CAB Workbench を参照可能 | 同上 |
 | SOW 表示 | `sn_change_cab.com.snc.change_management.cab.use_sow_meeting` が true かつ `sn_sow.sow_user` ロールを持つ場合、CAB 会議は Service Operations Workspace の CAB Workbench で開く。false の場合は Core UI で開く。 | [Docs](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/7ziQ9zbuaEl1CvT9Ryp~og) |
@@ -505,7 +524,7 @@ Community 記事は、グローバルなスケジュールよりサービス・C
 
 SOW の Schedule タブはブラックアウトと関連変更の競合をカレンダー表示し、次の競合のないスロットを探して自動スケジュールできる。Change Management API にも、CI や変更要求の空き時間を取得する `GET /sn_chg_rest/change/ci/{cmdb_ci_sys_id}/schedule`、`GET /sn_chg_rest/change/{change_sys_id}/schedule`、最初の空き時間を設定する `PATCH /sn_chg_rest/change/{change_sys_id}/schedule/first_available` がある。[出典](https://www.servicenow.com/community/itsm-articles/modern-change-management-maturity-journey-amp-faq/ta-p/3279260) / [出典](https://www.servicenow.com/docs/bundle/zurich-api-reference/page/integrate/inbound-rest/concept/change-management-api.html)
 
-> **Brazil での変更:** **Change lockdown（変更ロックダウン）** が追加され、重大な IT・クリティカル・財務イベント時に、変更マネージャーが進行中の変更要求の全部または一部を一時停止できる。**Change lockdown conflict detection** により、アクティブなロックダウンと重なる変更要求は「Inside Change Lockdown conflict」としてフラグが立ち保留（On hold）になり、ロックダウン外に再スケジュールすると競合は解除される。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-changemanagement-release-notes.html) なお、Brazil にアップグレードした PDI で「Change Lockdown - Request Approval」フローが破損と表示され承認が割り当てられないという Community 報告がある。【第三者情報】[出典](https://www.servicenow.com/community/upgrades-and-patching-forum/brazil-change-lockdown/m-p/3610643)
+> **Brazil での変更:** **Change lockdown（変更ロックダウン）** が追加され、重大な IT・クリティカル・財務イベント時に、変更マネージャーが進行中の変更要求の全部または一部を一時停止できる。**Change lockdown conflict detection** により、アクティブなロックダウンと重なる変更要求は「Inside Change Lockdown conflict」としてフラグが立ち保留（On hold）になり、ロックダウン外に再スケジュールすると競合は解除される。Change lockdown は Change Management - Collision Detector（`com.snc.change.collision`）プラグインに依存し、Brazil へのアップグレード時に同プラグインが自動有効化される。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-changemanagement-release-notes.html) なお、Brazil にアップグレードした PDI で「Change Lockdown - Request Approval」フローが破損と表示され承認が割り当てられないという Community 報告がある。【第三者情報】[出典](https://www.servicenow.com/community/upgrades-and-patching-forum/brazil-change-lockdown/m-p/3610643)
 
 ---
 
@@ -549,7 +568,7 @@ Risk Conditions は All > Change > Administration > Risk Conditions で管理し
 
 Risk Assessment は、変更要求に対するリスクアセスメントの質問・しきい値・条件を定義し、回答からリスクを算出する機能で、Change Management - Risk Assessment（`com.snc.change_management.risk_assessment`）プラグインが必要。[出典](https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/B9L7HE8z6XTvk1sNiONoig) / [出典](https://www.servicenow.com/docs/r/Recj91eIo1YnsOabQjgskg/mjTOaHwPpQreWciZdly3xA)
 
-Now Assist for ITSM には、変更要求の内容からリスクアセスメント質問への回答と理由を自動生成するスキルがあり、既定で有効とされる。[出典](https://www.servicenow.com/docs/r/MlbQAgTiiiMOLOw9T36wJg/DuFv1lSncd1vmo0N7SvAsw)
+Now Assist for ITSM には、変更要求の内容からリスクアセスメント質問への回答と理由を自動生成するスキルがあり、既定で有効（適切なロールを持つユーザーが利用可能）とされる。前提条件は Zurich Patch 11 / Australia Patch 4 以降、ロールは `sn_change_write` と `change_manager`。Service Operations Workspace（SOW）で使う場合は Service Operations Workspace for ITSM 9.2 以降が必要（Core UI でも利用可能）。[出典](https://www.servicenow.com/docs/r/MlbQAgTiiiMOLOw9T36wJg/DuFv1lSncd1vmo0N7SvAsw)
 
 ### Risk Intelligence（リスクインテリジェンス）
 
@@ -732,7 +751,7 @@ ITSM Roles - Change Management（`com.snc.itsm.roles.change_management`）プラ
 | `business_stakeholder` | Business Stakeholder（`com.snc.business_stakeholder`）。ITSM 全製品のレコードを参照・承認 | [Docs](https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/B9L7HE8z6XTvk1sNiONoig) |
 | `itil_admin` | ブラックアウト/メンテナンス スケジュールの作成など | [Docs](https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/Gyeat1enp08Zj9DzXEzZrA) |
 
-Australia リリースノートは `sn_change_admin` を「従来の general admin と ITIL ロールを置き換える」細粒度ロールとして説明している。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-changemanagement-release-notes.html)
+Australia リリースノートは `sn_change_admin` を「従来の general admin と ITIL ロールを置き換える」細粒度ロールとして説明している。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-changemanagement-release-notes.html) なお、同リリースノートは `sn_change_admin` の包含ロールを `sn_change_writer`、`change_manager`、`sn_change_cab.cab_manager` と表記しているが、ITSM Roles のコンポーネントページ（上表の出典）では `sn_change_write` である。
 
 ロールとライセンス（Fulfiller / Requester / Approver 等）の関係は [ユーザー・グループ・ロール](../platform/users-groups-roles.md) と [ライセンスモデル](../../03_導入編/01-licensing-model.md) を参照。
 
@@ -776,7 +795,7 @@ Australia リリースノートは `sn_change_admin` を「従来の general adm
 | `com.snc.service.dynamic_ci_flows` | 影響 CI グループ（Affected CI group）の同期を Flow で行う |
 | `com.snc.itsm.state_transition_model.flows` | 状態遷移テンプレートの公開・廃止ライフサイクルを管理する Flow |
 
-ITSM Enhanced Security Features（`com.snc.itsm.enhanced_security`）は Australia / Brazil でアップグレード時に自動有効化され、複数の ITSM テーブルに「deny unless authenticated」ACL を追加する。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-changemanagement-release-notes.html)
+ITSM Enhanced Security Features（`com.snc.itsm.enhanced_security`）は Zurich へのアップグレード時に初めて自動有効化され（それ以前は新規インスタンスでのみ有効化。Zurich で導入）、Australia / Brazil へのアップグレード時にも自動有効化される。このプラグインは複数の ITSM テーブルに「deny unless authenticated」ACL を追加する。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-changemanagement-release-notes.html)
 
 > ITSM Roles の詳細や ITSM のパッケージ構成は [ITSM 概要とパッケージ](itsm-overview.md) を参照。
 
@@ -795,12 +814,12 @@ ITSM Enhanced Security Features（`com.snc.itsm.enhanced_security`）は Austral
 | DELETE | `/sn_chg_rest/change/{change_sys_id}/task/{task_sys_id}` | 変更タスクの削除 |
 | DELETE | `/sn_chg_rest/change/{sys_id}/conflict` | 実行中の競合チェックの取り消し |
 | GET | `/sn_chg_rest/change/model`、`/sn_chg_rest/change/model/{sys_id}` | Change Model の取得 |
-| GET | `/sn_chg_rest/change/ci/{cmdb_ci_sys_id}/schedule` | CI の空き時間の取得（`sn_change_writer`） |
+| GET | `/sn_chg_rest/change/ci/{cmdb_ci_sys_id}/schedule` | CI の空き時間の取得 |
 | GET | `/sn_chg_rest/change/{change_sys_id}/schedule` | 変更要求の空き時間の取得 |
 | PATCH | `/sn_chg_rest/change/{change_sys_id}/schedule/first_available` | 計画開始・終了を最初の空き時間に設定 |
 | GET | `/sn_chg_rest/change/worker/{sys_id}` | 非同期ワーカーの状態と結果の取得 |
 
-必要ロール：DELETE は `change_manager` または `admin`、GET は `change_manager`・`itil`・`sn_change_read`・`admin`、PATCH/POST は `change_manager`・`itil`・`admin`。Standard 変更は公開済みの標準変更テンプレートから作成する。
+必要ロール：DELETE は `change_manager` または `admin`、GET は `change_manager`・`itil`・`sn_change_read`・`admin`、PATCH/POST は `change_manager`・`itil`・`admin`。なお schedule 系 GET（`/change/ci/{cmdb_ci_sys_id}/schedule`）は公式 API ページ上 `sn_change_writer` と表記されているが、ITSM Roles がインストールするロールは `sn_change_write` であり、誤記の可能性がある。インスタンス上でどちらが存在するか確認すること。Standard 変更は公開済みの標準変更テンプレートから作成する。
 
 > **Brazil での変更:** **ITIL change process assignment for change models** により、ChangeRequest API が一致する変更要求を作成する際に Change Model を使えるようになった。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-changemanagement-release-notes.html)
 
@@ -848,7 +867,7 @@ ServiceNow Community の FAQ 記事（ServiceNow 社員執筆）は Modern Chang
 
 ### Australia（基準リリース）
 
-Australia の Change Management リリースノート（2026-03-12 更新）の要点。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-changemanagement-release-notes.html) / [出典](https://www.servicenow.com/docs/r/8_SIK58xmFJIEc2bL5YTYg/boWeBD1EB9spWQm_TQp4Jw)
+Australia の Change Management リリースノートの要点（2026-11-02 取得）。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-changemanagement-release-notes.html) / [出典](https://www.servicenow.com/docs/r/8_SIK58xmFJIEc2bL5YTYg/boWeBD1EB9spWQm_TQp4Jw)
 
 | 区分 | 内容 |
 |---|---|
@@ -866,7 +885,7 @@ Australia の Change Management リリースノート（2026-03-12 更新）の�
 | リリース | 内容 | 出典 |
 |---|---|---|
 | Istanbul | CAB Workbench | [Community](https://www.servicenow.com/community/in-other-news/coming-in-istanbul-change-advisory-board-cab-workbench/ba-p/2292081) |
-| Kingston | Low Risk Manager Approval（Normal Change Policy） | [Community](https://www.servicenow.com/community/in-other-news/using-change-approval-policies/ba-p/2286835) |
+| Kingston | Normal 変更 Workflow に低リスク・マネージャー承認を追加（後に Normal Change Policy の Low Risk Manager Approval Decision として再現） | [Community](https://www.servicenow.com/community/in-other-news/using-change-approval-policies/ba-p/2286835) |
 | Madrid | Change Approval Policies が Normal/Emergency ワークフローの既定に | 同上 |
 | Quebec | Change Model（Multimodal Change） | [Community](https://www.servicenow.com/community/itsm-blog/breaking-the-change-barrier/ba-p/2294272) |
 | Utah | Change Management が SOW に統合 | [Community](https://www.servicenow.com/community/itsm-articles/modern-change-management-maturity-journey-amp-faq/ta-p/3279260) |
@@ -875,7 +894,7 @@ Australia の Change Management リリースノート（2026-03-12 更新）の�
 
 ### Brazil での変更
 
-> **Brazil での変更:** Zurich→Brazil の統合リリースノート（2026-09 時点）で、Brazil の新機能として以下が記載されている。変更・削除・非推奨は「No updates」。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-changemanagement-release-notes.html)
+> **Brazil での変更:** Zurich→Brazil の統合リリースノート（2026-09 時点）で、Brazil の新機能として以下が記載されている。変更・削除・非推奨は「No updates」。[出典](https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-changemanagement-release-notes.html) / Brazil リリースノート: [出典](https://www.servicenow.com/docs/r/7GoNY9eeDRD0FzxldbEmXw/D_mhWKm2geWsLaiEnGQEjg)
 >
 > | 新機能 | 内容 |
 > |---|---|
@@ -898,6 +917,7 @@ Australia の Change Management リリースノート（2026-03-12 更新）の�
 - `conflict` テーブル名、スケジュール競合チェッカーのジョブ名。
 - リスク算出方式を保持するシステムプロパティの技術名。
 - `change.conflict.max_count` の既定値。
+- REST API `GET /sn_chg_rest/change/ci/{cmdb_ci_sys_id}/schedule` の必要ロール。公式 API ページは `sn_change_writer` と表記するが、ITSM Roles がインストールするのは `sn_change_write` であり、誤記か別ロールかは公開情報では確認できず。Australia リリースノートも `sn_change_admin` の包含ロールを `sn_change_writer` と表記しており、同じ表記揺れがある。
 - DevOps Change Model の承認の既定（手動のみか自動か）について、公式ページ内に記述の揺れがある。
 - Brazil の GA 日付、および Change lockdown / Scaled change の詳細仕様（テーブル・ロール・プロパティ）。
 
@@ -917,6 +937,9 @@ Australia の Change Management リリースノート（2026-03-12 更新）の�
 - Roles in Service Operations Workspace for ITSM: https://www.servicenow.com/docs/r/MlbQAgTiiiMOLOw9T36wJg/YgjezgSonqhHOrxtmy_B7w
 - Create a Change approval policy using decision builder（Australia）: https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/rcQre2omm1oACZOzLYNLkQ
 - Change Advisory Board (CAB) workbench: https://www.servicenow.com/docs/r/it-service-management/change-management/cab-workbench.html
+- Activate Change Management - CAB Workbench（Xanadu）: https://www.servicenow.com/docs/r/Recj91eIo1YnsOabQjgskg/V9xE5x10EugCMs~OGAmmfg
+- Legacy: Add a state to the state model（Australia）: https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/u8MCRun~dvfBfG4bDUlz4A
+- Update the state model script include（Australia）: https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/CaYy9XJfghANjnKZkzZCeQ
 - CAB meeting management using the CAB workbench: https://www.servicenow.com/docs/r/it-service-management/change-management/manage-cab-meeting-using-cab-workbench.html
 - CAB SOW meeting property: https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/7ziQ9zbuaEl1CvT9Ryp~og
 - Detect change conflicts（Australia）: https://www.servicenow.com/docs/r/QykF2iRSIs6VXztArCSo3w/HQtY4pGQb30K3L5cH7hUYg

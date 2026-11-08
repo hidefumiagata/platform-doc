@@ -84,7 +84,7 @@ Test Optimization の主要機能は次のとおり。
 - ブラウザテストと RUM の相関: [RUM（ブラウザ）](../dem/rum-browser.md)、Swift UI テスト: [RUM（モバイル）](../dem/rum-mobile.md)
 - モニター全般: [Monitors](../platform/monitors.md)
 - コードオーナー・リポジトリ連携: [Software Catalog](../platform/software-catalog.md)、[Integrations](../platform/integrations.md)
-- 料金の正本: [製品別料金表](../../03_導入編/pricing-by-product.md)
+- 料金の正本: [製品別料金表](../../03_導入編/02-pricing-by-product.md)
 
 ## アーキテクチャとデータフロー
 
@@ -766,7 +766,7 @@ Agentless モードでテストホストから到達が必要な Datadog のエ�
 | `instrumentation-telemetry-intake.<site>` | 計装テレメトリ |
 | `webhook-intake.<site>` | Webhook |
 
-一部ドメインは静的 IP への CNAME で、IP レンジは `ip-ranges.<site>` で公開されている。使用されるサブセットは変わるため、公式はすべてのレンジの許可を推奨する。[出典](https://docs.datadoghq.com/tests/network/) 詳細は [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md) を参照。
+一部ドメインは静的 IP への CNAME で、IP レンジは `ip-ranges.<site>` で公開されている。使用されるサブセットは変わるため、公式はすべてのレンジの許可を推奨する。[出典](https://docs.datadoghq.com/tests/network/) 詳細は [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md) を参照。
 
 ## サイト差異
 
@@ -822,7 +822,7 @@ Agentless モードでテストホストから到達が必要な Datadog のエ�
 
 ## 課金への影響
 
-Test Optimization は **アクティブな Git コミッター数**（月3回以上コミットした Git 作成者メールアドレス）単位で月額課金される。公式料金ページ掲載の定価（2026-11-02 取得）は次のとおり。数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。[出典](https://www.datadoghq.com/pricing/list/)
+Test Optimization は **アクティブな Git コミッター数**（月3回以上コミットした Git 作成者メールアドレス）単位で月額課金される。公式料金ページ掲載の定価（2026-11-02 取得）は次のとおり。数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)。[出典](https://www.datadoghq.com/pricing/list/)
 
 | 製品 | 課金単位 | US/EU1 年契約（Billed Annually） | US/EU1 月契約（Month-to-month） | US/EU1 オンデマンド | AP1 年契約 | AP1 月契約 | AP1 オンデマンド |
 |---|---|---|---|---|---|---|---|
@@ -833,7 +833,7 @@ Test Optimization は **アクティブな Git コミッター数**（月3回以
 
 [出典](https://www.datadoghq.com/pricing/list/) [出典](https://www.datadoghq.com/pricing/?product=ci-visibility)
 
-> **サイト差異:** 基準サイト AP1 では価格が US/EU1 と異なる（上表の AP1 列）。数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md) §12。
+> **サイト差異:** 基準サイト AP1 では価格が US/EU1 と異なる（上表の AP1 列）。数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md) §12。
 
 | 課金上の要点 | 内容 |
 |---|---|
@@ -864,7 +864,7 @@ Test Optimization は **アクティブな Git コミッター数**（月3回以
 
 [出典](https://docs.datadoghq.com/tests/setup/junit_xml/) [出典](https://docs.datadoghq.com/tests/setup/swift/)
 
-料金ページ自体に「Pipeline Visibility と Test Optimization を両方購入する場合の例示人数」が FAQ 間で一致しない箇所があるため、併用時のコミッター算定は営業見積りで確認すること。課金計算の詳細は [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、見積り手法は [コスト見積り手法](../../03_導入編/cost-estimation.md)、使用量の確認は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md) を参照。
+料金ページ自体に「Pipeline Visibility と Test Optimization を両方購入する場合の例示人数」が FAQ 間で一致しない箇所があるため、併用時のコミッター算定は営業見積りで確認すること。課金計算の詳細は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、見積り手法は [コスト見積り手法](../../03_導入編/05-cost-estimation.md)、使用量の確認は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md) を参照。
 
 ## トラブルシューティング
 

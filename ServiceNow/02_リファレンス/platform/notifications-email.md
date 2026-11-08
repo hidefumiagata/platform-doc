@@ -3,9 +3,9 @@ title: Notifications and Email（通知とメール）
 category: reference
 domain: platform
 release: Australia
-last_verified: 2026-11-03
+last_verified: 2026-11-02
 summary: ServiceNow の Email notifications（メール通知）、Email templates / Email layouts、Notification variables と Mail scripts、Inbound email actions、Email accounts（SMTP/POP3/IMAP/OAuth 2.0/Microsoft Graph）、Email properties、Notification preferences（購読・配信チャネル）、SMS / Push 通知、Email logs と通知のデバッグ方法を、テーブル名・フィールド・ロール・プロパティ単位で解説する。
-keywords: [notification, email notification, 通知, メール, sysevent_email_action, sysevent_email_template, sys_email_layout, sys_email, sys_email_account, inbound email action, sysevent_in_email_action, watermark, ウォーターマーク, mail script, sys_script_email, notification variables, email digest, notification preferences, sys_notif_subscription, cmn_notif_device, SMS, push notification, sys_push_notif_msg, Microsoft Graph, OAuth 2.0, SMTP, IMAP, POP3, email properties, glide.email.smtp.active, glide.email.read.active, glide.email.test.user, email filters, email diagnostics dashboard, Preview Notification, notification_admin, email_admin, Notification Agent, User mailbox integration]
+keywords: [notification, email notification, 通知, メール, sysevent_email_action, sysevent_email_template, sys_email_layout, sys_email, sys_email_account, sys_email_account_group, sysevent_register, inbound email action, sysevent_in_email_action, watermark, ウォーターマーク, mail script, sys_script_email, notification variables, email digest, notification preferences, sys_notif_subscription, cmn_notif_device, SMS, push notification, sys_push_notif_msg, Microsoft Graph, OAuth 2.0, SMTP, IMAP, POP3, email properties, glide.email.smtp.active, glide.email.read.active, glide.email.test.user, email filters, email diagnostics dashboard, Preview Notification, notification_admin, email_admin, Notification Agent, User mailbox integration]
 sources:
   - https://www.servicenow.com/docs/r/platform-administration/t_CreateANotification.html
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/vaPuVLOcN_zPS8jyrTPDmw
@@ -15,6 +15,26 @@ sources:
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/bv0fJhcFJU0KUWWDeL7slw
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/uITBeOSeftmhjmhSe~uW2Q
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/YRcRFOSUJxRtgvq5356UnQ
+  - https://www.servicenow.com/docs/r/platform-administration/c_EmailAccounts.html
+  - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/PFuZp_kHeI4jSyXDTSoZow
+  - https://www.servicenow.com/docs/r/HGWDpzjgkfvaJWTdMzNy2w/8VvFPbXwvyft4ygQa7Gvmg
+  - https://www.servicenow.com/docs/r/0MvJg~UYByX0VxWLomI71w/dR3xqB99dITypbDOsxf3fQ
+  - https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/arqcJvflekHKxKqf4TzPqg
+  - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/yh1EpzEZzPCJdWGx3u~LhQ
+  - https://www.servicenow.com/docs/r/platform-administration/create-email-account-smtp.html
+  - https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/zgzUY2z4rVDa09Gw4VbXfw
+  - https://www.servicenow.com/docs/r/bAHg1_u_N~ocpdu34t_qJA/cOxvFcaKTeHmRKpKY5BcKA
+  - https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/qFVPEpxNaZxAHuJsp9QwHw
+  - https://www.servicenow.com/docs/r/build-workflows/workflow-studio/create-inbound-email-flow.html
+  - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/7eQyHz8CfFQCRwfwnJTKzA
+  - https://www.servicenow.com/docs/r/a3E8xg0zsiQLBPKbKO15Mg/drqUzUBvvocxxduE9UZ3zQ
+  - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/qs_ERsmJrgl_vpiw9HL4gw
+  - https://www.servicenow.com/docs/r/platform-administration/email-digest-properties.html
+  - https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/No8m7wPZa6LBx2v_Z4CM0A
+  - https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/617JZFVINYrJgHWfdnGhsw
+  - https://www.servicenow.com/docs/r/australia/platform-administration/c_EmailNotifications.html
+  - https://www.servicenow.com/docs/r/application-development/servicenow-sdk/fluent-email-notification-api.html
+  - https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/deprecation-of-basic-authentication-exchange-online
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/sp6pw~dNTfmO33y7YagiYA
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/Ara8rGFtsz768fd2O47rwQ
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/5dNWWGLImNF1k_wqO8fhdw
@@ -70,11 +90,11 @@ ServiceNow の **Notifications（通知）** は、レコードの挿入・更�
 - 通知レコード（`sysevent_email_action`）の各タブ・フィールドは何を意味するか
 - Email template（`sysevent_email_template`）、Email layout（`sys_email_layout`）、Mail script（`sys_script_email`）の役割分担
 - 受信メールはどう分類（New / Reply / Forward）され、どの Inbound email action が実行されるか
-- Email accounts（`sys_email_account` 相当の Email Account 画面）で SMTP / POP3 / IMAP / OAuth 2.0 / Microsoft Graph をどう設定するか
+- Email accounts（`sys_email_account`、Email Accounts）で SMTP / POP3 / IMAP / OAuth 2.0 / Microsoft Graph をどう設定するか
 - ユーザーの Notification preferences（通知設定）、Subscribable / Mandatory / Force delivery の関係
 - メールが届かないときにどこを見ればよいか（Email logs、Preview Notification、Email diagnostics dashboard）
 
-> **基準リリースと出典についての注記:** 本ファイルは Australia（2026-05 GA）を基準とする。ServiceNow 公式ドキュメントサイトは 2026-11 時点で多くのページの既定表示（`/docs/r/platform-administration/...` 形式の URL）が Brazil 版になっており、一部の仕様は Brazil 版ページで確認した。URL に `UrSRFFKWBbfQBgoRlt~ltw` を含むページは Australia 版（英語、2026-03-12 更新）、`7LhbZn3yz3Q58qhjZoU9iQ` は Zurich 版、`VbEA8DxUy61CFZ25mbYrcQ` は Yokohama 版、`SbrhqYG7UKQCk7uYwvgVBA` は Xanadu 版、`eh2NFokZCOdK5kPblQPzog` は Australia 版（ドイツ語）である（2026-11-03 にページ表示で確認）。Australia と Brazil で差異が判明している箇所は「Brazil での変更」として明記し、それ以外は両リリース共通の仕様として記載している。
+> **基準リリースと出典についての注記:** 本ファイルは Australia（2026-05 GA）を基準とする。ServiceNow 公式ドキュメントサイトは 2026-11 時点で多くのページの既定表示（`/docs/r/platform-administration/...` 形式の URL）が Brazil 版になっており、一部の仕様は Brazil 版ページで確認した。URL に `UrSRFFKWBbfQBgoRlt~ltw` を含むページは Australia 版（英語、2026-03-12 更新）、`7LhbZn3yz3Q58qhjZoU9iQ` は Zurich 版、`VbEA8DxUy61CFZ25mbYrcQ` は Yokohama 版、`eh2NFokZCOdK5kPblQPzog` は Australia 版（ドイツ語）、`fBdxWC~8p08POQuUubVDig` は Australia 版（ポルトガル語〔ブラジル〕）、`HGWDpzjgkfvaJWTdMzNy2w` と `oL66E_cwDD_tnWQYzYPRdA` は Australia 版（英語）、`m4LmCVvkm6_8u3nlIuep5Q` は Australia の統合リリースノート（Zurich→Australia、英語）、`Cz0Un5C85RB3j2nhhAK1aQ` は Australia の統合リリースノート（Xanadu→Australia、英語）、`0MvJg~UYByX0VxWLomI71w` は Zurich 版（英語）、`a3E8xg0zsiQLBPKbKO15Mg` は Xanadu 版（英語、ServiceNow Fluent API）、`bAHg1_u_N~ocpdu34t_qJA` は Washington DC 版（英語）である（2026-11-03〜04 にページ表示で確認）。Australia と Brazil で差異が判明している箇所は「Brazil での変更」として明記し、それ以外は両リリース共通の仕様として記載している。
 
 関連ファイル：
 
@@ -111,20 +131,22 @@ ServiceNow のメール構成は「インスタンス」「メールサーバー
 | `sys_email_layout` | Email Layout（メールレイアウト） | ヘッダー・フッター等のブランディング用 HTML。[出典](https://www.servicenow.com/docs/r/platform-administration/email-layouts.html) |
 | `sys_script_email` | Notification Email Script（メールスクリプト） | `${mail_script:...}` で呼び出すスクリプト。[出典](https://www.servicenow.com/docs/r/platform-administration/r_ExScptEmlNtfn.html) |
 | `sysevent` | Event（イベント） | 通知を発火させたイベントのレコード。[出典](https://www.servicenow.com/docs/r/platform-administration/r_MailScriptAPI.html) |
+| `sysevent_register` | Event Registration（イベント登録） | Event Registry（イベントレジストリ）。`Event is fired` 契機の通知で使うイベントを登録する。メニューは **System Policy > Events > Registry**。[出典](https://www.servicenow.com/docs/r/HGWDpzjgkfvaJWTdMzNy2w/8VvFPbXwvyft4ygQa7Gvmg) テーブル名は Fire Event action の入力型 `Reference.Event Registration[sysevent_register]` で確認。[出典](https://www.servicenow.com/docs/r/0MvJg~UYByX0VxWLomI71w/dR3xqB99dITypbDOsxf3fQ) |
 | `sys_email` | Email（メールログ） | 送受信したすべてのメール。System mailboxes はこのテーブルのフィルタビュー。[出典](https://www.servicenow.com/docs/r/platform-security/r_EmailLogs.html) |
 | `sys_watermark` | Email Watermarks（ウォーターマーク） | 送信メールと対象レコードの対応付け。[出典](https://www.servicenow.com/docs/r/platform-administration/inbound-action-processing.html) |
-| `sysevent_in_email_action` | Inbound Email Action（受信メールアクション） | 受信メールの処理ルール。[出典](https://servicenow.github.io/sdk/tags/sysevent-in-email-action) 【第三者情報】（ServiceNow SDK ドキュメント） |
-| `sys_email_account` | Email Account（メールアカウント） | SMTP / POP3 / IMAP / Microsoft Graph の接続設定。※テーブル名は公式ページ本文では未確認、画面は「E-mail Accounts」【経験則】 |
+| `sysevent_in_email_action` | Inbound Email Action（受信メールアクション） | 受信メールの処理ルール。[出典](https://servicenow.github.io/sdk/tags/sysevent-in-email-action)（ServiceNow 公式 SDK ドキュメント、GitHub Pages） |
+| `sys_email_account` | Email Account（メールアカウント） | SMTP / POP3 / IMAP / Microsoft Graph の接続設定。個々のメールアカウントはこのテーブルに格納される。[出典](https://www.servicenow.com/docs/r/platform-administration/c_EmailAccounts.html) |
+| `sys_email_account_group` | Email Account Group（メールアカウントグループ） | POP3 / IMAP アカウントをグループにまとめ、複数の Email Reader ジョブで処理させる。1 つのアカウントは 1 つのグループにしか属せない。[出典](https://www.servicenow.com/docs/r/platform-administration/c_EmailAccounts.html)、[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/PFuZp_kHeI4jSyXDTSoZow) |
 | `sys_notif_subscription` | Notification Subscription（通知購読） | 全通知へのユーザー購読情報。[出典](https://www.servicenow.com/docs/r/platform-administration/c_SubscriptionBasedNotifications.html) |
 | `cmn_notif_device` | Notification Device（通知デバイス / 配信チャネル） | ユーザーごとの配信先（メール、SMS 等）。[出典](https://www.servicenow.com/docs/r/platform-administration/advanced-notification-prefrences.html) |
 | `cmn_notif_service_provider` | Notification Service Provider（通知サービスプロバイダー） | SMS 送信プロバイダー。[出典](https://www.servicenow.com/docs/r/eh2NFokZCOdK5kPblQPzog/H4bE0Tu_H1TqbXjsLeACEg) |
-| `sys_email_digest_interval` | Digest Intervals（ダイジェスト間隔） | メールダイジェストの集約間隔。[出典](https://www.servicenow.com/docs/r/platform-administration/email-digests.html) |
+| `sys_email_digest_interval` | Digest Intervals（ダイジェスト間隔） | メールダイジェストの集約間隔。[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/7eQyHz8CfFQCRwfwnJTKzA) |
 | `sys_notification_category` | Notification Category（通知カテゴリ） | 通知のグルーピング（設定画面での分類）。[出典](https://www.servicenow.com/docs/r/platform-administration/granular-admin-roles-notifications.html) |
 | `sys_push_application` / `sys_push_notif_msg` / `sys_push_notif_msg_content` | Push Application / Push Notification Message / Push Message Content | Push 通知の定義。[出典](https://www.servicenow.com/docs/r/api-reference/developer-guides/mobsdk-and-setup-push-instance.html) |
 | `sys_push_notif_act_script` | Push Notification Action Script | カスタム Push アプリでユーザーが通知に応答したときに実行するアクション。[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/5dNWWGLImNF1k_wqO8fhdw) |
 | `ar_sys_email` | Archive Email（アーカイブ済みメール） | Email retention で `sys_email` から移されたメール。[出典](https://www.servicenow.com/docs/r/platform-administration/email-retention.html) |
-| `sysevent_email_style` | Email Style（メールスタイル） | 通知に適用する HTML スタイル（`style` フィールド）。【第三者情報】[出典](https://servicenow.github.io/sdk/guides/email-notification-guide) |
-| `email_access_restriction` | Email Access Restriction | 通知単位でメール閲覧を制限する条件。【第三者情報】[出典](https://servicenow.github.io/sdk/guides/email-notification-guide) |
+| `sysevent_email_style` | Email Style（メールスタイル） | 通知に適用する HTML スタイル（`style` フィールド）。[出典](https://servicenow.github.io/sdk/guides/email-notification-guide)（ServiceNow 公式 SDK ドキュメント、GitHub Pages）。なお servicenow.com/docs の Fluent Email Notification API（Xanadu 版）はスタイルの参照先を `sys_email_style` と表記しており、表記が一致しない。[出典](https://www.servicenow.com/docs/r/a3E8xg0zsiQLBPKbKO15Mg/drqUzUBvvocxxduE9UZ3zQ) |
+| `email_access_restriction` | Email Access Restriction | 通知単位でメール閲覧を制限する条件。[出典](https://servicenow.github.io/sdk/guides/email-notification-guide)（ServiceNow 公式 SDK ドキュメント、GitHub Pages） |
 
 ### 1.3 送信処理の流れ（アウトバウンド）
 
@@ -277,7 +299,7 @@ Allow Digest がオンの場合のみ表示される。
 
 - Email digest は、1 つの通知について一定期間の活動を 1 通のメールにまとめる機能。ユーザーが自身の通知設定でダイジェストを有効化し、間隔を選ぶ。
 - 間隔は `sys_email_digest_interval`（Digest Intervals）テーブルで管理。基本系では「1 時間」「4 時間ごと」「1 日（24 時間）」「7 日（週次）」の 4 つが用意されている。
-- 間隔は日または時間で設定し、最小 1 時間、最大 7 日。使用中の間隔は削除できない。
+- 間隔は **All > System Notification > Email > Digest Intervals** で作成・変更する。日または時間で設定し、最小 1 時間、最大 7 日（1 週間）。使用中の間隔は削除できない。[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/7eQyHz8CfFQCRwfwnJTKzA)
 - システムは 15 分ごとにダイジェスト送信要否を判定する。例：1 時間ダイジェストで最初の通知が 08:15 なら、およそ 09:15 に送られる。
 - 従来、1 通のダイジェストは 1 つの対象レコードに関する通知だけをまとめていた（「Create an email notification」ページには現在も「別の対象レコードのダイジェストは結合されない」と記載がある）。一方、Zurich のリリースノートでは Allow Digest チェックボックスが動的になり **Digest type** が追加され、単一または複数の対象レコードをまとめられるようになったとされる。Digest type は次の 2 種類。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/qGcZZMODgMoKBj2yZ1trWw)、[出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/arqcJvflekHKxKqf4TzPqg)
 
@@ -289,7 +311,7 @@ Allow Digest がオンの場合のみ表示される。
 - Who will receive タブの受信者は、自分の通知設定でダイジェストを有効にした後にダイジェストを受け取る。
 - 関連プロパティ：`glide.email.digest.default_interval`（既定のダイジェスト間隔の sys_id）、`glide.email.digest.max_intervals`（定義できる間隔数の上限、既定 100）。
 
-[出典](https://www.servicenow.com/docs/r/platform-administration/email-digests.html)、[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/qs_ERsmJrgl_vpiw9HL4gw)、[出典](https://www.servicenow.com/docs/r/platform-administration/email-digest-properties.html)
+[出典](https://www.servicenow.com/docs/r/platform-administration/email-digests.html)、[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/qs_ERsmJrgl_vpiw9HL4gw)、[出典](https://www.servicenow.com/docs/r/platform-administration/email-digest-properties.html)、[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/7eQyHz8CfFQCRwfwnJTKzA)
 
 > ダイジェスト関連テーブル `sys_email_digest_part` / `sys_email_digest_part_user` の管理には `email_digest_admin` ロールが用意されている（プラグイン `com.glide.email_digest`）。[出典](https://www.servicenow.com/docs/r/platform-administration/granular-admin-roles-notifications.html)
 
@@ -351,7 +373,7 @@ Email layout は、Email template の本文に挿入される再利用可能な 
 ### 3.3 Email templates（メールテンプレート）
 
 - テーブル：`sysevent_email_template`。メニュー：**System Notification > Email > Templates**【経験則】。
-- 主なフィールド（ServiceNow SDK ガイドの定義）【第三者情報】[出典](https://servicenow.github.io/sdk/guides/email-notification-guide)
+- 主なフィールド（ServiceNow SDK ガイドの定義）[出典](https://servicenow.github.io/sdk/guides/email-notification-guide)（ServiceNow 公式 SDK ドキュメント、GitHub Pages）
 
 | フィールド | 型 | 内容 |
 |---|---|---|
@@ -367,7 +389,7 @@ Email layout は、Email template の本文に挿入される再利用可能な 
 
 - **Rich HTML（リッチ HTML）:** Rich HTML 形式は新規メール通知の既定であり、管理者は既存の通知を Rich HTML 形式に変換できる。インスタンス内レコードや画像への相対リンクは絶対リンクに変換される。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/c_EmailNotifications.html) 変換時は「Newlines to HTML」チェックボックスが自動で選択され、既存 Mail script の改行の扱いが従来と同じに保たれる。[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/uiysJuIQRfxqUuUoqMtlvg)
 - 通知側で Subject を入力すると、テンプレートの件名より通知側が優先される。[出典](https://www.servicenow.com/docs/r/platform-administration/t_CreateANotification.html)
-- 互換性のため、HTML 本文とプレーンテキスト本文の両方を用意することが推奨される。【第三者情報】[出典](https://servicenow.github.io/sdk/guides/email-notification-guide)
+- 互換性のため、HTML 本文とプレーンテキスト本文の両方を用意することが推奨される。[出典](https://servicenow.github.io/sdk/guides/email-notification-guide)（ServiceNow 公式 SDK ドキュメント、GitHub Pages）
 
 ### 3.4 Notification variables（通知変数）
 
@@ -645,6 +667,14 @@ if (current.getTableName() == 'incident') {
 
 前提：SMTP / POP3 / IMAP に対応したメールサーバーが必要。localhost やループバック（127.0.0.1）の SMTP サーバーは受け付けられない。OAuth の選択肢は **Email: OAUTH support for IMAP, Microsoft Graph (Receiving), and SMTP**（`com.glide.email.oauth`）プラグインが有効な場合のみ表示される。[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/YRcRFOSUJxRtgvq5356UnQ)
 
+> **Email accounts の運用上の注意（公式）:**
+> - 個々のメールアカウントは `sys_email_account` テーブルに格納される。
+> - ServiceNow が管理する既定の SMTP / POP3 アカウントは変更できない。使わない場合は無効化だけできる。
+> - 自分で構成した POP / IMAP アカウントからメールを読み込むと、ServiceNow はそのメールを**メールサーバーから削除する**。既存の業務用メールボックスをそのまま接続すると、ほかのメールクライアントからメールが消えるため、ServiceNow 専用のメールボックス（または転送先）を用意するのが安全である。
+> - POP3 / IMAP アカウントは Email account groups（`sys_email_account_group`）にまとめ、複数の Email Reader ジョブで処理させて受信処理時間を短縮できる。メニューは **All > System Mailboxes > Administration > Email Account Groups**（ロール `admin` または `email_account_admin`）。グループに追加したアカウントは、ほかのグループでは再利用できない（1 アカウントは 1 グループのみ）。
+>
+> [出典](https://www.servicenow.com/docs/r/platform-administration/c_EmailAccounts.html)、[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/PFuZp_kHeI4jSyXDTSoZow)
+
 | フィールド | 説明 |
 |---|---|
 | Name | アカウント名。 |
@@ -712,9 +742,9 @@ ServiceNow AI Platform は IMAP / SMTP / POP3 に加え、Microsoft Graph をメ
 | 受信 | Email Account の Type を `Microsoft Graph (Receive)` にする。Graph API で Exchange Online からメールを取得し `sys_email` に保存。認証はクライアント ID+シークレット、または証明書。 |
 | 送信 | `Microsoft Graph (Send)`。認証はクライアント ID+シークレット。 |
 | 前提 | OAuth プロファイルと、OAuth プロバイダーとしての Azure アプリ登録。 |
-| 注意 | スパム対策・マルウェアスキャンは ServiceNow ではなく顧客側の管理となる。 |
+| 注意 | スパム対策・マルウェアスキャンは ServiceNow ではなく顧客側の管理となる（原文："Antispam and malware scanning are managed by the customer and not ServiceNow."）。[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/yh1EpzEZzPCJdWGx3u~LhQ) |
 
-[出典](https://www.servicenow.com/docs/r/platform-administration/ms-graph-plugin.html)、[出典](https://www.servicenow.com/docs/r/platform-administration/read-email-using-ms-graph.html)、[出典](https://www.servicenow.com/docs/r/platform-administration/send-email-using-ms-graph.html)
+[出典](https://www.servicenow.com/docs/r/platform-administration/ms-graph-plugin.html)、[出典](https://www.servicenow.com/docs/r/platform-administration/read-email-using-ms-graph.html)、[出典](https://www.servicenow.com/docs/r/platform-administration/send-email-using-ms-graph.html)、[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/yh1EpzEZzPCJdWGx3u~LhQ)
 
 > **Australia での変更:** Zurich→Australia の統合リリースノートでは「Microsoft のメールアカウントを Microsoft Graph 経由で接続し、送信メールを送れるようになった（Microsoft Graph sending）」と記載されている。すなわち `Microsoft Graph (Send)` は Australia の変更点である。送信時は SMTP Sender を通じて Exchange Online 経由で配信される。[出典](https://www.servicenow.com/docs/r/m4LmCVvkm6_8u3nlIuep5Q/qGcZZMODgMoKBj2yZ1trWw)、[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/yh1EpzEZzPCJdWGx3u~LhQ) Graph の API 権限（Mail.Read / Mail.Send 等）の種類は、取得した公式ページ本文では確認できず。
 
@@ -1106,7 +1136,7 @@ ServiceNow モバイルアプリ（Now Mobile、Mobile Agent 等）や Mobile SD
 | # | 確認項目 | 見る場所 | 主な原因 |
 |---|---|---|---|
 | 1 | 送信が全体で有効か | Email Properties の `glide.email.smtp.active`、`glide.email.test.user` | 送信無効、テストアドレスへの転送 |
-| 2 | イベントが発火したか（イベント契機の場合） | **System Policy > Events > Event Log**（`sysevent`）【経験則】 | イベント名の不一致、イベント未登録（Event Registry）、ビジネスルール条件 |
+| 2 | イベントが発火したか（イベント契機の場合） | **System Policy > Events > Event Log**（`sysevent`）【経験則】、イベントの登録有無は **System Policy > Events > Registry**（`sysevent_register`）[出典](https://www.servicenow.com/docs/r/HGWDpzjgkfvaJWTdMzNy2w/8VvFPbXwvyft4ygQa7Gvmg) | イベント名の不一致、イベント未登録（Event Registry）、ビジネスルール条件 |
 | 3 | 通知が生成されたか | `sys_email` を Target や Subject で検索 | 通知の Active・Conditions・Advanced condition・Weight（重複時に低い方は送られない） |
 | 4 | 受信者が正しいか | Preview Notification、メールレコードの Message log（include/exclude 理由） | ユーザー非アクティブ、Notification=Disable、デバイス非アクティブ・スケジュール外、Send to event creator オフ、グループの Include members オフ、不正アドレス |
 | 5 | 送信されたか | Sent / Failed mailbox、Type、Error String | `send-ignored`（受信者なし・重複、KB0790932）、`send-failed`、再送待ち |
@@ -1128,7 +1158,7 @@ ServiceNow モバイルアプリ（Now Mobile、Mobile Agent 等）や Mobile SD
 
 ### 9.4 再送とバックオフ（Exponential back-off）
 
-- インスタンスのメール送信は `SMTPSender` ジョブが行う。未配信メールは 1、5、10、20、40、60、120、120 の間隔で再送される（単位はドキュメントに明記なし【推定】では分）。
+- インスタンスのメール送信は `SMTPSender` ジョブが行う。未配信メールは 1、5、10、20、40、60、120、120 の間隔で再送される。公式ページに間隔の単位は書かれていない（分単位と推定される【推定】）。
 - 再送は `glide.email.smtp.claim.lookback.hrs` の期間が切れるまで続く。
 - 4xx 応答は再送対象、5xx 等は恒久エラーとして扱う。
 - この方式では `glide.smtp.fail_message_ids` / `glide.smtp.defer_retry_ids` は考慮されない。
@@ -1147,6 +1177,7 @@ Email diagnostics dashboard は Zurich で導入され、配信指標・バウ�
 | セクション | 主な指標 |
 |---|---|
 | Analytics | Email status、Bounce management、Throughput rate、Avg Latency per email、Avg Job processing time、Avg email sending time |
+| Operational overview | メール送信・読込（Email reader）処理の現在の稼働状態の概要 |
 | Queue overview | send-ready 件数、retry 件数、キューから消化された件数、平均レイテンシ（send-ready→sent）、作成トレンド、キュー遅延トレンド |
 | Job overview | 送信数、失敗ジョブ数、実行中ジョブ、完了ジョブ、ジョブ処理時間（平均/最大）、処理トレンド、ジョブ遅延トレンド |
 | Error log overview | エラー数、ブロック済みアドレス、Hard bounce、Soft bounce、上位 5 エラー、Bounce トレンド |
@@ -1212,7 +1243,7 @@ Email Account の **Enable debug output** をオンにすると、メールサ�
 
 - ServiceNow のメール基盤を使う場合、すべてのメッセージにスパムスコアが付与され、フィルター用のヘッダーが追加される。ウイルス感染添付には `X-ServiceNow-Virus:INFECTED` が付き、そのメールは無視される（KB0549426）。[出典](https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/na_3389RgRNm63u9iquJwQ)
 - スパム判定のしきい値は合計スコア 6.2 以上で、SPF のソフトフェイルは 6.0、ハードフェイルは 7.0 が加算される（KB0549426 を引用したコミュニティ記事）。送信元ドメインの SPF レコードが誤っている・古いと、正当なメールがスパム扱いになりやすい。【第三者情報】[出典](https://www.servicenow.com/community/developer-blog/important-new-spam-configurations-sn-to-sn-mail-integrations/ba-p/2291167)
-- Microsoft Graph 利用時のスパム・マルウェア対策は顧客側の管理。[出典](https://www.servicenow.com/docs/r/platform-administration/send-email-using-ms-graph.html)
+- Microsoft Graph 利用時のスパム・マルウェア対策は顧客側の管理。[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/yh1EpzEZzPCJdWGx3u~LhQ)
 - Instance Security Center で受信メールのブロック/許可の指標を確認でき、信頼済み/非信頼ドメインを指定できる。[出典](https://www.servicenow.com/docs/r/washingtondc/platform-administration/c_EmailConfiguration.html)
 - Instance Security Center の推奨：`glide.email.smtp.max_recipients` を 100 以下にする（DoS 対策）。[出典](https://www.servicenow.com/docs/r/oL66E_cwDD_tnWQYzYPRdA/No8m7wPZa6LBx2v_Z4CM0A)
 - S/MIME：CA・メール証明書のインストールは `smime_certificate_admin`（`com.glide.email.smime`）。秘密鍵の導入には `sn_kmf.cryptographic_manager` も必要。[出典](https://www.servicenow.com/docs/r/platform-administration/granular-admin-roles-notifications.html)
@@ -1301,7 +1332,7 @@ Australia では、通知・メール管理を `admin` 全権でなく細分化�
 | 受信アドレス | 全ユーザーのメールアドレスを一意に保つ（照合の誤り防止）。 | 公式 |
 | Inbound actions | グローバルドメインに置く。Order と Stop processing を明示し、新規作成系と更新系を整理する。新規開発は Inbound email flow も検討（フローが優先）。 | 公式/【経験則】 |
 | Workspace リンク | `${URI_REF}` は Core UI のリンク。Workspace 中心の運用では Mail script で Workspace URL を生成する。 | 公式 |
-| 認証方式 | Microsoft 365 は Basic 認証ではなく OAuth 2.0 または Microsoft Graph を用いる。 | 【経験則】 |
+| 認証方式 | Exchange Online（Microsoft 365）は POP / IMAP 等の Basic 認証を廃止済み（2022-10-01 から無効化、現在は全テナントで再有効化不可）で、SMTP AUTH の Basic 認証も廃止が告知されている。このため Exchange Online に接続するメールアカウントは OAuth 2.0 または Microsoft Graph が必須である。 | 【第三者情報】[出典](https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/deprecation-of-basic-authentication-exchange-online)（Microsoft Learn） |
 
 通知過多による「通知疲れ」対策、ITSM 通知設計の実務は [ITSMプロセス設計の実践知](../../04_応用編/11-itsm-process-design-tips.md)、連携全般の落とし穴は [連携の落とし穴](../../04_応用編/08-integration-pitfalls.md) を参照。
 
@@ -1326,7 +1357,7 @@ Australia では、通知・メール管理を `admin` 全権でなく細分化�
 
 ## 15. 確認できなかった事項
 
-- `sys_email_account` のテーブル名（画面名「Email Accounts」は確認、テーブル名は公式ページ本文で未確認）。`sysevent_in_email_action` も公式ページ本文では未確認（SDK ドキュメント・第三者情報のみ）。
+- `sysevent_in_email_action` のテーブル名は servicenow.com/docs のページ本文では未確認（ServiceNow 公式 SDK ドキュメントでのみ確認）。
 - Email account 作成に必要なロール（`admin` と `email_account_admin` でページにより記載が異なる）。
 - `glide.email.forward_subject_prefix` の大文字小文字の扱い、`glide.email.append.timezone` の既定値（公式ページ間で不一致）。
 - `glide.inbound.email.classify.by.thread_index` の既定値、Email Reader ジョブの既定実行間隔。
@@ -1358,6 +1389,10 @@ Australia では、通知・メール管理を `admin` 全権でなく細分化�
 - Outbound email configuration（Australia）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/bv0fJhcFJU0KUWWDeL7slw
 - Advanced email properties（Australia、英語）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/uITBeOSeftmhjmhSe~uW2Q
 - Create an email account（Australia、英語）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/YRcRFOSUJxRtgvq5356UnQ
+- Email accounts: https://www.servicenow.com/docs/r/platform-administration/c_EmailAccounts.html
+- Create email account groups（Australia）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/PFuZp_kHeI4jSyXDTSoZow
+- Register an event（Australia）: https://www.servicenow.com/docs/r/HGWDpzjgkfvaJWTdMzNy2w/8VvFPbXwvyft4ygQa7Gvmg
+- Fire Event action（Zurich）: https://www.servicenow.com/docs/r/0MvJg~UYByX0VxWLomI71w/dR3xqB99dITypbDOsxf3fQ
 - Create an email account with SMTP OAuth2.0: https://www.servicenow.com/docs/r/platform-administration/create-email-account-smtp.html
 - Email diagnostics（Australia）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/sp6pw~dNTfmO33y7YagiYA
 - Email FAQs and troubleshooting notification emails（Australia）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/D_yFPyVFKtPooU6ZggERxg
@@ -1366,6 +1401,7 @@ Australia では、通知・メール管理を `admin` 全権でなく細分化�
 - Email retention: https://www.servicenow.com/docs/r/platform-administration/email-retention.html
 - Configure email digests（Australia）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/qs_ERsmJrgl_vpiw9HL4gw
 - Email digest properties: https://www.servicenow.com/docs/r/platform-administration/email-digest-properties.html
+- Create or modify email digest intervals（Australia）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/7eQyHz8CfFQCRwfwnJTKzA
 - Watermarks on notification emails（Washington DC）: https://www.servicenow.com/docs/r/bAHg1_u_N~ocpdu34t_qJA/cOxvFcaKTeHmRKpKY5BcKA
 - Create a custom watermark prefix（Zurich）: https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/qFVPEpxNaZxAHuJsp9QwHw
 - Notification variables（Australia）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/qXGF1q75LE5lBHK2SHbjQA
@@ -1408,8 +1444,9 @@ Australia では、通知・メール管理を `admin` 全権でなく細分化�
 - Create a service provider: https://www.servicenow.com/docs/r/eh2NFokZCOdK5kPblQPzog/H4bE0Tu_H1TqbXjsLeACEg
 - Setting up push notifications on your ServiceNow instance: https://www.servicenow.com/docs/r/api-reference/developer-guides/mobsdk-and-setup-push-instance.html
 - Email Notification API - ServiceNow Fluent: https://www.servicenow.com/docs/r/application-development/servicenow-sdk/fluent-email-notification-api.html
+- Email Notification API - ServiceNow Fluent（Xanadu）: https://www.servicenow.com/docs/r/a3E8xg0zsiQLBPKbKO15Mg/drqUzUBvvocxxduE9UZ3zQ
 
-ServiceNow Community / Developer（公式コミュニティ・SDK）
+ServiceNow Community / Developer（公式コミュニティ・公式 SDK ドキュメント）
 
 - Subscribable, Mandatory and Force delivery options: https://www.servicenow.com/community/developer-blog/subscribable-mandatory-and-force-delivery-options-on/ba-p/2290562
 - Tips to troubleshoot undelivered email like a pro（2025-11-07）: https://www.servicenow.com/community/servicenow-ai-platform-articles/tips-to-troubleshoot-undelivered-email-like-a-pro/ta-p/3422567
@@ -1431,5 +1468,6 @@ ServiceNow Community / Developer（公式コミュニティ・SDK）
 
 第三者
 
+- Microsoft Learn - Deprecation of Basic authentication in Exchange Online: https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/deprecation-of-basic-authentication-exchange-online
 - S2 Labs - ServiceNow Email Notifications Configuration: https://s2-labs.com/servicenow-admin/servicenow-email-notifications-configuration/
 - Twilio - Create a Notification System in ServiceNow using Twilio SMS and Voice: https://twilio.com/en-us/blog/create-notification-system-servicenow-using-twilio-sms-and-voice

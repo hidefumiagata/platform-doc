@@ -61,8 +61,8 @@ Datadog Log Management（ログ管理）のログ収集（Log Collection）は�
 | Lambda などサーバーレスのログ | [Serverless Monitoring](../infrastructure/serverless.md) |
 | OpenTelemetry によるログ送信 | [OpenTelemetry サポート](../platform/opentelemetry.md) |
 | 取り込み後の機密データ検出・マスキング | [Sensitive Data Scanner](../security/sensitive-data-scanner.md) |
-| 料金の正本 | [製品別料金表](../../03_導入編/pricing-by-product.md) |
-| 実務ノウハウ（設計・コスト） | [ログ管理の実践](../../04_応用編/log-management-practices.md)、[コスト最適化](../../04_応用編/cost-optimization.md) |
+| 料金の正本 | [製品別料金表](../../03_導入編/02-pricing-by-product.md) |
+| 実務ノウハウ（設計・コスト） | [ログ管理の実践](../../04_応用編/06-log-management-practices.md)、[コスト最適化](../../04_応用編/01-cost-optimization.md) |
 
 ## 収集方式の全体像
 
@@ -226,7 +226,7 @@ logs:
 
 [出典](https://docs.datadoghq.com/agent/logs/)、[出典](https://docs.datadoghq.com/agent/logs/advanced_log_collection/)
 
-> **注意:** `service` と `source` はログの検索・パース・サービス相関の基盤になる予約属性である。Unified Service Tagging（`env`、`service`、`version`）の考え方は [Tagging](../platform/tagging.md) と [タグ戦略の実践](../../04_応用編/tagging-strategy.md) を参照。
+> **注意:** `service` と `source` はログの検索・パース・サービス相関の基盤になる予約属性である。Unified Service Tagging（`env`、`service`、`version`）の考え方は [Tagging](../platform/tagging.md) と [タグ戦略の実践](../../04_応用編/02-tagging-strategy.md) を参照。
 
 ### ファイルからの収集（`type: file`）
 
@@ -455,7 +455,7 @@ metadata:
 
 [出典](https://docs.datadoghq.com/containers/kubernetes/log/)
 
-> **補足:** Amazon ECS、ECS Fargate、Red Hat OpenShift の手順は公式ドキュメントの各ページを参照する。EKS Fargate など kubelet API 経由の収集は `logs_config.k8s_container_use_kubelet_api` を使う（[出典](https://github.com/DataDog/datadog-agent/blob/main/pkg/config/example/datadog-agent_linux.yaml.example)）。Kubernetes 監視全体の設計は [Kubernetes 監視の実践](../../04_応用編/kubernetes-monitoring-practices.md) を参照。
+> **補足:** Amazon ECS、ECS Fargate、Red Hat OpenShift の手順は公式ドキュメントの各ページを参照する。EKS Fargate など kubelet API 経由の収集は `logs_config.k8s_container_use_kubelet_api` を使う（[出典](https://github.com/DataDog/datadog-agent/blob/main/pkg/config/example/datadog-agent_linux.yaml.example)）。Kubernetes 監視全体の設計は [Kubernetes 監視の実践](../../04_応用編/07-kubernetes-monitoring-practices.md) を参照。
 
 ## アプリケーションからの収集
 
@@ -778,7 +778,7 @@ curl -X POST "https://http-intake.logs.ap1.datadoghq.com/api/v2/logs" \
 
 [出典](https://docs.datadoghq.com/logs/log_collection/)
 
-Agent のログ送信先 IP レンジは `https://ip-ranges.<site>/` の JSON の `logs` セクションで公開されている。ファイアウォール設計は [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md) を参照。
+Agent のログ送信先 IP レンジは `https://ip-ranges.<site>/` の JSON の `logs` セクションで公開されている。ファイアウォール設計は [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md) を参照。
 
 ### Agent の送信トランスポート（HTTPS / TCP）
 
@@ -965,7 +965,7 @@ DD_LOGS_CONFIG_PROCESSING_RULES='[{"type":"mask_sequences","name":"mask_api_key"
 | Sensitive Data Scanner | Datadog 側（取り込み時） | 定義済みライブラリルールで検出・マスク。取り込みスキャン量で課金 | [Sensitive Data Scanner](../security/sensitive-data-scanner.md) |
 | パイプラインのプロセッサ | Datadog 側 | 属性の削除・リマップ。原文は取り込まれる | [Log Pipelines と処理](./log-pipelines-and-processing.md) |
 
-> **補足:** 個人情報・認証情報が Datadog に一切到達してはならない要件（データ所在・規制対応）の場合は、送信元（Agent / Observability Pipelines）でのマスキングが必要になる。要件整理は [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md) を参照。
+> **補足:** 個人情報・認証情報が Datadog に一切到達してはならない要件（データ所在・規制対応）の場合は、送信元（Agent / Observability Pipelines）でのマスキングが必要になる。要件整理は [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md) を参照。
 
 ## 予約属性と JSON 前処理
 
@@ -1114,12 +1114,12 @@ Log Management の課金は「取り込み（Ingest）」と「インデック�
 | Observability Pipelines | 取り込み GB / 月 | $0.095 / $0.10 / $0.12 |
 | Sensitive Data Scanner | スキャン GB / 月 | $0.30 / $0.36 / $0.45 |
 
-（公式料金ページ https://www.datadoghq.com/pricing/list/ 、2026-11-02 時点取得。USD。保持期間別の全価格・Flex Logs は正本の [製品別料金表](../../03_導入編/pricing-by-product.md) を参照）
+（公式料金ページ https://www.datadoghq.com/pricing/list/ 、2026-11-02 時点取得。USD。保持期間別の全価格・Flex Logs は正本の [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照）
 
 - Agent の `exclude_at_match` / `include_at_match` や Forwarder の `ExcludeAtMatch`、Google Cloud のシンクフィルタで**送信前に除外したログは取り込み課金の対象外**になる。一方、Index の Exclusion filter で除外したログは取り込み課金の対象（インデックス課金のみ回避）。
-- Log Ingestion は**非圧縮の取り込み GB** あたりで課金される（Rehydration は圧縮状態でスキャンした GB あたり $0.10）。Agent や HTTP API の圧縮送信は転送量を減らすが、取り込み課金量は減らない。[出典](https://www.datadoghq.com/pricing/?product=log-management)。詳細は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+- Log Ingestion は**非圧縮の取り込み GB** あたりで課金される（Rehydration は圧縮状態でスキャンした GB あたり $0.10）。Agent や HTTP API の圧縮送信は転送量を減らすが、取り込み課金量は減らない。[出典](https://www.datadoghq.com/pricing/?product=log-management)。詳細は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 - クラウド転送では Datadog の料金とは別に、AWS Lambda / Firehose、Azure Function・Container Apps・ストレージ / Event Hub、Google Cloud Pub/Sub・Dataflow の利用料がクラウド側で発生する。
-- 削減策の実践は [コスト最適化](../../04_応用編/cost-optimization.md)、[ログ管理の実践](../../04_応用編/log-management-practices.md) を参照。
+- 削減策の実践は [コスト最適化](../../04_応用編/01-cost-optimization.md)、[ログ管理の実践](../../04_応用編/06-log-management-practices.md) を参照。
 
 ## トラブルシューティングの確認ポイント
 

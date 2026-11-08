@@ -191,7 +191,7 @@ Cloud SIEM の画面は Security > Cloud SIEM 配下にあり、Overview（ホ�
 
 **出典:** https://docs.datadoghq.com/security/cloud_siem/ （画像：`docs.dd-static.net/images/security/security_monitoring/landing/03_entity_risks...png`、取得日 2026-11-02）
 
-画面全体のナビゲーションは [画面構成とナビゲーション](../../01_入門編/ui-navigation.md) を参照。
+画面全体のナビゲーションは [画面構成とナビゲーション](../../01_入門編/06-ui-navigation.md) を参照。
 
 ## セットアップ手順
 
@@ -1088,7 +1088,7 @@ Datadog Terraform プロバイダには Cloud SIEM 関連の次のリソース�
 | `datadog_security_monitoring_critical_asset` | Dynamic Severity（Critical Assets） |
 | `datadog_security_notification_rule` | セキュリティ通知ルール |
 
-検知ルールは UI から **Export rule to Terraform** で HCL を出力できる。Terraform 全般は [Terraform と IaC](../platform/terraform-and-iac.md)、Monitoring as Code の実践は [Monitoring as Code](../../04_応用編/monitoring-as-code.md) を参照。[出典](https://docs.datadoghq.com/security/detection_rules/)
+検知ルールは UI から **Export rule to Terraform** で HCL を出力できる。Terraform 全般は [Terraform と IaC](../platform/terraform-and-iac.md)、Monitoring as Code の実践は [Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) を参照。[出典](https://docs.datadoghq.com/security/detection_rules/)
 
 ## 権限（RBAC）
 
@@ -1183,11 +1183,11 @@ Cloud SIEM の機能提供はサイトにより次の差異がある（2026-11-0
 
 ## 課金への影響
 
-Cloud SIEM の課金単位は **分析ログ量**（Cloud SIEM が分析したログ）である。カスタム検知ルールの作成・ユーザー定義ルールによる分析、Security Signal の 15 か月保持に追加費用はかからない。料金の数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md) とし、本節は 2026-11-02 時点の公式料金ページの値をそのまま記載する。[出典](https://www.datadoghq.com/pricing/?product=cloud-siem)
+Cloud SIEM の課金単位は **分析ログ量**（Cloud SIEM が分析したログ）である。カスタム検知ルールの作成・ユーザー定義ルールによる分析、Security Signal の 15 か月保持に追加費用はかからない。料金の数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md) とし、本節は 2026-11-02 時点の公式料金ページの値をそのまま記載する。[出典](https://www.datadoghq.com/pricing/?product=cloud-siem)
 
 ### 定価（2026-11-02 時点、USD）
 
-料金ページ本体（`/pricing/?product=cloud-siem`）の Cloud SIEM プラン「12-months analysis & retention」は「Starting At $5 Per GB analyzed per month（年契約）」、オンデマンドは $7.50 である。料金ページのリージョン選択ごとの値（ページ内の価格データ）は次のとおり。単位は料金の正本 [製品別料金表](../../03_導入編/pricing-by-product.md) に合わせて料金一覧ページの表記を主とし、料金ページ本体のカード表記を併記する（表記の違いは [課金単位の表記の違い](#課金単位の表記の違いgb-と百万イベント) を参照）。[出典](https://www.datadoghq.com/pricing/?product=cloud-siem) [出典](https://www.datadoghq.com/pricing/list/)
+料金ページ本体（`/pricing/?product=cloud-siem`）の Cloud SIEM プラン「12-months analysis & retention」は「Starting At $5 Per GB analyzed per month（年契約）」、オンデマンドは $7.50 である。料金ページのリージョン選択ごとの値（ページ内の価格データ）は次のとおり。単位は料金の正本 [製品別料金表](../../03_導入編/02-pricing-by-product.md) に合わせて料金一覧ページの表記を主とし、料金ページ本体のカード表記を併記する（表記の違いは [課金単位の表記の違い](#課金単位の表記の違いgb-と百万イベント) を参照）。[出典](https://www.datadoghq.com/pricing/?product=cloud-siem) [出典](https://www.datadoghq.com/pricing/list/)
 
 | 料金ページのリージョン | 年契約 | 月契約 | オンデマンド | 単位 |
 |---|---|---|---|---|
@@ -1235,7 +1235,7 @@ Cloud SIEM の課金単位は **分析ログ量**（Cloud SIEM が分析した�
 
 料金ページの Cloud SIEM プランに含まれる主な機能（2026-11-02 時点）：800 以上の OOTB 検知ルール、Bits Security Analyst、リアルタイム分析（数秒で検知）、12 か月分のセキュリティデータでの脅威ハンティング、グラフベースのエンティティ中心の調査、OCSF データセットでの SQL 検知、MITRE ATT&CK とプレイブック付きシグナル、リスクベースのインサイトと Risk Insight Notifications、UEBA、AI による判定推奨と調査要約、埋め込みノートブック、Recorded Future などの脅威インテリジェンス連携と IoC Explorer、Case Management / Incident Management、OCSF Processor、UI / API の Security Filters、セキュリティログ 12 か月・シグナル 15 か月の保持、無制限ユーザー。[出典](https://www.datadoghq.com/pricing/?product=cloud-siem)
 
-料金体系全体は [料金体系の全体像](../../03_導入編/pricing-overview.md)、課金計算の仕組みは [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、使用量の確認は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md)、見積りは [コスト見積り手法](../../03_導入編/cost-estimation.md)、分析対象ログの絞り込みによるコスト削減は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+料金体系全体は [料金体系の全体像](../../03_導入編/01-pricing-overview.md)、課金計算の仕組みは [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、使用量の確認は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md)、見積りは [コスト見積り手法](../../03_導入編/05-cost-estimation.md)、分析対象ログの絞り込みによるコスト削減は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ## 関連ファイル
 
@@ -1251,9 +1251,9 @@ Cloud SIEM の課金単位は **分析ログ量**（Cloud SIEM が分析した�
 | [Audit Trail](../platform/audit-trail.md) | Datadog Audit Trail の Content Pack、シグナル操作履歴 |
 | [Workflow Automation](../service-management/workflow-automation.md) / [Case Management](../service-management/case-management.md) / [Incident Management](../service-management/incident-management.md) | 対応・コラボレーション |
 | [Bits AI と AI 機能](../ai/bits-ai.md) | Bits Security Analyst を含む AI 機能 |
-| [セキュリティ運用の実践](../../04_応用編/security-operations-practices.md) | 検知ルール運用・ノイズ削減・SOC 運用の実践知見 |
-| [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md) | 導入時のセキュリティ・コンプライアンス要件 |
-| [製品選定と競合比較](../../03_導入編/selection-and-competitive-comparison.md) / [他製品からの移行](../../03_導入編/migration-from-other-tools.md) | 他 SIEM との比較・移行 |
+| [セキュリティ運用の実践](../../04_応用編/11-security-operations-practices.md) | 検知ルール運用・ノイズ削減・SOC 運用の実践知見 |
+| [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md) | 導入時のセキュリティ・コンプライアンス要件 |
+| [製品選定と競合比較](../../03_導入編/07-selection-and-competitive-comparison.md) / [他製品からの移行](../../03_導入編/14-migration-from-other-tools.md) | 他 SIEM との比較・移行 |
 
 ## 参照元
 

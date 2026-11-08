@@ -35,7 +35,7 @@ MID Server（ミッドサーバー）は、顧客ネットワーク内のサー�
 | 通信方向 | MID Server からインスタンスへの**アウトバウンド TCP 443（HTTPS）のみ**。インバウンド接続は不要 |
 | 仕事の受け渡し | インスタンス側の **ECC Queue（`ecc_queue` テーブル）** を介して非同期にジョブ（プローブ）と結果をやり取りする |
 | 主な利用機能 | Discovery、Service Mapping、Event Management、Metric Intelligence、Cloud Management、Orchestration、IntegrationHub、Import Sets（JDBC/LDAP 等）、Agent Client Collector、Cloud Cost Management 等 |
-| 要件（Australia） | Windows Server 2012〜2025 / Red Hat 6+・Ubuntu 14.04+・CentOS 9+（64 ビット）。同梱 Java 21.0.7、最低 JRE 17.0.10。最小 4 コア 2GHz 以上、JVM 既定 1 GB |
+| 要件（Australia） | Windows Server 2012〜2025 / Red Hat 6+・Ubuntu 14.04+・CentOS 9+（64 ビット。Linux は glibc 2.17+・32 ビット glibc・net-tools が必要）。同梱 Java 21.0.7、最低 JRE 17.0.10。最小 4 コア 2GHz 以上、JVM 既定 1 GB |
 | 選択ロジック | Supported Applications（アプリケーション）→ IP Ranges（IP 範囲）→ Capabilities（機能）で適合 MID を選び、状態（Up 等）で優先順位付け |
 | 冗長化 | MID Server Cluster（`ecc_agent_cluster`）で Load Balance（負荷分散）/ Failover（フェイルオーバー） |
 | アップグレード | インスタンスのアップグレード後、MID Server が自動でバージョンを合わせる（auto-upgrade） |
@@ -320,9 +320,9 @@ stateDiagram-v2
 | 項目 | 要件 | 出典 |
 |---|---|---|
 | Windows | Windows Server 2012 / 2016 / 2019 / 2022 / 2025（64 ビット、仮想マシン含む）。Microsoft .NET Framework 4.5 以上 | [出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/r_MIDServerSystemRequirements.html) |
-| Linux | Red Hat 6 以上、Ubuntu 14.04 以上、CentOS 9 以上（64 ビット、仮想マシン含む）。glibc 2.17 以上と 32 ビット GNU C ライブラリ（CentOS 例: `yum install glibc.i686`） | 同上 |
+| Linux | Red Hat 6 以上、Ubuntu 14.04 以上、CentOS 9 以上（64 ビット、仮想マシン含む）。glibc 2.17 以上と 32 ビット GNU C ライブラリ（CentOS 例: `yum install glibc.i686`）。**net-tools パッケージ（`netstat` コマンド）** も必要で、これがないと検証後も MID Server レコードの Network（ネットワーク）/ Router（ルーター）フィールドが入力されない（Brazil 版にも同じ記載） | 同上 |
 | 新規インストールのブロック | RPM / MSI インストーラーでは CentOS 7、Windows Server 2008 / 2008 R2、Windows 8、Windows 10 への新規インストールがブロックされる。32 ビット MID Server の新規インストールは非サポート | 同上 |
-| ZIP 手動インストール | 任意 OS に可能だが Windows 10 は非サポート。非サポート MID Server が Rome へ自動アップグレードすると `ecc_agent_issue` に記録 | [出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/t_DownloadMIDServerFiles.html) |
+| ZIP 手動インストール | 任意 OS に可能だが Windows 10 は非サポート。非サポート MID Server が Rome へ自動アップグレードすると `ecc_agent_issue` に記録（公式ドキュメントの記載をそのまま引用。Rome 時点の記述が Australia 版にも残っているもので、Australia でも非サポート OS 上の MID Server がアップグレードすると同様に課題レコードが作成されると考えられる【推定】が、Australia での挙動を明記した記載は公開情報では確認できず） | [出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/t_DownloadMIDServerFiles.html) |
 | CPU | 最小: 4 コア 2GHz 以上（Windows Server 2012 R2 上で 1 MID Server・25 同時スレッドの構成を基準） | [出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/r_MIDServerSystemRequirements.html) |
 | メモリ | JVM 既定 1 GB（`wrapper-override.conf` の `wrapper.java.maxmemory=1024`）。製品要件がこれを上回る場合は増やす。ホスト RAM の明示的な最小値は記載なし | 同上、[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/t_MIDServerOptionalConfiguration.html) |
 | ディスク | 要件ページに明示値なし。ただしアップグレード事前チェックは空き容量を検査（[10.3 節](#103-pre-upgrade-check事前チェック)） | 同上 |
@@ -832,7 +832,7 @@ All > MID Server > Server Issues。課題レコードは 30 日保持。対象�
 
 **ディスク容量:** 本文では「空き 2 GB 未満を検知すると『Not enough free disk space』エラー」と記載される一方、アップグレード阻止の閾値パラメータ `mid.upgrade.min_disk_space_gb` の既定値は 4 GB と記載されており、ドキュメント内で 2 つの数値が併存している。加えて DiskSpaceCheckMonitor が起動時および `mid.disk_space_check.interval`（既定 12 時間）ごとに空き容量を監視し、`mid.disk_space_check.low_space_warning_threshold_gb`（既定 36 GB）を下回ると警告と課題レコードを作成する（いずれも 0 で無効化）。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/mid-server-pre-upgrade-check.html)
 
-**無効化:** 構成パラメータ `mid.upgrade.run_precheck`（既定 true）を、単一 MID は `config.xml` で false、全 MID は `ecc_agent_property` に MID Server 欄空欄で false のレコードを追加する。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/mid-server-pre-upgrade-check.html)
+**無効化:** 構成パラメータ `mid.upgrade.run_precheck`（既定 true）を、単一 MID は `config.xml` で false、全 MID は `ecc_agent_property` に MID Server 欄空欄で false のレコードを追加する。なお同じ公式ページの冒頭の要約部分では `mid.upgrade.runprecheck`（アンダースコアなし）と書かれ、詳細部分では `mid.upgrade.run_precheck` と書かれていて、表記が 2 通りある。設定する前に実インスタンスで正しい名称を確認すること。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/mid-server-pre-upgrade-check.html)
 
 ### 10.4 バージョン固定（Pinning）
 
@@ -903,7 +903,7 @@ MID Server は一度に 1 つの secured configuration provider を使う（混�
 | CyberArk | 機微データを CyberArk Vault に移す（暗号化ではなく外部保管）。`mid.secure_config.provider` に CyberArk 用クラスを指定し、`JavaPasswordSDK.jar` を `agent/extlib` に配置 |
 | カスタム外部ストレージ | `ISecuredConfigProvider` を実装 |
 
-[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/mid-server-encrypter-api.html) [出典](https://www.servicenow.com/docs/r/servicenow-platform/mid-server/use-cyberark-secure-config-provider.html)
+[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/mid-server-encrypter-api.html) [出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/use-cyberark-secure-config-provider.html)
 
 ### 11.5 Certificate check policies（証明書チェックポリシー）
 
@@ -933,7 +933,7 @@ MID Server は ECC Queue の送受信でアクティビティを追跡し、毎�
 
 **Command audit log:** Discovery 中に MID が実行したコマンド（WMI / WinRM の PowerShell、SNCSSH の SSH。J2SSH は対象外）を記録。プロパティ `mid.log.command_audit.enable`（既定 false）で有効化し、All > MID Server > Command Audit Logs（`ecc_agent_command_audit_log`）で参照（ロール: `agent_security_admin`）。コマンド名とスクリプト内容のハッシュ、実行成否（「success」は実行されたことを意味し結果の成功ではない）、JEA プロファイルを記録し、7 日ごとにローテーションされる。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/mid-audit-log.html) [出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/r_MIDServerProperties.html)
 
-**FIPS Enforced Mode:** National Security Cloud（NSC）IL-5 環境向けに FIPS 140-2 検証済み暗号のみを使うモード。Rome 以降かつ JRE 11.0.9+11 以降の MID が対象。SSH では `diffie-hellman-group1-sha1`、`hmac-md5`、`hmac-md5-96` が使えず、SNMP v1 / v2 は無効、SNMP v3 でも auth protocol none / MD5 等が使えない。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/mid-fips-enforced.html)
+**FIPS Enforced Mode:** National Security Cloud（NSC）IL-5 環境向けに FIPS 140-2 検証済み暗号のみを使うモード。Rome 以降かつ JRE 11.0.9+11 以降の MID が対象（公式ドキュメントの記載をそのまま引用した Rome 時点の条件。Australia では [4.1 節](#41-osハードウェアjavaaustralia) のとおり最低 JRE 17.0.10・同梱 Java 21.0.7 が要件のため、こちらの要件が優先される）。SSH では `diffie-hellman-group1-sha1`、`hmac-md5`、`hmac-md5-96` が使えず、SNMP v1 / v2 は無効、SNMP v3 でも auth protocol none / MD5 等が使えない。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/mid-fips-enforced.html)
 
 **SOAP 要求の Basic 認証:** MID Server は NTLM 認証のみのプロキシを経由できないため、プロキシで Basic 認証を使うか MID ホストを例外にする。strict security 有効時は MID がアクセスするテーブルへの権限を持つユーザーが必要。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/mid-authentication-soap-requests.html)
 
@@ -994,7 +994,7 @@ Containerized MID Server は MID Server の Docker イメージを使い、OpenS
 
 ## 14. ドメインセパレーション
 
-MID Server がアクセスできるドメインは `config.xml` に設定したユーザーの資格情報で決まる。特定ドメイン内に `mid_server` ロールを持つユーザーを作成し、そのユーザーを `config.xml` に設定する（ロール: `agent_admin` または `admin`）。`ecc_agent_sync_file` を拡張するテーブル（`ecc_agent_mib`、`ecc_agent_jar`、`ecc_agent_script_files`）は、同じドメインの MID のみが使えるバージョンを作成できる。添付ファイル（`sys_attachment`）はデータ分離されるため、子ドメインのレコードから親ドメインの添付は参照できない。ドメインを変更する場合は MID を停止して `ecc_agent` レコードを削除し、新ドメインのユーザーで `config.xml` を更新して再起動する。ドメインセパレーション有効時、Discovery スケジュールと自動選択は設定ユーザーのドメインの MID のみを対象とする。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/c_MIDServerDomainSeparation.html) [出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/c_MIDServerSelector.html)
+MID Server がアクセスできるドメインは `config.xml` に設定したユーザーの資格情報で決まる。特定ドメイン内に `mid_server` ロールを持つユーザーを作成し、そのユーザーを `config.xml` に設定する（ロール: `agent_admin` または `admin`）。`ecc_agent_sync_file` を拡張するテーブル（`ecc_agent_mib`、`ecc_agent_jar`、`ecc_agent_script_file`。公式の「MID Server domain separation」ページでは `ecc_agent_script_files` と表記されているが、「Attach a script file to a file synchronized MID Server」ページなどで示されるテーブル名は `ecc_agent_script_file`（MID Server > Script Files）である）は、同じドメインの MID のみが使えるバージョンを作成できる。添付ファイル（`sys_attachment`）はデータ分離されるため、子ドメインのレコードから親ドメインの添付は参照できない。ドメインを変更する場合は MID を停止して `ecc_agent` レコードを削除し、新ドメインのユーザーで `config.xml` を更新して再起動する。ドメインセパレーション有効時、Discovery スケジュールと自動選択は設定ユーザーのドメインの MID のみを対象とする。[出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/c_MIDServerDomainSeparation.html) [出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/c_MIDServerSelector.html) [出典](https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/mid-server-script-attach.html)
 
 ドメインセパレーション全般は [domain-separation.md](domain-separation.md) を参照。
 
@@ -1045,6 +1045,7 @@ MID Server がアクセスできるドメインは `config.xml` に設定した�
 - MID Server ホストの最小 RAM・ディスク容量の明示値（要件ページに記載なし）。
 - `mid_server` ロールに自動付与される内包ロールの一覧。
 - 事前チェックのディスク容量閾値（本文の 2 GB とパラメータ既定値 4 GB の関係）。
+- 事前チェックを無効化するパラメータの正式名称（公式ページ内で `mid.upgrade.run_precheck` と `mid.upgrade.runprecheck` の 2 通りの表記がある）。
 - Brazil で PowerShell 7 の記載が無くなった理由、およびインストール関連ページが目次から消えた理由。
 - MID Server 自体のライセンス費用の扱い（MID Server を利用する各製品のライセンスに依存するとされるが、本調査では一次情報を確認できず。ライセンスは [platform-licensing-packaging.md](platform-licensing-packaging.md) と [01-licensing-model.md](../../03_導入編/01-licensing-model.md) を参照）。
 
@@ -1128,6 +1129,8 @@ MID Server がアクセスできるドメインは `config.xml` に設定した�
 - Securing and encrypting MID Server data: https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/mid-server-security-encryption.html
 - MID Server certificate check policies: https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/mid-security-checks.html
 - MID Server configuration file security: https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/mid-server-encrypter-api.html
+- Use CyberArk as a secure configuration provider: https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/use-cyberark-secure-config-provider.html
+- Attach a script file to a file synchronized MID Server: https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/mid-server-script-attach.html
 - MID Server authentication credentials and SOAP requests: https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/mid-authentication-soap-requests.html
 - MID Server unified key store: https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/mid-unified-keystore.html
 - Enable MID Server mutual authentication: https://www.servicenow.com/docs/r/australia/servicenow-platform/mid-server/install-mid-mutual-auth.html
@@ -1149,12 +1152,16 @@ MID Server がアクセスできるドメインは `config.xml` に設定した�
 - Install a MID Server on Windows（Brazil）: https://www.servicenow.com/docs/r/servicenow-platform/mid-server/mid-server-install-prereqs.html
 - Installing the MID Server（Brazil）: https://www.servicenow.com/docs/r/servicenow-platform/mid-server/mid-server-installation.html
 - Configure a MID Server cluster（Brazil）: https://www.servicenow.com/docs/r/servicenow-platform/mid-server/t_ConfigureAMIDServerCluster.html
-- Use CyberArk as a secure configuration provider（Brazil）: https://www.servicenow.com/docs/r/servicenow-platform/mid-server/use-cyberark-secure-config-provider.html
 
 **ServiceNow Knowledge Base（本文中で参照されている KB。本調査では本文未確認）**
 
 - KB0863694 Supported platform changes for MID Server: https://support.servicenow.com/kb_view.do?sysparm_article=KB0863694
 - KB1216223（OCSP）: https://support.servicenow.com/kb?id=kb_article_view&sysparm_article=KB1216223
-- KB0752451（JRE）: https://support.servicenow.com/kb_view.do?sysparm_article=KB0752451
 - KB0597552（Application Experience）: https://support.servicenow.com/kb_view.do?sysparm_article=KB0597552
-- KB0960404 MID Server Landing page: https://support.servicenow.com/kb?id=kb_article_view&sysparm_article=KB0960404
+- KB1552863（同一ログインユーザーで複数 MID Server が Up）: https://support.servicenow.com/kb?id=kb_article_view&sysparm_article=KB1552863
+- KB0760123（遮断環境での MID Server アップグレードファイルの手動インポート）: https://support.servicenow.com/kb?id=kb_article_view&sysparm_article=KB0760123
+- KB1546609（カスタムダウンロード URL `mid.install_server.base_uri`）: https://support.servicenow.com/kb?id=kb_article_view&sysparm_article=KB1546609
+- KB0870329（Windows のアンチウイルス / CiscoAMP によるアップグレード阻害）: https://support.servicenow.com/kb?id=kb_article_view&sysparm_article=KB0870329
+- KB0821436（Madrid 以前に導入した Linux MID Server のサービス再インストール）: https://support.servicenow.com/kb?id=kb_article_view&sysparm_article=KB0821436
+- KB0597571（Discovery での CI 重複）: https://support.servicenow.com/kb?id=kb_article_view&sysparm_article=KB0597571
+- KB1166209（インスタンスの IPv6 有効化）: https://support.servicenow.com/kb?id=kb_article_view&sysparm_article=KB1166209

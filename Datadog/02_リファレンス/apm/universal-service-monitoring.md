@@ -110,7 +110,7 @@ flowchart LR
 | 5. 表示 | Agent 設定後、約 5 分で Software Catalog にサービスが表示される | [USM](https://docs.datadoghq.com/universal_service_monitoring/) |
 
 - HTTPS の平文取得は、TLS ライブラリ（OpenSSL 等）の関数を eBPF でフックする方式と考えられる【推定】。公式ドキュメントは「HTTPS (OpenSSL)」の対応と HOST_ROOT のマウントのみを記載しており、内部実装（uprobe 等の eBPF プログラム種別）は公開情報では確認できず。
-- 送信先エンドポイント：USM のデータは Live Containers / Live Process / Cloud Network Monitoring と同じ `process.<YOUR_DATADOG_SITE>` エンドポイント（AP1 では `process.ap1.datadoghq.com`）に送られ、ポートは TCP 443。[出典](https://docs.datadoghq.com/agent/configuration/network/) 詳細は [Datadog Sites](../platform/datadog-sites.md) と [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md) を参照。
+- 送信先エンドポイント：USM のデータは Live Containers / Live Process / Cloud Network Monitoring と同じ `process.<YOUR_DATADOG_SITE>` エンドポイント（AP1 では `process.ap1.datadoghq.com`）に送られ、ポートは TCP 443。[出典](https://docs.datadoghq.com/agent/configuration/network/) 詳細は [Datadog Sites](../platform/datadog-sites.md) と [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md) を参照。
 
 ### 2.2 必要な権限（Linux）
 
@@ -680,7 +680,7 @@ Universal Service Monitoring のサービスに対して、Software Catalog は�
 > **サイト差異:** Cloud Service Discovery と追加プロトコルの Preview は、US1、US3、US5、EU1、AP1、AP2、および uk1.datadoghq.com 向けに告知されている。GovCloud 系（app.ddog-gov.com、us2.ddog-gov.com）は対象外。[出典](https://docs.datadoghq.com/universal_service_monitoring/additional_protocols/)
 
 - 基準サイト AP1 では USM が利用可能で、データ送信先は `process.ap1.datadoghq.com`（TCP 443）。[出典](https://docs.datadoghq.com/agent/configuration/network/) 詳細は [Datadog Sites](../platform/datadog-sites.md) を参照。
-- AP1 の USM 定価は年契約 $11.25、月契約 $13.50、オンデマンド $16.25（US/EU1 は $9 / $10.80 / $13、2026-11-03 時点）。詳細は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
+- AP1 の USM 定価は年契約 $11.25、月契約 $13.50、オンデマンド $16.25（US/EU1 は $9 / $10.80 / $13、2026-11-03 時点）。詳細は [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照。
 
 ## 10. 制限値・クォータ・デフォルト値
 
@@ -711,7 +711,7 @@ Universal Service Monitoring の制限値・デフォルト値を以下にまと
 
 ## 11. 課金への影響
 
-Universal Service Monitoring の課金単位は **Infrastructure Monitoring ホスト単位の月額**で、Infrastructure Monitoring の購入が前提となる。料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。
+Universal Service Monitoring の課金単位は **Infrastructure Monitoring ホスト単位の月額**で、Infrastructure Monitoring の購入が前提となる。料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)。
 
 ### 11.1 USM 単体の価格（公式定価）
 
@@ -719,7 +719,7 @@ Universal Service Monitoring の課金単位は **Infrastructure Monitoring ホ�
 |---|---|---|---|---|---|---|---|
 | Universal Service Monitoring | Infrastructure ホスト / 月 | $9 | $10.80 | $13 | $11.25 | $13.50 | $16.25 |
 
-出典：[料金一覧](https://www.datadoghq.com/pricing/list/)、[料金ページ（USM）](https://www.datadoghq.com/pricing/?product=universal-service-monitoring)（US/EU1 は 2026-11-02 時点、AP1 は [製品別料金表](../../03_導入編/pricing-by-product.md) §5.3 の 2026-11-03 時点の値、USD）
+出典：[料金一覧](https://www.datadoghq.com/pricing/list/)、[料金ページ（USM）](https://www.datadoghq.com/pricing/?product=universal-service-monitoring)（US/EU1 は 2026-11-02 時点、AP1 は [製品別料金表](../../03_導入編/02-pricing-by-product.md) §5.3 の 2026-11-03 時点の値、USD）
 
 - 料金一覧ページの列順（Billed Annually / Month-to-month / On-demand）に基づく。USM の製品ページ側の表記は「Starting At $9 Per Infrastructure Monitoring host, per month」「Billed annually or $13 on-demand」「Requires purchase of Infrastructure Monitoring」。[出典](https://www.datadoghq.com/pricing/?product=universal-service-monitoring)
 
@@ -743,8 +743,8 @@ Universal Service Monitoring の料金ページは、適用範囲によって 2 
 
 出典：[料金ページ（USM / APM FAQ）](https://www.datadoghq.com/pricing/?product=universal-service-monitoring)（2026-11-02 取得）
 
-- APM のティア別価格（APM $31、APM Pro $35、APM Enterprise $40、いずれも年契約・Infrastructure 併用時の Per APM host / month）の詳細と、取り込み・インデックススパンの課金は [APM の概念とインジェスト制御](./apm-concepts-and-ingestion.md) と [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
-- 料金ページの FAQ は「USM（$9）を全 Infrastructure ホストに購入するか、一部ホストなら APM（$31〜）を購入する」という選択肢を示している。どちらが安いかは、USM を適用したいホストの割合と APM のトレース機能の要否で決まる【推定】。見積り手法は [コスト見積り手法](../../03_導入編/cost-estimation.md)、最適化は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+- APM のティア別価格（APM $31、APM Pro $35、APM Enterprise $40、いずれも年契約・Infrastructure 併用時の Per APM host / month）の詳細と、取り込み・インデックススパンの課金は [APM の概念とインジェスト制御](./apm-concepts-and-ingestion.md) と [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照。
+- 料金ページの FAQ は「USM（$9）を全 Infrastructure ホストに購入するか、一部ホストなら APM（$31〜）を購入する」という選択肢を示している。どちらが安いかは、USM を適用したいホストの割合と APM のトレース機能の要否で決まる【推定】。見積り手法は [コスト見積り手法](../../03_導入編/05-cost-estimation.md)、最適化は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ### 11.4 使用量の計測
 
@@ -754,7 +754,7 @@ Universal Service Monitoring の料金ページは、適用範囲によって 2 
 | 計数方式 | 上記フィールド名・説明から、Infrastructure ホストと同様に「時間ごとのホスト数の 99 パーセンタイル（上位 1% の時間を除外）」で計数される | 同上 |
 | 推定使用量メトリクス（`datadog.estimated_usage.*`）の USM 専用メトリクス | 公開情報では確認できず | [Usage Metrics](https://docs.datadoghq.com/account_management/billing/usage_metrics/) |
 
-- 99 パーセンタイル課金の一般的な仕組みは [課金計算の仕組み](../../03_導入編/billing-mechanics.md) と [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md) を参照。
+- 99 パーセンタイル課金の一般的な仕組みは [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) と [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md) を参照。
 - USM のメトリクス（`universal.http.*`）がカスタムメトリクスとして別途課金されるとの記載は、公式料金ページ・ドキュメントでは確認できず。
 
 ## 12. 導入時の注意点
@@ -773,7 +773,7 @@ Universal Service Monitoring の料金ページは、適用範囲によって 2 
 | Windows 非 IIS は HTTP のみ | HTTPS を観測したい Windows サービスは APM 計装を検討 | [USM Setup](https://docs.datadoghq.com/universal_service_monitoring/setup/) |
 | エンドポイントのカーディナリティ | ID を含むパスは `http_replace_rules` で正規化・除外する【経験則】 | 同上（機能の存在のみ公式） |
 
-- Agent の展開設計（System Probe を含むロールアウト）は [Agent 展開設計](../../03_導入編/agent-rollout-design.md)、セキュリティ要件は [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md) を参照。APM との使い分けの実践は [APM 運用の実践](../../04_応用編/apm-practices.md) を参照。
+- Agent の展開設計（System Probe を含むロールアウト）は [Agent 展開設計](../../03_導入編/10-agent-rollout-design.md)、セキュリティ要件は [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md) を参照。APM との使い分けの実践は [APM 運用の実践](../../04_応用編/05-apm-practices.md) を参照。
 
 ## 13. よくある質問（FAQ）
 
@@ -815,8 +815,8 @@ A. 別メトリクスはなく、`universal.http.server` / `universal.http.clien
 - [Cloud Network Monitoring（旧 NPM）](../infrastructure/cloud-network-monitoring.md) / [AWS Integration](../platform/aws-integration.md)
 - [Tagging](../platform/tagging.md) / [Software Catalog（旧 Service Catalog）](../platform/software-catalog.md) / [Monitors](../platform/monitors.md) / [SLO](../platform/slo.md) / [Dashboards](../platform/dashboards.md)
 - [Datadog Sites](../platform/datadog-sites.md) / [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md)
-- [製品別料金表](../../03_導入編/pricing-by-product.md) / [課金計算の仕組み](../../03_導入編/billing-mechanics.md) / [コスト見積り手法](../../03_導入編/cost-estimation.md)
-- [APM 運用の実践](../../04_応用編/apm-practices.md) / [コスト最適化](../../04_応用編/cost-optimization.md)
+- [製品別料金表](../../03_導入編/02-pricing-by-product.md) / [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) / [コスト見積り手法](../../03_導入編/05-cost-estimation.md)
+- [APM 運用の実践](../../04_応用編/05-apm-practices.md) / [コスト最適化](../../04_応用編/01-cost-optimization.md)
 
 ## 参照元
 

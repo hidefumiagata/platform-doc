@@ -62,7 +62,7 @@ RUM（ブラウザ）で扱う主な機能は次のとおり。
 | 分析・アラート | Performance Summary、RUM Explorer、RUM Monitor、カスタムメトリクス | [12](#12-画面分析アラート) |
 | 課金 | RUM Measure / RUM Investigate / Session Replay | [14](#14-課金への影響) |
 
-本ファイルはブラウザ版 RUM の仕様リファレンスである。モバイル SDK（Android / iOS / Flutter / React Native ほか）は [RUM（モバイル）](./rum-mobile.md)、Session Replay と Product Analytics の詳細は [Session Replay と Product Analytics](./session-replay-and-product-analytics.md)、合成監視（ラボデータ）は [Synthetic Monitoring](./synthetic-monitoring.md)、エラーの Issue 化は [Error Tracking](../apm/error-tracking.md)、バックエンドのトレース収集とサンプリングは [APM の概念とインジェスト制御](../apm/apm-concepts-and-ingestion.md) を参照。料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。
+本ファイルはブラウザ版 RUM の仕様リファレンスである。モバイル SDK（Android / iOS / Flutter / React Native ほか）は [RUM（モバイル）](./rum-mobile.md)、Session Replay と Product Analytics の詳細は [Session Replay と Product Analytics](./session-replay-and-product-analytics.md)、合成監視（ラボデータ）は [Synthetic Monitoring](./synthetic-monitoring.md)、エラーの Issue 化は [Error Tracking](../apm/error-tracking.md)、バックエンドのトレース収集とサンプリングは [APM の概念とインジェスト制御](../apm/apm-concepts-and-ingestion.md) を参照。料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)。
 
 ### 本書の基準
 
@@ -870,7 +870,7 @@ datadogRum.init({
 | Sensitive Data Scanner | RUM イベントを保存前にスキャンし、ルールに基づきマスク・ハッシュ化・部分削除（[Sensitive Data Scanner](../security/sensitive-data-scanner.md)）。権限 `Data Scanner Unmask` を持つユーザーは原文を参照可能（Session Replay のブラウザ側マスキングとは異なる） |
 | データ削除 | Datadog サポートに依頼すると、指定期間の全データをハード削除できる（アプリケーション単位の指定は不可）。入力欄の自由記述などに混入した PII を除去する唯一の手段 |
 | Client Token | クライアント側で平文で見えるが、データ送信先の識別にのみ使われる。定期的なローテーション、ボットセッションのフィルター、認証付きプロキシで実トークンを差し替える方式が推奨される |
-| コンプライアンス | GDPR、HIPAA、ISO、CCPA/CPRA 等に対応した構成が可能。データは Datadog 管理のクラウドで保存時暗号化（詳細は [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md)） |
+| コンプライアンス | GDPR、HIPAA、ISO、CCPA/CPRA 等に対応した構成が可能。データは Datadog 管理のクラウドで保存時暗号化（詳細は [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md)） |
 
 [出典](https://docs.datadoghq.com/data_security/real_user_monitoring/)
 
@@ -908,7 +908,7 @@ datadogRum.init({
 画面説明：左上でアプリケーション（例：Shop.ist）を選択し、上部タブに Performance Monitoring／Session Replay／Error Tracking／Sessions Explorer／Product Analytics が並ぶ。Performance Monitoring の下位タブは Summary／Optimization／Feature Flag Tracking。「Analyze your application performance」欄で Env・Service・Version・Session Type（user）・Country・Device Type のフィルターを指定できる。「OVERALL PERFORMANCE」では Metric（例：Loading Time）ごとに、ページ（View 名）をツリーマップで performance: Good（緑）／Needs improvement（黄）／Poor（赤）に色分けして表示し、凡例は Poor >4s、Needs improvement <=4s、Good <=2.5s。下部の「Optimize Vitals」には Loading Time、Largest Contentful Paint、First Contentful Paint、Cumulative Layout Shift、Interaction To Next Paint の時系列グラフと値が並び、「Performance Dashboard」「Optimize Vitals」ボタンから詳細へ遷移できる。
 出典：https://docs.datadoghq.com/real_user_monitoring/ （2026-11-02 取得）
 
-画面の基本操作は [画面構成とナビゲーション](../../01_入門編/ui-navigation.md) も参照。
+画面の基本操作は [画面構成とナビゲーション](../../01_入門編/06-ui-navigation.md) も参照。
 
 ### 12.2 RUM Monitor
 
@@ -981,7 +981,7 @@ RUM は **1,000 セッション単位**で課金される。セッションは W
 | Export Pipelines（RUM Measure と Product Analytics のアドオン） | エクスポートしたセッション | 1,000 セッション／月 | $0.10 | $0.12 | $0.15 | $0.125 | $0.15 | $0.1875 |
 | RUM Profiling（RUM Measure のアドオン） | プロファイリング対象セッション | 1,000 セッション／月 | $3 | $3.60 | $4.50 | $3.75 | $4.50 | $5.625 |
 
-価格は公式料金ページの定価（USD）。US/EU1 列は **2026-11-02 時点**の [Pricing Comparison](https://www.datadoghq.com/pricing/list/) で確認した値、AP1 列は [製品別料金表](../../03_導入編/pricing-by-product.md) §11.1（取得日 2026-11-03）の値で、AP1 の単価は US/EU1 の約 1.25 倍である。料金の正本・最新値は [製品別料金表](../../03_導入編/pricing-by-product.md) を参照。
+価格は公式料金ページの定価（USD）。US/EU1 列は **2026-11-02 時点**の [Pricing Comparison](https://www.datadoghq.com/pricing/list/) で確認した値、AP1 列は [製品別料金表](../../03_導入編/02-pricing-by-product.md) §11.1（取得日 2026-11-03）の値で、AP1 の単価は US/EU1 の約 1.25 倍である。料金の正本・最新値は [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照。
 
 ### 14.2 課金の考え方
 
@@ -1012,7 +1012,7 @@ RUM は **1,000 セッション単位**で課金される。セッションは W
 
 [出典](https://docs.datadoghq.com/real_user_monitoring/guide/monitor-your-rum-usage/) / [出典](https://docs.datadoghq.com/real_user_monitoring/rum_without_limits/retention_quotas/)
 
-組織全体の利用量確認は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md)、コスト削減策は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+組織全体の利用量確認は [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md)、コスト削減策は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 > **【経験則】** Synthetic 以外のクローラー・E2E テスト等も JavaScript を実行するため、SDK が初期化されるとセッションとして計上される。User-Agent やフラグで SDK の初期化をスキップする、または Exclusion Filter（例：`-@device.type:Bot`）で保持対象から外すことが勧められている【第三者情報】。[出典](https://www.issoh.co.jp/tech/details/16576/)（2026-08-15 公開、2026-10-12 更新）
 
@@ -1111,7 +1111,7 @@ RUM は **1,000 セッション単位**で課金される。セッションは W
 | `site` パラメータと Intake | サイトごとに異なる（[2.4](#24-サイト別の-cdn-url-と-intake-ドメイン)）。AP1 は `ap1.datadoghq.com`／`browser-intake-ap1-datadoghq.com` |
 | CDN URL | 商用サイトは `/<site>/v7/datadog-rum.js`、Gov サイトはリージョン区分なしの `datadog-rum-v7.js` |
 | サーバーサイド自動インスツルメンテーション | Gov サイト（US1-FED／US2-FED）では利用不可 |
-| 料金 | サイトにより単価が異なる（AP1 は US/EU1 と異なる単価で、約 1.25 倍。[14.1](#141-課金単位) と [製品別料金表](../../03_導入編/pricing-by-product.md) を参照） |
+| 料金 | サイトにより単価が異なる（AP1 は US/EU1 と異なる単価で、約 1.25 倍。[14.1](#141-課金単位) と [製品別料金表](../../03_導入編/02-pricing-by-product.md) を参照） |
 | RUM 製品自体の提供可否のサイト差 | 公開情報では確認できず |
 
 [出典](https://docs.datadoghq.com/real_user_monitoring/) / [出典](https://docs.datadoghq.com/real_user_monitoring/application_monitoring/browser/setup/client/)
@@ -1152,9 +1152,9 @@ RUM は **1,000 セッション単位**で課金される。セッションは W
 - [Datadog Sites（サイト）](../platform/datadog-sites.md)
 - [API とキー管理](../platform/api-and-keys.md)
 - [Usage・Usage Attribution・Cost Visibility](../platform/usage-and-cost-attribution.md)
-- [製品別料金表（料金の正本）](../../03_導入編/pricing-by-product.md)
-- [課金計算の仕組み](../../03_導入編/billing-mechanics.md)
-- [コスト最適化](../../04_応用編/cost-optimization.md)
+- [製品別料金表（料金の正本）](../../03_導入編/02-pricing-by-product.md)
+- [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)
+- [コスト最適化](../../04_応用編/01-cost-optimization.md)
 
 ## 参照元
 

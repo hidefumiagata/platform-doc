@@ -45,7 +45,7 @@ Sensitive Data Scanner がスキャンできるデータは次の 4 系統に分
 
 > **補足:** 機微データを Datadog に一切送りたくない場合は、顧客環境内で動作する Observability Pipelines の Sensitive Data Scanner プロセッサを使う（本ファイル「11. マスキング手段の比較」参照）。[出典](https://docs.datadoghq.com/security/sensitive_data_scanner/)
 
-製品の位置づけについて、Datadog の料金ページでは Sensitive Data Scanner が Logs 区分と Security 区分（AI & Data Security）の両方に掲載されている。本ナレッジでは Security 領域に置いている（[製品ポートフォリオ全体像](../../01_入門編/product-map.md)）。
+製品の位置づけについて、Datadog の料金ページでは Sensitive Data Scanner が Logs 区分と Security 区分（AI & Data Security）の両方に掲載されている。本ナレッジでは Security 領域に置いている（[製品ポートフォリオ全体像](../../01_入門編/04-product-map.md)）。
 
 ### 関連ファイル
 
@@ -68,8 +68,8 @@ Sensitive Data Scanner がスキャンできるデータは次の 4 系統に分
 | Audit Trail（設定変更・アクセス履歴） | [Audit Trail](../platform/audit-trail.md) |
 | Case Management・Incident 連携 | [Case Management](../service-management/case-management.md)、[Incident Management](../service-management/incident-management.md) |
 | Terraform による管理 | [Terraform と IaC](../platform/terraform-and-iac.md) |
-| 料金の正本 | [製品別料金表](../../03_導入編/pricing-by-product.md) |
-| コンプライアンス要件の整理 | [セキュリティとコンプライアンス](../../03_導入編/security-and-compliance.md) |
+| 料金の正本 | [製品別料金表](../../03_導入編/02-pricing-by-product.md) |
+| コンプライアンス要件の整理 | [セキュリティとコンプライアンス](../../03_導入編/12-security-and-compliance.md) |
 
 ---
 
@@ -744,7 +744,7 @@ Datadog で機微データをマスキングする手段は、処理場所によ
 
 [出典](https://docs.datadoghq.com/security/sensitive_data_scanner/setup/telemetry_data/) / [出典](https://docs.datadoghq.com/security/sensitive_data_scanner/scanning_rules/library_rules/)
 
-Terraform 全般は [Terraform と IaC](../platform/terraform-and-iac.md)、Monitoring as Code の実践は [Monitoring as Code](../../04_応用編/monitoring-as-code.md) を参照。
+Terraform 全般は [Terraform と IaC](../platform/terraform-and-iac.md)、Monitoring as Code の実践は [Monitoring as Code](../../04_応用編/09-monitoring-as-code.md) を参照。
 
 ---
 
@@ -796,7 +796,7 @@ US1-FED におけるテレメトリスキャン（Logs・APM・RUM・Events）�
 
 ## 課金への影響
 
-Sensitive Data Scanner（SaaS）の課金単位は**スキャンしたデータ量（GB）/ 月**である。料金ページには 2 つのプランが表示される（2026-11-02 時点の US サイトの公式掲載価格、USD。AP1 価格は表下のサイト差異を参照）。料金数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)。
+Sensitive Data Scanner（SaaS）の課金単位は**スキャンしたデータ量（GB）/ 月**である。料金ページには 2 つのプランが表示される（2026-11-02 時点の US サイトの公式掲載価格、USD。AP1 価格は表下のサイト差異を参照）。料金数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)。
 
 | プラン | 課金単位 | 年契約（Billed annually） | 月契約（Month-to-month） | オンデマンド | 内容 |
 |---|---|---|---|---|---|
@@ -807,7 +807,7 @@ Sensitive Data Scanner（SaaS）の課金単位は**スキャンしたデータ�
 
 ※ Detect の月契約価格は料金ページの価格データ（SKU `SDS-PARTIAL`）による（カード表示には年契約とオンデマンドのみ表示される）。
 
-> **サイト差異:** 上表は US（EU1 も同額）の価格。基準サイト AP1 では Detect and Obfuscate が年契約 $0.375 / 月契約 $0.45 / オンデマンド $0.5625、Detect が $0.038 / $0.045 / $0.056（料金ページの価格データ、2026-11-04 時点）。詳細は [製品別料金表](../../03_導入編/pricing-by-product.md)。[出典](https://www.datadoghq.com/pricing/?product=sensitive-data-scanner)
+> **サイト差異:** 上表は US（EU1 も同額）の価格。基準サイト AP1 では Detect and Obfuscate が年契約 $0.375 / 月契約 $0.45 / オンデマンド $0.5625、Detect が $0.038 / $0.045 / $0.056（料金ページの価格データ、2026-11-04 時点）。詳細は [製品別料金表](../../03_導入編/02-pricing-by-product.md)。[出典](https://www.datadoghq.com/pricing/?product=sensitive-data-scanner)
 
 - 料金一覧ページ（`/pricing/list/`）に掲載されているのは「Sensitive Data Scanner：Per scanned GB, per month　$0.30 / $0.36 / $0.45」の 1 行のみである。[出典](https://www.datadoghq.com/pricing/list/)
 - Detect プランの「取り込み GB あたり $0.03（10% サンプリング時）」は、スキャン GB 単価 $0.30 × 10% に相当し、実質的にスキャン量に比例した課金と解釈できる【推定】。
@@ -817,7 +817,7 @@ Sensitive Data Scanner（SaaS）の課金単位は**スキャンしたデータ�
 - **Cloud Storage スキャン**：料金ページは SDS プランの対象に AWS Cloud Storage リソースを含めている（機能欄「Supports data from Log Management, APM, RUM, and AWS cloud storage resources」、FAQ「logs, APM spans, RUM events, and AWS Cloud Storage resources (e.g. AWS S3 buckets)」）。ただし S3 スキャン量の具体的な計量方法（スキャン GB の数え方）は公開情報では確認できず。スキャナー（EC2 等）の AWS 側コストは別途発生する。[出典](https://www.datadoghq.com/pricing/?product=sensitive-data-scanner) / [出典](https://docs.datadoghq.com/security/sensitive_data_scanner/setup/cloud_storage/)
 - コスト削減の手段は、Scanning Group のクエリフィルターで対象を絞る、サンプリング（検出のみの用途）を使う、OP で環境内処理に寄せる、の 3 つが公式ドキュメント・料金ページから読み取れる。
 
-課金計算の仕組みは [課金計算の仕組み](../../03_導入編/billing-mechanics.md)、最適化は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+課金計算の仕組みは [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md)、最適化は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ---
 
@@ -839,7 +839,7 @@ Sensitive Data Scanner（SaaS）の課金単位は**スキャンしたデータ�
 
 [出典](https://docs.datadoghq.com/security/sensitive_data_scanner/setup/telemetry_data/) / [出典](https://www.datadoghq.com/blog/sensitive-data-management-best-practices/)（2022-04-22 公開）
 
-セキュリティ運用全般の実践は [セキュリティ運用の実践](../../04_応用編/security-operations-practices.md)、ログ管理の実践は [ログ管理の実践](../../04_応用編/log-management-practices.md) を参照。
+セキュリティ運用全般の実践は [セキュリティ運用の実践](../../04_応用編/11-security-operations-practices.md)、ログ管理の実践は [ログ管理の実践](../../04_応用編/06-log-management-practices.md) を参照。
 
 ---
 

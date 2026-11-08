@@ -4,10 +4,11 @@ category: introduction
 domain: platform
 release: Australia
 last_verified: 2026-11-02
-summary: ServiceNow の画面（UI）の種類と基本操作を入門者向けに整理する。Next Experience UI（旧称 Polaris）と Unified Navigation、Classic environment／Core UI（旧 UI16）、リスト・フォーム・フィルタ、Configurable Workspace、Service Portal、Employee Center、Now Mobile／Mobile Agent の役割と使い分け、日常操作のコツを、Australia リリース基準で説明する。
-keywords: [UI, ユーザーインターフェース, Next Experience, Polaris, Unified Navigation, 統合ナビゲーション, All menu, Favorites, History, Workspaces menu, Admin menu, contextual app pill, global search, グローバル検索, filter navigator, フィルターナビゲーター, Classic environment, クラシック環境, Core UI, UI16, UI15, UI11, application navigator, アプリケーションナビゲーター, list, リスト, form, フォーム, filter, フィルタ, condition builder, 条件ビルダー, breadcrumbs, ブレッドクラム, quick filter, encoded query, エンコードクエリ, sysparm_query, personal list, personalize_list, filter_global, filter_group, sys_filter, related list, 関連リスト, form header, form context menu, view, ビュー, Configurable Workspace, ワークスペース, Service Operations Workspace, Agent Workspace, UI Builder, Service Portal, サービスポータル, sp_admin, Employee Center, 従業員センター, sn_ex_sp, esc, Now Mobile, Mobile Agent, mobile_admin, Preferences, 個人設定, keyboard shortcuts, キーボードショートカット, landing page, ランディングページ, Theme Builder, Coral theme, dark theme, ServiceNow Otto, glide.ui.polaris.experience, glide.ui.nav.history_length, browser support, Australia, Brazil]
+summary: ServiceNow の画面（UI）の種類と基本操作を入門者向けに整理する。Next Experience UI（旧称 Polaris）と Unified Navigation、Classic environment／Core UI（旧 UI16）、リスト・フォーム・フィルター、Configurable Workspace、Service Portal、Employee Center、Now Mobile／Mobile Agent の役割と使い分け、日常操作のコツを、Australia リリース基準で説明する。
+keywords: [UI, ユーザーインターフェース, Next Experience, Polaris, Unified Navigation, 統合ナビゲーション, All menu, Favorites, History, Workspaces menu, Admin menu, contextual app pill, global search, グローバル検索, filter navigator, フィルターナビゲーター, Classic environment, クラシック環境, Core UI, UI16, UI15, UI11, application navigator, アプリケーションナビゲーター, list, リスト, form, フォーム, filter, フィルター, フィルタ, condition builder, 条件ビルダー, breadcrumbs, ブレッドクラム, quick filter, encoded query, エンコードクエリ, sysparm_query, personal list, personalize_list, filter_global, filter_group, sys_filter, related list, 関連リスト, form header, form context menu, view, ビュー, Configurable Workspace, ワークスペース, Service Operations Workspace, Agent Workspace, UI Builder, Service Portal, サービスポータル, sp_admin, Employee Center, 従業員センター, sn_ex_sp, esc, Now Mobile, Mobile Agent, mobile_admin, Preferences, 個人設定, keyboard shortcuts, キーボードショートカット, landing page, ランディングページ, Theme Builder, Coral theme, dark theme, ServiceNow Otto, glide.ui.polaris.experience, glide.ui.polaris.on_off_user_pref_enabled, glide.ui.nav.history_length, browser support, Australia, Brazil]
 sources:
   - https://www.servicenow.com/docs/r/australia/platform-user-interface/next-experience-landing-page.html
+  - https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/K0eMwv3zgGE4NVgGZ10VhA
   - https://www.servicenow.com/docs/r/australia/platform-user-interface/using-the-next-experience-global-header.html
   - https://www.servicenow.com/docs/r/australia/platform-user-interface/exploring-your-next-experience-homepage.html
   - https://www.servicenow.com/docs/r/australia/platform-user-interface/using-search-next-experience.html
@@ -46,6 +47,7 @@ sources:
   - https://www.servicenow.com/docs/r/australia/employee-service-management/employee-experience-foundation/install-plugins.html
   - https://www.servicenow.com/docs/r/australia/employee-service-management/employee-experience-foundation/emp-center-personas.html
   - https://www.servicenow.com/docs/r/australia/employee-service-management/employee-experience-foundation/activate-ec.html
+  - https://www.servicenow.com/docs/r/etYGEBUVr6RQYKLnfpRuhw/0qiZTRlj2Qs3Up3rmBfaCQ
   - https://www.servicenow.com/docs/r/australia/mobile/explore-mobile-platform-landing.html
   - https://www.servicenow.com/docs/r/australia/mobile/now-mobile-app.html
   - https://www.servicenow.com/docs/r/australia/mobile/mobile-experience.html
@@ -63,6 +65,9 @@ sources:
   - https://www.servicenow.com/community/now-platform-articles/interface-comparison-between-ui16-the-next-experience/ta-p/2307243
   - https://www.servicenow.com/community/servicenow-ai-platform-blog/best-practices-for-migrating-to-workspaces/ba-p/3428991
   - https://www.servicenow.com/community/next-experience-articles/workspace-getting-started-faqs/ta-p/2331982
+  - https://www.servicenow.com/community/itsm-forum/change-default-homepage-landing-at-the-group-role-level-next/m-p/2385400
+  - https://www.servicenow.com/community/wsd-forum/when-i-impersonate-the-user-servicenow-directly-landing-on-to/m-p/3520573
+  - https://www.servicenow.com/community/employee-center-forum/redirecting-from-service-portal-sp-to-employee-center-esc/td-p/3548433
 ---
 
 # UIの基本（UI Basics）
@@ -84,7 +89,7 @@ ServiceNow の UI は「1 つの画面」ではなく、**利用者の役割（�
 | Core UI（コア UI、旧 UI16） | 同上 | Next Experience を無効にしたときの従来画面（左側にアプリケーションナビゲーター） | [4](#4-classic-environment-と-core-ui) |
 | Configurable Workspace（構成可能ワークスペース） | サービスデスク担当者・エージェント | 複数レコードをタブで並行処理する業務特化画面（例：Service Operations Workspace） | [8](#8-workspaceワークスペース) |
 | Service Portal（サービスポータル） | 従業員・顧客・外部ユーザー | セルフサービスのポータル（申請、ナレッジ、問い合わせ） | [9](#9-service-portalサービスポータル) |
-| Employee Center（従業員センター） | 従業員 | IT・HR・総務・法務などを一元化した多部門向け従業員ポータル | [10](#10-employee-center従業員センター) |
+| Employee Center（従業員センター） | 従業員 | IT・HR など複数部門のサービスを一元化した多部門向け従業員ポータル | [10](#10-employee-center従業員センター) |
 | Now Mobile / Mobile Agent | 従業員 / 担当者 | iOS・Android のネイティブアプリ | [11](#11-モバイルnow-mobile--mobile-agent) |
 
 > 本ファイルは入門編のため「概要と基本操作」に絞る。画面構成要素・設定・カスタマイズの詳細は以下のリファレンスを参照する。
@@ -100,7 +105,7 @@ ServiceNow の UI は「1 つの画面」ではなく、**利用者の役割（�
 
 ### 1.1 ペルソナ別に見た UI の地図
 
-ServiceNow の UI 体系は、「誰が使うか」で整理すると理解しやすい。ServiceNow 公式は、Next Experience UI、Configurable Workspace UI、Classic environment、Core UI の 4 つを「ServiceNow UI experiences」として説明しており、これに加えてセルフサービス用のポータル（Service Portal / Employee Center）とモバイルアプリがある。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/next-experience-landing-page.html)
+ServiceNow の UI 体系は、「誰が使うか」で整理すると理解しやすい。ServiceNow 公式ドキュメントの「Understand the ServiceNow UI experiences」（Australia 版）は、Next Experience UI、Configurable Workspace UI、Classic environment（Working in the classic environment）、Core UI（Working in Core UI）の 4 つを ServiceNow の UI experiences として説明しており、これに加えてセルフサービス用のポータル（Service Portal / Employee Center）とモバイルアプリがある。[出典](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/K0eMwv3zgGE4NVgGZ10VhA)
 
 ```mermaid
 flowchart TB
@@ -142,7 +147,7 @@ ServiceNow の UI 用語は、リリースごとに名称が変わってきた�
 | Core UI（コア UI） | UI16（旧称） | Next Experience 以前の UI。左側のアプリケーションナビゲーターが特徴 | 公式 [出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/working-in-classic-lists-and-forms.html) |
 | UI15 / UI11 | — | さらに古い UI。**Australia で非推奨（deprecated）**となった | 公式 [出典](https://www.servicenow.com/docs/r/australia/release-notes/next-experience-rn.html) |
 | Configurable Workspace（構成可能ワークスペース） | Next Experience Workspace、Workspace | UI Builder で構成する業務特化画面 | 公式 |
-| Agent Workspace（エージェントワークスペース、レガシー） | Classic Workspace | Madrid で導入された旧ワークスペース。新規案件には推奨されず、Configurable Workspace が後継 | ServiceNow 社員のコミュニティ記事 [出典](https://www.servicenow.com/community/servicenow-ai-platform-blog/best-practices-for-migrating-to-workspaces/ba-p/3428991) |
+| Agent Workspace（エージェントワークスペース、レガシー） | Classic Workspace | Madrid で導入された旧ワークスペース。新規案件には推奨されず、Configurable Workspace が後継 | 公式（ServiceNow 社員のコミュニティブログ）[出典](https://www.servicenow.com/community/servicenow-ai-platform-blog/best-practices-for-migrating-to-workspaces/ba-p/3428991) |
 | ServiceNow Otto | Now Assist（旧ブランド名） | ヘッダーに表示される生成 AI パネル。2026-08 の Australia 更新で表示名が「ServiceNow Otto」に変わった | 公式 [出典](https://www.servicenow.com/docs/r/australia/release-notes/next-experience-rn.html) |
 | ServiceNow AI Platform | Now Platform | プラットフォームそのものの名称 | 公式（詳細は [プラットフォーム全体像](./02-platform-overview.md)） |
 
@@ -162,7 +167,7 @@ ServiceNow のデスクトップ UI はブラウザで利用する。Australia �
 | タブレット | 非対応 | 非対応 | 対応 | iOS+Safari / Android+Chrome の最新版 |
 | スマートフォン | 非対応 | 非対応 | 非対応 | iOS+Safari / Android+Chrome の最新版 |
 
-- Internet Explorer および Edge の IE モードは Washington リリース以降サポート対象外である。
+- Internet Explorer および Edge の IE モードは Washington DC リリース以降サポート対象外である（公式表記は「Washington release」）。
 - スマートフォンのブラウザではデスクトップ版 UI は使えず、モバイル用 UI が使われる。
 - iOS 版 Firefox は ServiceNow Community などの Service Portal ページに対応しない。
 
@@ -185,11 +190,12 @@ Next Experience UI の主要な利点として、公式ドキュメントは次�
 ### 2.2 有効化と既定状態
 
 - Australia では、Next Experience は **新規構築・アップグレードのどちらでも既定で有効（active by default）** である。既知の問題があり有効化を避けたい場合は、アップグレード前に opt-out 用システムプロパティを作成できる。[出典](https://www.servicenow.com/docs/r/australia/release-notes/next-experience-rn.html)
-- Next Experience の有効／無効は、システムプロパティ `glide.ui.polaris.experience`（既定値 `true`、説明「Enables the Unified Navigation experience on platform」）で制御される。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/pol-sys-properties.html)
-- 管理者が `glide.ui.polaris.on_off_user_pref_enabled` を `true` にすると、各ユーザーが **User menu > Preferences > User Experience** で Next Experience をオフにできる。オフにすると Core UI が表示される。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/configure-next-experience-user-experience.html)
+- Next Experience の有効／無効は、システムプロパティ `glide.ui.polaris.experience`（既定値 `true`）で制御される。公式の説明は「Turns the Next Experience UI on or off for the entire instance」で、このプロパティはインスタンス全体のオン／オフを決め、他のすべての Next Experience プロパティとユーザー設定より優先される。`false` にすると全ユーザーで Next Experience がオフになる。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/pol-sys-properties.html)
+- `glide.ui.polaris.on_off_user_pref_enabled`（既定値 `true`）が有効なとき、各ユーザーは個人設定のトグルで Next Experience をオフにでき、オフにすると Core UI が表示される（このトグルは user preference `glide.ui.polaris.use` を設定する）。`false` にするとトグルは表示されない。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/pol-sys-properties.html) / [出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/configure-next-experience-user-experience.html)
+  - **表記ゆれ:** トグルの場所は、プロパティ表では Preferences の **Display** セクション、「Configure Next Experience user experience preferences」ページでは **User Experience** と記載が分かれている。
 - 歴史的経緯として、San Diego の時点では新規インスタンスは既定で有効、既存インスタンスのアップグレードでは自動有効化されず管理者がプロパティを設定する必要があった。[出典](https://www.servicenow.com/community/next-experience-articles/next-experience-ui-overview/ta-p/2332080)
 
-> **公式ドキュメント内の表記ゆれ:** Australia の「Understand the ServiceNow UI experiences」ページには「Core UI is the default for new instances」という記述が残っている一方、Next Experience のリリースノートとシステムプロパティ表は Next Experience を既定有効としている。本ナレッジでは、より具体的なリリースノートとプロパティ既定値（`glide.ui.polaris.experience` = `true`）に従い、「Australia の既定は Next Experience」と判断する。
+> **公式ドキュメント内の表記ゆれ:** Australia の「Understand the ServiceNow UI experiences」ページには「Core UI is the default user interface for new instances」という記述が残っている一方（[出典](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/K0eMwv3zgGE4NVgGZ10VhA)）、Next Experience のリリースノートとシステムプロパティ表は Next Experience を既定有効としている。本ナレッジでは、より具体的なリリースノートとプロパティ既定値（`glide.ui.polaris.experience` = `true`）に従い、「Australia の既定は Next Experience」と判断する。
 
 ### 2.3 主なシステムプロパティ（入門者が知っておくとよいもの）
 
@@ -197,14 +203,15 @@ Next Experience の主要なシステムプロパティは次のとおり（抜�
 
 | プロパティ | 既定値 | 説明 |
 |---|---|---|
-| `glide.ui.polaris.experience` | `true` | Unified Navigation（Next Experience）を有効にする |
+| `glide.ui.polaris.experience` | `true` | インスタンス全体で Next Experience をオン／オフする。他のすべての Next Experience プロパティとユーザー設定より優先される |
+| `glide.ui.polaris.on_off_user_pref_enabled` | `true` | ユーザーが個人設定のトグルで Next Experience をオフにできるようにする。`false` でトグル非表示 |
 | `glide.ui.polaris.menus` | `true` | ヘッダーのメニュー群の表示。`false` が必要な場合でも、ロール単位でメニューを隠すことが推奨されている |
 | `glide.ui.polaris.global_search` | `true` | ヘッダーのグローバル検索の表示 |
 | `glide.ui.polaris.dark_themes_enabled` | `true` | ダークテーマを有効にする |
 | `glide.ui.polaris.core_ui_exclude_dark_mode` | `true` | Classic environment ではダークテーマを除外する |
 | `glide.ui.polaris.nav_filter_accuracy_score` | `75` | メニューのフィルター検索の一致精度。`100` で完全一致が必要になる |
-| `glide.ui.polaris.history.url.param_blocklist` | `["tinyId"]` | History メニューで重複 URL を除去する際に無視する URL パラメータ |
-| `glide.ui.next_experience.instance_tools_disabled` | （既定では存在しない） | 作成して `false` にすると、アプリケーションスコープと更新セットをヘッダー下段に常時表示する（Show instance tools）。このとき Globe アイコンは非表示になる |
+| `glide.ui.polaris.history.url.param_blocklist` | `["tinyId"]` | History メニューで重複 URL を除去する際に無視する URL パラメーター |
+| `glide.ui.next_experience.instance_tools_disabled` | （既定では存在しない） | 作成して `false` にすると、アプリケーションスコープとアップデートセットをヘッダー下段に常時表示する（Show instance tools）。このとき Globe アイコンは非表示になる。このプロパティはプロパティ一覧ページには載っておらず、Unified Navigation ページの Show instance tools の説明に記載されている [出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/using-the-next-experience-global-header.html) |
 
 ### 2.4 Next Experience でサポートされない機能
 
@@ -213,9 +220,9 @@ Next Experience では次の機能がサポートされない。旧 UI から移
 | 機能 | 状況と代替 |
 |---|---|
 | Connect Chat | Next Experience では利用不可。Australia 以降、一部の機能は Sidebar（サイドバー）で代替できる（KB1123615） |
-| Connect Support | 利用不可（Utah で完全非推奨化の予定と記載）。Advanced Work Assignment と Agent Chat への移行が必要 |
-| Homepages（従来のホームページ） | 新規インスタンスでは Dashboards（ダッシュボード）が担う。アップグレード環境では直接 URL で既存ホームページを閲覧できるが、作成・編集は不可。Homepage deprecation help tool で responsive dashboard に変換できる |
-| Live Feed | サポートされない |
+| Connect Support | 利用不可。Advanced Work Assignment（AWA）と Agent Chat への移行が必要。Connect Chat から AWA / Agent Chat への移行は KB1156736 を参照。Australia 版ドキュメントにも「Utah で完全非推奨化予定」という旧記述が残っているが、Utah はすでにリリース済みのため、現行では実質的に利用不可で移行必須とみなす【推定】 |
+| Homepages（従来のホームページ） | Responsive dashboards と Analytics Overview dashboards が代替する。アップグレード環境では直接 URL で既存ホームページを閲覧できるが、作成・編集は不可。Homepage deprecation help tool で responsive dashboard に変換できる |
+| Live Feed | サポートされない（KB1157068） |
 | JavaScript console log | サポートされない |
 | ATF（Automated Test Framework） | UI Builder で作ったページ、Configurable Workspace、ランディングページは未サポート（将来対応予定）。Classic environment のリスト・フォームは引き続きサポート |
 
@@ -268,7 +275,7 @@ Unified Navigation は、Next Experience の **すべてのページ上部に表
 
 **図 1：Next Experience Unified Navigation（統合ナビゲーション）のヘッダー（公式ドキュメント「Unified Navigation」の Figure 1）**
 
-- 画面の説明：濃紺の横長バーで、左から順に「servicenow」ロゴ、メニュー **All**、**Favorites**、**History**、**Workspaces**、**Admin** が並ぶ。中央には白枠の Contextual app pill があり「Shared admin dashboard ☆」と現在表示中のページ名と星（お気に入り）アイコンが表示されている。右側には「Search」と書かれたグローバル検索欄（右端に検索対象を切り替えるドロップダウン矢印）、地球儀アイコン（Globe：スコープと更新セット）、吹き出しアイコン（Sidebar discussions）、ヘルプ（?）アイコン、通知ベル（未読件数バッジ「2」）、ユーザーのアバター（User menu）が並ぶ。
+- 画面の説明：濃紺の横長バーで、左から順に「servicenow」ロゴ、メニュー **All**、**Favorites**、**History**、**Workspaces**、**Admin** が並ぶ。中央には白枠の Contextual app pill があり「Shared admin dashboard ☆」と現在表示中のページ名と星（お気に入り）アイコンが表示されている。右側には「Search」と書かれたグローバル検索欄（右端に検索対象を切り替えるドロップダウン矢印）、地球儀アイコン（Globe：スコープとアップデートセット）、吹き出しアイコン（Sidebar discussions）、ヘルプ（?）アイコン、通知ベル（未読件数バッジ「2」）、ユーザーのアバター（User menu）が並ぶ。
 - 出典：https://www.servicenow.com/docs/r/australia/platform-user-interface/using-the-next-experience-global-header.html （取得日：2026-11-02）
 
 Unified Navigation の各要素は次のとおり。表示される項目はユーザーのアクセス権と管理者のカスタマイズによって異なる。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/using-the-next-experience-global-header.html)
@@ -284,9 +291,9 @@ Unified Navigation の各要素は次のとおり。表示される項目はユ�
 | Admin menu（管理） | 管理者向け機能へのアクセス |
 | Contextual app pill（コンテキストアプリピル） | 現在インスタンスのどこにいるかを表示。星アイコンで現在のページをお気に入りに追加 |
 | Global search（グローバル検索） | インスタンス全体を文字列で検索 |
-| Globe（地球儀） | アプリケーションスコープと更新セットのスコープを選択。更新セットの新規作成も可能。Global 以外のスコープを選択中は赤丸アイコンが付く |
+| Globe（地球儀） | アプリケーションスコープとアップデートセットのスコープを選択。アップデートセットの新規作成も可能。Global 以外のスコープを選択中は赤丸アイコンが付く |
 | ServiceNow Otto® | レコード・チャット・ケース・インシデントの要約、ヘルプ、解決メモ作成などを行う AI パネル。幅（標準／ワイド）を切替可能。AI Admin Hub で構成する |
-| Show instance tools | スコープと更新セットをヘッダー下段に常時表示（2.3 のプロパティで有効化） |
+| Show instance tools | スコープとアップデートセットをヘッダー下段に常時表示（2.3 のプロパティで有効化） |
 | Sidebar discussions（サイドバー） | Workspace のタスク／インタラクションレコードを軸にしたリアルタイムの共同作業（チャット） |
 | Usage analytics（利用状況分析） | アプリや Web ページから利用状況データにアクセス |
 | Help（ヘルプ） | Get help と What's new。新着があると青い点が表示される。Provide Feedback で ServiceNow にフィードバックを送れる |
@@ -361,7 +368,7 @@ User menu > **Preferences** を開くと、ユーザーごとの表示設定を�
 | Workspace | ワークスペース固有の設定（ワークスペースにアクセス権があり、ワークスペースを表示中のときのみ） |
 | Debugging（デバッグ） | Next Experience のコンポーネントやスクリプトのデバッグ（**admin ロールのみ表示**） |
 | Language & Region（言語と地域） | 言語、タイムゾーン、日付・時刻形式 |
-| User Experience | スタートページ、利用状況分析の有効／無効、Next Experience のオフ（管理者が許可した場合） |
+| User Experience | スタートページ、利用状況分析の有効／無効、Next Experience のオフ（`glide.ui.polaris.on_off_user_pref_enabled` が既定の `true` のとき。プロパティ表ではこのトグルを Display セクションと記載。2.2 参照） |
 
 日本語表示への切り替えには日本語の言語プラグインが有効化されている必要がある。詳細は [ローカライゼーション（日本語化）](../02_リファレンス/platform/localization.md) を参照。
 
@@ -419,7 +426,7 @@ Core UI は Next Experience 以前の UI であり、リアルタイムのフォ
 | ナビゲーション | 左側に固定のアプリケーションナビゲーター（折りたたみ可） | 上部ヘッダーの All / Favorites / History / Workspaces / Admin メニュー（オーバーレイ表示、ピン留め可） |
 | ワークスペースへの移動 | 集約されていない | Workspaces メニューから切り替え |
 | 現在地表示 | ブラウザタブのタイトル等 | Contextual app pill（星アイコンでお気に入り登録） |
-| スコープ・更新セット選択 | バナーフレームに表示 | Globe アイコン（または Show instance tools で常時表示） |
+| スコープ・アップデートセット選択 | バナーフレームに表示 | Globe アイコン（または Show instance tools で常時表示） |
 | チャット | Connect Chat | Sidebar（Australia 以降、一部 Connect Chat 機能を代替） |
 | 偽装中の表示 | User menu の「End Impersonation」程度 | 上部の赤いバー、アバターの赤丸と目のアイコンなどで明示【第三者情報】 |
 | ホームページ | Homepages | Landing page / Dashboards |
@@ -432,13 +439,13 @@ Core UI は Next Experience 以前の UI であり、リアルタイムのフォ
 
 ### 5.1 リストとは
 
-List（リスト）は、**1 つのテーブルの複数レコードを一覧表示する画面**である。リストの各列（Column）はテーブルのフィールドに対応する。ユーザーはリスト上で検索・並べ替え・フィルタ・編集ができ、リストはフォームに埋め込まれたり（Embedded list）、階層化（Hierarchical list：サブリスト付き）されたりする。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/c_UseLists.html)
+List（リスト）は、**1 つのテーブルの複数レコードを一覧表示する画面**である。リストの各列（Column）はテーブルのフィールドに対応する。ユーザーはリスト上で検索・並べ替え・フィルター・編集ができ、リストはフォームに埋め込まれたり（Embedded list）、階層化（Hierarchical list：サブリスト付き）されたりする。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/c_UseLists.html)
 
 ![Classic environment のレコードリストの構成要素](../assets/images/05-ui-basics/classic-list-elements.png)
 
 **図 3：Classic environment のリストの構成要素（公式ドキュメント「Lists in the classic environment」の Figure 1「Record list」）**
 
-- 画面の説明：Incident（インシデント）のリストに 4 つの注記ラベルが付いている。**Title bar（タイトルバー）** には左からリストコントロールメニュー（三本線）、フィルターアイコン（漏斗）、アクティビティストリームアイコン、リスト名「Incidents」、検索対象フィールドを選ぶドロップダウン（Assignment group）、Search 入力欄が並ぶ。その下の **Breadcrumbs（ブレッドクラム）** は「All > Active = true」で、現在のフィルタ条件を示す。**Column headings（列見出し）** 行には全選択チェックボックス、列検索の虫眼鏡アイコン、Number、Opened、Short description、Caller、Priority が並ぶ。**Fields（フィールド）** の各行には INC0000015 などの番号（リンク）、日時、説明、Caller（参照リンク）、Priority（1 - Critical は赤丸、2 - High は橙丸）が表示されている。
+- 画面の説明：Incident（インシデント）のリストに 4 つの注記ラベルが付いている。**Title bar（タイトルバー）** には左からリストコントロールメニュー（三本線）、フィルターアイコン（漏斗）、アクティビティストリームアイコン、リスト名「Incidents」、検索対象フィールドを選ぶドロップダウン（Assignment group）、Search 入力欄が並ぶ。その下の **Breadcrumbs（ブレッドクラム）** は「All > Active = true」で、現在のフィルター条件を示す。**Column headings（列見出し）** 行には全選択チェックボックス、列検索の虫眼鏡アイコン、Number、Opened、Short description、Caller、Priority が並ぶ。**Fields（フィールド）** の各行には INC0000015 などの番号（リンク）、日時、説明、Caller（参照リンク）、Priority（1 - Critical は赤丸、2 - High は橙丸）が表示されている。
 - 出典：https://www.servicenow.com/docs/r/australia/platform-user-interface/c_UseLists.html （取得日：2026-11-02）
 
 ### 5.2 リストの開き方
@@ -466,15 +473,15 @@ List（リスト）は、**1 つのテーブルの複数レコードを一覧表
 - Personal list の最初の列はリンクになる。最初の列を参照フィールドにすると、参照先テーブルのレコードが開いて紛らわしいため避ける。
 - 既定のレイアウトに戻すには Personalize list アイコン > **Reset to column defaults** を選ぶ。
 
-> **用語:** リストの表示列や並びは **View（ビュー）** 単位で定義される。管理者が定義するビュー（例：Default view、`ess` ビュー）と、ユーザー個人の Personal list は別物である。ビューは URL パラメータ `sysparm_view` で指定できる（6.5 参照）。
+> **用語:** リストの表示列や並びは **View（ビュー）** 単位で定義される。管理者が定義するビュー（例：Default view、`ess` ビュー）と、ユーザー個人の Personal list は別物である。ビューは URL パラメーター `sysparm_view` で指定できる（6.5 参照）。
 
 ---
 
-## 6. フィルタ（Filter）と条件ビルダー
+## 6. フィルター（Filter）と条件ビルダー
 
-### 6.1 フィルタの構成
+### 6.1 フィルターの構成
 
-Filter（フィルタ）は、**リストに表示するレコードを条件で絞り込む仕組み**である。1 つの条件（Condition）は次の要素で構成される。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/c_Filters.html)
+Filter（フィルター）は、**リストに表示するレコードを条件で絞り込む仕組み**である。1 つの条件（Condition）は次の要素で構成される。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/c_Filters.html)
 
 | 要素 | 説明 |
 |---|---|
@@ -483,9 +490,9 @@ Filter（フィルタ）は、**リストに表示するレコードを条件で
 | Value（値） | フィールド型に応じた値。参照フィールドはオートコンプリート、選択肢フィールドは選択リスト |
 | Grouping（グループ化） | 各条件行を AND または OR でつなぐ。AND でつないだ条件はすべて満たす必要があり、OR でつないだ条件は個別に評価される |
 
-フィルタは **Condition builder（条件ビルダー）** で作成する。ドットウォークの考え方は [必須の基本概念](./04-core-concepts.md) を参照。
+フィルターは **Condition builder（条件ビルダー）** で作成する。ドットウォークの考え方は [必須の基本概念](./04-core-concepts.md) を参照。
 
-### 6.2 フィルタの作成手順（Classic environment のリスト）
+### 6.2 フィルターの作成手順（Classic environment のリスト）
 
 ロールは不要である。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/t_CreatingFilters.html)
 
@@ -503,9 +510,9 @@ Filter（フィルタ）は、**リストに表示するレコードを条件で
 - List v2 では、ピン（pin/unpin filter）アイコンで、リストを開くたびに条件ビルダーを表示させられる。List v3 ではこの機能はサポートされない。
 - List v3 では、関連テーブルの条件で絞り込む **Related Lists Conditions** を条件ビルダーで使える（List v2 は非対応）。
 
-### 6.3 ブレッドクラム（Breadcrumbs）とクイックフィルタ
+### 6.3 ブレッドクラム（Breadcrumbs）とクイックフィルター
 
-**Breadcrumbs（ブレッドクラム）** は、リスト上部に表示される現在のフィルタ条件の階層表示である。左ほど一般的、右ほど具体的な条件が並ぶ。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/c_UsingFiltersAndBreadcrumbs.html)
+**Breadcrumbs（ブレッドクラム）** は、リスト上部に表示される現在のフィルター条件の階層表示である。左ほど一般的、右ほど具体的な条件が並ぶ。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/c_UsingFiltersAndBreadcrumbs.html)
 
 | 操作 | 結果 |
 |---|---|
@@ -514,26 +521,27 @@ Filter（フィルタ）は、**リストに表示するレコードを条件で
 | **All** をクリック | すべての条件を外し全件表示 |
 | ブレッドクラムを右クリック | **Open new window**（新しいタブで開く）、**Copy URL**（結果リストの URL をコピー）、**Copy query**（エンコードクエリをコピー。All では不可） |
 
-- 既定では、ロールを持たないユーザーにはブレッドクラムとフィルタが表示されない。
-- フィルタ済みのリストで **New** をクリックすると、フィルタ条件の値が新規レコードにあらかじめ設定される（例：Priority = 1 で絞ったリストから New → Priority が 1 - Critical）。この動作を止めたいフィールドには辞書属性 `ignore_filter_on_new=true` を付ける。
+- 既定では、ロールを持たないユーザーにはブレッドクラムとフィルターが表示されない。
+- フィルター済みのリストで **New** をクリックすると、フィルター条件の値が新規レコードにあらかじめ設定される（例：Priority = 1 で絞ったリストから New → Priority が 1 - Critical）。この動作を止めたいフィールドには辞書属性 `ignore_filter_on_new=true` を付ける。
 
-**Quick filter（クイックフィルタ）** は、リストのセルを右クリックして **Show Matching**（この値と一致）または **Filter Out**（この値を除外）を選ぶ方法で、ブレッドクラムの右端に条件が追加される。日付フィールドでは **Show Before** / **Show After** も使える。例：State 列の「In Progress」を右クリックして Show Matching を選ぶと `State = In Progress` が追加される。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/c_QuickFilters.html)
+**Quick filter（クイックフィルター）** は、リストのセルを右クリックして **Show Matching**（この値と一致）または **Filter Out**（この値を除外）を選ぶ方法で、ブレッドクラムの右端に条件が追加される。日付フィールドでは **Show Before** / **Show After** も使える。例：State 列の「In Progress」を右クリックして Show Matching を選ぶと `State = In Progress` が追加される。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/c_QuickFilters.html)
 
-### 6.4 フィルタの保存
+### 6.4 フィルターの保存
 
-フィルタは、条件ビルダーの **Save...** から名前を付けて保存できる。保存したフィルタは、リストコントロールメニュー（タイトル横の三本線）> **Filters** サブメニューから呼び出す。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/t_SavingFilters.html)
+フィルターは、条件ビルダーの **Save...** から名前を付けて保存できる。保存したフィルターは、リストコントロールメニュー（タイトル横の三本線）> **Filters** サブメニューから呼び出す。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/t_SavingFilters.html)
 
 | 公開範囲 | 説明 | 必要なロール |
 |---|---|---|
-| Me（自分） | 自分だけが使える個人フィルタ | なし（User フィールドへの書き込み権限が必要） |
-| Everyone（全員） | 全ユーザーが使えるグローバルフィルタ | `filter_global` |
-| Group（グループ） | 選択したグループのメンバーだけが使えるフィルタ | `filter_group` |
+| Me（自分） | 自分だけが使える個人フィルター | なし（User フィールドへの書き込み権限が必要） |
+| Everyone（全員） | 全ユーザーが使えるグローバルフィルター | `filter_global` |
+| Group（グループ） | 選択したグループのメンバーだけが使えるフィルター | `filter_group`（Group フィールドへの書き込み権限も必要。Group フィールドへのアクセスは、`filter_group` ロールを持ち、選択中のグループに所属していることが条件） |
 
-- 保存されたフィルタは Filters テーブル（`sys_filter`）に格納され、管理者はここで作成・編集・削除できる。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/c_UsingFiltersAndBreadcrumbs.html)
+- 新しい Create ACL により、既定では全ユーザーがフィルターを保存できる。この ACL は、管理者がフィルターの利用を制限するために設けたカスタム ACL を上書きする点に注意する。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/t_SavingFilters.html)
+- 保存されたフィルターは Filters テーブル（`sys_filter`）に格納され、管理者はここで作成・編集・削除できる。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/c_UsingFiltersAndBreadcrumbs.html)
 
 ### 6.5 エンコードクエリと URL によるナビゲーション
 
-フィルタ条件は **Encoded query（エンコードクエリ）** という文字列で表現される。例：アクティブで Impact が High（1）または Medium（2）のインシデントは `active=true^impact=1^ORimpact=2`。条件の区切りは `^`、OR は `^OR` で表す。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/c_UsingFiltersAndBreadcrumbs.html)
+フィルター条件は **Encoded query（エンコードクエリ）** という文字列で表現される。例：アクティブで Impact が High（1）または Medium（2）のインシデントは `active=true^impact=1^ORimpact=2`。条件の区切りは `^`、OR は `^OR` で表す。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/c_UsingFiltersAndBreadcrumbs.html)
 
 エンコードクエリは URL に付けてリストを直接開くのにも使える。主な URL スキーマは次のとおり。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/navigate-using-url.html)
 
@@ -548,24 +556,24 @@ Filter（フィルタ）は、**リストに表示するレコードを条件で
 | グループ化 | `sysparm_query=priority=2^active=true^EQ^GROUPBYcategory` |
 | ビュー指定 | `sysparm_view=ess` |
 | 並べ替え | `sysparm_order=number`、`sysparm_order_direction=desc` |
-| パラメータの区切り | `&` |
+| パラメーターの区切り | `&` |
 
 例：`https://<instance>.service-now.com/incident_list.do?sysparm_query=active=true^impact=1^ORimpact=2`
 
 - `sysparm_query` はリストでは「条件に合うレコードを返す」、フォーム（`sys_id=-1` 指定）では「新規レコードに値を設定する」と、動作が異なる。
 - Next Experience 有効時、Classic environment のページは `/now/nav/ui/classic/params/target/<ページ>` 形式の URL で Unified Navigation の枠内に表示される【第三者情報】（ServiceNow Community の利用者投稿に基づく。公式ドキュメントでの明示は確認できず）。[出典](https://www.servicenow.com/community/itsm-forum/change-default-homepage-landing-at-the-group-role-level-next/m-p/2385400)
 
-### 6.6 ワークスペースのフィルタ（Predicate Builder と AI filter assist）
+### 6.6 ワークスペースのフィルター（Predicate Builder と AI filter assist）
 
 Configurable Workspace のリストでは、Classic の条件ビルダーではなく **Predicate Builder（述語ビルダー）** コンポーネントでリストヘッダーから条件を設定する。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/lists-configurable-workspace.html)
 
 Australia では、自然言語（日常の言葉）からエンコードクエリを生成する **AI filter assist** が利用できる（Australia Early Availability で追加）。必要ロールは `workspace_user`、利用可否は契約（エンタイトルメント）による。[出典](https://www.servicenow.com/docs/r/australia/platform-user-interface/use-ai-filter-assist.html)
 
 1. ワークスペースのリストを開き、リストヘッダーのフィルターボタンを選ぶ。
-2. **Add to current filters**（現在のフィルタに追加）、**Edit current filters**（現在のフィルタを修正）、**Start new**（新規作成）のいずれかを選ぶ。
+2. **Add to current filters**（現在のフィルターに追加）、**Edit current filters**（現在のフィルターを修正）、**Start new**（新規作成）のいずれかを選ぶ。
 3. 条件を文章で入力するか、マイクアイコンで音声入力し、送信アイコンを選ぶ。
-4. 生成されたフィルタを確認し、編集アイコンで修正するか **Apply** で適用する。
-5. フィルターボタンのドロップダウン > **Advanced Filter** で条件パネルを表示、履歴アイコンで最近生成したフィルタを表示できる。
+4. 生成されたフィルターを確認し、編集アイコンで修正するか **Apply** で適用する。
+5. フィルターボタンのドロップダウン > **Advanced Filter** で条件パネルを表示、履歴アイコンで最近生成したフィルターを表示できる。
 
 ---
 
@@ -692,7 +700,7 @@ Australia の公式ドキュメントに掲載されているワークスペー�
 
 - **Agent Workspace** は Madrid で導入された旧来のワークスペースで、構成の柔軟性が限られるため、新規案件には推奨されない。後継は **Configurable Workspace** である（ServiceNow 社員のコミュニティブログ、2025-11-18）。[出典](https://www.servicenow.com/community/servicenow-ai-platform-blog/best-practices-for-migrating-to-workspaces/ba-p/3428991)
 - ServiceNow の Workspace FAQ は、Agent Workspace は代替となる Configurable Workspace が全機能を包含した時点で非推奨化すること、Quebec 以前に作られた Agent Workspace やカスタムワークスペースから自動移行する手段は現時点でないことを述べている。ITSM Agent Workspace の利用者は Service Operations Workspace への移行計画を立てることが推奨されている。[出典](https://www.servicenow.com/community/next-experience-articles/workspace-getting-started-faqs/ta-p/2331982)
-- UI Builder と多くのワークスペースは ServiceNow Store アプリとして提供され、ファミリーリリース（年 2 回）とは別に四半期ごとに更新される【第三者情報】（ServiceNow 社員のコミュニティブログ）。[出典](https://www.servicenow.com/community/servicenow-ai-platform-blog/best-practices-for-migrating-to-workspaces/ba-p/3428991)
+- UI Builder と多くのワークスペースは ServiceNow Store アプリとして提供され、ファミリーリリース（年 2 回）とは別に四半期ごとに更新される（ServiceNow 社員のコミュニティブログ）。[出典](https://www.servicenow.com/community/servicenow-ai-platform-blog/best-practices-for-migrating-to-workspaces/ba-p/3428991)
 - Service Operations Workspace の URL は `/now/sow/home`（ホーム）、`/now/sow/record/<table>/<sys_id>`（レコード）の形式であることが、コミュニティで広く共有されている【第三者情報】。[出典](https://www.servicenow.com/community/wsd-forum/when-i-impersonate-the-user-servicenow-directly-landing-on-to/m-p/3520573)
 
 ### 8.5 ブラウザとデバイスの制約
@@ -773,10 +781,11 @@ Australia の主な変更は次のとおり。[出典](https://www.servicenow.co
 
 ### 10.1 Employee Center とは
 
-Employee Center（従業員センター）は、**IT、HR、Workplace（総務・施設）、Legal（法務）、Procurement（調達）などの複数部門のサービスを 1 つのサイトに集約する、多部門対応の動的な従業員ポータル**である。Service Portal のフレームワーク上に構築された標準ポータルで、最小限の構成で利用を始められる。[出典](https://www.servicenow.com/docs/r/australia/employee-service-management/employee-experience-foundation/explore-emp-center.html)
+Employee Center（従業員センター）は、**IT、HR などの複数部門のサービスを 1 つのサイトに集約する、多部門対応の従業員ポータル**であり、単一部門から多部門のサービス提供へ段階的に拡張できる。[出典](https://www.servicenow.com/docs/r/australia/employee-service-management/employee-experience-foundation/explore-emp-center.html)
 
-- Employee Center は**追加ライセンス費用なしで全顧客が利用できる**。[出典](https://www.servicenow.com/docs/r/australia/employee-service-management/employee-experience-foundation/explore-emp-center.html)
-- 上位版の **Employee Center Pro** は、コミュニケーション、イベント、コンテンツ配信など従業員エンゲージメント機能を追加する（ライセンスの詳細は [HR Service Delivery](../02_リファレンス/employee/hr-service-delivery.md) と [ライセンスモデル](../03_導入編/01-licensing-model.md) を参照）。
+- Employee Center は**追加ライセンス費用なしで利用できる**（「There is no additional licensing cost associated with the Employee Center」）。[出典](https://www.servicenow.com/docs/r/australia/employee-service-management/employee-experience-foundation/explore-emp-center.html)
+- Employee Center は Service Portal の仕組み（ポータルレコード、ページ、ウィジェット）を使ったポータルとして提供され、管理ロール `sn_hr_sp.esc_admin` は `sp_admin` を含む（10.2 参照）。ただし「Service Portal のフレームワーク上に構築」と明示した記述は、本ファイルで参照した Australia 公式ページでは確認できず【経験則】。
+- 上位版の **Employee Center Pro** は、Employee Center のポータル体験をサービス提供の枠を超えて広げ、ニュースやイベントの告知、同僚やリーダーとの交流、ターゲットを絞ったコミュニケーション（コンテンツ公開、キャンペーン、従業員コミュニティ）などのエンゲージメント機能を追加する。[出典](https://www.servicenow.com/docs/r/etYGEBUVr6RQYKLnfpRuhw/0qiZTRlj2Qs3Up3rmBfaCQ)（ライセンス条件は同ページでは確認できず。詳細は [HR Service Delivery](../02_リファレンス/employee/hr-service-delivery.md) と [ライセンスモデル](../03_導入編/01-licensing-model.md) を参照）
 - Employee Center の既定の URL suffix は `esc`（`https://<instance>.service-now.com/esc`）で、従来の Service Portal（`/sp`）から `/esc` へのリダイレクトや suffix 変更がよく行われる【第三者情報】（ServiceNow Community の利用者投稿に基づく）。[出典](https://www.servicenow.com/community/employee-center-forum/redirecting-from-service-portal-sp-to-employee-center-esc/td-p/3548433)
 
 ### 10.2 Employee Center の構成と役割分担
@@ -804,7 +813,7 @@ Employee Center の利用の流れは次のとおり。[出典](https://www.serv
 Australia の主な変更は次のとおり。[出典](https://www.servicenow.com/docs/r/australia/release-notes/employee-center-rn.html)
 
 - **Simplified Navigation**：左寄せの 1 階層ナビゲーションで、デスクトップとモバイルの両方に適応。
-- **Enhanced Requests Experience**：フィルタ単位の専用タブを作れるようになり、従業員が自分のリクエストを探しやすくなった。
+- **Enhanced Requests Experience**：フィルター単位の専用タブを作れるようになり、従業員が自分のリクエストを探しやすくなった。
 - **Approval Assistance AI agent**：承認に必要な情報を集約・ポリシー照合し、マネージャーに承認判断を推奨。
 - ウィジェットの見出しレベル（H1〜H6）を管理者が設定可能（アクセシビリティ）。
 - Moveworks の AI アシスタントプラグインによる Employee Center / Employee Center Pro での会話型サポート。
@@ -816,7 +825,7 @@ Australia の主な変更は次のとおり。[出典](https://www.servicenow.co
 
 | 観点 | Service Portal（例：`/sp`） | Employee Center（例：`/esc`） |
 |---|---|---|
-| 位置付け | ポータルを構築するための**フレームワーク**と、標準のセルフサービスポータル | Service Portal フレームワーク上の**多部門対応の従業員ポータル** |
+| 位置付け | ポータルを構築するための**フレームワーク**と、標準のセルフサービスポータル | Service Portal の仕組みを使った**多部門対応の従業員ポータル**【経験則】 |
 | 対象 | 従業員・顧客・外部ユーザー（用途に応じて任意のポータルを作れる） | 従業員 |
 | 情報の整理 | ポータルごとにページ・メニューを設計 | Unified taxonomy（トピック）で部門横断的に整理 |
 | 新規導入時の推奨 | 顧客向け・特殊用途のポータルなど | 従業員向けセルフサービスの標準として Employee Center を選ぶケースが多い【経験則】 |
@@ -888,7 +897,7 @@ Australia の主な変更は次のとおり。[出典](https://www.servicenow.co
 | 表示言語・タイムゾーンを変える | User menu > Preferences > Language & Region | 3.5 |
 | ダークテーマにする | User menu > Preferences > Theme | 3.5 |
 | 別ユーザーとして動作確認する（管理者） | User menu > Impersonate user（Control+Shift+i） | 3.1 |
-| スコープ／更新セットを切り替える（開発者） | Globe アイコン | 3.1 |
+| スコープ／アップデートセットを切り替える（開発者） | Globe アイコン | 3.1 |
 | ワークスペースに移動する | Workspaces メニュー | 3.1 / 8 |
 | ショートカット一覧を見る | Control+/（macOS は Command+/） | 3.6 |
 
@@ -900,8 +909,8 @@ Australia の主な変更は次のとおり。[出典](https://www.servicenow.co
 |---|---|---|
 | メニューが人によって違う | Unified Navigation の項目やモジュールは、ロール（アクセス権）と管理者のカスタマイズで表示が変わる。同じ画面を見たい場合は、管理者が Impersonate で対象ユーザーとして確認する | 公式 |
 | Workspaces メニューが表示されない | ワークスペースへのアクセス権がないと表示されない | 公式 |
-| リスト上部にフィルタやブレッドクラムが出ない | 既定ではロールを持たないユーザーにはブレッドクラムとフィルタが表示されない | 公式 |
-| 「is not」で絞ったのに件数が合わない | 手動フィルタの `is not` は空値のレコードを含めない。`is empty` を OR で加える | 公式 |
+| リスト上部にフィルターやブレッドクラムが出ない | 既定ではロールを持たないユーザーにはブレッドクラムとフィルターが表示されない | 公式 |
+| 「is not」で絞ったのに件数が合わない | 手動フィルターの `is not` は空値のレコードを含めない。`is empty` を OR で加える | 公式 |
 | フォームの Back で入力が消えた | Back は保存せずに戻る。Submit / Update または Save で保存する | 公式（Back の仕様） |
 | 古いドキュメントと画面が違う | 旧 UI（UI16 / Core UI）の記事は左側ナビゲーター前提で書かれている。Australia では Next Experience が既定で、UI15 / UI11 は非推奨 | 公式 |
 | 「Now Assist」と「ServiceNow Otto」が混在している | 2026-08 の告知で AI 体験のブランド名が ServiceNow Otto に変わった。ドキュメントによって新旧の名称が混在する | 公式 |
@@ -945,6 +954,7 @@ UI 導入・定着化の実務知見は [定着化と組織変革](../04_応用�
 ServiceNow 公式ドキュメント（Australia、取得日：2026-11-02）
 
 - Next Experience UI: https://www.servicenow.com/docs/r/australia/platform-user-interface/next-experience-landing-page.html
+- Understand the ServiceNow UI experiences（Australia 版の固定 URL）: https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/K0eMwv3zgGE4NVgGZ10VhA
 - Next Experience Unified Navigation: https://www.servicenow.com/docs/r/australia/platform-user-interface/using-the-next-experience-global-header.html
 - Exploring your Next Experience default landing page: https://www.servicenow.com/docs/r/australia/platform-user-interface/exploring-your-next-experience-homepage.html
 - Using search in Next Experience: https://www.servicenow.com/docs/r/australia/platform-user-interface/using-search-next-experience.html
@@ -983,6 +993,7 @@ ServiceNow 公式ドキュメント（Australia、取得日：2026-11-02）
 - Employee Center plugins: https://www.servicenow.com/docs/r/australia/employee-service-management/employee-experience-foundation/install-plugins.html
 - Employee Center roles: https://www.servicenow.com/docs/r/australia/employee-service-management/employee-experience-foundation/emp-center-personas.html
 - Install Employee Center: https://www.servicenow.com/docs/r/australia/employee-service-management/employee-experience-foundation/activate-ec.html
+- Exploring Employee Center Pro（Australia 版の固定 URL）: https://www.servicenow.com/docs/r/etYGEBUVr6RQYKLnfpRuhw/0qiZTRlj2Qs3Up3rmBfaCQ
 - Exploring the Mobile Platform: https://www.servicenow.com/docs/r/australia/mobile/explore-mobile-platform-landing.html
 - Now Mobile app: https://www.servicenow.com/docs/r/australia/mobile/now-mobile-app.html
 - Mobile Agent app: https://www.servicenow.com/docs/r/australia/mobile/mobile-experience.html

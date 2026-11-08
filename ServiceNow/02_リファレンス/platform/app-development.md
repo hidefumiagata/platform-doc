@@ -5,7 +5,7 @@ domain: platform
 release: Australia
 last_verified: 2026-11-02
 summary: ServiceNow AI Platform 上のカスタムアプリケーション開発について、App Engine / Creator Workflows の位置づけ、開発ツール（Creator Studio・App Engine Studio・ServiceNow Studio・Legacy Studio・ServiceNow IDE・ServiceNow SDK と ServiceNow Fluent・Build Agent）、Scoped / Global アプリケーションとアプリケーションアクセス設定、Delegated Development、Source control（Git）連携、Application Repository、ServiceNow Store 公開、App Engine Management Center のパイプラインを、テーブル名・ロール名・プロパティ・メニュー位置・制約まで含めて Australia リリース基準で解説する。
-keywords: [App Engine, Creator Workflows, App Engine Studio, AES, ServiceNow Studio, Legacy Studio, Guided Application Creator, GAC, ServiceNow IDE, sn_glider, ServiceNow SDK, now-sdk, "@servicenow/sdk", ServiceNow Fluent, .now.ts, now.config.json, Creator Studio, Build Agent, ServiceNow Otto, Autonomous Engineer, Application scope, アプリケーションスコープ, Scoped application, Global application, Namespace identifier, glide.appcreator.company.code, Cross-scope privilege, sys_scope_privilege, Runtime access tracking, Restricted caller access, Application access, sys_app, sys_store_app, Delegated Development, delegated_developer, Source control, Git, glide.source_control.git_default_branch, Application Repository, App Repo, My Company Applications, ServiceNow Store, Technology Partner Program, App Engine Management Center, AEMC, Pipelines and Deployments, Deployment request, ReleaseOps, アプリケーション開発, ローコード, プロコード]
+keywords: [App Engine, Creator Workflows, App Engine Studio, AES, ServiceNow Studio, Legacy Studio, Guided Application Creator, GAC, ServiceNow IDE, sn_glider, ServiceNow SDK, now-sdk, "@servicenow/sdk", ServiceNow Fluent, .now.ts, now.config.json, Creator Studio, Build Agent, ServiceNow Otto, Autonomous Engineer, Application scope, アプリケーションスコープ, Scoped application, Global application, Namespace identifier, glide.appcreator.company.code, Cross-scope privilege, sys_scope_privilege, Runtime access tracking, Restricted caller access, Application administration, Application access, sys_app, sys_store_app, Delegated Development, delegated_developer, Source control, Git, glide.source_control.git_default_branch, Application Repository, App Repo, My Company Applications, ServiceNow Store, Technology Partner Program, App Engine Management Center, AEMC, Pipelines and Deployments, Deployment request, ReleaseOps, アプリケーション開発, ローコード, プロコード]
 sources:
   - https://www.servicenow.com/docs/r/australia/application-development/servicenow-studio-classic/servicenow-studio-landing.html
   - https://www.servicenow.com/docs/r/australia/application-development/servicenow-studio-classic/access-servicenow-studio.html
@@ -74,6 +74,29 @@ sources:
   - https://www.servicenow.com/docs/r/australia/application-development/best-practices-use-source-control.html
   - https://www.servicenow.com/docs/r/australia/application-development/servicenow-studio-classic/use-app-engine-instead-of-customizations.html
   - https://www.servicenow.com/community/servicenow-otto-for-creator/what-s-new-in-servicenow-otto-for-creator-brazil-ea-release/ta-p/3596068
+  - https://newsroom.servicenow.com/press-releases/details/2024/ServiceNow-enhances-Creator-Workflows-to-scale-digital-transformation-across-the-enterprise-05-07-2024-traffic/default.aspx
+  - https://www.servicenow.com/docs/r/application-development/restricted-caller-access-privilege.html
+  - https://www.servicenow.com/docs/r/vAF6lp8vm2~kKTU5ernM8g/GWvfNuLgZBg47R2H4DckEQ
+  - https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/aQj7tCO1bevxWxFzmaUR0A
+  - https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/dEZRlhVb42QRnfE4hr9PRQ
+  - https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/KlumZ8kZ2LV_5IgZaa~SKQ
+  - https://www.servicenow.com/docs/r/australia/application-development/enable-application-administration.html
+  - https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/f5OYW25uMGwB00K2rFdt9g
+  - https://www.servicenow.com/docs/r/8_SIK58xmFJIEc2bL5YTYg/_0kMQjRfjbfZiuOXYqrwmA
+  - https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/N7UlF_9mlCgZmtICks6a0Q
+  - https://www.servicenow.com/docs/r/9Lur8HBNLjdzEcjznSAFzA/DLeyL6SMWPrXQaYomXT0CQ
+  - https://www.servicenow.com/docs/r/xanadu/release-notes/servicenow-ide-rn.html
+  - https://www.servicenow.com/docs/r/api-reference/servicenow-fluent.html
+  - https://www.servicenow.com/docs/r/zurich/release-notes/servicenow-sdk-rn.html
+  - https://www.servicenow.com/docs/r/xanadu/application-development/servicenow-studio-classic/c_SourceControlIntegration.html
+  - https://www.servicenow.com/docs/r/vAF6lp8vm2~kKTU5ernM8g/f34OIonGKhyskEryS8ty1Q
+  - https://www.servicenow.com/docs/r/australia/application-development/delegated-development-and-deployment/delegated_deployment_user_roles.html
+  - https://www.servicenow.com/docs/r/guL1zqmJkV9eywMq_6qu~w/zqxwEsdcqUIUoOpE80cKDA
+  - https://www.servicenow.com/docs/r/yokohama/application-development/building-applications/app-engine-products-offerings.html
+  - https://www.servicenow.com/docs/r/australia/application-development/app-engine-products-offerings.html
+  - https://www.servicenow.com/docs/r/platform-administration/allocating-custom-tables-subscr-apps-v2.html
+  - https://www.servicenow.com/docs/r/australia/intelligent-experiences/ai-native-sku-overview.html
+  - https://www.servicenow.com/docs/r/guL1zqmJkV9eywMq_6qu~w/R9XL11rCE6Kr8XcF8rx8xQ
 ---
 
 # アプリケーション開発
@@ -91,7 +114,7 @@ ServiceNow AI Platform（旧称 Now Platform）のアプリケーション開発
 
 本ファイルは、上記ツールに加え、アプリの基本単位である **Application scope**（アプリケーションスコープ）と **Scoped / Global application**、アプリケーションアクセス設定、**Delegated Development**（委任開発）、**Source control（Git）連携**、**Application Repository**（アプリケーションリポジトリ）、**ServiceNow Store 公開**、**App Engine Management Center（AEMC）** のパイプラインを扱う。基準は Australia リリース（2026-05 GA）で、Brazil での変更は判明分を併記する。
 
-関連トピックは次のファイルを参照：アップデートセットとクローンは [update-sets-cloning.md](update-sets-cloning.md)、スクリプトは [scripting-server-side.md](scripting-server-side.md) / [scripting-client-side.md](scripting-client-side.md)、Workflow Studio は [flow-designer-workflow-studio.md](flow-designer-workflow-studio.md)、UI Builder / Workspace は [workspaces-ui-builder.md](workspaces-ui-builder.md)、ACL は [access-control-acl.md](access-control-acl.md)、テーブル定義は [data-model-dictionary.md](data-model-dictionary.md)、ATF は [automated-test-framework.md](automated-test-framework.md)、Now Assist / AI Agents は [now-assist-ai-agents.md](now-assist-ai-agents.md)、ライセンスは [platform-licensing-packaging.md](platform-licensing-packaging.md) と [../../03_導入編/01-licensing-model.md](../../03_導入編/01-licensing-model.md)、カスタマイズの技術的負債は [../../04_応用編/02-customization-technical-debt.md](../../04_応用編/02-customization-technical-debt.md)。
+関連トピックは次のファイルを参照：アップデートセットとクローンは [update-sets-cloning.md](update-sets-cloning.md)、スクリプトは [scripting-server-side.md](scripting-server-side.md) / [scripting-client-side.md](scripting-client-side.md)、Workflow Studio は [flow-designer-workflow-studio.md](flow-designer-workflow-studio.md)、UI Builder / Workspace は [workspaces-ui-builder.md](workspaces-ui-builder.md)、ACL は [access-control-acl.md](access-control-acl.md)、テーブル定義は [data-model-dictionary.md](data-model-dictionary.md)、ATF は [automated-test-framework.md](automated-test-framework.md)、Now Assist / AI Agents は [now-assist-ai-agents.md](now-assist-ai-agents.md)、ライセンスは [platform-licensing-packaging.md](platform-licensing-packaging.md) と [../../03_導入編/01-licensing-model.md](../../03_導入編/01-licensing-model.md)、カスタマイズのガバナンス（スコープ方針・委任開発・Instance Scan）は [../../04_応用編/09-governance-coe-practice.md](../../04_応用編/09-governance-coe-practice.md)、アップグレード時のカスタマイズ影響は [../../04_応用編/04-upgrade-lessons.md](../../04_応用編/04-upgrade-lessons.md)。
 
 ---
 
@@ -216,6 +239,8 @@ Global スコープで作成したカスタム列は `u_` 接頭辞になる（S
 - 通常は ServiceNow 提供アプリとスコープ導入前のカスタムアプリが Global にあるが、`sn_g_app_creator.app_creator` ロールを持つ開発者も Global アプリを作成できる。
 - **Global アプリは Application Repository へはアップロードできるが、ServiceNow Store へは公開できない。**
 
+> **注意:** Global scope ページは `sn_g_app_creator.app_creator` で Global アプリ作成可とするが、ServiceNow Studio の作成手順ページ（Create an application in ServiceNow Studio）は GAC Global ロール（`sn_g_app_creator.global`）を要求しており、公式ページ間で記述が一致しない。ServiceNow Studio で作る場合は後者に従い、実インスタンスで確認すること（2.5 の表・3 章も同様）。[出典](https://www.servicenow.com/docs/r/australia/application-development/c_GlobalScope.html) / [出典](https://www.servicenow.com/docs/r/australia/application-development/servicenow-studio-classic/create-an-application-in-servicenow-studio.html)
+
 Australia では ServiceNow SDK 4.4 / ServiceNow IDE で Global アプリの作成と変換（ソースコード開発対応）が可能になり、`now-sdk move` で Global スコープの既存メタデータ（XML）を Fluent コードとしてローカルの Global アプリに取り込めるようになった（詳細は 8 章・9 章）。[出典](https://www.servicenow.com/docs/r/IDeOjpA1hzonPLWG~inEpg/hlRrXzeviCsRu25MbiaZLg)
 
 ### 2.5 Scoped と Global の比較
@@ -225,7 +250,7 @@ Australia では ServiceNow SDK 4.4 / ServiceNow IDE で Global アプリの作�
 | 名前空間 | `x_<会社コード>_<アプリID>` が成果物に付く | 付かない（衝突リスク） |
 | 他アプリからのアクセス | 既定で制限。Application access 設定と Cross-scope privilege で制御 | Global 同士は保護なし |
 | ServiceNow Studio での作成 | admin、または GAC ロール（`sn_g_app_creator.app_creator`） | admin、または GAC Global ロール（`sn_g_app_creator.global`）を持つ GAC ユーザー |
-| Application Repository | 可 | 可 |
+| Application Repository | 可 | 可（Global scope ページに基づく。app-repo ページは対象を scoped のみと記載。11.1 参照） |
 | ServiceNow Store 公開 | 可（Technology Partner Program 加入・認定が前提） | 不可 |
 | Source control（Git）連携 | 可 | Australia の SDK / IDE で Global アプリのソースコード開発が可能に |
 | 推奨 | 新規開発の基本 | 既存 Global 資産の整理、Global メタデータのカスタマイズ |
@@ -241,6 +266,34 @@ Australia では ServiceNow SDK 4.4 / ServiceNow IDE で Global アプリの作�
 | Application design and runtime settings | 自アプリ（のスクリプト）が他スコープのリソースにアクセスする | アプリ全体 | 設計時に他スコープのテーブルを選べるか、スクリプトがいつ他スコープのリソースで動けるか、JavaScript の標準 | 呼び出し元アプリが持つ Cross-scope privilege レコード |
 | Table design and runtime settings | 他スコープのアプリや Web サービスがテーブルに CRUD する | 個々のテーブル | 他スコープから利用可能か、許可する実行時操作、設計時に選択可能か、Web サービスからのアクセス可否 | 対象テーブルの設定 |
 | Restricted caller access privilege settings | 他スコープのスクリプトが自アプリ（ロール、Business rule、UI action、Script include、Event 等）にアクセスする | スコープ全体または特定リソース（管理者が管理） | 呼び出しを許可するか、追跡するか、承認／拒否 | 対象アプリが所有する Restricted caller access レコード |
+
+#### 2.6.1 Restricted caller access（RCA、制限付き呼び出し元アクセス）
+
+**Restricted caller access** は、他スコープのアプリやスクリプトが自アプリのリソース（Script include、Event 等）を呼び出す要求を、**対象アプリ側**で追跡・承認／拒否する仕組みである。レコードは **Restricted Caller Access Privileges** [`sys_restricted_caller_access`] テーブルに作成され、対象リソースの caller access が Caller Restriction または Caller Tracking に設定されている場合や、クロススコープのアクセス試行時に生成される。RCA レコードは対象アプリのスコープで作成する必要がある。[出典](https://www.servicenow.com/docs/r/application-development/restricted-caller-access-privilege.html) / [出典](https://www.servicenow.com/docs/r/vAF6lp8vm2~kKTU5ernM8g/GWvfNuLgZBg47R2H4DckEQ)
+
+| 項目 | 内容 |
+|---|---|
+| テーブル | Restricted Caller Access Privileges [`sys_restricted_caller_access`] |
+| メニュー | All > System Applications > Application Restricted Caller Access |
+| Status（状態） | `Requested`（要求中）/ `Allowed`（許可）/ `Denied`（拒否）/ `Invalidated`（呼び出し元リソースが変更されると自動で設定） |
+| ステータスを変更できるユーザー | `admin` または対象アプリの application admin。対象アプリで Application administration（2.6.2）が有効な場合は、そのアプリの管理者のみ |
+| Caller access の選択肢 | Caller Restriction（呼び出しは手動承認が必要。要求は Status `Requested` で記録）／ Caller Tracking（自動承認。Status `Allowed` で記録）。Event registry で caller access を None にすると、Event へのクロススコープ呼び出しは拒否される |
+| 有効化 | Scoped Application Restricted Caller Access プラグイン（`com.glide.scope.access.restricted_caller`）。HR Service Delivery と Security Incident Response では既定で有効 |
+
+出典：[Set the application scope, application resource, and event access（Australia）](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/aQj7tCO1bevxWxFzmaUR0A)、[Restricted caller access privilege settings](https://www.servicenow.com/docs/r/application-development/restricted-caller-access-privilege.html)
+
+ServiceNow Fluent の Script Include API では `callerAccess` プロパティに `restriction`（手動承認、Restricted Caller Access テーブルに Status `Requested` で記録）または `tracking`（自動承認、Status `Allowed` で記録）を指定する。Script include フォーム上の Caller Access フィールドの「None」選択肢の正確な表記は、公開情報では確認できず。[出典](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/dEZRlhVb42QRnfE4hr9PRQ)
+
+#### 2.6.2 Application administration（アプリケーション管理）
+
+**Application administration** は、Custom application レコードのチェックボックスで、アプリ固有ロールの取得方法を制限して機密性の高いアプリデータを保護する設定である（Custom Application record form の説明：「Select whether to protect sensitive application data by restricting how users acquire application-specific roles.」）。[Custom Application record form（Australia）](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/KlumZ8kZ2LV_5IgZaa~SKQ)
+
+- **前提**：アプリ固有の管理者ロール（例：`my_application.admin`）を作成し、そのロールレコードで **Application Administrator** チェックボックスを選択する（Assignable by フィールドの代替）。ロールはロックアウト防止のため複数ユーザーに付与する。
+- **有効化**：そのロールを持つユーザーでログインし、**My Company Applications** からアプリレコードを開いて **Application administration** を選択し **Update**。Application Administrator が選択されたロールがアプリに 1 つ以上あり、かつ操作ユーザーがそのロールを持つ場合のみ保存される。つまり、システム `admin` であってもアプリ固有の管理者ロールがなければ有効化できない。
+- **admin との関係**：有効化後、関連リンク **Grant application administration to all admins** を使うと、アプリ固有管理者ロールがシステム `admin` ロールの Contained role として追加され、admin も application admin の権限を継承する（このリンクを使わない場合、admin はアプリ固有管理者ロールを継承しない）。
+- **Delegated Development・RCA との関係**：アプリ固有管理者は **Manage Developers** で委任開発者を指定できる（13 章）。また Application administration が有効なアプリでは、Restricted caller access レコードのステータス変更もそのアプリの管理者に限られる（2.6.1）。
+
+[出典](https://www.servicenow.com/docs/r/australia/application-development/enable-application-administration.html)
 
 ### 2.7 Application design and runtime settings（アプリ単位）
 
@@ -264,9 +317,11 @@ Australia では ServiceNow SDK 4.4 / ServiceNow IDE で Global アプリの作�
 
 ### 2.8 Cross-scope privilege（クロススコープ特権）
 
-**Cross scope privileges** [`sys_scope_privilege`] テーブルの各レコードは、呼び出し元スコープ、対象スコープ、対象リソース、操作、Status（`Requested` / `Allowed` / `Denied`）を持つ。テーブルに対する操作は read / write / create / delete、Script include やスクリプトオブジェクトに対する操作は execute のみである。Cross-scope privilege は対象リソースの Application access 設定を超えてアクセスを広げることはできない。[出典](https://www.servicenow.com/docs/r/australia/application-development/c_RuntimeAccessTracking.html)
+**Cross scope privileges** [`sys_scope_privilege`] テーブルは Runtime access tracking で使われ、各レコードは対象スコープ、対象リソース（名前・種別）、操作、Status（`requested` / `allowed` / `denied`）を持つ。テーブル（`sys_db_object`）に対する操作は read / write / create / delete、Script include（`sys_script_include`）やスクリプトオブジェクトに対する操作は execute のみである。[Cross-Scope Privilege API - ServiceNow Fluent（Australia）](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/f5OYW25uMGwB00K2rFdt9g) プラットフォーム側の公式ページ（Runtime access tracking）は、Runtime access tracking が Cross-Scope Privilege レコードを作成し Status を `Requested` / `Allowed` に設定することを説明しているが、`denied` やレコードのフィールド構成は明記していない（`denied` と操作種別の一覧は上記 Fluent API ページに基づく）。[Runtime access tracking（Australia）](https://www.servicenow.com/docs/r/australia/application-development/c_RuntimeAccessTracking.html)
 
-ServiceNow Fluent では `CrossScopePrivilege` API（`@servicenow/sdk/core`）で定義でき、`targetType` は `sys_script_include`、`scriptable`、`sys_db_object` を取る。[出典](https://www.servicenow.com/docs/r/guL1zqmJkV9eywMq_6qu~w/R9XL11rCE6Kr8XcF8rx8xQ)
+各レコードが呼び出し元スコープ（Source scope）も持つこと、および Cross-scope privilege は対象リソースの Application access 設定（テーブル単位の Accessible from / Can read 等）を超えてアクセスを広げられない（設定が上限として働く）ことは、第三者の解説で説明されている【第三者情報】。公式ドキュメントでの明示は確認できず。[出典](https://www.beyondtrust.com/blog/entry/servicenow-security-boundaries-acl-scope-rca) / [出典](https://support.hashicorp.com/hc/en-us/articles/16237094062099-Terraform-ServiceNow-Service-Catalog-Integration-Blocked-by-Cross-Scope-Access-Settings)
+
+ServiceNow Fluent では `CrossScopePrivilege` API（`@servicenow/sdk/core`）で定義でき、`targetType` は `sys_script_include`、`scriptable`、`sys_db_object` を取る。[Cross-Scope Privilege API - ServiceNow Fluent（Australia）](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/f5OYW25uMGwB00K2rFdt9g)
 
 ### 2.9 テーブル単位の実行時アクセス（Table design and runtime settings）
 
@@ -437,11 +492,11 @@ ServiceNow Studio のペルソナとロール（Australia）。[出典](https://
 
 | エクスペリエンス | アクセスできるロール | アクセスできないロール |
 |---|---|---|
-| ServiceNow IDE でのプロコード | `admin` | `sn_creatorstudio.restricted_user`、`sn_creatorstudio.user` |
+| ServiceNow IDE でのプロコード | `admin`（ほかに IDE 固有ロール） | `sn_creatorstudio.restricted_user`、`sn_creatorstudio.user` |
 | ServiceNow Studio でのプラットフォーム開発 | `delegated_developer`、`admin`、`sn_g_app_creator.app_creator` | `sn_creatorstudio.restricted_user`、`sn_creatorstudio.user` |
 | Creator Studio でのノーコード | `delegated_developer`、`admin`、`sn_creatorstudio.user`、`sn_creatorstudio.restricted_user` | — |
 
-> **注意:** Creator Studio ロールを持つユーザーは、admin や delegated developer であっても ServiceNow Studio と ServiceNow IDE にアクセスできない。また `delegated_developer` は ServiceNow IDE へのアクセス権を与えない。エクスペリエンススイッチャーにはアクセス権のあるツールのみ表示される。[出典](https://www.servicenow.com/docs/r/australia/application-development/servicenow-studio-classic/working-with-roles-and-access.html)
+> **注意:** Creator Studio ロールを持つユーザーは、admin や delegated developer であっても ServiceNow Studio と ServiceNow IDE にアクセスできない。また `delegated_developer` は ServiceNow IDE へのアクセス権を与えない。ServiceNow IDE へのアクセスには `admin`、または IDE 固有ロール（`sn_glider.admin` 等、8.3 参照）が必要である（原文：「To grant access to ServiceNow IDE, the user must have admin permissions or other roles specific to ServiceNow IDE.」）。エクスペリエンススイッチャーにはアクセス権のあるツールのみ表示される。[出典](https://www.servicenow.com/docs/r/australia/application-development/servicenow-studio-classic/working-with-roles-and-access.html)
 
 ### 3.8 共同開発（Collaboration）の権限
 
@@ -556,7 +611,7 @@ AES で作れる **Experience**（エクスペリエンス）の種類は、Conf
 
 AES は **ServiceNow Store** から入手する Store アプリである。まずエンタイトルメント（有効なライセンス）を確認し、Store で要求してからインスタンスにインストールする。初回インストール、Store 版の更新、ファミリーリリースのアップグレードで手順が異なり、ファミリーリリースのアップグレード時は Store から再取得する必要はない。[出典](https://www.servicenow.com/docs/r/australia/application-development/app-engine-studio/aes-installation-store.html)
 
-AES の Store 版は年 2 回のファミリーリリースとは別系統でバージョン番号が付く（例：29.1.1 = 2026 年 3 月、29.2.1 = 2026 年 6 月のメンテナンスリリース）【第三者情報】（検索結果の要約に基づき、Store version history のページ本体は確認できず）。[出典](https://www.servicenow.com/docs/r/8_SIK58xmFJIEc2bL5YTYg/_0kMQjRfjbfZiuOXYqrwmA)
+AES の Store 版は年 2 回のファミリーリリースとは別系統でバージョン番号が付く（例：29.1.1 = 2026 年 3 月、29.2.1 = 2026 年 6 月のメンテナンスリリース）【推定】（ページ本体未確認。検索結果の要約に基づくため、バージョン番号と月の対応は未確認）。[出典](https://www.servicenow.com/docs/r/8_SIK58xmFJIEc2bL5YTYg/_0kMQjRfjbfZiuOXYqrwmA)
 
 ### 4.4 ロールとグループ
 
@@ -634,7 +689,7 @@ AES で作っているアプリを、より高度な開発環境である Servic
 
 AEMC は **Pipelines and Deployments** を使ってインスタンス間でアプリを移送し、その基盤は Application Repository である。アプリごとに Application Repository か System Update Sets のどちらかでデプロイでき、全アプリが同じ方式である必要はない。`sys_app` にあるアプリは Application Repository で直接アップグレードできないため、一度だけの変換手順が用意されている。パイプラインのコントローラーインスタンスは本番に置く。[出典](https://www.servicenow.com/docs/r/a3E8xg0zsiQLBPKbKO15Mg/CRbdS9Tm1NlpUsQL2~RG0A)
 
-Australia の Pipelines and Deployments ワークフロー（AEMC 24.1.2 以降）では、申請が提出→検証→承認→テスト→本番デプロイと進み、本番前に Automated Test Framework の **Application Deployment Test Suite** が実行されて結果が Deployment Environment Result テーブルと Activity Stream に記録される。本番ターゲットでは承認済みレコードが Change Management と連動したスケジュールデプロイを開始し、変更要求が却下・キャンセルされると申請者に通知され申請はクローズする。【第三者情報】（検索エンジンによる Australia 版ページの要約に基づく。ページ本体の全文は取得できず）[出典](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/N7UlF_9mlCgZmtICks6a0Q)
+Australia の Pipelines and Deployments ワークフロー（AEMC 24.1.2 以降）では、申請が提出→検証→承認→テスト→本番デプロイと進み、本番前に Automated Test Framework の **Application Deployment Test Suite** が実行されて結果が Deployment Environment Result テーブルと Activity Stream に記録される。本番ターゲットでは承認済みレコードが Change Management と連動したスケジュールデプロイを開始し、変更要求が却下・キャンセルされると申請者に通知され申請はクローズする。【推定】（ページ本体未確認。検索結果の要約に基づく）[出典](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/N7UlF_9mlCgZmtICks6a0Q)
 
 ### 5.3 Deployment Request フォーム
 
@@ -665,9 +720,9 @@ AEMC の Requests ページで開く **Deployment Request** フォームの項�
 |---|---|---|---|
 | 導入 | Zurich（2025） | San Diego（2022） | レガシー |
 | デプロイ単位 | 自動パイプラインで運ぶ Update set | Application Repository のアプリバージョン | 構成変更のグループ |
-| 自動化 | Playbook による検証、パイプラインのオーケストレーション。オンデマンドと定期リリーストレイン | 承認ゲート、ATF 実行、Instance Scan | 手動（Retrieve / Preview / Commit） |
+| 自動化 | Playbook による検証、パイプラインのオーケストレーション。オンデマンドと定期リリーストレイン | 承認ゲート、ATF 実行、Instance Scan。監査・コンプライアンスのためデプロイごとに Change request を生成（公式本文の記述） | 手動（Retrieve / Preview / Commit） |
 | バージョニング | Update set のバッチ、リリースパッケージ | セマンティックバージョニング | Update set 名のみ |
-| 要件 | プラットフォームライセンスに含む。参加する全インスタンスに Application Manager でインストール。Multi-instance framework（MIF）で連携 | **追加の App Engine ライセンスが必要**。変更ごとに Change request を生成 | プラットフォームライセンスに含む |
+| 要件 | プラットフォームライセンスに含む。参加する全インスタンスに Application Manager でインストール。Multi-instance framework（MIF）で連携 | App Engine ライセンスに含まれる（公式表の Licensing 行）／本文では「追加の App Engine ライセンスが必要（require additional App Engine licensing）」と記載。公式ページ内で表現が揺れているため契約内容を確認 | プラットフォームライセンスに含む |
 | 適する用途 | あらゆる種類のデプロイの CI/CD 的自動化 | App Engine で作るカスタム Scoped アプリ | 運用上の小変更、Global スコープ、レガシー |
 
 ReleaseOps と Update set の詳細は [update-sets-cloning.md](update-sets-cloning.md) を参照。
@@ -685,6 +740,8 @@ ReleaseOps と Update set の詳細は [update-sets-cloning.md](update-sets-clon
 | 複数チームのリリース調整 | リリーストレインと Playbook 検証を持つ ReleaseOps |
 
 同ガイドラインは、**同一アプリで Application Repository と System Update Sets を混在させない**（変更のスキップ、コミットエラー、バージョン追跡の失敗を招く）、アプリのデータレコードは Application Repository のデプロイに含まれないため参照・シードデータは別プロセスで管理する、デプロイ用サービスアカウントの IP 制限・最小権限、Instance Scan の自動実行、なども推奨している。[出典](https://www.servicenow.com/docs/r/australia/application-development/store-private-application-repositories.html) / [出典](https://www.servicenow.com/docs/r/australia/application-development/best-practices-use-source-control.html)
+
+> **注意（ホットフィックスと混在禁止の整理）:** 上表の「本番の緊急ホットフィックスは System Update Sets」と「同一アプリで Application Repository と System Update Sets を混在させない」は、Application Repository で配布しているアプリでは両立しない。Application Repository 配布アプリにホットフィックスする場合は、開発インスタンスで修正→新バージョンを公開→本番にインストール、が原則となる。Update set による緊急対応は Global 構成や Update set で配布しているアプリ向けであり、Application Repository 配布アプリに適用すると混在の副作用（変更のスキップ、バージョン不整合）を招く点に注意する【推定】（上記 2 つの公式記述を突き合わせた整理）。
 
 ---
 
@@ -711,7 +768,7 @@ ReleaseOps と Update set の詳細は [update-sets-cloning.md](update-sets-clon
 
 ## 7. Build Agent と ServiceNow Otto for Creator（概要）
 
-**Build Agent** は、自然言語プロンプトでフルスタックの ServiceNow アプリを作成・編集する自律型 AI エージェントで、ServiceNow Studio と ServiceNow IDE で利用できる。Australia 版ドキュメントでは「Now Assist for Creator の一部」「admin ロールが必要」と記載されている。公式は「ワンショットの vibe coding ツールではなく、エンタープライズ品質の AI 支援開発を可能にする」と位置づけ、生成コードのレビューと本番前の堅牢化を求めている。[出典](https://www.servicenow.com/docs/r/9Lur8HBNLjdzEcjznSAFzA/DLeyL6SMWPrXQaYomXT0CQ)
+**Build Agent** は、自然言語プロンプトでフルスタックの ServiceNow アプリを作成・編集する自律型 AI エージェントで、ServiceNow Studio と ServiceNow IDE で利用できる。Australia 版ドキュメントでは「Now Assist for Creator の一部」「admin ロールが必要」と記載されている（Now Assist for Creator は、Australia 期間中の AI ブランド変更により ServiceNow Otto for Creator の名称で表記されるようになった同一製品であり、概要の「ServiceNow Otto for Creator」と同じものを指す）。公式は「ワンショットの vibe coding ツールではなく、エンタープライズ品質の AI 支援開発を可能にする」と位置づけ、生成コードのレビューと本番前の堅牢化を求めている。[出典](https://www.servicenow.com/docs/r/9Lur8HBNLjdzEcjznSAFzA/DLeyL6SMWPrXQaYomXT0CQ)
 
 ServiceNow Studio での Build Agent の機能：アプリ／アプリファイルの作成・更新、アプリ内容の要約、会話変更ログ、**Checkpoint**（チェックポイント）へのロールバック、会話全体のロールバック。チャットパネルは既定で Build Agent モードで、セレクターで **Autonomous Engineer** モードに切り替えられる。Build Agent で作ったアプリも Update set、パイプライン、Application Repository で通常どおりデプロイする。[出典](https://www.servicenow.com/docs/r/australia/application-development/servicenow-studio-classic/build-agent-in-servicenow-studio.html)
 
@@ -1012,6 +1069,8 @@ AES ではこのほか、競合の解決（Resolve conflicts）、コミット�
 
 **ServiceNow application repository** は、全 ServiceNow 顧客が公開する Scoped アプリの中央リポジトリで、顧客は自社インスタンス間でアプリをアップロード・配布できる。各顧客は自社が公開したアプリのみ参照・管理でき、他組織のアプリは見えない。**セルフホスト（オンプレミス）顧客は利用できない**（エアギャップ環境向けの別構成がある）。URL は https://apprepo.service-now.com 。Federal Store の顧客は HIWave にログインして Federal Store > My Repository を選ぶ。[出典](https://www.servicenow.com/docs/r/australia/application-development/application-repository-self-hosted/app-repo.html)
 
+> **注意:** app-repo ページは Application Repository の対象を scoped applications としているが、Global scope ページは「Global アプリは Application Repository へアップロード可（Store は不可）」としている（2.4 参照）。Global アプリを Application Repository で配布する場合は実インスタンスで確認すること。[出典](https://www.servicenow.com/docs/r/australia/application-development/c_GlobalScope.html)
+
 Application Repository は、バージョン履歴の追跡、依存関係の解決、インスタンス固有設定（private なシステムプロパティ等）の上書き防止を行う。本番にインストールしたアプリは ServiceNow Studio で編集できず、新しい公開バージョンをインストールすることでのみ更新できる（本番での無断変更を防ぐ重要なセキュリティ統制）。[出典](https://www.servicenow.com/docs/r/australia/application-development/store-private-application-repositories.html)
 
 ### 11.2 エンタイトルメント
@@ -1027,7 +1086,9 @@ Application Repository は、バージョン履歴の追跡、依存関係の解
 
 **ServiceNow Studio から公開**（必要ロール：`admin` または `delegated_developer`）：App details ページ（ホームの Deployment タブ > Applications、または Navigator の Apps > App details）で **Publish** → **New version** と **Release notes** を入力 → **Publish**。変更はレビューと承認に回され、承認後に全インスタンスで利用可能になる。[出典](https://www.servicenow.com/docs/r/australia/application-development/servicenow-studio-classic/qs-publish-changes-to-app-using-app-repo.html)
 
-バージョン番号は公開のたびに増やす必要があり、既存と同じバージョンでは公開できない【第三者情報】（ServiceNow Community のブログに基づく）。[出典](https://www.servicenow.com/community/app-engine-blog/application-repository/ba-p/3397353) **Can Edit Application in Studio** プロパティは新規アプリで既定 true だが、公開前に false にできる。
+バージョン番号は公開のたびに増やす必要があり、既存と同じバージョンでは公開できない【第三者情報】（ServiceNow Community のブログに基づく）。[出典](https://www.servicenow.com/community/app-engine-blog/application-repository/ba-p/3397353)
+
+なお公式の Store 公開手順ページには、**Can Edit Application in Studio** プロパティは新規アプリで既定 true で、公開前に false にできる、との記載がある。[出典](https://www.servicenow.com/docs/r/australia/application-development/t_PublishAppsToTheServiceNowStore.html) ただしこのフィールドは Legacy Studio にのみ適用され、新しい ServiceNow Studio には適用されない（Australia の Custom Application record form：「This field is a legacy option that does not apply to the new ServiceNow Studio.」。3.1 参照）。[出典](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/KlumZ8kZ2LV_5IgZaa~SKQ)
 
 ### 11.4 インストール手順
 
@@ -1083,7 +1144,7 @@ Store 公開は認定 ISV パートナー向けであり、一般の顧客がカ
 
 ## 13. Delegated Development（委任開発）
 
-**Delegated Development** は、システム admin ロールを持たない指定ユーザーにアプリ単位で開発・デプロイを委任する仕組みである。委任できるのは `admin`、または Application administration が有効な場合は対象アプリの **Application Administrator** のみ。[出典](https://www.servicenow.com/docs/r/australia/application-development/delegated-development-and-deployment/exploring-delegated-development.html)
+**Delegated Development** は、システム admin ロールを持たない指定ユーザーにアプリ単位で開発・デプロイを委任する仕組みである。委任できるのは `admin`、または Application administration（2.6.2 参照）が有効な場合は対象アプリの **Application Administrator** のみ。[出典](https://www.servicenow.com/docs/r/australia/application-development/delegated-development-and-deployment/exploring-delegated-development.html)
 
 システムが管理するロール（手動付与も可能だがシステム管理推奨）。[出典](https://www.servicenow.com/docs/r/australia/application-development/delegated-development-and-deployment/delegated-dev-deploy-user-roles.html)
 
@@ -1101,10 +1162,10 @@ Store 公開は認定 ISV パートナー向けであり、一般の顧客がカ
 ## 14. App Engine のライセンス（概要）
 
 - AES は App Engine サブスクリプション、または App Engine を同梱する製品が必要。[出典](https://www.servicenow.com/docs/r/australia/application-development/app-engine-studio/exploring-aes.html)
-- AEMC Pipelines and Deployments は追加の App Engine ライセンスが必要、ReleaseOps と System Update Sets はプラットフォームライセンスに含まれる。[出典](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/i42vj1k9qpchwM3~wbgV~w)
+- AEMC Pipelines and Deployments のライセンスは、公式「Deployment management options」の比較表では「Included with App Engine（App Engine に含まれる）」、同ページ本文では「require additional App Engine licensing（追加の App Engine ライセンスが必要）」と記載が揺れている。少なくとも App Engine のライセンスが前提であり、追加費用の要否は契約内容で確認する。ReleaseOps と System Update Sets はプラットフォームライセンスに含まれる。[出典](https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/i42vj1k9qpchwM3~wbgV~w)
 - 旧来の公式ドキュメント（Yokohama 版「App Engine products and offerings」）は、**App Engine Starter** は全製品に無償で含まれ、それ以外の機能には有償の **App Engine Enterprise** が必要と説明していた。Australia 版の同ページは製品サイトへの参照のみで、この記述は確認できなかった。[出典](https://www.servicenow.com/docs/r/yokohama/application-development/building-applications/app-engine-products-offerings.html) / [出典](https://www.servicenow.com/docs/r/australia/application-development/app-engine-products-offerings.html)
 - カスタムテーブルは Subscription Management で製品サブスクリプションに対応付ける必要があり、Scoped アプリのテーブルはアプリ単位、Global のテーブルは直接マッピングする。未マッピングのカスタムテーブルは未ライセンス扱いになる。[出典](https://www.servicenow.com/docs/r/platform-administration/allocating-custom-tables-subscr-apps-v2.html)
-- 2026 年 4 月に Foundation / Advanced / Prime の新パッケージ体系へ移行したとの報道があり、App Engine Starter（5 テーブル）が Advanced ITOM に含まれるとするコミュニティ記事もある【第三者情報】。[出典](https://www.servicenow.com/community/architect-articles/navigating-the-april-2026-servicenow-itom-licensing-model/ta-p/3555121)
+- Foundation / Advanced / Prime の新しい製品ティアは公式ドキュメント「ServiceNow product tiers」に記載されている [出典](https://www.servicenow.com/docs/r/australia/intelligent-experiences/ai-native-sku-overview.html)。切替時期（2026 年 4 月）は第三者情報に基づき、App Engine Starter（5 テーブル）が Advanced ITOM に含まれるとするコミュニティ記事もある【第三者情報】。[出典](https://www.servicenow.com/community/architect-articles/navigating-the-april-2026-servicenow-itom-licensing-model/ta-p/3555121)
 
 詳細は [platform-licensing-packaging.md](platform-licensing-packaging.md)、[../../03_導入編/01-licensing-model.md](../../03_導入編/01-licensing-model.md)、[../../04_応用編/06-license-cost-optimization.md](../../04_応用編/06-license-cost-optimization.md) を参照。
 
@@ -1128,9 +1189,9 @@ Store 公開は認定 ISV パートナー向けであり、一般の顧客がカ
 1. **ツール選択**：申請・承認・対応だけなら Creator Studio、市民開発とガバナンス（Intake・AEMC）を重視するなら AES、プラットフォーム開発者は ServiceNow Studio、ソースコード・CI/CD・Git 中心なら ServiceNow Studio の Explorer（IDE）または SDK。[出典](https://www.servicenow.com/docs/r/australia/application-development/creator-studio/creator-studio-landing.html)
 2. **新規開発は Scoped アプリを基本にする**：Namespace と Application access によって他アプリとの干渉を防ぎ、Delegated Development で責任を分割できる。Store 公開の可能性があれば必ず Scoped。[出典](https://www.servicenow.com/docs/r/australia/application-development/c_ApplicationScope.html)
 3. **Runtime Access Tracking と Cross-scope privilege を意図的に設計する**：既定任せの全開放ではなく、必要な cross-scope アクセスを明示的に許可する（公式ガイドライン）。[出典](https://www.servicenow.com/docs/r/australia/application-development/best-practices-use-source-control.html)
-4. **デプロイ方式は 1 アプリにつき 1 つ**：Application Repository と Update set を同じアプリで混在させない。Application Repository へ移行する際の `sys_app`→`sys_store_app` 変換は、変換したインスタンスで開発不可になる点に注意。[出典](https://www.servicenow.com/docs/r/australia/application-development/store-private-application-repositories.html) / [出典](https://www.servicenow.com/docs/r/australia/application-development/application-repository-self-hosted/convert-custom-app-to-update-app-repo.html)
+4. **デプロイ方式は 1 アプリにつき 1 つ**：Application Repository と Update set を同じアプリで混在させない（Application Repository 配布アプリのホットフィックスも新バージョン公開で行う。5.5 の注意を参照）。Application Repository へ移行する際の `sys_app`→`sys_store_app` 変換は、変換したインスタンスで開発不可になる点に注意。[出典](https://www.servicenow.com/docs/r/australia/application-development/store-private-application-repositories.html) / [出典](https://www.servicenow.com/docs/r/australia/application-development/application-repository-self-hosted/convert-custom-app-to-update-app-repo.html)
 5. **Source control リンク前に Update set をエクスポート**：リンク時に完了済み Update set と Customer update レコードが削除される。[出典](https://www.servicenow.com/docs/r/australia/application-development/servicenow-studio-classic/link-app-to-source-control.html)
-6. **Source control は非本番のみ**：本番は Application Repository / Update set / パイプラインでインストールし、本番のアプリは Studio で直接編集しない。
+6. **Source control は非本番のみ**：本番は Application Repository / Update set / パイプラインでインストールし、本番のアプリは Studio で直接編集しない（Application Repository で本番にインストールしたアプリは Studio で編集できない）。[出典](https://www.servicenow.com/docs/r/australia/application-development/servicenow-studio-classic/link-app-to-source-control.html) / [出典](https://www.servicenow.com/docs/r/australia/application-development/store-private-application-repositories.html)
 7. **Creator Studio ロールの付与範囲に注意**：Creator Studio ロールを持つと admin でも ServiceNow Studio / IDE に入れなくなる。[出典](https://www.servicenow.com/docs/r/australia/application-development/servicenow-studio-classic/working-with-roles-and-access.html)
 8. **クローン対策**：AES のパイプライン関連テーブルには Data preserver があるが、ServiceNow Studio は本番へ導入してからクローンする。開発中アプリ・カスタマイズのクローン時保全手順も確認する。[出典](https://www.servicenow.com/docs/r/australia/application-development/servicenow-studio-classic/servicenow-studio-instance-strategy.html)
 9. **CI/CD**：SDK の `build --frozenKeys true`、`install` の CI 用環境変数、`pack`、`cicd` を組み合わせ、Git のタグと Application Repository のバージョンを対応させる。[出典](https://www.servicenow.com/docs/r/australia/application-development/servicenow-sdk/servicenow-sdk-cli-commands.html)
@@ -1215,7 +1276,7 @@ Store 公開は認定 ISV パートナー向けであり、一般の顧客がカ
 - https://www.servicenow.com/docs/r/zurich/release-notes/servicenow-sdk-rn.html
 - https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-servicenowsdk-release-notes.html
 - https://www.servicenow.com/docs/r/api-reference/servicenow-fluent.html
-- https://www.servicenow.com/docs/r/guL1zqmJkV9eywMq_6qu~w/R9XL11rCE6Kr8XcF8rx8xQ
+- https://www.servicenow.com/docs/r/guL1zqmJkV9eywMq_6qu~w/R9XL11rCE6Kr8XcF8rx8xQ （Cross-Scope Privilege API - ServiceNow Fluent、Zurich。本文は Australia 版を参照）
 - https://servicenow.github.io/sdk/getting-started
 - https://github.com/ServiceNow/sdk/releases
 
@@ -1226,6 +1287,11 @@ Store 公開は認定 ISV パートナー向けであり、一般の顧客がカ
 - https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/6OmaENzI~mUA9cF2dJM1fQ
 - https://www.servicenow.com/docs/r/australia/application-development/r_ApplicationDesignAndRuntimeSettings.html
 - https://www.servicenow.com/docs/r/australia/application-development/c_RuntimeAccessTracking.html
+- https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/f5OYW25uMGwB00K2rFdt9g （Cross-Scope Privilege API - ServiceNow Fluent、Australia）
+- https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/aQj7tCO1bevxWxFzmaUR0A （Set the application scope, application resource, and event access、Australia）
+- https://www.servicenow.com/docs/r/application-development/restricted-caller-access-privilege.html
+- https://www.servicenow.com/docs/r/vAF6lp8vm2~kKTU5ernM8g/GWvfNuLgZBg47R2H4DckEQ
+- https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/dEZRlhVb42QRnfE4hr9PRQ （Script Include API - ServiceNow Fluent、Australia）
 - https://www.servicenow.com/docs/r/australia/application-development/c_DefaultRuntimeAccessPermissions.html
 - https://www.servicenow.com/docs/r/australia/application-development/c_RuntimeAccessToAppTables.html
 - https://www.servicenow.com/docs/r/australia/application-development/r_CreationRestrsAcrossAppScopes.html
@@ -1234,6 +1300,8 @@ Store 公開は認定 ISV パートナー向けであり、一般の顧客がカ
 - https://www.servicenow.com/docs/r/australia/application-development/delegated-development-and-deployment/delegated-dev-deploy-user-roles.html
 - https://www.servicenow.com/docs/r/australia/application-development/delegated-development-and-deployment/delegated_deployment_user_roles.html
 - https://www.servicenow.com/docs/r/guL1zqmJkV9eywMq_6qu~w/zqxwEsdcqUIUoOpE80cKDA
+- https://www.servicenow.com/docs/r/australia/application-development/enable-application-administration.html
+- https://www.servicenow.com/docs/r/zUlSbxoxKPAWFDGUdAoSCw/KlumZ8kZ2LV_5IgZaa~SKQ （Custom Application record form、Australia）
 
 **Application Repository / Store / Source control ガイドライン**
 - https://www.servicenow.com/docs/r/australia/application-development/application-repository-self-hosted/app-repo.html
@@ -1250,6 +1318,8 @@ Store 公開は認定 ISV パートナー向けであり、一般の顧客がカ
 - https://www.servicenow.com/community/servicenow-otto-for-creator/what-s-new-in-servicenow-otto-for-creator-brazil-ea-release/ta-p/3596068
 
 **ServiceNow Community・第三者情報**
+- https://www.beyondtrust.com/blog/entry/servicenow-security-boundaries-acl-scope-rca
+- https://support.hashicorp.com/hc/en-us/articles/16237094062099-Terraform-ServiceNow-Service-Catalog-Integration-Blocked-by-Cross-Scope-Access-Settings
 - https://www.servicenow.com/community/developer-blog/securing-an-application-using-cross-scope-access-application/ba-p/2288801
 - https://www.servicenow.com/community/developer-forum/how-to-restrict-selection-of-table-from-other-scope/m-p/3146903
 - https://www.servicenow.com/community/developer-forum/how-to-name-column-names/m-p/1979156

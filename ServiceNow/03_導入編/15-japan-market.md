@@ -5,7 +5,7 @@ domain: general
 release: Australia
 last_verified: 2026-11-02
 summary: 日本企業で ServiceNow を導入する際に固有に検討すべき事項をまとめる。ServiceNow Japan（日本法人）の動向と投資、日本データセンター（東京・大阪）とデータレジデンシー、ISMAP 登録、日本語化（I18N: Japanese Translations プラグイン）の範囲と品質上の注意、稟議・承認、帳票（PDF・日本語フォント）、和暦・日付書式・祝日カレンダー、Excel 文化への対応、日本企業の導入事例を、実務で使えるレベルで整理する。
-keywords: [日本市場, Japan, ServiceNow Japan, 日本法人, 日本データセンター, Japan data center, 東京, 大阪, Tokyo, Osaka, NTTコミュニケーションズ, Nexcenter, データレジデンシー, data residency, ISMAP, 政府情報システムのためのセキュリティ評価制度, 日本語化, localization, I18N Japanese Translations, com.glide.i18n, com.glideapp.knowledge.i18n2, sys_language, sys_translated_text, sys_ui_message, sys_documentation, sys_choice, sys_translated, 翻訳品質, Dynamic Translation, Localization Framework, AI Search 日本語, Now Assist 日本語, 稟議, 承認, Ask for Approval, sysapproval_approver, 代理承認, delegate, sys_user_delegate, granular delegation, 帳票, PDF, Document Templates, PDF Generation Font Family, glide.ui.html.editor.v4.font.collection, 禁則処理, 和暦, 元号, glide.sys.date_format, glide.sys.time_format, タイムゾーン, 祝日, 振替休日, cmn_schedule, cmn_schedule_span, Excel, エクスポート, glide.xlsx.max_cells, glide.xlsx.export.limit, glide.ui.export.limit, 導入事例, 富士通, デンソー, 大林組, 三菱HCキャピタル, 第一生命, 日立, 雪印メグミルク]
+keywords: [日本市場, Japan, ServiceNow Japan, 日本法人, 日本データセンター, Japan data center, 東京, 大阪, Tokyo, Osaka, NTTコミュニケーションズ, Nexcenter, データレジデンシー, data residency, ISMAP, 政府情報システムのためのセキュリティ評価制度, 日本語化, localization, I18N Japanese Translations, com.glide.i18n, com.glideapp.knowledge.i18n2, sys_language, sys_translated_text, sys_ui_message, sys_documentation, sys_choice, sys_translated, 翻訳品質, Dynamic Translation, Localization Framework, AI Search 日本語, Now Assist 日本語, 稟議, 承認, Ask for Approval, sysapproval_approver, 代理承認, delegate, sys_user_delegate, granular delegation, 帳票, PDF, Document Templates, PDF Generation Font Family, glide.ui.html.editor.v4.font.collection, 禁則処理, 和暦, 元号, glide.sys.date_format, glide.sys.time_format, タイムゾーン, 祝日, 振替休日, cmn_schedule, cmn_schedule_span, Excel, エクスポート, glide.xlsx.max_cells, glide.xlsx.export.limit, glide.ui.export.limit, 導入事例, 富士通, デンソー, 大林組, 三菱HCキャピタル, 第一生命, 日立, 雪印メグミルク, App Engine, 個人情報保護法, APPI, 越境移転, 電子帳簿保存法, 電子署名, Document Intelligence, ServiceNow Japan 合同会社]
 sources:
   - https://cloud.watch.impress.co.jp/docs/news/2104011.html
   - https://cloud.watch.impress.co.jp/docs/news/2003774.html
@@ -19,7 +19,6 @@ sources:
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/Y30JfDvzXwarUH9yXwYnZA
   - https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/QurF3629SykoZ_mEuWktCg
   - https://www.servicenow.com/docs/r/ja-JP/platform-administration/system-localization/r_TranslationTables.html?contentId=KZIdBPuvG8VtnjS84PhD8Q
-  - https://www.servicenow.com/docs/r/platform-user-interface/content-management-system/c_CMSTranslation.html
   - https://www.servicenow.com/community/developer-articles/debugging-language-translations-in-servicenow/ta-p/2296421
   - https://www.servicenow.com/community/japan-blog/ootb-%E5%B7%AE%E5%88%86%E3%83%AA%E3%82%B9%E3%83%88-tokyo-utah-vs-vancouver-patch4/ba-p/2733771
   - https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/cokeqpa6gldjchfZglT8Kw
@@ -37,14 +36,28 @@ sources:
   - https://www.servicenow.com/docs/r/platform-administration/time-configuration/c_Holidays.html
   - https://www.servicenow.com/docs/r/bAHg1_u_N~ocpdu34t_qJA/jkHaqaHLE4FcfSzb93KAHw
   - https://www.servicenow.com/community/forum/sla-schedule-%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE-icalendar-%E3%81%BE%E3%81%9F%E3%81%AF%E7%B4%94%E6%AD%A3%E5%BD%A2%E5%BC%8F%E3%81%AE%E7%A5%9D%E6%97%A5%E3%82%AB%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC%E4%BE%9B%E7%B5%A6/m-p/3322430
-  - https://www.servicenow.com/community/developer-forum/i-want-to-implement-holiday-jp-js-with-servicenow/m-p/2650452
   - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/TynjO949Pi14Avr_KMo2tw
   - https://www.servicenow.com/community/now-platform-blog/how-to-prevent-performance-issues-related-to-exports-and-export/ba-p/2291637
   - https://www.hitachi-solutions.co.jp/servicenow/cases/
   - https://special.nikkeibp.co.jp/atcl/ONB/26/servicenow0414/?P=3
   - https://news.mynavi.jp/techplus/article/20240510-2943041/
   - https://global.fujitsu/ja-jp/capabilities/business-applications/servicenow
-  - https://aeo.washinmura.jp/ai/servicenow-co-jp-2/en/news/2026-03-27-servicenow-and-kyndryl-renew-snow-brand?lang=ja
+  - https://info.archives.global.fujitsu/global/about/resources/news/press-releases/2023/0511-01.html
+  - https://it.impress.co.jp/articles/-/29150
+  - https://www.kyndryl.com/jp/ja/about-us/news/2026/03/megmilk-workflow-modernization-servicenow
+  - https://www.servicenow.com/docs/r/FwUPJkMbovpxa7P5GwPYsg/c3DiJsQibXmYUVBIeJdxnQ
+  - https://www.servicenow.com/docs/r/SNaFQCR05mFnAsm231SwFA/tJFU8QOFJVd4SLxzWTzQ8w
+  - https://www.servicenow.com/community/developer-forum/plugin-to-change-language-of-pdi/m-p/3111902
+  - https://www.servicenow.com/community/international-localization/best-practice-configuring-login-page-language-for/ta-p/3568168
+  - https://www.servicenow.com/community/now-assist-blog/unlocking-the-benefits-of-native-language-comprehension/bc-p/3536838
+  - https://www.servicenow.com/community/developer-forum/tolocaledatestring-is-not-working-in-server-side-script/m-p/1441723
+  - https://www.servicenow.com/community/itsm-forum/time-zone-and-date-format-is-not-reflecting-on-user-records-even/m-p/3337549
+  - https://www.servicenow.com/community/training-and-certifications/article-bye-webassessor-hello-pearson-vue/m-p/3387020
+  - https://www.servicenow.com/community/japan-blog/%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%AD%97%E5%B9%95%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1-%E9%8C%B2%E7%94%BB%E3%82%BF%E3%82%A4%E3%83%97%E3%81%AE%E3%82%AA%E3%83%B3%E3%83%87%E3%83%9E%E3%83%B3%E3%83%89%E3%82%B3%E3%83%BC%E3%82%B9%E3%81%8C%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9/ba-p/2271352
+  - https://www.servicenow.com/community/japan-blog/-_-/ba-p/2528682
+  - https://www.ppc.go.jp/personalinfo/legal/guidelines_offshore
+  - https://www.nta.go.jp/law/joho-zeikaishaku/sonota/jirei/pdf/0024005-113_r603.pdf
+  - https://www.nta.go.jp/law/joho-zeikaishaku/sonota/jirei/tokusetsu/index.htm
   - https://www.servicenow.com/community/japan-blog/servicenow%E8%AA%8D%E5%AE%9A%E8%B3%87%E6%A0%BC-%E3%82%AA%E3%83%B3%E3%83%A9%E3%82%A4%E3%83%B3%E8%A9%A6%E9%A8%93%E3%81%A3%E3%81%A6%E3%81%A9%E3%82%93%E3%81%AA%E3%82%82%E3%81%AE/ba-p/2271188
 ---
 
@@ -80,13 +93,15 @@ ServiceNow は SaaS であり、プラットフォーム自体は全世界共通
 
 ### 1.1 日本法人の概況
 
-ServiceNow Japan は ServiceNow, Inc. の日本法人である（法人格の正式名称は本調査では確認していない）。2025〜2026 年の事業戦略説明会では、**執行役員社長 鈴木正敏 氏**が登壇している。[出典](https://cloud.watch.impress.co.jp/docs/news/2003774.html) 【第三者情報】（報道）
+ServiceNow Japan は ServiceNow, Inc. の日本法人で、正式名称は **ServiceNow Japan 合同会社**、設立は **2013 年 9 月**である（同社プレスリリースの会社概要による）。[出典: PR TIMES（ServiceNow Japan 合同会社、2026-06-04）](https://prtimes.jp/main/html/rd/p/000000206.000029239.html)、[TechNews（2013 年設立と記載）](https://technews.tw/2024/11/19/servicenow-to-expand-investment-in-japan/) 代表者は **社長執行役員 鈴木正敏 氏**である（同プレスリリース本文の表記）。2025〜2026 年の事業戦略説明会でも同氏が登壇している。[出典](https://cloud.watch.impress.co.jp/docs/news/2003774.html) 【第三者情報】（報道）
+
+- 本社所在地は、2026-06-04 のプレスリリースで本文（東京都千代田区）と会社概要欄（東京都港区赤坂）の表記が一致していない。2026 年 4 月に東京ミッドタウン日比谷（千代田区）への移転が発表されているため（下表の 2026-04 を参照）、最新の所在地は公式サイトで確認する。
 
 | 時期 | ServiceNow Japan の主な発表・動き | 出典 |
 |---|---|---|
 | 2018-10 | NTT コミュニケーションズの「Nexcenter」上に東京・大阪の国内データセンター開設を発表（2019 年春サービス開始予定） | [ITmedia](https://atmarkit.itmedia.co.jp/ait/articles/1810/19/news068.html), [IT Leaders](https://it.impress.co.jp/articles/-/16855), [NTT Com](https://www.ntt.com/about-us/press-releases/news/article/2018/1017.html) |
 | 2022 | ServiceNow のプラットフォーム（現 ServiceNow AI Platform）が ISMAP クラウドサービスリストに登録 | [PR TIMES 2026-06-04](https://prtimes.jp/main/html/rd/p/000000206.000029239.html) |
-| 2024-05 | 富士通と新たな戦略的パートナーシップを発表（Fujitsu Uvance での ServiceNow 活用強化、まず製造業向け） | [マイナビ](https://news.mynavi.jp/techplus/article/20240510-2943041/) |
+| 2024-05 | 富士通と新たな戦略的パートナーシップを発表（Fujitsu Uvance（デジタルサプライチェーン等）での連携、生成 AI 活用、Fujitsu-ServiceNow Innovation Center の共同設立） | [マイナビ](https://news.mynavi.jp/techplus/article/20240510-2943041/) |
 | 2024-11 | 今後数年で日本に約 20 億ドル（約 3,000〜3,100 億円）を投資する計画が報道（データセンター拡張・東京拠点拡大を含む） | [TechNews（日経報道を引用）](https://technews.tw/2024/11/19/servicenow-to-expand-investment-in-japan/), [GuruFocus](https://gurufocus.com/news/2608954/servicenow-now-plans-2-billion-investment-in-japan-to-expand-data-centers) |
 | 2025-04 | 2025 年事業戦略。2024 年は日本の成長率がグローバルを上回り、製造業・金融業向けが大きく成長。2025 年の重点は「AI プラットフォーマーへの進化」「次世代 CRM」 | [クラウド Watch](https://cloud.watch.impress.co.jp/docs/news/2003774.html) |
 | 2026-04 | 2026 年事業戦略。本社を**東京ミッドタウン日比谷**へ移転し「**Tokyo Innovation Center**」を開設。提供形態を **Foundation / Advanced / Prime** の 3 ティアに刷新し、最下位ティアでも AI を利用可能に、定額サブスクリプションに従量課金を組み合わせる方針 | [クラウド Watch](https://cloud.watch.impress.co.jp/docs/news/2104011.html) |
@@ -115,10 +130,10 @@ AI 機能の詳細は [Now Assist と AI Agents](../02_リファレンス/platfo
 
 | パートナー | 公開されている取り組み | 出典 |
 |---|---|---|
-| 富士通 | 2011 年にグローバルで ServiceNow を自社導入、日本では 2020 年から活用。2024 年に戦略的パートナーシップ。2023 年に Enterprise Training Agreement（ETA）を締結し全従業員が教育を受講可能に。公式サイトで 800 件以上のプロジェクト実績を案内 | [日経 BP 特集](https://special.nikkeibp.co.jp/atcl/ONB/26/servicenow0414/?P=3), [マイナビ](https://news.mynavi.jp/techplus/article/20240510-2943041/), [富士通](https://global.fujitsu/ja-jp/capabilities/business-applications/servicenow) |
+| 富士通 | 2011 年にグローバルで ServiceNow を自社導入、日本では 2020 年から活用。2024 年に戦略的パートナーシップ。2023-05 に Enterprise Training Agreement（ETA、premium tier）を締結し、富士通グループ従業員が RiseUp with ServiceNow の学習コンテンツ・認定資格に無制限にアクセス可能に。公式サイトで 800 件以上のプロジェクト実績を案内 | [日経 BP 特集](https://special.nikkeibp.co.jp/atcl/ONB/26/servicenow0414/?P=3), [マイナビ](https://news.mynavi.jp/techplus/article/20240510-2943041/), [富士通プレスリリース（2023-05-11、ETA）](https://info.archives.global.fujitsu/global/about/resources/news/press-releases/2023/0511-01.html), [富士通](https://global.fujitsu/ja-jp/capabilities/business-applications/servicenow) |
 | NTT コミュニケーションズ | 国内データセンター（Nexcenter）の提供、運用サービスとの組み合わせ | [ITmedia](https://atmarkit.itmedia.co.jp/ait/articles/1810/19/news068.html) |
 | 日立ソリューションズ／日立製作所 | 導入事例（デンソー、大林組、三菱 HC キャピタル等）を公開 | [日立ソリューションズ](https://www.hitachi-solutions.co.jp/servicenow/cases/) |
-| Kyndryl Japan | 雪印メグミルクのワークフロー刷新を支援（2026-03 発表） | [ニュース転載](https://aeo.washinmura.jp/ai/servicenow-co-jp-2/en/news/2026-03-27-servicenow-and-kyndryl-renew-snow-brand?lang=ja) 【第三者情報】 |
+| Kyndryl Japan（キンドリルジャパン） | 雪印メグミルクの申請ワークフロー刷新（ServiceNow App Engine）の構築・導入・移行を担当（2026-03 発表） | [Kyndryl ニュース](https://www.kyndryl.com/jp/ja/about-us/news/2026/03/megmilk-workflow-modernization-servicenow), [IT Leaders](https://it.impress.co.jp/articles/-/29150) 【第三者情報】 |
 
 - パートナーの認定レベル（Elite 等）や国内の認定資格保有者数は時期により変わる。最新の一覧は ServiceNow Partner Finder および ServiceNow Community の Japan Blog（「パートナー認定資格取得状況一覧」記事）で確認する。パートナー選定の観点は [プロジェクト体制とパートナー](05-project-organization.md) を参照。
 
@@ -150,10 +165,11 @@ ServiceNow のデータセンターはリージョン内で 2 拠点をペアに
 |---|---|---|
 | 1 | 本番・サブプロダクション（開発・テスト）インスタンスがすべて日本 DC にプロビジョニングされるか | インスタンス単位でデータセンターが割り当てられる。追加インスタンスの配置も確認する |
 | 2 | バックアップの保管先がペア DC（東京⇔大阪）内に閉じるか | DR・バックアップの国外保管の有無 |
-| 3 | 生成 AI（Now Assist）の推論処理がどのリージョンで行われるか | LLM の処理場所は、ServiceNow 自社モデルか外部プロバイダ（Azure OpenAI 等）かで異なる。**日本国内処理の可否は公開情報では確認できず**。アカウント担当・契約書類で確認する |
+| 3 | 生成 AI（Now Assist）の推論処理がどのリージョンで行われるか | Now Assist は ServiceNow 自社の Now LLM Service のほか、外部 LLM プロバイダ（Microsoft Azure OpenAI、Anthropic Claude、Google Gemini）を使う構成がある（[出典: Multilingual service for Now Assist](https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/translation-for-now-assist.html)）。どのモデルを使うかで処理場所が変わりうる【推定】。**日本国内処理の可否は公開情報では確認できず**。アカウント担当・契約書類で確認する |
 | 4 | ServiceNow のサポート要員による国外からのアクセス | 運用・サポートの所在。必要に応じて Data Processing Addendum 等の契約条項を確認 |
-| 5 | 連携先（IntegrationHub のスポーク、外部 SaaS、Dynamic Translation の翻訳プロバイダ等）へのデータ送信 | Dynamic Translation は Microsoft Azure / Google Cloud Translator 等の外部サービスを使う構成がある（[出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/RqlKYndUCRjhXc3pW4yjuw)） |
-| 6 | Store アプリ・プラグインの一部が外部クラウドで処理されるか | AI Search、Document Intelligence、Predictive Intelligence 等の処理基盤 |
+| 5 | 個人情報保護法（APPI）の越境移転規制 | 外国にある第三者への個人データの提供（法第 28 条）は、原則として本人の同意が必要で、同意取得時には移転先の国名・その国の個人情報保護制度・移転先の保護措置の情報提供が求められる。例外は、日本と同等水準の国（EU・英国）にある場合、または基準に適合する体制を整備した事業者への提供である。委託の場合も、外国にある委託先への提供はこの規律の対象になる。サポート要員の国外アクセス（#4）や外部 LLM・翻訳サービスへの送信（#3、#6）がこれに該当するかを、法務・個人情報保護部門と評価する（[出典: 個人情報保護委員会 ガイドライン（外国にある第三者への提供編）](https://www.ppc.go.jp/personalinfo/legal/guidelines_offshore)）。あわせて委託先の監督（法第 25 条）の観点で、契約条項・監査報告書を確認する【経験則】 |
+| 6 | 連携先（IntegrationHub のスポーク、外部 SaaS、Dynamic Translation の翻訳プロバイダ等）へのデータ送信 | Dynamic Translation は Microsoft Azure / Google Cloud Translator 等の外部サービスを使う構成がある（[出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/RqlKYndUCRjhXc3pW4yjuw)） |
+| 7 | Store アプリ・プラグインの一部が外部クラウドで処理されるか | AI Search、Document Intelligence、Predictive Intelligence 等の処理基盤 |
 
 セキュリティ認証・契約条項の詳細は [セキュリティとコンプライアンス](10-security-compliance.md) を参照する。
 
@@ -186,17 +202,17 @@ ISMAP は、政府が求めるセキュリティ要求を満たすクラウド�
 | 基盤プラグイン | `I18N: Internationalization`（`com.glide.i18n`）。言語プラグインのない言語をローカライズする際の基盤 |
 | ドメインセパレーション環境 | Domain separation と delegated admin が有効な場合、作業する管理者は **global ドメイン**に属している必要がある（そうでないとエラー） |
 | 取り消し | **ローカライズプラグインは一度インストールするとアンインストールできない** |
-| 翻訳対象外 | 製品名・アプリケーション名は英語のまま（機能名は翻訳される） |
+| 翻訳対象外 | 製品名・アプリケーション名は英語のまま（機能名は翻訳される）と記載。ただし別ページには異なる記述がある（3.2 末尾を参照） |
 
 [出典: Activate a language（Australia）](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/Y30JfDvzXwarUH9yXwYnZA)
 
 - Australia の言語プラグイン一覧には日本語を含む 24 言語（例: Simplified/Traditional Chinese、Korean、Thai 等）が掲載されている。[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/Y30JfDvzXwarUH9yXwYnZA)
-- Community では日本語プラグイン ID として `com.snc.i18n.japanese` が言及されているが、Australia の公式ページにはプラグイン ID の記載がない。インスタンスで名前検索して確認する。【第三者情報】
+- Community では日本語プラグイン ID として `com.snc.i18n.japanese` が言及されているが、Australia の公式ページにはプラグイン ID の記載がない。インスタンスで名前検索して確認する。[出典](https://www.servicenow.com/community/developer-forum/plugin-to-change-language-of-pdi/m-p/3111902) 【第三者情報】
 - **アンインストール不可**のため、まず PDI（Personal Developer Instance）や開発インスタンスで日本語 UI を評価してから、本番への適用を計画する【経験則】。
 
 ### 3.2 セッション言語の決定順序と翻訳されない項目
 
-ユーザーのセッション言語は次の優先順位で決まる。[出典](https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/QurF3629SykoZ_mEuWktCg)
+ユーザーのセッション言語は次の優先順位で決まる。[出典: Language internationalization support（Yokohama 版ページ）](https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/QurF3629SykoZ_mEuWktCg)
 
 1. ログイン時に選択した言語（ログイン時の言語選択が有効な場合）
 2. ヘッダーの言語ピッカーで選択した言語
@@ -215,10 +231,13 @@ ISMAP は、政府が求めるセキュリティ要求を満たすクラウド�
 | プラグイン名・スポーク名 | 常に英語 |
 | 顧客が作成・変更したフィールド、メッセージ、UI | **ServiceNow AI Platform は翻訳を行わない**ため、自分で翻訳を登録する |
 
-[出典](https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/QurF3629SykoZ_mEuWktCg)
+[出典（Yokohama 版ページ）](https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/QurF3629SykoZ_mEuWktCg)
 
-- 製品名・アプリケーション名は Washington DC 以降に段階的にローカライズされており、古い名称は完全にローカライズされていない場合がある。[出典](https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/QurF3629SykoZ_mEuWktCg)
-- Yokohama / Australia へのアップグレード後、ログインページの UI 言語について「guest ユーザーの言語設定が優先されなくなった」とする Community 記事がある（2026-03）。日本語のログイン画面を前提とする場合はアップグレード時に確認する。【第三者情報】
+- **製品名・アプリケーション名のローカライズは、公式ドキュメント間で記述が異なる。**
+  - Activate a language（Australia 版）は「製品名・アプリケーション名は英語のまま（機能名は翻訳される）」と記載している。[出典](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/Y30JfDvzXwarUH9yXwYnZA)
+  - Language internationalization support（Yokohama 版ページ）は「Washington DC 以降の新しい製品名・アプリケーション名は全サポート言語でローカライズされ、既存の名称は段階的にローカライズされる」と記載している。[出典（Yokohama 版ページ）](https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/QurF3629SykoZ_mEuWktCg)
+  - どちらが Australia の実際の挙動かは公開情報では確定できない。利用者向けマニュアルや研修資料で製品名をどう表記するかは、実インスタンスの日本語 UI で確認してから決める。
+- Yokohama / Australia へのアップグレード後、ログインページの UI 言語は guest ユーザーの言語設定ではなく、システム既定言語（`glide.sys.language`）に従うようになった（「guest ユーザーの言語設定が優先されなくなった」）とする Community 記事がある（2026-07 投稿）。同記事は、これを新しいセッション言語の判定ロジックによる仕様上の変更と説明している。日本語のログイン画面を前提とする場合はアップグレード時に確認する。[出典](https://www.servicenow.com/community/international-localization/best-practice-configuring-login-page-language-for/ta-p/3568168) 【第三者情報】
 
 ### 3.3 翻訳を格納するテーブルと「どこを直せばよいか」の特定方法
 
@@ -267,10 +286,11 @@ ISMAP は、政府が求めるセキュリティ要求を満たすクラウド�
 | AI Search | 日本語は空白ではなく文脈解釈で語境界を判定（形態素解析相当）。中黒（・）を語の区切りとして認識。他言語の文中に埋め込まれた日本語も日本語として索引化。日本語のレンマ正規化・ストップワード・シノニムに対応。**タイプミス補正（typo handling）は日本語非対応** | [Internationalization support for AI Search](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/cokeqpa6gldjchfZglT8Kw) |
 | AI Search の前提 | 日本語プラグインの有効化が必要。有効化後に日本語コンテンツの再インデックスが必要。**2024 年 8 月以前に索引化された日本語コンテンツは再インデックス推奨** | 同上 |
 | Now Assist | 現行ドキュメントでは日本語は **P2**（概ね良好だがニュアンスに時折ギャップ）に分類。サポート言語ではネイティブ処理され Dynamic Translation は使われない。未サポート言語は Dynamic Translation にフォールバック | [Multilingual service for Now Assist](https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/translation-for-now-assist.html) |
-| Document Intelligence | 日本語 OCR は日本語・簡体字中国語用の別モデルを使う | 同上（検索結果） 【第三者情報】 |
+| Document Intelligence | 言語サポート表に、日本語と簡体字中国語に対応する OCR モデルが掲載されている。ただし Document Intelligence は Zurich から将来の廃止に向けた準備段階に入っており、新規インスタンスでは非表示・有効化不可（サポートは継続）。文書からの情報抽出には Now Assist の利用が推奨されている | [Languages supported by Document Intelligence（Australia）](https://www.servicenow.com/docs/r/FwUPJkMbovpxa7P5GwPYsg/c3DiJsQibXmYUVBIeJdxnQ) |
+| Now Assist in Document Intelligence | テキスト系ファイルは、選択した LLM が対応する言語を扱える。画像ファイルの OCR は言語グループ別のモデルを使い、日本語は簡体字中国語とともに **CJ モデル**で処理される（既定は Latin モデル）。ユースケース設定時に言語を選ぶと、OCR の文字検出に使われる | [Languages supported by Now Assist in Document Intelligence（Australia）](https://www.servicenow.com/docs/r/SNaFQCR05mFnAsm231SwFA/tJFU8QOFJVd4SLxzWTzQ8w) |
 
 - AI Search の詳細は [Predictive Intelligence と AI Search](../02_リファレンス/platform/predictive-intelligence-ai-search.md)、Now Assist の言語設定は [Now Assist と AI Agents](../02_リファレンス/platform/now-assist-ai-agents.md) を参照する。
-- Community では、Creator 向け AI 生成機能（ATF・フロー生成）で日本語入力が受け付けられないという報告がある。AI 機能ごとの日本語対応はリリースノートで個別に確認する。【第三者情報】
+- Community では、Creator 向け AI 生成機能（ATF・フロー生成）で日本語入力が受け付けられないという報告がある（2025-12、回答なし）。AI 機能ごとの日本語対応はリリースノートで個別に確認する。[出典](https://www.servicenow.com/community/now-assist-blog/unlocking-the-benefits-of-native-language-comprehension/bc-p/3536838) 【第三者情報】
 
 ---
 
@@ -279,6 +299,8 @@ ISMAP は、政府が求めるセキュリティ要求を満たすクラウド�
 ### 4.1 稟議・多段承認
 
 日本企業の稟議は、「起案 → 回議（複数部門の確認）→ 合議 → 決裁（職務権限規程に基づく決裁者）」という多段・並列の承認経路を持つ。ServiceNow では、Workflow Studio（Flow Designer）の **Ask for Approval** アクションを組み合わせて実現するのが標準的である。
+
+稟議の公開事例として、雪印メグミルクは ServiceNow App Engine で稟議申請・労務申請・マスター申請のワークフローを刷新し、2025 年中に全面移行した（グループ約 4,800 人が利用、改修を内製化）。[出典](https://it.impress.co.jp/articles/-/29150) 【第三者情報】 詳細は 5 章を参照する。
 
 #### 4.1.1 Ask for Approval アクションの主な仕様
 
@@ -292,7 +314,7 @@ ISMAP は、政府が求めるセキュリティ要求を満たすクラウド�
 
 | 出力: Approval State | 値 |
 |---|---|
-| Not Yet Requested | `not_requested` |
+| Not Yet Requested | `not requested`（スペース入り） |
 | Requested | `requested` |
 | Approved | `approved` |
 | Rejected | `rejected` |
@@ -301,6 +323,8 @@ ISMAP は、政府が求めるセキュリティ要求を満たすクラウド�
 | Skipped | `skipped` |
 
 [出典: Ask for Approval action（Brazil 版ページ）](https://www.servicenow.com/docs/r/build-workflows/workflow-studio/ask-approval-flow-designer.html)
+
+- 内部値でアンダースコアを使うのは No Longer Required（`not_required`）だけで、Not Yet Requested は公式ページ上 `not requested`（スペース入り）と表記されている。スクリプトやフロー条件で値を比較する場合は、実インスタンスの `sysapproval_approver.state`／`task.approval` の選択肢（`sys_choice`）で値を確認してから使う。
 
 注意点（同出典）:
 
@@ -320,7 +344,7 @@ ISMAP は、政府が求めるセキュリティ要求を満たすクラウド�
 | 差戻し | 却下後に起案者へ戻すフロー設計（状態を戻して再申請） | OOTB の「差戻し」という状態はないため設計が必要【経験則】 |
 | 代理承認（不在時） | Delegates（`sys_user_delegate`）、Granular Delegation | 次項参照 |
 | 後閲（事後回覧） | 承認後の通知・タスク（Catalog Task 等） | 承認とは分けて設計【経験則】 |
-| 押印・電子印影 | OOTB の印影機能は公開情報では確認できず。帳票（PDF）側に承認者名・日時を出力する設計で代替するのが一般的【経験則】 | 4.2 参照 |
+| 押印・電子印影 | OOTB の印影機能は公開情報では確認できず。帳票（PDF）側に承認者名・日時を出力する設計で代替するのが一般的【経験則】 | 4.2 参照。電子帳簿保存法・電子署名の要否は 4.2.3 |
 
 #### 4.1.3 代理承認（Delegation）
 
@@ -385,6 +409,15 @@ ServiceNow Community の技術記事（2026-02）では、BCM（Business Continu
 > - 「紙と 1 ピクセルも違わない帳票」が必須なら、ServiceNow 標準での実現にこだわらず外部帳票ツールとの連携を検討する。
 > - フォントファイルのライセンス（サーバー上での埋め込み・再配布の可否）を確認する。
 
+#### 4.2.3 電子帳簿保存法・電子署名の観点
+
+稟議・申請・帳票を電子化する際は、国税関係の帳簿・書類や電子取引データに当たるものがないかを確認する。
+
+- 電子帳簿保存法では、電子取引（請求書・見積書・契約書などを電子データでやり取りする取引）のデータは電子のまま保存する必要があり、その保存には**真実性の確保**（タイムスタンプ、訂正・削除の記録が残るシステム、または事務処理規程など）と**可視性の確保**（見読性、取引年月日・金額・取引先で検索できること等）の要件がある。[出典: 国税庁 電子帳簿保存法一問一答【電子取引関係】（令和 6 年 6 月）](https://www.nta.go.jp/law/joho-zeikaishaku/sonota/jirei/pdf/0024005-113_r603.pdf)、[国税庁 電子帳簿等保存制度特設サイト](https://www.nta.go.jp/law/joho-zeikaishaku/sonota/jirei/tokusetsu/index.htm)
+- ServiceNow のレコード・添付ファイルにこうしたデータを保管する場合、ServiceNow 単体で要件を満たせるかを公式に示した情報は公開情報では確認できず。訂正・削除の履歴（Audit／History）、添付ファイルの削除権限、検索要件、保存期間（アーカイブ・データ削除ポリシーとの整合）を設計で確認し、要件を満たせない場合は電子帳簿保存法に対応した文書管理・会計システムを保存先とする【経験則】。
+- 押印廃止に伴い、契約書・対外文書に電子署名が必要になる場合がある。ServiceNow の承認記録（`sysapproval_approver`）は社内の承認証跡にはなるが、電子署名法上の電子署名に相当するかは別途の検討が必要で、必要に応じて外部の電子契約・電子署名サービスと連携する【経験則】。連携方式は [連携設計](09-integration-design.md) を参照する。
+- これらの法令解釈は、税務・法務部門または専門家に確認する【経験則】。
+
 ### 4.3 和暦・日付書式・タイムゾーン・祝日
 
 #### 4.3.1 日付・時刻の書式
@@ -410,14 +443,14 @@ ServiceNow Community の技術記事（2026-02）では、BCM（Business Continu
   | 帳票側で変換 | PDF・帳票テンプレートに出力する際にスクリプトで和暦文字列を生成 | 元号の境界日（例: 2019-05-01 令和改元）をロジックに持つ。「元年」表記の扱いを決める |
   | 表示用の文字列フィールド | 西暦の日付フィールドから和暦文字列を計算して別フィールドに保持（Business Rule 等） | 検索・並べ替え・レポートは西暦の日付フィールドで行う |
   | 外部帳票ツールで変換 | 連携先で和暦に整形 | |
-- Community では、サーバーサイドスクリプトでの `toLocaleDateString` が期待どおり動かないという報告があり、和暦変換はロケール機能に頼らず自前ロジックで実装するのが安全である。【第三者情報】
+- Community（2022）では、和暦変換に `toLocaleDateString` を使うとクライアントスクリプトでは動くが Business Rule（サーバーサイド）では動かないという報告があり、回答では独自の変換ロジックが勧められている。和暦変換はロケール機能に頼らず自前ロジックで実装するのが安全である。[出典](https://www.servicenow.com/community/developer-forum/tolocaledatestring-is-not-working-in-server-side-script/m-p/1441723) 【第三者情報】
 - **データとしては常に西暦（内部 UTC）で保持し、和暦は表示・帳票の責務とする**のが原則である【経験則】。
 
 #### 4.3.3 タイムゾーン
 
 - ServiceNow はすべての日時を内部で UTC で保持し、ユーザーのタイムゾーン設定に基づいて表示する。システム既定のタイムゾーンを設定できる。[出典: Time zones](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/6hJ_FXpdWBtTMWyZumWEBA)
 - 日本のみで利用する場合でも、ユーザーごとのタイムゾーン（`Asia/Tokyo`）、スケジュールのタイムゾーン、通知の時刻表示、データ連携（UTC での受け渡し）の 4 点を設計で確認する【経験則】。
-- Community では、システムプロパティを変更しても既存の `sys_user` レコードに保存された値（タイムゾーン・日付書式）は更新されない、との報告がある。ユーザー一括登録時にユーザーレコード側の値を意図的に設定するか空にするかを決める。【第三者情報】
+- Community（2025-07）では、システムプロパティを変更しても既存の `sys_user` レコードに保存された値（タイムゾーン・日付書式）は更新されず、プロパティは新規ユーザーと個別設定のないユーザーにのみ効く、と説明されている。ユーザー一括登録時にユーザーレコード側の値を意図的に設定するか空にするかを決める。[出典](https://www.servicenow.com/community/itsm-forum/time-zone-and-date-format-is-not-reflecting-on-user-records-even/m-p/3337549) 【第三者情報】
 - 日本はサマータイムがないため、海外拠点（米国・欧州）との SLA・メンテナンス時間の計算で時差が季節により変わる点に注意する【経験則】。
 
 #### 4.3.4 日本の祝日カレンダー
@@ -477,7 +510,7 @@ SLA・営業時間・オンコールの計算には、Schedule（スケジュー
 | 全角・半角 | 英数字・カナの全角／半角混在 | 入力規則（Client Script による正規化）やインポート時の変換で統一する。AI Search は Unicode 正規化を行う（[出典](https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/cokeqpa6gldjchfZglT8Kw)） |
 | メール文化 | 通知メールの件名・本文の日本語化、文字化け | 通知テンプレートを日本語で作成し、多言語ユーザーがいる場合は言語別通知を設計。[通知とメール](../02_リファレンス/platform/notifications-email.md) |
 | 外部委託（SIer・運用ベンダー） | 運用を外部ベンダーに委託することが多い | ベンダー要員のライセンス種別・ロール、アクセス範囲の設計。[ライセンスモデル](01-licensing-model.md) |
-| 要件の「全部入り」化 | 現行業務を変えず、Fit to Standard より Fit & Gap で大量のカスタマイズ要件が出がち | 「OOTB 優先」の原則と、カスタマイズ判断基準を経営層と合意する。[要件定義と設計](06-requirements-design.md)、[カスタマイズと技術的負債](../04_応用編/02-customization-technical-debt.md) |
+| 要件の「全部入り」化 | 現行業務を変えず、Fit to Standard より Fit & Gap で大量のカスタマイズ要件が出がち | 「OOTB 優先」の原則と、カスタマイズ判断基準を経営層と合意する。[要件定義と設計](06-requirements-design.md)、[導入失敗パターンと対策](../04_応用編/01-implementation-failure-patterns.md)、[ガバナンスとCoEの実践](../04_応用編/09-governance-coe-practice.md) |
 | 合意形成 | 稟議・根回しによる意思決定の長期化 | プロジェクト計画にステアリングコミッティの決裁サイクルを織り込む。[導入方法論](04-implementation-methodology.md) |
 
 ---
@@ -494,7 +527,7 @@ SLA・営業時間・オンコールの計算には、Schedule（スケジュー
 | 三菱 HC キャピタル | 金融（リース） | 紙ベースの手続きを Web サービス化 | 運用効率が約 15% 向上 | 同上 |
 | 第一生命保険 | 金融（保険） | 分散した構成情報の統合管理 | 数値の公表なし | 同上 |
 | 日立製作所 | 製造業 | グローバル IT サービスのガバナンス強化 | 数値の公表なし | 同上 |
-| 雪印メグミルク | 食品 | クラウド型統合プラットフォームとして ServiceNow を採用しワークフローシステムを刷新（Kyndryl Japan が支援） | 数値の公表なし | [ニュース転載（2026-03）](https://aeo.washinmura.jp/ai/servicenow-co-jp-2/en/news/2026-03-27-servicenow-and-kyndryl-renew-snow-brand?lang=ja) 【第三者情報】 |
+| 雪印メグミルク | 食品 | ServiceNow App Engine（ローコード開発基盤）で、利用頻度の高い**稟議申請・労務申請・マスター申請**のワークフローを刷新。キンドリルジャパンが構築・導入・移行を担当 | 2025 年中に全面移行。グループ会社を含め約 4,800 人が利用（2026-03 時点）。追加開発・改修を**内製化** | [IT Leaders（2026-03-26）](https://it.impress.co.jp/articles/-/29150), [Kyndryl ニュース（2026-03）](https://www.kyndryl.com/jp/ja/about-us/news/2026/03/megmilk-workflow-modernization-servicenow) 【第三者情報】 |
 
 - ServiceNow 公式の日本語事例一覧（servicenow.com/jp/customers.html）は、今回の調査ではページ本文を取得できず、個別事例の内容は確認できなかった。最新の公式事例は同ページで確認する。
 - 事例から読み取れる日本市場の傾向【推定】:
@@ -511,8 +544,8 @@ SLA・営業時間・オンコールの計算には、Schedule（スケジュー
 |---|---|---|
 | 日本語版公式ドキュメント | servicenow.com/docs の言語切替で日本語版（`/docs/r/ja-JP/...`）が利用可能。一部は自動翻訳 | 公式 |
 | ServiceNow Community Japan Blog・日本語フォーラム | ServiceNow Japan 社員による解説記事（翻訳差分リスト、学習方法、パートナー認定状況等）、日本語の Q&A | [Japan Blog](https://www.servicenow.com/community/japan-blog/servicenow%E8%AA%8D%E5%AE%9A%E8%B3%87%E6%A0%BC-%E3%82%AA%E3%83%B3%E3%83%A9%E3%82%A4%E3%83%B3%E8%A9%A6%E9%A8%93%E3%81%A3%E3%81%A6%E3%81%A9%E3%82%93%E3%81%AA%E3%82%82%E3%81%AE/ba-p/2271188) |
-| 認定資格の日本語受験 | 認定試験は日本語で受験できるものがある。Community の情報では、2025-11-18 から試験ベンダーが Webassessor から Pearson VUE に変更された | 【第三者情報】最新は ServiceNow University／Now Learning で確認 |
-| 日本語のオンデマンド研修 | 無償・日本語のオンデマンドコースがある（Japan Blog で紹介） | 【第三者情報】 |
+| 認定資格の日本語受験 | 認定試験は日本語で受験できるものがある。Community の情報では、2025-11-18 から試験ベンダーが Webassessor から Pearson VUE に変更された | [Community](https://www.servicenow.com/community/training-and-certifications/article-bye-webassessor-hello-pearson-vue/m-p/3387020) 【第三者情報】最新は ServiceNow University で確認 |
+| 日本語のオンデマンド研修 | Japan Blog で日本語のオンデマンド（録画型）コースが紹介されている。2023-04 には ServiceNow Administration Fundamentals の日本語オンデマンド版と CSA 日本語試験バウチャーを無償提供するキャンペーンが告知された（期間限定。現在の無償提供の有無は公開情報では確認できず） | [Japan Blog（オンデマンドコース）](https://www.servicenow.com/community/japan-blog/%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%AD%97%E5%B9%95%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1-%E9%8C%B2%E7%94%BB%E3%82%BF%E3%82%A4%E3%83%97%E3%81%AE%E3%82%AA%E3%83%B3%E3%83%87%E3%83%9E%E3%83%B3%E3%83%89%E3%82%B3%E3%83%BC%E3%82%B9%E3%81%8C%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9/ba-p/2271352)、[Japan Blog（2023 キャンペーン）](https://www.servicenow.com/community/japan-blog/-_-/ba-p/2528682) 【第三者情報】 |
 
 学習パス全般は [学習パスと認定資格](../01_入門編/09-learning-path.md) を参照する。
 
@@ -525,6 +558,8 @@ SLA・営業時間・オンコールの計算には、Schedule（スケジュー
 | 提案・契約 | 全インスタンス（本番・開発・テスト）の日本 DC 配置を契約書類で確認したか | 2.2 |
 | 提案・契約 | 生成 AI（Now Assist）の処理場所・外部 LLM 利用の有無を確認したか | 2.2 |
 | 提案・契約 | 公共案件の場合、利用機能が ISMAP 登録範囲に含まれるか確認したか | 2.3 |
+| 提案・契約 | 個人情報保護法の越境移転（法第 28 条）の観点で、国外アクセス・外部 LLM／翻訳サービスへの送信を評価したか | 2.2 |
+| 要件定義 | 電子帳簿保存法の対象データ（電子取引等）の有無と保存先、電子署名の要否を確認したか | 4.2.3 |
 | 要件定義 | 日本語のみ／日英併用／英語主のどの言語モデルにするか決めたか | 3.4 |
 | 要件定義 | 用語集（OOTB 訳語と社内用語の対応）を作成したか | 3.4 |
 | 要件定義 | 稟議の標準経路・例外経路・決裁権限表・代理承認ルールを整理したか | 4.1 |
@@ -563,9 +598,10 @@ SLA・営業時間・オンコールの計算には、Schedule（スケジュー
 
 **ServiceNow 公式ドキュメント**
 - Activate a language（Australia）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/Y30JfDvzXwarUH9yXwYnZA
-- Language internationalization support: https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/QurF3629SykoZ_mEuWktCg
+- Language internationalization support（Yokohama 版ページ）: https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/QurF3629SykoZ_mEuWktCg
 - Translation tables（日本語版）: https://www.servicenow.com/docs/r/ja-JP/platform-administration/system-localization/r_TranslationTables.html?contentId=KZIdBPuvG8VtnjS84PhD8Q
-- CMS translation: https://www.servicenow.com/docs/r/platform-user-interface/content-management-system/c_CMSTranslation.html
+- Languages supported by Document Intelligence（Australia）: https://www.servicenow.com/docs/r/FwUPJkMbovpxa7P5GwPYsg/c3DiJsQibXmYUVBIeJdxnQ
+- Languages supported by Now Assist in Document Intelligence（Australia）: https://www.servicenow.com/docs/r/SNaFQCR05mFnAsm231SwFA/tJFU8QOFJVd4SLxzWTzQ8w
 - ServiceNow AI Platform translation and localization: https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/RqlKYndUCRjhXc3pW4yjuw
 - Internationalization support for AI Search: https://www.servicenow.com/docs/r/7LhbZn3yz3Q58qhjZoU9iQ/cokeqpa6gldjchfZglT8Kw
 - Multilingual service for Now Assist: https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/translation-for-now-assist.html
@@ -588,7 +624,14 @@ SLA・営業時間・オンコールの計算には、Schedule（スケジュー
 - Community: Generate a Japanese PDF with custom font for BIA: https://www.servicenow.com/community/developer-forum/blog-1-tm-generate-a-japanese-pdf-with-custom-font-for-bia/m-p/3497671
 - Community: BCM generated Japanese PDF issue（PRB1745363）: https://www.servicenow.com/community/grc-forum/article4-bcm-tm-generated-japanese-pdf-having-issue-like-grammer/m-p/3498094
 - Community（日本語）: SLA Schedule のための祝日カレンダー供給: https://www.servicenow.com/community/forum/sla-schedule-%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE-icalendar-%E3%81%BE%E3%81%9F%E3%81%AF%E7%B4%94%E6%AD%A3%E5%BD%A2%E5%BC%8F%E3%81%AE%E7%A5%9D%E6%97%A5%E3%82%AB%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC%E4%BE%9B%E7%B5%A6/m-p/3322430
-- Community: holiday-jp.js with ServiceNow: https://www.servicenow.com/community/developer-forum/i-want-to-implement-holiday-jp-js-with-servicenow/m-p/2650452
+- Community: 日本語プラグイン ID（com.snc.i18n.japanese）への言及: https://www.servicenow.com/community/developer-forum/plugin-to-change-language-of-pdi/m-p/3111902
+- Community: ログインページの言語設定のベストプラクティス（Yokohama / Australia、2026-07）: https://www.servicenow.com/community/international-localization/best-practice-configuring-login-page-language-for/ta-p/3568168
+- Community: Creator Skills の AI 生成で日本語入力が受け付けられない報告（2025-12）: https://www.servicenow.com/community/now-assist-blog/unlocking-the-benefits-of-native-language-comprehension/bc-p/3536838
+- Community: サーバーサイドで toLocaleDateString が動かない（2022）: https://www.servicenow.com/community/developer-forum/tolocaledatestring-is-not-working-in-server-side-script/m-p/1441723
+- Community: プロパティ変更が既存ユーザーのタイムゾーン・日付書式に反映されない（2025-07）: https://www.servicenow.com/community/itsm-forum/time-zone-and-date-format-is-not-reflecting-on-user-records-even/m-p/3337549
+- Community: Webassessor から Pearson VUE への移行: https://www.servicenow.com/community/training-and-certifications/article-bye-webassessor-hello-pearson-vue/m-p/3387020
+- Japan Blog: 録画タイプのオンデマンドコース（日本語字幕）: https://www.servicenow.com/community/japan-blog/%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%AD%97%E5%B9%95%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1-%E9%8C%B2%E7%94%BB%E3%82%BF%E3%82%A4%E3%83%97%E3%81%AE%E3%82%AA%E3%83%B3%E3%83%87%E3%83%9E%E3%83%B3%E3%83%89%E3%82%B3%E3%83%BC%E3%82%B9%E3%81%8C%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9/ba-p/2271352
+- Japan Blog: SNAF 日本語オンデマンド版の無償提供キャンペーン（2023-04）: https://www.servicenow.com/community/japan-blog/-_-/ba-p/2528682
 - Community: データセンターの所在地: https://www.servicenow.com/community/developer-forum/is-there-a-way-to-know-the-detailed-addresses-of-service-now/m-p/2485416
 - Community blog: エクスポートによるパフォーマンス問題の防止: https://www.servicenow.com/community/now-platform-blog/how-to-prevent-performance-issues-related-to-exports-and-export/ba-p/2291637
 
@@ -604,4 +647,11 @@ SLA・営業時間・オンコールの計算には、Schedule（スケジュー
 - 日経 BP 特集（富士通の全社変革）: https://special.nikkeibp.co.jp/atcl/ONB/26/servicenow0414/?P=3
 - マイナビ: 富士通と ServiceNow の戦略的パートナーシップ（2024-05）: https://news.mynavi.jp/techplus/article/20240510-2943041/
 - 富士通 ServiceNow ソリューション: https://global.fujitsu/ja-jp/capabilities/business-applications/servicenow
-- 雪印メグミルクのワークフロー刷新（ニュース転載, 2026-03）: https://aeo.washinmura.jp/ai/servicenow-co-jp-2/en/news/2026-03-27-servicenow-and-kyndryl-renew-snow-brand?lang=ja
+- 富士通プレスリリース: Fujitsu signs ETA with ServiceNow（2023-05-11）: https://info.archives.global.fujitsu/global/about/resources/news/press-releases/2023/0511-01.html
+- IT Leaders: 雪印メグミルク、ServiceNow App Engine で申請ワークフローを刷新（2026-03-26）: https://it.impress.co.jp/articles/-/29150
+- Kyndryl ニュース: キンドリルとServiceNow、雪印メグミルクのワークフローシステムを刷新（2026-03-26、日本語版）: https://www.kyndryl.com/jp/ja/about-us/news/2026/03/megmilk-workflow-modernization-servicenow
+
+**法令・公的機関**
+- 個人情報保護委員会: 個人情報の保護に関する法律についてのガイドライン（外国にある第三者への提供編）: https://www.ppc.go.jp/personalinfo/legal/guidelines_offshore
+- 国税庁: 電子帳簿保存法一問一答【電子取引関係】（令和 6 年 6 月）: https://www.nta.go.jp/law/joho-zeikaishaku/sonota/jirei/pdf/0024005-113_r603.pdf
+- 国税庁: 電子帳簿等保存制度特設サイト: https://www.nta.go.jp/law/joho-zeikaishaku/sonota/jirei/tokusetsu/index.htm

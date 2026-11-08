@@ -41,6 +41,20 @@ sources:
   - https://www.servicenow.com/community/international-localization/everything-you-ever-wanted-to-know-about-the-5-translation/ta-p/2326662
   - https://www.servicenow.com/community/international-localization/best-practice-configuring-login-page-language-for/ta-p/3568168
   - https://www.servicenow.com/community/developer-articles/debugging-language-translations-in-servicenow/ta-p/2296421
+  - https://www.servicenow.com/docs/r/2OOsGpWOpQIq4ASG5~gt4g/iybPBxdU2EAPvytv_Gd9IQ
+  - https://www.servicenow.com/docs/r/platform-administration/localization-framework/fulfill-localization-task.html
+  - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/HnQMfnKTTmb~laf8z5vjvg
+  - https://www.servicenow.com/docs/r/zurich/platform-user-interface/dynamic-translation-support-in-your-workspace.html
+  - https://store.servicenow.com/store/app/654451701bd5e650396216db234bcb11
+  - https://www.servicenow.com/community/international-localization/extending-the-localization-framework-to-portal-announcements/ta-p/2326792
+  - https://www.servicenow.com/docs/r/xGHm5nN1KlkEq58WJHJoPw/Sr_L9ApDA8wq_e4hICy0vw
+  - https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/~ndlEyIGWvAnMaieKBrbuQ
+  - https://www.servicenow.com/community/international-localization-blog/configure-localization-framework-lf-and-dynamic-translation-dt/ba-p/2289224
+  - https://www.servicenow.com/community/developer-forum/plugin-to-change-language-of-pdi/m-p/3111902
+  - https://www.servicenow.com/community/now-platform-forum/how-to-configure-csv-exports-to-use-utf-8-charset/m-p/1082776
+  - https://www.servicenow.com/community/developer-forum/blog-1-tm-generate-a-japanese-pdf-with-custom-font-for-bia/m-p/3497671
+  - https://www.servicenow.com/community/grc-forum/article9-bcm-tm-generated-japanese-pdf-having-issue-like-grammer/m-p/3498094
+  - https://www.servicenow.com/community/international-localization/dynamic-multi-lingual-notification-support/ta-p/2327260
 ---
 
 # ローカライゼーション（日本語化）— Localization / Internationalization
@@ -115,7 +129,9 @@ ServiceNow インスタンスの既定言語は American English（米国英語�
 | I18N: Knowledge Management Internationalization Plugin v2 | `com.glideapp.knowledge.i18n2` | ナレッジの多言語対応。**いずれかの言語プラグインを有効化すると自動的に有効化される** |
 | I18N: Japanese Translations（日本語翻訳） | `com.snc.i18n.japanese`【第三者情報】 | 日本語の翻訳レコード一式 |
 
-> **プラグイン ID について:** 公式の「Activate a language」ページは言語別翻訳プラグインの ID を掲載していない。日本語プラグインの ID `com.snc.i18n.japanese` は ServiceNow Community の回答に基づく。また同スレッドでは、日本語プラグインを入れると `com.glide.i18n`、`com.glideapp.knowledge.i18n2`、`com.glide.localization_framework.installer` も依存関係として入るように見えるとの投稿があるが、公式には確認できていない。インスタンスの All Available Applications 画面で名称「I18N」で検索して確認すること。【第三者情報】[出典](https://www.servicenow.com/community/developer-forum/plugin-to-change-language-of-pdi/m-p/3111902)
+> **プラグイン ID について:** 公式の「Activate a language」ページは言語別翻訳プラグインの ID を掲載していない。日本語プラグインの ID `com.snc.i18n.japanese` は ServiceNow Community の回答に基づく。【第三者情報】[出典](https://www.servicenow.com/community/developer-forum/plugin-to-change-language-of-pdi/m-p/3111902)
+>
+> 言語プラグインを有効化すると **Localization Framework も有効化される**（公式：「Activate the required language plugins, which also enable the Localization Framework.」）。[出典](https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/ptRQDTom_plNMobzBDJYBw) ただし、日本語プラグインを入れると `com.glide.i18n`、`com.glideapp.knowledge.i18n2`、`com.glide.localization_framework.installer` が依存関係として入るという個々のプラグイン ID レベルの依存関係は Community の投稿に基づく。【第三者情報】[出典](https://www.servicenow.com/community/developer-forum/plugin-to-change-language-of-pdi/m-p/3111902) インスタンスの All Available Applications 画面で名称「I18N」で検索して確認すること。
 
 ### 2.2 提供言語（Australia）
 
@@ -132,7 +148,7 @@ Australia リリースのドキュメントには、以下 23 言語の翻訳プ
 | 7 | French（フランス語） | 15 | Polish（ポーランド語） | 23 | Turkish（トルコ語） |
 | 8 | German（ドイツ語） | 16 | Portuguese（ポルトガル語） | | |
 
-> **Brazil での変更:** Brazil 版「Activate a language」ページの検索結果抜粋では掲載言語が少なく見えたが、本書作成時点で全量を確認できておらず、言語の削減か表示上の差異かは公開情報では確認できず。
+> **注記（Brazil）:** Brazil 版「Activate a language」ページでの提供言語数は公開情報では確認できず（検索結果抜粋では掲載言語が少なく見えたが、全量を確認できておらず、言語の削減か表示上の差異かは不明）。
 
 ### 2.3 有効化手順
 
@@ -286,12 +302,12 @@ UI 文字列の翻訳は以下のテーブルに格納される。Languages テ�
 #### `sys_translated`（Translated Name / Field）
 
 - フィールド型 `translated_field` の値（例：カタログ変数 `question` の質問文）の翻訳を持つ。
-- **英語の値は保持しない。** Value フィールドに英語原文を、Label フィールドに翻訳を格納し、「テーブル＋フィールド＋英語原文」の一致で置換する。そのため同じ英語原文を持つ複数レコードに同じ翻訳が適用される。【第三者情報】
+- **英語用の言語レコード（`language = en`）は持たない。** Value フィールドに英語原文を、Label フィールドに訳文を格納し、「テーブル＋フィールド＋英語原文」の一致で置換する。そのため同じ英語原文を持つ複数レコードに同じ翻訳が適用される。【第三者情報】
 - アップデートセット上の種別は「Translated Name / Field」。
 
 #### `sys_translated_text`（Translated Text）
 
-- フィールド型 `translated_text` / `translated_html` の値（例：カタログアイテム `sc_cat_item` の `name`、`short_description`）の翻訳を持つ。
+- フィールド型 `translated_text` / `translated_html` の値（例：カタログアイテム `sc_cat_item` の `name`、`description`）の翻訳を持つ。
 - 主なフィールド：Document（原文レコードへの Document ID）、Field name、Language、Table name、Value。
 - 英語原文は元レコード側に残り、翻訳は Document ID で紐付く。**翻訳はアップデートセット上では元レコードのペイロード内に含まれる**（独立した更新レコードにならない）。
 - フィールドに serializer 属性が必要（型設定時に自動付与されるはずだが、欠落していると翻訳が機能しない）。【第三者情報】
@@ -374,7 +390,7 @@ ServiceNow はベースシステム UI 文字列の翻訳だけを I18N プラ�
 | Dynamic translation（動的翻訳） | 受信者の言語でメールを自動生成（機械翻訳） |
 | 併用 | 例：フランス語・スペイン語テンプレートは存在しドイツ語はない場合、ドイツ語のみ動的翻訳 |
 | グループ宛 | グループにメールアドレスがない場合はメンバーごとの言語で送信。グループにメールアドレスがある場合は単一言語で送信され個人設定は無視 |
-| CC / BCC | 動的翻訳では CC・BCC の利用者の言語設定は考慮されない（検索結果の公式ページ抜粋） |
+| CC / BCC | スクリプトで指定した CC・BCC は多言語通知の対象外（サポートされない）とする Community 記事あり。公式の「Multilingual email notifications」ページ本文には CC / BCC の記載はなく、公式ドキュメントでは確認できず【第三者情報】[出典](https://www.servicenow.com/community/international-localization/dynamic-multi-lingual-notification-support/ta-p/2327260) |
 | 固定アドレス宛 | 固定メールアドレス（ユーザーレコードに解決されない宛先）は英語になる、との Community 回答あり【第三者情報】 |
 
 Localization Framework で翻訳できる通知関連アーティファクト（Email notification、Email template、Email layout）は 6.4 を参照。通知そのものの設定は [通知とメール](./notifications-email.md)。
@@ -390,10 +406,10 @@ Localization Framework（LF）は、ServiceNow インスタンスを地域・言
 | 項目 | 内容 |
 |---|---|
 | 主要プラグイン | Localization Framework（`com.glide.localization_framework`）、Localization Framework Installer（`com.glide.localization_framework.installer`）[出典](https://www.servicenow.com/docs/r/MMV5lKjf1f12mwR_Y135Lw/28dunCziSy6EXBofWr2fuQ) |
-| 翻訳元言語 | 英語から、有効化済みの 1 つ以上の言語へ翻訳を依頼する |
+| 翻訳の依頼 | 英語から、有効化済みの 1 つ以上の言語へ翻訳を依頼できる（公式表現は "from English into different languages"） |
 | メニュー | All > Localization Framework（Settings、Requests、Tasks、Projects、Insights 等）【推定：個別モジュール名は公開ページから網羅確認できず】 |
 | 制約 | **Domain Separation（ドメインセパレーション）はサポートされない** |
-| 機械翻訳 | Dynamic Translation プラグイン（`com.glide.dynamic_translation`）と、1 つ以上の有効な翻訳プロバイダー設定が必要 |
+| 機械翻訳 | 翻訳依頼を機械翻訳で処理する場合は、Dynamic Translation を設定し、Translator configuration（翻訳プロバイダー設定）を用意する。Localization Workspace の Language provider とは別物 [出典（Configuring Localization Workspace, Australia）](https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/~ndlEyIGWvAnMaieKBrbuQ)。必要なプラグインは Dynamic Translation（`com.glide.dynamic_translation`）。翻訳用の既定 Translator configuration を有効にしておく必要がある【第三者情報：ServiceNow 社員による Community ブログ、2021-10】[出典](https://www.servicenow.com/community/international-localization-blog/configure-localization-framework-lf-and-dynamic-translation-dt/ba-p/2289224) |
 
 ### 6.2 ロール
 
@@ -433,7 +449,8 @@ sequenceDiagram
   Ful->>Ful: 公開（手動 Publish / Auto Publish）→ 翻訳テーブル等へ反映
 ```
 
-- 依頼アイテムは LRITM（Localization Requested Item）、タスクは `LFTASK` + 連番のプレフィックスを持つ。[出典](https://www.servicenow.com/docs/r/platform-administration/localization-framework/exploring-localization-framework.html)
+- 依頼アイテムは LRITM（Localization Requested Item）で、選択した言語ごとに 1 件作成される。[出典](https://www.servicenow.com/docs/r/platform-administration/localization-framework/exploring-localization-framework.html)
+- 各依頼アイテムにはローカライゼーションタスクが紐づき、タスク番号は `LFTASK` + 連番のプレフィックスを持つ（"Each localization request item also has an associated localization task (LFTASK is the prefix with a sequential number)"）。この記述は Employee Service Management（Content Publishing 連携）の公式ページ（Xanadu 版）によるもので、LF の概要ページには記載がない。[出典（Integration with Localization Framework, Xanadu）](https://www.servicenow.com/docs/r/xGHm5nN1KlkEq58WJHJoPw/Sr_L9ApDA8wq_e4hICy0vw)
 - 翻訳担当者の作業手段：手動翻訳（原文・訳文の両方を理解している場合）、翻訳設定で構成した機械翻訳、外部翻訳者へのエクスポートと取り込み。[出典](https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/_rVqmQelQ3RwZy3kNQ6OyA)
 
 ### 6.4 サポートされるアーティファクト
@@ -477,7 +494,7 @@ ServiceNow Store にはプロトタイプ（ベータ）のアーティファク
 
 > 上表は Yokohama 版ページ（2025-11 更新）に基づく。Australia 版で項目変更があるかは公開情報では確認できず。
 
-Community 情報によれば、Localization Workspace を使う Yokohama 環境では、翻訳プロジェクトを自動作成・更新するために `sn_lf_setting` テーブルの読み取り・更新・Web サービスアクセスを許可する必要がある。【第三者情報】[出典](https://store.servicenow.com/store/app/654451701bd5e650396216db234bcb11)
+ServiceNow Store の Localization Workspace 掲載情報によれば、Localization Workspace を使う Yokohama 環境では、翻訳プロジェクトを自動作成・更新するために `sn_lf_setting` テーブルの読み取り・更新・Web サービスアクセスを許可する必要がある。【第三者情報：Store 掲載情報】[出典](https://store.servicenow.com/store/app/654451701bd5e650396216db234bcb11)
 
 ### 6.6 ワークフロー（10 種）
 
@@ -605,7 +622,7 @@ Dynamic Translation は、インスタンス上でユーザーが入力したコ
 [出典](https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/ptRQDTom_plNMobzBDJYBw)
 
 1. Dynamic Translation を含む Professional 以上のサブスクリプションを用意する。
-2. 言語プラグインを有効化する。
+2. 言語プラグインを有効化する（Localization Framework もあわせて有効化される）。
 3. Dynamic Translation プラグインを有効化する（必要な API がすべて有効になる）。
 4. 翻訳プロバイダーと契約する。
 5. Connection & Credential Alias を作成して資格情報を設定し、翻訳プロバイダー設定（Translator configuration）を有効化する。
@@ -683,12 +700,12 @@ Now Assist の多言語サービス（Multilingual service）は、ネイティ�
 
 | 方式 | 動作 | コスト |
 |---|---|---|
-| Native translation（ネイティブ） | テキストをそのまま LLM に渡し、LLM が利用者の言語で応答 | 追加費用なし。両方有効なら優先 |
-| Dynamic Translation | 英語に翻訳して LLM に渡し、応答を利用者の言語に再翻訳。ネイティブ非対応言語に適用。ServiceNow 経由の Microsoft Azure OEM 翻訳サービスを利用 | — |
+| Native translation（ネイティブ） | テキストをそのまま LLM に渡し、LLM が利用者の言語で応答 | 追加費用なし（Pro Plus／Enterprise ライセンスに既定で含まれる）。両方有効なら優先 |
+| Dynamic Translation | 英語に翻訳して LLM に渡し、応答を利用者の言語に再翻訳。ネイティブ非対応言語に適用。ServiceNow 経由の Microsoft Azure OEM 翻訳サービスを利用。対象は既定の言語パックのみで、利用者が自分でローカライズした言語（Self-localized languages）は対象外 | — |
 
 言語区分（Brazil 版ページ）：
 - **P1**（最も強い対応）：英語、フランス語、ドイツ語、イタリア語、スペイン語、ブラジルポルトガル語
-- **P2**（良好、ニュアンスで時折不足）：カナダフランス語、**日本語**、オランダ語
+- **P2**（ServiceNow の小型モデルと大半の外部プロバイダーがネイティブ対応するが、すべてのモデルが対応するわけではない。ニュアンスの理解で P1 に時折劣る）：カナダフランス語、**日本語**、オランダ語。非対応モデルの例として、公式ページは Anthropic Claude 4.0 Sonnet がカナダフランス語とオランダ語にネイティブ対応していないことを挙げている
 - **P3**（広範だが学習深度が浅い）：スウェーデン語、フィンランド語、チェコ語、ヘブライ語、ハンガリー語、韓国語、ノルウェー語、ポーランド語、ポルトガル語、ロシア語、簡体字・繁体字中国語、タイ語、トルコ語、アラビア語、デンマーク語
 
 設定は **Now Assist Admin > Settings > Multilingual service** タブ。言語は `sys_language` で Active にしておく必要があり、モデルごとの対応言語は `sys_generative_ai_model_config` の Supported languages で管理する。Now Assist の詳細は [Now Assist と AI Agents](./now-assist-ai-agents.md) を参照。
@@ -810,8 +827,9 @@ Now Assist の多言語サービス（Multilingual service）は、ネイティ�
 
 ## 13. 確認できなかった事項
 
-- 日本語翻訳プラグインの公式プラグイン ID（`com.snc.i18n.japanese` は Community 情報）および依存プラグインの公式な一覧。
-- Localization Framework の内部テーブル名（依頼アイテム・タスク・プロジェクト・設定の各テーブル。`sn_lf_setting` は Community／Store 情報のみ）とメニューモジュールの全量。
+- 日本語翻訳プラグインの公式プラグイン ID（`com.snc.i18n.japanese` は Community 情報）および依存プラグインの個別 ID の公式一覧（言語プラグインで Localization Framework が有効化されること自体は公式に記載あり）。
+- 多言語メール通知における CC / BCC の扱い（Community 記事のみ）。
+- Localization Framework の内部テーブル名（依頼アイテム・タスク・プロジェクト・設定の各テーブル。`sn_lf_setting` は Store 掲載情報のみ）とメニューモジュールの全量。
 - Localization Framework・Localization Workspace のライセンス要否（Dynamic Translation は Professional 以上と公式記載）。
 - Localization Workspace の翻訳メモリ機能の有無、用語集の機械翻訳への自動適用可否。
 - 和暦表示の標準サポート有無。
@@ -854,6 +872,8 @@ ServiceNow 公式ドキュメント（取得日：2026-11-02〜03）
 - DynamicTranslation - Scoped API: https://www.servicenow.com/docs/r/api-reference/server-api-reference/DynamicTranslation.html
 - Dynamic Translation release notes（Zurich → Brazil）: https://www.servicenow.com/docs/r/delta-zurich-brazil/brazil-zurich-dynamictranslation-release-notes.html
 - Multilingual service for Now Assist: https://www.servicenow.com/docs/r/intelligent-experiences/translation-for-now-assist.html
+- Integration with Localization Framework（Employee Service Management, Xanadu）: https://www.servicenow.com/docs/r/xGHm5nN1KlkEq58WJHJoPw/Sr_L9ApDA8wq_e4hICy0vw
+- Configuring Localization Workspace（Australia）: https://www.servicenow.com/docs/r/UrSRFFKWBbfQBgoRlt~ltw/~ndlEyIGWvAnMaieKBrbuQ
 - Multilingual email notifications: https://www.servicenow.com/docs/r/platform-administration/multilingual-email-notifications.html
 - Time zones: https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/_NRJ6zXOIlufq6p7IOi~wg
 - Global date and time field format: https://www.servicenow.com/docs/r/VbEA8DxUy61CFZ25mbYrcQ/H7U5Hky9TSAZfU_jR~UWPg
@@ -869,7 +889,9 @@ ServiceNow Community（【第三者情報】を含む）
 - Everything you ever wanted to know about the 5 translation tables: https://www.servicenow.com/community/international-localization/everything-you-ever-wanted-to-know-about-the-5-translation/ta-p/2326662
 - Best Practice: Configuring Login Page Language for Unauthenticated Users: https://www.servicenow.com/community/international-localization/best-practice-configuring-login-page-language-for/ta-p/3568168
 - Debugging language translations in ServiceNow: https://www.servicenow.com/community/developer-articles/debugging-language-translations-in-servicenow/ta-p/2296421
+- (Dynamic) Multi-lingual notification support: https://www.servicenow.com/community/international-localization/dynamic-multi-lingual-notification-support/ta-p/2327260
 - Extending the Localization Framework to Portal Announcements: https://www.servicenow.com/community/international-localization/extending-the-localization-framework-to-portal-announcements/ta-p/2326792
+- Configure Localization Framework (LF) and Dynamic Translation (DT): https://www.servicenow.com/community/international-localization-blog/configure-localization-framework-lf-and-dynamic-translation-dt/ba-p/2289224
 - Plugin to change language of PDI: https://www.servicenow.com/community/developer-forum/plugin-to-change-language-of-pdi/m-p/3111902
 - How to configure CSV exports to use UTF-8 charset: https://www.servicenow.com/community/now-platform-forum/how-to-configure-csv-exports-to-use-utf-8-charset/m-p/1082776
 - Generate a Japanese PDF with custom font for BIA Document: https://www.servicenow.com/community/developer-forum/blog-1-tm-generate-a-japanese-pdf-with-custom-font-for-bia/m-p/3497671

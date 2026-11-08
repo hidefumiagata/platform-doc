@@ -68,9 +68,9 @@ Datadog Agent（Datadog エージェント）は、ホスト（物理サーバ�
 | DogStatsD の詳細とカスタムメトリクス | [Custom Metrics と DogStatsD](./custom-metrics-and-dogstatsd.md) |
 | OTLP 取り込み・DDOT Collector | [OpenTelemetry サポート](./opentelemetry.md) |
 | ログ収集設定 | [ログ収集](../logs/log-collection.md) |
-| 送信先エンドポイント・ファイアウォール設計 | [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md) |
-| 大規模展開の設計 | [Agent 展開設計](../../03_導入編/agent-rollout-design.md) |
-| 全体のデータフロー | [Datadogのアーキテクチャ概観](../../01_入門編/architecture-overview.md) |
+| 送信先エンドポイント・ファイアウォール設計 | [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md) |
+| 大規模展開の設計 | [Agent 展開設計](../../03_導入編/10-agent-rollout-design.md) |
+| 全体のデータフロー | [Datadogのアーキテクチャ概観](../../01_入門編/03-architecture-overview.md) |
 
 ---
 
@@ -521,7 +521,7 @@ Agent が使用するポートは「外向き（Agent → Datadog）」と「内
 
 - ログの送信先は別ページ（ログのエンドポイント一覧）に記載されている。
 - Agent 7.67.0 以降、サイトのホスト名は末尾にドットを付けた FQDN 形式で解決される（DNS クエリ削減のため）。7.72.0 以降は `convert_dd_site_fqdn.enabled: false` で無効化できる。
-- 全エンドポイント（DBM、NDM、Network Path、SBOM、Synthetics Private Location 等）とファイアウォール設計は [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md) を参照。
+- 全エンドポイント（DBM、NDM、Network Path、SBOM、Synthetics Private Location 等）とファイアウォール設計は [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md) を参照。
 
 [出典](https://docs.datadoghq.com/agent/configuration/network/)
 
@@ -957,9 +957,9 @@ Datadog Agent のソフトウェア自体に料金はかからない。課金は
 
 [出典](https://docs.datadoghq.com/account_management/billing/pricing/)
 
-参考: Infrastructure Monitoring の定価は Pro が $15 / ホスト / 月（年契約）、$18（月契約・オンデマンド）、Enterprise が $23（年契約）、$27（月契約・オンデマンド）（2026-11-02 時点、公式料金ページ）。[出典](https://www.datadoghq.com/pricing/list/) 料金の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、計算方法は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+参考: Infrastructure Monitoring の定価は Pro が $15 / ホスト / 月（年契約）、$18（月契約・オンデマンド）、Enterprise が $23（年契約）、$27（月契約・オンデマンド）（2026-11-02 時点、公式料金ページ）。[出典](https://www.datadoghq.com/pricing/list/) 料金の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、計算方法は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 
-> **サイト差異:** 上記の金額は US（US1 / US3 / US5）と EU1 の価格。AP1（日本）はサイト別の価格で、Pro が $18.75（年契約）/ $22.50（月契約・オンデマンド）、Enterprise が $28.75（年契約）/ $33.75（月契約・オンデマンド）。ほかのサイトの価格は [製品別料金表](../../03_導入編/pricing-by-product.md) の §1 / §2 を参照。[出典](https://www.datadoghq.com/pricing/list/)
+> **サイト差異:** 上記の金額は US（US1 / US3 / US5）と EU1 の価格。AP1（日本）はサイト別の価格で、Pro が $18.75（年契約）/ $22.50（月契約・オンデマンド）、Enterprise が $28.75（年契約）/ $33.75（月契約・オンデマンド）。ほかのサイトの価格は [製品別料金表](../../03_導入編/02-pricing-by-product.md) の §1 / §2 を参照。[出典](https://www.datadoghq.com/pricing/list/)
 
 - Agent の debug モードを有効にしたまま Agent 自身のログを Datadog に収集すると、インデックスされるログ量が増える。[出典](https://docs.datadoghq.com/agent/troubleshooting/debug_mode/)
 - Live Processes は Enterprise プランが必要と公式ドキュメントに記載されている。[出典](https://docs.datadoghq.com/infrastructure/process/)

@@ -68,7 +68,7 @@ Datadog APM（Application Performance Monitoring）の分析画面は、イン�
 | eBPF ベースのサービス検出 | [Universal Service Monitoring](./universal-service-monitoring.md) |
 | APM モニター（APM Metric / Trace Analytics モニター） | [Monitors（モニター）](../platform/monitors.md) |
 | Watchdog の異常検知全般 | [Watchdog](../platform/watchdog.md) |
-| 運用上のベストプラクティス | [APM 運用の実践](../../04_応用編/apm-practices.md) |
+| 運用上のベストプラクティス | [APM 運用の実践](../../04_応用編/05-apm-practices.md) |
 
 > **名称について:** Software Catalog の旧称は **Service Catalog**（2025-02 に改称）。2026-11 時点の公式ドキュメントの見出しは「Catalog」（パンくずは `Internal Developer Portal > Catalog`）であり、Endpoints リストの旧称は **API Catalog** である。本ファイルの一部スクリーンショットには旧称「Service Catalog」の UI が写っている。詳細は [Software Catalog](../platform/software-catalog.md) の「名称の変遷」を参照。
 
@@ -934,7 +934,7 @@ Datadog APM の分析画面に関わる制限値・デフォルト値は次の�
 
 ## 課金への影響
 
-Datadog APM の分析画面そのものに追加料金はないが、画面で扱うデータ量と生成するメトリクスが課金に影響する。料金の数値の正本は [製品別料金表](../../03_導入編/pricing-by-product.md)、計算方法は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。[出典](https://www.datadoghq.com/pricing/list/)（取得日 2026-11-02）
+Datadog APM の分析画面そのものに追加料金はないが、画面で扱うデータ量と生成するメトリクスが課金に影響する。料金の数値の正本は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、計算方法は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。[出典](https://www.datadoghq.com/pricing/list/)（取得日 2026-11-02）
 
 | 機能・操作 | 影響する課金項目 | 説明 |
 |---|---|---|
@@ -948,7 +948,7 @@ Datadog APM の分析画面そのものに追加料金はないが、画面で�
 
 - APM の課金単位と割当（APM ホストあたり Ingested Spans 150 GB / 月、Indexed Spans 100 万件 / 月）の詳細は [APM の概念とインジェスト制御](./apm-concepts-and-ingestion.md) の「課金への影響」節を参照。
 - カスタムメトリクスの課金の数え方は [Custom Metrics と DogStatsD](../platform/custom-metrics-and-dogstatsd.md) を参照。
-- 削減策は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+- 削減策は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ---
 
@@ -964,7 +964,7 @@ Datadog APM の分析画面そのものに追加料金はないが、画面で�
 | Span-based Metrics | 必要なタグだけで Group by し、ユーザー ID 等の高カーディナリティ属性を避ける。名前とタイプは後から変更できないため、命名規則を先に決める |
 | Endpoints | OpenAPI 定義を登録してトラフィックのないエンドポイントも含め棚卸しし、所有チームとモニター・Synthetic テストの網羅を確認する |
 
-運用での実践例は [APM 運用の実践](../../04_応用編/apm-practices.md)、よくある失敗は [よくある失敗とアンチパターン](../../04_応用編/common-pitfalls.md) を参照。
+運用での実践例は [APM 運用の実践](../../04_応用編/05-apm-practices.md)、よくある失敗は [よくある失敗とアンチパターン](../../04_応用編/12-common-pitfalls.md) を参照。
 
 ---
 

@@ -4,7 +4,7 @@ category: reference
 domain: platform
 release: Australia
 last_verified: 2026-11-02
-summary: ServiceNow のパッケージ（Tier）ごとに、Performance Analytics（Platform Analytics）、Predictive Intelligence、Virtual Agent、Now Assist（ServiceNow Otto）、AI Agents、Process Mining などの機能がどう違うかを製品横断で仕様面から整理する。2026-04 に始まった新体系 Foundation / Advanced / Prime と、旧体系 Standard / Pro / Pro Plus / Enterprise / Enterprise Plus の両方を扱い、インスタンス上で権利（Entitlement）を確認する方法（Subscription Management）も記載する。
+summary: ServiceNow のパッケージ（旧 Standard / Pro / Pro Plus / Enterprise / Enterprise Plus と 2026-04 以降の Foundation / Advanced / Prime）ごとの Performance Analytics・Predictive Intelligence・Virtual Agent・Now Assist（ServiceNow Otto）・AI Agents・Process Mining 等の機能差を製品横断で整理する。インスタンス上で権利（Entitlement）を確認する方法（Subscription Management）も記載する。
 keywords: [パッケージ, エディション, ティア, tier, SKU, Standard, Professional, Pro, Pro Plus, Professional Plus, Enterprise, Enterprise Plus, Foundation, Advanced, Prime, AI-native SKU, AIネイティブ, Now Assist, ServiceNow Otto, Assist, アシスト, AI Agents, AI Agent Studio, AI Skill Kit, AI Control Tower, AI Action Fabric, MCP, A2A, Workflow Data Fabric, RaptorDB, EmployeeWorks, Moveworks, Performance Analytics, Platform Analytics Advanced, Predictive Intelligence, Virtual Agent, Virtual Agent Lite, NLU, Process Mining, Workforce Optimization, App Engine Starter, custom table, カスタムテーブル, Subscription Management, usage_admin, sn_sub_man.admin, subscription_entitlement, ua_custom_table_inventory, entitlement, エンタイトルメント, ライセンス, Australia, Brazil]
 sources:
   - https://www.servicenow.com/docs/r/australia/intelligent-experiences/ai-native-sku-overview.html
@@ -24,6 +24,10 @@ sources:
   - https://www.servicenow.com/docs/r/australia/now-intelligence/performance-analytics/r_AvailableContentPacks.html
   - https://www.servicenow.com/docs/r/t~YvqQkg2oQX4L7ySrpyuQ/WACo7GODPw9uMmuSQD063A
   - https://www.servicenow.com/docs/r/australia/it-service-management/predictive-intelligence-for-incident.html
+  - https://www.servicenow.com/docs/r/xanadu/it-service-management/predictive-intelligence-workbench/itsm-piwb-activation.html
+  - https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/3_Ja2igEwQI304eixIGsjQ
+  - https://web.archive.org/web/20260409/https://www.servicenow.com/products/itsm/pricing.html
+  - https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-Otto-creates-the-unified-AI-experience-for-the-enterprise/default.aspx
   - https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/va-lite.html
   - https://www.servicenow.com/docs/r/australia/it-service-management/itsm-virtual-agent/itsm-virtual-agent-lite.html
   - https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/virtual-agent-api-supported-versions-licensing.html
@@ -106,8 +110,8 @@ flowchart LR
 | ティア名 | Standard / Professional（Pro）/ Enterprise ＋ Pro Plus / Enterprise Plus（アドオン） | Foundation / Advanced / Prime |
 | 生成AI（Now Assist） | Pro Plus / Enterprise Plus を追加購入した場合のみ | **全ティアに含まれる**（Assist の割当量はティアで異なる） |
 | AI Agents | Pro Plus / Enterprise Plus（AI Agent Studio 等を含む） | Foundation / Advanced：既製（OOTB）エージェントの構成。Prime：新規エージェントの作成 |
-| Predictive Intelligence | Pro 以上 | 全ティア（ITSM / HRSD の公式比較表） |
-| Virtual Agent | Standard は Virtual Agent Lite、Pro 以上でフル機能 | 全ティア（ITSM / HRSD の公式比較表） |
+| Predictive Intelligence | Pro 以上 | 全ティア（ITSM の公式比較表。HRSD は検索抜粋による【第三者情報】） |
+| Virtual Agent | Standard は Virtual Agent Lite、Pro 以上でフル機能 | 全ティア（ITSM の公式比較表。HRSD は検索抜粋による【第三者情報】。Lite / フル版の別は公式に記載なし） |
 | Performance Analytics | Pro 以上（Standard は無償版の範囲） | Platform Analytics Advanced が Advanced 以上 |
 | Process Mining | Enterprise | Advanced 以上（年間処理レコード数に上限） |
 | 移行の対応表 | — | **ServiceNow 公式の旧→新対応表は公開されていない**（[6章](#6-旧体系から新体系への対応関係) 参照） |
@@ -119,12 +123,12 @@ flowchart LR
 | 日付 | 出来事 | 確度・出典 |
 |---|---|---|
 | 2023〜2024 | Now Assist 提供開始に合わせ、ITSM / CSM / HRSD に Pro Plus / Enterprise Plus アドオン SKU が登場 | 公式コミュニティ FAQ [出典](https://www.servicenow.com/community/itsm-articles/now-assist-for-itsm-faq/ta-p/2898299) |
-| 2026-03-12 | Australia 版製品ドキュメントに「ServiceNow product tiers」（Foundation / Advanced / Prime）ページが掲載 | 公式 [出典](https://www.servicenow.com/docs/r/australia/intelligent-experiences/ai-native-sku-overview.html) |
-| 2026-04-09 | 旧5ティア（Standard / Pro / Pro Plus / Enterprise / Enterprise Plus）が新3ティアに置き換えられたとされる。servicenow.com の ITSM pricing ページのアーカイブ（2026-04-09 取得）は既に Foundation / Advanced / Prime 表記 | 【第三者情報】[出典](https://www.servicenow.com/community/upgrades-and-patching-forum/servicenow-ai-native-licensing-in-2026-a-practical-guide-to/m-p/3565858)、アーカイブ確認 |
-| 2026-05-05 | Australia GA。Knowledge 2026 で ServiceNow Otto ブランドを発表 | 公式（[Now Assist と AI Agents](now-assist-ai-agents.md) 参照） |
+| 2026-03-12 | Australia 版製品ドキュメントの「ServiceNow product tiers」（Foundation / Advanced / Prime）ページの更新日（初出日は公開情報では確認できず） | 公式 [出典](https://www.servicenow.com/docs/r/australia/intelligent-experiences/ai-native-sku-overview.html) |
+| 2026-04-09 | 旧5ティア（Standard / Pro / Pro Plus / Enterprise / Enterprise Plus）が新3ティアに置き換えられたとされる。servicenow.com の ITSM pricing ページのアーカイブ（2026-04-09 取得）は既に Foundation / Advanced / Prime 表記 | 【第三者情報】[出典](https://www.servicenow.com/community/upgrades-and-patching-forum/servicenow-ai-native-licensing-in-2026-a-practical-guide-to/m-p/3565858)、[アーカイブ（2026-04-09 付近の取得）](https://web.archive.org/web/20260409/https://www.servicenow.com/products/itsm/pricing.html) |
+| 2026-05-05 | Australia GA。Knowledge 2026 で ServiceNow Otto ブランド（Now Assist・Moveworks・AI Experience を統合した AI 体験）を発表 | 公式プレスリリース [出典](https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-Otto-creates-the-unified-AI-experience-for-the-enterprise/default.aspx)（Australia GA 日付は [Now Assist と AI Agents](now-assist-ai-agents.md) 参照） |
 | 2026-07-01 | 旧 SKU の新規販売終了（End of Sale）。以降の更新見積は新ティアで作成されるとされる | 【第三者情報】[出典](https://www.servicenow.com/community/upgrades-and-patching-forum/servicenow-ai-native-licensing-in-2026-a-practical-guide-to/m-p/3565858) |
 | 2026-08 | ITSM 向け Now Assist ストアアプリで、Now Assist / Moveworks / AI Experience のブランドを ServiceNow Otto に統一 | 公式 [出典](https://www.servicenow.com/docs/r/store-release-notes/store-rn-itsm-now-assist.html) |
-| 2026-09-10 | Brazil 版の「ServiceNow product tiers」ページ公開（内容は Australia 版と同等） | 公式 [出典](https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/ai-native-sku-overview.html) |
+| 2026-09-10 | Brazil 版製品ドキュメントの「ServiceNow product tiers」ページの更新日（初出日は公開情報では確認できず。内容は Australia 版と同等） | 公式 [出典](https://www.servicenow.com/docs/r/intelligent-experiences/enable-ai-experiences/ai-native-sku-overview.html) |
 
 > **注意:** 「2026-04-09 置き換え」「2026-07-01 販売終了」の日付は ServiceNow コミュニティ上の寄稿および複数のライセンスアドバイザリー企業の記述に基づく。ServiceNow のプレスリリース等の一次発表は本調査では確認できなかった。
 
@@ -155,7 +159,7 @@ ServiceNow 製品ドキュメント「ServiceNow product tiers」（Australia、
 | AI Action Fabric（A2A / MCP） | A2A outbound | A2A outbound | A2A outbound ＋ **inbound MCP Server Console** | Prime は外部プラットフォームから ServiceNow のエージェントを直接呼び出せる |
 | AI Control Tower | ○（同一機能） | ○（同一機能） | ○（同一機能） | ServiceNow の AI 資産を自動検出・管理。**外部 AI 資産のフル管理は別ライセンス「AI Control Tower for Enterprise AI」** |
 | Workflow Data Fabric | Foundation 版 | Foundation 版 | Foundation 版 | Foundation 版 = Integration Hub、RPA Hub、Automation Center、Data Catalog。**Advanced 版（Zero Copy Connectors、Stream Connect）は有償アップグレード** |
-| RaptorDB | Standard | Standard | Standard | **RaptorDB Professional** は大規模分析・生成AI 向けの追加オプション |
+| RaptorDB | Standard | Standard | Standard | **RaptorDB Professional** は超大規模分析（ultra-scale analytics）と高度なインスタンストポロジー（advanced instance topology）をサポートする追加オプション（ティアへの対応付けは公式に記載なし） |
 | Moveworks for ServiceNow（EmployeeWorks） | ティア相当 | ティア相当 | ティア相当 | Microsoft Teams、Slack、ブラウザー、モバイルで利用可。具体的な機能差は公式ページに記載なし |
 
 > **ポイント:** 「Foundation / Advanced / Prime」の名称は、製品のティア名（例：ITSM Foundation）と、Workflow Data Fabric や RaptorDB の版名（Foundation 版 / Advanced 版、Standard / Professional）とで重複・混同しやすい。Workflow Data Fabric Advanced は ITSM Advanced に含まれる**わけではなく**、全ティアで有償アップグレードである点に注意する。
@@ -164,7 +168,7 @@ ServiceNow 製品ドキュメント「ServiceNow product tiers」（Australia、
 
 ### 3.3 ITSM の3ティア（公式 pricing ページの比較表）
 
-servicenow.com の ITSM pricing ページ（2026-04-09 および 2026-08-21 のアーカイブで同一内容を確認）は、ITSM の3ティアを次のように記載している。[出典](https://web.archive.org/web/20260821173638/https://www.servicenow.com/products/itsm/pricing.html)
+servicenow.com の ITSM pricing ページ（2026-04-09 および 2026-08-21 のアーカイブで同一内容を確認）は、ITSM の3ティアを次のように記載している。[出典（2026-08-21）](https://web.archive.org/web/20260821173638/https://www.servicenow.com/products/itsm/pricing.html) [出典（2026-04-09）](https://web.archive.org/web/20260409/https://www.servicenow.com/products/itsm/pricing.html)
 
 **パッケージカードの記載（英語原文の項目名）**
 
@@ -293,7 +297,7 @@ App Engine（ローコード開発）は Foundation と Prime の2段階で掲�
 | ServiceOps Advanced / Prime | ITSM と ITOM を共通クレジットで計量 |
 | ITSM Prime Add-on | CSM Prime / Industry Prime 顧客が ITSM 側の Prime 相当 AI を追加するためのアドオン |
 | Workflow Data Fabric Advanced | Zero Copy Connectors、Stream Connect（公式：有償アップグレード） |
-| RaptorDB Professional | 大規模分析・生成AI ワークロード向け（公式：追加オプション） |
+| RaptorDB Professional | 超大規模分析（ultra-scale analytics）と高度なインスタンストポロジーのサポート（公式：追加オプション） |
 | AI Control Tower for Enterprise AI | 外部 AI 資産のフル管理（公式：別ライセンス） |
 | Assist の追加パック | 割当を超えた Assist の追加購入。Subscription Management 上の製品名例「Additional Assist Pack」 |
 
@@ -324,7 +328,7 @@ Now Assist for ITSM FAQ（ServiceNow Community の公式記事）は、Now Assis
 | Incident / Problem / Change / Request / Knowledge / CMDB | ○ | ○ | ○ | — | パートナー資料【第三者情報】 |
 | Asset・Cost Management、Digital Portfolio Management | ○ | ○ | ○ | — | Fujitsu G-Cloud 15 資料【第三者情報】 |
 | Virtual Agent | **Virtual Agent Lite** | ○ | ○ | — | 公式ドキュメント（Lite）、公式コミュニティ FAQ |
-| Predictive Intelligence | × | ○ | ○ | — | 公式ドキュメント（Workbench は ITSM Pro SKU で利用可）|
+| Predictive Intelligence | × | ○ | ○ | — | 公式ドキュメント（`com.glide.platform_ml` / `com.glide.platform_ml_pa` は ITSM Pro パッケージのサブスクリプションが必要。後継の Task Intelligence for ITSM も ITSM Pro Package が必要） |
 | Performance Analytics（有償機能） | ×（無償版の範囲） | ○ | ○ | — | 公式ドキュメント（Professional / Enterprise 経由の購入を規定） |
 | Continual Improvement Management | × | ○ | ○ | — | コミュニティ記事【第三者情報】 |
 | Process Mining（旧 Process Optimization） | × | × | ○ | — | 公式 pricing ページ（検索抜粋）、パートナー資料【第三者情報】 |
@@ -334,9 +338,11 @@ Now Assist for ITSM FAQ（ServiceNow Community の公式記事）は、Now Assis
 | 会話型カタログアイテム（Conversational catalog items） | × | × | × | ○ | 公式コミュニティ FAQ |
 | AI Agent Studio、AI Agent Orchestrator、AI Agent analytics | × | × | × | ○（CSM Enterprise Plus の記載例） | パートナー資料・公式 pricing ページ（UK）【第三者情報】 |
 
-出典：[Now Assist for ITSM FAQ](https://www.servicenow.com/community/itsm-articles/now-assist-for-itsm-faq/ta-p/2898299)、[Virtual Agent FAQs](https://www.servicenow.com/community/virtual-agent-nlu-articles/virtual-agent-faqs/ta-p/2349558)、[Available Platform Analytics Solutions](https://www.servicenow.com/docs/r/australia/now-intelligence/performance-analytics/r_AvailableContentPacks.html)、[Activating your Performance Analytics subscription](https://www.servicenow.com/docs/r/australia/now-intelligence/performance-analytics/c_PremiumPerformanceAnalytics.html)、[Fujitsu G-Cloud 15 価格資料（2026-01-29）](https://assets.applytosupply.digitalmarketplace.service.gov.uk/g-cloud-15/documents/92271/205111268855265-pricing-document-2026-01-29-1405.pdf)
+出典：[Now Assist for ITSM FAQ](https://www.servicenow.com/community/itsm-articles/now-assist-for-itsm-faq/ta-p/2898299)、[Virtual Agent FAQs](https://www.servicenow.com/community/virtual-agent-nlu-articles/virtual-agent-faqs/ta-p/2349558)、[Available Platform Analytics Solutions](https://www.servicenow.com/docs/r/australia/now-intelligence/performance-analytics/r_AvailableContentPacks.html)、[Activating your Performance Analytics subscription](https://www.servicenow.com/docs/r/australia/now-intelligence/performance-analytics/c_PremiumPerformanceAnalytics.html)、[Activate ITSM Predictive Intelligence Workbench（Xanadu）](https://www.servicenow.com/docs/r/xanadu/it-service-management/predictive-intelligence-workbench/itsm-piwb-activation.html)、[Install Task Intelligence for ITSM（Yokohama）](https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/3_Ja2igEwQI304eixIGsjQ)、[Fujitsu G-Cloud 15 価格資料（2026-01-29）](https://assets.applytosupply.digitalmarketplace.service.gov.uk/g-cloud-15/documents/92271/205111268855265-pricing-document-2026-01-29-1405.pdf)
 
-> **矛盾の扱い:** 第三者のライセンスアドバイザリーの一部は「Predictive Intelligence は Pro に含まれず Enterprise から」とする比較表を掲載しているが、ServiceNow 製品ドキュメントは「Predictive Intelligence アプリケーションは ITSM Pro SKU で利用可能」と記載しているため、本ファイルは公式記述を採用する。
+> **矛盾の扱い:** 第三者のライセンスアドバイザリーの一部は「Predictive Intelligence は Pro に含まれず Enterprise から」とする比較表を掲載しているが、ServiceNow 製品ドキュメント（ITSM Predictive Intelligence Workbench の有効化手順、Xanadu）は「Predictive Intelligence（`com.glide.platform_ml`）と Predictive Intelligence Reports（`com.glide.platform_ml_pa`）プラグインは ITSM Pro パッケージのサブスクリプションを必要とする」と記載し、後継の Task Intelligence for ITSM のインストール手順（Yokohama）も「ITSM Pro Package subscription が必要」と記載しているため、本ファイルは公式記述を採用する。[出典](https://www.servicenow.com/docs/r/xanadu/it-service-management/predictive-intelligence-workbench/itsm-piwb-activation.html) [出典](https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/3_Ja2igEwQI304eixIGsjQ)
+>
+> なお、ITSM Predictive Intelligence Workbench（`com.sn_piwb_ml`）は Yokohama 以降サポート対象外（非推奨）であり、後継は Task Intelligence for ITSM（`com.snc.itsm_ml_task`）である。
 
 ### 4.3 他製品の旧パッケージ（パートナー資料による概観）
 
@@ -418,8 +424,9 @@ Predictive Intelligence（PI）は、インスタンスのレコードから機�
 | ITSM 用プラグイン | `com.snc.incident.ml_solution`（Predictive Intelligence for Incident Management）、`com.snc.incident.mim.ml_solution`（Major Incident Management） | 公式ドキュメント |
 | サブスクリプション | Incident 用 PI は「ServiceNow AI Platform の他の部分とは別のサブスクリプションが必要」と記載。サブスクリプションに伴い自動有効化されるプラグインもあり、無い場合は Now Support のカタログから有効化を依頼する | 公式 [出典](https://www.servicenow.com/docs/r/t~YvqQkg2oQX4L7ySrpyuQ/WACo7GODPw9uMmuSQD063A) |
 | 評価 | 購入前に非本番インスタンスで無償評価できる | 公式（同上） |
-| 旧体系 | Predictive Intelligence Workbench ダッシュボードは「ITSM Pro SKU で利用可能な Predictive Intelligence アプリケーション」が必要 | 公式 [出典](https://www.servicenow.com/docs/r/australia/now-intelligence/performance-analytics/r_AvailableContentPacks.html) |
-| 新体系 | ITSM / HRSD の比較表で Foundation・Advanced・Prime の全ティアに「Predictive Intelligence」が含まれる | 公式 pricing ページ |
+| 旧体系 | Predictive Intelligence（`com.glide.platform_ml`）と Predictive Intelligence Reports（`com.glide.platform_ml_pa`）プラグインは ITSM Pro パッケージのサブスクリプションが必要 | 公式（Xanadu）[出典](https://www.servicenow.com/docs/r/xanadu/it-service-management/predictive-intelligence-workbench/itsm-piwb-activation.html) |
+| Workbench の非推奨化 | ITSM Predictive Intelligence Workbench は Yokohama 以降サポート対象外。後継は Task Intelligence for ITSM（`com.snc.itsm_ml_task`、Service Operations Workspace でフィールド予測・類似レコードを推奨表示）であり、そのインストールにも ITSM Pro Package のサブスクリプションが必要。セルフホスト環境では未提供 | 公式 [出典](https://www.servicenow.com/docs/r/xanadu/it-service-management/predictive-intelligence-workbench/itsm-piwb-activation.html) [出典](https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/3_Ja2igEwQI304eixIGsjQ) |
+| 新体系 | ITSM の比較表で Foundation・Advanced・Prime の全ティアに「Predictive Intelligence」が含まれる（HRSD も全ティアに含むとされるが検索抜粋による【第三者情報】）。新ティアにおける Task Intelligence for ITSM の扱いは公開情報では確認できず | 公式 pricing ページ（ITSM） |
 
 ITSM 向けの既製 Solution definition（テンプレート）は、Incident Assignment（Short description から Assignment group を予測）、Incident Categorization（Category）、Incident Service（Service）、Incident Configuration Item（Configuration item）、Major Incident Detection、Similar Incidents（Major Incident Workbench）、Similar Incidents、Similar Open Incidents、Similar Closed Incidents 等である。[出典](https://www.servicenow.com/docs/r/australia/it-service-management/predictive-intelligence-for-incident.html)
 
@@ -432,11 +439,11 @@ Virtual Agent（VA）は、パッケージによって **Virtual Agent Lite（�
 | 項目 | Virtual Agent Lite | Virtual Agent（フル） |
 |---|---|---|
 | 対象（旧体系） | ITSM Standard 顧客 | ITSM Pro、HR Pro、CSM Pro などの Pro / Enterprise 以上 |
-| 対象（新体系） | ITSM pricing ページの比較表では全ティアに「Virtual Agent」が○ | 同左。コミュニティ記事は会話数無制限（Virtual Agent Unlimited）と記載【第三者情報】 |
+| 対象（新体系） | ITSM pricing の比較表は全ティアに「Virtual Agent」を○とするが、Lite / フル版の別は公式に記載なし（コミュニティ記事は会話数無制限（Virtual Agent Unlimited）と記載【第三者情報】） | （左欄に統合。Lite / フル版の区別なし） |
 | トピック | ITSM Self Service Lite カテゴリの既製トピック（Check Ticket Status、Report an Issue 等）とプラットフォーム設定用トピックのみ。**新規トピック・トピックブロック・カスタムコントロールは作成不可** | トピックの新規作成・条件設定が可能 |
 | 会話方式 | **キーワードベースのみ。NLU モデル・NLU 対応トピックは非対応**（トピック切替、多言語 NLU も不可） | NLU / LLM トピック検出に対応 |
-| その他の制限 | Live Agent 変数指定不可、Available for Agent Autopilot トグル不可、VA テーブルは管理者でも読み取り専用、翻訳コンテンツは読み取り専用 | 制限なし |
-| チャネル | Web チャットクライアント、Slack、Microsoft Teams、Workplace by Facebook、Facebook Messenger | 各種メッセージング連携 |
+| その他の制限 | カスタムチャットチャネルでは Lite トピックを実行できない（Slack のサポート対象 VA 連携を除く）、Live Agent 変数指定不可、Available for Agent Autopilot トグル不可、VA テーブルは管理者でも読み取り専用、翻訳コンテンツは読み取り専用、通知は単純な非アクション型（non-actionable）のみ（Actionable notification 不可）、Virtual Agent Analytics Dashboard は利用不可 | 制限なし |
+| チャネル | 公式のサポートチャネル一覧は Slack、Microsoft Teams、Workplace by Facebook、Facebook Messenger の4つ（同ページは、会話が Web チャットクライアントとこれらのメッセージング連携で動作すると記載） | 各種メッセージング連携 |
 | 前提 | Virtual Agent Lite はプリインストール済み。ITSM Virtual Agent Conversation Topics Lite をインストールして使う | — |
 
 出典：[Virtual Agent Lite](https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/va-lite.html)、[ITSM Virtual Agent Lite](https://www.servicenow.com/docs/r/australia/it-service-management/itsm-virtual-agent/itsm-virtual-agent-lite.html)、[Virtual Agent FAQs](https://www.servicenow.com/community/virtual-agent-nlu-articles/virtual-agent-faqs/ta-p/2349558)
@@ -463,10 +470,15 @@ Now Assist は ServiceNow の生成 AI 機能群であり、2026 年に **Servic
 
 **プラグインのインストール手順（Australia、公式）** [出典](https://www.servicenow.com/docs/r/australia/intelligent-experiences/install-now-assist-feature-plugins.html)
 
-1. 必要ロール：`sn_nowassist_admin.nsa_admin`
-2. 生成 AI アプリケーションを ServiceNow Store でライセンス取得し、Application Manager でインストールすると AI Admin Hub（旧 Now Assist Admin console）にアクセスできる。
-3. ライセンス未取得のプラグインは、カードの Get plugins → Install Plugin で Store ページを開き、ライセンスを申請する。
-4. Admin > Application Manager > Available for you でインストールする。「Installation blocked」と表示されるアプリは、そのバージョンのライセンスが未取得である。
+- 前提：必要ロール `sn_nowassist_admin.nsa_admin`。ライセンス済みの生成 AI アプリケーションが Application Manager から1つ以上インストール済みであること（これにより AI Admin Hub（旧 Now Assist Admin console）を利用できる）。
+
+1. All > AI Admin Hub > Settings（AI Admin Hub 内なら Settings タブ）を開き、ナビゲーションの Plugins で「Available for you」タブのプラグインを確認する。
+2. ライセンス未取得の場合は、プラグインのカードで Get plugins → Install Plugin を選び、新しいタブで開く ServiceNow Store ページからライセンスを申請する。
+3. All > Application Manager の「Available for you」タブで対象の AI アプリケーションを選び、Install を選択する。「Select suite version」で互換性のある AI Suites のバージョンを選ぶ（none も可）。必要に応じてカスタマイズ版・デモデータを選ぶ。
+4. Continue でインストール内容を確認し、即時インストール（Install）か、開始日時を指定してスケジュール（Schedule）するかを選ぶ。
+5. AI Admin Hub に戻り、ダイアログで Refresh を選ぶ。
+
+「Installation blocked」と表示されるアプリはライセンスが未取得である。必要なバージョンのライセンスを取得するか、アプリをアンインストールして解消する。
 
 **新体系での Assist 割当量**：各ティアに Assist の割当が含まれるが、ティアごとの数量・スキルごとの消費 Assist 数・超過単価は公開情報では確認できなかった。Advanced / Prime ほど割当が大きいとの記載はある（CSM Prime は Advanced の概ね倍とする寄稿あり）【第三者情報】。
 
@@ -561,7 +573,7 @@ Subscription Management は、購入済みサブスクリプションとイン�
 | `usage_admin` | Subscription Management を管理する。サブスクリプションの割当、カスタムテーブル・カスタムアプリのマッピングを行う。Elevated role ではない |
 | サブスクリプション種別（Type） | per-user、capacity、unrestricted user、unlimited、display only |
 | 割当方式 | per-user は（手動割当の履歴がない管理者の場合）ロールに基づき自動割当。capacity / unrestricted user / unlimited はインスタンス上で自動割当。display only はインスタンス上で計測されない |
-| ステータス（Status） | Compliant（割当 < 購入数）、Near capacity（しきい値超過。しきい値は Settings タブで設定）、Even（割当 = 購入数）、Over-allocated（割当 > 購入数）、Account-level only（Creator Plus のみ。算出対象外） |
+| ステータス（Status） | Compliant（割当 < 購入数）、Near capacity（しきい値超過。しきい値は既定 90%、Settings タブで変更可）、Even（割当 = 購入数）、Over-allocated（割当 > 購入数）、Account-level only（Creator Plus のみ。算出対象外） |
 | user-based の注意 | user-based サブスクリプションの割当詳細とステータスは、割当が不完全な場合の誤解を防ぐため Overview では非表示。詳細はアカウントエグゼクティブに確認する |
 
 出典：[Product subscriptions overview](https://www.servicenow.com/docs/r/australia/platform-administration/subscriptions-overview-v2.html)、[Subscription Management roles](https://www.servicenow.com/docs/r/australia/platform-administration/subscription-management-roles-v2.html)、[Components installed with Subscription Management](https://www.servicenow.com/docs/r/australia/platform-administration/installed-with-subscription-management.html)
@@ -590,7 +602,7 @@ Now Assist の購入量・消費量は、Subscription Management の Now Assist 
 
 | 項目 | 内容（Australia、2026-08-21 更新、公式） |
 |---|---|
-| メニュー | Admin > Subscription Management > Subscriptions > Now Assist usage（アカウント単位の一覧は All > Subscription Management > All Subscriptions > Account level entitlements からも参照可） |
+| メニュー | Admin > Subscription Management > Subscriptions > Now Assist usage（アカウント単位の一覧は All > Subscription Management > All Subscriptions > Account level entitlements からも参照可。[出典](https://www.servicenow.com/docs/r/australia/platform-administration/viewing-account-level-entitlements.html)） |
 | 必要ロール | `usage_admin`、`sn_sub_man.admin`、または `admin` |
 | Account-level summary | Total purchased / Total used assists / Available assists の3カード。Total used assists の View details で消費推移を表示。デモインスタンスの消費は除外 |
 | Instances | インスタンスごとの Used assists。**Washington DC Patch 2 以上のインスタンスのみ表示**。データ共有が制限されたインスタンスは「Data sharing restricted」と表示（信頼構成の更新で解除） |
@@ -598,7 +610,7 @@ Now Assist の購入量・消費量は、Subscription Management の Now Assist 
 | Domain | ドメインセパレーション有効かつ global 以外のドメインがある場合のみ、ドメイン別の Used assists |
 | スキル別 | 現在のインスタンスでのスキル別累計（夜間更新）。Number of actions × Assist ratio = Total assists。Moveworks のスキルは「MW」接頭辞で区別 |
 | Utilization history | 月次・日次の利用推移グラフ |
-| 本番・非本番 | 本番インスタンスでは自アカウントの全インスタンスのデータを表示。非本番インスタンスでは自インスタンス分のみ表示 |
+| 本番・非本番（Account level entitlements の表示範囲） | 本番インスタンスでは自アカウントが所有する全インスタンスのエンタイトルメントデータを表示。非本番インスタンスでは、アクセス中のインスタンスのエンタイトルメントと使用量のみ表示。データ共有が制限されたインスタンスは本番でも非表示（そのインスタンスの信頼構成の変更で解除）[出典](https://www.servicenow.com/docs/r/australia/platform-administration/viewing-account-level-entitlements.html) |
 
 ![Subscription Management の Now Assist usage 画面](../../assets/images/platform-licensing-packaging/now-assist-usage-subscription-management.png)
 
@@ -613,7 +625,7 @@ Now Assist の購入量・消費量は、Subscription Management の Now Assist 
 | 状況 | 挙動 | 出典 |
 |---|---|---|
 | 非本番インスタンス | 多くの有償プラグインを評価目的で有効化できる（例：PA Premium は任意にインストール可、PI は非本番で無償評価可） | 公式 PA / PI ドキュメント |
-| 本番インスタンス | エンタイトルメントに対応するプラグインのみ有効化・利用できる。Store アプリは未ライセンスだと「Installation blocked」 | 公式 PA / Otto ドキュメント |
+| 本番インスタンス | エンタイトルメントに対応するプラグインのみ有効化・利用できる。Store アプリは未ライセンスだと「Installation blocked」と表示され、ライセンス取得またはアンインストールで解消する | 公式 PA / Otto ドキュメント |
 | ITIL 系ロールの付与 | ITSM の権利がないまま `itil` ロールを付与するとコンプライアンス違反になり得る、とのコミュニティ回答がある | 【第三者情報】 |
 | Personal Developer Instance（PDI） | Now Assist for ITSM は PDI 非対応（評価インスタンスはアカウントチーム経由で依頼）と FAQ に記載 | 公式コミュニティ FAQ |
 
@@ -689,6 +701,8 @@ Now Assist の購入量・消費量は、Subscription Management の Now Assist 
 - Map custom tables to a product subscription: https://www.servicenow.com/docs/r/australia/platform-administration/allocate-custom-table-subsc-app-v2.html
 - Activating your Performance Analytics subscription: https://www.servicenow.com/docs/r/australia/now-intelligence/performance-analytics/c_PremiumPerformanceAnalytics.html
 - Available Platform Analytics Solutions: https://www.servicenow.com/docs/r/australia/now-intelligence/performance-analytics/r_AvailableContentPacks.html
+- Activate ITSM Predictive Intelligence Workbench（Xanadu）: https://www.servicenow.com/docs/r/xanadu/it-service-management/predictive-intelligence-workbench/itsm-piwb-activation.html
+- Install Task Intelligence for ITSM（Yokohama）: https://www.servicenow.com/docs/r/Mr7qUatbFXax1_h~z60rmA/3_Ja2igEwQI304eixIGsjQ
 - Request Predictive Intelligence for Incident Management: https://www.servicenow.com/docs/r/t~YvqQkg2oQX4L7ySrpyuQ/WACo7GODPw9uMmuSQD063A
 - Predictive Intelligence for Incident Management: https://www.servicenow.com/docs/r/australia/it-service-management/predictive-intelligence-for-incident.html
 - Virtual Agent Lite: https://www.servicenow.com/docs/r/australia/conversational-interfaces/virtual-agent/va-lite.html
@@ -702,7 +716,8 @@ Now Assist の購入量・消費量は、Subscription Management の Now Assist 
 
 **ServiceNow 公式サイト**
 
-- ITSM pricing: https://www.servicenow.com/products/itsm/pricing.html （直接取得は HTTP 403。2026-04-09 / 2026-08-21 の Internet Archive で内容確認: https://web.archive.org/web/20260821173638/https://www.servicenow.com/products/itsm/pricing.html ）
+- ITSM pricing: https://www.servicenow.com/products/itsm/pricing.html （直接取得は HTTP 403。2026-04-09 / 2026-08-21 の Internet Archive で内容確認: https://web.archive.org/web/20260821173638/https://www.servicenow.com/products/itsm/pricing.html 、 https://web.archive.org/web/20260409/https://www.servicenow.com/products/itsm/pricing.html ）
+- プレスリリース「ServiceNow Otto creates the unified AI experience for the enterprise」（2026-05-05）: https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-Otto-creates-the-unified-AI-experience-for-the-enterprise/default.aspx
 - HR Service Delivery pricing: https://www.servicenow.com/products/hr-service-delivery/pricing.html （検索結果の抜粋で確認）
 - CSM pricing: https://www.servicenow.com/products/customer-service-management/pricing.html （検索結果の抜粋で確認）
 
@@ -716,7 +731,6 @@ Now Assist の購入量・消費量は、Subscription Management の Now Assist 
 - April 2026 ServiceNow CSM License Packaging Redesign: https://www.servicenow.com/community/architect-articles/the-april-2026-servicenow-csm-packaging-redesign-what/ta-p/3562359
 - Navigating the April 2026 ServiceNow ITOM Licensing Model: https://www.servicenow.com/community/architect-articles/navigating-the-april-2026-servicenow-itom-licensing-model/ta-p/3555121
 - ServiceNow AI-Native Licensing in 2026: https://www.servicenow.com/community/upgrades-and-patching-forum/servicenow-ai-native-licensing-in-2026-a-practical-guide-to/m-p/3565858
-- Understanding ServiceNow Licensing Packaging Tiers: https://www.servicenow.com/community/architect-articles/understanding-servicenow-licensing-packaging-tiers-standard/ta-p/3532073
 
 **第三者情報**
 

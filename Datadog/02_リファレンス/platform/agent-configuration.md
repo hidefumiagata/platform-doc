@@ -57,8 +57,8 @@ sources:
 - ログ収集設定の詳細（`logs_config`、ログ処理ルール）: [ログ収集](../logs/log-collection.md)
 - DogStatsD の詳細: [Custom Metrics と DogStatsD](./custom-metrics-and-dogstatsd.md)
 - APM の Agent 側設定・サンプリング: [APM の概念とインジェスト制御](../apm/apm-concepts-and-ingestion.md)
-- 通信要件・FW 開放: [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md)
-- 展開方式の設計: [Agent 展開設計](../../03_導入編/agent-rollout-design.md)
+- 通信要件・FW 開放: [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md)
+- 展開方式の設計: [Agent 展開設計](../../03_導入編/10-agent-rollout-design.md)
 
 > **基準バージョンについて:** 本ファイルのデフォルト値は、2026-11-02 時点の最新リリース **Agent 7.85.0**（リリースノート記載のリリース日 2026-10-30。GitHub Releases への公開は 2026-10-29）に同梱される設定テンプレート `datadog-agent_linux.yaml.example`（GitHub `DataDog/datadog-agent` リポジトリの `pkg/config/example/`）を一次資料としている。デフォルト値は Agent バージョンで変わることがあるため、厳密な値は利用中バージョンの `datadog.yaml.example`（Linux では `/etc/datadog-agent/datadog.yaml.example`）を確認すること。[出典](https://github.com/DataDog/datadog-agent/blob/7.85.0/pkg/config/example/datadog-agent_linux.yaml.example)
 
@@ -254,7 +254,7 @@ Agent 7.67.0 以降は、サイトのドメインを末尾ドット付きの FQD
 | `dogstatsd_tag_cardinality` | `DD_DOGSTATSD_TAG_CARDINALITY` | string | `low` | DogStatsD メトリクスに付けるタグの粒度（同上） |
 | `cluster_name` | `DD_CLUSTER_NAME` | string | `""` | Kubernetes クラスタ名 |
 
-タグ設計の考え方は [Tagging](./tagging.md) と [タグ戦略の実践](../../04_応用編/tagging-strategy.md) を参照。
+タグ設計の考え方は [Tagging](./tagging.md) と [タグ戦略の実践](../../04_応用編/02-tagging-strategy.md) を参照。
 
 ### ホスト名関連
 
@@ -820,7 +820,7 @@ logs_config:
 
 > **サイト差異:** FIPS プロキシ（`fips.enabled`）は **US1-FED のみ**で利用でき、通常のプロキシとは併用できない。[出典](https://docs.datadoghq.com/agent/configuration/proxy/)
 
-パスワードに記号を含む場合の URL エンコード要否、標準環境変数 `HTTP_PROXY` / `HTTPS_PROXY` / `NO_PROXY` を Agent が解釈するかは、現行の公式プロキシページでは確認できず。FW/プロキシの設計は [ネットワーク・接続要件](../../03_導入編/network-and-connectivity.md) を参照。
+パスワードに記号を含む場合の URL エンコード要否、標準環境変数 `HTTP_PROXY` / `HTTPS_PROXY` / `NO_PROXY` を Agent が解釈するかは、現行の公式プロキシページでは確認できず。FW/プロキシの設計は [ネットワーク・接続要件](../../03_導入編/11-network-and-connectivity.md) を参照。
 
 ---
 
@@ -1080,7 +1080,7 @@ Datadog Agent の設定を確認・検証するサブコマンド（`<AGENT_BINA
 
 ## 課金への影響
 
-Datadog Agent の設定そのものに料金は発生しないが、以下の設定は課金対象データの量や課金単位に直接影響する。料金の数値は [製品別料金表](../../03_導入編/pricing-by-product.md)、計算方法は [課金計算の仕組み](../../03_導入編/billing-mechanics.md) を参照。
+Datadog Agent の設定そのものに料金は発生しないが、以下の設定は課金対象データの量や課金単位に直接影響する。料金の数値は [製品別料金表](../../03_導入編/02-pricing-by-product.md)、計算方法は [課金計算の仕組み](../../03_導入編/03-billing-mechanics.md) を参照。
 
 | 設定 | 影響する課金 | 内容 |
 |---|---|---|
@@ -1095,7 +1095,7 @@ Datadog Agent の設定そのものに料金は発生しないが、以下の設
 | `network_config.enabled`、`service_monitoring_config.enabled` | Cloud Network Monitoring、Universal Service Monitoring | 各製品の有効化 |
 | `runtime_security_config.enabled`、`compliance_config.enabled`、`sbom.enabled` | Workload Protection、Cloud Security | 各製品の有効化 |
 
-コスト抑制の実践は [コスト最適化](../../04_応用編/cost-optimization.md) を参照。
+コスト抑制の実践は [コスト最適化](../../04_応用編/01-cost-optimization.md) を参照。
 
 ---
 
